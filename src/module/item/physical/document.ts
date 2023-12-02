@@ -20,7 +20,7 @@ import {
     PhysicalSystemData,
     Price,
 } from "./data.ts";
-import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, organizeBulkData } from "./helpers.ts";
+import { CoinsPF2e, computeLevelRarityPrice, handleHPChange, prepareBulkData } from "./helpers.ts";
 import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
@@ -252,7 +252,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        systemData.bulk = organizeBulkData(this);
+        systemData.bulk = prepareBulkData(this);
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {

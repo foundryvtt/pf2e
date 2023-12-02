@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
 import { localizer } from "@util";
 import * as R from "remeda";
 import {
@@ -25,16 +25,12 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     override async getData(options?: Partial<ItemSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData = await super.getData(options);
         const { item } = this;
+
+        const bulkAdjustment = getAdjustment(item.system.bulk.value, item._source.system.bulk.value, {
+            better: "lower",
+        });
         const basePrice = new CoinsPF2e(item._source.system.price.value);
-        const priceAdjustment = ((): "higher" | "lower" | null => {
-            const baseCopperValue = basePrice.copperValue;
-            const derivedCopperValue = item.system.price.value.copperValue;
-            return derivedCopperValue > baseCopperValue
-                ? "higher"
-                : derivedCopperValue < baseCopperValue
-                  ? "lower"
-                  : null;
-        })();
+        const priceAdjustment = getAdjustment(item.system.price.value.copperValue, basePrice.copperValue);
 
         const { actionTraits } = CONFIG.PF2E;
 
@@ -56,26 +52,33 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             });
         }
 
-        // Show source value for item size in case it is changed by a rule element
-        sheetData.data.size = this.item._source.system.size;
-
-        const baseData = item._source;
-        const hintText = ABP.isEnabled(this.actor)
-            ? "PF2E.Item.Weapon.FromABP"
-            : "PF2E.Item.Weapon.FromMaterialAndRunes";
-        const adjustedLevelHint =
-            item.level !== baseData.system.level.value
+        const adjustedLevelHint = ((): string | null => {
+            const hintText = ABP.isEnabled(this.actor)
+                ? "PF2E.Item.Weapon.FromABP"
+                : "PF2E.Item.Weapon.FromMaterialAndRunes";
+            const levelLabel =
+                game.i18n.lang === "de"
+                    ? game.i18n.localize("PF2E.LevelLabel")
+                    : game.i18n.localize("PF2E.LevelLabel").toLocaleLowerCase(game.i18n.lang);
+            return item.level !== item._source.system.level.value
                 ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.LevelLabel"),
+                      property: levelLabel,
                       value: item.level,
                   })
                 : null;
+        })();
+
         const adjustedPriceHint = (() => {
+            const baseData = item._source;
             const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = item.assetValue.copperValue;
+            const priceLabel =
+                game.i18n.lang === "de"
+                    ? game.i18n.localize("PF2E.PriceLabel")
+                    : game.i18n.localize("PF2E.PriceLabel").toLocaleLowerCase(game.i18n.lang);
             return basePrice !== derivedPrice
-                ? game.i18n.format(hintText, {
-                      property: game.i18n.localize("PF2E.PriceLabel"),
+                ? game.i18n.format(game.i18n.localize("PF2E.Item.Weapon.FromMaterialAndRunes"), {
+                      property: priceLabel,
                       value: item.price.value.toString(),
                   })
                 : null;
@@ -92,7 +95,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             ...sheetData,
             itemType: game.i18n.localize("PF2E.ItemTitle"),
             sidebarTemplate: "systems/pf2e/templates/items/physical-sidebar.hbs",
-            baseLevel: baseData.system.level.value,
+            bulkAdjustment,
             adjustedLevelHint,
             basePrice,
             priceAdjustment,
@@ -101,7 +104,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             bulks,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
-            sizes: CONFIG.PF2E.actorSizes,
+            sizes: R.omit(CONFIG.PF2E.actorSizes, ["sm"]),
             usages: CONFIG.PF2E.usages,
             isPhysical: true,
             activations,
@@ -247,16 +250,17 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     sidebarTemplate: string;
     isPhysical: true;
-    baseLevel: number;
-    basePrice: CoinsPF2e;
-    priceAdjustment: "higher" | "lower" | null;
-    adjustedPriceHint: string | null;
+    bulkAdjustment: string | null;
+    adjustedBulkHint?: string | null;
     adjustedLevelHint: string | null;
+    basePrice: CoinsPF2e;
+    priceAdjustment: string | null;
+    adjustedPriceHint: string | null;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     bulks: { value: number; label: string }[];
     frequencies: typeof CONFIG.PF2E.frequencies;
-    sizes: typeof CONFIG.PF2E.actorSizes;
+    sizes: Omit<typeof CONFIG.PF2E.actorSizes, "sm">;
     usages: typeof CONFIG.PF2E.usages;
     bulkDisabled: boolean;
     activations: {

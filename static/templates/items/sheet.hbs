@@ -1,6 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
     <!-- ITEM SHEET HEADER -->
-    <header class="sheet-header">
+    <header class="sheet-header" data-tooltip-class="pf2e">
         {{!-- Source image in case of change during data preparation --}}
         <img src="{{item._source.img}}" data-edit="img" />
         <div class="details">
@@ -33,7 +33,7 @@
             {{/if}}
             <template class="traits-extra">
                 {{#if item.rarity}}
-                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity" data-base-value="{{item._source.system.traits.rarity}}">
+                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity">
                         {{#select item.rarity}}
                             {{#each rarities as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>

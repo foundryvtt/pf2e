@@ -62,13 +62,19 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
     }
 }
 
+/**
+ * Get a CSS class for an adjusted value
+ * @param value A value from prepared/derived data
+ * @param base A value from base/source data
+ * @param options.better Which value is "better" in the context of the data: default is "higher"
+ **/
 function getAdjustment(
     value: number,
-    reference: number,
-    options?: { better?: "higher" | "lower" },
+    base: number,
+    { better = "higher" }: { better?: "higher" | "lower" } = {},
 ): "adjusted-higher" | "adjusted-lower" | null {
-    if (value === reference) return null;
-    const isBetter = (options?.better ?? "higher") === "higher" ? value > reference : value < reference;
+    if (value === base) return null;
+    const isBetter = better === "higher" ? value > base : value < base;
     return isBetter ? "adjusted-higher" : "adjusted-lower";
 }
 
