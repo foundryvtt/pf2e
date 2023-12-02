@@ -35,6 +35,21 @@
                 {{localize "TYPES.Actor.army"}}
                 <input class="level stats" type="number" value="{{data.details.level.value}}"/>
             </label>
+            <div class="alliance">
+                <span data-tooltip="PF2E.Kingmaker.Army.Alliance.Info">
+                    {{#if (eq document.alliance "party")}}
+                        {{localize "PF2E.Kingmaker.Army.Alliance.Kingdom"}}
+                    {{else}}
+                        {{localize "PF2E.Kingmaker.Army.Alliance.Enemy"}}
+                    {{/if}}
+                </span>
+
+                {{#if (and (eq document.alliance "party") (not linked))}}
+                    <a data-action="link-actor" data-tooltip="PF2E.Kingmaker.Army.Alliance.UnlinkedError">
+                        <i class="fa-solid fa-link-slash error"></i>
+                    </a>
+                {{/if}}
+            </div>
         </div>
     </header>
 
