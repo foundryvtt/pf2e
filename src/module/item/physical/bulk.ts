@@ -67,7 +67,7 @@ class Bulk {
     readonly value: number;
 
     constructor(value = 0) {
-        this.value = Math.round(Math.max(Math.abs(value), 0) * 10) / 10;
+        this.value = Math.round(Math.max(value, 0) * 10) / 10;
     }
 
     get normal(): number {

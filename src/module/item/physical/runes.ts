@@ -1131,6 +1131,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         damage: {
             dice: [
                 {
+                    category: "persistent",
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
@@ -1431,6 +1432,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         damage: {
             dice: [
                 {
+                    category: "persistent",
                     damageType: "vitality",
                     diceNumber: 2,
                     dieSize: "d6",

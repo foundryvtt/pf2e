@@ -38,8 +38,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     /** Gets the active kingdom. Later this should be configurable based on alliance */
     get kingdom(): Kingdom | null {
-        const campaign = game.actors.party?.campaign;
-        return campaign instanceof Kingdom ? campaign : null;
+        if (this.alliance === "party") {
+            const campaign = game.actors.party?.campaign;
+            return campaign instanceof Kingdom ? campaign : null;
+        }
+        return null;
     }
 
     get maxTactics(): number {
@@ -56,6 +59,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
+
+        this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
     }
 
     /** Run rule elements */

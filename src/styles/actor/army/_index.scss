@@ -75,7 +75,7 @@
             align-items: center;
             grid-template:
                 "name level" min-content
-                "traits level" min-content
+                "traits alliance" min-content
                 / 1fr min-content;
 
             input[type="text"],
@@ -120,19 +120,33 @@
 
             .level-label {
                 grid-area: level;
-
+                align-self: end;
                 display: block;
-                min-width: 9rem;
-                text-align: right;
-                margin-right: 0.1em;
-                text-transform: uppercase;
                 font-family: var(--serif-condensed);
                 font-size: var(--font-size-28);
                 font-weight: 700;
+                min-width: 9rem;
+                text-align: right;
+                text-transform: uppercase;
                 input.level {
                     width: 2ch;
                     text-align: center;
                     margin: 0 0.25rem;
+                }
+            }
+
+            .alliance {
+                grid-area: alliance;
+                align-self: start;
+                margin-right: 0.25rem;
+                opacity: 0.8;
+                text-align: right;
+                i {
+                    font-size: 0.9em;
+                    margin-left: 0.5rem;
+                }
+                .error {
+                    color: #ff5555;
                 }
             }
         }
