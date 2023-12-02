@@ -1,3 +1,22 @@
+## 5.10.2
+
+### Bugfixes
+
+-   (stwlam) Fix determination of whether containers can ignore bulk
+-   (stwlam) Fix excessive grid-snapping for some measured template types
+-   (stwlam) Restore AC bonus and speed penalty fields in armor sheets
+
+### Data Updates
+
+-   (avagdu) Fix broken action macro link in Disarm Action
+-   (avagdu) Refresh Rations on Level 1 Kyra
+-   (avagdu) Update Many Action Macros with Remaster Text
+-   (Desire Weasel) Add effect for Staff of Illumination
+-   (Desire Weasel) Add resistance to Aeon Stone (Preserving)
+-   (stwlam) Ensure some physical-item data is numeric
+-   (stwlam) Fix bulk of Spacious Pouches
+-   (stwlam) Fix rule element on Emblazon Armament (Shield) effect
+
 ## 5.10.1
 
 Note: The system now requires a minimum Foundry version of 11.311.
