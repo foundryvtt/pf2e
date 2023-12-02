@@ -284,6 +284,8 @@ export function logCompatibilityWarning(
     },
 ): void;
 
+export * from "./http.ts";
+
 declare global {
     interface MergeObjectOptions {
         /**
