@@ -21,9 +21,13 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
             }
             system["-=equippedBulk"] = null;
 
-            // Special case: fix data error
+            // Special case: fix data errors
             if (system.slug === "sack") {
                 system.usage = { value: "held-in-one-hand" };
+                system.bulk.value = 0.1;
+            } else if (/bag-of-(?:devouring|holding|weasels)|spacious-pouch/.test(system.slug ?? "")) {
+                system.bulk.value = 1;
+            } else if (system.slug === "sleeves-of-storage") {
                 system.bulk.value = 0.1;
             }
         }
