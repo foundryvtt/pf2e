@@ -28,18 +28,21 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         };
     }
 
-    get capacityPercentage(): number {
+    get percentFull(): number {
         const { value, max } = this.capacity;
-        return Math.min(100, Math.floor((value.toLightUnits() / max.toLightUnits()) * 100));
+        return Math.floor((value.toLightUnits() / max.toLightUnits()) * 100);
+    }
+
+    get bulkIgnored(): Bulk {
+        const isOverfilled = this.percentFull > 100;
+        const extradimensionalParadox = this.traits.has("extradimensional") && hasExtraDimensionalParent(this);
+        const canIgnoreBulk = !isOverfilled && !extradimensionalParadox;
+
+        return canIgnoreBulk ? new Bulk(this.system.bulk.ignored) : new Bulk();
     }
 
     override get bulk(): Bulk {
-        const { capacity } = this;
-        const canReduceBulk =
-            capacity.value <= capacity.max && !(this.traits.has("extradimensional") && hasExtraDimensionalParent(this));
-        const reduction = canReduceBulk ? this.system.bulk.ignored : 0;
-
-        return super.bulk.plus(capacity.value.minus(reduction));
+        return super.bulk.plus(this.capacity.value.minus(this.bulkIgnored));
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
