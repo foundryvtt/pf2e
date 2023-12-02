@@ -33,6 +33,7 @@ import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrati
 import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
 import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 import { Migration902DuskwoodDawnsilver } from "@module/migration/migrations/902-duskwood-dawnsilver.ts";
+import { Migration903PhysicalNumericData } from "@module/migration/migrations/903-physical-numeric-data.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -62,6 +63,7 @@ const migrations: MigrationBase[] = [
     new Migration900ClassSpellcastingProficiency(),
     new Migration901ReorganizeBulkData(),
     new Migration902DuskwoodDawnsilver(),
+    new Migration903PhysicalNumericData(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

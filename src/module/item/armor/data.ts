@@ -26,7 +26,7 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     baseItem: BaseArmorType | null;
     acBonus: number;
     strength: number | null;
-    dexCap: number | null;
+    dexCap: number;
     checkPenalty: number;
     speedPenalty: number;
     /** Whether the armor is "specific magic armor" */

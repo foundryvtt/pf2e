@@ -129,10 +129,9 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
         const category: string = source.system.category;
 
         if (category !== "shield") {
-            source.system.dexCap ||= null;
-            source.system.strength ||= null;
+            source.system.checkPenalty ||= 0;
+            source.system.dexCap ||= 0;
         }
-        source.system.checkPenalty ||= 0;
         source.system.speedPenalty ||= 0;
         const system: ShieldConversionData = source.system;
         // This doesn't belong in any armor data
