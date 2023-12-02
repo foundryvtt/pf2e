@@ -15,7 +15,7 @@
             "value": 1
         },
         "consumableType": {
-            "value": "potion"
+            "value": "ammo"
         },
         "consume": {
             "value": ""
@@ -47,7 +47,15 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "size": "med",
         "stackGroup": null,
         "traits": {
