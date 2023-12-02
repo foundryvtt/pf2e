@@ -1,6 +1,12 @@
-## 5.10.0
+## 5.10.1
 
 Note: The system now requires a minimum Foundry version of 11.311.
+
+### Bugfixes
+
+-   (stwlam) Fix handling of "ignored" bulk, such as from backpacks and spacious pouches
+
+## 5.10.0
 
 ### System Improvements
 
