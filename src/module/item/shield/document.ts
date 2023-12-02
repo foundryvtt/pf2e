@@ -209,7 +209,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     value: shieldThrowTrait ? [`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait] : [],
                     otherTags: [],
                 },
-                damage: { dice: 1, die: "d6", damageType: "bludgeoning", modifier: 0, persistent: null },
+                damage: { dice: 1, die: "d4", damageType: "bludgeoning", modifier: 0, persistent: null },
             },
         });
 
