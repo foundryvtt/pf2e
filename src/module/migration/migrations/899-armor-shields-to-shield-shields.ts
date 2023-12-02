@@ -230,19 +230,19 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
 
         switch (system.slug) {
             case "indestructible-shield":
-                system.baseItem = "indestructible-shield";
-                system.material = { type: "cold-iron", grade: "standard" };
+                system.baseItem = "steel-shield";
+                system.material = { type: "adamantine", grade: "high" };
                 setSpecific();
                 break;
             case "kizidhars-shield":
-                system.baseItem = "steel-shield";
+                system.baseItem = "wooden-shield";
                 system.material = { type: "duskwood", grade: "standard" };
                 setSpecific();
                 break;
 
             case "lodestone-shield":
                 system.baseItem = "steel-shield";
-                system.material = { type: "adamantine", grade: "high" };
+                system.material = { type: "cold-iron", grade: "standard" };
                 setSpecific();
                 break;
             default:
