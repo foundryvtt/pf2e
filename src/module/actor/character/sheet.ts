@@ -534,25 +534,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     {
                         name: "PF2E.EditItemTitle",
                         icon: fontAwesomeIcon("edit").outerHTML,
-                        callback: (target) => {
-                            const itemId = $(target).closest("[data-item-id]").attr("data-item-id");
-                            const item = this.actor.items.get(itemId ?? "");
-                            item?.sheet.render(true, { focus: true });
+                        callback: ($target) => {
+                            const itemId = htmlClosest($target[0], "[data-item-id]")?.dataset.itemId;
+                            const item = this.actor.items.get(itemId, { strict: true });
+                            item.sheet.render(true, { focus: true });
                         },
                     },
                     {
                         name: "PF2E.DeleteItemTitle",
                         icon: fontAwesomeIcon("trash").outerHTML,
-                        callback: (target) => {
-                            const row = htmlClosest(target[0], "[data-item-id]");
-                            const itemId = row?.dataset.itemId;
-                            const item = this.actor.items.get(itemId ?? "");
-
-                            if (row && item) {
-                                this.deleteItem(row, item);
-                            } else {
-                                throw ErrorPF2e("Item not found");
-                            }
+                        callback: ($target) => {
+                            const itemId = htmlClosest($target[0], "[data-item-id]")?.dataset.itemId;
+                            const item = this.actor.items.get(itemId, { strict: true });
+                            this.deleteItem(item);
                         },
                     },
                 ],

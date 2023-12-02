@@ -322,7 +322,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Delete Item
         for (const link of htmlQueryAll(html, ".item-delete")) {
-            link.addEventListener("click", (event) => this.#onClickDeleteItem(event));
+            link.addEventListener("click", (event) => {
+                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                this.deleteItem(item, event);
+            });
         }
 
         // Equipment Browser
@@ -824,61 +828,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    async #onClickDeleteItem(event: MouseEvent): Promise<void> {
-        const row = htmlClosest(event.currentTarget, "[data-item-id]");
-        const itemId = row?.dataset.itemId;
-        const item = this.actor.items.get(itemId ?? "");
-
-        if (item?.isOfType("condition")) {
-            const references = htmlQuery(row, ".condition-references");
-
-            const deleteCondition = async (): Promise<void> => {
-                this.actor.decreaseCondition(item, { forceRemove: true });
-            };
-
-            if (event.ctrlKey) {
-                deleteCondition();
-                return;
-            }
-
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.hbs", {
-                question: game.i18n.format("PF2E.DeleteQuestion", { name: item.name }),
-                ref: references?.innerHTML,
-            });
-            new Dialog({
-                title: game.i18n.localize("PF2E.DeleteConditionTitle"),
-                content,
-                buttons: {
-                    Yes: {
-                        icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
-                        callback: deleteCondition,
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
-                },
-                default: "Yes",
-            }).render(true);
-        } else if (row && item) {
-            this.deleteItem(row, item, event);
-        } else {
-            throw ErrorPF2e("Item not found");
-        }
-    }
-
-    protected async deleteItem(element: HTMLElement, item: ItemPF2e, event?: MouseEvent): Promise<void> {
+    protected async deleteItem(item: ItemPF2e, event?: MouseEvent): Promise<void> {
         const result =
             event?.ctrlKey ||
             (await Dialog.confirm({
                 title: game.i18n.localize("PF2E.DeleteItemTitle"),
                 content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${item.name}"` })}</p>`,
             }));
-        if (result) {
-            await item.delete();
-            $(element).slideUp(200, () => this.render(false));
-        }
+        if (result) await item.delete();
     }
 
     async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
