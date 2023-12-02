@@ -15,7 +15,7 @@ export class TemplateLayerPF2e<
 
     /** Set a grid-snapping precision appropriate for an effect area type */
     snapFor(areaType: EffectAreaType | null): void {
-        if (canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+        if (areaType && canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
             this.#gridPrecision = areaType === "burst" ? 1 : 2;
         } else {
             this.#gridPrecision = 2;
@@ -46,7 +46,7 @@ export class TemplateLayerPF2e<
         const { dimensions } = canvas;
 
         // Snap the destination to the grid
-        const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y);
+        const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, this.gridPrecision);
         destination.x = x;
         destination.y = y;
         const ray = new Ray(origin, destination);
@@ -133,7 +133,7 @@ export class TemplateLayerPF2e<
                 preview.snapForShape();
                 const { document, position } = preview;
                 this.#deactivatePreviewListeners(initialLayer, event);
-                document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y));
+                document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y, this.gridPrecision));
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {
