@@ -38,7 +38,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         return this.system.category;
     }
 
-    get dexCap(): number | null {
+    get dexCap(): number {
         return this.system.dexCap;
     }
 
@@ -177,10 +177,19 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (changed.system?.acBonus !== undefined) {
-            changed.system.acBonus ||= 0;
+            changed.system.acBonus = Number(changed.system.acBonus) || 0;
         }
         if (changed.system?.group !== undefined) {
             changed.system.group ||= null;
+        }
+        if (changed.system?.dexCap !== undefined) {
+            changed.system.dexCap = Number(changed.system.dexCap) || 0;
+        }
+        if (changed.system?.checkPenalty !== undefined) {
+            changed.system.checkPenalty = Math.min(Number(changed.system.checkPenalty), 0) || 0;
+        }
+        if (changed.system?.speedPenalty !== undefined) {
+            changed.system.speedPenalty = Math.min(Number(changed.system.speedPenalty), 0) || 0;
         }
 
         const changedSpecific: ChangedSpecificData = changed.system?.specific ?? {};

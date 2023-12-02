@@ -927,7 +927,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
             }
 
-            if (skill.armor && typeof wornArmor?.checkPenalty === "number") {
+            if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
                 const slug = "armor-check-penalty";
                 const armorCheckPenalty = new ModifierPF2e({
                     slug,
@@ -1014,8 +1014,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { wornArmor } = this;
         const basePenalty = wornArmor?.speedPenalty ?? 0;
         const strength = this.system.abilities.str.mod;
-        const requirement = wornArmor?.strength ?? strength;
-        const penaltyValue = strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty;
+        const requirement = wornArmor?.strength ?? null;
+        const penaltyValue = Math.min(
+            typeof requirement === "number" && strength >= requirement ? Math.min(basePenalty + 5, 0) : basePenalty,
+            0,
+        );
         const derivedFromLand = !!("derivedFromLand" in statistic && statistic.derivedFromLand);
         const modifierName = wornArmor?.name ?? "PF2E.ArmorSpeedLabel";
         const slug = "armor-speed-penalty";

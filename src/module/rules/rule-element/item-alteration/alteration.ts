@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { PersistentSourceData } from "@item/condition/data.ts";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
+import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { organizeBulkData } from "@item/physical/helpers.ts";
 import { isObject, objectHasKey } from "@util";
@@ -174,7 +174,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                data.item.system.dexCap = typeof newValue === "number" ? Math.max(newValue, 0) : null;
+                data.item.system.dexCap = Math.max(newValue, 0);
                 return;
             }
             case "hardness": {

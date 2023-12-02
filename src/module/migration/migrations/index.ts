@@ -268,3 +268,4 @@ export { Migration899ArmorShieldToShieldShield } from "./899-armor-shields-to-sh
 export { Migration900ClassSpellcastingProficiency } from "./900-class-spellcasting-proficiency.ts";
 export { Migration901ReorganizeBulkData } from "./901-reorganize-bulk-data.ts";
 export { Migration902DuskwoodDawnsilver } from "./902-duskwood-dawnsilver.ts";
+export { Migration903PhysicalNumericData } from "./903-physical-numeric-data.ts";
