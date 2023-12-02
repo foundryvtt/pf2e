@@ -55,16 +55,19 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             alignments: ALIGNMENTS,
             armyTypes: R.pick(kingmakerTraits, ARMY_TYPES),
             rarityTraits: CONFIG.PF2E.rarityTraits,
-            saves: (["morale", "maneuver"] as const).map((slug) => {
-                const statistic = this.actor[slug];
-                return {
-                    slug: slug,
-                    label: statistic.label,
-                    mod: statistic.mod,
-                    breakdown: statistic.check.breakdown,
-                    adjustmentClass: getAdjustment(statistic.mod, this.actor._source.system.saves[slug]),
-                };
-            }),
+            saves: R.sortBy(
+                (["maneuver", "morale"] as const).map((slug) => {
+                    const statistic = this.actor[slug];
+                    return {
+                        slug: slug,
+                        label: statistic.label,
+                        mod: statistic.mod,
+                        breakdown: statistic.check.breakdown,
+                        adjustmentClass: getAdjustment(statistic.mod, this.actor._source.system.saves[slug]),
+                    };
+                }),
+                (s) => s.label,
+            ),
             tactics: campaignFeatures.filter((f) => f.category === "army-tactic"),
             warActions: campaignFeatures.filter((f) => f.category === "army-war-action"),
         };

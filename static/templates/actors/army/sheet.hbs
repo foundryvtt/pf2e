@@ -219,6 +219,7 @@
                     {{else}}
                         <i class="fa-solid fa-fw fa-bow-arrow"></i>
                     {{/if}}
+                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" />
                     {{#each strike.variants as |variant index|}}
                         <button
                             type="button"
@@ -238,7 +239,6 @@
                     {{/each}}
                     <button type="button" data-action="strike-damage" class="damage">{{localize "PF2E.DamageLabel"}}</button>
                     <button type="button" data-action="strike-damage" data-outcome="criticalSuccess" class="damage critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
-                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" />
                 </div>
             {{/each}}
         </fieldset>
