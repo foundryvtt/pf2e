@@ -51,6 +51,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                     { better: "lower" },
                 ),
             },
+            linked: !!actor.prototypeToken.actorLink && (!actor.token || actor.token.isLinked),
             alignments: ALIGNMENTS,
             armyTypes: R.pick(kingmakerTraits, ARMY_TYPES),
             rarityTraits: CONFIG.PF2E.rarityTraits,
@@ -88,6 +89,14 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 statistic?.roll(eventToRollParams(event, { type: "check" }));
             });
         }
+
+        htmlQuery(html, "[data-action=link-actor]")?.addEventListener("click", () => {
+            if (this.actor.token) {
+                ui.notifications.error("PF2E.Kingmaker.Army.Alliance.LinkError", { localize: true });
+            } else {
+                this.actor.update({ prototypeToken: { actorLink: true } });
+            }
+        });
 
         // Handle resource updates
         for (const resourceElement of htmlQueryAll(html, "[data-action=change-resource]")) {
@@ -189,6 +198,7 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
         max: AdjustedValue;
         routThreshold: AdjustedValue;
     };
+    linked: boolean;
     alignments: Iterable<Alignment>;
     armyTypes: Record<string, string>;
     rarityTraits: Record<string, string>;
