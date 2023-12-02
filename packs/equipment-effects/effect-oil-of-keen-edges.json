@@ -1,0 +1,66 @@
+{
+    "_id": "dVvMomZnSTq1wOJd",
+    "img": "systems/pf2e/icons/equipment/consumables/oils/oil-of-keen-edges.webp",
+    "name": "Effect: Oil of Keen Edges",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Oil of Keen Edges]</p>\n<p>The weapon grows sharper and more dangerous, granting it the benefits of the <em>keen</em> rune.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee",
+                        {
+                            "or": [
+                                "item:damage:type:slashing",
+                                "item:damage:type:piercing"
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectOilOfKeenEdges",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectOilOfKeenEdges}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "keen"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
