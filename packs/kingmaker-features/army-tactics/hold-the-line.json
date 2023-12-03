@@ -33,6 +33,16 @@
                 "mode": "downgrade",
                 "path": "system.attributes.hp.routThreshold",
                 "value": "ceil(@actor.hitPoints.max / 4)"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Morale checks made to resist Rout",
+                "predicate": [
+                    "vs-rout"
+                ],
+                "selector": "morale-check",
+                "type": "status",
+                "value": 1
             }
         ],
         "traits": {

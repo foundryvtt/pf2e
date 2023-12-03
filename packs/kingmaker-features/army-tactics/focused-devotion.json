@@ -13,7 +13,7 @@
         "campaign": "kingmaker",
         "category": "army-tactic",
         "description": {
-            "value": "<p>The army is particularly loyal to your cause. The army gains a +1 status bonus on Morale checks made to Rally. This bonus increases to +2 at 9th level, and +3 at 17th level.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Taunt] tactical war action.</p>"
+            "value": "<p>The army is particularly loyal to your cause. The army gains a +1 status bonus on Morale checks made to @UUID[Compendium.pf2e.kingmaker-features.Item.Rally]. This bonus increases to +2 at 9th level, and +3 at 17th level.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Taunt] tactical war action.</p>"
         },
         "level": {
             "value": 3
@@ -27,7 +27,40 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Morale checks made to Rally",
+                "predicate": [
+                    "action:rally"
+                ],
+                "selector": "morale-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 17,
+                            "value": 3
+                        }
+                    ],
+                    "field": "actor|level"
+                }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.kingmaker-features.Item.Taunt"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
