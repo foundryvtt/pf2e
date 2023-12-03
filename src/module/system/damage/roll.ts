@@ -206,7 +206,7 @@ class DamageRoll extends AbstractDamageRoll {
     /** Increase total to 1 if evaluating to 0 or less */
     protected override _evaluateTotal(): number {
         const total = super._evaluateTotal();
-        if (this.instances.some((i) => !i.persistent) && total <= 0) {
+        if (this.instances.some((i) => !i.persistent || this.options.evaluatePersistent) && total <= 0) {
             this.options.increasedFrom = total;
             // Send alteration to top of call stack since the Roll is currently updating itself
             Promise.resolve().then(() => {

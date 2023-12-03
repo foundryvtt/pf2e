@@ -129,8 +129,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (!this.active || !actor) return;
 
         if (this.system.persistent) {
-            const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
-            roll.toMessage(
+            const roll = this.system.persistent.damage.clone();
+            await roll.toMessage(
                 {
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
