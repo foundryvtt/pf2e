@@ -27,7 +27,25 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.Kingmaker.Army.Toggles.LiveOffTheLand",
+                "option": "live-off-the-land",
+                "priority": 1,
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.consumption",
+                "predicate": [
+                    "live-off-the-land"
+                ],
+                "value": -1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

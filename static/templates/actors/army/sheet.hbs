@@ -188,6 +188,13 @@
             {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable}}
         </fieldset>
 
+        <!-- TOGGLES -->
+        {{#if toggles}}
+            <section class="toggles">
+                {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}
+            </section>
+        {{/if}}
+
         <fieldset class="weapons">
             <legend>
                 <i class="fa-light fa-swords"></i>
