@@ -65,6 +65,23 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
         return types.sort(sortBy((type) => type.label));
     }
 
+    /** Determine whether an inputted formula is valid, reporting to the user if not. */
+    #reportFormulaValidity(formula: string, input: HTMLInputElement | null): boolean {
+        if (!input) return false;
+        const isValid =
+            formula.length > 0 &&
+            DamageRoll.validate(formula) &&
+            new DamageRoll(formula, { evaluatePersistent: true }).maximumValue >= 0;
+        if (isValid) {
+            input.setCustomValidity("");
+        } else {
+            input.setCustomValidity(game.i18n.localize("PF2E.Item.Condition.PersistentDamage.Dialog.Invalid"));
+            input.addEventListener("input", () => input.setCustomValidity(""), { once: true });
+        }
+
+        return input.reportValidity();
+    }
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         const html = $html[0];
 
@@ -78,20 +95,18 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
                     const formula = elements.formula?.value.trim() ?? "";
                     const damageType = elements.damageType?.value;
                     const dc = Number(elements.dc?.value) || 15;
-                    if (formula === "" || !DamageRoll.validate(`(${formula})[${damageType}]`)) {
-                        elements.formula?.classList.add("invalid");
-                    } else {
+                    if (this.#reportFormulaValidity(formula, elements.formula)) {
                         existing.update({ system: { persistent: { formula, damageType, dc } } });
                     }
                 });
             }
 
-            htmlQuery(section, "[data-action=delete")?.addEventListener("click", () => {
+            htmlQuery(section, "a[data-action=delete")?.addEventListener("click", () => {
                 existing.delete();
             });
         }
 
-        html.querySelector("[data-action=add]")?.addEventListener("click", (event) => {
+        html.querySelector("a[data-action=add]")?.addEventListener("click", (event) => {
             const section = htmlClosest(event.target, ".persistent-entry");
             if (!section) return;
 
@@ -100,9 +115,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
             const damageType = elements.damageType?.value;
             const dc = Number(elements.dc?.value) || 15;
 
-            if (!DamageRoll.validate(`(${formula})[${damageType}]`)) {
-                elements.formula?.classList.add("invalid");
-            } else {
+            if (this.#reportFormulaValidity(`(${formula})[${damageType}]`, elements.formula)) {
                 const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
                 const persistentSource = mergeObject(baseConditionSource, {
                     system: {
@@ -113,11 +126,8 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
             }
         });
 
-        html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
-            const existing = this.actor.itemTypes.condition.filter(
-                (c): c is PersistentDamagePF2e<ActorPF2e> => c.slug === "persistent-damage",
-            );
-
+        html.querySelector("a[data-action=roll-persistent]")?.addEventListener("click", () => {
+            const existing = this.actor.itemTypes.condition.filter((c) => c.slug === "persistent-damage");
             for (const condition of existing) {
                 condition.onEndTurn();
             }
