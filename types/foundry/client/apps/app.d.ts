@@ -246,9 +246,11 @@ declare global {
         /**
          * Close the application and un-register references to it within UI mappings
          * This function returns a Promise which resolves once the window closing animation concludes
-         * @return A Promise which resolves once the application is closed
+         * @fires closeApplication
+         * @param options Options which affect how the Application is closed
+         * @returns A Promise which resolves once the application is closed
          */
-        close(options?: { force?: boolean } & Record<string, unknown>): Promise<void>;
+        close(options?: { force?: boolean }): Promise<void>;
 
         /**
          * Minimize the pop-out window, collapsing it to a small tab
