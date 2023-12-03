@@ -15,7 +15,7 @@ import type { EquipmentSource } from "@item/equipment/data.ts";
 import type { FeatSource } from "@item/feat/data.ts";
 import type { HeritageSource } from "@item/heritage/data.ts";
 import type { KitSource } from "@item/kit/data.ts";
-import type { LoreSource } from "@item/lore/data.ts";
+import type { LoreSource } from "@item/lore.ts";
 import type { MeleeSource } from "@item/melee/data.ts";
 import type { PhysicalItemType } from "@item/physical/types.ts";
 import type { ShieldSource } from "@item/shield/data.ts";
