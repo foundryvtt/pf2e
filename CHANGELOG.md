@@ -1,3 +1,16 @@
+## 5.10.3
+
+### Bugfixes
+
+-   (stwlam) Use base hardness/max HP of specific magic shields if higher than values provided by precious materials
+-   (stwlam) Prevent automatic adjustments of bulk and size from saving upon closing item sheets
+
+### Data Updates
+
+-   (Dire Weasel) Fix consumable type of Penetrating Ammunition and automate bleed
+-   (Dire Weasel) Fix bulk and usage of Druid's Crown
+-   (stwlam) Fix precious material of Indestructible Shield
+
 ## 5.10.2
 
 ### Bugfixes
