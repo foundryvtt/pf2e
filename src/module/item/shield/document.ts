@@ -85,6 +85,13 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.runes = { reinforcing: 0 };
         }
 
+        if (this.system.traits.integrated) {
+            this.system.traits.integrated.runes = mergeObject(
+                { potency: 0, striking: 0, property: [] } satisfies IntegratedWeaponData["runes"],
+                this.system.traits.integrated.runes,
+            );
+        }
+
         const materialData = getMaterialValuationData(this);
         const reinforcingRune = this.system.runes.reinforcing;
         const adjustFromMaterialAndRune = (property: "hardness" | "maxHP", base: number): number => {
@@ -257,18 +264,20 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.acBonus !== undefined) {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        if (changed.system.acBonus !== undefined) {
             changed.system.acBonus = Math.clamped(Math.trunc(Number(changed.system.acBonus)), 0, 99) || 0;
         }
 
-        if (changed.system?.speedPenalty !== undefined) {
+        if (changed.system.speedPenalty !== undefined) {
             changed.system.speedPenalty = Math.clamped(Math.trunc(Number(changed.system.speedPenalty)), -99, 0) || 0;
         }
 
         const hasIntegratedTrait = this._source.system.traits.value.some((t) => t.startsWith("integrated-"));
         const losingIntegratedTrait =
             hasIntegratedTrait &&
-            !!changed.system?.traits?.value &&
+            !!changed.system.traits?.value &&
             Array.isArray(changed.system.traits.value) &&
             !changed.system.traits.value.some((t) => t.startsWith("integrated-"));
         if (losingIntegratedTrait && changed.system?.traits) {

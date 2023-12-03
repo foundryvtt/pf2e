@@ -74,8 +74,8 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const propertyRuneIndices = [0, 1, 2, 3] as const;
-        const propertyRuneUpdates = propertyRuneIndices.map(
-            (i) => formData[`system.traits.integrated.runes.property.${i}`] || null,
+        const propertyRuneUpdates = propertyRuneIndices.flatMap(
+            (i) => formData[`system.traits.integrated.runes.property.${i}`] ?? [],
         );
         if (propertyRuneUpdates.length > 0) {
             formData[`system.traits.integrated.runes.property`] = R.compact(propertyRuneUpdates);
