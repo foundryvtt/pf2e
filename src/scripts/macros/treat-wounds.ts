@@ -111,8 +111,9 @@ async function treat(
     const rank = skill.rank ?? 1;
     const usedProf = requestedProf <= rank ? requestedProf : rank;
     const medicBonus = CheckFeat(actor, "medic-dedication") ? (usedProf - 1) * 5 : 0;
+    const magicHandsBonus = CheckFeat(actor, "magic-hands") ? actor.system.details.level.value : 0;
     const dcValue = [15, 20, 30, 40][usedProf - 1] + mod;
-    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
+    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus + magicHandsBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
     rollOptions.push("action:treat-wounds");
@@ -143,9 +144,9 @@ async function treat(
             const healFormula = (() => {
                 switch (outcome) {
                     case "criticalSuccess":
-                        return magicHands ? `32${bonusString}` : `4d8${bonusString}`;
+                        return magicHands ? `4d10${bonusString}` : `4d8${bonusString}`;
                     case "success":
-                        return magicHands ? `16${bonusString}` : `2d8${bonusString}`;
+                        return magicHands ? `2d10${bonusString}` : `2d8${bonusString}`;
                     case "criticalFailure":
                         return "1d8";
                     default:
