@@ -75,6 +75,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         super.prepareDerivedData();
         this.prepareSynthetics();
 
+        this.rollOptions.all[`self:trait:${this.system.traits.type}`] = true;
         this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
 
         const expectedAC = ARMY_STATS.ac[this.level];
@@ -103,6 +104,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.scouting = new Statistic(this, {
             slug: "scouting",
             label: "PF2E.Kingmaker.Army.Scouting",
+            domains: ["scouting"],
             modifiers: R.compact([
                 new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseScouting }),
                 scoutAdjustment
@@ -126,7 +128,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             this[saveType] = new Statistic(this, {
                 slug: saveType,
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
-                domains: ["all", "saving-throw", `${saveType}-check`],
+                domains: ["saving-throw", saveType],
                 modifiers: R.compact([
                     new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseValue }),
                     adjustment
