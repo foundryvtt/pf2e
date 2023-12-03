@@ -1,9 +1,9 @@
+import { userColorForActor } from "@actor/helpers.ts";
 import type { ItemPF2e } from "@item";
 import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
-import { userColorForActor } from "@actor/helpers.ts";
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
@@ -176,11 +176,6 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
         // Clean up appearance data
         const appearance: DeepPartial<AuraRuleElementSource["appearance"]> = source.appearance;
-
-        // Treat 0 opacity as null
-        if (appearance?.border?.alpha === 0) {
-            appearance.border = null;
-        }
 
         // A color value will be `null` if a checkbox has be unchecked
         if (appearance?.border?.color === null) {
