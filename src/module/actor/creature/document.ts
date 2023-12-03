@@ -361,6 +361,12 @@ abstract class CreaturePF2e<
             status.value = Math.min(condition?.value ?? 0, status.max);
         }
 
+        if (this.system.resources?.focus) {
+            const { focus } = this.system.resources;
+            focus.max = Math.clamped(Math.floor(focus.max), 0, focus.cap) || 0;
+            focus.value = Math.clamped(Math.floor(focus.value), 0, focus.max) || 0;
+        }
+
         imposeEncumberedCondition(this);
     }
 
@@ -679,9 +685,11 @@ abstract class CreaturePF2e<
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
         // Clamp hit points
         const currentHP = this.hitPoints;
-        const changedHP = changed.system?.attributes?.hp;
+        const changedHP = changed.system.attributes?.hp;
         if (typeof changedHP?.value === "number") {
             changedHP.value = options.allowHPOverage
                 ? Math.max(0, changedHP.value)
@@ -689,7 +697,7 @@ abstract class CreaturePF2e<
         }
 
         // Clamp focus points
-        const focusUpdate = changed.system?.resources?.focus;
+        const focusUpdate = changed.system.resources?.focus;
         if (focusUpdate && this.system.resources) {
             if (typeof focusUpdate.max === "number") {
                 focusUpdate.max = Math.clamped(focusUpdate.max, 0, 3);
@@ -698,11 +706,10 @@ abstract class CreaturePF2e<
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
             focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
-            if (this.isToken) options.diff = false; // Force an update and sheet re-render
         }
 
         // Preserve alignment traits if not exposed
-        const traitChanges = changed.system?.traits;
+        const traitChanges = changed.system.traits;
         if (R.isObject(traitChanges) && Array.isArray(traitChanges.value)) {
             const sourceAlignmentTraits = this._source.system.traits?.value.filter(
                 (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),

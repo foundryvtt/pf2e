@@ -695,14 +695,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.system.attributes.initiative = this.initiative.getTraceData();
 
         // Resources
-        const { focus, crafting } = this.system.resources;
-        focus.max = Math.floor(Math.clamped(focus.max, 0, focus.cap));
+        const { crafting } = this.system.resources;
         crafting.infusedReagents.max = Math.floor(crafting.infusedReagents.max) || 0;
         crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
-        // Ensure the character has a focus pool of at least one point if they have a focus spellcasting entry
-        if (focus.max === 0 && this.spellcasting.regular.some((entry) => entry.isFocusPool)) {
-            focus.max = 1;
-        }
 
         // Set a roll option for whether this character has a familiar
         if (systemData.attributes.familiarAbilities.value > 0) {
