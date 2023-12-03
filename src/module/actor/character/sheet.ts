@@ -1017,9 +1017,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     /** Activate listeners of main sheet navigation section */
     #activateNavListeners(html: HTMLElement): void {
         const sheetNavigation = htmlQuery(html, "nav.sheet-navigation");
+        if (!sheetNavigation) return;
         const navTitleArea = htmlQuery(sheetNavigation, ":scope > .panel-title");
         const activeTab = htmlQuery(sheetNavigation, "a[data-tab].active");
-        if (!(sheetNavigation && navTitleArea && activeTab)) {
+        if (!(navTitleArea && activeTab)) {
             throw ErrorPF2e("Sheet navigation not found");
         }
 
