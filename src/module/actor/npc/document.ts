@@ -116,8 +116,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         })();
         attributes.classOrSpellDC = { value: attributes.classDC.value };
 
-        // Set default ritual attack and DC values if none are stored */
-        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
+        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
+        this.system.resources.focus = mergeObject({ value: 0, max: 0, cap: 3 }, this.system.resources.focus);
     }
 
     override prepareDerivedData(): void {
