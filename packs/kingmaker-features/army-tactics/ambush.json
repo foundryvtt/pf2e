@@ -27,7 +27,24 @@
             "remaster": false,
             "title": "Pathfinder Kingmaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "First Attack war action against ambushed opponent",
+                "option": "ambushed",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ambushed"
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

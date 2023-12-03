@@ -13,7 +13,7 @@
         "campaign": "kingmaker",
         "category": "army-tactic",
         "description": {
-            "value": "<p>The army is especially good at enacting defensive tactics. The army gains a +1 status bonus on Maneuver checks made to Guard. This bonus increases to +2 at 9th level, and +3 at 17th level. The army can use the Defensive Stance tactical war action.</p>"
+            "value": "<p>The army is especially good at enacting defensive tactics. The army gains a +1 status bonus on Maneuver checks made to @UUID[Compendium.pf2e.kingmaker-features.Item.Guard]. This bonus increases to +2 at 9th level, and +3 at 17th level.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Defensive Stance] tactical war action.</p>"
         },
         "level": {
             "value": 3
@@ -31,6 +31,34 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.kingmaker-features.Item.Defensive Stance"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Maneuver checks made to Guard",
+                "predicate": [
+                    "action:guard"
+                ],
+                "selector": "maneuver-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 17,
+                            "value": 3
+                        }
+                    ],
+                    "field": "actor|level"
+                }
             }
         ],
         "traits": {
