@@ -9,7 +9,6 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import { ConditionPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
-import { extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
@@ -169,37 +168,37 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         }
     }
 
-    protected prepareSaves(): { [K in SaveType]?: Statistic } {
+    private prepareSaves(): { [K in SaveType]?: Statistic } {
         const { system } = this;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
             const save = system.saves[saveType];
-            const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
+            const label = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
-            const ability = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
 
             // Saving Throws with a value of 0 are not usable by the hazard
             // Later on we'll need to explicitly check for null, since 0 is supposed to be valid
             if (!base) return saves;
 
-            const selectors = [saveType, `${ability}-based`, "saving-throw", "all"];
-            const stat = new Statistic(this, {
+            const statistic = new Statistic(this, {
                 slug: saveType,
-                label: saveName,
-                domains: selectors,
+                label,
+                attribute: CONFIG.PF2E.savingThrowDefaultAttributes[saveType],
+                domains: [saveType, "saving-throw"],
                 modifiers: [
-                    new ModifierPF2e("PF2E.BaseModifier", base, "untyped"),
-                    ...extractModifiers(this.synthetics, selectors),
+                    new ModifierPF2e({
+                        slug: "base",
+                        label: "PF2E.ModifierTitle",
+                        modifier: base,
+                    }),
                 ],
-                check: {
-                    type: "saving-throw",
-                },
+                check: { type: "saving-throw" },
             });
 
-            mergeObject(this.system.saves[saveType], stat.getTraceData());
+            this.system.saves[saveType] = mergeObject(save, statistic.getTraceData());
+            saves[saveType] = statistic;
 
-            saves[saveType] = stat;
             return saves;
         }, {});
     }
