@@ -246,12 +246,13 @@ class DamageRoll extends AbstractDamageRoll {
 
         if (!this._evaluated) await this.evaluate({ async: true });
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
+        const total = this.total ?? NaN;
         const chatData = {
             formula,
             user: game.user.id,
             tooltip: isPrivate || this.dice.length === 0 ? "" : await this.getTooltip(),
             instances: isPrivate ? [] : instances,
-            total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
+            total: isPrivate ? "?" : Math.floor((total * 100) / 100),
             increasedFrom: this.options.increasedFrom,
             splashOnly: !!this.options.splashOnly,
             healingOnly: !this.kinds.has("damage"),
@@ -291,7 +292,7 @@ class DamageRoll extends AbstractDamageRoll {
                   });
 
         if (addend !== 0) {
-            const firstInstance = instanceClones[0]!;
+            const firstInstance = instanceClones[0];
 
             const term = firstInstance.head.toJSON();
             const options = term.options ?? {};
@@ -519,22 +520,25 @@ class DamageInstance extends AbstractDamageRoll {
     override get dice(): DiceTerm[] {
         return this._dice.concat(
             this.terms
-                .reduce(
-                    (dice: (DiceTerm | never[])[], t) =>
-                        t instanceof DiceTerm
-                            ? [...dice, t]
-                            : t instanceof Grouping || t instanceof ArithmeticExpression || t instanceof IntermediateDie
-                              ? [...dice, ...t.dice]
-                              : [],
-                    this._dice,
-                )
+                .reduce((dice: (DiceTerm | never[])[], term) => {
+                    if (term instanceof DiceTerm) {
+                        dice.push(term);
+                    } else if (
+                        term instanceof Grouping ||
+                        term instanceof ArithmeticExpression ||
+                        term instanceof IntermediateDie
+                    ) {
+                        dice.push(...term.dice);
+                    }
+                    return dice;
+                }, this._dice)
                 .flat(),
         );
     }
 
     /** Get the head term of this instance */
     get head(): RollTerm {
-        return this.terms[0]!;
+        return this.terms[0];
     }
 
     get category(): DamageCategory | null {
@@ -550,13 +554,12 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Get the total of this instance without any doubling or tripling from a critical hit */
     get critImmuneTotal(): this["total"] {
-        if (!this._evaluated) return undefined;
-
+        if (this.total === undefined) return undefined;
         const { head } = this;
 
         // Get the total with all damage-doubling removed
         const undoubledTotal =
-            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
+            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal ?? 0 : this.total;
 
         if (this.options.critRule === "double-damage") {
             return undoubledTotal;
@@ -565,7 +568,7 @@ class DamageInstance extends AbstractDamageRoll {
             const secondHalf = this.dice
                 .filter((d) => /\bdoubled\b/.test(d.flavor))
                 .flatMap((d) => d.results.slice(Math.ceil(d.results.length / 2)));
-            return undoubledTotal! - secondHalf.reduce((sum, r) => sum + r.result, 0);
+            return undoubledTotal - secondHalf.reduce((sum, r) => sum + r.result, 0);
         }
     }
 
@@ -575,7 +578,7 @@ class DamageInstance extends AbstractDamageRoll {
         }
 
         return deepFindTerms(this.head, { flavor: component }).reduce(
-            (total, t) => total + (Number(t.total!) || 0) * Number(t.options.crit || 1),
+            (total, t) => total + (Number(t.total) || 0) * Number(t.options.crit || 1),
             0,
         );
     }
@@ -603,6 +606,7 @@ class DamageInstance extends AbstractDamageRoll {
 Promise.resolve().then(() => {
     // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
     // function constructor.
+    // biome-ignore lint/complexity/noBannedTypes:
     const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
     new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
 });

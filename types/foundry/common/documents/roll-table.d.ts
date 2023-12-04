@@ -46,8 +46,8 @@ type RollTableSchema = {
     /** The HTML text description for this RollTable document */
     description: fields.HTMLField;
     /** A Collection of TableResult embedded documents which belong to this RollTable */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    results: fields.EmbeddedCollectionField<documents.BaseTableResult<any>>;
+    // biome-ignore lint/suspicious/noExplicitAny:
+    results: fields.EmbeddedCollectionField<documents.BaseTableResult<BaseRollTable>>;
     /** The Roll formula which determines the results chosen from the table */
     formula: fields.StringField<string>;
     /** Are results from this table drawn with replacement? */

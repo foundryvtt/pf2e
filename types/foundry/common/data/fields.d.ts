@@ -16,8 +16,8 @@ import type { DataModelValidationFailure } from "./validation-failure.d.ts";
  *                             field. A function may be provided which dynamically returns the array of choices.
  * @property [label]           A localizable label displayed on forms which render this field.
  * @property [hint]            Localizable help text displayed on forms which render this field.
- * @property [validationError] A custom validation error string. When displayed will be prepended with the
- *                             document name, field name, and candidate value.
+ * @property [validationError] A custom validation error string. When displayed will be prepended with the document
+ *                             name, field name, and candidate value.
  */
 export interface DataFieldOptions<
     TSourceProp,
@@ -40,7 +40,10 @@ export interface DataFieldOptions<
                 | null
                 | undefined;
     validate?: (value: unknown) => DataModelValidationFailure | boolean | void;
-    choices?: readonly TSourceProp[] | Record<string, string> | Function;
+    choices?:
+        | readonly TSourceProp[]
+        | Record<string, string>
+        | (() => readonly TSourceProp[] | Record<string | number, string>);
     readonly?: boolean;
     label?: string;
     hint?: string;

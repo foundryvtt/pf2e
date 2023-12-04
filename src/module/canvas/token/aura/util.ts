@@ -52,7 +52,7 @@ export function getAreaSquares(data: GetAreaSquaresParams): EffectAreaSquare[] {
     return emptyVector
         .reduce(
             (squares: EffectAreaSquare[][]) => {
-                const lastSquare = squares.at(-1)!.at(-1)!;
+                const lastSquare = squares.at(-1)?.at(-1) ?? { x: NaN, y: NaN };
                 const column = genColumn(
                     new EffectAreaSquare(lastSquare.x + squareWidth, topLeftSquare.y, squareWidth, squareWidth),
                 );

@@ -26,7 +26,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
 
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // Add damage partial
         for (const button of htmlQueryAll(html, "a[data-action=add-partial]")) {

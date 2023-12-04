@@ -30,7 +30,7 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
         const token =
             fromUuidSync(this.uuid ?? "") ??
             (game.user.targets.size === 1
-                ? Array.from(game.user.targets)[0]!.document
+                ? Array.from(game.user.targets)[0].document
                 : await new MarkTargetPrompt({ prompt: null, requirements: null }).resolveTarget());
         if (!(token instanceof TokenDocumentPF2e)) {
             // No token was targeted: abort creating item

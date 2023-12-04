@@ -3,7 +3,7 @@ import { TokenPF2e } from "../index.ts";
 /** Visual rendering of lines from token to flanking buddies token on highlight */
 class FlankingHighlightRenderer {
     /** Layer graphics object to which flanking highlight lines and text will be drawn */
-    _layer: PIXI.Graphics | null;
+    #layer: PIXI.Graphics | null = null;
 
     /** The token from which the line is extended */
     token: TokenPF2e;
@@ -15,7 +15,6 @@ class FlankingHighlightRenderer {
     lineColor: number;
 
     constructor(token: TokenPF2e) {
-        this._layer = null;
         this.token = token;
         this.labelText = game.i18n.localize("PF2E.Token.Flanking");
         this.lineColor = CONFIG.Canvas.dispositionColors.CONTROLLED;
@@ -23,7 +22,7 @@ class FlankingHighlightRenderer {
 
     /** Get existing layer graphics object or create one if one does not exist */
     get layer(): PIXI.Graphics {
-        return this._layer ?? this.addLayer();
+        return this.#layer ?? this.#addLayer();
     }
 
     /**
@@ -35,9 +34,7 @@ class FlankingHighlightRenderer {
         return canvas.ready && !!canvas.scene?.isInFocus && this.tokenIsSelectedOrOwn && this.tokenIsReady;
     }
 
-    /**
-     * To be valid, token must be selected by owner or be user's character
-     */
+    /** To be valid, token must be selected by owner or be user's character */
     get tokenIsSelectedOrOwn(): boolean {
         return (
             (this.token.controlled && this.token.isOwner) ||
@@ -45,20 +42,18 @@ class FlankingHighlightRenderer {
         );
     }
 
-    /**
-     * To be valid, this token must not be preview or be animating
-     */
+    /** To be valid, this token must not be preview or be animating */
     get tokenIsReady(): boolean {
         return !this.token.isPreview && !this.token.isAnimating;
     }
 
-    /**
-     * Draw flanking highlight if conditions are met
-     */
+    /** Draw flanking highlight if conditions are met */
     draw(): void {
         this.clear();
         if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
-            game.user.targets.forEach((target) => this.drawForTarget(target));
+            for (const target of game.user.targets) {
+                this.drawForTarget(target);
+            }
         }
     }
 
@@ -76,7 +71,9 @@ class FlankingHighlightRenderer {
      * @param buddies Flanking buddy tokens
      */
     drawBuddyLines(buddies: TokenPF2e[]): void {
-        buddies.forEach((b) => this.drawBuddyLine(b));
+        for (const token of buddies) {
+            this.drawBuddyLine(token);
+        }
     }
 
     /**
@@ -158,8 +155,8 @@ class FlankingHighlightRenderer {
 
     /** Destroys and removes layer graphics, incuding any text children */
     clear(): void {
-        this._layer?.destroy({ children: true });
-        this._layer = null;
+        this.#layer?.destroy({ children: true });
+        this.#layer = null;
     }
 
     /** Alias of `clear` */
@@ -168,9 +165,9 @@ class FlankingHighlightRenderer {
     }
 
     /** Creates layer graphics object */
-    protected addLayer(): PIXI.Graphics {
-        this._layer = new PIXI.Graphics();
-        return this.token.layer.addChild(this._layer);
+    #addLayer(): PIXI.Graphics {
+        this.#layer = new PIXI.Graphics();
+        return this.token.layer.addChild(this.#layer);
     }
 }
 

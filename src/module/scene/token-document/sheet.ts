@@ -45,7 +45,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        const html = $html[0]!;
+        const html = $html[0];
 
         this.#disableVisionInputs(html);
 

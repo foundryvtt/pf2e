@@ -32,7 +32,7 @@ function darknessLevelAtTime(time: DateTime) {
 /** Calculate animateDarkness parameters from a time interval */
 function intervalToTransition(interval: Interval, compactInterval: Interval): DarknessTransition {
     const currentDarkness = canvas.darknessLevel;
-    const targetDarkness = darknessLevelAtTime(interval.end!);
+    const targetDarkness = interval.end ? darknessLevelAtTime(interval.end) : NaN;
     const darknessDiff = Math.abs((currentDarkness ?? targetDarkness) - targetDarkness);
 
     // Cap the darkness transition duration

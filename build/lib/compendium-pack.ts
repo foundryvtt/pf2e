@@ -113,7 +113,7 @@ class CompendiumPack {
             if (a._id === b._id) {
                 throw PackError(`_id collision in ${this.packId}: ${a._id}`);
             }
-            return a._id!.localeCompare(b._id!);
+            return a._id?.localeCompare(b._id ?? "") ?? 0;
         });
 
         this.data = parsedData;
@@ -128,7 +128,7 @@ class CompendiumPack {
 
         for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
-            packMap.set(docSource.name, docSource._id!);
+            packMap.set(docSource.name, docSource._id ?? "");
 
             // Check img paths
             if ("img" in docSource && typeof docSource.img === "string") {
@@ -249,7 +249,7 @@ class CompendiumPack {
         docSource.flags ??= {};
         if (isActorSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id!, { docType: "Actor" }) };
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" }) };
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
@@ -261,7 +261,7 @@ class CompendiumPack {
 
         if (isItemSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id!, { docType: "Item" }) };
+            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 

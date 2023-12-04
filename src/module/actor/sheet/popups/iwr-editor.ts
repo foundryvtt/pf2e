@@ -73,9 +73,9 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
 
     /** Reconstruct the entire IWR array from form inputs */
     getUpdatedData({ includeNew = false } = {}): ProbablyIWRData[] {
-        const entryElems = htmlQueryAll(this.element[0]!, ".entry:not(.new,[data-synthetic])");
+        const entryElems = htmlQueryAll(this.element[0], ".entry:not(.new,[data-synthetic])");
         if (includeNew) {
-            entryElems.push(...htmlQueryAll(this.element[0]!, ".entry.new"));
+            entryElems.push(...htmlQueryAll(this.element[0], ".entry.new"));
         }
 
         return entryElems.flatMap((entryElem): ProbablyIWRData | never[] => {
@@ -128,7 +128,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     async #updateIWR({ includeNew = false } = {}): Promise<void> {
         const data = this.getUpdatedData({ includeNew });
         // The lone named input element that contains the full form data
-        const formInput = htmlQuery<HTMLInputElement>(this.element[0]!, "input[name]");
+        const formInput = htmlQuery<HTMLInputElement>(this.element[0], "input[name]");
         if (!formInput) throw ErrorPF2e("Unexpected error getting for input element");
 
         formInput.value = JSON.stringify(data);
@@ -145,7 +145,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     override activateListeners($html: JQuery): void {
-        const html = $html[0]!;
+        const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
             tagify(input, { whitelist: this.types, maxTags: 4 });

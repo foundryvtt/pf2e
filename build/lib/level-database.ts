@@ -53,12 +53,12 @@ class LevelDatabase extends ClassicLevel<string, DBEntry> {
                         const doc = embeddedDocs[i];
                         if (isDoc(doc) && embeddedBatch) {
                             embeddedBatch.put(`${source._id}.${doc._id}`, doc);
-                            embeddedDocs[i] = doc._id!;
+                            embeddedDocs[i] = doc._id ?? "";
                         }
                     }
                 }
             }
-            docBatch.put(source._id!, source);
+            docBatch.put(source._id ?? "", source);
         }
         await docBatch.write();
         if (embeddedBatch?.length) {

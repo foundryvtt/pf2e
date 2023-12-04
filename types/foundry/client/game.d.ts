@@ -139,7 +139,7 @@ declare global {
         tables: RollTables;
         users: Users<TUser>;
 
-        constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);
+        constructor(view: string, worldData: object, sessionId: string, socket: io.Socket);
 
         /** Returns the current version of the Release, usable for comparisons using isNewerVersion */
         get version(): string;

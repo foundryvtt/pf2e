@@ -20,7 +20,7 @@ class LootNPCsPopup extends FormApplication<ActorPF2e> {
         const tokenInfo = selectedTokens.map((t) => ({
             id: t.id,
             name: t.name,
-            checked: t.actor!.hasPlayerOwner,
+            checked: t.actor?.hasPlayerOwner ?? false,
         }));
         return { ...(await super.getData()), tokenInfo };
     }

@@ -55,7 +55,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         super.activateListeners($html);
 
         // Hook in the compendium browser
-        $html[0]!.querySelector("footer > button")?.addEventListener("click", () => {
+        $html[0].querySelector("footer > button")?.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.render(true);
         });
     }
@@ -140,16 +140,18 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         if (!matchTemplate) throw ErrorPF2e("Match template not found");
 
         const listElements = filteredMatches.map((match): HTMLLIElement => {
-            const li = matchTemplate.content.firstElementChild!.cloneNode(true) as HTMLLIElement;
+            const li = matchTemplate.content.firstElementChild?.cloneNode(true) as HTMLLIElement;
             li.dataset.uuid = match.uuid;
             li.dataset.score = match.score.toString();
 
             // Show a thumbnail if available
-            const thumbnail = li.querySelector<HTMLImageElement>("img")!;
-            if (typeof match.img === "string") {
-                thumbnail.src = game.pf2e.system.moduleArt.map.get(match.uuid)?.img ?? match.img;
-            } else if (match.documentType === "JournalEntry") {
-                thumbnail.src = "icons/svg/book.svg";
+            const thumbnail = li.querySelector<HTMLImageElement>("img");
+            if (thumbnail) {
+                if (typeof match.img === "string") {
+                    thumbnail.src = game.pf2e.system.moduleArt.map.get(match.uuid)?.img ?? match.img;
+                } else if (match.documentType === "JournalEntry") {
+                    thumbnail.src = "icons/svg/book.svg";
+                }
             }
 
             // Open compendium on result click
@@ -159,13 +161,15 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
             });
 
-            const anchor = li.querySelector("a")!;
-            anchor.innerText = match.name;
-            const details = li.querySelector("span")!;
+            const anchor = li.querySelector("a");
+            const details = li.querySelector("span");
             const systemType = ["Actor", "Item"].includes(match.documentType)
                 ? game.i18n.localize(`TYPES.${match.documentType}.${match.type}`)
                 : null;
-            details.innerText = systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`;
+            if (anchor && details) {
+                anchor.innerText = match.name;
+                details.innerText = systemType ? `${systemType} (${match.packLabel})` : `(${match.packLabel})`;
+            }
 
             return li;
         });

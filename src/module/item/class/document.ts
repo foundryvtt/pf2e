@@ -70,7 +70,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         super.prepareBaseData();
 
         const { keyAbility } = this.system;
-        keyAbility.selected ??= keyAbility.value.length === 1 ? keyAbility.value[0]! : null;
+        keyAbility.selected ??= keyAbility.value.length === 1 ? keyAbility.value[0] : null;
     }
 
     /** Prepare a character's data derived from their class */

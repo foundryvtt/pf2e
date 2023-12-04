@@ -96,7 +96,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             }
 
             // Create section for list of users targeting a combatant's token
-            const nameHeader = htmlQuery(row, ".token-name h4")!;
+            const nameHeader = htmlQuery(row, ".token-name h4");
+            if (!nameHeader) continue;
             nameHeader.innerHTML = [
                 createHTMLElement("span", { classes: ["name"], children: [nameHeader.innerText] }).outerHTML,
                 createHTMLElement("span", { classes: ["users-targeting"] }).outerHTML,
@@ -132,9 +133,10 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
             // Hide names in the tracker of combatants with tokens that have unviewable nameplates
             if (tokenSetsNameVisibility) {
-                if (!game.user.isGM && !combatant.playersCanSeeName) {
-                    htmlQuery(nameHeader, "span.name")!.innerText = "";
-                    row.querySelector<HTMLImageElement>("img.token-image")?.removeAttribute("title");
+                const nameElement = htmlQuery(nameHeader, "span.name");
+                if (nameElement && !game.user.isGM && !combatant.playersCanSeeName) {
+                    nameElement.innerText = "";
+                    row.querySelector("img.token-image")?.removeAttribute("title");
                 }
 
                 if (game.user.isGM && combatant.actor && combatant.actor.alliance !== "party") {

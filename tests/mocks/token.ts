@@ -16,7 +16,7 @@ export class MockToken {
     }
 
     get id(): string {
-        return this._source._id!;
+        return this._source._id ?? "";
     }
 
     get name(): string {
@@ -31,7 +31,7 @@ export class MockToken {
         changes: EmbeddedDocumentUpdateData,
         context: SceneEmbeddedModificationContext<NonNullable<this["parent"]>> = {},
     ): void {
-        changes["_id"] = this.id;
+        changes._id = this.id;
         this.scene?.updateEmbeddedDocuments("Token", [changes], context);
     }
 }

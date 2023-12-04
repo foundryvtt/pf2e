@@ -1409,7 +1409,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             breakdown,
             notes,
             statements,
-            persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
+            persistent: R.compact(persistentCreated.map((p) => p.system.persistent?.damage.formula)),
             iwr: {
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",

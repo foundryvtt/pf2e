@@ -40,7 +40,7 @@ class SelectItemDialog extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         html.addEventListener("drop", async (event) => {
             const json = event.dataTransfer?.getData("text/plain");

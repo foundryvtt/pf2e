@@ -2,9 +2,9 @@
  * Get a template from the server by fetch request and caching the retrieved result
  * @param path  The web-accessible HTML template URL
  * @param id  An ID to register the partial with.
- * @returns     A Promise which resolves to the compiled Handlebars template
+ * @returns A Promise which resolves to the compiled Handlebars template
  */
-declare function getTemplate(path: string, id?: string): Promise<Function>;
+declare function getTemplate(path: string, id?: string): Promise<(context: object, options?: object) => string>;
 
 /**
  * Load and cache a set of templates by providing an Array of paths

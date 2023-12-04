@@ -90,6 +90,6 @@ declare global {
         }): void;
 
         /** Update the currently default Sheets using a new core world setting */
-        static updateDefaultSheets(setting: {}): void;
+        static updateDefaultSheets(setting: object): void;
     }
 }
