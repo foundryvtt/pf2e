@@ -1,11 +1,5 @@
-import { isObject, tupleHasValue } from "@util";
-import {
-    isFlavoredArithmetic,
-    isSystemDamageTerm,
-    markAsCrit,
-    renderComponentDamage,
-    simplifyTerm,
-} from "./helpers.ts";
+import * as R from "remeda";
+import { isFlavoredArithmetic, isSystemDamageTerm, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -25,14 +19,6 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 Die;
             return simplifyTerm(TermCls.fromData(datum));
         }) as [RollTerm, RollTerm];
-
-        if (
-            this.operator === "*" &&
-            this.operands[0] instanceof NumericTerm &&
-            tupleHasValue([2, 3] as const, this.operands[0].number)
-        ) {
-            markAsCrit(this.operands[1], this.operands[0].number);
-        }
     }
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
@@ -230,6 +216,9 @@ class Grouping extends RollTerm<GroupingData> {
         } else {
             super(termData);
             this.term = childTerm;
+            if (this.#dataIsCriticalDoubling(termData.term)) {
+                this.options.crit = true;
+            }
         }
 
         this._evaluated = termData.evaluated ?? this.term._evaluated ?? true;
@@ -245,13 +234,10 @@ class Grouping extends RollTerm<GroupingData> {
     get dice(): DiceTerm[] {
         if (this.term instanceof DiceTerm) return [this.term];
 
-        if (isObject<{ dice?: unknown }>(this.term) && "dice" in this.term) {
-            const { dice } = this.term;
-            if (Array.isArray(dice) && dice.every((d): d is DiceTerm => d instanceof DiceTerm)) {
-                return dice;
-            }
-        }
-        return [];
+        const childDice = "dice" in this.term ? this.term.dice : null;
+        return Array.isArray(childDice) && childDice.every((d): d is DiceTerm => d instanceof DiceTerm)
+            ? childDice
+            : [];
     }
 
     /** Show a simplified expression if it is known that order of operations won't be lost */
@@ -281,9 +267,12 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     get critImmuneTotal(): number | undefined {
-        return this.term instanceof ArithmeticExpression || this.term instanceof Grouping
-            ? this.term.critImmuneTotal
-            : this.total;
+        const thisTotal = this.total;
+        return typeof thisTotal === "number" && this.options.crit
+            ? thisTotal / 2
+            : this.term instanceof ArithmeticExpression || this.term instanceof Grouping
+              ? this.term.critImmuneTotal
+              : thisTotal;
     }
 
     override get isDeterministic(): boolean {
@@ -300,6 +289,19 @@ class Grouping extends RollTerm<GroupingData> {
 
     get maximumValue(): number {
         return DamageInstance.getValue(this.term, "maximum");
+    }
+
+    /** Whether the data of the child term is a critical hit doubling */
+    #dataIsCriticalDoubling(data: RollTermData): data is ArithmeticExpressionData {
+        return (
+            "operator" in data &&
+            data.operator === "*" &&
+            "operands" in data &&
+            Array.isArray(data.operands) &&
+            data.operands.length === 2 &&
+            data.operands.every((o): o is Record<string, unknown> => R.isObject(o)) &&
+            data.operands[0].number === 2
+        );
     }
 
     protected override async _evaluate(
