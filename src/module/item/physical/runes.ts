@@ -987,7 +987,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
             notes: [
@@ -1135,7 +1135,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
             notes: [
@@ -1143,7 +1143,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
         },
@@ -1360,7 +1360,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
             notes: [
@@ -1436,7 +1436,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     damageType: "vitality",
                     diceNumber: 2,
                     dieSize: "d6",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
             notes: [
@@ -1444,7 +1444,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     outcome: ["criticalSuccess"],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
-                    predicate: ["target:mode:undead"],
+                    predicate: ["target:negative-healing"],
                 },
             ],
         },
