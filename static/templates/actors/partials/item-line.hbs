@@ -81,7 +81,7 @@
     {{#if isContainer}}
         <div class="container-metadata" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
             {{#if isContainer}}
-                <div class="container-capacity {{#if item.containerData.isOverLoaded}}over-limit{{/if}}">
+                <div class="container-capacity {{#if (gt item.percentFull 100)}}over-limit{{/if}}">
                     <span class="container-capacity-bar" style="width:{{item.percentFull}}%"></span>
                     <span class="container-capacity-label">{{localize "PF2E.CapacityBarLabel"}}: {{item.capacity.value}} / {{item.capacity.max}}</span>
                 </div>
