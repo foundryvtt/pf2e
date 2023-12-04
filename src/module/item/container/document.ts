@@ -28,9 +28,11 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         };
     }
 
+    /** The percentage filled of container's bulk capacity: if over 100%, return a value without excess Light units. */
     get percentFull(): number {
         const { value, max } = this.capacity;
-        return Math.floor((value.toLightUnits() / max.toLightUnits()) * 100);
+        const realPercent = Math.floor((value.toLightUnits() / max.toLightUnits()) * 100);
+        return realPercent > 100 ? Math.floor((value.normal / max.normal) * 100) : realPercent;
     }
 
     get bulkIgnored(): Bulk {
