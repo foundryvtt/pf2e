@@ -244,17 +244,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Add an in-memory-only condition to the actor */
     override onApplyActiveEffects(): void {
-        const condition = this.#createInMemoryCondition();
-        if (!condition) return;
-
-        const { actor } = this;
-        condition.rules = condition.prepareRuleElements();
-        for (const rule of condition.rules) {
-            rule.onApplyActiveEffects?.();
-            rule.beforePrepareData?.();
-            actor.rules.push(rule);
-        }
-        actor.conditions.set(condition.id, condition);
+        this.#createInMemoryCondition();
     }
 
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
@@ -334,22 +324,19 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
     }
 
-    #createInMemoryCondition(): ConditionPF2e<ActorPF2e> | null {
-        if (!this.inMemoryOnly || !this.test()) return null;
+    #createInMemoryCondition(): void {
+        if (!this.inMemoryOnly || !this.test()) return;
 
         const validationFailure = "an in-memory-only grant must be a condition";
         const uuid = this.resolveInjectedProperties(this.uuid);
         if (!UUIDUtils.isItemUUID(uuid)) {
-            this.failValidation(validationFailure);
-            return null;
+            return this.failValidation(validationFailure);
         }
 
         const conditionSource = game.pf2e.ConditionManager.conditions.get(uuid)?.toObject();
-        if (!conditionSource) {
-            this.failValidation(validationFailure);
-            return null;
-        }
-        if (this.actor.isImmuneTo(conditionSource.system.slug)) return null;
+        if (!conditionSource) return this.failValidation(validationFailure);
+        const { actor } = this;
+        if (actor.isImmuneTo(conditionSource.system.slug)) return;
 
         for (const alteration of this.alterations) {
             alteration.applyTo(conditionSource);
@@ -366,10 +353,16 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             { parent: this.actor },
         );
 
+        // Follow standard data preparation for embedded conditions
+        actor.conditions.set(condition.id, condition);
         condition.prepareSiblingData();
         condition.prepareActorData();
-
-        return condition;
+        condition.rules = condition.prepareRuleElements();
+        for (const rule of condition.rules) {
+            rule.onApplyActiveEffects?.();
+            rule.beforePrepareData?.();
+            actor.rules.push(rule);
+        }
     }
 
     /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */

@@ -204,7 +204,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         }
     }
 
-    override prepareSiblingData(): void {
+    override prepareSiblingData(this: ConditionPF2e<ActorPF2e>): void {
         if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
 
         // Inactive conditions shouldn't deactivate others
@@ -246,8 +246,6 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Log self in parent's conditions map */
     override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
         super.prepareActorData();
-
-        this.actor.conditions.set(this.id, this);
 
         if (this.active && this.system.persistent) {
             const { damageType } = this.system.persistent;
