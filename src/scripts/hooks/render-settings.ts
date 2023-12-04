@@ -5,7 +5,7 @@ import { ErrorPF2e, createHTMLElement, fontAwesomeIcon } from "@util";
 export const RenderSettings = {
     listen: (): void => {
         Hooks.on("renderSettings", async (_app, $html) => {
-            const html = $html[0]!;
+            const html = $html[0];
             // Additional system information resources
             const systemRow = html.querySelector<HTMLLIElement>(".settings-sidebar li.system");
             const systemInfo = systemRow?.cloneNode(false);

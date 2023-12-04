@@ -118,7 +118,6 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -532,7 +531,6 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -950,7 +948,6 @@ export class ClientBaseActiveEffect<
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -1309,7 +1306,6 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -1668,7 +1664,6 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -2026,7 +2021,6 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -2384,7 +2378,6 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -2742,7 +2735,6 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -3100,7 +3092,6 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -3458,7 +3449,6 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -3817,7 +3807,6 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -4175,7 +4164,6 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -4588,7 +4576,6 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -4946,7 +4933,6 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -5306,7 +5292,6 @@ export class ClientBaseItem<
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -5664,7 +5649,6 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -6023,7 +6007,6 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -6381,7 +6364,6 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -6740,7 +6722,6 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -7158,7 +7139,6 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -7571,7 +7551,6 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -7930,7 +7909,6 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -8288,7 +8266,6 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -8646,7 +8623,6 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -9004,7 +8980,6 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -9363,7 +9338,6 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -9721,7 +9695,6 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -10134,7 +10107,6 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -10547,7 +10519,6 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**
@@ -10905,7 +10876,6 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**

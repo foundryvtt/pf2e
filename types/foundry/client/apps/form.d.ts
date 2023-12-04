@@ -174,7 +174,7 @@ declare global {
         process(form: HTMLFormElement): void;
     }
 
-    interface FormApplicationData<O extends {} = {}> {
+    interface FormApplicationData<O extends object = object> {
         object?: O | object;
         options?: Partial<FormApplicationOptions>;
         title?: string;
@@ -307,7 +307,7 @@ declare global {
         cssClass: string;
         editable: boolean;
         document: TDocument;
-        data: {};
+        data: object;
         limited: boolean;
         options: Partial<DocumentSheetOptions>;
         owner: boolean;

@@ -303,7 +303,7 @@ abstract class CreaturePF2e<
         }
 
         for (const changeEntries of Object.values(this.system.autoChanges)) {
-            changeEntries!.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+            changeEntries?.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
         }
 
         this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;

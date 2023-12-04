@@ -14,7 +14,7 @@ declare global {
     namespace globalThis {
         export import Color = Utils.Color;
 
-        module foundry {
+        namespace foundry {
             export import CONST = Constants;
             export import abstract = Abstract;
             export import data = Data;

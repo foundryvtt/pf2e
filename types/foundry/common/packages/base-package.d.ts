@@ -306,5 +306,4 @@ type PackageLanguageSchema = {
 };
 export type PackageLanguageData = ModelPropsFromSchema<PackageLanguageSchema>;
 export type PackageManifestData = SourceFromSchema<BasePackageSchema>;
-
-export interface ReleaseData {}
+export type ReleaseData = object;

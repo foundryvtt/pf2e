@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemProxyPF2e, type ItemPF2e } from "@item";
 import { TrickMagicItemEntry, traditionSkills } from "@item/spellcasting-entry/trick.ts";
-import { UserPF2e } from "@module/user/index.ts";
-import { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/roll.ts";
@@ -194,7 +194,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         const $html = await super.getHTML();
-        const html = $html[0]!;
+        const html = $html[0];
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
             // Mark each button group with the index in the message's `rolls` array
             htmlQueryAll(html, ".damage-application").forEach((buttons, index) => {

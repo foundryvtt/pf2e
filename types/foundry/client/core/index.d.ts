@@ -1,7 +1,6 @@
 import "./audio.d.ts";
 import "./clipboard.d.ts";
 import "./document-index.d.ts";
-import "./fonts.d.ts";
 import "./game-time.d.ts";
 import "./hooks.d.ts";
 import "./packages.d.ts";

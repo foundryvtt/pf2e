@@ -176,7 +176,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 // The target's resistance was ignored: log it but don't decrease damage
                 instanceApplications.push({
                     category: "resistance",
-                    type: ignoredResistances.find((ir) => ir.test(formalDescription))!.typeLabel,
+                    type: ignoredResistances.find((ir) => ir.test(formalDescription))?.typeLabel ?? "???",
                     adjustment: 0,
                     ignored: true,
                 });

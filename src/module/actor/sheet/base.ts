@@ -1112,9 +1112,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             if (typeof level === "number" && level >= 0) {
                 itemSource.system.level.value = Math.floor(level);
             }
-            const hasCounterBadge = itemSource.type === "effect" && itemSource.system.badge?.type === "counter";
-            if (hasCounterBadge && typeof value === "number") {
-                itemSource.system.badge!.value = value;
+            if (
+                itemSource.type === "effect" &&
+                itemSource.system.badge?.type === "counter" &&
+                typeof value === "number"
+            ) {
+                itemSource.system.badge.value = value;
             }
             itemSource.system.context = context ?? null;
             const originItem = fromUuidSync(context?.origin.item ?? "");

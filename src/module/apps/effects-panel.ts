@@ -1,5 +1,6 @@
-import { ActorPF2e } from "@actor";
-import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
+import { AbstractEffectPF2e } from "@item";
 import type { EffectExpiryType } from "@item/abstract-effect/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -90,7 +91,7 @@ export class EffectsPanel extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // For inline roll links in descriptions
         InlineRollLinks.listen(html, this.actor);

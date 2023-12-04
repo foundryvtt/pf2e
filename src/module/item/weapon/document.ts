@@ -503,7 +503,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
         if (this.isRanged || !thrownTrait) return null;
 
-        const range = Number(/(\d{1,3})$/.exec(thrownTrait)!.at(1)) as WeaponRangeIncrement;
+        const range = Number(/(\d{1,3})$/.exec(thrownTrait)?.at(1)) as WeaponRangeIncrement;
         const newTraits = deepClone(traits);
         newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
         const overlay: DeepPartial<WeaponSource> = {

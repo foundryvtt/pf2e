@@ -602,8 +602,7 @@ export default abstract class Document<
 type MetadataPermission =
     | keyof typeof CONST.USER_ROLES
     | keyof typeof CONST.USER_PERMISSIONS
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    | ((...args: any[]) => boolean);
+    | ((...args: unknown[]) => boolean);
 
 export interface DocumentMetadata {
     name: string;

@@ -37,7 +37,7 @@ export class CriticalHitAndFumbleCards {
             .get<CompendiumCollection<RollTable>>("pf2e.rollable-tables", { strict: true })
             .getDocument(tableId)
             .then((rollTable) => {
-                rollTable!.draw({ displayChat: false }).then((draw) => {
+                rollTable?.draw({ displayChat: false }).then((draw) => {
                     const data: { roll: Roll; messageData: Partial<foundry.documents.ChatMessageSource> } = {
                         roll: draw.roll,
                         messageData: {},
@@ -45,7 +45,7 @@ export class CriticalHitAndFumbleCards {
                     if (automatic && !this.diceSoNice) {
                         data.messageData.sound = undefined;
                     }
-                    rollTable!.toMessage(draw.results, data);
+                    rollTable?.toMessage(draw.results, data);
                 });
             });
     }

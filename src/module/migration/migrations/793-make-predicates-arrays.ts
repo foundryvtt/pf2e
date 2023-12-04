@@ -25,7 +25,7 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
                 Array.isArray(predicate.any) ? { or: predicate.any } : [],
                 Array.isArray(predicate.not)
                     ? predicate.not.length === 1
-                        ? { not: predicate.not[0]! }
+                        ? { not: predicate.not[0] }
                         : { nor: predicate.not }
                     : [],
             ].flat(),

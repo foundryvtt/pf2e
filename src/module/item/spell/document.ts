@@ -209,7 +209,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override get uuid(): ItemUUID {
-        return this.isVariant ? this.original!.uuid : super.uuid;
+        return this.isVariant ? this.original?.uuid ?? super.uuid : super.uuid;
     }
 
     /** Given a slot level, compute the actual level the spell will be cast at */

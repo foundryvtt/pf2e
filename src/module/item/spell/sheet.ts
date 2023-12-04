@@ -112,7 +112,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     override get title(): string {
         return this.item.isVariant
-            ? game.i18n.format("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original!.name })
+            ? game.i18n.format("PF2E.Item.Spell.Variants.SheetTitle", { originalName: this.item.original?.name ?? "" })
             : super.title;
     }
 
@@ -122,7 +122,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         tagify(html.querySelector('input[name="system.traits.traditions"]'), {
             whitelist: CONFIG.PF2E.magicTraditions,
@@ -317,7 +317,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         }
 
         // Handle closing of override spell variant sheets
-        if (this.item.original && this.item.appliedOverlays!.has("override") && !this.rendered) {
+        if (this.item.original && this.item.appliedOverlays?.has("override") && !this.rendered) {
             await this.item.original.overlays.updateOverride(this.item as SpellPF2e<ActorPF2e>, formData);
             return;
         }

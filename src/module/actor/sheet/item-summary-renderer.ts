@@ -190,7 +190,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         const openSummaryIds = expandedSummaryElements.map((el) => el.dataset.itemSummaryId);
 
         const $result = await callback.apply(null);
-        const result = $result[0]!;
+        const result = $result[0];
 
         // Listen to inline rolls before opening the item summaries (to avoid double listeners)
         InlineRollLinks.listen(result, this.sheet.actor);

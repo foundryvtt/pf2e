@@ -267,7 +267,7 @@ function getActionIcon(
     action: string | ActionCost | null,
     fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp",
 ): ImageFilePath | null {
-    if (action === null) return actionImgMap["passive"];
+    if (action === null) return actionImgMap.passive;
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
         .toLowerCase()

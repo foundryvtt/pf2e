@@ -2,8 +2,8 @@ import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { tagify, traitSlugToObject } from "@util";
-import { HazardPF2e } from "./document.ts";
 import { HazardSystemData } from "./data.ts";
+import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
@@ -134,7 +134,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // Tagify the traits selection
         const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');

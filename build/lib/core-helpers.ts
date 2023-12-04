@@ -9,7 +9,7 @@ global.deepClone = <T>(original: T): T => {
     if (original instanceof Date) return new Date(original) as T & Date;
 
     // Unsupported advanced objects
-    if ("constructor" in original && (original as { constructor?: unknown })["constructor"] !== Object) return original;
+    if ("constructor" in original && (original as { constructor?: unknown }).constructor !== Object) return original;
 
     // Other objects
     const clone: Record<string, unknown> = {};

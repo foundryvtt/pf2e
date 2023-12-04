@@ -124,9 +124,11 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                     Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
                 a.frequency.value < a.frequency.max,
         );
-        if (withFrequency.length) {
+        if (withFrequency.length > 0) {
             statements.push(localize("Message.Frequencies"));
-            itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency!.max })));
+            itemUpdates.push(
+                ...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency?.max ?? 0 })),
+            );
         }
 
         // Stamina points

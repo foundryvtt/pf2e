@@ -136,7 +136,6 @@ const genClientBase = (
      * Construct a UUID relative to another document.
      * @param doc The document to compare against.
      */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRelativeUUID(doc: foundry.abstract.Document): string;
 
     /**

@@ -80,7 +80,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         for (const link of htmlQueryAll(html, "[data-action=remove]")) {
             link.addEventListener("click", (event) => {
