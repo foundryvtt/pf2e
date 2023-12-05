@@ -49,11 +49,6 @@ abstract class IWR<TType extends IWRType> {
     }
 
     protected describe(iwrType: IWRException<TType>): PredicateStatement[] {
-        // Non-damaging IWR
-        if (setHasElement(CONDITION_SLUGS, iwrType)) {
-            return ["item:type:condition", `item:slug:${iwrType}`];
-        }
-
         if (isObject(iwrType)) return iwrType.definition;
 
         switch (iwrType) {
@@ -134,6 +129,15 @@ abstract class IWR<TType extends IWRType> {
                         ],
                     },
                 ];
+            case "persistent-damage":
+                return [
+                    {
+                        or: [
+                            "damage:category:persistent",
+                            { and: ["item:type:condition", "item:slug:persistent-damage"] },
+                        ],
+                    },
+                ];
             case "precision":
             case "splash-damage": {
                 const component = iwrType === "splash-damage" ? "splash" : "precision";
@@ -149,6 +153,10 @@ abstract class IWR<TType extends IWRType> {
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
+                }
+
+                if (setHasElement(CONDITION_SLUGS, iwrType)) {
+                    return ["item:type:condition", `item:slug:${iwrType}`];
                 }
 
                 if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
