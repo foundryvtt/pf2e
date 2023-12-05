@@ -5,6 +5,7 @@ import { importDocuments } from "@actor/party/kingdom/helpers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
@@ -14,7 +15,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { signedInteger, tupleHasValue } from "@util";
+import { createHTMLElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { ActorPF2e, type ActorUpdateContext, type HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
@@ -65,6 +66,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
+
+        this.rollOptions.all[`self:trait:${this.system.traits.type}`] = true;
+        this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
     }
 
     /** Run rule elements */
@@ -79,8 +83,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         super.prepareDerivedData();
         this.prepareSynthetics();
 
-        this.rollOptions.all[`self:trait:${this.system.traits.type}`] = true;
-        this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
+        // Clamp consumption to 0
+        this.system.consumption = Math.max(0, this.system.consumption);
 
         this.tactics = new FeatGroup(this, {
             id: "tactics",
@@ -166,6 +170,31 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 this.bonusTactics.assignFeat(tactic);
             }
         }
+    }
+
+    async usePotion(): Promise<void> {
+        const newPotions = Math.max(0, this.system.resources.potions.value - 1);
+        const newHP = Math.min(this.attributes.hp.value + 1, this.attributes.hp.max);
+        await this.update({
+            "system.attributes.hp.value": newHP,
+            "system.resources.potions.value": newPotions,
+        });
+
+        await ChatMessagePF2e.create({
+            speaker: ChatMessagePF2e.getSpeaker({ actor: this as ArmyPF2e, token: this.token }),
+            flavor: createHTMLElement("div", {
+                children: [
+                    createHTMLElement("strong", {
+                        children: [game.i18n.localize("PF2E.Kingmaker.Army.Potions.UsedPotionHeader")],
+                    }),
+                    document.createElement("hr"),
+                ],
+            }).outerHTML,
+            content: createHTMLElement("p", {
+                children: [game.i18n.localize("PF2E.Kingmaker.Army.Potions.UsedPotionContent")],
+            }).outerHTML,
+            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+        });
     }
 
     prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null {

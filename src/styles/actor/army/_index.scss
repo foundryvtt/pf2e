@@ -201,7 +201,7 @@
                 align-items: baseline;
                 display: flex;
                 gap: 0.25rem;
-                span {
+                span:first-child {
                     flex: 1;
                 }
                 input {
@@ -209,16 +209,11 @@
                 }
             }
 
-            .potions {
-                justify-content: center;
-                gap: 1rem;
-            }
-
             .gear {
                 align-items: center;
                 gap: 0.5rem;
-                span {
-                    flex: 1;
+                span.disabled {
+                    opacity: 0.4;
                 }
             }
         }
@@ -272,7 +267,13 @@
                     margin-left: 0.125rem;
                     font-size: 0.8em;
                 }
+            }
+        }
 
+        .toggles {
+            input[type="checkbox"] {
+                width: 1rem;
+                height: 1rem;
             }
         }
 
@@ -386,10 +387,10 @@
         flex-flow: row nowrap;
         justify-content: center;
         i {
-            color: darkgrey;
+            opacity: 0.4;
         }
         .filled {
-            color: black;
+            opacity: 1;
         }
         .split + * {
             margin-left: 0.25rem;

@@ -76,23 +76,15 @@
                 <span>{{localize "PF2E.Kingmaker.Army.RoutThreshold"}}</span>
                 <input type="number" class="{{hitPoints.routThreshold.adjustmentClass}}" data-property="system.attributes.hp.routThreshold" value="{{hitPoints.routThreshold.value}}" data-dtype="Number"/>
             </label>
-            <div class="row potions">
-                {{#if (eq @root.data.resources.potions.value 0)}}
-                    <a data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkErrorNoPotions"}}" class="disabled"><i class="fa-light fa-champagne-glasses"></i></a>
-                {{else if (eq @root.document.hitPoints.value @root.document.hitPoints.max)}}
-                    <a data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkErrorFullHP"}}" class="disabled"><i class="fa-light fa-champagne-glasses"></i></a>
-                {{else}}
-                    <a data-tooltip="{{localize "PF2E.Kingmaker.ArmySheet.Potions.drinkTooltip"}}" data-action="use-potion"><i class="fa-solid fa-champagne-glasses"></i></a>
-                {{/if}}
-                <a class="pips" data-action="change-resource" data-resource="potions">
-                    {{#times @root.data.resources.potions.max as |idx|}}
-                        <i class="{{#if (gt @root.data.resources.potions.value idx)}}fa-regular fa-flask-round-potion filled{{else}}fa-light fa-flask-round-potion empty{{/if}}"></i>
-                    {{/times}}
-                </a>
-                <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipPotion"}}" class="info" data-info="potions">
-                    <i class="fa-regular fa-comment-alt"></i>
-                </a>
-            </div>
+        </section>
+
+        <section class="saves">
+            {{#each saves as |save|}}
+                <div class="save" data-statistic="{{save.slug}}">
+                    <a class="attribute-label rollable" data-tooltip="{{save.breakdown}}">{{localize save.label}}</a>
+                    <input type="text" value="{{numberFormat save.mod decimals=0 sign=true}}" class="modifier adjustable {{save.adjustmentClass}}" data-property="system.saves.{{save.slug}}" data-dtype="Number" placeholder="0" />
+                </div>
+            {{/each}}
         </section>
 
         <section>
@@ -118,21 +110,28 @@
         </section>
 
         <section>
-            <div class="saves">
-                {{#each saves as |save|}}
-                    <div class="save" data-statistic="{{save.slug}}">
-                        <a class="attribute-label rollable" data-tooltip="{{save.breakdown}}">{{localize save.label}}</a>
-                        <input type="text" value="{{numberFormat save.mod decimals=0 sign=true}}" class="modifier adjustable {{save.adjustmentClass}}" data-property="system.saves.{{save.slug}}" data-dtype="Number" placeholder="0" />
-                    </div>
-                {{/each}}
-            </div>
-        </section>
-
-        <section>
             <header>
                 <i class="fa-solid fa-toolbox"></i>
                 <h4>{{localize "PF2E.Kingmaker.Army.Gear.Label"}}</h4>
             </header>
+            <div class="row gear">
+                <span>{{localize "PF2E.Kingmaker.Army.Potions.Label"}}</span>
+                {{#if (eq @root.data.resources.potions.value 0)}}
+                    <span data-tooltip="{{localize "PF2E.Kingmaker.Army.Potions.OutOfPotions"}}" class="disabled"><i class="fa-light fa-champagne-glasses"></i></span>
+                {{else if (gte @root.document.hitPoints.value @root.document.hitPoints.max)}}
+                    <span data-tooltip="{{localize "PF2E.Kingmaker.Army.Potions.FullHP"}}" class="disabled"><i class="fa-light fa-champagne-glasses"></i></span>
+                {{else}}
+                    <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Potions.UsePotion"}}" data-action="use-potion"><i class="fa-solid fa-champagne-glasses"></i></a>
+                {{/if}}
+                <a class="pips" data-action="change-resource" data-resource="potions">
+                    {{#times @root.data.resources.potions.max as |idx|}}
+                        <i class="{{#if (gt @root.data.resources.potions.value idx)}}fa-regular filled{{else}}fa-light empty{{/if}} fa-flask-round-potion"></i>
+                    {{/times}}
+                </a>
+                <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipPotion"}}" class="info" data-info="potions">
+                    <i class="fa-regular fa-comment-alt"></i>
+                </a>
+            </div>
             <div class="row gear">
                 <span>{{localize "PF2E.Kingmaker.Army.Armor"}}</span>
                 <a class="pips" data-action="change-magic-armor">
@@ -226,7 +225,7 @@
                     {{else}}
                         <i class="fa-solid fa-fw fa-bow-arrow"></i>
                     {{/if}}
-                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" />
+                    <input class="name" type="text" name="system.weapons.{{type}}.name" value="{{strike.label}}" placeholder="{{localize (concat "PF2E.Kingmaker.Army.Strikes." type)}}" />
                     {{#each strike.variants as |variant index|}}
                         <button
                             type="button"
