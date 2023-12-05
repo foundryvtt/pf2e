@@ -191,7 +191,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.Automation.Name",
         label: "PF2E.SETTINGS.Automation.Label",
         hint: "PF2E.SETTINGS.Automation.Hint",
-        icon: "fas fa-robot",
+        icon: "fa-solid fa-robot",
         type: AutomationSettings,
         restricted: true,
     });
@@ -213,7 +213,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.Metagame.Name",
         label: "PF2E.SETTINGS.Metagame.Label",
         hint: "PF2E.SETTINGS.Metagame.Hint",
-        icon: "fas fa-brain",
+        icon: "fa-solid fa-brain",
         type: MetagameSettings,
         restricted: true,
     });
@@ -223,7 +223,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.Variant.Name",
         label: "PF2E.SETTINGS.Variant.Label",
         hint: "PF2E.SETTINGS.Variant.Hint",
-        icon: "fas fa-book",
+        icon: "fa-solid fa-book",
         type: VariantRulesSettings,
         restricted: true,
     });
@@ -233,7 +233,7 @@ export function registerSettings(): void {
         name: "PF2E.SETTINGS.Homebrew.Name",
         label: "PF2E.SETTINGS.Homebrew.Label",
         hint: "PF2E.SETTINGS.Homebrew.Hint",
-        icon: "fas fa-beer",
+        icon: "fa-solid fa-beer",
         type: HomebrewElements,
         restricted: true,
     });
@@ -243,7 +243,7 @@ export function registerSettings(): void {
         name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
         label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
         hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
-        icon: "far fa-clock",
+        icon: "fa-regular fa-clock",
         type: WorldClockSettings,
         restricted: true,
     });

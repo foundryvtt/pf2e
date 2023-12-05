@@ -1,18 +1,17 @@
 nav.sheet-navigation {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 20px;
-    background: var(--secondary);
     background:
         url("/assets/sheet/border-pattern.webp") repeat-x top,
         url("/assets/sheet/border-pattern.webp") repeat-x bottom,
         var(--secondary);
-    transition: all 0.1s ease-out;
-    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    height: 1.25rem;
+    justify-content: center;
     position: relative;
+    transition: all 0.1s ease-out;
 
     .panel-title {
         color: var(--text-light);
@@ -29,8 +28,8 @@ nav.sheet-navigation {
     }
 
     .item {
-        height: 24px;
-        width: 24px;
+        height: 1.5rem;
+        width: 1.5rem;
         border-radius: 50%;
         z-index: 1;
         transition: all 0.1s ease-out;
@@ -66,7 +65,7 @@ nav.sheet-navigation {
             background-image: url("/assets/sheet/nav-item.webp");
         }
 
-        .fas {
+        i.fa-solid {
             padding-bottom: 0;
         }
 
@@ -84,16 +83,15 @@ nav.sheet-navigation {
 /** White background navigation with little decorations on the left and right */
 nav.sub-nav {
     @include p-reset;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
     align-items: center;
-    list-style: none;
-
     background-color: var(--bg);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
     flex: 0 0 2.5rem;
+    justify-content: center;
+    list-style: none;
+    width: 100%;
 
     &::before,
     &::after {
@@ -143,5 +141,5 @@ nav.sub-nav {
 }
 
 .tab nav.sub-nav {
-    padding-right: 20px;
+    padding-right: 1.25rem;
 }

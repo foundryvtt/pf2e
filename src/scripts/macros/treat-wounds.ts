@@ -3,7 +3,8 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { fontAwesomeIcon } from "@util";
 
 function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
@@ -76,12 +77,12 @@ ${
 `,
         buttons: {
             yes: {
-                icon: `<i class="fas fa-hand-holding-medical"></i>`,
+                icon: fontAwesomeIcon("hand-holding-medical").outerHTML,
                 label: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
                 callback: ($html) => treat(actor, $html, options.event, domIdAppend),
             },
             no: {
-                icon: `<i class="fas fa-times"></i>`,
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: game.i18n.localize("Cancel"),
             },
         },
