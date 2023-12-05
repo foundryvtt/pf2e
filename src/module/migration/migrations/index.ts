@@ -269,3 +269,4 @@ export { Migration900ClassSpellcastingProficiency } from "./900-class-spellcasti
 export { Migration901ReorganizeBulkData } from "./901-reorganize-bulk-data.ts";
 export { Migration902DuskwoodDawnsilver } from "./902-duskwood-dawnsilver.ts";
 export { Migration903PhysicalNumericData } from "./903-physical-numeric-data.ts";
+export { Migration904UndercommonToSakvroth } from "./904-undercommon-to-sakvroth.ts";
