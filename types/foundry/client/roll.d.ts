@@ -426,10 +426,10 @@ declare global {
         static fromTerms<T extends Roll>(this: ConstructorOf<T>, terms: RollTerm[], options?: RollOptions): T;
     }
 
-    type RollOptions = {
-        [key: string]: unknown;
+    interface RollOptions {
         flavor?: string;
-    };
+        [key: string]: JSONValue;
+    }
 
     interface RollJSON {
         class: string;

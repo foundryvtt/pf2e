@@ -11,18 +11,6 @@ import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
 
 abstract class AbstractDamageRoll extends Roll {
-    /** Ensure the presence and validity of the `critRule` option for this roll */
-    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
-        options.critRule = ((): CriticalDoublingRule => {
-            if (tupleHasValue(["double-damage", "double-dice"] as const, options.critRule)) {
-                return options.critRule;
-            }
-            return game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
-        })();
-
-        super(formula, data, options);
-    }
-
     declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
@@ -52,22 +40,27 @@ abstract class AbstractDamageRoll extends Roll {
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
 
-    constructor(formula: string, data = {}, options: DamageRollDataPF2e = {}) {
+    constructor(formula: string, data = {}, options: DamageRollData = {}) {
         formula = formula.trim();
         const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
         super(wrapped, data, options);
 
         this.roller = game.users.get(options.rollerId ?? "") ?? null;
 
+        if (tupleHasValue(["double-damage", "double-dice"], options.critRule)) {
+            // Ensure same crit rule is present on all instances
+            for (const instance of this.instances) {
+                instance.critRule = options.critRule;
+            }
+        } else {
+            // Prune nullish `critRule` property
+            delete options.critRule;
+        }
+
         if (options.evaluatePersistent) {
             for (const instance of this.instances) {
                 instance.options.evaluatePersistent = true;
             }
-        }
-
-        // Ensure same crit rule is present on all instances
-        for (const instance of this.instances) {
-            instance.options.critRule = this.options.critRule;
         }
     }
 
@@ -316,7 +309,7 @@ class DamageRoll extends AbstractDamageRoll {
 interface DamageRoll extends AbstractDamageRoll {
     constructor: typeof DamageRoll;
 
-    options: DamageRollDataPF2e;
+    options: DamageRollData;
 }
 
 class DamageInstance extends AbstractDamageRoll {
@@ -327,6 +320,8 @@ class DamageInstance extends AbstractDamageRoll {
     persistent: boolean;
 
     materials: Set<MaterialDamageEffect>;
+
+    critRule: CriticalDoublingRule | null = null;
 
     constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
         super(formula.trim(), data, options);
@@ -561,7 +556,7 @@ class DamageInstance extends AbstractDamageRoll {
         const undoubledTotal =
             head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal ?? 0 : this.total;
 
-        if (this.options.critRule === "double-damage") {
+        if (this.critRule === "double-damage") {
             return undoubledTotal;
         } else {
             // Dice doubling for crits is enabled: discard the second half of all doubled dice
@@ -624,10 +619,11 @@ type CriticalDoublingRule = "double-damage" | "double-dice";
 
 interface AbstractDamageRollData extends RollOptions {
     evaluatePersistent?: boolean;
-    critRule?: CriticalDoublingRule;
 }
 
-interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
+interface DamageRollData extends RollDataPF2e, AbstractDamageRollData {
+    /** Whether to double dice or total on critical hits */
+    critRule?: Maybe<CriticalDoublingRule>;
     /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
@@ -642,4 +638,4 @@ interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
 
 type DamageInstanceData = AbstractDamageRollData;
 
-export { DamageInstance, DamageRoll, type DamageRollDataPF2e };
+export { DamageInstance, DamageRoll, type DamageRollData };

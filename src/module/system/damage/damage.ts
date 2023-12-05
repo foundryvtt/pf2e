@@ -6,9 +6,9 @@ import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/ind
 import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { createHTMLElement } from "@util";
-import { DamageRoll, DamageRollDataPF2e } from "./roll.ts";
+import { DamageRoll, DamageRollData } from "./roll.ts";
 import { DamageRollContext, DamageTemplate } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
@@ -151,15 +151,21 @@ export class DamagePF2e {
 
             const rollerId = game.userId;
             const degreeOfSuccess = outcome ? (DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree) : null;
-            const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
+            const critRule =
+                degreeOfSuccess !== DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+                    ? null
+                    : game.settings.get("pf2e", "critRule") === "doubledamage"
+                      ? "double-damage"
+                      : "double-dice";
 
-            const options: DamageRollDataPF2e = {
+            const options: DamageRollData = {
                 rollerId,
                 damage: data,
                 degreeOfSuccess,
-                ignoredResistances: damage.ignoredResistances,
                 critRule,
+                ignoredResistances: damage.ignoredResistances,
             };
+
             return new DamageRoll(formula, {}, options).evaluate({ async: true });
         })();
 
