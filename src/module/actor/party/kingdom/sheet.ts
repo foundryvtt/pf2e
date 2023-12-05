@@ -630,7 +630,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
-        const groupId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
         return typeof groupId === "string" ? { slotId, groupId } : null;
     }
