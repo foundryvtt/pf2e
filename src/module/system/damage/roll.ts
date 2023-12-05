@@ -515,18 +515,21 @@ class DamageInstance extends AbstractDamageRoll {
     override get dice(): DiceTerm[] {
         return this._dice.concat(
             this.terms
-                .reduce((dice: (DiceTerm | never[])[], term) => {
-                    if (term instanceof DiceTerm) {
-                        dice.push(term);
-                    } else if (
-                        term instanceof Grouping ||
-                        term instanceof ArithmeticExpression ||
-                        term instanceof IntermediateDie
-                    ) {
-                        dice.push(...term.dice);
-                    }
-                    return dice;
-                }, this._dice)
+                .reduce(
+                    (dice: (DiceTerm | never[])[], term) => {
+                        if (term instanceof DiceTerm) {
+                            dice.push(term);
+                        } else if (
+                            term instanceof Grouping ||
+                            term instanceof ArithmeticExpression ||
+                            term instanceof IntermediateDie
+                        ) {
+                            dice.push(...term.dice);
+                        }
+                        return dice;
+                    },
+                    [...this._dice],
+                )
                 .flat(),
         );
     }
