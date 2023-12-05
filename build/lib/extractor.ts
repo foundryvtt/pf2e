@@ -460,12 +460,14 @@ class PackExtractor {
                             }
                         }
 
+                        if ("publication" in docSource.system.details) {
+                            const publication: Partial<PublicationData> = docSource.system.details.publication;
+                            if (!publication.authors?.trim()) delete publication.authors;
+                        }
+
                         if (docSource.type === "character") {
                             delete (docSource.system.details.biography as { visibility?: unknown }).visibility;
                         } else if (docSource.type === "npc") {
-                            const publication: Partial<PublicationData> = docSource.system.details.publication;
-                            if (!publication.authors?.trim()) delete publication.authors;
-
                             const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
                             if (!speed.details?.trim()) delete speed.details;
 
