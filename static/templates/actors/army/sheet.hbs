@@ -299,50 +299,70 @@
             </ol>
         </fieldset>
 
-        <fieldset class="tactics">
+        <fieldset data-group-id="{{document.tactics.id}}">
             <legend>
                 <i class="fa-light fa-flag-swallowtail"></i>
                 {{localize "PF2E.Kingmaker.Army.Tactics"}}
-                ({{tactics.length}} / {{document.maxTactics}})
             </legend>
             <ol class="item-list">
-                {{#each tactics as |feat|}}
-                    {{> actionItem action=feat}}
+                {{#each document.tactics.feats as |entry|}}
+                    {{> actionItem action=entry.feat slotId=entry.id}}
                 {{/each}}
             </ol>
         </fieldset>
+
+        {{#if document.bonusTactics.feats.length}}
+            <fieldset>
+                <legend>
+                    <i class="fa-light fa-gift"></i>
+                    {{localize "PF2E.Kingmaker.Army.TacticsFree"}}
+                </legend>
+                <ol class="item-list">
+                    {{#each document.bonusTactics.feats as |entry|}}
+                        {{> actionItem action=entry.feat slotId=entry.id}}
+                    {{/each}}
+                </ol>
+            </fieldset>
+        {{/if}}
     </section>
 </form>
 
 {{#*inline "actionItem"}}
-    <li class="item" data-item-id="{{action._id}}">
-        <div class="icon item-image">
-            <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
-            <i class="fa-solid fa-fw fa-comment-alt"></i>
-        </div>
-        <a class="item-name">
-            <h4>{{action.name}}</h4>
-        </a>
-        {{#if action.system.frequency}}
-            <section class="item-frequency">
-                <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
-                <span>
-                    /
-                    {{action.system.frequency.max}}
-                    {{localize "PF2E.Frequency.per"}}
-                    {{localize (lookup @root.frequencies action.system.frequency.per)}}
-                </span>
-            </section>
-        {{/if}}
-        {{#if @root.options.editable}}
-            <div class="item-controls">
-                <a class="item-control item-edit" data-tooltip="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                {{#if action.granter}}
-                    <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
-                {{else}}
-                    <a class="item-control item-delete" data-tooltip="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
-                {{/if}}
+    {{#if action}}
+        <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
+            <div class="icon item-image">
+                <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
+                <i class="fa-solid fa-fw fa-comment-alt"></i>
             </div>
-        {{/if}}
-    </li>
+            <a class="item-name">
+                <h4>{{action.name}}</h4>
+            </a>
+            {{#if action.system.frequency}}
+                <section class="item-frequency">
+                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <span>
+                        /
+                        {{action.system.frequency.max}}
+                        {{localize "PF2E.Frequency.per"}}
+                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                    </span>
+                </section>
+            {{/if}}
+            {{#if @root.options.editable}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" data-tooltip="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                    {{#if action.granter}}
+                        <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
+                    {{else}}
+                        <a class="item-control item-delete" data-tooltip="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                    {{/if}}
+                </div>
+            {{/if}}
+        </li>
+    {{else}}
+        <li class="item empty" {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
+            <div class="item-icon"></div>
+            <div class="item-name">{{localize "PF2E.EmptySlot"}}</div>
+        </li>
+    {{/if}}
 {{/inline}}

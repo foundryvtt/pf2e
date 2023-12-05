@@ -1,3 +1,4 @@
+import { FeatGroup } from "@actor/character/feats.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { importDocuments } from "@actor/party/kingdom/helpers.ts";
@@ -25,6 +26,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     declare scouting: Statistic;
     declare maneuver: Statistic;
     declare morale: Statistic;
+
+    declare tactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
+    declare bonusTactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
 
     declare strikes: Record<string, ArmyStrike | null>;
 
@@ -77,6 +81,16 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         this.rollOptions.all[`self:trait:${this.system.traits.type}`] = true;
         this.rollOptions.all["self:under-rout-threshold"] = this.underRoutThreshold;
+
+        this.tactics = new FeatGroup(this, {
+            id: "tactics",
+            label: "PF2E.Kingmaker.Army.Tactics",
+            slots: R.range(0, this.maxTactics).map((idx) => ({ id: String(idx), label: "" })),
+        });
+        this.bonusTactics = new FeatGroup(this, {
+            id: "bonus",
+            label: "PF2E.Kingmaker.Army.TacticsFree",
+        });
 
         const expectedAC = ARMY_STATS.ac[this.level];
         const acAdjustment = this.system.ac.value - expectedAC;
@@ -146,6 +160,12 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
             this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
         );
+
+        for (const tactic of this.itemTypes.campaignFeature.filter((i) => i.category === "army-tactic")) {
+            if (!this.tactics.assignFeat(tactic)) {
+                this.bonusTactics.assignFeat(tactic);
+            }
+        }
     }
 
     prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null {
