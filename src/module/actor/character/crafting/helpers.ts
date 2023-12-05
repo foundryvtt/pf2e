@@ -1,12 +1,14 @@
-import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { DegreeOfSuccess } from "@system/degree-of-success.ts";
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
-import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { OneToTen } from "@module/data.ts";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemProxyPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { CheckRoll } from "@system/check/index.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { OneToTen } from "@module/data.ts";
+import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { fontAwesomeIcon } from "@util";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -129,21 +131,21 @@ export async function craftSpellConsumable(
         content,
         buttons: {
             cancel: {
-                icon: '<i class="fa fa-times"></i>',
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: game.i18n.localize("Cancel"),
             },
             craft: {
-                icon: '<i class="fa fa-hammer"></i>',
+                icon: fontAwesomeIcon("hammer").outerHTML,
                 label: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
                 callback: async ($dialog) => {
                     const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);
                     if (!spell?.isOfType("spell")) return;
-                    const item = await createConsumableFromSpell(spell, {
+                    const data = await createConsumableFromSpell(spell, {
                         type: consumableType,
                         heightenedLevel: spellLevel,
                     });
-                    return craftItem(new ConsumablePF2e(item), itemQuantity, actor);
+                    return craftItem(new ItemProxyPF2e(data) as PhysicalItemPF2e, itemQuantity, actor);
                 },
             },
         },
