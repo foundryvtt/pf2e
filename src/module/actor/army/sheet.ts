@@ -125,6 +125,10 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             this.actor.update({ "system.resources.ammunition.value": max });
         });
 
+        htmlQuery(html, "[data-action=use-potion]")?.addEventListener("click", () => {
+            this.actor.usePotion();
+        });
+
         // Handle direct magic armor updates
         for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-armor]")) {
             gearElement.addEventListener("click", () => {
