@@ -1,13 +1,16 @@
+import type { ActorPF2e } from "@actor";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { CampaignFeaturePF2e } from "@item";
+import { CampaignFeaturePF2e, ItemPF2e } from "@item";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { ArmyPF2e } from "./document.ts";
-import { Alignment } from "./types.ts";
+import type { ArmyPF2e } from "./document.ts";
+import type { Alignment } from "./types.ts";
 import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
 
 class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
@@ -68,7 +71,6 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 }),
                 (s) => s.label,
             ),
-            tactics: campaignFeatures.filter((f) => f.category === "army-tactic"),
             warActions: campaignFeatures.filter((f) => f.category === "army-war-action"),
         };
     }
@@ -187,6 +189,54 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             });
         }
     }
+
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasItemDataPF2e,
+    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+        const item = await ItemPF2e.fromDropData(data);
+        if (!item) throw ErrorPF2e("Unable to create item from drop data!");
+
+        // If the actor is the same, call the parent method, which will eventually call the sort instead
+        if (this.actor.uuid === item.parent?.uuid) {
+            return super._onDropItem(event, data);
+        }
+
+        if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
+            const slotData = this.#getFeatSlotData(event) ?? { groupId: "bonus", slotId: null };
+            const group = slotData.groupId === "tactics" ? this.actor.tactics : this.actor.bonusTactics;
+            return group.insertFeat(item, slotData.slotId);
+        }
+
+        return super._onDropItem(event, data);
+    }
+
+    /** Handle a drop event for an existing Owned Item to sort that item */
+    protected override async _onSortItem(
+        event: ElementDragEvent,
+        itemSource: ItemSourcePF2e,
+    ): Promise<ItemPF2e<ArmyPF2e>[]> {
+        const item = this.actor.items.get(itemSource._id!);
+        if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
+            // In the army sheet, dragging outside the slot immediately makes it a bonus slot
+            const featSlot = this.#getFeatSlotData(event) ?? { groupId: "bonus", slotId: null };
+            const group = featSlot.groupId === "tactics" ? this.actor.tactics : this.actor.bonusTactics;
+            const resorting = item.group === group && !group?.slotted;
+            if (group?.slotted && !featSlot.slotId) {
+                return [];
+            } else if (!resorting) {
+                return group.insertFeat(item, featSlot.slotId);
+            }
+        }
+
+        return super._onSortItem(event, itemSource);
+    }
+
+    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
+        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+        return typeof groupId === "string" ? { slotId, groupId } : null;
+    }
 }
 
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
@@ -206,7 +256,6 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
     armyTypes: Record<string, string>;
     rarityTraits: Record<string, string>;
     saves: ArmySaveSheetData[];
-    tactics: CampaignFeaturePF2e[];
     warActions: CampaignFeaturePF2e[];
 }
 
