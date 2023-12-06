@@ -32,13 +32,13 @@
         </select>
     </div>
     <div class="form-group">
-        <label id="{{item.uuid}}-range">
+        <label for="{{item.uuid}}-range">
             {{localize "PF2E.TraitRange"}}
             {{#if mandatoryMelee}}
                 <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Weapon.MandatoryMelee"></i>
             {{/if}}
         </label>
-        <select name="system.range" data-dtype="Number" {{disabled mandatoryMelee}}>
+        <select name="system.range" id="{{item.uuid}}-range" data-dtype="Number" {{disabled mandatoryMelee}}>
             {{#select item._source.system.range}}
                 {{#unless mandatoryRanged}}<option value="">{{localize "PF2E.Item.Weapon.NoRangeMelee"}}</option>{{/unless}}
                 {{#each weaponRanges as |label range|}}
