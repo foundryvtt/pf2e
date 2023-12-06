@@ -78,12 +78,19 @@
         </div>
 
         {{!-- Divine Font --}}
-        <div class="form-group">
+        <div class="form-group fonts">
             <label>{{localize "PF2E.Item.Deity.DivineFont.Label"}}</label>
-            <div class="checkbox-pair">
+            <div class="form-fields">
                 {{#each divineFonts as |font|}}
-                    <span>{{font.label}}</span>
-                    <input type="checkbox" name="system.font" value="{{font.value}}" data-dtype="String" {{checked font.selected}} />
+                    <label for="{{fieldIdPrefix}}font-{{font-value}}">{{font.label}}</label>
+                    <input
+                        type="checkbox"
+                        name="system.font"
+                        id="{{fieldIdPrefix}}font-{{font-value}}"
+                        value="{{font.value}}"
+                        data-dtype="String"
+                        {{checked font.selected}}
+                    />
                 {{/each}}
             </div>
         </div>
