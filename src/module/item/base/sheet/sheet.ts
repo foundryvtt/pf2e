@@ -200,10 +200,11 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         });
 
         // Second pass, if any unmatched rule has a form in the exact position that fits, reuse that one
-        // This handles the "frequent updates" case that would desync the other one
-        for (const rule of processedRules.filter((p) => !p.existing)) {
-            const existing = this.#ruleElementForms[rule.options.index];
-            if (existing instanceof rule.FormClass && !processedRules.some((r) => r.existing === existing)) {
+        // We have to account for re-ordering when fetching the existing form
+        for (const rule of processedRules.filter((r) => !r.existing)) {
+            const existing = this.#ruleElementForms.at(rule.options.index);
+            const alreadyMatched = processedRules.some((r) => r.existing === existing);
+            if (existing?.constructor.name === rule.FormClass.name && !alreadyMatched) {
                 rule.existing = existing;
             }
         }
