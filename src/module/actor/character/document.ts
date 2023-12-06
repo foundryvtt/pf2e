@@ -1326,19 +1326,21 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (isRealItem && weapon.category !== "unarmed") {
             const traitsArray = weapon.system.traits.value;
             const { usage } = weapon.system;
+            const weaponAsShield = weapon.shield;
             const canWield2H =
                 usage.hands === 2 ||
-                (usage.hands === 1 && this.handsFree > 0 && !traitsArray.includes("free-hand")) ||
+                (usage.hands === 1 && this.handsFree > 0 && !!weaponAsShield) ||
                 traitsArray.some((t) => t.startsWith("fatal-aim")) ||
                 traitsArray.some((t) => t.startsWith("two-hand"));
 
             switch (weapon.carryType) {
                 case "held": {
-                    if (weapon.shield) {
-                        const hasGreaterCover = !!weapon.actor.rollOptions.all["self:cover-level:greater"];
-                        if (!weapon.shield.isRaised) {
+                    if (weaponAsShield) {
+                        const hasShieldRaised = !!this.rollOptions.all["self:effect:raise-a-shield"];
+                        const hasGreaterCover = !!this.rollOptions.all["self:cover-level:greater"];
+                        if (!hasShieldRaised) {
                             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "raise-a-shield" }));
-                        } else if (weapon.shield.isTowerShield) {
+                        } else if (weaponAsShield.isTowerShield && weaponAsShield.isRaised) {
                             const action = hasGreaterCover ? "end-cover" : "take-cover";
                             const annotation = "tower-shield";
                             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action, annotation }));
