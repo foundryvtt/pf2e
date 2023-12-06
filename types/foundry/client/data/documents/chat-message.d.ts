@@ -45,13 +45,16 @@ declare global {
          * @param rollMode The rollMode preference to apply to this message data
          * @returns The modified ChatMessage data with rollMode preferences applied
          */
-        static applyRollMode(chatData: ChatMessage["_source"], rollMode: RollMode): ChatMessage["_source"];
+        static applyRollMode<TData extends DeepPartial<ChatMessage["_source"]>>(
+            chatData: TData,
+            rollMode: RollMode | "roll",
+        ): TData;
 
         /**
          * Update the data of a ChatMessage instance to apply a requested rollMode
          * @param rollMode The rollMode preference to apply to this message data
          */
-        applyRollMode(rollMode: RollMode): void;
+        applyRollMode(rollMode: RollMode | "roll"): void;
 
         /**
          * Attempt to determine who is the speaking character (and token) for a certain Chat Message
