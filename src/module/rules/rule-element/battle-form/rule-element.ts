@@ -363,6 +363,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #prepareStrikes(): void {
         const { synthetics } = this.actor;
         const strikes = this.overrides.strikes ?? {};
+        for (const strike of Object.values(strikes)) {
+            strike.ownIfHigher ??= true;
+        }
 
         const ruleData = Object.entries(strikes).map(([slug, strikeData]) => ({
             key: "Strike",
@@ -405,9 +408,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         }
 
         this.actor.system.actions = this.actor
-            .prepareStrikes({
-                includeBasicUnarmed: this.ownUnarmed,
-            })
+            .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
             .filter((a) => (a.slug && a.slug in strikes) || (this.ownUnarmed && a.item.category === "unarmed"));
         const strikeActions = this.actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
