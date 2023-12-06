@@ -128,9 +128,11 @@
                         <i class="{{#if (gt @root.data.resources.potions.value idx)}}fa-regular filled{{else}}fa-light empty{{/if}} fa-flask-round-potion"></i>
                     {{/times}}
                 </a>
-                <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipPotion"}}" class="info" data-info="potions">
-                    <i class="fa-regular fa-comment-alt"></i>
-                </a>
+                {{#if document.kingdom}}
+                    <a data-action="show-gear" data-gear="potions" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
+                        <i class="fa-regular fa-comment-alt"></i>
+                    </a>
+                {{/if}}
             </div>
             <div class="row gear">
                 <span>{{localize "PF2E.Kingmaker.Army.Armor"}}</span>
@@ -139,9 +141,11 @@
                         <i class="{{#if (gt @root.data.ac.potency this)}}fa-regular fa-shield filled{{else}}fa-light fa-shield empty{{/if}}"></i>
                     {{/times}}
                 </a>
-                <a data-tooltip="Magic Armor Info" class="info" data-info="armor">
-                    <i class="fa-regular fa-comment-alt"></i>
-                </a>
+                {{#if document.kingdom}}
+                    <a data-action="show-gear" data-gear="armor" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
+                        <i class="fa-regular fa-comment-alt"></i>
+                    </a>
+                {{/if}}
             </div>
             <div class="row gear">
                 <span>{{localize "PF2E.Kingmaker.Army.Strikes.melee"}}</span>
@@ -153,9 +157,11 @@
                         {{/times}}
                     </span>
                 </a>
-                <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipMelee"}}" class="info" data-info="melee">
-                    <i class="fa-regular fa-comment-alt"></i>
-                </a>
+                {{#if document.kingdom}}
+                    <a data-action="show-gear" data-gear="melee" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
+                        <i class="fa-regular fa-comment-alt"></i>
+                    </a>
+                {{/if}}
             </div>
             <div class="row gear">
                 <span>{{localize "PF2E.Kingmaker.Army.Strikes.ranged"}}</span>
@@ -167,9 +173,11 @@
                         {{/times}}
                     </span>
                 </a>
-                <a data-tooltip="{{localize "PF2E.Kingmaker.Army.Tooltip.tooltipRanged"}}" class="info" data-info="ranged">
-                    <i class="fa-regular fa-comment-alt"></i>
-                </a>
+                {{#if document.kingdom}}
+                    <a data-action="show-gear" data-gear="ranged" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
+                        <i class="fa-regular fa-comment-alt"></i>
+                    </a>
+                {{/if}}
             </div>
         </section>
     </aside>

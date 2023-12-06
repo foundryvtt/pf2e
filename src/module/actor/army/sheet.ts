@@ -4,6 +4,7 @@ import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -11,7 +12,7 @@ import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHas
 import * as R from "remeda";
 import type { ArmyPF2e } from "./document.ts";
 import type { Alignment } from "./types.ts";
-import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
+import { ALIGNMENTS, ARMY_TYPES, getArmyGearData } from "./values.ts";
 
 class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -166,6 +167,36 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                     const newValue = Math.clamped(data.potency - 1, 0, 3);
                     this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
                 }
+            });
+        }
+
+        // Listeners for showing gear purchase chat messages
+        const gearData = getArmyGearData();
+        for (const showGear of htmlQueryAll(html, "[data-action=show-gear]")) {
+            const rawGearType = showGear.dataset.gear;
+            const gearType =
+                tupleHasValue(["melee", "ranged"], rawGearType) && !this.actor.system.weapons[rawGearType]
+                    ? `additional-${rawGearType}`
+                    : rawGearType;
+            if (!objectHasKey(gearData, gearType)) continue;
+
+            const kingmakerTraits: Record<string, string | undefined> = CONFIG.PF2E.kingmakerTraits;
+            const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
+            const descriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
+
+            showGear.addEventListener("click", async () => {
+                const gear = gearData[gearType];
+                ChatMessagePF2e.create({
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: this.actor }),
+                    content: await renderTemplate("systems/pf2e/templates/actors/army/gear-card.hbs", {
+                        ...gear,
+                        level: gear.level ?? (gear.ranks?.length ? `${gear.ranks[0].level}+` : null),
+                        traits: gear.traits.map((t) => ({
+                            label: game.i18n.localize(kingmakerTraits[t] ?? actionTraits[t] ?? t),
+                            description: game.i18n.localize(descriptions[t] ?? ""),
+                        })),
+                    }),
+                });
             });
         }
 
