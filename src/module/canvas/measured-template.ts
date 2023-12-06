@@ -3,7 +3,6 @@ import type { ItemPF2e } from "@item";
 import type { EffectAreaType } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
-import { tupleHasValue } from "@util";
 import { highlightGrid } from "./helpers.ts";
 import type { TemplateLayerPF2e } from "./index.ts";
 
@@ -46,7 +45,7 @@ class MeasuredTemplatePF2e<
 
         this.snapForShape();
         highlightGrid({
-            areaType: tupleHasValue(["burst", "cone", "emanation"], this.areaType) ? this.areaType : "burst",
+            areaType: this.areaType,
             object: this,
             document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },
