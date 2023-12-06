@@ -160,6 +160,7 @@ class AttributeBuilder extends Application {
             buttons,
             remaining,
             labels: this.#getBoostFlawLabels(ancestry.system.boosts),
+            flawLabels: this.#getBoostFlawLabels(ancestry.system.flaws),
             alternate: !!ancestry.system.alternateAncestryBoosts,
         };
 
@@ -564,6 +565,7 @@ interface BoostFlawRow {
 interface AncestryBoosts extends BoostFlawRow {
     alternate: boolean;
     labels: string[];
+    flawLabels: string[];
 }
 
 interface VoluntaryFlaws extends BoostFlawRow {
