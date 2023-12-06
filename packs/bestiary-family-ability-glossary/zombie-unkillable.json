@@ -21,7 +21,24 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Weakness",
+                "mode": "remove",
+                "type": "slashing",
+                "value": 0
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "max(3,@actor.level)"
+            },
+            {
+                "key": "Weakness",
+                "type": "critical-hits",
+                "value": "max(6,@actor.level*2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
