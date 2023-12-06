@@ -15,7 +15,7 @@
     }
 
     .sheet-body {
-        height: calc(100% - 35px);
+        height: calc(100% - 2.25rem);
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -74,14 +74,6 @@
         @import "activations";
         @import "mystification";
         @import "rules";
-
-        label {
-            display: block;
-        }
-
-        input:not(:disabled) {
-            color: var(--color-text-dark-input);
-        }
 
         .mce-panel span {
             display: inherit;
@@ -190,26 +182,27 @@
             > * {
                 flex: 1;
             }
-            > section.sidebar,
-            > .sheet-body {
-                height: calc(100% - 10px);
-                overflow-y: auto;
+
+            label {
+                display: block;
             }
 
-            @import "sidebar";
+            input[type="checkbox"],
+            input[type="number"],
+            input[type="text"],
+            select {
+                background: rgba(255, 255, 255, 0.5);
+                border: 1px solid var(--color-border-light-2);
+            }
 
             input {
-                &[type="text"],
-                &[type="number"] {
-                    border: 1px solid transparent;
-                    height: calc(100% - 2px);
-                    margin: 1px 0;
-                    width: calc(100% - 2px);
-                }
+                color: var(--color-text-dark-input);
+                margin: 1px 0;
+                width: calc(100% - 2px);
             }
 
             select {
-                background: rgba(255, 255, 255, 0.5);
+                font-size: var(--font-size-13);
             }
 
             button,
@@ -221,19 +214,24 @@
                     box-shadow: 0 0 5px var(--secondary);
                 }
             }
+
+            input:disabled,
+            select:disabled {
+                background: rgba(0, 0, 0, 0.05);
+                border: none;
+                color: var(--color-disabled);
+            }
+
+            > section.sidebar,
+            > .sheet-body {
+                height: calc(100% - 10px);
+                overflow-y: auto;
+            }
+
+            @import "sidebar";
         }
 
         .sheet-body {
-            input[type="text"],
-            input[type="number"] {
-                padding: 3px;
-
-                &:not(:disabled) {
-                    background: rgba(255, 255, 255, 0.5);
-                    border: 1px solid var(--color-text-light-5);
-                }
-            }
-
             .tab.active {
                 overflow: hidden scroll;
                 padding-left: 0.5rem;
@@ -333,12 +331,6 @@
                     &.no-sidebar .form-group label {
                         max-width: 12em;
                         white-space: wrap;
-                    }
-
-                    select {
-                        font-size: var(--font-size-12);
-                        height: 1.5rem;
-                        padding-right: 1em;
                     }
 
                     .tags .tag {

@@ -1,8 +1,7 @@
 section.sidebar {
-    flex: 0 0 220px;
+    flex: 0 0 13.75rem;
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-flow: column nowrap;
 
     > * {
         flex: 1;
@@ -10,8 +9,8 @@ section.sidebar {
 
     .item-summary {
         @include serif-condensed;
-        flex: 0 0 28px;
-        line-height: 28px;
+        flex: 0 0 1.5em;
+        line-height: 1.5em;
         text-align: center;
         font-size: var(--font-size-18);
         color: #444;
@@ -32,7 +31,7 @@ section.sidebar {
     .inventory-details,
     .feat-details {
         overflow: hidden scroll;
-        padding: 0 4px 0 0;
+        padding: 0 0.25rem 0 0;
 
         .form-group {
             margin: 3px 0;
@@ -55,26 +54,6 @@ section.sidebar {
             select {
                 max-width: 12em;
             }
-
-            &.longtext {
-                height: fit-content;
-                align-items: start;
-                margin: 0 0 0.5em 0;
-
-                label {
-                    max-width: 6em;
-                    white-space: normal;
-                    line-height: unset;
-                }
-
-                .editor-content {
-                    min-height: 3em;
-                    > p {
-                        font-weight: 400;
-                        margin: 0;
-                    }
-                }
-            }
         }
 
         .price-fields {
@@ -84,12 +63,6 @@ section.sidebar {
                 width: 22px;
             }
         }
-    }
-
-    select {
-        font-family: inherit;
-        font-size: 0.85em;
-        height: 1.8em;
     }
 
     button {
