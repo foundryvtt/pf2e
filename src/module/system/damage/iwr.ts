@@ -136,6 +136,18 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     value: r.getDoubledValue(formalDescription),
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 }));
+            const criticalResistance = resistances.find((r) => r.type === "critical-hits");
+            if (criticalResistance) {
+                applicableResistances.push({
+                    label: criticalResistance.applicationLabel,
+                    value: Math.min(
+                        criticalResistance.getDoubledValue(formalDescription),
+                        instanceTotal - instance.critImmuneTotal,
+                    ),
+                    ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                });
+            }
+
             const precisionResistance = ((): { label: string; value: number; ignored: boolean } | null => {
                 const resistance = precisionDamage > 0 ? resistances.find((r) => r.type === "precision") : null;
                 return resistance

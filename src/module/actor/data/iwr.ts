@@ -70,8 +70,6 @@ abstract class IWR<TType extends IWRType> {
                 return ["item:trait:auditory"];
             case "axe-vulnerability":
                 return ["item:group:axe"];
-            case "critical-hits":
-                return ["damage:component:critical"];
             case "custom":
                 return this.definition ?? [];
             case "damage-from-spells":
