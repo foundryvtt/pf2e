@@ -1,0 +1,211 @@
+{
+    "_id": "hfcFc8cV5wF2evWP",
+    "img": "systems/pf2e/icons/spells/nature-incarnate.webp",
+    "name": "Spell Effect: Nature Incarnate",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Nature Incarnate]</p>\n<p>The primal power of the world flows through you. You transform into an incarnation of nature, either a green man or a kaiju. Your battle form is Medium for a green man or Gargantuan (30-foot-by-30-foot space) for a kaiju. While in this form, you gain the plant trait (for a green man) or the beast trait (for a kaiju). You can Dismiss the spell. You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 25 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>30 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +34, and you use the listed damage. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +36, unless your own is higher. You gain specific abilities based on the incarnation you choose:</li>\n<li><strong>Green Man</strong> Speed 40 feet, climb 40 feet;\n<ul>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> vines (reach 30 feet, versatile P), <strong>Damage</strong> 6d8+12 bludgeoning;</li>\n<li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> thorns (range 100 feet), <strong>Damage</strong> 6d6+6 piercing;</li>\n<li><strong>Green Caress</strong> (aura, primal) 60 feet. Enemies other than plants must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] against your spell DC or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} on a critical failure).</li>\n</ul>\n</li>\n</ul>\n<ul>\n<li><strong>Kaiju</strong>\n<ul>\n<li>Speed 50 feet; resistance 5 to physical damage;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (reach 30 feet), <strong>Damage</strong> 6d10+10 piercing;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> claws (agile, reach 30 feet), <strong>Damage</strong> 6d8+8 slashing;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> foot (agile, reach 15 feet), <strong>Damage</strong> 6d6+10 bludgeoning;</li>\n<li><strong>Unstoppable</strong> You are immune to being @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and ignore difficult terrain and greater difficult terrain;</li>\n<li><strong>Trample</strong> <span class=\"action-glyph\">3</span> You move up to double your Speed and move through the spaces of Huge or smaller creatures, trampling each creature whose space you enter. A trampled creature takes foot damage with a @Check[type:reflex|dc:resolve(@actor.attributes.spellDC.value)|basic:true] save against your spell DC.</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.NatureIncarnate.GreenMan",
+                        "value": "green-man"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.NatureIncarnate.Kaiju",
+                        "value": "kaiju"
+                    }
+                ],
+                "flag": "natureIncarnate",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "nature-incarnate"
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "25 + @actor.level"
+                    },
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "med",
+                    "skills": {
+                        "ath": {
+                            "modifier": 36
+                        }
+                    },
+                    "speeds": {
+                        "climb": 40,
+                        "land": 40
+                    },
+                    "strikes": {
+                        "thorns": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 6,
+                                "die": "d6",
+                                "modifier": 6
+                            },
+                            "maxRange": 100,
+                            "modifier": 34,
+                            "range": 100,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "vine": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 6,
+                                "die": "d8",
+                                "modifier": 12
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "unarmed",
+                                "reach-30",
+                                "versatile-p"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "plant"
+                    ]
+                },
+                "predicate": [
+                    "nature-incarnate:green-man"
+                ]
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "25 + @actor.level"
+                    },
+                    "immunities": [
+                        {
+                            "type": "immobilized"
+                        }
+                    ],
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "grg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 36
+                        }
+                    },
+                    "speeds": {
+                        "land": 50
+                    },
+                    "strikes": {
+                        "claw": {
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 6,
+                                "die": "d8",
+                                "modifier": 8
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "reach-30"
+                            ]
+                        },
+                        "foot": {
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 6,
+                                "die": "d6",
+                                "modifier": 10
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "unarmed",
+                                "agile",
+                                "reach-15"
+                            ]
+                        },
+                        "jaws": {
+                            "baseType": "jaws",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 6,
+                                "die": "d10",
+                                "modifier": 10
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "unarmed",
+                                "reach-30"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "beast"
+                    ]
+                },
+                "predicate": [
+                    "nature-incarnate:kaiju"
+                ]
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "nature-incarnate:green-man"
+                ],
+                "radius": 60,
+                "slug": "green-caress",
+                "traits": [
+                    "primal"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

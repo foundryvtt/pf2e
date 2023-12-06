@@ -1,6 +1,6 @@
-import { Coins, PartialPrice } from "@item/physical/data.ts";
+import type { Coins, PartialPrice } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { getActionGlyph, ordinalString, sluggify } from "../util/index.ts";
+import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
@@ -92,6 +92,13 @@ export function registerHandlebarsHelpers(): void {
 
     Handlebars.registerHelper("isNullish", (value: unknown): boolean => {
         return value === null || value === undefined;
+    });
+
+    Handlebars.registerHelper("signedInteger", (value: unknown, options: Handlebars.HelperOptions): string => {
+        const number = Number(value) || 0;
+        const emptyStringZero = !!options.hash.emptyStringZero;
+        const zeroIsNegative = !!options.hash.zeroIsNegative;
+        return signedInteger(number, { emptyStringZero, zeroIsNegative });
     });
 
     Handlebars.registerHelper("coinLabel", (value: Maybe<Coins | PartialPrice>): CoinsPF2e | null => {

@@ -5,7 +5,6 @@ import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
-import { tupleHasValue } from "@util";
 import type { ScenePF2e } from "./document.ts";
 
 class MeasuredTemplateDocumentPF2e<
@@ -50,10 +49,8 @@ class MeasuredTemplateDocumentPF2e<
         options?: DataModelConstructionOptions<TParent>,
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
-        initialized.flags.pf2e = mergeObject(
-            { areaType: tupleHasValue(["cone", "line"], initialized.t) ? initialized.t : null },
-            initialized.flags.pf2e ?? {},
-        );
+        const areaType = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
+        initialized.flags.pf2e = mergeObject({ areaType }, initialized.flags.pf2e ?? {});
         return initialized;
     }
 
