@@ -128,6 +128,7 @@ export class TemplateLayerPF2e<
                 }
                 lastMove = now;
             },
+            wheelAbortController: new AbortController(),
             mousedown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
                 preview.snapForShape();
@@ -143,7 +144,10 @@ export class TemplateLayerPF2e<
         });
 
         canvas.stage.on("mousemove", listeners.mousemove);
-        canvas.app.view.addEventListener?.("wheel", listeners.wheel);
+        canvas.app.view.addEventListener?.("wheel", listeners.wheel, {
+            passive: false,
+            signal: listeners.wheelAbortController.signal,
+        });
         canvas.stage.once("mousedown", listeners.mousedown);
         canvas.stage.once("rightdown", listeners.rightdown);
     }
@@ -152,9 +156,9 @@ export class TemplateLayerPF2e<
         this._onDragLeftCancel(event);
         if (this.#previewListeners) {
             canvas.stage.off("mousemove", this.#previewListeners.mousemove);
-            canvas.app.view.removeEventListener?.("wheel", this.#previewListeners.wheel);
             canvas.stage.off("mousedown", this.#previewListeners.mousedown);
             canvas.stage.off("rightdown", this.#previewListeners.rightdown);
+            this.#previewListeners.wheelAbortController.abort();
             this.#previewListeners = null;
         }
         if (initialLayer !== this) initialLayer?.activate();
@@ -164,6 +168,7 @@ export class TemplateLayerPF2e<
 interface TemplatePreviewEventListeners {
     mousemove: (event: PIXI.FederatedPointerEvent) => void;
     wheel: (event: Event) => void;
+    wheelAbortController: AbortController;
     mousedown: (event: PIXI.FederatedPointerEvent) => void;
     rightdown: (event: PIXI.FederatedPointerEvent) => void;
 }
