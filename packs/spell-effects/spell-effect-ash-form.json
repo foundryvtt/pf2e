@@ -1,0 +1,56 @@
+{
+    "_id": "zPPZz6lcp87ALUde",
+    "img": "systems/pf2e/icons/spells/ash-form.webp",
+    "name": "Spell Effect: Ash Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ash Form]</p>\n<p>You gain fast healing 3, resistance to piercing and slashing damage, and immunity to bleed and precision damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #185: A Taste of Ashes"
+        },
+        "rules": [
+            {
+                "key": "FastHealing",
+                "value": 3
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "piercing",
+                    "slashing"
+                ],
+                "value": "ternary(gte(@item.level,9),15,10)"
+            },
+            {
+                "key": "Immunity",
+                "type": [
+                    "bleed",
+                    "precision"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
