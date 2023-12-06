@@ -1,5 +1,5 @@
-import { MeasuredTemplatePF2e } from "./measured-template.ts";
-import { TokenPF2e } from "./token/index.ts";
+import type { EffectAreaType } from "@item/spell/types.ts";
+import { TokenPF2e, type MeasuredTemplatePF2e } from "./index.ts";
 
 /**
  * Measure the minimum distance between two rectangles
@@ -310,7 +310,7 @@ function highlightGrid({
 }
 
 interface HighlightGridParams {
-    areaType: "burst" | "cone" | "emanation";
+    areaType: EffectAreaType | null;
     object: MeasuredTemplatePF2e | TokenPF2e;
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };
