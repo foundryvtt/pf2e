@@ -1,3 +1,9 @@
+## 5.10.5
+
+### Bugfixes
+
+-   (stwlam) Fix creation of tags for damage rolls that include ghost touch effect
+
 ## 5.10.4
 
 ### System Improvements
