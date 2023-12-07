@@ -87,8 +87,12 @@ export class DamagePF2e {
                   )
                 : "";
 
-            const runeTags =
-                context.options.has("item:rune:property:ghost-touch") && context.options.has("target:trait:incorporeal")
+            const runeTags = (): string => {
+                const hasGhostTouch = context.options.has("item:rune:property:ghost-touch");
+                const hasAstral =
+                    context.options.has("item:rune:property:astral") ||
+                    context.options.has("item:rune:property:greater-astral");
+                return (hasGhostTouch || hasAstral) && context.options.has("target:trait:incorporeal")
                     ? toTags(["ghost-touch"], {
                           labels: { "ghost-touch": "PF2E.WeaponPropertyRune.ghostTouch.Name" },
                           descriptions: { "ghost-touch": "PF2E.WeaponPropertyRune.ghostTouch.Note" },
@@ -96,6 +100,7 @@ export class DamagePF2e {
                           dataAttr: "slug",
                       })
                     : "";
+            };
 
             const properties = ((): string => {
                 const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;

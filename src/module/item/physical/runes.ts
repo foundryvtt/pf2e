@@ -931,6 +931,9 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "astral",
         traits: ["magical", "spirit"],
+        damage: {
+            dice: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
+        },
     },
     authorized: {
         level: 3,
@@ -1338,6 +1341,10 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "greaterAstral",
         traits: ["magical", "spirit"],
+        damage: {
+            dice: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
+            ignoredResistances: [{ type: "spirit", max: null }],
+        },
     },
     greaterBloodbane: {
         level: 13,
