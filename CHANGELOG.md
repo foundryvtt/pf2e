@@ -3,7 +3,7 @@
 ### System Improvements
 
 -   (Drental) Integrate new Magic Hands rules into Treat Wounds macro
--   (stwlam) Add suport for persistent-damage resistance/weakness, resistance to critical hits
+-   (stwlam) Add support for persistent-damage resistance/weakness, resistance to critical hits
 
 ### Bugfixes
 
