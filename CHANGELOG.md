@@ -1,3 +1,47 @@
+## 5.10.4
+
+### System Improvements
+
+-   (Drental) Integrate new Magic Hands rules into Treat Wounds macro
+-   (stwlam) Add suport for persistent-damage resistance/weakness, resistance to critical hits
+
+### Bugfixes
+
+-   (stwlam) Declare containers over capacity only when over 100% full in Bulk units
+-   (stwlam) Fix issue causing PC strike popouts to fail to open
+-   (stwlam) Prevent multiple instances of persistent damage of a common type to roll damage
+-   (stwlam) Fix targeting hazards with spell attacks and skill checks
+-   (stwlam) Fix issue preventing battle forms from using a PC's own attack modifier if higher
+-   (stwlam) Fix processing of critical hits immunity
+-   (Supe) Fix kingdom feat slot drag/drop
+-   (Supe) Fix RE form not reverting to base form type when the RE key changes
+
+### Data Updates
+
+-   (Abaddon) Include ammunition type in descriptions of ghost and penetrating ammunition
+-   (Abaddon) Fix malformed HTML in descriptions of arsenic, beacon shot, explosive ammunition
+-   (azrazalea) Add edicts and anathema formatted text fields to actor bio
+-   (Daniel-V) Add strength modifier addition/upgrade to Assume Earth's Mantle stance
+-   (Dire Weasel) Add automation for Horns of Naraga, Sacred Armaments, and (zombie abilities) Unholy Speed and Unkillable
+-   (Dire Weasel) Add effects for Ash Form, Forcible Energy, Oil of Keen Edges, and Undying Ferocity
+-   (Dire Weasel) Add token light to Vine of Roses
+-   (Dire Weasel) Add spell link to Medusa's Scream and clean up description
+-   (Dire Weasel) Fix immunities and resistances of Titanic Flytrap
+-   (Dire Weasel) Fix inline roll for Brutal Bully and Overpowering Charge and emit note on critical success
+-   (Dire Weasel) Fix Stealth DC and add trap trait to Rusty Grate Pit
+-   (Dire Weasel) Update Monstrosity Form for remaster
+-   (Dire Weasel) Brush up automation for Axe of the Dwarven Lords
+-   (GorgoPrimus) Update Lamashtu deity with new description from PC1
+-   (InfamousSky) Fix Einherji shield HP
+-   (Jesse) Update Heal Animal spell with new description from PC1
+-   (rectulo) Change prerequisites in Garland spell
+-   (stwlam) Add decaying and raiment to property rune options
+-   (stwlam) Lower intensity of Latern of Empty Light's token light RE
+-   (stwlam) Migrate instances of "undercommon" to "sakvroth"
+-   (stwlam) Remove Aligned Oil, Axiomatic & Anarchic rune items
+-   (stwlam) Relax predicates on runes targeting undead to affect anything with void healing
+-   (Tikael) Update implementation of Rogue debilitations, add effect or precise debilitations
+
 ## 5.10.3
 
 ### Bugfixes
@@ -24,8 +68,8 @@
 -   (avagdu) Fix broken action macro link in Disarm Action
 -   (avagdu) Refresh Rations on Level 1 Kyra
 -   (avagdu) Update Many Action Macros with Remaster Text
--   (Desire Weasel) Add effect for Staff of Illumination
--   (Desire Weasel) Add resistance to Aeon Stone (Preserving)
+-   (Dire Weasel) Add effect for Staff of Illumination
+-   (Dire Weasel) Add resistance to Aeon Stone (Preserving)
 -   (stwlam) Ensure some physical-item data is numeric
 -   (stwlam) Fix bulk of Spacious Pouches
 -   (stwlam) Fix rule element on Emblazon Armament (Shield) effect
