@@ -37,8 +37,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (this.inMemoryOnly) {
             this.reevaluateOnUpdate = true;
             this.allowDuplicate = true;
-        } else if (this.reevaluateOnUpdate) {
-            this.allowDuplicate = false;
+        } else {
+            if (this.reevaluateOnUpdate) this.allowDuplicate = false;
+            if (this.item.isOfType("physical")) {
+                this.failValidation("parent item must not be physical");
+            }
         }
 
         this.onDeleteActions = this.#getOnDeleteActions(data);
@@ -55,10 +58,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (this.track) {
             const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
             this.#trackItem(grantedItem);
-        }
-
-        if (this.item.isOfType("physical")) {
-            this.failValidation("parent item must not be physical");
         }
     }
 
