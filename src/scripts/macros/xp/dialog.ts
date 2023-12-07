@@ -1,5 +1,5 @@
 import { ActorPF2e, HazardPF2e } from "@actor";
-import { htmlQuery } from "@util";
+import { fontAwesomeIcon, htmlQuery } from "@util";
 import type { XPCalculation } from "./index.ts";
 
 function getHazards(actors: ActorPF2e[]): HazardPF2e[] {
@@ -159,11 +159,11 @@ function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void 
         content: askLevelPopupTemplate,
         buttons: {
             no: {
-                icon: '<i class="fas fa-times"></i>',
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: "Cancel",
             },
             yes: {
-                icon: '<i class="fas fa-calculator"></i>',
+                icon: fontAwesomeIcon("calculator").outerHTML,
                 label: "Calculate XP",
                 callback: ($html) => {
                     const html = $html[0];

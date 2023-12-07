@@ -37,7 +37,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
 
         const parties = R.sortBy(
-            this.documents.filter((a): a is PartyPF2e<null> => a instanceof PartyPF2e && a !== activeParty),
+            this.documents.filter((a): a is PartyPF2e<null> => a.isOfType("party") && a !== activeParty),
             (p) => p.sort,
         );
 
@@ -106,7 +106,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                 event.stopPropagation();
                 const documentId = htmlClosest(createMemberLink, "[data-document-id]")?.dataset.documentId;
                 const party = game.actors.get(documentId ?? "");
-                if (!(party instanceof PartyPF2e)) return;
+                if (!party?.isOfType("party")) return;
 
                 const button = event.currentTarget as HTMLElement;
                 const actor = await ActorPF2e.createDialog(
@@ -130,7 +130,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             const createPartyLink = htmlQuery(header, "a[data-action=create-party]");
             createPartyLink?.addEventListener("click", async (event) => {
                 event.stopPropagation();
-                const actor = await PartyPF2e.create({ type: "party", name: "New Party" });
+                const actor = await ActorPF2e.create({ type: "party", name: "New Party" });
                 actor?.sheet.render(true);
 
                 const header = htmlClosest(createPartyLink, ".folder-like");
@@ -277,15 +277,15 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         const options = super._getEntryContextOptions();
         options.push({
             name: "PF2E.Actor.Party.Sidebar.RemoveMember",
-            icon: '<i class="fas fa-bus"></i>',
+            icon: fontAwesomeIcon("bus").outerHTML,
             condition: ($li) => $li.closest(".party").length > 0 && !$li.closest(".party-header").length,
             callback: ($li) => {
                 const actorId = $li.data("document-id");
                 const partyId = $li.closest(".party").data("document-id");
                 const actor = game.actors.get(actorId ?? "");
                 const party = game.actors.get(partyId ?? "");
-                if (actor instanceof ActorPF2e && party instanceof PartyPF2e) {
-                    party.removeMembers(actor.uuid as ActorUUID);
+                if (actor && party instanceof PartyPF2e) {
+                    party.removeMembers(actor.uuid);
                 }
             },
         });

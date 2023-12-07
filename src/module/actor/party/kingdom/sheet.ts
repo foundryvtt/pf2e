@@ -104,7 +104,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
                     const users = game.users.filter((u) => !u.isSelf);
                     game.socket.emit("system.pf2e", {

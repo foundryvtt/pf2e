@@ -19,7 +19,7 @@
                 border: 1px solid var(--sidebar-title);
                 display: flex;
                 flex-direction: column;
-                padding: 10px 4px 0;
+                padding: 0.625rem 0.25rem 0;
                 position: relative;
                 width: min-content;
                 z-index: 0;
@@ -29,7 +29,7 @@
                     input[type="number"] {
                         font-size: var(--font-size-32);
                         letter-spacing: -1px;
-                        height: 32px;
+                        height: 2rem;
                     }
                 }
             }
@@ -56,16 +56,18 @@
     }
     .hp-small {
         display: flex;
+        gap: 0.125rem;
         justify-content: space-evenly;
-        margin: 8px 2px 0 2px;
+        margin: 0.5rem 0.125rem 0 0.125rem;
         text-align: center;
-        gap: 2px;
+
         h4,
         label {
             @include micro;
         }
-        .far,
-        .fas {
+
+        i.fa-regular,
+        i.fa-solid {
             color: var(--text-light);
         }
     }

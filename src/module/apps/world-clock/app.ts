@@ -156,7 +156,7 @@ export class WorldClock extends Application {
                   {
                       label: "PF2E.SETTINGS.Settings",
                       class: "configure-settings",
-                      icon: "fas fa-cog",
+                      icon: "fa-solid fa-cog",
                       onclick: (): void => {
                           const menu = game.settings.menus.get("pf2e.worldClock");
                           if (!menu) throw ErrorPF2e("PF2e System | World Clock Settings application not found");

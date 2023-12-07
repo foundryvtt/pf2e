@@ -1,7 +1,6 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
     <p class="instructions">{{localize instructions}}</p>
     {{#each settings as |setting|}}
-        <!-- {{setting.key}} -->
         <div class="form-group">
             <label for="{{setting.key}}">{{localize setting.name}}</label>
             <div class="form-fields">
@@ -22,10 +21,10 @@
     {{/each}}
     <div class="form-group buttons">
         <button type="submit">
-            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+            <i class="fa-regular fa-save"></i> {{localize "SETTINGS.Save"}}
         </button>
         <button type="reset" name="reset">
-            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+            <i class="fa-solid fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
         </button>
     </div>
 </form>

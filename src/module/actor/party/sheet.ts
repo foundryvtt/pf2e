@@ -10,6 +10,7 @@ import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -20,7 +21,6 @@ import type { Statistic } from "@system/statistic/index.ts";
 import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -66,7 +66,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
                     const users = game.users.filter((u) => !u.isSelf);
                     game.socket.emit("system.pf2e", {

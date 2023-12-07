@@ -10,7 +10,7 @@
                 {{/unless}}
                 {{action.componentsLabel}}
                 <div class="item-controls">
-                    <a data-action="activation-delete"><i class="fas fa-trash"></i></a>
+                    <a data-action="activation-delete"><i class="fa-solid fa-trash"></i></a>
                 </div>
             </header>
 
@@ -64,7 +64,7 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <a data-action="activation-frequency-delete"><i class="fas fa-times"></i></a>
+                        <a data-action="activation-frequency-delete"><i class="fa-solid fa-times"></i></a>
                     </div>
                 {{else}}
                     <span class="frequency empty">
@@ -77,7 +77,7 @@
             <div class="tags">
                 <label>
                     {{localize "PF2E.TraitsLabel"}}
-                    <a class="tag-selector" data-tag-selector="basic" data-config-types="actionTraits" data-property="{{base}}.traits"><i class="fas fa-edit"></i></a>
+                    <a class="tag-selector" data-tag-selector="basic" data-config-types="actionTraits" data-property="{{base}}.traits"><i class="fa-solid fa-edit"></i></a>
                 </label>
                 {{#each traits as |trait|}}
                     <div class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</div>
@@ -88,5 +88,5 @@
             <input type="hidden" name="{{base}}.description.value" value="{{action.description.value}}"/>
         </div>
     {{/each}}
-    <button type="button" data-action="activation-add"><i class="fas fa-plus"></i>{{localize "PF2E.Item.Activation.Add"}}</button>
+    <button type="button" data-action="activation-add"><i class="fa-solid fa-plus"></i>{{localize "PF2E.Item.Activation.Add"}}</button>
 </section>
