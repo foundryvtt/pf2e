@@ -60,17 +60,13 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-            const critImmunityApplies =
-                isCriticalSuccess && !!critImmunity?.test([...formalDescription, "damage:component:critical"]);
-            const critImmuneTotal =
-                critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
-                    ? instance.critImmuneTotal
-                    : instanceTotal;
+            const critImmuneTotal = isCriticalSuccess ? instance.critImmuneTotal : instanceTotal;
 
             const instanceApplications: IWRApplication[] = [];
 
             // If the total was undoubled, log it as an immunity application
-            if (critImmunity && critImmuneTotal < instanceTotal) {
+            const critImmunityApplies = critImmunity && critImmuneTotal < instanceTotal;
+            if (critImmunityApplies) {
                 instanceApplications.push({
                     category: "immunity",
                     type: critImmunity.label,
@@ -137,12 +133,12 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 }));
             const criticalResistance = resistances.find((r) => r.type === "critical-hits");
-            if (criticalResistance) {
+            if (criticalResistance && critImmuneTotal < instanceTotal) {
                 applicableResistances.push({
                     label: criticalResistance.applicationLabel,
                     value: Math.min(
                         criticalResistance.getDoubledValue(formalDescription),
-                        instanceTotal - instance.critImmuneTotal,
+                        instanceTotal - critImmuneTotal,
                     ),
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 });
