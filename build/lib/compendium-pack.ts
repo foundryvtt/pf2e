@@ -302,15 +302,9 @@ class CompendiumPack {
             .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);
     }
 
-    #sourceIdOf(
-        documentId: string,
-        { packId = this.packId, docType }: { packId?: string; docType: "Actor" },
-    ): CompendiumActorUUID;
-    #sourceIdOf(
-        documentId: string,
-        { packId = this.packId, docType }: { packId?: string; docType: "Item" },
-    ): CompendiumItemUUID;
-    #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string;
+    #sourceIdOf(documentId: string, { packId, docType }: { packId?: string; docType: "Actor" }): CompendiumActorUUID;
+    #sourceIdOf(documentId: string, { packId, docType }: { packId?: string; docType: "Item" }): CompendiumItemUUID;
+    #sourceIdOf(documentId: string, { packId, docType }: { packId?: string; docType: string }): string;
     #sourceIdOf(documentId: string, { packId = this.packId, docType }: { packId?: string; docType: string }): string {
         return `Compendium.${this.systemId}.${packId}.${docType}.${documentId}`;
     }
