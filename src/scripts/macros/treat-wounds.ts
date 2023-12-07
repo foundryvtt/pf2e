@@ -4,7 +4,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
-import { fontAwesomeIcon } from "@util";
+import { fontAwesomeIcon, objectHasKey } from "@util";
 
 function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
@@ -105,7 +105,10 @@ async function treat(
     const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        const skillName = objectHasKey(CONFIG.PF2E.skillList, skillSlug)
+            ? game.i18n.localize(CONFIG.PF2E.skillList[skillSlug])
+            : skillSlug;
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skillName }));
         return;
     }
 
