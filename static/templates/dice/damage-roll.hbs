@@ -3,7 +3,7 @@
     <div class="dice-result">
         <div class="dice-formula">{{{formula}}}</div>
         {{{tooltip}}}
-        {{#unless allPersistent}}
+        {{#unless (and allPersistent (not persistentEvaluated))}}
             <h4 class="dice-total">
                 <span class="total"{{#if (isNumber increasedFrom)}} data-tooltip="{{localize "PF2E.Damage.IncreasedFrom" original=increasedFrom}}" data-tooltip-direction="LEFT"{{/if}}>{{total}}
                     {{~#if (isNumber increasedFrom) ~}}
@@ -70,22 +70,26 @@
                 <span class="label">{{localize "PF2E.DamageButton.TripleShort"}}</span>
             </button>
         {{/if}}
-        <button type="button" data-action="shield-block" class="dice-total-shield-btn" title="{{localize "PF2E.DamageButton.ShieldBlock"}}">
-            <i class="fa-solid fa-shield-alt fa-fw"></i>
-            <span class="label">{{localize "PF2E.DamageButton.ShieldBlockShort"}}</span>
-        </button>
-        <button
-            type="button"
-            class="apply-healing"
-            data-action="apply-healing"
-            title="{{localize "PF2E.DamageButton.Healing"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}"
-        >
-            <span class="fa-stack fa-fw">
-                <i class="fa-solid fa-heart fa-stack-2x"></i>
-                <i class="fa-solid fa-plus fa-inverse fa-stack-1x"></i>
-            </span>
-            <span class="label">{{localize "PF2E.DamageButton.HealingShort"}}</span>
-        </button>
+        {{#unless (or allPersistent splashOnly)}}
+            <button type="button" data-action="shield-block" class="dice-total-shield-btn" title="{{localize "PF2E.DamageButton.ShieldBlock"}}">
+                <i class="fa-solid fa-shield-alt fa-fw"></i>
+                <span class="label">{{localize "PF2E.DamageButton.ShieldBlockShort"}}</span>
+            </button>
+        {{/unless}}
+        {{#unless damageOnly}}
+            <button
+                type="button"
+                class="apply-healing"
+                data-action="apply-healing"
+                title="{{localize "PF2E.DamageButton.Healing"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}"
+            >
+                <span class="fa-stack fa-fw">
+                    <i class="fa-solid fa-heart fa-stack-2x"></i>
+                    <i class="fa-solid fa-plus fa-inverse fa-stack-1x"></i>
+                </span>
+                <span class="label">{{localize "PF2E.DamageButton.HealingShort"}}</span>
+            </button>
+        {{/unless}}
     {{/if}}
 </section>
 

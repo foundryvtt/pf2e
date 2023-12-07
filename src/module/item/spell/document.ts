@@ -660,7 +660,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const isAreaEffect = !!this.system.area?.value;
         if (isAreaEffect) options.add("area-effect");
 
-        if (Object.values(this.system.damage).some((d) => d.kinds.has("damage"))) {
+        if (this.damageKinds.has("damage")) {
             options.add("damaging-effect");
             if (isAreaEffect) options.add("area-damage");
         }
