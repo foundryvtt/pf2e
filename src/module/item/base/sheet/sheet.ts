@@ -25,7 +25,7 @@ import {
     htmlQueryAll,
     objectHasKey,
     sluggify,
-    SORTABLE_DEFAULTS,
+    SORTABLE_BASE_OPTIONS,
     sortStringRecord,
     tagify,
     tupleHasValue,
@@ -516,7 +516,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const rules = htmlQuery(html, ".rule-element-forms");
         if (rules) {
             Sortable.create(rules, {
-                ...SORTABLE_DEFAULTS,
+                ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: async (event) => {
                     const currentIndex = event.oldDraggableIndex;

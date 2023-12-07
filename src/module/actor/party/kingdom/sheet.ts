@@ -14,7 +14,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
-    SORTABLE_DEFAULTS,
+    SORTABLE_BASE_OPTIONS,
     createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
@@ -434,7 +434,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
             Sortable.create(settlementList, {
-                ...SORTABLE_DEFAULTS,
+                ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: (event) => {
                     const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;

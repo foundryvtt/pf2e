@@ -448,13 +448,18 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
     return isImageFilePath(path) || isVideoFilePath(path);
 }
 
-const SORTABLE_DEFAULTS: Sortable.Options = {
+const SORTABLE_BASE_OPTIONS: Sortable.Options = {
     animation: 200,
     direction: "vertical",
     dragClass: "drag-preview",
     dragoverBubble: true,
     easing: "cubic-bezier(1, 0, 0, 1)",
+    fallbackOnBody: true,
+    filter: "div.item-summary",
     ghostClass: "drag-gap",
+    group: "inventory",
+    preventOnFilter: false,
+    swapThreshold: 0.25,
 
     // These options are from the Autoscroll plugin and serve as a fallback on mobile/safari/ie/edge
     // Other browsers use the native implementation
@@ -465,7 +470,7 @@ const SORTABLE_DEFAULTS: Sortable.Options = {
 
 export {
     ErrorPF2e,
-    SORTABLE_DEFAULTS,
+    SORTABLE_BASE_OPTIONS,
     addSign,
     applyNTimes,
     configFromLocalization,

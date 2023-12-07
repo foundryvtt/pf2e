@@ -1,7 +1,7 @@
 .inventory {
     --border-color: var(--alt);
 
-    ol:not(.currency) {
+    ul {
         @include p-reset;
         list-style: none;
         display: flex;
@@ -254,7 +254,9 @@
     }
 
     .container-metadata {
-        .container-capacity {
+        flex-basis: 100%;
+
+        .capacity {
             @include micro;
             position: relative;
             background-color: rgba(black, 0.75);
@@ -263,7 +265,7 @@
             display: flex;
             width: 100%;
 
-            .container-capacity-bar {
+            .bar {
                 background-color: var(--secondary);
                 border-radius: 0 2px 2px 0;
                 box-shadow:
@@ -272,7 +274,7 @@
                 padding: 8px 0;
             }
 
-            .container-capacity-label {
+            .label {
                 position: absolute;
                 height: 100%;
                 top: 0;
