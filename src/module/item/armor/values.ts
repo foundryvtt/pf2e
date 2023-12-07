@@ -46,6 +46,7 @@ const ARMOR_PROPERTY_RUNE_TYPES = new Set([
     "moderateDread",
     "portable",
     "quenching",
+    "raiment",
     "ready",
     "rockBraced",
     "shadow",

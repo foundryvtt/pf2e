@@ -782,6 +782,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "quenching",
         traits: ["magical"],
     },
+    raiment: {
+        name: "PF2E.ArmorPropertyRuneRaiment",
+        level: 5,
+        price: 140,
+        rarity: "common",
+        slug: "raiment",
+        traits: ["illusion", "magical"],
+    },
     ready: {
         name: "PF2E.ArmorPropertyRuneReady",
         level: 6,
@@ -1083,6 +1091,32 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "dancing",
         traits: ["magical"],
     },
+    decaying: {
+        damage: {
+            dice: [
+                {
+                    slug: "decaying",
+                    damageType: "void",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                },
+                {
+                    slug: "decaying-persistent",
+                    category: "persistent",
+                    damageType: "void",
+                    diceNumber: 2,
+                    dieSize: "d4",
+                    critical: true,
+                },
+            ],
+        },
+        level: 8,
+        name: "PF2E.WeaponPropertyRune.decaying.Name",
+        price: 500,
+        rarity: "common",
+        slug: "decaying",
+        traits: ["acid", "magical", "void"],
+    },
     deathdrinking: {
         damage: {
             dice: [
@@ -1359,6 +1393,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
+                    damageType: "spirit",
                     diceNumber: 1,
                     dieSize: "d4",
                     predicate: ["target:trait:fiend"],
@@ -1410,6 +1445,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "acid", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
@@ -1434,6 +1470,33 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "uncommon",
         slug: "greaterCrushing",
         traits: ["magical"],
+    },
+    greaterDecaying: {
+        damage: {
+            dice: [
+                {
+                    slug: "decaying",
+                    damageType: "void",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                },
+                {
+                    slug: "decaying-persistent",
+                    category: "persistent",
+                    damageType: "void",
+                    diceNumber: 4,
+                    dieSize: "d4",
+                    critical: true,
+                },
+            ],
+            ignoredResistances: [{ type: "void", max: null }],
+        },
+        level: 15,
+        name: "PF2E.WeaponPropertyRune.greaterDecaying.Name",
+        price: 6500,
+        rarity: "common",
+        slug: "greaterDecaying",
+        traits: ["acid", "magical", "void"],
     },
     greaterDisrupting: {
         damage: {
