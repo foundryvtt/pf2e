@@ -3,7 +3,7 @@ import { CraftingFormula } from "@actor/character/crafting/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, ItemType, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
@@ -26,7 +26,7 @@ import {
 } from "@system/tag-selector/index.ts";
 import {
     ErrorPF2e,
-    SORTABLE_DEFAULTS,
+    SORTABLE_BASE_OPTIONS,
     fontAwesomeIcon,
     htmlClosest,
     htmlQuery,
@@ -39,7 +39,7 @@ import {
 } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import Sortable, { type SortableEvent } from "sortablejs";
+import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
 import {
     ActorSheetDataPF2e,
@@ -78,9 +78,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
-
-    /** Stores data from the Sortable onMove event */
-    #sortableData: { related?: HTMLElement; willInsertAfter?: boolean } = {};
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -551,10 +548,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** DOM listeners for inventory panel */
     protected activateInventoryListeners(panel: HTMLElement | null): void {
+        if (!this.isEditable) return;
         if (this._canDragDrop(".item-list")) {
             this.#activateInventoryDragDrop(panel);
         }
-        if (!this.isEditable) return;
 
         // Links and buttons
         panel?.addEventListener("click", (event) => {
@@ -673,159 +670,86 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Inventory drag & drop listeners */
     #activateInventoryDragDrop(panel: HTMLElement | null): void {
-        const inventoryList = htmlQuery(panel, "section[data-inventory]");
-        if (!inventoryList) return;
-        const sortableOptions: Sortable.Options = {
-            ...SORTABLE_DEFAULTS,
-            filter: "div.item-summary",
-            preventOnFilter: false,
-            scroll: inventoryList,
-            setData: (dataTransfer, dragEl) => {
-                const item = this.actor.inventory.get(htmlQuery(dragEl, "div[data-item-id]")?.dataset.itemId, {
-                    strict: true,
-                });
-                dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
-            },
-            onStart: () => {
-                // Reset move data
-                this.#sortableData = {};
-            },
-            onClone: (event) => {
-                // Cloning sets draggable to false for some reason
-                for (const link of htmlQueryAll(htmlQuery(event.item, "div.item-summary"), "a.content-link")) {
-                    link.draggable = true;
-                }
-            },
-            onMove: (event, originalEvent) => this.#sortableOnMove(event, originalEvent),
-            onEnd: (event) => this.#sortableOnEnd(event),
-        };
+        const section = htmlQuery(panel, "section[data-inventory]");
+        if (!section || !this.isEditable) return;
 
-        for (const list of htmlQueryAll(inventoryList, "ol.inventory-items, ol.item-list")) {
-            const itemTypes = list.dataset.itemTypes?.split(",") ?? [];
-            // Ignore nested container lists that have the same selector. They will be handled by the backpack section
-            if (list.dataset.containerId || !itemTypes) continue;
+        for (const list of htmlQueryAll(section, "ul.inventory-items")) {
+            // const isNested = !!list.dataset.containerId;
+            const options: Sortable.Options = {
+                ...SORTABLE_BASE_OPTIONS,
+                scroll: section,
+                onMove: (event) => this.#onMoveInventoryItem(event),
+                onEnd: (event) => this.#onDropInventoryItem(event),
+            };
 
-            // Containers
-            if (itemTypes.includes("backpack")) {
-                Sortable.create(list, {
-                    ...sortableOptions,
-                    group: {
-                        name: "container",
-                        put: (_to, _from, dragEl) => dragEl.dataset.itemType === "backpack",
-                    },
-                    swapThreshold: 0.2,
-                });
-                // Nested items inside containers
-                for (const subList of htmlQueryAll(list, "ol.container-held-items")) {
-                    Sortable.create(subList, {
-                        ...sortableOptions,
-                        group: {
-                            name: "nested-item",
-                            put: true,
-                        },
-                        swapThreshold: 0.2,
-                    });
-                }
-                continue;
-            }
-
-            // Everything else
-            Sortable.create(list, {
-                ...sortableOptions,
-                group: {
-                    name: itemTypes.join(","),
-                    put: (to, from, dragEl) => {
-                        // Return early if both lists are the same
-                        if (from === to) return true;
-                        // Allow dragging by item type
-                        return R.equals(dragEl.dataset.itemTypes, to.el.dataset.itemTypes);
-                    },
-                },
-            });
+            new Sortable(list, options);
         }
     }
 
     /** Handle dragging of items in the inventory */
-    #sortableOnMove(event: Sortable.MoveEvent, originalEvent: Event): boolean | void | 1 | -1 {
-        // Prevent sorting if editing is disabled
+    #onMoveInventoryItem(event: Sortable.MoveEvent): boolean | 1 {
         if (!this.isEditable) return false;
 
-        // This data is not available in the onEnd event. Store it here.
-        this.#sortableData = {
-            related: event.related,
-            willInsertAfter: event.willInsertAfter,
-        };
-        const sourceItem = this.actor.inventory.get(
-            htmlQuery(event.dragged, "div[data-item-id]")?.dataset.itemId ?? "",
-        );
-        const targetItem = this.actor.inventory.get(
-            htmlClosest(originalEvent.target, "div[data-item-id]")?.dataset.itemId ?? "",
-        );
-        if (sourceItem && targetItem) {
-            if (sourceItem.isOfType("backpack") && targetItem.isOfType("backpack") && targetItem.isCollapsed) {
-                // Allow a container to be dropped on a collapsed container
-                return false;
-            }
-            // Return false to cancel the move animation
-            return !sourceItem.isStackableWith(targetItem);
+        const sourceItem = this.actor.inventory.get(event.dragged?.dataset.itemId ?? "");
+        const targetSection = htmlClosest(event.related, "[data-item-types]")?.dataset.itemTypes?.split(",") ?? [];
+        if (!sourceItem || targetSection.length === 0) return false;
+        if (targetSection.includes(sourceItem.type)) return true;
+
+        if (targetSection.includes("backpack")) {
+            const containerId = htmlClosest(event.related, "ul[data-container-id]")?.dataset.containerId ?? "";
+            const container = this.actor.inventory.get(containerId);
+            if (!container?.isOfType("backpack")) return false;
+
+            const targetItemId = htmlClosest(event.related, "[data-item-id]")?.dataset.itemId ?? "";
+            const targetItem = this.actor.inventory.get(targetItemId);
+            return targetItem?.container === container ? true : 1;
         }
+
+        return false;
     }
 
     /** Handle drop of inventory items */
-    async #sortableOnEnd(event: SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
-        // The item that was dropped
-        const itemId = htmlQuery(event.item, "div[data-item-id]")?.dataset.itemId;
-        const sourceItem = this.actor.inventory.get(itemId, { strict: true });
-
-        // Get the target item if possible. This should only be present if the drop target was a container or a stackable item
-        const targetElement = event.originalEvent?.target instanceof HTMLElement ? event.originalEvent.target : null;
-        const targetItemId = htmlClosest(targetElement, "div[data-item-id]")?.dataset.itemId ?? "";
-        const targetItem = this.actor.inventory.get(targetItemId);
-
-        // Item dragged out of the inventory to some other element like the item sidebar
-        if (!targetItem && !event.from.contains(targetElement) && !event.to.contains(targetElement)) {
-            if (this.isEditable && sourceItem.isInContainer && htmlClosest(targetElement, ".inventory-header")) {
-                // Special case: the item is in a container and was dropped on an inventory header
-                // Construe as intending to remove from container
-                return sourceItem.move({ toContainer: null });
-            }
-
-            // Render the sheet to reset positional changes caused by dragging the item around
-            const itemIsOnlyOneOfType = this.actor.itemTypes[sourceItem.type as ItemType].length === 1;
-            if (event.newIndex !== event.oldIndex || itemIsOnlyOneOfType) {
-                this.render();
-            }
-            return;
-        }
-
-        // Return early if the sheet is not editable
+    async #onDropInventoryItem(event: Sortable.SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
         if (!this.isEditable) return;
+        const inventory = this.actor.inventory;
+        const sourceItem = inventory.get(event.item.dataset.itemId, { strict: true });
+        const itemsInList = htmlQueryAll(htmlClosest(event.item, "ul"), ":scope > li").map((li) =>
+            li.dataset.itemId === sourceItem.id ? sourceItem : inventory.get(li.dataset.itemId, { strict: true }),
+        );
 
-        // Drop target is container item
-        if (targetItem?.isOfType("backpack")) {
-            const toContent = !!htmlClosest(targetElement, "ol[data-container-id]");
-            if (!toContent || targetItem.contents.size === 0) {
-                // Container item was targeted directly or container is empty. Move to container and be done
-                return sourceItem.move({ toContainer: targetItem });
-            }
+        // Determine if the "real" drop target is a stackable item
+        const stackTarget = ((): PhysicalItemPF2e | null => {
+            const targetItemId = htmlClosest(event.originalEvent?.target, "li[data-item-id]")?.dataset.itemId ?? "";
+            const targetItem = this.actor.inventory.get(targetItemId);
+            return targetItem?.isStackableWith(sourceItem) ? targetItem : null;
+        })();
+        if (stackTarget) return sourceItem.move({ toStack: stackTarget });
+
+        // Update container if dropping into one
+        const containerElem = htmlClosest(event.item, "ul[data-container-id]");
+        const containerId = containerElem?.dataset.containerId ?? "";
+        const container = inventory.get(containerId);
+        if (container && !container.isOfType("backpack")) {
+            throw ErrorPF2e("Unexpected non-container retrieved while sorting items");
         }
 
-        // Get the item that the source item was dropped relative to
-        const { related, willInsertAfter } = this.#sortableData;
-        const relativeItemId = htmlQuery(related, "div[data-item-id]")?.dataset.itemId ?? "";
-        const relativeItem = this.actor.inventory.get(relativeItemId);
-
-        if (relativeItem || targetItem) {
-            if (targetItem && !targetItem.isOfType("backpack")) {
-                // A targetItem that is not a container should be stackable with the source item
-                return sourceItem.move({ toStack: targetItem });
-            }
-            // Move source item relative to relativeItem. Containers are handled by the move mehtod
-            return sourceItem.move({
-                relativeTo: relativeItem,
-                sortBefore: !willInsertAfter,
-            });
+        // Perform necessary re-sorting
+        const sourceIndex = itemsInList.indexOf(sourceItem);
+        const targetBefore = itemsInList[sourceIndex - 1];
+        const targetAfter = itemsInList[sourceIndex + 1];
+        const siblings = [...itemsInList];
+        siblings.splice(siblings.indexOf(sourceItem), 1);
+        type SortingUpdate = { _id: string; "system.containerId": string | null; sort?: number };
+        const sortingUpdates: SortingUpdate[] = SortingHelpers.performIntegerSort(sourceItem, {
+            siblings,
+            target: targetBefore ?? targetAfter,
+            sortBefore: !targetBefore,
+        }).map((u) => ({ _id: u.target.id, "system.containerId": container?.id ?? null, sort: u.update.sort }));
+        if (!sortingUpdates.some((u) => u._id === sourceItem.id)) {
+            sortingUpdates.push({ _id: sourceItem.id, "system.containerId": container?.id ?? null });
         }
+
+        await this.actor.updateEmbeddedDocuments("Item", sortingUpdates);
     }
 
     protected async deleteItem(item: ItemPF2e, event?: MouseEvent): Promise<void> {
@@ -1091,8 +1015,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         if (isPhysicalData(itemSource)) {
-            const containerId =
-                htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.itemId?.trim() || null;
+            const containerId = htmlClosest(event.target, "li[data-item-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
                 itemSource.system.containerId = containerId;

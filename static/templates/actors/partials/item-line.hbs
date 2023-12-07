@@ -1,5 +1,10 @@
-<li class="list-row"{{#if item.isInContainer}} data-item-type="{{item.type}}"{{/if}}>
-    <div class="item{{#if item.isTemporary}} temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
+<li
+    class="list-row"
+    data-item-id="{{item.id}}"
+    {{#if isContainer}}data-item-is-container{{/if}}
+    {{#if item.isInContainer}}data-item-type="{{item.type}}"{{/if}}
+>
+    <div class="item{{#if item.isTemporary}} temporary-item{{/if}}">
         <div class="item-name rollable{{#if (and (ne @root.actor.type "loot") (not owner))}} long{{/if}}" data-tooltip-class="pf2e">
             <div class="item-image">
                 <img class="item-icon" src="{{item.img}}" alt="{{item.name}}"/>
@@ -76,23 +81,25 @@
                 {{/if}}
             </div>
         {{/if}}
+
+        {{#if isContainer}}
+            <div class="container-metadata" data-item-id="{{item.id}}" data-item-is-container>
+                {{#if isContainer}}
+                    <div class="capacity {{#if (gt item.percentFull 100)}}over-limit{{/if}}">
+                        <span class="bar" style="width:{{item.percentFull}}%"></span>
+                        <span class="label">{{localize "PF2E.CapacityBarLabel"}}: {{item.capacity.value}} / {{item.capacity.max}}</span>
+                    </div>
+                {{/if}}
+            </div>
+        {{/if}}
     </div>
 
-    {{#if isContainer}}
-        <div class="container-metadata" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
-            {{#if isContainer}}
-                <div class="container-capacity {{#if (gt item.percentFull 100)}}over-limit{{/if}}">
-                    <span class="container-capacity-bar" style="width:{{item.percentFull}}%"></span>
-                    <span class="container-capacity-label">{{localize "PF2E.CapacityBarLabel"}}: {{item.capacity.value}} / {{item.capacity.max}}</span>
-                </div>
-            {{/if}}
-            {{#unless item.isCollapsed}}
-                <ol class="container-held-items inventory-items" data-container-id="{{item.id}}">
-                    {{#each heldItems}}
-                        {{> "systems/pf2e/templates/actors/partials/item-line.hbs" editable=@root.editable user=@root.user owner=@root.owner}}
-                    {{/each}}
-                </ol>
-            {{/unless}}
-        </div>
+
+    {{#if (and isContainer (not item.isCollapsed))}}
+        <ul class="container-held-items inventory-items" data-container-id="{{item.id}}">
+            {{#each heldItems}}
+                {{> "systems/pf2e/templates/actors/partials/item-line.hbs" editable=@root.editable user=@root.user owner=@root.owner}}
+            {{/each}}
+        </ul>
     {{/if}}
 </li>

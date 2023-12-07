@@ -27,10 +27,10 @@
                 </div>
             {{/if}}
         </div>
-        <ol class="inventory-items item-list" data-item-types="{{section.types}}">
+        <ul class="inventory-items item-list" data-item-types="{{section.types}}">
             {{#each section.items}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=this editable=@root.editable owner=@root.owner user=@root.user}}
             {{/each}}
-        </ol>
+        </ul>
     {{/each}}
 </section>
