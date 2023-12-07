@@ -87,7 +87,7 @@ export class DamagePF2e {
                   )
                 : "";
 
-            const runeTags = (): string => {
+            const runeTags = ((): string => {
                 const hasGhostTouch = context.options.has("item:rune:property:ghost-touch");
                 const hasAstral =
                     context.options.has("item:rune:property:astral") ||
@@ -100,7 +100,7 @@ export class DamagePF2e {
                           dataAttr: "slug",
                       })
                     : "";
-            };
+            })();
 
             const properties = ((): string => {
                 const range = item?.isOfType("action", "melee", "weapon") ? item.range : null;
