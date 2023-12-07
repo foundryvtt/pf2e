@@ -240,6 +240,8 @@ class DamageRoll extends AbstractDamageRoll {
         if (!this._evaluated) await this.evaluate({ async: true });
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
         const total = this.total ?? NaN;
+        const damageKinds = this.kinds;
+
         const chatData = {
             formula,
             user: game.user.id,
@@ -248,8 +250,10 @@ class DamageRoll extends AbstractDamageRoll {
             total: isPrivate ? "?" : Math.floor((total * 100) / 100),
             increasedFrom: this.options.increasedFrom,
             splashOnly: !!this.options.splashOnly,
-            healingOnly: !this.kinds.has("damage"),
-            allPersistent: this.instances.every((i) => i.persistent && !i.options.evaluatePersistent),
+            damageOnly: !damageKinds.has("healing"),
+            healingOnly: !damageKinds.has("damage"),
+            allPersistent: this.instances.every((i) => i.persistent),
+            persistentEvaluated: this.instances.some((i) => i.persistent && i.options.evaluatePersistent),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
