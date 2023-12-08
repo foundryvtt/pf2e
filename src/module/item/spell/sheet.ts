@@ -151,6 +151,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
+        // Prevent editing of spell variants' levels
+        if (this.isEditable && this.item.isVariant) {
+            const levelInput = htmlQuery<HTMLInputElement>(html, 'input[name="system.level.value"');
+            if (levelInput) levelInput.readOnly = true;
+        }
+
         tagify(html.querySelector('input[name="system.traits.traditions"]'), {
             whitelist: CONFIG.PF2E.magicTraditions,
         });
