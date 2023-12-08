@@ -51,12 +51,12 @@
         </div>
     </header>
 
-    <nav class="sheet-navigation">
+    <nav class="sheet-tabs">
         {{#if sidebarTemplate}}
-            <h4 class="sidebar-summary">{{sidebarTitle}}</h4>
+            <div class="sidebar-summary">{{sidebarTitle}}</h4>
         {{/if}}
 
-        <h4 class="sheet-tabs tabs" data-tab-container="primary">
+        <div class="tabs" data-tab-container="primary">
             <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
             <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
             {{#if (and isPhysical user.isGM)}}
@@ -65,7 +65,7 @@
             {{#if (and enabledRulesUI (not isVariant))}}
                 <a class="list-row" data-tab="rules">{{localize "PF2E.Item.Rules.Tab"}}</a>
             {{/if}}
-        </h4>
+        </div>
     </nav>
 
     <!-- ITEM SHEET CONTENT -->
