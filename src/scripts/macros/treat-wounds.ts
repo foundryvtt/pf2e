@@ -105,10 +105,10 @@ async function treat(
     const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        const skillName = objectHasKey(CONFIG.PF2E.skillList, skillSlug)
+        const skill = objectHasKey(CONFIG.PF2E.skillList, skillSlug)
             ? game.i18n.localize(CONFIG.PF2E.skillList[skillSlug])
             : skillSlug;
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skillName }));
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skill }));
         return;
     }
 
