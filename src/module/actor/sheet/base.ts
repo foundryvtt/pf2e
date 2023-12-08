@@ -254,7 +254,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         this.activateInventoryListeners(inventoryPanel);
 
         // Item chat cards
-        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
+        for (const element of htmlQueryAll(html, "[data-item-id] .item-image, [data-item-id] .item-chat")) {
             element.addEventListener("click", async (event) => {
                 const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
                 const [item, fromFormula] = (() => {
@@ -558,7 +558,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const link = htmlClosest(event.target, "a[data-action], button[data-action]");
             if (!link) return;
             const getItem = (): PhysicalItemPF2e<ActorPF2e> => {
-                const itemId = htmlClosest(link, ".item")?.dataset.itemId ?? "";
+                const itemId = htmlClosest(link, "[data-item-id]")?.dataset.itemId ?? "";
                 const item = this.actor.items.get(itemId);
                 if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
                 return item;
