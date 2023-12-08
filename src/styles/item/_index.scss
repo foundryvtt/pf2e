@@ -1,79 +1,16 @@
 .pf2e.item.sheet {
     @import "../reset";
-    @import "header";
-
-    a.disabled {
-        cursor: default;
-
-        &:hover {
-            text-shadow: none;
-        }
-
-        &.header-button {
-            color: var(--color-text-light-5);
-        }
-    }
-
-    .sheet-body {
-        height: calc(100% - 2.25rem);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-    }
-
-    &.action form {
-        @import "ability-sheet";
-    }
-
-    &.affliction form {
-        @import "affliction-sheet";
-    }
-
-    &.deity form {
-        @import "deity-sheet";
-    }
-
-    &.effect form {
-        @import "effect-sheet";
-    }
-
-    &.feat form {
-        @import "feat-sheet";
-    }
-
-    &.heritage form {
-        @import "heritage-sheet";
-    }
-
-    &.kit form {
-        @import "kit-sheet";
-    }
-
-    &.melee form {
-        @import "melee-sheet";
-    }
-
-    &.spell form {
-        @import "spell-sheet";
-    }
-
-    &.weapon form {
-        @import "weapon-sheet";
-    }
 
     form {
         display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-        width: 100%;
+        flex-flow: column nowrap;
+        font-family: var(--sans-serif);
         height: 100%;
         overflow: hidden;
+        width: 100%;
 
-        @import "abc-sheet";
-        @import "activations";
-        @import "mystification";
-        @import "rules";
+        @import "header";
+        @import "nav";
 
         .mce-panel span {
             display: inherit;
@@ -127,49 +64,6 @@
             cursor: help;
         }
 
-        > nav {
-            display: flex;
-            align-items: baseline;
-            border-bottom: 1px solid var(--secondary-background);
-            flex: 0 0 30px;
-            line-height: 30px;
-            margin-bottom: 0.5rem;
-
-            a {
-                flex: 1 1 auto;
-            }
-
-            a.active {
-                text-decoration: underline;
-            }
-
-            .sidebar-summary {
-                flex: 0 0 220px;
-                margin: 0;
-                text-align: center;
-            }
-
-            .sheet-tabs {
-                font-weight: 500;
-                margin: 0;
-                flex: 1;
-                align-items: baseline;
-
-                > .list-row {
-                    font-size: var(--font-size-12);
-                    text-align: center;
-
-                    &:last-of-type {
-                        padding-right: 4px;
-                    }
-
-                    &.active {
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
-
         .sheet-content {
             width: 100%;
             display: flex;
@@ -187,18 +81,26 @@
                 display: block;
             }
 
+            input {
+                color: var(--color-text-dark-input);
+            }
+
+            input[type="checkbox"] {
+                margin: 0.25em 0.5em;
+            }
+
+            input[type="number"],
+            input[type="text"] {
+                margin: 1px 0;
+                width: calc(100% - 2px);
+            }
+
             input[type="checkbox"],
             input[type="number"],
             input[type="text"],
             select {
                 background: rgba(255, 255, 255, 0.5);
                 border: 1px solid var(--color-border-light-2);
-            }
-
-            input {
-                color: var(--color-text-dark-input);
-                margin: 1px 0;
-                width: calc(100% - 2px);
             }
 
             select {
@@ -232,6 +134,12 @@
         }
 
         .sheet-body {
+            height: calc(100% - 2.25rem);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
             .tab.active {
                 overflow: hidden scroll;
                 padding-left: 0.5rem;
@@ -589,6 +497,63 @@
                 align-self: center;
             }
         }
+
+        @import "abc-sheet";
+        @import "activations";
+        @import "mystification";
+        @import "rules";
+    }
+
+    a.disabled {
+        cursor: default;
+
+        &:hover {
+            text-shadow: none;
+        }
+
+        &.header-button {
+            color: var(--color-text-light-5);
+        }
+    }
+
+    &.action form {
+        @import "ability-sheet";
+    }
+
+    &.affliction form {
+        @import "affliction-sheet";
+    }
+
+    &.deity form {
+        @import "deity-sheet";
+    }
+
+    &.effect form {
+        @import "effect-sheet";
+    }
+
+    &.feat form {
+        @import "feat-sheet";
+    }
+
+    &.heritage form {
+        @import "heritage-sheet";
+    }
+
+    &.kit form {
+        @import "kit-sheet";
+    }
+
+    &.melee form {
+        @import "melee-sheet";
+    }
+
+    &.spell form {
+        @import "spell-sheet";
+    }
+
+    &.weapon form {
+        @import "weapon-sheet";
     }
 }
 
