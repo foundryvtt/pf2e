@@ -1,19 +1,44 @@
 <section class="tab mystification" data-tab="mystification">
-    <div class="form-group mystification-status">
-        <label for="{{item.uuid}}-mystification-status">{{localize "PF2E.identification.MystificationStatus"}}</label>
-        <div class="form-fields">
-            <select name="system.identification.status" id="{{item.uuid}}-mystification-status">
-                {{#select data.identification.status}}
-                    <option value="identified">{{localize "PF2E.identification.Identified"}}</option>
-                    <option value="unidentified">{{localize "PF2E.identification.Unidentified"}}</option>
-                {{/select}}
-            </select>
+    <fieldset class="basics">
+        <div class="form-group mystification-status">
+            <label for="{{item.uuid}}-mystification-status">{{localize "PF2E.identification.MystificationStatus"}}</label>
+            <div class="form-fields">
+                <select name="system.identification.status" id="{{item.uuid}}-mystification-status">
+                    {{#select data.identification.status}}
+                        <option value="identified">{{localize "PF2E.identification.Identified"}}</option>
+                        <option value="unidentified">{{localize "PF2E.identification.Unidentified"}}</option>
+                    {{/select}}
+                </select>
+            </div>
         </div>
-    </div>
-    <p>{{localize "PF2E.identification.UnidentifiedHint"}}</p>
-    <div class="identification-data unidentified">
-        <img class="mystify-control image-picker" src="{{data.identification.unidentified.img}}" data-edit="system.identification.unidentified.img" title="{{localize PF2E.Item.NameLabel}}" />
-        <input type="text" name="system.identification.unidentified.name" value="{{data.identification.unidentified.name}}" class="mystify-control" title="{{localize PF2E.Item.IconLabel}}" />
-        {{editor enrichedContent.unidentifiedDescription target="system.identification.unidentified.data.description.value" button=true owner=owner editable=editable}}
-    </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize "PF2E.identification.DisplayDetails"}}</legend>
+
+        <div class="form-group identification-data unidentified">
+            <div class="img-name">
+                <img
+                    class="mystify-control image-picker"
+                    src="{{data.identification.unidentified.img}}"
+                    data-edit="system.identification.unidentified.img"
+                />
+                <input
+                    type="text"
+                    name="system.identification.unidentified.name"
+                    value="{{data.identification.unidentified.name}}"
+                    class="mystify-control"
+                />
+            </div>
+
+            {{editor
+                enrichedContent.unidentifiedDescription
+                target="system.identification.unidentified.data.description.value"
+                button=true
+                owner=owner
+                editable=editable}}
+
+            <p class="hint">{{localize "PF2E.identification.UnidentifiedHint"}}</p>
+        </div>
+    </fieldset>
 </section>
