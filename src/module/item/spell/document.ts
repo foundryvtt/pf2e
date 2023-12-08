@@ -1014,60 +1014,72 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const result = await super._preUpdate(changed, options, user);
-        if (result === false) return result;
-
-        const diff = (options.diff ??= true);
-
-        // Ensure level is a positive integer of at least 1
-        if (changed.system?.level) {
-            const { level } = changed.system;
-            level.value = Math.clamped(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
-        }
-
-        // Wipe defense data if `defense.save.statistic` is set to empty string
-        const save: { statistic?: string; basic?: boolean } = changed.system?.defense?.save ?? {};
-        if (changed.system && save.statistic === "") {
-            delete changed.system?.defense;
-            changed.system.defense = null;
-        }
-
-        // Normalize damage data
-        for (const partial of Object.values(changed.system?.damage ?? {})) {
-            if (typeof partial?.category === "string") partial.category ||= null;
-        }
-
-        if (changed.system?.heightening && "levels" in changed.system.heightening) {
-            for (const rank of Object.values(changed.system.heightening.levels ?? {})) {
-                for (const partial of Object.values(rank.damage ?? {})) {
-                    if (typeof partial?.category === "string") partial.category ||= null;
-                }
-            }
-        }
-
-        const uses = changed.system?.location?.uses;
-        if (uses) {
-            const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
-            const currentMax = uses.max ?? this.system.location.uses?.max;
-            uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
-        }
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         // If dragged to outside an actor, location properties should be cleaned up
-        const newLocation = changed.system?.location?.value;
-        const locationChanged = typeof newLocation === "string" && newLocation !== this.system.location.value;
+        const diff = (options.diff ??= true);
+        const newLocation = changed.system.location?.value;
+        const locationChanged = typeof newLocation === "string" && newLocation !== this._source.system.location.value;
         if (diff && (!this.actor || locationChanged)) {
             type SystemSourceWithDeletions = DeepPartial<SpellSystemSource> & {
                 location?: Record<`-=${string}`, null>;
             };
-            const system: SystemSourceWithDeletions = (changed.system ??= {});
+            const system: SystemSourceWithDeletions = changed.system;
             const locationUpdates = (system.location = this.actor ? system.location ?? {} : { value: "" });
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
-            const keys = Object.keys(this.system.location).filter((k) => k !== "value" && !(k in locationUpdates));
+            const keys = Object.keys(this._source.system.location).filter(
+                (k) => k !== "value" && !(k in locationUpdates),
+            );
             for (const key of keys) {
                 locationUpdates[`-=${key}`] = null;
             }
         }
+
+        // Ensure level is an integer between 1 and 10
+        if (changed.system.level) {
+            const { level } = changed.system;
+            level.value = Math.clamped(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
+        }
+
+        const systemChanges = R.compact([
+            changed.system,
+            ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
+        ]);
+        for (const system of systemChanges) {
+            // Wipe defense data if `defense.save.statistic` is set to empty string
+            const save: { statistic?: string; basic?: boolean } = system.defense?.save ?? {};
+            if (save.statistic === "") {
+                system.defense = null;
+            }
+
+            // Normalize damage data
+            for (const partial of R.compact(Object.values(system.damage ?? {}))) {
+                if (typeof partial.category === "string") partial.category ||= null;
+
+                // Ensure kinds are still valid after changing damage type/category
+                if (partial.category || (partial?.type && !["vitality", "void", "untyped"].includes(partial.type))) {
+                    partial.kinds = ["damage"];
+                }
+            }
+
+            if (system.heightening && "levels" in system.heightening) {
+                for (const rank of R.compact(Object.values(system.heightening.levels ?? {}))) {
+                    for (const partial of Object.values(rank.damage ?? {})) {
+                        if (typeof partial?.category === "string") partial.category ||= null;
+                    }
+                }
+            }
+
+            const uses = system?.location?.uses;
+            if (uses) {
+                const currentUses = uses.value ?? this._source.system.location.uses?.value ?? 1;
+                const currentMax = uses.max ?? this._source.system.location.uses?.max;
+                uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+            }
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 
