@@ -8,15 +8,15 @@
     <div class="actions-container tab-content">
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
-                <div class="actions-panel tab" data-tab="encounter" data-group="actions-tabs">
+                <section class="actions-panel tab major" data-tab="encounter" data-group="actions-tabs">
                     {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
 
-                    <h3 class="header" data-tooltip-class="pf2e">
+                    <header data-tooltip-class="pf2e">
                         {{localize "PF2E.Actor.Attacks"}}
                         <button type="button" class="toggle-unready-strikes" data-tooltip="{{localize "PF2E.ToggleUnreadyStrikes"}}">
                             <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
                         </button>
-                    </h3>
+                    </header>
 
                     {{#if elementalBlasts}}
                         <!-- ELEMENTAL BLASTS -->
@@ -34,7 +34,7 @@
                     </ol>
 
                     {{#each actions.encounter as |section sid|}}
-                        <h3 class="header">
+                        <header>
                             {{section.label}}
                             {{#if @root.options.editable}}
                                 <div class="controls">
@@ -46,7 +46,7 @@
                                     </button>
                                 </div>
                             {{/if}}
-                        </h3>
+                        </header>
 
                         <ol class="actions-list item-list directory-list">
                             {{#each section.actions as |action|}}
@@ -54,12 +54,12 @@
                             {{/each}}
                         </ol>
                     {{/each}}
-                </div>
+                </section>
 
-                <div class="actions-panel tab" data-tab="exploration" data-group="actions-tabs">
+                <section class="actions-panel tab major" data-tab="exploration" data-group="actions-tabs">
                     {{!# Active exploration activities are only shown if one exists}}
                     {{#if actions.exploration.active}}
-                        <h3 class="header">
+                        <header>
                             {{localize "PF2E.Actor.Character.ActiveHeader"}}
                             {{#if @root.options.editable}}
                                 <div class="controls">
@@ -68,7 +68,7 @@
                                     </button>
                                 </div>
                             {{/if}}
-                        </h3>
+                        </header>
 
                         <ol class="actions-list item-list directory-list">
                             {{#each actions.exploration.active as |action|}}
@@ -77,7 +77,7 @@
                         </ol>
                     {{/if}}
 
-                    <h3 class="header">
+                    <header>
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
@@ -89,17 +89,17 @@
                                 </button>
                             </div>
                         {{/if}}
-                    </h3>
+                    </header>
 
                     <ol class="actions-list item-list directory-list">
                         {{#each actions.exploration.other as |action|}}
                             {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                         {{/each}}
                     </ol>
-                </div>
+                </section>
 
-                <div class="actions-panel tab" data-tab="downtime" data-group="actions-tabs">
-                    <h3 class="header">
+                <section class="actions-panel tab major" data-tab="downtime" data-group="actions-tabs">
+                    <header>
                         {{localize "PF2E.ActionsActionsHeader"}}
                         {{#if @root.options.editable}}
                             <div class="controls">
@@ -111,14 +111,14 @@
                                 </button>
                             </div>
                         {{/if}}
-                    </h3>
+                    </header>
 
                     <ol class="actions-list item-list directory-list">
                         {{#each actions.downtime as |action aid|}}
                             {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                         {{/each}}
                     </ol>
-                </div>
+                </section>
             </section>
         </div>
     </div>

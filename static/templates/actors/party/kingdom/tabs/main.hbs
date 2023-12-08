@@ -1,6 +1,6 @@
 <div class="content">
-    <section class="leaders">
-        <h3 class="header">{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</h3>
+    <section class="leaders major">
+        <header>{{localize "PF2E.Kingmaker.Kingdom.Leaders"}}</header>
         {{#each leadership as |leader|}}
             <section class="leader" data-role="{{leader.slug}}" {{#if leader.uuid}}data-uuid="{{leader.uuid}}"{{/if}}>
                 {{#if leader.uuid}}
@@ -40,13 +40,13 @@
             </section>
         {{/each}}
     </section>
-    <section class="resources">
-        <h3 class="header">
+    <section class="resources major">
+        <header>
             {{localize "PF2E.Kingmaker.Kingdom.Resources.Header"}}
             <button type="button" data-action="collect">
                 {{localize "PF2E.Kingmaker.Kingdom.Resources.Collect"}}
             </button>
-        </h3>
+        </header>
         <div class="resource-data">
             <section class="resource-dice">
                 {{localize "PF2E.Kingmaker.Kingdom.Resources.Dice"}}
@@ -85,13 +85,13 @@
             </section>
         </div>
     </section>
-    <section class="ability-scores">
-        <h3 class="header">
+    <section class="ability-scores major">
+        <header>
             {{localize "PF2E.Kingmaker.AbilityScores"}}
             <button type="button" data-action="builder" data-tab="ability">
                 <i class="fa-solid fa-fw fa-crown"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
             </button>
-        </h3>
+        </header>
         {{#each abilities as |ability|}}
             <section class="ability">
                 <div class="score">
