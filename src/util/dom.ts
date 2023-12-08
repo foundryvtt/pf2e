@@ -106,4 +106,18 @@ function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null {
     return child.closest<HTMLElement>(selectors);
 }
 
-export { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll };
+/** Create a reasonably specific selector for an HTML element */
+function htmlSelectorFor(element: HTMLElement): string {
+    const nodeName = element.nodeName.toLowerCase();
+    const classes = element.className.split(" ");
+    const classesString = classes.length > 0 ? `.${classes.join(".")}` : "";
+    const datasetEntries = Object.entries(element.dataset).map(([k, v]) => [
+        k.replace(/([A-Z])/g, "-$1").toLowerCase(),
+        v,
+    ]);
+    const datasetString = datasetEntries.map(([k, v]) => `[data-${k}="${v}"]`).join("");
+
+    return `${nodeName}${classesString}${datasetString}`;
+}
+
+export { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor };

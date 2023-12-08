@@ -24,7 +24,7 @@
                         <img src="{{feat.img}}"/>
                         <i class="fa-solid fa-comment-alt"></i>
                     </div>
-                    <h4>{{feat.name}}</h4>
+                    <h4 class="name"><a data-action="toggle-summary">{{feat.name}}</a></h4>
                 </div>
                 {{#if @root.options.editable}}
                     <div class="item-controls">
@@ -32,6 +32,8 @@
                         <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                     </div>
                 {{/if}}
+
+                <div class="item-summary" hidden="hidden"></div>
             </li>
         {{/each}}
     </ol>

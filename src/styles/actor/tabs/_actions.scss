@@ -86,7 +86,6 @@ ol.actions-list {
                 margin: 0;
 
                 h4 {
-                    cursor: pointer;
                     margin: 0;
                     max-width: fit-content;
                 }
@@ -109,13 +108,12 @@ ol.actions-list {
                         gap: 0.5em;
 
                         > h4 {
-                            cursor: pointer;
-                            &:hover {
-                                color: var(--primary);
+                            a:hover {
+                                color: var(--color-pf-primary);
+                            }
 
-                                .action-glyph {
-                                    color: var(--text-dark);
-                                }
+                            .action-glyph {
+                                color: var(--text-dark);
                             }
                         }
                     }
@@ -126,7 +124,9 @@ ol.actions-list {
                 align-items: center;
                 border-radius: 2px;
                 border: none;
-                box-shadow: inset 0 0 0 1px rgba(white, 0.3), inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+                box-shadow:
+                    inset 0 0 0 1px rgba(white, 0.3),
+                    inset 0 0 0 2px rgba(0, 0, 0, 0.2);
                 display: flex;
                 flex: 0;
                 font: 500 var(--font-size-10) var(--sans-serif);
@@ -146,7 +146,9 @@ ol.actions-list {
                     cursor: pointer;
 
                     &:hover {
-                        box-shadow: inset 0 0 0 1px rgba(white, 0.15), inset 0 0 0 2px rgba(black, 0.4);
+                        box-shadow:
+                            inset 0 0 0 1px rgba(white, 0.15),
+                            inset 0 0 0 2px rgba(black, 0.4);
                     }
 
                     &:active {
@@ -258,6 +260,10 @@ ol.actions-list {
                 display: flex;
                 margin-bottom: 0;
                 text-align: left;
+
+                > a:hover {
+                    color: var(--color-pf-primary);
+                }
             }
 
             .button-group {

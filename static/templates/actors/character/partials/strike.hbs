@@ -1,4 +1,4 @@
-<li class="item strike expandable{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike="" data-action-index="{{index}}">
+<li class="item strike{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike="" data-action-index="{{index}}">
     <div class="item-name rollable">
         <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
             <img src="{{action.item.img}}" />
@@ -7,7 +7,7 @@
         <div class="actions-title">
             {{#unless omitName}}
                 <div class="action-name">
-                    <h4>{{action.label}}</h4>
+                    <h4 class="name"><a data-action="toggle-summary">{{action.label}}</a></h4>
                     {{#if action.item.isTemporary}}
                         <i
                             class="fa-solid fa-info-circle"
@@ -82,7 +82,7 @@
         </div>
     {{/if}}
 
-    <div class="item-summary">
+    <div class="item-summary" hidden="hidden">
         <div class="item-description">
             <p>{{{localize action.description}}}</p>
             <hr />

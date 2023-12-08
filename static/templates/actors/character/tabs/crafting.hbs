@@ -49,7 +49,7 @@
                                     <img class="item-icon" src="{{craftedItem.img}}" alt="{{craftedItem.name}}">
                                     <i class="fa-solid fa-message"></i>
                                 </div>
-                                <h4>{{craftedItem.name}}</h4>
+                                <h4 class="name"><a data-action="toggle-summary">{{craftedItem.name}}</a></h4>
                             </div>
 
                             <div class="dc">{{craftedItem.dc}}</div>
@@ -73,6 +73,8 @@
                                     {{/if}}
                                 </div>
                             {{/if}}
+
+                            <div class="item-summary" hidden="hidden"></div>
                         </li>
                     {{/each}}
                 {{else}}

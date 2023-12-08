@@ -6,7 +6,7 @@
                 <img class="item-icon" src="{{featSlot.feat.img}}" alt="{{featSlot.feat.name}}">
                 <i class="fa-solid fa-message"></i>
             </div>
-            <h4>{{featSlot.feat.name}}</h4>
+            <h4 class="name"><a data-action="toggle-summary">{{featSlot.feat.name}}</a></h4>
         </div>
         <div class="item-controls">
             {{#if @root.editable}}
@@ -14,6 +14,7 @@
                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
             {{/if}}
         </div>
+        <div class="item-summary" hidden="hidden"></div>
         {{#if featSlot.children}}
             {{> nestedSlots slot=featSlot}}
         {{/if}}
@@ -42,7 +43,7 @@
                 <img class="item-icon" src="{{slot.feat.img}}" alt="{{slot.feat.name}}">
                 <i class="fa-solid fa-message"></i>
             </div>
-            <h4>{{slot.feat.name}}</h4>
+            <h4 class="name"><a data-action="toggle-summary">{{slot.feat.name}}</a></h4>
         </div>
         <div class="item-controls">
             {{#if @root.editable}}
@@ -50,6 +51,7 @@
                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
             {{/if}}
         </div>
+        <div class="item-summary" hidden="hidden"></div>
         {{#if slot.children}}
             {{> nestedSlots slot=slot}}
         {{/if}}

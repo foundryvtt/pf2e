@@ -3,7 +3,6 @@ import { ItemPF2e } from "@item";
 import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
 import { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { getActionTypeLabel } from "@util";
 import { AbilityItemSource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { ActionTrait } from "./types.ts";
@@ -60,11 +59,10 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         this: AbilityItemPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
-        const systemData = this.system;
-        const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
-        const properties = [actionTypeLabel ?? []].flat();
-        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
+        return this.processChatData(htmlOptions, {
+            ...this.system,
+            traits: this.traitChatData(CONFIG.PF2E.featTraits),
+        });
     }
 
     protected override async _preCreate(

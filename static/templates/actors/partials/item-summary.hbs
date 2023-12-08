@@ -1,7 +1,7 @@
 {{#if identified}}
     {{#if item.system.traits}}
         <div class="tags item-properties" data-tooltip-class="pf2e">
-            {{#if rarityLabel}}
+            {{#if (and rarityLabel (ne item.system.traits.rarity "common"))}}
                 <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
             {{/if}}
             {{#each chatData.traits as |trait|}}
