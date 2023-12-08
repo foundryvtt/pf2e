@@ -10,28 +10,33 @@
         }
     }
 
-    .unidentified {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        flex-wrap: wrap;
+    fieldset > legend {
+        font-weight: 500;
+    }
 
-        > * {
+    .form-group.unidentified {
+        align-items: start;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .img-name {
+            align-items: center;
+            gap: 0.5em;
             display: flex;
-        }
+            flex-wrap: nowrap;
 
-        img {
-            height: 42px;
-            width: 42px;
-        }
-
-        input {
-            width: 50%;
+            img {
+                flex: 0 0 3em;
+                height: 3em;
+            }
         }
 
         .editor {
+            background: rgba(black, 0.05);
+            padding: 0.25rem;
             min-height: 100px;
-            width: 100%;
+            min-width: 100%;
+            flex-basis: 100%;
         }
 
         .tox.tox-tinymce {
