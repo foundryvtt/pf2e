@@ -1,19 +1,18 @@
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import { SlugField, StrictStringField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
 import { MarkTargetPrompt } from "./prompt.ts";
 
 /** Remember a token for later referencing */
 class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
     static override defineSchema(): TokenMarkSchema {
-        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
             slug: new SlugField({ required: true, nullable: false, initial: undefined }),
-            uuid: new fields.StringField({ required: false, nullable: true, initial: null }),
+            uuid: new StrictStringField({ required: false, nullable: true, initial: null }),
+            fuzzyMatch: new StrictStringField({ required: false, nullable: true, initial: null }),
         };
     }
 
@@ -44,7 +43,12 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
 
     override beforePrepareData(): void {
         if (UUIDUtils.isTokenUUID(this.uuid) && this.test()) {
-            this.actor.synthetics.tokenMarks.set(this.uuid, this.slug);
+            const fuzzyMatch = this.resolveInjectedProperties(this.fuzzyMatch) || null;
+            this.actor.synthetics.tokenMarks.push({
+                slug: this.slug,
+                uuid: this.uuid,
+                fuzzyMatch: fuzzyMatch === "base-actor" ? fuzzyMatch : null,
+            });
         }
     }
 
@@ -57,7 +61,10 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
 
 type TokenMarkSchema = Omit<RuleElementSchema, "slug"> & {
     slug: SlugField<true, false, false>;
-    uuid: StringField<string, string, false, true, true>;
+    /** The UUID of the marked token */
+    uuid: StrictStringField<string, string, false, true, true>;
+    /** Extend the mark to any actor that shares an unlinked token's base actor */
+    fuzzyMatch: StrictStringField<string, string, false, true, true>;
 };
 
 interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromSchema<TokenMarkSchema> {

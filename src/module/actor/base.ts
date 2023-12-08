@@ -36,8 +36,9 @@ import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
-import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
+import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
+import { TokenMark } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -659,7 +660,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             strikeAdjustments: [],
             strikes: new Map(),
             striking: {},
-            tokenMarks: new Map(),
+            tokenMarks: [],
             toggles: [],
             tokenEffectIcons: [],
             tokenOverrides: {},
@@ -906,10 +907,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             options: [...params.options, ...(params.item?.getRollOptions("item") ?? [])],
         });
 
-        const targetMarkOption = ((): string | null => {
-            const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
-            return tokenMark ? `target:mark:${tokenMark}` : null;
-        })();
+        const getTokenMarks = (token: Maybe<TokenDocumentPF2e>, marks: TokenMark[]): string[] => {
+            if (!token) return [];
+            return marks
+                .filter(
+                    (m) =>
+                        m.uuid === token.uuid ||
+                        (m.fuzzyMatch === "base-actor" &&
+                            !token.actorLink &&
+                            canvas.scene?.tokens.find((t) => t.uuid === m.uuid)?.baseActor === token.baseActor),
+                )
+                .map((m) => `target:mark:${m.slug}`);
+        };
+
+        const targetMarkOptions = getTokenMarks(targetToken?.document, this.synthetics.tokenMarks);
         const initialActionOptions = params.traits?.map((t) => `self:action:trait:${t}`) ?? [];
 
         const selfActor =
@@ -919,7 +930,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                       R.compact([
                           ...Array.from(params.options),
                           ...targetToken.actor.getSelfRollOptions("target"),
-                          targetMarkOption,
+                          ...targetMarkOptions,
                           ...initialActionOptions,
                           isFlankingAttack ? "self:flanking" : null,
                       ]),
@@ -999,7 +1010,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
             if (targetToken) {
                 targetOptions.push("target"); // An indicator that there is a target of any kind
-                if (targetMarkOption) targetOptions.push(targetMarkOption);
+                targetOptions.push(...targetMarkOptions);
             }
             return targetOptions.sort();
         };
@@ -1022,10 +1033,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             targetEphemeralEffects.push(condition.toObject());
         }
 
-        const originMarkOption = ((): string | null => {
-            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
-            return tokenMark ? `origin:mark:${tokenMark}` : null;
-        })();
+        const originMarkOptions = getTokenMarks(selfToken?.document, targetToken?.actor?.synthetics.tokenMarks ?? []);
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
@@ -1037,7 +1045,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                       ...params.options,
                       ...itemOptions,
                       ...(originDistance ? [originDistance] : []),
-                      originMarkOption,
+                      ...originMarkOptions,
                   ]),
                   targetEphemeralEffects,
               ) ?? null;

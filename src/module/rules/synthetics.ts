@@ -42,7 +42,7 @@ interface RuleElementSynthetics {
     striking: Record<string, StrikingSynthetic[]>;
     toggles: RollOptionToggle[];
     tokenEffectIcons: TokenEffect[];
-    tokenMarks: Map<TokenDocumentUUID, string>;
+    tokenMarks: TokenMark[];
     tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
         texture?:
             | { src: VideoFilePath; tint?: HexColorString }
@@ -129,6 +129,12 @@ interface StrikeAdjustment {
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
 }
 
+interface TokenMark {
+    slug: string;
+    uuid: TokenDocumentUUID;
+    fuzzyMatch: "base-actor" | null;
+}
+
 interface StrikingSynthetic {
     label: string;
     bonus: number;
@@ -162,4 +168,5 @@ export type {
     SenseSynthetic,
     StrikeAdjustment,
     StrikingSynthetic,
+    TokenMark,
 };
