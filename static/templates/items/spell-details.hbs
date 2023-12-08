@@ -126,8 +126,8 @@
                 <div class="form-group">
                     <div class="form-fields">
                         <input type="text" name="system.damage.{{id}}.formula" value="{{partial.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
-                        <label>
-                            <span>{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                        <label class="apply-mod">
+                            {{localize "PF2E.SpellAbilityModLabel"}}
                             <input type="checkbox" name="system.damage.{{id}}.applyMod" {{checked partial.applyMod}} />
                         </label>
                         <select name="system.damage.{{id}}.category">
@@ -144,6 +144,14 @@
                                     <option value="{{type}}">{{localize name}}</option>
                                 {{/each}}
                             {{/select}}
+                        </select>
+                        <select class="kinds" name="system.damage.{{id}}.kinds" data-dtype="JSON">
+                            {{#each (lookup @root.damageKinds id) as |kind|}}
+                                <option
+                                    value={{json kind.value}}
+                                    {{disabled kind.disabled}}
+                                    {{#if kind.selected}}selected{{/if}}>{{localize kind.label}}</option>
+                            {{/each}}
                         </select>
                         <div class="item-controls">
                             <a
@@ -251,7 +259,9 @@
     </div>
 {{/if}}
 
-<div class="form-group">
-    <label class="large" for="{{fieldIdPrefix}}toggle-ritual-data">{{localize "PF2E.Item.Spell.Ritual.Label"}}</label>
-    <input type="checkbox" id="{{fieldIdPrefix}}toggle-ritual-data" data-action="toggle-ritual-data" {{checked item.isRitual}} />
-</div>
+{{#unless isVariant}}
+    <div class="form-group">
+        <label class="large" for="{{fieldIdPrefix}}toggle-ritual-data">{{localize "PF2E.Item.Spell.Ritual.Label"}}</label>
+        <input type="checkbox" id="{{fieldIdPrefix}}toggle-ritual-data" data-action="toggle-ritual-data" {{checked item.isRitual}} />
+    </div>
+{{/unless}}

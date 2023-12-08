@@ -60,12 +60,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
-        const { isCantrip, isFocusSpell, isRitual } = this.item;
+        const spell = this.item;
+        const { isCantrip, isFocusSpell, isRitual } = spell;
 
-        const descriptionPrepend = await createDescriptionPrepend(this.item, { includeTraditions: true });
+        const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
         sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
 
-        const variants = this.item.overlays.overrideVariants
+        const variants = spell.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
                 variantId: variant.variantId,
@@ -75,7 +76,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             .sort((a, b) => a.sort - b.sort);
 
         const passiveDefense = ((): string | null => {
-            const statistic = this.item.system.defense?.passive?.statistic;
+            const statistic = spell.system.defense?.passive?.statistic;
             switch (statistic) {
                 case "ac":
                     return "PF2E.Check.DC.Specific.armor";
@@ -90,6 +91,31 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }
         })();
 
+        const damageKinds = R.mapValues(spell.system.damage, (damage, id) => {
+            const healingDisabled = !["vitality", "void", "untyped"].includes(damage.type) || !!damage.category;
+            const currentKinds = Array.from(spell.system.damage[id].kinds);
+            return [
+                {
+                    value: ["damage"],
+                    label: "PF2E.DamageLabel",
+                    selected: R.equals(currentKinds, ["damage"]),
+                    disabled: false,
+                },
+                {
+                    value: ["healing"],
+                    label: "PF2E.TraitHealing",
+                    selected: R.equals(currentKinds, ["healing"]),
+                    disabled: healingDisabled,
+                },
+                {
+                    value: ["damage", "healing"],
+                    label: "PF2E.Damage.Kind.Both.Label",
+                    selected: R.equals(currentKinds, ["damage", "healing"]),
+                    disabled: healingDisabled,
+                },
+            ];
+        });
+
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
@@ -101,6 +127,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
             damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, [...DAMAGE_CATEGORIES_UNIQUE]),
+            damageKinds,
             materials: CONFIG.PF2E.materialDamageEffects,
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
@@ -475,6 +502,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     materials: typeof CONFIG.PF2E.materialDamageEffects;
     damageTypes: Record<DamageType, string>;
     damageSubtypes: Pick<typeof CONFIG.PF2E.damageCategories, DamageCategoryUnique>;
+    damageKinds: Record<string, { value: string[]; label: string; selected: boolean; disabled: boolean }[]>;
     areaSizes: typeof CONFIG.PF2E.areaSizes;
     areaTypes: typeof CONFIG.PF2E.areaTypes;
     heightenIntervals: number[];
