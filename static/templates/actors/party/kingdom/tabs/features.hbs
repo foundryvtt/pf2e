@@ -1,11 +1,11 @@
 <div class="content">
-    <section class="feat-section" data-group-id="{{section.id}}">
-        <h3 class="header">
+    <section class="feat-section major" data-group-id="{{section.id}}">
+        <header>
             {{localize "PF2E.Kingmaker.Kingdom.BuildHeader"}}
             <button type="button" data-action="builder">
                 <i class="fa-solid fa-fw fa-crown"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
             </button>
-        </h3>
+        </header>
         <ol class="directory-list">
             {{#if kingdom.build.charter}}
                 {{> kingdomCHG letter="C" item=kingdom.build.charter type="charter"}}
@@ -20,15 +20,15 @@
     </section>
 
     {{#each feats as |section|}}
-        <section class="feat-section" data-group-id="{{section.id}}">
-            <h3 class="header">
+        <section class="feat-section major" data-group-id="{{section.id}}">
+            <header>
                 {{localize section.label}}
                 {{#if section.featFilter}}
                     <button type="button" data-action="browse-feats">
                         <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                     </button>
                 {{/if}}
-            </h3>
+            </header>
             <ol class="actions-list directory-list" data-foundry-list>
                 {{#each section.feats as |featSlot|}}
                     {{> "systems/pf2e/templates/actors/character/partials/feat-slot.hbs" featSlot=featSlot featFilter=section.featFilter}}

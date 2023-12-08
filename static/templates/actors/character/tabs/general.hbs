@@ -1,4 +1,4 @@
-<div class="tab character" data-group="primary" data-tab="character" data-tooltip-class="pf2e">
+<section class="tab character major" data-group="primary" data-tab="character" data-tooltip-class="pf2e">
     <section class="character-details">
         <div class="image-container">
             <img
@@ -138,11 +138,12 @@
     </section>
 
     <!-- Attributes -->
-    <h3 class="header">{{localize "PF2E.Actor.Creature.AttributeModifiers"}}
+    <header>
+        {{localize "PF2E.Actor.Creature.AttributeModifiers"}}
         <button type="button"{{#unless attributeBoostsAllocated}} class="has-unallocated"{{/unless}} data-action="edit-attribute-boosts">
             <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
         </button>
-    </h3>
+    </header>
     <section class="character-attributes" data-tooltip-direction="UP">
         <ol class="attributes">
             {{#each data.abilities as |attribute abbrev|}}
@@ -168,7 +169,7 @@
             {{/each}}
         </ol>
     </section>
-</div>
+</section>
 
 {{#*inline "detailItem"}}
     <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>

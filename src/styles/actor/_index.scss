@@ -294,6 +294,48 @@ $header-height: 89px; /* Adjust height of the header */
         /* Navigation */
         @import "nav";
 
+        section.major > header {
+            border-bottom: 1px solid var(--color-border-divider);
+            color: var(--primary);
+            font: 600 var(--font-size-16) / 1 var(--serif);
+            position: relative;
+            margin: 0.75rem 0 0.5rem 0;
+
+            a {
+                color: var(--color-text-dark-primary);
+                font-size: var(--font-size-12);
+            }
+
+            & > button,
+            & > .controls {
+                position: absolute;
+                bottom: -1px;
+                right: 0;
+            }
+
+            .controls {
+                display: flex;
+            }
+
+            button {
+                background: transparent;
+                border-radius: 2px 2px 0 0;
+                border: 1px solid var(--color-border-divider);
+                color: var(--primary);
+                cursor: pointer;
+                font: 500 var(--font-size-12) / 1 var(--sans-serif);
+                height: 20px;
+                margin: 0;
+                outline: none;
+                text-transform: uppercase;
+                width: auto;
+
+                &.has-unallocated {
+                    @include requires-user-attention;
+                }
+            }
+        }
+
         /* Page structure elements */
         .stroke-header {
             position: relative;

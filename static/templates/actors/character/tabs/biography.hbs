@@ -1,13 +1,13 @@
-<div class="tab biography" data-group="primary" data-tab="biography">
+<section class="tab biography major" data-group="primary" data-tab="biography" data-tooltip-class="pf2e">
     {{#if (or document.isOwner biography.visibility.appearance)}}
-        <h3 class="header" data-tooltip-class="pf2e">
+        <header>
             <span>{{localize "PF2E.BiographyAppearance"}}</span>
             {{#if editable}}
                 <a data-action="toggle-bio-visibility" data-section="appearance" data-tooltip="PF2E.Actor.Character.Biography.ToggleVisibility">
                     <i class="fa-solid fa-fw fa-eye{{#unless biography.visibility.appearance}}-slash{{/unless}}"></i>
                 </a>
             {{/if}}
-        </h3>
+        </header>
         <section class="appearance-details{{#if editable}} editable{{/if}}">
             <div class="bio appearance">
                 <div class="biography-content">
@@ -26,14 +26,14 @@
     {{/if}}
 
     {{#if (or document.isOwner biography.visibility.backstory)}}
-        <h3 class="header" data-tooltip-class="pf2e">
+        <header>
             <span>{{localize "PF2E.BiographyBackStory"}}</span>
             {{#if editable}}
                 <a data-action="toggle-bio-visibility" data-section="backstory" data-tooltip="PF2E.Actor.Character.Biography.ToggleVisibility">
                     <i class="fa-solid fa-fw fa-eye{{#unless biography.visibility.backstory}}-slash{{/unless}}"></i>
                 </a>
             {{/if}}
-        </h3>
+        </header>
         <section{{#if editable}} class="editable"{{/if}}>
             <div class="bio backstory">
                 <div class="biography-content">
@@ -50,14 +50,14 @@
     {{/if}}
 
     {{#if (or document.isOwner biography.visibility.personality)}}
-        <h3 class="header" data-tooltip-class="pf2e">
+        <header>
             <span>{{localize "PF2E.BiographyPersonalityHeader"}}</span>
             {{#if editable}}
                 <a data-action="toggle-bio-visibility" data-section="personality" data-tooltip="PF2E.Actor.Character.Biography.ToggleVisibility">
                     <i class="fa-solid fa-fw fa-eye{{#unless biography.visibility.personality}}-slash{{/unless}}"></i>
                 </a>
             {{/if}}
-        </h3>
+        </header>
         <section class="personality{{#if editable}} editable{{/if}}">
             <div class="bio attitude">
                 <label class="details-label" for="{{document.uuid}}-attitude">{{localize "PF2E.BiographyAttitude"}}</label>
@@ -105,14 +105,14 @@
     {{/if}}
 
     {{#if (or document.isOwner biography.visibility.campaign)}}
-        <h3 class="header" data-tooltip-class="pf2e">
+        <header>
             <span>{{localize "PF2E.BiographyCampaignNotesHeader"}}</span>
             {{#if editable}}
                 <a data-action="toggle-bio-visibility" data-section="campaign" data-tooltip="PF2E.Actor.Character.Biography.ToggleVisibility">
                     <i class="fa-solid fa-fw fa-eye{{#unless biography.visibility.campaign}}-slash{{/unless}}"></i>
                 </a>
             {{/if}}
-        </h3>
+        </header>
         <section class="campaign{{#if editable}} editable{{/if}}">
             <div class="bio campaign-notes">
                 <h4 class="details-label">{{localize "PF2E.BiographyCampaignNotes"}}</h4>
@@ -140,4 +140,4 @@
             </div>
         </section>
     {{/if}}
-</div>
+</section>
