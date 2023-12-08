@@ -8,7 +8,29 @@ $header-height: 89px; /* Adjust height of the header */
 @import "character/attribute-builder";
 @import "iwr-editor";
 
-.actor.sheet {
+.actor.sheet form {
+    @import "../reset";
+    font-family: var(--sans-serif);
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-weight: 600;
+    }
+
+    a.disabled {
+        cursor: default;
+
+        &:hover {
+            text-shadow: none;
+        }
+    }
+
+    i.fa-info-circle {
+        cursor: help;
+    }
+
     .image-container {
         position: relative;
 
@@ -28,21 +50,8 @@ $header-height: 89px; /* Adjust height of the header */
         }
     }
 
-    @import "../reset";
     @import "item-summary";
     @import "inventory";
-
-    a.disabled {
-        cursor: default;
-
-        &:hover {
-            text-shadow: none;
-        }
-    }
-
-    i.fa-info-circle {
-        cursor: help;
-    }
 
     .item-image {
         cursor: pointer;
@@ -115,7 +124,9 @@ $header-height: 89px; /* Adjust height of the header */
             background-color: var(--color-rarity-unique);
         }
     }
+}
 
+.actor.sheet {
     &.character {
         @import "character/attack-popout";
     }
