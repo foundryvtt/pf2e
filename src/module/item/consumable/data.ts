@@ -32,6 +32,8 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
         value: boolean;
     };
     spell: SpellSource | null;
+
+    usage: { value: string };
 }
 
 interface ConsumableSystemData

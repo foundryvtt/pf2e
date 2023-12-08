@@ -259,7 +259,7 @@ type ShieldConversionData = Pick<ArmorSystemSource, "acBonus" | "material" | "sl
     specific?: object | null;
     runes?: object;
     traits: { value: string[]; integrated?: IntegratedWeaponSource | null };
-    usage: object;
+    usage?: object;
 
     "-=category"?: null;
     "-=checkPenalty"?: null;

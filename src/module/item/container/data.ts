@@ -17,6 +17,7 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     stowing: boolean;
     bulk: ContainerBulkSource;
     collapsed: boolean;
+    usage: { value: string };
 }
 
 interface ContainerBulkSource {
@@ -37,4 +38,4 @@ interface ContainerSystemData
 
 interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 
-export type { ContainerSource, ContainerBulkData, ContainerSystemData };
+export type { ContainerBulkData, ContainerSource, ContainerSystemData };

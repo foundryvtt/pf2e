@@ -21,6 +21,8 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
         attribute: AttributeString;
         selected?: boolean;
     };
+
+    usage: { value: string };
 }
 
 interface EquipmentSystemData

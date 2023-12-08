@@ -6,6 +6,7 @@ import {
     PhysicalSystemData,
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
+import { WornUsage } from "@item/physical/usage.ts";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import {
     ArmorCategory,
@@ -50,6 +51,8 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
     propertyRune4: {
         value: string;
     };
+    /** Usage for armor isn't stored. */
+    readonly usage?: never;
 }
 
 /** A weapon can either be unspecific or specific along with baseline material and runes */
@@ -69,6 +72,8 @@ interface ArmorSystemData
     extends Omit<ArmorSystemSource, "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
         Omit<Investable<PhysicalSystemData>, "baseItem" | "traits"> {
     runes: ArmorRuneData;
+    /** Armor is always worn in the "armor" slot. */
+    usage: WornUsage;
 }
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {

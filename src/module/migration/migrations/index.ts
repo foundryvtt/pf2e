@@ -270,3 +270,4 @@ export { Migration901ReorganizeBulkData } from "./901-reorganize-bulk-data.ts";
 export { Migration902DuskwoodDawnsilver } from "./902-duskwood-dawnsilver.ts";
 export { Migration903PhysicalNumericData } from "./903-physical-numeric-data.ts";
 export { Migration904UndercommonToSakvroth } from "./904-undercommon-to-sakvroth.ts";
+export { Migration905UnpersistUsage } from "./905-unpersist-usage.ts";

@@ -77,6 +77,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareBaseData(): void {
+        // Set before parent class prepares usage and equipped status
+        const systemUsage: { usage: { value: string } } = this.system;
+        systemUsage.usage = { value: "held-in-one-hand" };
+
         super.prepareBaseData();
 
         // Temporary measure during migration
