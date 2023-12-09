@@ -35,6 +35,7 @@ interface EquipmentSystemData
         attribute: AttributeString;
         selected: boolean;
     };
+    stackGroup: null;
 }
 
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {

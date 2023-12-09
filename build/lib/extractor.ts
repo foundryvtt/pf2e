@@ -511,7 +511,9 @@ class PackExtractor {
 
         if (isPhysicalData(source)) {
             delete (source.system as { identification?: unknown }).identification;
-
+            if ("stackGroup" in source.system && !source.system.stackGroup) {
+                delete (source.system as { stackGroup?: unknown }).stackGroup;
+            }
             if (source.type === "consumable" && !source.system.spell) {
                 delete (source.system as { spell?: unknown }).spell;
             }

@@ -34,6 +34,7 @@ interface ContainerSystemData
         >,
         Omit<Investable<PhysicalSystemData>, "traits"> {
     bulk: ContainerBulkData;
+    stackGroup: null;
 }
 
 interface ContainerBulkData extends ContainerBulkSource, BulkData {}

@@ -6,12 +6,15 @@ type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 type TreasureSystemSource = Omit<PhysicalSystemSource, "usage"> & {
     /** Usage for treasure isn't stored. */
     readonly usage?: never;
+    stackGroup: "coins" | "gems" | null;
 };
 
 interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
     equipped: TreasureEquippedData;
     /** Treasure need only be on one's person. */
     usage: CarriedUsage;
+
+    stackGroup: "coins" | "gems" | null;
 }
 
 interface TreasureEquippedData extends EquippedData {
