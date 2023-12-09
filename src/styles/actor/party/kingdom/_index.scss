@@ -264,11 +264,6 @@
         height: 100%;
     }
 
-    // Prevent flex from overriding hidden
-    [hidden] {
-        display: none !important;
-    }
-
     .drag-gap {
         visibility: hidden;
     }
@@ -333,9 +328,15 @@
     .directory-list {
         padding: 0;
         margin: 0;
+
         h4 {
             padding: 0;
             margin: 0;
+
+            > a:hover {
+                color: var(--color-pf-primary);
+                text-shadow: 0 0 3px var(--tertiary);
+            }
         }
     }
 

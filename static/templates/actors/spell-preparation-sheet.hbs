@@ -85,7 +85,10 @@
                                 <div class="item-image">
                                     <img class="item-icon" data-action="spell-to-chat" src="{{spell.img}}" alt="{{spell.name}}" />
                                 </div>
-                                <h4>{{spell.name}}{{{actionGlyph spell.system.time.value}}}</h4>
+                                <h4 class="name">
+                                    <a data-action="toggle-summary">{{spell.name}}</a>
+                                    {{{actionGlyph spell.system.time.value}}}
+                                </h4>
                             </div>
 
                             <div class="spell-range">{{spell.system.range.value}}</div>
@@ -108,6 +111,8 @@
                                     <a class="control" data-action="delete-spell" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-trash fa-fw"></i></a>
                                 </div>
                             {{/if}}
+
+                            <div class="item-summary" hidden="hidden"></div>
                         </li>
                     {{/each}}
                 {{/if}}

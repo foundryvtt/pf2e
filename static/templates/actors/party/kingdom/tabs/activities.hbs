@@ -70,7 +70,7 @@
                     <i class="fa-solid fa-message"></i>
                 </div>
                 <div class="item-name">
-                    <h4>{{item.name}}</h4>
+                    <h4 class="name"><a data-action="toggle-summary">{{item.name}}</a></h4>
                     <div class="tags">
                         {{#each traits}}
                             <span class="tag" data-slug="{{value}}">{{label}}</span>
@@ -83,6 +83,7 @@
                         <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                     {{/if}}
                 </div>
+                <div class="item-summary" hidden="hidden"></div>
             </li>
         {{/each}}
     </ol>

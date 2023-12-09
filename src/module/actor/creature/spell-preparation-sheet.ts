@@ -79,8 +79,6 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         super.activateListeners($html);
         const html = $html[0];
 
-        this.itemRenderer.activateListeners(html);
-
         html.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "[data-action]");
             const action = anchor?.dataset.action;
@@ -102,6 +100,11 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
                 case "toggle-flexible-collection": {
                     const spell = this.#getSpellFromEvent(event);
                     spell.update({ "system.location.signature": !spell.system.location.signature });
+                    return;
+                }
+                case "toggle-summary": {
+                    const element = htmlClosest(anchor, "[data-item-id]");
+                    if (element) this.itemRenderer.toggleSummary(element);
                     return;
                 }
                 case "create-spell": {

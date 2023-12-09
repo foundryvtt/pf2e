@@ -84,7 +84,10 @@
                                     <img class="item-icon" src="{{spell.img}}" alt="{{spell.name}}">
                                     <i class="fa-solid fa-message"></i>
                                 </div>
-                                <h4>{{spell.name}}{{{actionGlyph spell.system.time.value}}}</h4>
+                                <h4 class="name">
+                                    <a data-action="toggle-summary">{{spell.name}}</a>
+                                    {{{actionGlyph spell.system.time.value}}}
+                                </h4>
                             </div>
 
                             <div class="spell-range">
@@ -131,6 +134,7 @@
                                         {{/unless}}
                                     {{/if}}
                                 </div>
+                                <div class="item-summary" hidden="hidden"></div>
                             {{/if}}
                         </li>
                     {{else}}

@@ -6,15 +6,15 @@
 >
     <div class="item{{#if item.isTemporary}} temporary-item{{/if}}">
         <div class="item-name rollable{{#if (and (ne @root.actor.type "loot") (not owner))}} long{{/if}}" data-tooltip-class="pf2e">
-            <div class="item-image">
+            <div class="item-image" data-action="to-message">
                 <img class="item-icon" src="{{item.img}}" alt="{{item.name}}"/>
                 <i class="fa-solid fa-message"></i>
             </div>
             {{#if isContainer}}
                 <a class="item-control" data-action="toggle-container" data-tooltip="PF2E.OpenItemTitle"><i class="fa-solid fa-box{{#unless item.isCollapsed}}-open{{/unless}} fa-fw"></i></a>
             {{/if}}
-            <h4{{#if (or user.isGM item.isIdentified)}} class="rarity-{{item.system.traits.rarity}}"{{/if}}>
-                {{item.name}}
+            <h4{{#if (or user.isGM item.isIdentified)}} class="name rarity-{{item.system.traits.rarity}}"{{/if}}>
+                <a data-action="toggle-summary">{{item.name}}</a>
                 {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
                 {{#if item.isTemporary}}<i class="fa-solid fa-info-circle" data-tooltip="PF2E.TemporaryItemToolTip"></i>{{/if}}
@@ -82,6 +82,8 @@
             </div>
         {{/if}}
 
+        <div class="item-summary" hidden="hidden"></div>
+
         {{#if isContainer}}
             <div class="container-metadata" data-item-id="{{item.id}}" data-item-is-container>
                 {{#if isContainer}}
@@ -93,7 +95,6 @@
             </div>
         {{/if}}
     </div>
-
 
     {{#if (and isContainer (not item.isCollapsed))}}
         <ul class="container-held-items inventory-items" data-container-id="{{item.id}}">

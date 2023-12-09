@@ -244,7 +244,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const html = $html[0];
 
         this.activateClickListeners(html);
-        this.itemRenderer.activateListeners(html);
 
         // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on limited permission sheets.
         const inventoryPanel = ((): HTMLElement | null => {
@@ -254,7 +253,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         this.activateInventoryListeners(inventoryPanel);
 
         // Item chat cards
-        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
+        const toMessageSelectors = [
+            ".item[data-item-id] .item-image",
+            ".item[data-item-id] .item-chat",
+            "li [data-action=to-message]",
+        ];
+        for (const element of htmlQueryAll(html, toMessageSelectors.join(","))) {
             element.addEventListener("click", async (event) => {
                 const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
                 const [item, fromFormula] = (() => {
@@ -538,6 +542,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
                 new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
             },
+            "toggle-summary": (anchor) => {
+                const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
+                if (element) this.itemRenderer.toggleSummary(element);
+            },
         };
 
         html.addEventListener("click", (event) => {
@@ -558,7 +566,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const link = htmlClosest(event.target, "a[data-action], button[data-action]");
             if (!link) return;
             const getItem = (): PhysicalItemPF2e<ActorPF2e> => {
-                const itemId = htmlClosest(link, ".item")?.dataset.itemId ?? "";
+                const itemId = htmlClosest(link, "[data-item-id]")?.dataset.itemId ?? "";
                 const item = this.actor.items.get(itemId);
                 if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
                 return item;

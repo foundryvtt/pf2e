@@ -1,6 +1,7 @@
 <li class="item action flexrow" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
     <h4 class="item-name">
-        <a data-action="toggle-summary"><span>{{action.name}}</span> <span class="action-glyph">{{action.glyph}}</span></a>
+        <a data-action="toggle-summary">{{action.name}}</a>
+        {{#if action.glyph}}<span class="action-glyph" data-tooltip="{{actionCostLabel}}">{{action.glyph}}</span>{{/if}}
         {{#if action.system.deathNote}}<i class="fa-solid fa-fw fa-skull"></i>{{/if}}
         {{#if action.hasAura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}
     </h4>
@@ -20,4 +21,6 @@
             </button>
         </div>
     {{/if}}
+
+    <div class="item-summary" hidden="hidden"></div>
 </li>

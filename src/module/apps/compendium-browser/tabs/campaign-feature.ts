@@ -1,9 +1,9 @@
+import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { CampaignFeatureFilters, CompendiumBrowserIndexData } from "./data.ts";
-import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 
 export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "campaignFeature";

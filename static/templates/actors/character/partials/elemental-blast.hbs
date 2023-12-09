@@ -1,4 +1,4 @@
-<li class="strike item expandable ready"
+<li class="strike item ready"
     data-element="{{action.element}}"
     data-damage-type={{action.damageType}}
     data-item-id="{{action.item.id}}"
@@ -12,7 +12,7 @@
         <div class="actions-title">
         {{#unless omitName}}
             <div class="action-name">
-                <h4>{{localize action.label}}</h4>
+                <h4 class="name"><a data-action="toggle-summary">{{localize action.label}}</a></h4>
                 <div class="item-controls">
                     {{#if (and @root.editable (eq @index 0))}}
                         <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
@@ -29,7 +29,7 @@
         {{#> attackDamage action=action melee=false}}{{/attackDamage}}
     </div>
 
-    <div class="item-summary"></div>
+    <div class="item-summary" hidden="hidden"></div>
 </li>
 
 {{#*inline "attackDamage"}}
