@@ -272,3 +272,4 @@ export { Migration903PhysicalNumericData } from "./903-physical-numeric-data.ts"
 export { Migration904UndercommonToSakvroth } from "./904-undercommon-to-sakvroth.ts";
 export { Migration905UnpersistUsage } from "./905-unpersist-usage.ts";
 export { Migration906LimitStackGroup } from "./906-limit-stack-group.ts";
+export { Migration907RestructureArmorWeaponRunes } from "./907-restructure-armor-weapon-runes.ts";

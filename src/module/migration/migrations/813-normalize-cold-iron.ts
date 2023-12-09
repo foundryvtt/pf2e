@@ -56,7 +56,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 
         const material = specificData.material;
         if (material?.precious) {
-            material.precious.type &&= material.precious?.type.replace(/^coldiron$/i, "cold-iron");
+            material.precious.type &&= material.precious.type.replace(/^coldiron$/i, "cold-iron");
             delete material.base;
             material["-=base"] = null;
         } else if (typeof material?.type === "string" && typeof material.grade === "string") {
@@ -85,17 +85,17 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 }
 
 interface SpecificMagicData {
-    value: boolean;
+    value?: boolean;
     price?: unknown;
     "-=price"?: null;
     material?: {
-        precious?: { type?: string; grade?: string };
         base?: unknown;
         "-=base"?: null;
-        type?: string;
+        type?: unknown;
         "-=type"?: null;
-        grade?: string;
+        grade?: unknown;
         "-=grade"?: null;
+        precious?: { type?: string; grade?: unknown };
     };
     "-=material"?: null;
     runes?: unknown;

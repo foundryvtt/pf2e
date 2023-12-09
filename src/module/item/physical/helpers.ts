@@ -110,9 +110,8 @@ function generateItemName(item: PhysicalItemPF2e): string {
         return item.name;
     }
 
-    const { material } = item;
-    const { runes } = item.system;
-    const potency = "potency" in runes && runes.potency ? runes.potency : null;
+    const { runes, material } = item.system;
+    const potency = "potency" in runes ? runes.potency : null;
     const fundamental2 = "resilient" in runes ? runes.resilient : "striking" in runes ? runes.striking : null;
     const reinforcing =
         "reinforcing" in runes ? game.i18n.localize(REINFORCING_RUNE_LOC_PATHS[runes.reinforcing] ?? "") || null : null;

@@ -37,6 +37,7 @@ import { Migration903PhysicalNumericData } from "@module/migration/migrations/90
 import { Migration904UndercommonToSakvroth } from "@module/migration/migrations/904-undercommon-to-sakvroth.ts";
 import { Migration905UnpersistUsage } from "@module/migration/migrations/905-unpersist-usage.ts";
 import { Migration906LimitStackGroup } from "@module/migration/migrations/906-limit-stack-group.ts";
+import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migrations/907-restructure-armor-weapon-runes.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -70,6 +71,7 @@ const migrations: MigrationBase[] = [
     new Migration904UndercommonToSakvroth(),
     new Migration905UnpersistUsage(),
     new Migration906LimitStackGroup(),
+    new Migration907RestructureArmorWeaponRunes(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

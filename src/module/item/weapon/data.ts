@@ -8,17 +8,15 @@ import {
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
-    PreciousMaterialGrade,
     UsageDetails,
 } from "@item/physical/index.ts";
-import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { WeaponTraitToggles } from "./helpers.ts";
 import {
     BaseWeaponType,
     MeleeWeaponGroup,
     OtherWeaponTag,
-    StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
     WeaponMaterialType,
@@ -47,6 +45,57 @@ type WeaponFlags = ItemFlagsPF2e & {
     };
 };
 
+interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
+    traits: WeaponTraitsSource;
+    material: WeaponMaterialSource;
+    category: WeaponCategory;
+    group: WeaponGroup | null;
+    /** A base shield type can be used for attacks generated from shields */
+    baseItem: BaseWeaponType | null;
+    bonus: {
+        value: number;
+    };
+    damage: WeaponDamage;
+    bonusDamage: {
+        value: number;
+    };
+    splashDamage: {
+        value: number;
+    };
+    range: WeaponRangeIncrement | null;
+    maxRange?: number | null;
+    reload: {
+        value: WeaponReloadTime | null;
+    };
+    usage: {
+        canBeAmmo?: boolean;
+        value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
+    };
+    runes: WeaponRuneSource;
+    /** An optional override of the default ability modifier used in attack rolls with this weapon  */
+    attribute?: AttributeString | null;
+    /** A combination weapon's melee usage */
+    meleeUsage?: ComboWeaponMeleeUsage;
+    /** Whether the weapon is a "specific magic weapon" */
+    specific: SpecificWeaponData | null;
+
+    /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
+    graspingAppendage?: boolean;
+
+    // Refers to custom damage, *not* property runes
+    property1: {
+        value: string;
+        dice: number;
+        die: DamageDieSize;
+        damageType: DamageType | "";
+        critDice: number;
+        critDie: DamageDieSize;
+        critDamage: string;
+        critDamageType: DamageType | "";
+    };
+    selectedAmmoId: string | null;
+}
+
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
@@ -74,90 +123,20 @@ interface WeaponPersistentDamage {
 }
 
 /** A weapon can either be unspecific or specific along with baseline material and runes */
-type SpecificWeaponData =
-    | {
-          value: false;
-      }
-    | {
-          value: true;
-          price: string;
-          material: {
-              precious?: { type: WeaponMaterialType; grade: PreciousMaterialGrade };
-          };
-          runes: {
-              potency: ZeroToFour;
-              striking: StrikingRuneType | null;
-          };
-      };
-
-interface WeaponPropertyRuneSlot {
-    value: WeaponPropertyRuneType | null;
-}
-
-interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
-    traits: WeaponTraitsSource;
-    category: WeaponCategory;
-    group: WeaponGroup | null;
-    /** A base shield type can be used for attacks generated from shields */
-    baseItem: BaseWeaponType | null;
-    bonus: {
-        value: number;
-    };
-    damage: WeaponDamage;
-    bonusDamage: {
-        value: number;
-    };
-    splashDamage: {
-        value: number;
-    };
-    range: WeaponRangeIncrement | null;
-    maxRange?: number | null;
-    reload: {
-        value: WeaponReloadTime | null;
-    };
-    usage: {
-        canBeAmmo?: boolean;
-        value: "worngloves" | "held-in-one-hand" | "held-in-one-plus-hands" | "held-in-two-hands";
-    };
-    /** An optional override of the default ability modifier used in attack rolls with this weapon  */
-    attribute?: AttributeString | null;
-    /** A combination weapon's melee usage */
-    meleeUsage?: ComboWeaponMeleeUsage;
-    /** Whether the weapon is a "specific magic weapon" */
-    specific?: SpecificWeaponData;
-    potencyRune: {
-        value: OneToFour | null;
-    };
-    strikingRune: {
-        value: StrikingRuneType | null;
-    };
-    propertyRune1: WeaponPropertyRuneSlot;
-    propertyRune2: WeaponPropertyRuneSlot;
-    propertyRune3: WeaponPropertyRuneSlot;
-    propertyRune4: WeaponPropertyRuneSlot;
-
+type SpecificWeaponData = {
     material: WeaponMaterialSource;
-
-    /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
-    graspingAppendage?: boolean;
-
-    // Refers to custom damage, *not* property runes
-    property1: {
-        value: string;
-        dice: number;
-        die: DamageDieSize;
-        damageType: DamageType | "";
-        critDice: number;
-        critDie: DamageDieSize;
-        critDamage: string;
-        critDamageType: DamageType | "";
-    };
-    selectedAmmoId: string | null;
-}
+    runes: WeaponRuneSource;
+};
 
 interface WeaponMaterialSource extends ItemMaterialSource {
     type: WeaponMaterialType | null;
 }
+
+type WeaponRuneSource = {
+    potency: ZeroToFour;
+    striking: ZeroToThree;
+    property: WeaponPropertyRuneType[];
+};
 
 interface WeaponSystemData
     extends Omit<WeaponSystemSource, "bulk" | "hp" | "identification" | "price" | "temporary">,
@@ -191,10 +170,7 @@ interface WeaponMaterialData extends ItemMaterialData {
     type: WeaponMaterialType | null;
 }
 
-interface WeaponRuneData {
-    potency: ZeroToFour;
-    striking: ZeroToThree;
-    property: WeaponPropertyRuneType[];
+interface WeaponRuneData extends WeaponRuneSource {
     effects: WeaponPropertyRuneType[];
 }
 
@@ -207,13 +183,14 @@ interface ComboWeaponMeleeUsage {
 
 export type {
     ComboWeaponMeleeUsage,
+    SpecificWeaponData,
     WeaponDamage,
     WeaponFlags,
     WeaponMaterialData,
     WeaponMaterialSource,
     WeaponPersistentDamage,
-    WeaponPropertyRuneSlot,
     WeaponRuneData,
+    WeaponRuneSource,
     WeaponSource,
     WeaponSystemData,
     WeaponSystemSource,

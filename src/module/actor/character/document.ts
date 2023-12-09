@@ -43,12 +43,8 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
-import {
-    getPropertyRuneDegreeAdjustments,
-    getPropertyRuneStrikeAdjustments,
-    getResilientBonus,
-} from "@item/physical/runes.ts";
-import { WeaponSource, WeaponSystemSource } from "@item/weapon/data.ts";
+import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
+import { WeaponSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
@@ -853,11 +849,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
-            if (wornArmor?.system.resiliencyRune.value) {
-                const resilientBonus = getResilientBonus(wornArmor.system);
-                if (resilientBonus > 0 && wornArmor.isInvested) {
-                    modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, "item"));
-                }
+            if (wornArmor?.system.runes.resilient && wornArmor.isInvested) {
+                const value = wornArmor.system.runes.resilient;
+                modifiers.push(
+                    new ModifierPF2e({ slug: "resilient", label: wornArmor.name, type: "item", modifier: value }),
+                );
             }
 
             const affectedByBulwark = saveType === "reflex" && wornArmor?.traits.has("bulwark");
@@ -1095,22 +1091,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Acquire the character's handwraps of mighty blows and apply its runes to all unarmed attacks
         const handwrapsSlug = "handwraps-of-mighty-blows";
         const handwraps = itemTypes.weapon.find(
-            (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped,
+            (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped && w.isInvested,
         );
-        const unarmedRunes = ((): DeepPartial<WeaponSystemSource> | null => {
-            const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } =
-                handwraps?._source.system ?? {};
-            return handwraps?.isInvested
-                ? deepClone({
-                      potencyRune,
-                      strikingRune,
-                      propertyRune1,
-                      propertyRune2,
-                      propertyRune3,
-                      propertyRune4,
-                  })
-                : null;
-        })();
+        const unarmedRunes = deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
@@ -1134,7 +1117,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                           group: "brawling",
                           traits: { value: ["agile", "finesse", "nonlethal", "unarmed"] },
                           usage: { value: "worngloves" },
-                          ...(unarmedRunes ?? {}),
+                          runes: unarmedRunes,
                       },
                   };
 
@@ -1144,7 +1127,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             : null;
 
         // Regenerate unarmed strikes from handwraps so that all runes are included
-        if (unarmedRunes) {
+        if (handwraps?.system.runes) {
             for (const [slug, weapon] of synthetics.strikes.entries()) {
                 if (weapon.category === "unarmed") {
                     synthetics.strikes.set(slug, weapon.clone({ system: unarmedRunes }, { keepId: true }));
@@ -1283,7 +1266,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => wp.predicate.test(initialRollOptions));
 
-            if (weapon.system.runes.potency) {
+            if (weapon.system.runes.potency > 0) {
                 potency.push({
                     label: "PF2E.Item.Weapon.Rune.Potency",
                     bonus: weapon.system.runes.potency,

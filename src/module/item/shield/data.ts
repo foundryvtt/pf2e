@@ -5,7 +5,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
 import { HeldUsage } from "@item/physical/usage.ts";
-import { WeaponRuneData } from "@item/weapon/data.ts";
+import { WeaponRuneData, WeaponRuneSource } from "@item/weapon/data.ts";
 import { ZeroToSix } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
@@ -26,7 +26,7 @@ interface ShieldSystemSource extends PhysicalSystemSource {
 }
 
 interface IntegratedWeaponSource {
-    runes: Omit<WeaponRuneData, "effects">;
+    runes: WeaponRuneSource;
     versatile: { selection: DamageType } | null;
 }
 

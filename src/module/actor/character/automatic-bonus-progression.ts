@@ -112,16 +112,15 @@ class AutomaticBonusProgression {
     static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
         if (!this.isEnabled(item.actor)) return;
 
-        item.system.potencyRune.value = null;
-        const otherFundamental = item.isOfType("weapon") ? item.system.strikingRune : item.system.resiliencyRune;
-        otherFundamental.value = null;
+        item.system.runes.potency = 0;
+        if (item.isOfType("weapon")) {
+            item.system.runes.striking = 0;
+        } else {
+            item.system.runes.resilient = 0;
+        }
 
-        const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        if (setting === "ABPRulesAsWritten") {
-            const propertyRunes = ([1, 2, 3, 4] as const).map((n) => item.system[`propertyRune${n}` as const]);
-            for (const rune of propertyRunes) {
-                rune.value = null;
-            }
+        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPRulesAsWritten") {
+            item.system.runes.property = [];
         }
     }
 
