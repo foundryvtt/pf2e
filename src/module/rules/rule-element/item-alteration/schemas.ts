@@ -118,7 +118,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         { validateForItem: itemHasCounterBadge },
     ),
     bulk: new ItemAlterationValidator({
-        itemType: new fields.StringField({ required: true, choices: ["armor", "backpack"] }),
+        itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
         mode: new fields.StringField({ required: true, choices: ["override"] }),
         value: new StrictNumberField<number, number, true, false, false>({
             required: true,
