@@ -5,7 +5,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
 import { SpellSource } from "@item/spell/data.ts";
-import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
+import type { AmmoStackGroup, ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
 
@@ -34,6 +34,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     spell: SpellSource | null;
 
     usage: { value: string };
+    stackGroup: AmmoStackGroup | null;
 }
 
 interface ConsumableSystemData
@@ -41,6 +42,8 @@ interface ConsumableSystemData
             ConsumableSystemSource,
             "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
         >,
-        Omit<PhysicalSystemData, "traits"> {}
+        Omit<PhysicalSystemData, "traits"> {
+    stackGroup: AmmoStackGroup | null;
+}
 
 export type { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };

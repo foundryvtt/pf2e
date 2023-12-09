@@ -74,6 +74,7 @@ interface ArmorSystemData
     runes: ArmorRuneData;
     /** Armor is always worn in the "armor" slot. */
     usage: WornUsage;
+    stackGroup: null;
 }
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {

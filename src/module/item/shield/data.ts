@@ -47,6 +47,7 @@ interface ShieldSystemData
     traits: ShieldTraits;
     /** Shields are always held. */
     usage: HeldUsage;
+    stackGroup: null;
 }
 
 interface IntegratedWeaponData extends IntegratedWeaponSource {

@@ -5,7 +5,7 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, isObject, sluggify, sortBy } from "@util";
+import { ErrorPF2e, isObject, sortBy } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -220,8 +220,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         this.system.material.type ||= null;
         this.system.material.grade ||= null;
         this.system.material.effects ??= [];
-        this.system.stackGroup ||= null;
-        this.system.baseItem ??= sluggify(this.system.stackGroup ?? "") || null;
+        this.system.stackGroup ??= null;
         this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
         // Temporary: prevent noise from items pre migration 746
@@ -535,13 +534,6 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         handleHPChange(this, changed);
-
-        // Avoid setting a `baseItem` or `stackGroup` to an empty string
-        for (const key of ["baseItem", "stackGroup"] as const) {
-            if (typeof changed.system[key] === "string") {
-                changed.system[key] = String(changed.system[key]).trim() || null;
-            }
-        }
 
         // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.system.price)) {

@@ -13,15 +13,23 @@ export class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             ...sheetData,
             consumableTypes: CONFIG.PF2E.consumableTypes,
             materialEffects: createSheetTags(CONFIG.PF2E.materialDamageEffects, item.system.material.effects),
-            stackGroups: this.item.isAmmunition ? R.omit(CONFIG.PF2E.stackGroups, ["coins", "gems", "sacks"]) : null,
+            stackGroups: this.item.isAmmunition ? R.omit(CONFIG.PF2E.stackGroups, ["coins", "gems"]) : null,
             otherTags: createSheetTags(CONFIG.PF2E.otherConsumableTags, item.system.traits.otherTags),
         };
+    }
+
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        if (formData["system.stackGroup"] === "") {
+            formData["system.stackGroup"] = null;
+        }
+
+        return super._updateObject(event, formData);
     }
 }
 
 interface ConsumableSheetData extends PhysicalItemSheetData<ConsumablePF2e> {
     consumableTypes: ConfigPF2e["PF2E"]["consumableTypes"];
     materialEffects: SheetOptions;
-    stackGroups: Omit<typeof CONFIG.PF2E.stackGroups, "coins" | "gems" | "sacks"> | null;
+    stackGroups: Omit<typeof CONFIG.PF2E.stackGroups, "coins" | "gems"> | null;
     otherTags: SheetOptions;
 }

@@ -177,6 +177,7 @@ interface WeaponSystemData
     usage: WeaponUsageDetails;
     graspingAppendage: boolean;
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
+    stackGroup: null;
 }
 
 type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;

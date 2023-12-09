@@ -1,5 +1,5 @@
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isPhysicalData } from "@item/base/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Size, SIZES, ValueAndMax } from "@module/data.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -104,7 +104,7 @@ type MaybeOldSystemSource = {
     hp: ValueAndMax & { brokenThreshold?: number };
     quantity: number | { value: number };
     hardness: number | { value: number };
-    stackGroup: string | null | { value: string | null };
+    stackGroup?: string | null | { value: string | null };
     containerId: string | null | { value: string | null };
     size: Size | { value: Size };
     temporary?: boolean | { value: boolean };

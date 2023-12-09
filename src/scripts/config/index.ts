@@ -421,8 +421,6 @@ export const PF2ECONFIG = {
         gems: "PF2E.StackGroupGems",
         rounds5: "PF2E.StackGroupRounds5",
         rounds10: "PF2E.StackGroupRounds10",
-        rations: "PF2E.StackGroupRations",
-        sacks: "PF2E.StackGroupSacks",
         slingBullets: "PF2E.StackGroupSlingBullets",
         sprayPellets: "PF2E.StackGroupSprayPellets",
         woodenTaws: "PF2E.StackGroupWoodenTaws",
