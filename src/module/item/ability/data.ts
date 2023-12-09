@@ -23,12 +23,6 @@ interface AbilitySystemSource extends ItemSystemSource {
         value: OneToThree | null;
     };
     category: ActionCategory | null;
-    requirements: {
-        value: string;
-    };
-    trigger: {
-        value: string;
-    };
     deathNote: boolean;
     frequency?: FrequencySource;
     level?: never;
