@@ -46,7 +46,7 @@
             {{/if}}
         {{/unless}}
 
-        {{#if (and (eq item.type "consumable") item.uses.max item.formula)}}
+        {{#if (and (eq item.type "consumable") (not item.isAmmunition) item.uses.max)}}
             <button type="button" class="consume" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
         {{/if}}
     </div>
