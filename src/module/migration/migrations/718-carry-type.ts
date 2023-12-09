@@ -1,9 +1,9 @@
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isPhysicalData } from "@item/base/data/helpers.ts";
-import { MigrationBase } from "../base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { EquippedData } from "@item/physical/data.ts";
 import { getUsageDetails } from "@item/physical/usage.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update physical item usage and equipped to reflect carry types (held, worn, stowed) */
 export class Migration718CarryType extends MigrationBase {
@@ -12,7 +12,7 @@ export class Migration718CarryType extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (!isPhysicalData(itemData)) return;
 
-        const systemData = itemData.system;
+        const systemData: SimplifiedSystemSource = itemData.system;
 
         // Correct some known past erronous usages
         if (!(systemData.usage instanceof Object)) {
@@ -63,7 +63,7 @@ export class Migration718CarryType extends MigrationBase {
         }
 
         equipped.carryType = "worn";
-        const usage = getUsageDetails(systemData.usage.value);
+        const usage = getUsageDetails(String(systemData.usage?.value));
 
         if (usage.type === "worn") {
             equipped.inSlot = !!equipped.value;
@@ -81,3 +81,5 @@ type OldEquippedData = EquippedData & {
     value?: boolean;
     "-=value"?: null;
 };
+
+type SimplifiedSystemSource = { slug?: string | null; equipped?: OldEquippedData; usage?: { value?: unknown } };

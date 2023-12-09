@@ -19,10 +19,10 @@ interface ShieldSystemSource extends PhysicalSystemSource {
     speedPenalty: number;
     /** Data stored at the time of marking a shield as specific */
     specific: SpecificShieldData | null;
-
+    /** Currently supports reinforcing runes */
     runes: ShieldRuneData;
-
-    usage: { value: "held-in-one-held" };
+    /** Usage for shields isn't stored. */
+    readonly usage?: never;
 }
 
 interface IntegratedWeaponSource {
@@ -45,6 +45,7 @@ interface ShieldSystemData
     extends Omit<ShieldSystemSource, "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "baseItem" | "traits"> {
     traits: ShieldTraits;
+    /** Shields are always held. */
     usage: HeldUsage;
 }
 

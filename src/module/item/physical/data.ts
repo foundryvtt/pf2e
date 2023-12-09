@@ -36,9 +36,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     containerId: string | null;
     material: ItemMaterialSource;
     size: Size;
-    usage: {
-        value: string;
-    };
+    usage?: { value: string };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
 }

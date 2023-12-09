@@ -34,7 +34,8 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
 
         if ("weight" in system) {
             if (source.type === "backpack") {
-                source.system.bulk.heldOrStowed = ["held-in-one-hand", "held-in-two-hands"].includes(system.usage.value)
+                const usage = system.usage?.value ?? "";
+                source.system.bulk.heldOrStowed = ["held-in-one-hand", "held-in-two-hands"].includes(usage)
                     ? Math.max(system.bulk.value, this.#bulkStringToNumber(system.weight))
                     : this.#bulkStringToNumber(system.weight);
             } else if (source.type !== "armor") {

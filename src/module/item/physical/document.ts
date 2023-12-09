@@ -215,31 +215,30 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const systemData = this.system;
         // null out empty-string values
-        systemData.containerId ||= null;
-        systemData.material.type ||= null;
-        systemData.material.grade ||= null;
-        systemData.material.effects ??= [];
-        systemData.stackGroup ||= null;
-        systemData.baseItem ??= sluggify(systemData.stackGroup ?? "") || null;
-        systemData.hp.brokenThreshold = Math.floor(systemData.hp.max / 2);
+        this.system.containerId ||= null;
+        this.system.material.type ||= null;
+        this.system.material.grade ||= null;
+        this.system.material.effects ??= [];
+        this.system.stackGroup ||= null;
+        this.system.baseItem ??= sluggify(this.system.stackGroup ?? "") || null;
+        this.system.hp.brokenThreshold = Math.floor(this.system.hp.max / 2);
 
         // Temporary: prevent noise from items pre migration 746
-        if (typeof systemData.price.value === "string") {
-            systemData.price.value = CoinsPF2e.fromString(systemData.price.value);
+        if (typeof this.system.price.value === "string") {
+            this.system.price.value = CoinsPF2e.fromString(this.system.price.value);
         }
 
         // Ensure infused items are always temporary
-        const traits: PhysicalItemTrait[] = systemData.traits.value;
-        if (traits.includes("infused")) systemData.temporary = true;
+        const traits: PhysicalItemTrait[] = this.system.traits.value;
+        if (traits.includes("infused")) this.system.temporary = true;
 
         // Normalize and fill price data
-        systemData.price.value = new CoinsPF2e(systemData.temporary ? {} : systemData.price.value);
-        systemData.price.per = Math.max(1, systemData.price.per ?? 1);
+        this.system.price.value = new CoinsPF2e(this.system.temporary ? {} : this.system.price.value);
+        this.system.price.per = Math.max(1, this.system.price.per ?? 1);
 
         // Fill out usage and equipped status
-        this.system.usage = getUsageDetails(systemData.usage.value);
+        this.system.usage = getUsageDetails(this.system.usage?.value ?? "carried");
         const { equipped, usage } = this.system;
 
         equipped.handsHeld ??= 0;
@@ -252,7 +251,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        systemData.bulk = prepareBulkData(this);
+        this.system.bulk = prepareBulkData(this);
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {

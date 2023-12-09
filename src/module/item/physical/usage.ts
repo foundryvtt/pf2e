@@ -95,4 +95,4 @@ function getUsageDetails(usage: string): UsageDetails {
 }
 
 export { getUsageDetails, isEquipped };
-export type { HeldUsage, UsageDetails, UsageType };
+export type { CarriedUsage, HeldUsage, UsageDetails, UsageType, WornUsage };

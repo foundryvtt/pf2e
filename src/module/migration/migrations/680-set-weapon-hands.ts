@@ -1,4 +1,6 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import * as R from "remeda";
+import type { ItemSource } from "types/foundry/common/documents/item.d.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Set the "hands" (usage) property of weapons */
@@ -84,20 +86,22 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "whip-claw",
     ]);
 
-    isShield(source: ItemSourcePF2e & { system: { armorType?: { value?: unknown } } }): source is MaybeOldShieldData {
+    #isShield(
+        source: ItemSource & { system: { category?: unknown; armorType?: { value?: unknown } } },
+    ): source is MaybeOldShieldData {
         const category: unknown =
             source.type === "armor" ? source.system.armorType?.value || source.system.category : null;
         return category === "shield";
     }
 
-    override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (this.isShield(itemSource)) {
-            itemSource.system.usage.value = "held-in-one-hand";
-        } else if (itemSource.type === "weapon") {
-            itemSource.system.usage ??= { value: "held-in-one-hand" };
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (this.#isShield(source) && R.isObject(source.system.usage)) {
+            source.system.usage.value = "held-in-one-hand";
+        } else if (source.type === "weapon") {
+            source.system.usage ??= { value: "held-in-one-hand" };
 
-            const { baseItem, slug, traits } = itemSource.system;
-            const usage: { value: string } = itemSource.system.usage;
+            const { baseItem, slug, traits } = source.system;
+            const usage: { value: string } = source.system.usage;
 
             if (this.#twoHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-two-hands";
@@ -120,6 +124,9 @@ export class Migration680SetWeaponHands extends MigrationBase {
     }
 }
 
-interface MaybeOldShieldData extends ArmorSource {
-    armorType?: { value?: unknown };
+interface MaybeOldShieldData extends ItemSource {
+    system: {
+        usage?: { value?: string };
+        armorType?: { value?: unknown };
+    };
 }
