@@ -1,0 +1,56 @@
+{
+    "_id": "F6YMKMbhzWBd9A07",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/drugs/qat.webp",
+    "name": "Effect: Shimmering Dust",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shimmering Dust]</p>\n<p>The creature sheds dim light in a 20-foot radius and takes a –2 circumstance penalty to Stealth.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 3,
+                        "speed": 3,
+                        "type": "smokepatch"
+                    },
+                    "color": "#d0cd6c",
+                    "dim": 20,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
