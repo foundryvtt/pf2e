@@ -1,17 +1,15 @@
-.sheet.army {
-    form {
-        display: grid;
-        grid-template:
-            "header header" min-content
-            "sidebar content" 1fr
-            / min-content 1fr;
-        overflow: hidden;
+.sheet.army form {
+    display: grid;
+    grid-template:
+        "header header" min-content
+        "sidebar content" 1fr
+        / min-content 1fr;
+    overflow: hidden;
 
-        background: url("/assets/sheet/background.webp");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: local;
-    }
+    background: url("/assets/sheet/background.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: local;
 
     input[type="text"],
     input[type="number"] {
@@ -36,7 +34,7 @@
         }
     }
 
-    form > header {
+    > header {
         background: url("/assets/sheet/header-bw.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size: cover;
@@ -152,7 +150,7 @@
         }
     }
 
-    aside.army-sidebar {
+    .army-sidebar {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -235,6 +233,10 @@
                     z-index: 1;
                 }
             }
+        }
+
+        .senses .tags {
+            margin-top: 0.25rem;
         }
     }
 
