@@ -1346,7 +1346,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (finalDamage - damageAbsorbedByActor === 0) {
+            if (hitPoints.max === 0 || finalDamage - damageAbsorbedByActor === 0) {
                 return localize("TakesNoDamage");
             }
             if (finalDamage > 0) {
@@ -1639,6 +1639,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }) {
         const updates: Record<string, number> = {};
         const { hp, sp, delta } = args;
+        if (hp.max === 0) return { updates, totalApplied: 0 };
+
         const appliedToTemp = ((): number => {
             if (!hp.temp || delta <= 0) return 0;
             const applied = Math.min(hp.temp, delta);
