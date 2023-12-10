@@ -210,7 +210,33 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const data = this.system.weapons[type];
         if (data === null) return null;
 
-        const attackDomains = ["attack-roll", `${type}-attack-roll`];
+        const attackDomains = ["attack", "attack-roll", `${type}-attack-roll`];
+
+        // Multiple attack penalty (note: calculateMAPs() requires an item, we only have an actor here)
+        const maps = (() => {
+            const baseMap = {
+                slug: "multiple-attack-penalty",
+                label: "PF2E.MultipleAttackPenalty",
+                map1: -5,
+                map2: -10,
+            };
+            const optionSet = new Set(this.getRollOptions(attackDomains));
+            const maps = this.synthetics.multipleAttackPenalties ?? {};
+            const fromSynthetics = attackDomains
+                .flatMap((d) => maps[d] ?? [])
+                .filter((p) => p.predicate?.test(optionSet) ?? true)
+                .map((p) => ({ slug: baseMap.slug, label: p.label, map1: p.penalty, map2: p.penalty * 2 }));
+            return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
+        })();
+
+        const createMapModifier = (prop: "map1" | "map2") => {
+            return new ModifierPF2e({
+                slug: maps.slug,
+                label: maps.label,
+                modifier: maps[prop],
+                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, maps.slug),
+            });
+        };
 
         const statistic = new Statistic(this, {
             slug: `${type}-strike`,
@@ -282,15 +308,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             type: "strike",
             glyph: "A",
             variants: [0, 1, 2].map((idx) => {
-                const penalty = -5 * idx;
-
-                const mapSlug = "multiple-attack-penalty";
-                const mapModifier = new ModifierPF2e({
-                    slug: mapSlug,
-                    label: "PF2E.MultipleAttackPenalty",
-                    modifier: penalty,
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, mapSlug),
-                });
+                const mapModifier = idx === 0 ? null : createMapModifier(`map${idx as 1 | 2}`);
+                const penalty = mapModifier?.modifier ?? 0;
 
                 return {
                     label:
@@ -308,7 +327,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                             identifier: type,
                             action: "army-strike",
                             melee: type === "melee",
-                            modifiers: penalty !== 0 ? [mapModifier] : [],
+                            modifiers: mapModifier ? [mapModifier] : [],
                             target: targetToken?.actor,
                             dc: params.dc ?? targetToken?.actor?.armorClass,
                             damaging: true,
