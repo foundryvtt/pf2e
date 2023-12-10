@@ -1,4 +1,5 @@
 import { FeatGroup } from "@actor/character/feats.ts";
+import { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { importDocuments } from "@actor/party/kingdom/helpers.ts";
@@ -64,6 +65,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
+        this.system.traits.senses = [];
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
@@ -85,6 +87,12 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         // Clamp consumption to 0
         this.system.consumption = Math.max(0, this.system.consumption);
+
+        if (this.itemTypes.campaignFeature.some((f) => f.slug === "darkvision")) {
+            this.system.traits.senses.push(new CreatureSensePF2e({ type: "darkvision" }));
+        } else if (this.itemTypes.campaignFeature.some((f) => f.slug === "low-light-vision")) {
+            this.system.traits.senses.push(new CreatureSensePF2e({ type: "lowLightVision" }));
+        }
 
         this.tactics = new FeatGroup(this, {
             id: "tactics",

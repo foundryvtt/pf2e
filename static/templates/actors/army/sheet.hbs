@@ -53,7 +53,7 @@
         </div>
     </header>
 
-    <aside class="army-sidebar">
+    <section class="army-sidebar">
         {{!-- AC --}}
         <section>
             <header>
@@ -108,6 +108,20 @@
                 <input type="number" data-property="system.recruitmentDC" value="{{data.recruitmentDC}}"/>
             </label>
         </section>
+
+        {{#if data.traits.senses.length}}
+            <section class="senses">
+                <header>
+                    <i class="fa-solid fa-fw fa-eye"></i>
+                    <h4>{{localize "PF2E.Senses"}}</h4>
+                </header>
+                <ol class="tags">
+                    {{#each data.traits.senses as |sense slug|}}
+                        {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
+                    {{/each}}
+                </ol>
+            </section>
+        {{/if}}
 
         <section>
             <header>
@@ -180,7 +194,7 @@
                 {{/if}}
             </div>
         </section>
-    </aside>
+    </section>
 
     <section class="army-body sheet-body">
         <fieldset>

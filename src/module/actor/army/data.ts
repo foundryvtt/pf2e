@@ -1,3 +1,4 @@
+import { SenseData } from "@actor/creature/data.ts";
 import {
     ActorAttributes,
     ActorAttributesSource,
@@ -54,7 +55,6 @@ interface ArmyArmorClass {
 interface ArmyTraitsSource extends Required<ActorTraitsSource<string>> {
     languages?: never;
     type: (typeof ARMY_TYPES)[number];
-    senses?: never;
     alignment: Alignment;
 }
 
@@ -113,6 +113,7 @@ interface ArmyResourcesData extends ArmyResourcesSource {
 
 interface ArmyTraits extends ArmyTraitsSource, ActorTraitsData<string> {
     size: ActorSizePF2e;
+    senses: SenseData[];
 }
 
 interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}
