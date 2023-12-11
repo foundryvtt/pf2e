@@ -4,7 +4,8 @@ import { ItemType } from "@item/base/data/index.ts";
 import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
-import { RuleElementPF2e, RuleElementSchema } from "../index.ts";
+import { RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema } from "../data.ts";
 import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
@@ -113,7 +114,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
 interface ItemAlterationRuleElement
     extends RuleElementPF2e<ItemAlterationRuleSchema>,
-        ModelPropsFromSchema<ItemAlterationRuleSchema> {}
+        ModelPropsFromRESchema<ItemAlterationRuleSchema> {}
 
 type ItemAlterationRuleSchema = RuleElementSchema &
     ItemAlterationSchema & {

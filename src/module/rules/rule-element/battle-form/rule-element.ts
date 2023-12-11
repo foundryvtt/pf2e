@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
 import { SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense.ts";
@@ -11,9 +11,9 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
-import { ResolvableValueField, RuleElementSource } from "../data.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { ImmunityRuleElement } from "../iwr/immunity.ts";
 import { ResistanceRuleElement } from "../iwr/resistance.ts";
 import { WeaknessRuleElement } from "../iwr/weakness.ts";
@@ -581,7 +581,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
 interface BattleFormRuleElement
     extends RuleElementPF2e<BattleFormRuleSchema>,
-        ModelPropsFromSchema<BattleFormRuleSchema> {
+        ModelPropsFromRESchema<BattleFormRuleSchema> {
     get actor(): CharacterPF2e;
 }
 

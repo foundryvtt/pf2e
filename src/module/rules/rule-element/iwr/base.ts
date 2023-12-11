@@ -4,7 +4,8 @@ import type { PredicatePF2e } from "@system/predication.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictStringField } from "@system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource, RuleValue } from "../index.ts";
+import { RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue } from "../data.ts";
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
@@ -131,7 +132,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
 
 interface IWRRuleElement<TSchema extends IWRRuleSchema>
     extends RuleElementPF2e<TSchema>,
-        ModelPropsFromSchema<IWRRuleSchema> {
+        ModelPropsFromRESchema<IWRRuleSchema> {
     constructor: typeof IWRRuleElement<TSchema>;
 }
 

@@ -6,7 +6,7 @@ import { objectHasKey } from "@util";
 import * as R from "remeda";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
-import { ResolvableValueField } from "./data.ts";
+import { ModelPropsFromRESchema, ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
@@ -130,7 +130,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
 
 interface AdjustModifierRuleElement
     extends RuleElementPF2e<AdjustModifierSchema>,
-        ModelPropsFromSchema<AdjustModifierSchema> {
+        ModelPropsFromRESchema<AdjustModifierSchema> {
     suppress: boolean;
     maxApplications: number;
 }

@@ -1,11 +1,10 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { FeatPF2e } from "@item";
 import { isObject, objectHasKey } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -239,12 +238,11 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         if (!isLoggable) return;
 
         value;
-        const level =
-            item instanceof FeatPF2e
-                ? Number(/-(\d+)$/.exec(item.system.location ?? "")?.[1]) || item.level
-                : "level" in item && typeof item["level"] === "number"
-                  ? item["level"]
-                  : null;
+        const level = item.isOfType("feat")
+            ? Number(/-(\d+)$/.exec(item.system.location ?? "")?.[1]) || item.level
+            : "level" in item && typeof item["level"] === "number"
+              ? item["level"]
+              : null;
         const { autoChanges } = this.actor.system;
         const entries = (autoChanges[this.path] ??= []);
         entries.push({ mode, level, value, source: this.item.name });
@@ -253,7 +251,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
 interface AELikeRuleElement<TSchema extends AELikeSchema>
     extends RuleElementPF2e<TSchema>,
-        ModelPropsFromSchema<AELikeSchema> {}
+        ModelPropsFromRESchema<AELikeSchema> {}
 
 interface AutoChangeEntry {
     source: string;

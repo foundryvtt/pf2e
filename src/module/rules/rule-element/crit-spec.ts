@@ -7,7 +7,8 @@ import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import * as R from "remeda";
 import type { BooleanField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { CritSpecEffect } from "../synthetics.ts";
-import { ResolvableValueField, RuleElementPF2e, RuleElementSchema, RuleValue } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
@@ -194,7 +195,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     }
 }
 
-interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromSchema<CritSpecRuleSchema> {}
+interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromRESchema<CritSpecRuleSchema> {}
 
 type DamageDieFaces = 4 | 6 | 8 | 10 | 12;
 

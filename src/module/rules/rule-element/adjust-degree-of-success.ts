@@ -6,9 +6,10 @@ import {
     DegreeAdjustmentAmount,
     DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ModelPropsFromRESchema } from "./data.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -71,7 +72,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
 
 interface AdjustDegreeOfSuccessRuleElement
     extends RuleElementPF2e<AdjustDegreeRuleSchema>,
-        ModelPropsFromSchema<AdjustDegreeRuleSchema> {
+        ModelPropsFromRESchema<AdjustDegreeRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 

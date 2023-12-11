@@ -2,6 +2,7 @@ import { Immunity } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
+import { ModelPropsFromRESchema } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
@@ -50,7 +51,7 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     }
 }
 
-interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromSchema<ImmunityRuleSchema> {
+interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromRESchema<ImmunityRuleSchema> {
     type: ImmunityType[];
     exceptions: IWRException<ImmunityType>[];
 }

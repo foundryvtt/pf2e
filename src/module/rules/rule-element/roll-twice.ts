@@ -1,7 +1,7 @@
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollTwiceSynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
-import { RuleElementSchema } from "./index.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 
 /** Roll Twice and keep either the higher or lower result */
 class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
@@ -54,7 +54,7 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
 
 interface RollTwiceRuleElement
     extends RuleElementPF2e<RollTwiceRuleSchema>,
-        ModelPropsFromSchema<RollTwiceRuleSchema> {}
+        ModelPropsFromRESchema<RollTwiceRuleSchema> {}
 
 type RollTwiceRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

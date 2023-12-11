@@ -20,8 +20,14 @@ import type {
     EmbeddedDataField,
     SchemaField,
 } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import {
+    ModelPropsFromRESchema,
+    ResolvableValueField,
+    RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
+} from "./data.ts";
 import { ItemAlteration } from "./item-alteration/alteration.ts";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
@@ -358,7 +364,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 }
 
-interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSchema<AuraSchema> {
+interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromRESchema<AuraSchema> {
     slug: string;
     effects: AuraEffectREData[];
 }

@@ -1,9 +1,10 @@
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
+import { RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
 import { MarkTargetPrompt } from "./prompt.ts";
 
 /** Remember a token for later referencing */
@@ -60,7 +61,7 @@ type TokenMarkSchema = Omit<RuleElementSchema, "slug"> & {
     uuid: StringField<string, string, false, true, true>;
 };
 
-interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromSchema<TokenMarkSchema> {
+interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromRESchema<TokenMarkSchema> {
     slug: string;
 }
 

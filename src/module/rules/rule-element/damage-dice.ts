@@ -3,8 +3,8 @@ import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
 import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
     static override defineSchema(): DamageDiceRuleSchema {
@@ -188,7 +188,7 @@ interface DamageDiceSource extends RuleElementSource {
 
 interface DamageDiceRuleElement
     extends RuleElementPF2e<DamageDiceRuleSchema>,
-        ModelPropsFromSchema<DamageDiceRuleSchema> {}
+        ModelPropsFromRESchema<DamageDiceRuleSchema> {}
 
 type DamageDiceRuleSchema = RuleElementSchema & {
     /** All domains to add a modifier to */

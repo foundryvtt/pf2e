@@ -3,7 +3,8 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { StrictSchemaField } from "@system/schema-data-fields.ts";
 import { isObject } from "@util";
 import type { BooleanField, SchemaField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -79,7 +80,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
 
         const value = this.resolveValue(this.value);
         if (typeof value !== "number") {
-            return this.failValidation("Temporary HP requires a non-zero value field");
+            return this.failValidation("value: must resolve to a number");
         }
 
         const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
@@ -118,7 +119,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     }
 }
 
-interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromSchema<TempHPRuleSchema> {}
+interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromRESchema<TempHPRuleSchema> {}
 
 type TempHPEventsSchema = {
     /** Whether the temporary hit points are immediately applied */

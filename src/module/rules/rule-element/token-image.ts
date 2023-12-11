@@ -1,6 +1,6 @@
 import type { AlphaField, ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * Change the image representing an actor's token
@@ -74,7 +74,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
 
 interface TokenImageRuleElement
     extends RuleElementPF2e<TokenImageRuleSchema>,
-        ModelPropsFromSchema<TokenImageRuleSchema> {}
+        ModelPropsFromRESchema<TokenImageRuleSchema> {}
 
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
