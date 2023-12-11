@@ -267,7 +267,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(options: { name?: boolean } = { name: true }): Promise<void> {
+    async refreshFromCompendium(
+        options: { name?: boolean; silent?: boolean } = { name: true, silent: false },
+    ): Promise<void> {
         if (!this.isOwned) {
             throw ErrorPF2e("This utility may only be used on owned items");
         }
@@ -276,6 +278,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         options.name ??= true;
+        options.silent ??= false;
 
         const currentSource = this.toObject();
         if (
@@ -283,23 +286,25 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
             )
         ) {
-            ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
+            if (!options.silent) ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
             return;
         }
 
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
-                    item: this.name,
-                    sourceId: this.sourceId,
-                }),
-            );
+            if (!options.silent)
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
+                        item: this.name,
+                        sourceId: this.sourceId,
+                    }),
+                );
             return;
         } else if (latestSource.type !== this.type) {
-            ui.notifications.error(
-                `The compendium source for "${this.name}" is of a different type than what is present on this actor.`,
-            );
+            if (!options.silent)
+                ui.notifications.error(
+                    `The compendium source for "${this.name}" is of a different type than what is present on this actor.`,
+                );
             return;
         }
 
@@ -354,11 +359,12 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                         system: { spell: spellConsumableData.system.spell },
                     });
                 } else {
-                    ui.notifications.warn(
-                        game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
-                            item: currentSource.system.spell.name,
-                            sourceId: spellSourceId,
-                        }),
+                    if (!options.silent)
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
+                                item: currentSource.system.spell.name,
+                                sourceId: spellSourceId,
+                            }),
                     );
                     return;
                 }
@@ -373,7 +379,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         await this.update(updates, { diff: false, recursive: false });
-        ui.notifications.info(`Item "${this.name}" has been refreshed.`);
+        if (!options.silent) ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
     getOriginData(): ItemOriginFlag {
