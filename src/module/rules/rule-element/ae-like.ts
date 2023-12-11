@@ -234,7 +234,8 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     /** Log the numeric change of an actor data property */
     #logChange(value: unknown): void {
         const { item, mode } = this;
-        const isLoggable = typeof value === "number" || (typeof value === "string" && mode === "override");
+        const isLoggable =
+            typeof value === "boolean" || typeof value === "number" || typeof value === "string" || value === null;
         if (!isLoggable) return;
 
         value;
@@ -257,7 +258,7 @@ interface AELikeRuleElement<TSchema extends AELikeSchema>
 interface AutoChangeEntry {
     source: string;
     level: number | null;
-    value: number | string;
+    value: boolean | number | string | null;
     mode: AELikeChangeMode;
 }
 
