@@ -390,12 +390,14 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const targetToken = origin
             ? null
             : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find(
-                  (t) => t.actor?.isOfType("creature", "hazard"),
+                  (t) => t.actor?.isOfType("army", "creature", "hazard"),
               ) ?? null;
 
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
-            const isValidAttacker = this.actor.isOfType("creature", "hazard");
+            const isValidAttacker = targetToken?.actor?.isOfType("army")
+                ? this.actor.isOfType("army")
+                : this.actor.isOfType("creature", "hazard");
             const isTargetedCheck =
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
