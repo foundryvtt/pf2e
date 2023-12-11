@@ -133,7 +133,9 @@ type GangUpCircumstance =
     /** Requires at least `number` allies within melee reach of the target */
     | number
     /** Requires the actor's animal companion to be adjacent to the target */
-    | "animal-companion";
+    | "animal-companion"
+    /** The true Gang up allows allies to flank with the gang-upper */
+    | "true-gang-up";
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
