@@ -1,20 +1,8 @@
 /**
- * A MeasuredTemplate is an implementation of PlaceableObject which represents an area of the canvas grid which is
- * covered by some effect.
- *
- * @example
- * MeasuredTemplate.create({
- *   t: "cone",
- *   user: game.user._id,
- *   x: 1000,
- *   y: 1000,
- *   direction: 0.45,
- *   angle: 63.13,
- *   distance: 30,
- *   borderColor: "#FF0000",
- *   fillColor: "#FF3366",
- *   texture: "tiles/fire.jpg"
- * });
+ * A type of Placeable Object which highlights an area of the grid as covered by some area of effect.
+ * @category - Canvas
+ * @see {@link MeasuredTemplateDocument}
+ * @see {@link TemplateLayer}
  */
 declare class MeasuredTemplate<
     TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
@@ -28,13 +16,27 @@ declare class MeasuredTemplate<
     /** The template graphics */
     template: PIXI.Graphics;
 
-    /** The UI frame container which depicts Token metadata and status, displayed in the ControlsLayer. */
-    hud: ObjectHUD<this>;
+    /** The template control icon */
+    controlIcon: ControlIcon;
+
+    /** The measurement ruler label */
+    ruler: PreciseText;
 
     /** Internal property used to configure the control border thickness */
     protected _borderThickness: number;
 
     static override embeddedName: "MeasuredTemplate";
+
+    static override RENDER_FLAGS: {
+        redraw: { propagate: ["refresh"] };
+        refresh: { propagate: ["refreshState", "refreshShape"]; alias: true };
+        refreshState: {};
+        refreshShape: { propagate: ["refreshPosition", "refreshGrid", "refreshText", "refreshTemplate"] };
+        refreshTemplate: {};
+        refreshPosition: { propagate: ["refreshGrid"] };
+        refreshGrid: {};
+        refreshText: {};
+    };
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -57,26 +59,36 @@ declare class MeasuredTemplate<
     /** A unique identifier which is used to uniquely identify related objects like a template effect or grid highlight. */
     get highlightId(): string;
 
+    // Undocumented
+    ray?: Ray;
+
     /* -------------------------------------------- */
-    /*  Rendering                                   */
+    /*  Initial Drawing                             */
     /* -------------------------------------------- */
 
     protected _draw(): Promise<void>;
 
-    override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+    override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
-    /** Draw the HUD container which provides an interface for managing this template */
-    protected _drawHUD(): ObjectHUD<this>;
+    /* -------------------------------------------- */
+    /*  Incremental Refresh                         */
+    /* -------------------------------------------- */
 
-    /** Draw the ControlIcon for the MeasuredTemplate */
-    protected _drawControlIcon(): ControlIcon;
+    protected override _applyRenderFlags(flags: { [K in keyof typeof MeasuredTemplate.RENDER_FLAGS]?: boolean }): void;
 
-    /** Draw the Text label used for the MeasuredTemplate */
-    protected _drawRulerText(): PIXI.Text;
+    protected override _getTargetAlpha(): number;
 
-    override refresh(): this;
+    /**
+     * Compute the geometry for the template using its document data.
+     * Subclasses can override this method to take control over how different shapes are rendered.
+     */
+    protected _computeShape(): PIXI.Circle | PIXI.Rectangle | PIXI.Polygon;
 
-    protected override _refresh(options: object): void;
+    /**
+     * Refresh the display of the template outline and shape.
+     * Subclasses may override this method to take control over how the template is visually rendered.
+     */
+    protected _refreshTemplate(): void;
 
     /** Get a Circular area of effect given a radius of effect */
     static getCircleShape(distance: number): PIXI.Circle;
@@ -98,6 +110,12 @@ declare class MeasuredTemplate<
 
     /** Highlight the grid squares which should be shown under the area of effect */
     highlightGrid(): void;
+
+    /** Get the shape to highlight on a Scene which uses grid-less mode. */
+    protected _getGridHighlightShape(): PIXI.Polygon | PIXI.Circle | PIXI.Rectangle;
+
+    /** Get an array of points which define top-left grid spaces to highlight for square or hexagonal grids. */
+    protected _getGridHighlightPositions(): Point[];
 
     /* -------------------------------------------- */
     /*  Methods                                     */

@@ -49,8 +49,6 @@ declare class AmbientSound<
 
     protected _drawControlIcon(): ControlIcon;
 
-    protected override _refresh(options: object): void;
-
     /** Refresh the display of the ControlIcon for this AmbientSound source */
     refreshControl(): void;
 

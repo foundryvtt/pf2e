@@ -25,18 +25,27 @@ declare class AmbientLight<
     /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
     get isVisible(): boolean;
 
+    /**
+     * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
+     */
+    get emitsLight(): boolean;
+
     /* -------------------------------------------- */
     /* Rendering                                    */
     /* -------------------------------------------- */
 
+    protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
+
     protected _draw(): Promise<void>;
+
+    /* -------------------------------------------- */
+    /*  Incremental Refresh                         */
+    /* -------------------------------------------- */
+
+    protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
     /** Draw the ControlIcon for the AmbientLight */
     protected _drawControlIcon(): ControlIcon;
-
-    override refresh(): this;
-
-    protected override _refresh(options: object): void;
 
     /** Refresh the display of the ControlIcon for this AmbientLight source */
     refreshControl(): void;

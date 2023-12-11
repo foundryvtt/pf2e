@@ -290,8 +290,6 @@ declare global {
         /** Update display of the Token, pulling latest data and re-rendering the display of Token components */
         refresh(): this;
 
-        protected override _refresh(options: object): void;
-
         /** Draw the Token border, taking into consideration the grid type and border color */
         protected _refreshBorder(): void;
 
