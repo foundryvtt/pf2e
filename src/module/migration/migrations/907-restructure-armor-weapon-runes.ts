@@ -47,7 +47,7 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 } else {
                     specificData.material = deepClone(system.material);
                 }
-            } else {
+            } else if ("value" in specificData) {
                 system.specific = null;
             }
         }
