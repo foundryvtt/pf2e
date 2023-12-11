@@ -67,7 +67,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
 
 interface SpecialStatisticRuleElement
     extends RuleElementPF2e<StatisticRESchema>,
-        ModelPropsFromSchema<StatisticRESchema> {
+        Omit<ModelPropsFromSchema<StatisticRESchema>, "label"> {
     slug: string;
 }
 

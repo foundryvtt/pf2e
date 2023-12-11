@@ -11,7 +11,7 @@ import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikeAdjustment } from "../synthetics.ts";
 import { AELikeChangeMode, AELikeRuleElement } from "./ae-like.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
-import { ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
@@ -230,7 +230,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
 
 interface AdjustStrikeRuleElement
     extends RuleElementPF2e<AdjustStrikeSchema>,
-        ModelPropsFromSchema<AdjustStrikeSchema> {}
+        ModelPropsFromRESchema<AdjustStrikeSchema> {}
 
 type AdjustStrikeSchema = RuleElementSchema & {
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;

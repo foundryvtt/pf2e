@@ -1,15 +1,16 @@
 import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { ConditionPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { ChoiceSetSource } from "../choice-set/data.ts";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
+import { ModelPropsFromRESchema, RuleElementSource } from "../data.ts";
 import { ItemAlteration } from "../item-alteration/alteration.ts";
 import { GrantItemSchema } from "./schema.ts";
 
@@ -366,7 +367,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** If this item is being tracked, set an actor flag and add its item roll options to the `all` domain */
     #trackItem(grantedItem: ItemPF2e<ActorPF2e> | null): void {
-        if (!(this.track && this.flag && this.grantedId && grantedItem instanceof PhysicalItemPF2e)) {
+        if (!(this.track && this.flag && this.grantedId && grantedItem?.isOfType("physical"))) {
             return;
         }
 
@@ -379,7 +380,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 }
 
-interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromSchema<GrantItemSchema> {}
+interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromRESchema<GrantItemSchema> {}
 
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;

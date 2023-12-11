@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
@@ -24,8 +24,8 @@ import type {
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -322,7 +322,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 }
 
-interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromSchema<StrikeSchema> {
+interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
     slug: string;
     fist: boolean;
     options: string[];

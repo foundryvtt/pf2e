@@ -1,14 +1,14 @@
-import { CreaturePF2e } from "@actor";
+import type { CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";
-import { tupleHasValue } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
+import { tupleHasValue } from "@util";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -160,7 +160,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
 
 interface CreatureSizeRuleElement
     extends RuleElementPF2e<CreatureSizeRuleSchema>,
-        ModelPropsFromSchema<CreatureSizeRuleSchema> {
+        ModelPropsFromRESchema<CreatureSizeRuleSchema> {
     get actor(): CreaturePF2e;
 }
 

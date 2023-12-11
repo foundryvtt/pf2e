@@ -2,7 +2,7 @@ import { Resistance } from "@actor/data/iwr.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
-import { ResolvableValueField } from "../data.ts";
+import { ModelPropsFromRESchema, ResolvableValueField } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
@@ -64,9 +64,9 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
 
 interface ResistanceRuleElement
     extends IWRRuleElement<ResistanceRuleSchema>,
-        ModelPropsFromSchema<ResistanceRuleSchema> {
+        ModelPropsFromRESchema<ResistanceRuleSchema> {
     type: ResistanceType[];
-    // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
+    // Typescript 5.3 doesn't fully resolve conditional types, so it is redefined here
     exceptions: IWRException<ResistanceType>[];
 }
 

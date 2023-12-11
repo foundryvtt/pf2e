@@ -2,7 +2,8 @@ import { TokenEffect } from "@actor/token-effect.ts";
 import { EffectPF2e } from "@item";
 import { isImageFilePath } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 
 /**
  * Add an effect icon to an actor's token
@@ -32,7 +33,7 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
 
 interface TokenEffectIconRuleElement
     extends RuleElementPF2e<TokenEffectIconSchema>,
-        ModelPropsFromSchema<TokenEffectIconSchema> {}
+        ModelPropsFromRESchema<TokenEffectIconSchema> {}
 
 type TokenEffectIconSchema = RuleElementSchema & {
     value: StringField<string, string, false, false, false>;

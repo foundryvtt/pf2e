@@ -3,8 +3,8 @@ import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
@@ -64,7 +64,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     }
 }
 
-interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromSchema<RollNoteSchema> {}
+interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromRESchema<RollNoteSchema> {}
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */

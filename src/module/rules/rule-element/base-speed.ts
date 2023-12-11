@@ -1,12 +1,12 @@
-import { CreaturePF2e } from "@actor";
+import type { CreaturePF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
-import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
+import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -65,7 +65,9 @@ class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
     }
 }
 
-interface BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema>, ModelPropsFromSchema<BaseSpeedRuleSchema> {
+interface BaseSpeedRuleElement
+    extends RuleElementPF2e<BaseSpeedRuleSchema>,
+        ModelPropsFromRESchema<BaseSpeedRuleSchema> {
     get actor(): CreaturePF2e;
 }
 

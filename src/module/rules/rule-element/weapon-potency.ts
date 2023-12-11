@@ -2,8 +2,8 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ActorType } from "@actor/data/index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { PotencySynthetic } from "../synthetics.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * Copies potency runes from the weapon its attached to, to another weapon based on a predicate.
@@ -44,7 +44,7 @@ class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> 
 
 interface WeaponPotencyRuleElement
     extends RuleElementPF2e<WeaponPotencyRuleSchema>,
-        ModelPropsFromSchema<WeaponPotencyRuleSchema> {}
+        ModelPropsFromRESchema<WeaponPotencyRuleSchema> {}
 
 type WeaponPotencyRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

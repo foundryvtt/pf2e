@@ -3,8 +3,8 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * Rule element to implement fast healing and regeneration.
@@ -95,7 +95,7 @@ type FastHealingRuleSchema = RuleElementSchema & {
 
 interface FastHealingRuleElement
     extends RuleElementPF2e<FastHealingRuleSchema>,
-        ModelPropsFromSchema<FastHealingRuleSchema> {}
+        ModelPropsFromRESchema<FastHealingRuleSchema> {}
 
 type FastHealingType = "fast-healing" | "regeneration";
 

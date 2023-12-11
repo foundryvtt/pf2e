@@ -1,8 +1,8 @@
 import { ActorType } from "@actor/data/index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikingSynthetic } from "../synthetics.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
@@ -36,7 +36,7 @@ class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     }
 }
 
-interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromSchema<StrikingRuleSchema> {}
+interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromRESchema<StrikingRuleSchema> {}
 
 type StrikingRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

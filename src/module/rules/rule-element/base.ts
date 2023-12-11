@@ -8,6 +8,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
+import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
@@ -20,6 +21,8 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
 abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
     .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
     protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
+
+    declare label: string;
 
     sourceIndex: number | null;
 
@@ -41,7 +44,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      * @param item where the rule is persisted on
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
-        source.label ??= options.parent.name;
         super(source, { parent: options.parent, strict: options.strict ?? true, fallback: false });
         const { item } = this;
 
@@ -91,7 +93,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true, label: "PF2E.RuleEditor.General.Slug" }),
             label: new fields.StringField({
-                required: true,
+                required: false,
                 nullable: false,
                 blank: false,
                 initial: undefined,
@@ -226,7 +228,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             for (let i = 0; i < source.length; i++) {
                 source[i] = this.resolveInjectedProperties(source[i], { warn });
             }
-        } else if (isObject<Record<string, unknown>>(source)) {
+        } else if (R.isObject(source)) {
             for (const [key, value] of Object.entries(source)) {
                 if (typeof value === "string" || isObject(value)) {
                     source[key] = this.resolveInjectedProperties(value, { warn });

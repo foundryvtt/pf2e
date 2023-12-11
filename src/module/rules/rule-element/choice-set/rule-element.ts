@@ -1,6 +1,6 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { FeatPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { PredicatePF2e } from "@system/predication.ts";
@@ -16,7 +16,8 @@ import {
 import { localizer, objectHasKey, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema } from "../data.ts";
 import {
     AllowedDropsData,
     ChoiceSetObject,
@@ -458,9 +459,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
 
         return filteredItems
-            .filter((i) =>
-                i instanceof FeatPF2e ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true,
-            )
+            .filter((i) => (i.isOfType("feat") ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true))
             .map((f) => ({
                 value: choices.slugsAsValues ? f.slug ?? sluggify(f.name) : f.uuid,
                 label: f.name,
@@ -485,6 +484,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 }
 
-interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromSchema<ChoiceSetSchema> {}
+interface ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema>, ModelPropsFromRESchema<ChoiceSetSchema> {}
 
 export { ChoiceSetRuleElement };

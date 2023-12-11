@@ -5,8 +5,14 @@ import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleValue } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import {
+    ModelPropsFromRESchema,
+    ResolvableValueField,
+    RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
+} from "./data.ts";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -183,7 +189,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
 interface FlatModifierRuleElement
     extends RuleElementPF2e<FlatModifierSchema>,
-        ModelPropsFromSchema<FlatModifierSchema> {
+        ModelPropsFromRESchema<FlatModifierSchema> {
     value: RuleValue;
 }
 

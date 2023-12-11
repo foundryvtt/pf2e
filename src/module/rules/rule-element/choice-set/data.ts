@@ -10,7 +10,7 @@ import type {
     StrictStringField,
 } from "@system/schema-data-fields.ts";
 import type { SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementSchema, RuleElementSource } from "../index.ts";
+import type { RuleElementSchema, RuleElementSource } from "../data.ts";
 
 type ChoiceSetSchema = RuleElementSchema & {
     /**
