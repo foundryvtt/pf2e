@@ -1,4 +1,5 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { localizer, sluggify } from "@util";
 import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
@@ -46,12 +47,10 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
         const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
         const physicalItemFields = [...baseFields, "system.level.value"];
-        const armorAndWeaponFields = [...physicalItemFields, "system.category", "system.group", "system.potencyRune"];
-        const armorFields = [...armorAndWeaponFields, "system.resiliencyRune"];
-        const weaponFields = [...armorAndWeaponFields, "system.strikingRune"];
-        const shieldFields = [...physicalItemFields, "system.runes"];
+        const runedItemFields = [...physicalItemFields, "system.runes"];
+        const armorAndWeaponFields = [...runedItemFields, "system.category", "system.group"];
         const consumableFields = [...physicalItemFields, "system.consumableType"];
-        const indexFields = R.uniq([...armorFields, ...weaponFields, ...shieldFields, ...consumableFields]).sort();
+        const indexFields = R.uniq([...armorAndWeaponFields, ...consumableFields]).sort();
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -66,15 +65,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const skip = (() => {
                         switch (itemData.type) {
                             case "armor":
-                                return !this.hasAllIndexFields(itemData, armorFields);
                             case "weapon":
-                                return !this.hasAllIndexFields(itemData, weaponFields);
-                            case "shield":
-                                return !this.hasAllIndexFields(itemData, shieldFields);
-                            case "kit":
-                                return !this.hasAllIndexFields(itemData, baseFields);
+                                return !this.hasAllIndexFields(itemData, armorAndWeaponFields);
                             case "consumable":
                                 return !this.hasAllIndexFields(itemData, consumableFields);
+                            case "kit":
+                                return !this.hasAllIndexFields(itemData, baseFields);
+                            case "shield":
+                                return !this.hasAllIndexFields(itemData, runedItemFields);
                             default:
                                 return !this.hasAllIndexFields(itemData, physicalItemFields);
                         }
@@ -100,12 +98,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
                     // Infer magical trait from runes
                     const traits = itemData.system.traits.value ?? [];
+                    const runes = itemData.system.runes;
+                    const traditionTraits: Set<string> = MAGIC_TRADITIONS;
                     if (
-                        (itemData.type === "armor" &&
-                            (itemData.system.potencyRune.value || itemData.system.resiliencyRune.value)) ||
-                        (itemData.type === "shield" && itemData.system.runes.reinforcing) ||
-                        (itemData.type === "weapon" &&
-                            (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
+                        !traits.some((t: string) => traditionTraits.has(t)) &&
+                        ["armor", "shield", "weapon"].includes(itemData.type) &&
+                        (runes.potency || runes.reinforcing || runes.resilient || runes.striking)
                     ) {
                         traits.push("magical");
                     }
