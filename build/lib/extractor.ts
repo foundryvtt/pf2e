@@ -518,8 +518,8 @@ class PackExtractor {
                 delete (source.system as { spell?: unknown }).spell;
             }
 
-            if (itemIsOfType(source, "armor", "weapon") && source.system.specific?.value === false) {
-                delete source.system.specific;
+            if (itemIsOfType(source, "armor", "shield", "weapon") && !source.system.specific) {
+                delete (source.system as { specific?: unknown }).specific;
             }
 
             if (source.type === "weapon") {

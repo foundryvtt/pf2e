@@ -241,14 +241,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const additionalData: { name?: string; system: Partial<WeaponSystemSource> } = {
                 system: {
                     damage: { dice: 1, die: "d6", damageType, modifier: 0, persistent: null },
-                    potencyRune: { value: integratedWeaponRunes?.potency || null },
-                    strikingRune: {
-                        value: RUNE_DATA.weapon.striking[integratedWeaponRunes?.striking ?? 0]?.slug ?? null,
-                    },
-                    propertyRune1: { value: integratedWeaponRunes?.property[0] ?? null },
-                    propertyRune2: { value: integratedWeaponRunes?.property[1] ?? null },
-                    propertyRune3: { value: integratedWeaponRunes?.property[2] ?? null },
-                    propertyRune4: { value: integratedWeaponRunes?.property[3] ?? null },
+                    runes: integratedWeaponRunes,
                 },
             };
             // Allow the weapon to be renamed
@@ -271,11 +264,13 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         if (changed.system.acBonus !== undefined) {
-            changed.system.acBonus = Math.clamped(Math.trunc(Number(changed.system.acBonus)), 0, 99) || 0;
+            const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
+            changed.system.acBonus = Math.max(0, integerValue);
         }
 
         if (changed.system.speedPenalty !== undefined) {
-            changed.system.speedPenalty = Math.clamped(Math.trunc(Number(changed.system.speedPenalty)), -99, 0) || 0;
+            const integerValue = Math.floor(Number(changed.system.speedPenalty)) || 0;
+            changed.system.speedPenalty = Math.min(0, integerValue);
         }
 
         const hasIntegratedTrait = this._source.system.traits.value.some((t) => t.startsWith("integrated-"));

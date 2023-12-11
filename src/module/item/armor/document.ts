@@ -1,15 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSummaryData } from "@item/base/data/index.ts";
-import {
-    PhysicalItemPF2e,
-    RUNE_DATA,
-    getPropertySlots,
-    prunePropertyRunes,
-    resilientRuneValues,
-} from "@item/physical/index.ts";
+import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
@@ -59,7 +52,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     override get isSpecific(): boolean {
-        return this.system.specific?.value ?? false;
+        return !!this.system.specific;
     }
 
     /** Generate a list of strings for use in predication */
@@ -88,10 +81,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 
         super.prepareBaseData();
 
-        this.system.potencyRune.value ||= null;
-        this.system.resiliencyRune.value ||= null;
-
-        this.prepareRunes();
+        // Limit property rune slots
+        ABP.cleanupRunes(this);
+        const maxPropertySlots = getPropertyRuneSlots(this);
+        this.system.runes.property.length = Math.min(this.system.runes.property.length, maxPropertySlots);
 
         // Add traits from fundamental runes
         const abpEnabled = ABP.isEnabled(this.actor);
@@ -113,27 +106,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         const potencyRune = this.isInvested && !ABP.isEnabled(this.actor) ? this.system.runes.potency : 0;
         const baseArmor = Number(this.system.acBonus) || 0;
         this.system.acBonus = baseArmor + potencyRune;
-    }
-
-    private prepareRunes(): void {
-        ABP.cleanupRunes(this);
-
-        const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
-
-        // Derived rune data structure
-        const runes = (this.system.runes = {
-            potency: potencyRune.value ?? 0,
-            resilient: resilientRuneValues.get(resiliencyRune.value) ?? 0,
-            property: prunePropertyRunes(
-                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
-                RUNE_DATA.armor.property,
-            ),
-            effects: [],
-        });
-
-        // Limit property rune slots
-        const maxPropertySlots = getPropertySlots(this);
-        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
@@ -180,36 +152,26 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.acBonus !== undefined) {
-            changed.system.acBonus = Number(changed.system.acBonus) || 0;
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        if (changed.system.acBonus !== undefined) {
+            const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
+            changed.system.acBonus = Math.max(0, integerValue);
         }
-        if (changed.system?.group !== undefined) {
+        if (changed.system.group !== undefined) {
             changed.system.group ||= null;
         }
-        if (changed.system?.dexCap !== undefined) {
-            changed.system.dexCap = Number(changed.system.dexCap) || 0;
+        if (changed.system.dexCap !== undefined) {
+            const integerValue = Math.floor(Number(changed.system.dexCap)) || 0;
+            changed.system.dexCap = Math.max(0, integerValue);
         }
-        if (changed.system?.checkPenalty !== undefined) {
-            changed.system.checkPenalty = Math.min(Number(changed.system.checkPenalty), 0) || 0;
+        if (changed.system.checkPenalty !== undefined) {
+            const integerValue = Math.floor(Number(changed.system.checkPenalty)) || 0;
+            changed.system.checkPenalty = Math.min(0, integerValue);
         }
-        if (changed.system?.speedPenalty !== undefined) {
-            changed.system.speedPenalty = Math.min(Number(changed.system.speedPenalty), 0) || 0;
-        }
-
-        const changedSpecific: ChangedSpecificData = changed.system?.specific ?? {};
-        if (changedSpecific.value === true) {
-            changedSpecific.material = deepClone(this._source.system.material);
-            changedSpecific.runes = {
-                potency: (Number(this._source.system.potencyRune.value) || 0) as ZeroToFour,
-                resilient: resilientRuneValues.get(this._source.system.resiliencyRune.value) || 0,
-            };
-        } else if (changedSpecific.value === false) {
-            if ("material" in (this._source.system.specific ?? {})) {
-                changedSpecific["-=material"] = null;
-            }
-            if ("runes" in (this._source.system.specific ?? {})) {
-                changedSpecific["-=runes"] = null;
-            }
+        if (changed.system.speedPenalty !== undefined) {
+            const integerValue = Math.floor(Number(changed.system.speedPenalty)) || 0;
+            changed.system.speedPenalty = Math.min(0, integerValue);
         }
 
         return super._preUpdate(changed, options, user);
@@ -219,14 +181,6 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
 interface ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ArmorSource;
     system: ArmorSystemData;
-}
-
-interface ChangedSpecificData {
-    value?: unknown;
-    material?: object;
-    runes?: object;
-    "-=material"?: null;
-    "-=runes"?: null;
 }
 
 export { ArmorPF2e };

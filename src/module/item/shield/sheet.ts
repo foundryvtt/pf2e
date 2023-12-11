@@ -100,7 +100,7 @@ interface ShieldSheetData extends PhysicalItemSheetData<ShieldPF2e> {
         readOnly: boolean;
     }[];
     reinforcing: Record<number, string | null>;
-    weaponRunes: object | null;
+    weaponRunes: typeof RUNE_DATA.weapon | null;
 }
 
 export { ShieldSheetPF2e };

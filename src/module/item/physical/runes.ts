@@ -14,7 +14,7 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import * as R from "remeda";
 
-function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
+function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
 
     const fromPotency = ABP.isEnabled(item.actor)
@@ -22,14 +22,6 @@ function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
           ABP.getAttackPotency(!item.actor || item.actor.isOfType("loot") ? 20 : item.actor.level)
         : item.system.runes.potency;
     return (fromMaterial + fromPotency) as ZeroToFour;
-}
-
-function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: ZeroToFour): string[] {
-    const dictionary = item.isOfType("armor") ? ARMOR_PROPERTY_RUNES : WEAPON_PROPERTY_RUNES;
-    return ([1, 2, 3, 4] as const)
-        .flatMap((n) => item.system[`propertyRune${n}`].value ?? [])
-        .filter((r) => r in dictionary)
-        .slice(0, slots);
 }
 
 /** Remove duplicate and lesser versions from an array of property runes */
@@ -88,16 +80,6 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
     );
 }
 
-const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> = new Map([
-    ["striking", 1],
-    ["greaterStriking", 2],
-    ["majorStriking", 3],
-]);
-
-function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
-    return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
-}
-
 function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
     return R.uniq(
         R.compact(
@@ -107,17 +89,6 @@ function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdju
             ].flat(2),
         ),
     );
-}
-
-const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree> = new Map([
-    [null, 0],
-    ["resilient", 1],
-    ["greaterResilient", 2],
-    ["majorResilient", 3],
-]);
-
-function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
-    return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
 function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
@@ -2219,13 +2190,9 @@ export {
     getPropertyRuneDegreeAdjustments,
     getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
+    getPropertyRuneSlots,
     getPropertyRuneStrikeAdjustments,
-    getPropertyRunes,
-    getPropertySlots,
-    getResilientBonus,
     getRuneValuationData,
-    getStrikingDice,
     prunePropertyRunes,
-    resilientRuneValues,
 };
 export type { RuneData, WeaponPropertyRuneData };

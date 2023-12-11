@@ -155,91 +155,66 @@
         </select>
     </div>
 
-    {{#unless item.isBarding}}
-        <div class="form-group">
-            <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
-            <select name="system.potencyRune.value" data-dtype="Number">
-                {{#select data.potencyRune.value}}
-                    {{#each fundamentalRunes.potency as |rune|}}
-                        <option value="{{rune.value}}">{{localize rune.name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>{{localize "PF2E.ResiliencyRuneLabel"}}</label>
-            <select name="system.resiliencyRune.value">
-                {{#select data.resiliencyRune.value}}
-                    {{#each fundamentalRunes.resilient as |rune|}}
-                        <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-        </div>
-
-        {{#if propertyRuneSlots1}}
+    {{#unless (or item.isBarding abpEnabled)}}
+        {{#unless abpEnabled}}
             <div class="form-group">
-                <label>{{localize "PF2E.PropertyRuneLabel1"}}</label>
-                <select name="system.propertyRune1.value">
-                    {{#select data.propertyRune1.value}}
+                <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
+                <select name="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
+                    {{#select data.runes.potency}}
+                        {{#each runeTypes.potency as |data number|}}
+                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}rune-resilient">{{localize "PF2E.ResilientRuneLabel"}}</label>
+                <select name="system.runes.resilient" id="{{fieldIdPrefix}}rune-resilient" data-dtype="Number">
+                    {{#select data.runes.resilient}}
+                        {{#each runeTypes.resilient as |data number|}}
+                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        {{/unless}}
+
+        {{#each propertyRuneSlots as |slot index|}}
+            <div class="form-group">
+                <label
+                    for="{{../fieldIdPrefix}}runes-property-{{index}}"
+                    {{#if slot.disabled}}class="disabled"{{/if}}
+                >
+                    {{localize (concat "PF2E.PropertyRuneLabel" (add index 1))}}
+                </label>
+                <select
+                    name="system.runes.property.{{index}}"
+                    id="{{../fieldIdPrefix}}runes-property-{{index}}"
+                    {{disabled slot.disabled}}
+                    {{#if slot.readOnly}}class="readonly"{{/if}}
+                >
+                    {{#select slot.slug}}
                         <option value=""></option>
-                        {{#each propertyRunes as |rune|}}
+                        {{#each @root.runeTypes.property as |rune|}}
                             <option value="{{rune.slug}}">{{localize rune.name}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
             </div>
-        {{/if}}
-
-        {{#if propertyRuneSlots2}}
-            <div class="form-group">
-                <label>{{localize "PF2E.PropertyRuneLabel2"}}</label>
-                <select name="system.propertyRune2.value">
-                    {{#select data.propertyRune2.value}}
-                        <option value=""></option>
-                        {{#each propertyRunes as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        {{/if}}
-
-        {{#if propertyRuneSlots3}}
-            <div class="form-group">
-                <label>{{localize "PF2E.PropertyRuneLabel3"}}</label>
-                <select name="system.propertyRune3.value">
-                    {{#select data.propertyRune3.value}}
-                        <option value=""></option>
-                        {{#each propertyRunes as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        {{/if}}
-
-        {{#if propertyRuneSlots4}}
-            <div class="form-group">
-                <label>{{localize "PF2E.PropertyRuneLabel4"}}</label>
-                <select name="system.propertyRune4.value">
-                    {{#select data.propertyRune4.value}}
-                        <option value=""></option>
-                        {{#each propertyRunes as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        {{/if}}
+        {{/each}}
 
         <div class="form-group">
             <label class="large">
                 {{localize "PF2E.Item.Armor.Specific.Label"}}
                 <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Armor.Specific.Hint"></i>
             </label>
-            <input type="checkbox" name="system.specific.value" {{checked data.specific.value}} />
+            <input
+                type="checkbox"
+                name="system.specific"
+                value="{{json specificMagicData}}"
+                data-dtype="JSON"
+                {{checked data.specific}}
+            />
         </div>
     {{/unless}}
 </fieldset>

@@ -7,16 +7,9 @@ import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
-import {
-    IdentificationStatus,
-    MystifiedData,
-    RUNE_DATA,
-    getPropertySlots,
-    prunePropertyRunes,
-} from "@item/physical/index.ts";
+import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RangeData } from "@item/types.ts";
-import { OneToThree } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -26,7 +19,6 @@ import { WeaponTraitToggles } from "./helpers.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
-    StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
     WeaponRangeIncrement,
@@ -120,7 +112,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override get isSpecific(): boolean {
-        return this.system.specific?.value ?? false;
+        return !!this.system.specific;
     }
 
     get isMelee(): boolean {
@@ -281,42 +273,35 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const systemData = this.system;
-        systemData.category ||= "simple";
-        systemData.group ||= null;
-        systemData.baseItem ||= null;
-        systemData.bonusDamage.value ||= 0;
-        systemData.splashDamage.value ||= 0;
-        systemData.potencyRune.value ||= null;
-        systemData.strikingRune.value ||= null;
-        systemData.propertyRune1.value ||= null;
-        systemData.propertyRune2.value ||= null;
-        systemData.propertyRune3.value ||= null;
-        systemData.propertyRune4.value ||= null;
-        systemData.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
+        this.system.category ||= "simple";
+        this.system.group ||= null;
+        this.system.baseItem ||= null;
+        this.system.bonusDamage.value ||= 0;
+        this.system.splashDamage.value ||= 0;
+        this.system.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
             ? true
             : this.category === "unarmed"
-              ? !!systemData.graspingAppendage
+              ? !!this.system.graspingAppendage
               : false;
 
-        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, systemData.attribute)) {
-            systemData.attribute = null;
+        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, this.system.attribute)) {
+            this.system.attribute = null;
         }
 
-        const reloadValue = (systemData.reload.value ||= null);
-        systemData.reload.label = reloadValue
+        const reloadValue = (this.system.reload.value ||= null);
+        this.system.reload.label = reloadValue
             ? game.i18n.format("PF2E.Item.Weapon.Reload.LabelN", {
                   value: CONFIG.PF2E.weaponReload[reloadValue],
               })
             : null;
 
-        systemData.selectedAmmoId ||= null;
-        systemData.damage.die ||= null;
-        systemData.damage.modifier ??= 0;
+        this.system.selectedAmmoId ||= null;
+        this.system.damage.die ||= null;
+        this.system.damage.modifier ??= 0;
         // Some weapons fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
         // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula.
-        if (!systemData.damage.die && systemData.damage.dice > 0) {
-            systemData.damage.modifier ||= systemData.damage.dice;
+        if (!this.system.damage.die && this.system.damage.dice > 0) {
+            this.system.damage.modifier ||= this.system.damage.dice;
         }
 
         // Thrown weapons always have a reload of "-" or 0
@@ -324,13 +309,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.reload.value = "-";
         }
 
-        if (systemData.category === "unarmed" && !systemData.traits.value.includes("unarmed")) {
-            systemData.traits.value.push("unarmed");
+        if (this.system.category === "unarmed" && !this.system.traits.value.includes("unarmed")) {
+            this.system.traits.value.push("unarmed");
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
-        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, systemData.group) || traitSet.has("thrown");
+        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, this.system.group) || traitSet.has("thrown");
         if (mandatoryRanged) {
             this.system.range ??= 10;
         }
@@ -342,12 +327,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         // Lazy-load toggleable traits
-        systemData.traits.toggles = new WeaponTraitToggles(this);
+        this.system.traits.toggles = new WeaponTraitToggles(this);
 
         // Ensure unarmed attacks always have the unarmed trait
-        const traitsArray = systemData.traits.value;
-        if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
-            systemData.traits.value.push("unarmed");
+        const traitsArray = this.system.traits.value;
+        if (this.system.category === "unarmed" && !traitsArray.includes("unarmed")) {
+            this.system.traits.value.push("unarmed");
         }
 
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
@@ -355,51 +340,20 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (mandatoryMelee) this.system.range = null;
 
         // Whether the ammunition or weapon itself should be consumed
-        systemData.reload.consume = this.isMelee ? null : this.reload !== null;
+        this.system.reload.consume = this.isMelee ? null : this.reload !== null;
 
         // Whether the weapon is also usable as ammunition: set from source since parent prepares initial (clean) usage
         // object
-        systemData.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
+        this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
         // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
 
-        this.prepareRunes();
-
-        // Add traits from fundamental runes
-        const baseTraits = this.system.traits.value;
-        const { runes } = this.system;
-        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTrait = hasRunes && !baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
-
-        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
-    }
-
-    private prepareRunes(): void {
+        // Prepare and limit runes
         ABP.cleanupRunes(this);
-
-        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
-        const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
-            ["striking", 1],
-            ["greaterStriking", 2],
-            ["majorStriking", 3],
-        ]);
-
-        // Derived rune data structure
-        const runes = (this.system.runes = {
-            potency: potencyRune.value ?? 0,
-            striking: strikingRuneDice.get(strikingRune.value) ?? 0,
-            property: prunePropertyRunes(
-                [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value],
-                RUNE_DATA.weapon.property,
-            ),
-            effects: [],
-        });
-
-        // Limit property rune slots
-        const maxPropertySlots = getPropertySlots(this);
-        runes.property.length = Math.min(runes.property.length, maxPropertySlots);
+        const { runes } = this.system;
+        runes.effects = [];
+        runes.property.length = Math.min(runes.property.length, getPropertyRuneSlots(this));
 
         // Set damage dice according to striking rune
         // Only increase damage dice from ABP if the dice number is 1
@@ -412,6 +366,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
                 ? inherentDiceNumber + strikingDice
                 : this.system.damage.dice;
+
+        // Add traits from fundamental runes
+        const baseTraits = this.system.traits.value;
+        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
+        const magicTrait = hasRunes && !baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
+        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+
+        this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
     }
 
     override prepareDerivedData(): void {
@@ -729,11 +691,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         options: DocumentUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const traits = changed.system?.traits ?? {};
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        const traits = changed.system.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
         }
-        if (changed.system?.group !== undefined) {
+        if (changed.system.group !== undefined) {
             changed.system.group ||= null;
         }
 

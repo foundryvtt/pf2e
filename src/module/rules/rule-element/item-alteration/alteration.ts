@@ -90,7 +90,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     throw newValue.asError();
                 }
                 const itemBonus =
-                    "potencyRune" in item.system && this.mode === "override" ? item.system.potencyRune.value || 0 : 0;
+                    itemIsOfType(item, "armor") && this.mode === "override" ? item.system.runes.potency : 0;
                 item.system.acBonus = Math.max(newValue, 0) + itemBonus;
                 this.#adjustCreatureShieldData(item);
                 return;

@@ -97,39 +97,43 @@
         {{#unless abpEnabled}}
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
-                <select name="system.potencyRune.value" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
-                    {{#select data.potencyRune.value}}
-                        {{#each fundamentalRunes.potency as |rune|}}
-                            <option value="{{rune.value}}">{{localize rune.name}}</option>
+                <select name="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
+                    {{#select data.runes.potency}}
+                        {{#each runeTypes.potency as |data number|}}
+                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
             </div>
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-striking">{{localize "PF2E.StrikingRuneLabel"}}</label>
-                <select name="system.strikingRune.value" id="{{fieldIdPrefix}}rune-striking">
-                    {{#select data.strikingRune.value}}
-                        {{#each fundamentalRunes.striking as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
+                <select name="system.runes.striking" id="{{fieldIdPrefix}}rune-striking" data-dtype="Number">
+                    {{#select data.runes.striking}}
+                        {{#each runeTypes.striking as |data number|}}
+                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
             </div>
         {{/unless}}
+
         {{#each propertyRuneSlots as |slot index|}}
             <div class="form-group">
-                <label for="{{../item.uuid}}-rune-property-{{add index 1}}">{{slot.label}}</label>
-                {{#if @root.data.specific.value}}
-                    <input type="hidden" name="{{slot.name}}" value="{{slot.value}}" data-dtype="String" />
-                {{/if}}
-                <select
-                    {{#if (not @root.data.specific.value)}}name="{{slot.name}}"{{/if}}
-                    id="{{../item.uuid}}-rune-property-{{add index 1}}"
-                    {{disabled @root.data.specific.value}}
+                <label
+                    for="{{../fieldIdPrefix}}runes-property-{{index}}"
+                    {{#if slot.disabled}}class="disabled"{{/if}}
                 >
-                    {{#select slot.value}}
+                    {{localize (concat "PF2E.PropertyRuneLabel" (add index 1))}}
+                </label>
+                <select
+                    name="system.runes.property.{{index}}"
+                    id="{{../fieldIdPrefix}}runes-property-{{index}}"
+                    {{disabled slot.disabled}}
+                    {{#if slot.readOnly}}class="readonly"{{/if}}
+                >
+                    {{#select slot.slug}}
                         <option value=""></option>
-                        {{#each @root.propertyRunes as |rune|}}
+                        {{#each @root.runeTypes.property as |rune|}}
                             <option value="{{rune.slug}}">{{localize rune.name}}</option>
                         {{/each}}
                     {{/select}}
@@ -138,11 +142,18 @@
         {{/each}}
 
         <div class="form-group">
-            <label for="{{fieldIdPrefix}}specific-value" class="large">
+            <label for="{{fieldIdPrefix}}specific" class="large">
                 {{localize "PF2E.Item.Weapon.SpecificMagicWeapon.Label"}}
                 <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Weapon.SpecificMagicWeapon.Hint"></i>
             </label>
-            <input type="checkbox" name="system.specific.value" id="{{fieldIdPrefix}}specific-value" {{checked data.specific.value}} />
+            <input
+                type="checkbox"
+                name="system.specific"
+                id="{{fieldIdPrefix}}specific"
+                value="{{json specificMagicData}}"
+                data-dtype="JSON"
+                {{checked data.specific}}
+            />
         </div>
     </fieldset>
 {{/unless}}
