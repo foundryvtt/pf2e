@@ -1,0 +1,131 @@
+{
+    "_id": "iN6shVYuzvQ4A95i",
+    "img": "icons/creatures/claws/claw-bear-paw-swipe-red.webp",
+    "name": "Spell Effect: Shifting Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shifting Form]</p>\n<p>You gain one of the following abilities of your choice.</p>\n<ul>\n<li>You gain a 20-foot status bonus to your Speed.</li>\n<li>You gain a climb or swim Speed equal to half your Speed.</li>\n<li>You gain darkvision.</li>\n<li>You gain a pair of claws. These are agile finesse unarmed attacks that deal 1d8 slashing damage.</li>\n<li>You gain scent 60 feet (imprecise).</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Speed",
+                        "value": "speed"
+                    },
+                    {
+                        "label": "PF2E.SpeedTypesClimb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.SpeedTypesSwim",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
+                        "value": "darkvision"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Scent",
+                        "value": "scent"
+                    }
+                ],
+                "flag": "shiftingForm",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Form",
+                "rollOption": "shifting-form"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shifting-form:speed"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "shifting-form:climb"
+                ],
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "shifting-form:swim"
+                ],
+                "selector": "swim",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "shifting-form:darkvision"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "shifting-form:claw"
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "shifting-form:scent"
+                ],
+                "range": 60,
+                "selector": "scent"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
