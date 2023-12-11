@@ -329,8 +329,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                             melee: type === "melee",
                             modifiers: mapModifier ? [mapModifier] : [],
                             target: targetToken?.actor,
-                            dc: params.dc ?? targetToken?.actor?.armorClass,
+                            dc: { slug: "ac" },
                             damaging: true,
+                            extraRollOptions: ["origin:action:slug:army-strike"],
                             ...eventToRollParams(params.event, { type: "check" }),
                         });
 
