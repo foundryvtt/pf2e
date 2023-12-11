@@ -1,0 +1,73 @@
+{
+    "_id": "y4y0nusC97R7ZDL5",
+    "img": "icons/magic/earth/barrier-lava-stone-orange.webp",
+    "name": "Spell Effect: Elemental Betrayal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Elemental Betrayal]</p>\n<p>When you Cast this Spell, choose air, earth, metal, fire, water, or wood. The target gains weakness to that trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "elementalBetrayal",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "Weakness",
+                "type": "{item|flags.pf2e.rulesSelections.elementalBetrayal}",
+                "value": "ceil(@item.level/2)+1"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
