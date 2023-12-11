@@ -699,7 +699,7 @@ export class EmbeddedDocumentField<
  * Invalid elements will be dropped from the collection during validation rather than failing for the field entirely.
  */
 export class EmbeddedCollectionField<
-    TDocument extends abstract.Document,
+    TDocument extends abstract.Document<abstract.Document>,
     TSourceProp extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
@@ -761,7 +761,7 @@ export class EmbeddedCollectionField<
  * @todo: fill in
  */
 export class EmbeddedCollectionDeltaField<
-    TDocument extends foundry.abstract.Document,
+    TDocument extends abstract.Document<abstract.Document>,
     TSource extends (
         | DocumentSourceFromSchema<TDocument["schema"]["fields"], true>
         | SourceFromSchema<TombstoneDataSchema>
