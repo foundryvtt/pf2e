@@ -45,7 +45,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         // Define index fields for different types of equipment
 
         const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
-        const physicalItemFields = [...baseFields, "system.stackGroup", "system.level.value"];
+        const physicalItemFields = [...baseFields, "system.level.value"];
         const armorAndWeaponFields = [...physicalItemFields, "system.category", "system.group", "system.potencyRune"];
         const armorFields = [...armorAndWeaponFields, "system.resiliencyRune"];
         const weaponFields = [...armorAndWeaponFields, "system.strikingRune"];
