@@ -180,11 +180,11 @@ declare global {
          */
         refresh(): this;
 
-        /**
-         * The inner _refresh method which must be defined by each PlaceableObject subclass.
-         * @param options Options which may modify the refresh workflow
-         */
-        protected abstract _refresh(options: object): void;
+        /** Update the quadtree. */
+        protected _updateQuadtree(): void;
+
+        /** Get the target opacity that should be used for a Placeable Object depending on its preview state. */
+        protected _getTargetAlpha(): number;
 
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
         protected _onCreate(

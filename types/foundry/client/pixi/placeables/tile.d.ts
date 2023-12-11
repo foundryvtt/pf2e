@@ -72,8 +72,6 @@ declare global {
         /** @param [options.refreshPerception=false]  Also refresh the perception layer. */
         override refresh(options?: { refreshPerception?: boolean }): this;
 
-        protected override _refresh(options: { refreshPerception?: boolean }): void;
-
         /** Refresh the display of the Tile border */
         protected _refreshBorder(b: PIXI.Rectangle): void;
 

@@ -57,10 +57,6 @@ declare class Drawing<
     /** Create elements for the Drawing border and handles */
     protected _createFrame(): void;
 
-    override refresh(): this;
-
-    protected override _refresh(options: object): void;
-
     /** Draw rectangular shapes */
     protected _drawRectangle(): void;
 

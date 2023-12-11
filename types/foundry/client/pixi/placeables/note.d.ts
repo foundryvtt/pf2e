@@ -43,8 +43,6 @@ declare class Note<
 
     override refresh(): this;
 
-    protected override _refresh(options: object): void;
-
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
