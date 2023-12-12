@@ -524,9 +524,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         } = {},
     ): Promise<Actor<TokenDocument<Scene | null> | null> | null> {
         const omittedTypes: ActorType[] = [];
-        if (BUILD_MODE !== "development" || game.settings.get("pf2e", "campaignType") !== "kingmaker") {
-            omittedTypes.push("army");
-        }
+        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("army");
 
         const original = game.system.documentTypes.Actor;
         try {
