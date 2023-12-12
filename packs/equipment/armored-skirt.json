@@ -34,14 +34,203 @@
             "title": "Pathfinder Lost Omens: Character Guide"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "ac-bonus",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "check-penalty",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "dex-cap",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "strength",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:full-plate",
+                            "armor:base:half-plate",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "noisy"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:equipped",
+                    "armor:base:chain-shirt"
+                ],
+                "property": "category",
+                "value": "medium"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "category",
+                "value": "heavy"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:full-plate",
+                            "armor:base:half-plate"
+                        ]
+                    }
+                ],
+                "property": "ac-bonus",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:full-plate",
+                            "armor:base:half-plate"
+                        ]
+                    }
+                ],
+                "property": "check-penalty",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "strength",
+                "value": 1
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "armor:base:breastplate",
+                            "armor:base:chain-mail",
+                            "armor:base:chain-shirt",
+                            "armor:base:scale-mail"
+                        ]
+                    }
+                ],
+                "property": "dex-cap",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         }
     },
     "type": "equipment"
