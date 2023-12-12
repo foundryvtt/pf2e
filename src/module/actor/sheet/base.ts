@@ -243,7 +243,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         super.activateListeners($html);
         const html = $html[0];
 
-        this.activateClickListeners(html);
+        this.activateClickListener(html);
 
         // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on limited permission sheets.
         const inventoryPanel = ((): HTMLElement | null => {
@@ -527,9 +527,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
-    protected activateClickListeners(html: HTMLElement): void {
-        const ACTION: Record<string, ((a: HTMLElement, event: MouseEvent) => void | Promise<void>) | undefined> = {
-            "roll-check": (anchor, event) => {
+    protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers: SheetClickActionHandlers = {
+            "roll-check": (event, anchor) => {
                 const statistic = this.actor.getStatistic(anchor.dataset.statistic ?? "");
                 const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
                 if (anchor.dataset.secret !== undefined) {
@@ -542,16 +542,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
                 new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
             },
-            "toggle-summary": (anchor) => {
+            "toggle-summary": (_event, anchor) => {
                 const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
                 if (element) this.itemRenderer.toggleSummary(element);
             },
         };
 
         html.addEventListener("click", (event) => {
-            const anchor = htmlClosest(event.target, "a[data-action]");
-            if (anchor) ACTION[anchor.dataset.action ?? ""]?.(anchor, event);
+            const actionTarget = htmlClosest(event.target, "a[data-action], button[data-action]");
+            const handler = handlers[actionTarget?.dataset.action ?? ""];
+            if (handler && actionTarget) {
+                event.stopImmediatePropagation();
+                handler(event, actionTarget);
+            }
         });
+
+        return handlers;
     }
 
     /** DOM listeners for inventory panel */
@@ -1286,4 +1292,9 @@ interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, It
     render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this>;
 }
 
-export { ActorSheetPF2e };
+type SheetClickActionHandlers = Record<
+    string,
+    ((event: MouseEvent, actionTarget: HTMLElement) => void | Promise<void>) | undefined
+>;
+
+export { ActorSheetPF2e, type SheetClickActionHandlers };

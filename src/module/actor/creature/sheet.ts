@@ -21,7 +21,7 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
-import { ActorSheetPF2e } from "../sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { AbilityData, CreatureSystemData, SaveData, SkillAbbreviation, SkillData } from "./data.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
@@ -239,42 +239,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
         }
 
-        // Add, edit, and remove spellcasting entries
-        for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
-            for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
-                element.addEventListener("click", (event) => {
-                    createSpellcastingDialog(event, this.actor);
-                });
-            }
-
-            for (const element of htmlQueryAll(section, "[data-action=spellcasting-edit]") ?? []) {
-                element.addEventListener("click", (event) => {
-                    const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                    const entry = this.actor.items.get(containerId, { strict: true });
-                    if (entry.isOfType("spellcastingEntry")) {
-                        createSpellcastingDialog(event, entry);
-                    }
-                });
-            }
-
-            for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
-                element.addEventListener("click", async (event) => {
-                    const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                    const item = this.actor.items.get(itemId, { strict: true });
-
-                    const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
-                    const content = await renderTemplate(
-                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs",
-                    );
-
-                    // Render confirmation modal dialog
-                    if (await Dialog.confirm({ title, content })) {
-                        item.delete();
-                    }
-                });
-            }
-        }
-
         $html.find(".prepared-toggle").on("click", async (event) => {
             event.preventDefault();
             const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
@@ -350,6 +314,37 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         for (const button of htmlQueryAll(html, ".spell-browse")) {
             button.addEventListener("click", () => this.#onClickBrowseSpells(button));
         }
+    }
+
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+
+        // SPELLCASTING
+
+        // Add, edit, and remove spellcasting entries
+        handlers["spellcasting-create"] = (event) => {
+            createSpellcastingDialog(event, this.actor);
+        };
+        handlers["spellcasting-edit"] = (event) => {
+            const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const entry = this.actor.items.get(containerId, { strict: true });
+            if (entry.isOfType("spellcastingEntry")) {
+                createSpellcastingDialog(event, entry);
+            }
+        };
+        handlers["spellcasting-remove"] = async (event) => {
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.items.get(itemId, { strict: true });
+            const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
+            const content = await renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs");
+
+            // Render confirmation modal dialog
+            if (await Dialog.confirm({ title, content })) {
+                item.delete();
+            }
+        };
+
+        return handlers;
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
