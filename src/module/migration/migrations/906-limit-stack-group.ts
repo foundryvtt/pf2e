@@ -23,6 +23,9 @@ export class Migration906LimitStackGroup extends MigrationBase {
                 ? source.system.stackGroup
                 : null;
         }
+        if (!("game" in globalThis) && "stackGroup" in source.system && !source.system.stackGroup) {
+            source.system["-=stackGroup"] = null;
+        }
     }
 }
 

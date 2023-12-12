@@ -38,6 +38,9 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
     #cleanupSpecificData(system: ArmorSystemSource | WeaponSystemSource): void {
         const specificData: unknown = system.specific;
         if (R.isObject(specificData)) {
+            if ("price" in specificData) {
+                specificData["-=price"] = null;
+            }
             if (specificData.value === true) {
                 specificData["-=value"] = null;
                 specificData.runes = deepClone(system.runes);
@@ -70,7 +73,6 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 const potencyRune = Number(source.system.potencyRune.value) || 0;
                 source.system.runes.potency = tupleHasValue([1, 2, 3, 4], potencyRune) ? potencyRune : 0;
             }
-            source.system.specific ??= null;
         }
 
         if (source.type === "armor") {
@@ -105,7 +107,6 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                     source.system.runes.property.length = Math.min(source.system.runes.property.length, 4);
                 }
             }
-
             this.#cleanupSpecificData(source.system);
         }
 
