@@ -267,7 +267,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(options: { name?: boolean } = { name: true }): Promise<void> {
+    async refreshFromCompendium(
+        options: { name?: boolean; notify?: boolean } = { name: true, notify: true },
+    ): Promise<void> {
         if (!this.isOwned) {
             throw ErrorPF2e("This utility may only be used on owned items");
         }
@@ -276,6 +278,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         options.name ??= true;
+        options.notify ??= true;
 
         const currentSource = this.toObject();
         if (
@@ -373,7 +376,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         await this.update(updates, { diff: false, recursive: false });
-        ui.notifications.info(`Item "${this.name}" has been refreshed.`);
+        if (options.notify) ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
     getOriginData(): ItemOriginFlag {
