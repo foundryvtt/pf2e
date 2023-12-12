@@ -12,7 +12,7 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  * @category RuleElement
  */
 class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
-    static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
+    static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {
         const { fields } = foundry.data;

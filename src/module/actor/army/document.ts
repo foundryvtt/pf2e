@@ -7,11 +7,12 @@ import { Kingdom } from "@actor/party/kingdom/model.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { extractDamageDice, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
+import { createDamageFormula } from "@system/damage/formula.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
@@ -291,12 +292,22 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 ...eventToRollParams(params.event, { type: "damage" }),
             };
 
-            const formula = outcome === "success" ? "1" : "2";
+            // Compute damage formula. Since army damage has no category/type, we skip processing stacking rules here
+            const { formula, breakdown } = createDamageFormula({
+                base: [{ modifier: outcome === "success" ? 1 : 2, damageType: "untyped", category: null }],
+                modifiers: extractModifiers(context.self.actor.synthetics, domains, { test: context.options }),
+                dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
+                    test: context.options,
+                    resolvables: { target: context.target?.actor ?? null },
+                }),
+                ignoredResistances: [],
+            });
+
             const template: SimpleDamageTemplate = {
                 name: "Army damage",
                 materials: [],
                 modifiers: [],
-                damage: { roll: new DamageRoll(formula), breakdown: [] },
+                damage: { roll: new DamageRoll(formula), breakdown },
             };
 
             return DamagePF2e.roll(template, damageContext);
