@@ -1,5 +1,5 @@
 <li
-    class="item attack flexrow{{#if action.description}} expanded{{/if}}"
+    class="item attack flexrow"
     data-action-index="{{index}}"
     data-item-type="melee"
     data-strike=""
@@ -38,12 +38,6 @@
         {{/if}}
     </div>
 
-    {{#if action.description}}
-        <div class="description item-summary">
-            {{{action.description}}}
-        </div>
-    {{/if}}
-
     <div class="button-group">
         <div class="attacks sub-section">
             {{#each action.variants as |variant index|}}
@@ -57,4 +51,10 @@
             </div>
         {{/if}}
     </div>
+
+    {{#if action.description}}
+        <div class="item-summary">
+            {{{action.description}}}
+        </div>
+    {{/if}}
 </li>
