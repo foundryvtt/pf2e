@@ -155,9 +155,10 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         // Re-open hidden item summaries
         if (elements.length > 0) {
             const selector = elements.map((s) => htmlSelectorFor(s)).join(",");
-            for (const container of htmlQueryAll(result, selector)) {
-                this.toggleSummary(container, { instant: true, visible: true });
-            }
+            const promises = htmlQueryAll(result, selector).map((container) =>
+                this.toggleSummary(container, { instant: true, visible: true }),
+            );
+            await Promise.all(promises);
         }
 
         return $result;
