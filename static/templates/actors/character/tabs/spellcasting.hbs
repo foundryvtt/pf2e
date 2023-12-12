@@ -11,7 +11,7 @@
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
                     </h3>
                     {{#if @root.options.editable}}
-                        <div class="item-controls">
+                        <div class="item-controls" data-tooltip-class="pf2e">
                             {{#if entry.isFocusPool}}
                                 <a class="item-control spell-browse" data-tooltip="PF2E.OpenSpellBrowserTitle"
                                     data-location="{{entry.id}}"><i class="fa-solid fa-fw fa-search"></i></a>
@@ -30,7 +30,7 @@
                 </div>
 
                 {{#unless entry.isRitual}}
-                    <div class="spell-ability-data">
+                    <div class="spell-ability-data" data-tooltip-class="pf2e">
                         <div class="statistic-values">
                             <section class="skill-data" data-tooltip="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
@@ -96,7 +96,7 @@
         {{#if @root.options.editable}}
             <li class="item spellbook-empty">
                 <div class="item-controls pf-add-item-row">
-                    <a class="item-control blue-button" data-action="spellcasting-create" data-tooltip="PF2E.CreateSpellTitle" data-type="spell" data-level="{{lvl}}">
+                    <a class="item-control blue-button" data-action="spellcasting-create">
                         <i class="fa-solid fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
                     </a>
                 </div>

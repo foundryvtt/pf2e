@@ -3,7 +3,13 @@
         {{!-- Add section for each level --}}
         {{#each entry.levels as |section|}}
             {{#if (or (gt section.active.length 0) entry.showSlotlessLevels)}}
-                <li class="spell-level-header spellbook-header item" data-item-id="{{entry.id}}" data-item-type="spellLevel" data-level="{{section.level}}">
+                <li
+                    class="spell-level-header spellbook-header item"
+                    data-item-id="{{entry.id}}"
+                    data-item-type="spellLevel"
+                    data-level="{{section.level}}"
+                    data-tooltip-class="pf2e"
+                >
                     <div class="item-name">
                         <h3>{{localize section.label}}</h3>
 
@@ -14,11 +20,11 @@
                         {{else if (and entry.isFocusPool (not (eq @root.actor.type "character")))}}
                             <div class="focus-pool-input">
                                 <span class="spell-slots-input">
-                                    <input type="number" name="system.resources.focus.value" value="{{@root.data.resources.focus.value}}" title="{{localize "PF2E.Focus.pointTitle"}}" placeholder="0" />
+                                    <input type="number" name="system.resources.focus.value" value="{{@root.data.resources.focus.value}}" data-tooltip="PF2E.Focus.pointTitle" placeholder="0" />
                                 </span>
                                 <span class="slash"> / </span>
                                 <span class="spell-max-input">
-                                    <input type="number" name="system.resources.focus.max" value="{{@root.data.resources.focus.max}}" title="{{localize "PF2E.Focus.poolTitle"}}" placeholder="0" />
+                                    <input type="number" name="system.resources.focus.max" value="{{@root.data.resources.focus.max}}" data-tooltip="PF2E.Focus.poolTitle" placeholder="0" />
                                 </span>
                             </div>
                         {{else if (and section.uses (not entry.isFocusPool))}}
@@ -49,13 +55,13 @@
 
                     <div class="cast-spell"></div>
                     {{#if @root.options.editable}}
-                        <div class="item-controls">
+                        <div class="item-controls" data-tooltip-class="pf2e">
                             {{#unless entry.isPrepared}}
-                                <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
+                                <a class="item-control spell-create" data-tooltip="PF2E.CreateSpellTitle" data-type="spell"
                                     data-level="{{section.level}}" data-location="{{entry.id}}"><i class="fa-solid fa-fw fa-plus"></i></a>
                                 <a
                                     class="item-control spell-browse"
-                                    data-tooltip="{{localize "PF2E.OpenSpellBrowserTitle"}}"
+                                    data-tooltip="PF2E.OpenSpellBrowserTitle"
                                     {{#if (eq section.level 0)}}data-category="cantrip"{{/if}}
                                     data-rank="{{#if (or (eq entry.category "ritual") (eq rank 0))}}10{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
@@ -116,21 +122,24 @@
                                 <div class="cast-spell">
                                     <button type="button" data-action="cast-spell">{{localize "PF2E.CastLabel"}}</button>
                                 </div>
-                                <div class="item-controls">
+                                <div class="item-controls" data-tooltip-class="pf2e">
                                     {{#if entry.isPrepared}}
                                         {{#unless section.isCantrip}}
-                                            <a class="item-control item-toggle-prepare" title="{{#if expended}}{{localize "PF2E.RestoreSpellTitle"}}{{else}}{{localize "PF2E.ExpendSpellTitle"}}{{/if}}"><i class="fa-solid fa-fw fa-{{#if expended}}plus{{else}}minus{{/if}}-square"></i></a>
+                                            <a
+                                                class="item-control item-toggle-prepare"
+                                                data-tooltip="{{#if expended}}PF2E.RestoreSpellTitle{{else}}PF2E.ExpendSpellTitle{{/if}}"
+                                            ><i class="fa-solid fa-fw fa-{{#if expended}}plus{{else}}minus{{/if}}-square"></i></a>
                                         {{/unless}}
-                                        <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                        <a class="item-control item-unprepare" data-tooltip="PF2E.UnprepareItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                     {{else}}
                                         {{#if (and entry.isSpontaneous (not section.isCantrip))}}
-                                            <a class="item-control toggle-signature-spell" title="{{localize "PF2E.ToggleSignatureSpellTitle"}}">
+                                            <a class="item-control toggle-signature-spell" data-tooltip="PF2E.ToggleSignatureSpellTitle">
                                                 {{#if signature}}<i class="fa-solid fa-fw fa-star"></i>{{else}}<i class="fa-regular fa-fw fa-star"></i>{{/if}}
                                             </a>
                                         {{/if}}
                                         {{#unless virtual}}
-                                            <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                            <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                            <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                         {{/unless}}
                                     {{/if}}
                                 </div>
@@ -146,15 +155,9 @@
             {{/if}}
         {{/each}}
 
-        {{#if (and (not entry.levels) @root.options.editable)}}
-            <li class="spellbook-header spellbook-empty">
-                <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
-                <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry.id}}">
-                    <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
-                </a>
-                <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-location="{{entry.id}}">
-                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
-                </a>
+        {{#if (and (eq entry.levels.length 0) @root.editable)}}
+            <li class="spellbook-header no-spells">
+                <div class="item-name empty"><h4>{{localize "PF2E.SpellSlotEmpty"}}</h4></div>
             </li>
         {{/if}}
     </ol>
