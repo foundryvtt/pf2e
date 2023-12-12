@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 
 /** Add roll options to abilities allowing one to ignore the flat-footed condition from being flanked */
-export class Migration719ShrugFlanking extends MigrationBase {
+export class Migration908TrueGangUp extends MigrationBase {
     static override version = 0.908;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
@@ -20,8 +20,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
             key: "ActiveEffectLike",
             mode: "add",
             path: "system.attributes.flanking.canGangUp",
-            value: 1,
+            value: true,
         };
     }
-
 }

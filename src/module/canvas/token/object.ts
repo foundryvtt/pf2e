@@ -166,9 +166,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // The actual "Gang Up" rule or similar
         const gangingUp =
-            flanking.canGangUp.some((g) => typeof g === "number" && g <= flankingBuddies.length) ||
+            flanking.canGangUp.some(
+                (g) =>
+                    (typeof g === "number" && g <= flankingBuddies.length) ||
+                    (g === true && flankingBuddies.length >= 1),
+            ) ||
             flankingBuddies.some((b) => {
-                return b.actor?.attributes?.flanking?.canGangUp?.includes("true-gang-up");
+                return b.actor?.attributes?.flanking?.canGangUp.some((g) => g === true);
             });
         if (gangingUp) return true;
 
