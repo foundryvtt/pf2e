@@ -132,7 +132,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         }
 
         // Stamina points
-        if (game.settings.get("pf2e", "staminaVariant")) {
+        if (game.pf2e.settings.variants.stamina) {
             const stamina = attributes.hp.sp ?? { value: 0, max: 0 };
             const resolve = resources.resolve ?? { value: 0, max: 0 };
             if (stamina.value < stamina.max) {

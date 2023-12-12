@@ -89,9 +89,7 @@ declare global {
         /** The default value */
         default: number | string | boolean | object | (() => number | string | boolean | object);
         /** Executes when the value of this Setting changes */
-        onChange?: (
-            choice: TChoices extends Record<string, unknown> ? keyof TChoices : undefined,
-        ) => void | Promise<void>;
+        onChange?: (choice: TChoices extends object ? keyof TChoices : unknown) => void | Promise<void>;
     }
 
     interface SettingSubmenuConfig {

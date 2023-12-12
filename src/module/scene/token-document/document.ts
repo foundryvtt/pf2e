@@ -32,7 +32,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
 
         const { actor } = this;
-        if (!actor || !game.settings.get("pf2e", "automation.rulesBasedVision")) {
+        if (!actor || !game.pf2e.settings.rbv) {
             return false;
         }
 
@@ -82,9 +82,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         attributes?: TrackedAttributesDescription,
     ): TrackedAttributesDescription {
         attributes ??= this.getTrackedAttributes();
-        // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered { value, max }
-        // property and sp is nested within the hp property
-        if (game.settings.get("pf2e", "staminaVariant")) {
+        // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered
+        // { value, max } property and sp is nested within the hp property
+        if (game.pf2e.settings.variants.stamina) {
             attributes.bar.push(["attributes", "hp", "sp"]);
         }
         return super.getTrackedAttributeChoices(attributes);
@@ -206,7 +206,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type);
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
-        const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
+        const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
@@ -324,7 +324,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
 
         // Always override token images if in Nath mode
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
+        if (game.pf2e.settings.tokens.nathMode && defaultIcons.includes(token.texture.src)) {
             token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
@@ -363,7 +363,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             token.width = size;
             token.height = size;
 
-            if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
+            if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
                 const absoluteScale = actor.size === "sm" ? 0.8 : 1;
                 const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
                 token.texture.scaleX = mirrorX * absoluteScale;
@@ -470,7 +470,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         if ("displayName" in changed && tokenSetsNameVisibility && this.combatant) {
             ui.combat.render();
         }

@@ -63,17 +63,17 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             [`rune:reinforcing:${reinforcingSlug}`]: !!reinforcingRune,
         };
 
-        return [
-            super.getRollOptions(prefix),
-            Object.entries({
+        const rollOptions = super.getRollOptions(prefix);
+        rollOptions.push(
+            ...Object.entries({
                 [`base:${this.baseType}`]: !!this.baseType,
                 ...reinforcingOptions,
             })
-                .filter(([, isTrue]) => !!isTrue)
-                .map(([key]) => `${prefix}:${key}`),
-        ]
-            .flat()
-            .sort();
+                .filter((e) => !!e[1])
+                .map((e) => `${prefix}:${e[0]}`),
+        );
+
+        return rollOptions;
     }
 
     override prepareBaseData(): void {

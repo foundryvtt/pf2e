@@ -339,7 +339,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Whether this actor is immune to an effect of a certain type */
     isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
-        if (!game.settings.get("pf2e", "automation.iwr")) return false;
+        if (!game.pf2e.settings.iwr) return false;
 
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
         const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
@@ -1663,7 +1663,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         const appliedToSP = ((): number => {
-            const staminaEnabled = !!sp && game.settings.get("pf2e", "staminaVariant");
+            const staminaEnabled = !!sp && game.pf2e.settings.variants.stamina;
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);

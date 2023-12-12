@@ -228,7 +228,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     /** Use the token name as the title if showing a lootable NPC sheet */
     override get title(): string {
         if (this.isLootSheet || this.actor.limited) {
-            const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+            const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
             const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
 

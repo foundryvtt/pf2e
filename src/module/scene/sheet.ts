@@ -19,7 +19,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         const [tab, panel] = await (async (): Promise<HTMLTemplateElement[]> => {
             const hbsPath = "systems/pf2e/templates/scene/sheet-partials.hbs";
             const rbvWorldDefault = game.i18n.localize(
-                game.settings.get("pf2e", "automation.rulesBasedVision")
+                game.pf2e.settings.rbv
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                     : "PF2E.SETTINGS.EnabledDisabled.Disabled",
             );

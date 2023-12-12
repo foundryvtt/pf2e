@@ -245,7 +245,12 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate({ ...this, item: undefined });
+        return deepClone({
+            ...this,
+            predicate: [...this.predicate],
+            rule: this.rule?.toObject(),
+            item: undefined,
+        });
     }
 
     toString(): string {
@@ -308,16 +313,10 @@ function createProficiencyModifier({
 }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant");
+    const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
     const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? [
-              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-              game.settings.get("pf2e", "proficiencyTrainedModifier"),
-              game.settings.get("pf2e", "proficiencyExpertModifier"),
-              game.settings.get("pf2e", "proficiencyMasterModifier"),
-              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-          ]
+        ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
     const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
@@ -677,10 +676,7 @@ class DamageDicePF2e {
     }
 
     toObject(): RawDamageDice {
-        return {
-            ...this,
-            predicate: deepClone([...this.predicate]),
-        };
+        return deepClone({ ...this, predicate: [...this.predicate] });
     }
 }
 

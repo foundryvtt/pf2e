@@ -69,7 +69,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
 
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const allyColor = (c: CombatantPF2e<EncounterPF2e>) =>
             c.actor?.hasPlayerOwner ? CONFIG.Canvas.dispositionColors.PARTY : CONFIG.Canvas.dispositionColors.FRIENDLY;
 

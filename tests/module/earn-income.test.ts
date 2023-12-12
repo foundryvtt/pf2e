@@ -5,9 +5,7 @@ const options = {
     useLoreAsExperiencedProfessional: false,
 };
 
-const dcOptions = {
-    proficiencyWithoutLevel: false,
-};
+const dcOptions = { pwol: false };
 
 describe("earn income", () => {
     test("should earn a crit failure", () => {
@@ -188,7 +186,7 @@ describe("earn income", () => {
 
     test("should earn a critical success with variant proficiency without level", () => {
         const level = 20;
-        const dc = calculateDC(level, { proficiencyWithoutLevel: true });
+        const dc = calculateDC(level, { pwol: true });
         expect(
             earnIncome({
                 level: 20,

@@ -10,7 +10,7 @@ class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
     static isEnabled(actor: ActorPF2e | null): boolean {
         if (actor && !actor.flags?.pf2e) return false;
-        const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+        const settingEnabled = game.pf2e.settings.variants.abp !== "noABP";
         const abpDisabledForActor = !!actor?.flags.pf2e.disableABP;
 
         return settingEnabled && !abpDisabledForActor;
@@ -33,7 +33,7 @@ class AutomaticBonusProgression {
         const ac = values.ac;
         const perception = values.perception;
         const save = values.save;
-        const setting = game.settings.get("pf2e", "automaticBonusVariant");
+        const setting = game.pf2e.settings.variants.abp;
 
         if (save > 0) {
             const modifiers = (synthetics.modifiers["saving-throw"] ??= []);
@@ -119,7 +119,7 @@ class AutomaticBonusProgression {
             item.system.runes.resilient = 0;
         }
 
-        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPRulesAsWritten") {
+        if (game.pf2e.settings.variants.abp === "ABPRulesAsWritten") {
             item.system.runes.property = [];
         }
     }

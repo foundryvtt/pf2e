@@ -102,6 +102,37 @@ export const SetGamePF2e = {
         };
         game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
         game.pf2e.ConditionManager.initialize();
+        game.pf2e.settings = {
+            campaign: {
+                enabled: game.settings.get("pf2e", "campaignFeats"),
+                sections: game.settings.get("pf2e", "campaignFeatSections"),
+            },
+            encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
+            iwr: game.settings.get("pf2e", "automation.iwr"),
+            rbv: game.settings.get("pf2e", "automation.rulesBasedVision"),
+            tokens: {
+                autoscale: game.settings.get("pf2e", "tokens.autoscale"),
+                nameVisibility: game.settings.get("pf2e", "metagame_tokenSetsNameVisibility"),
+                nathMode: game.settings.get("pf2e", "nathMode"),
+            },
+            totm: game.settings.get("pf2e", "totmToggles"),
+            variants: {
+                abp: game.settings.get("pf2e", "automaticBonusVariant"),
+                fa: game.settings.get("pf2e", "freeArchetypeVariant"),
+                gab: game.settings.get("pf2e", "gradualBoostsVariant"),
+                pwol: {
+                    enabled: game.settings.get("pf2e", "proficiencyVariant"),
+                    modifiers: [
+                        game.settings.get("pf2e", "proficiencyUntrainedModifier"),
+                        game.settings.get("pf2e", "proficiencyTrainedModifier"),
+                        game.settings.get("pf2e", "proficiencyExpertModifier"),
+                        game.settings.get("pf2e", "proficiencyMasterModifier"),
+                        game.settings.get("pf2e", "proficiencyLegendaryModifier"),
+                    ],
+                },
+                stamina: game.settings.get("pf2e", "staminaVariant"),
+            },
+        };
     },
 
     onSetup: (): void => {},

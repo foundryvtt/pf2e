@@ -20,7 +20,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         });
     };
 
-    if (!game.settings.get("pf2e", "staminaVariant")) {
+    if (!game.pf2e.settings.variants.stamina) {
         ui.notifications.error(localize("StaminaNotEnabled"));
         return;
     }

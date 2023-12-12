@@ -116,7 +116,7 @@ function setImmunitiesFromTraits(actor: CreaturePF2e): void {
 }
 
 function imposeEncumberedCondition(actor: CreaturePF2e): void {
-    if (!game.settings.get("pf2e", "automation.encumbrance")) return;
+    if (!game.pf2e.settings.encumbrance) return;
     if (actor.inventory.bulk.isEncumbered && actor.conditions.bySlug("encumbered").length === 0) {
         const source = game.pf2e.ConditionManager.getCondition("encumbered").toObject();
         const encumbered = new ConditionPF2e(mergeObject(source, { _id: "xxxENCUMBEREDxxx" }), { parent: actor });

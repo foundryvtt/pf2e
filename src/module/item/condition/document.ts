@@ -112,7 +112,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
-        return options.sort();
+        return options;
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {

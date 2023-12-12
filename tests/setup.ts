@@ -30,6 +30,7 @@ global.game = Object.freeze({
             }
         },
     }),
+    pf2e: { settings: { variants: { pwol: false } } },
     user: {},
     i18n: {
         localize: (path: string) => path,

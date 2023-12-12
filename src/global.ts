@@ -114,6 +114,47 @@ interface GamePF2e
         StatisticModifier: typeof StatisticModifier;
         StatusEffects: typeof StatusEffects;
         TextEditor: typeof TextEditorPF2e;
+        /** Cached values of frequently-checked settings */
+        settings: {
+            /** Campaign feat slots */
+            campaign: {
+                enabled: boolean;
+                sections: FeatGroupOptions[];
+            };
+            /** Encumbrance automation */
+            encumbrance: boolean;
+            /** Immunities, weaknesses, and resistances */
+            iwr: boolean;
+            /** Rules-based vision */
+            rbv: boolean;
+            tokens: {
+                /** Automatic scaling of tokens belong to small actor */
+                autoscale: boolean;
+                /** Token nameplate visibility sets name visibility in encounter tracker */
+                nameVisibility: boolean;
+                /** Nath Mode */
+                nathMode: boolean;
+            };
+            /** Theater-of-the-mind toggles */
+            totm: boolean;
+            /** Variant urles */
+            variants: {
+                /** Automatic Bonus Progression */
+                abp: "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
+                /** Free Archetype */
+                fa: boolean;
+                /** Gradual Ability Boosts */
+                gab: boolean;
+                /** Proficiency without Level */
+                pwol: {
+                    enabled: boolean;
+                    /** Modifiers for each proficiency rank */
+                    modifiers: [number, number, number, number, number];
+                };
+                /** Stamina */
+                stamina: boolean;
+            };
+        };
     };
 }
 

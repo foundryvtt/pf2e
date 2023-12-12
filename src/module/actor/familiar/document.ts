@@ -138,7 +138,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, masterAttributeModifier } = this;
 
-        const masterLevel = game.settings.get("pf2e", "proficiencyVariant") ? 0 : level;
+        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
 
         const { synthetics } = this;
         const speeds = (attributes.speed = this.prepareSpeed("land"));

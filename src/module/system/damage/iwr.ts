@@ -11,7 +11,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         return { finalDamage: 0, applications: [], persistent: [] };
     }
 
-    if (!game.settings.get("pf2e", "automation.iwr")) {
+    if (!game.pf2e.settings.iwr) {
         return {
             finalDamage: roll.total,
             applications: [],

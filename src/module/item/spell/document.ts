@@ -629,54 +629,52 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const options = new Set(["magical", `${prefix}:rank:${this.rank}`]);
+        const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
         const entryHasSlots = !!(this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous);
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.add(`${prefix}:spell-slot`);
+            spellOptions.add(`${prefix}:spell-slot`);
         }
 
         if (!this.system.duration.value) {
-            options.add(`${prefix}:duration:0`);
+            spellOptions.add(`${prefix}:duration:0`);
         }
 
         if (!this.unlimited) {
-            options.add(`${prefix}:frequency:limited`);
+            spellOptions.add(`${prefix}:frequency:limited`);
         }
 
         for (const damage of Object.values(this.system.damage)) {
             if (damage.type) {
-                options.add(`${prefix}:damage:${damage.type}`);
-                options.add(`${prefix}:damage:type:${damage.type}`);
+                spellOptions.add(`${prefix}:damage:${damage.type}`);
+                spellOptions.add(`${prefix}:damage:type:${damage.type}`);
             }
             const category = DamageCategorization.fromDamageType(damage.type);
             if (category) {
-                options.add(`${prefix}:damage:category:${category}`);
+                spellOptions.add(`${prefix}:damage:category:${category}`);
             }
             if (damage.category === "persistent") {
-                options.add(`${prefix}:damage:persistent:${damage.type}`);
+                spellOptions.add(`${prefix}:damage:persistent:${damage.type}`);
             }
         }
 
         const isAreaEffect = !!this.system.area?.value;
-        if (isAreaEffect) options.add("area-effect");
+        if (isAreaEffect) spellOptions.add("area-effect");
 
         if (this.damageKinds.has("damage")) {
-            options.add("damaging-effect");
-            if (isAreaEffect) options.add("area-damage");
-        }
-
-        for (const trait of this.traits) {
-            options.add(trait);
+            spellOptions.add("damaging-effect");
+            if (isAreaEffect) spellOptions.add("area-damage");
         }
 
         // Include spellcasting roll options (if available)
-        const spellcastingOptions = this.spellcasting?.getRollOptions?.("spellcasting") ?? [];
-        for (const option of spellcastingOptions) {
-            options.add(option);
+        for (const option of this.spellcasting?.getRollOptions?.("spellcasting") ?? []) {
+            spellOptions.add(option);
         }
 
-        return super.getRollOptions(prefix).concat([...options]);
+        const rollOptions = super.getRollOptions(prefix);
+        rollOptions.push(...spellOptions);
+
+        return rollOptions;
     }
 
     override async toMessage(
