@@ -10,7 +10,7 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollMode } from "@scripts/sheet-util.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -196,7 +196,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
 
         // Basic chat message data
-        const rollMode = options.rollMode ?? eventToRollParams(event, { type: "check" }).rollMode ?? "roll";
+        const originalEvent = event instanceof MouseEvent ? event : event?.originalEvent;
+        const rollMode = options.rollMode ?? eventToRollMode(originalEvent);
         const chatData = ChatMessagePF2e.applyRollMode(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,

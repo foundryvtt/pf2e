@@ -11,7 +11,7 @@ import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -420,17 +420,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        // Other actions
-        for (const button of htmlQueryAll(html, "button[data-action=use-action]")) {
-            button.addEventListener("click", () => {
-                const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("action", "feat")) {
-                    createSelfEffectMessage(item);
-                }
-            });
-        }
-
         // Remove Spell Slot
         for (const anchor of htmlQueryAll(html, ".item-unprepare")) {
             anchor.addEventListener("click", () => {
@@ -529,6 +518,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers: SheetClickActionHandlers = {
+            "use-action": (event) => {
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                if (item.isOfType("action", "feat")) {
+                    createSelfEffectMessage(item, eventToRollMode(event));
+                }
+            },
             "roll-check": (event, anchor) => {
                 const statistic = this.actor.getStatistic(anchor.dataset.statistic ?? "");
                 const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
