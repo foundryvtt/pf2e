@@ -23,6 +23,7 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { createFinePowderEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
@@ -1316,18 +1317,24 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
             return rollOptions.has("item:trait:death") &&
                 !this.attributes.immunities.some((i) => i.type === "death-effects")
-                ? localize("InstantDeath.DeathEffect")
-                : this.isOfType("npc") && this.modeOfBeing === "undead"
-                  ? localize("InstantDeath.Destroyed")
-                  : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
-                    ? localize("InstantDeath.MassiveDamage")
-                    : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
-                      ? localize("InstantDeath.FinePowder")
+                ? "death-effect"
+                : rollOptions.has("item:type:spell") && rollOptions.has("item:slug:disintegrate")
+                  ? "fine-powder"
+                  : this.isOfType("npc") && this.modeOfBeing === "undead"
+                    ? "destroyed"
+                    : damageResult.totalApplied >= (hitPoints.max + staminaMax) * 2
+                      ? "massive-damage"
                       : null;
         })();
 
+        // This gets a special visual effect
+        const finePowder = instantDeath === "fine-powder";
+
         if (damageResult.totalApplied !== 0) {
-            const updated = await this.update(damageResult.updates, { damageTaken: damageResult.totalApplied });
+            const updated = await this.update(damageResult.updates, {
+                damageTaken: damageResult.totalApplied,
+                finePowder,
+            });
             const setting = game.settings.get("pf2e", "automation.actorsDeadAtZero");
             const deadAtZero =
                 (this.isOfType("npc") && ["npcsOnly", "both"].includes(setting)) ||
@@ -1339,7 +1346,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ((damageResult.totalApplied >= 0 && !token.combatant?.isDefeated) ||
                     (damageResult.totalApplied < 0 && !!token.combatant?.isDefeated))
             ) {
-                token.combatant?.toggleDefeated();
+                token.combatant?.toggleDefeated({ overlayIcon: !finePowder }).then(() => {
+                    if (finePowder) this.createEmbeddedDocuments("Item", [createFinePowderEffect()]);
+                });
             }
         }
 
@@ -1370,7 +1379,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : null;
 
         const statements = ((): string => {
-            const concatenated = R.compact([hpStatement, shieldStatement, instantDeath])
+            const deathMessage =
+                instantDeath && localize(`InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`);
+            const concatenated = R.compact([hpStatement, shieldStatement, deathMessage])
                 .map((s) =>
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
@@ -1983,6 +1994,7 @@ interface HitPointsSummary {
 
 interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
     damageTaken?: number;
+    finePowder?: boolean;
     damageUndo?: boolean;
 }
 
