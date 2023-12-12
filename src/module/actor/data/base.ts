@@ -135,7 +135,7 @@ type GangUpCircumstance =
     /** Requires the actor's animal companion to be adjacent to the target */
     | "animal-companion"
     /** The Gang Up rogue feat allows allies to flank with the gang-upper */
-    | boolean;
+    | true;
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
