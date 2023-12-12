@@ -1,0 +1,67 @@
+{
+    "_id": "0TZLR0PO5TJm9F4l",
+    "img": "systems/pf2e/icons/equipment/artifacts/forgefathers-seal.webp",
+    "name": "Effect: Forgefather's Seal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Forgefather's Seal]</p>\n<p>While wearing armor etched with a <em>Forgefather's seal</em>, you gain fire resistance 40. You ignore the armor's check penalty and Speed penalty (if any); if the armor is light or medium, increase its item bonus to AC by 1.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 24
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": 40
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "armor:ignore-check-penalty"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "armor:ignore-speed-penalty"
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "armor:category:light",
+                            "armor:category:medium"
+                        ]
+                    }
+                ],
+                "property": "ac-bonus",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
