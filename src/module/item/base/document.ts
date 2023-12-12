@@ -286,7 +286,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
             )
         ) {
-            if (!options.silent) ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
+            if (!options.silent)
+                ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
             return;
         }
 
@@ -365,7 +366,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                                 item: currentSource.system.spell.name,
                                 sourceId: spellSourceId,
                             }),
-                    );
+                        );
                     return;
                 }
             }
