@@ -1695,7 +1695,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
-        return Array.from(toReturn).sort();
+        return Array.from(toReturn);
     }
 
     /** This allows @actor.level and such to work for macros and inline rolls */
