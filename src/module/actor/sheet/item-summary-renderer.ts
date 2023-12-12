@@ -37,7 +37,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         const summaryElem = await (async () => {
             const container = htmlQuery(element, ".item-summary");
-            if (container?.hasChildNodes() || options.visible) return container;
+            if (container?.hasChildNodes()) return container;
             if (!container || !(item instanceof ItemPF2e)) return null;
             const chatData = await item.getChatData({ secrets: item.isOwner }, element.dataset);
             await this.renderItemSummary(container, item, chatData);
@@ -156,7 +156,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         if (elements.length > 0) {
             const selector = elements.map((s) => htmlSelectorFor(s)).join(",");
             for (const container of htmlQueryAll(result, selector)) {
-                this.toggleSummary(container, { instant: true });
+                this.toggleSummary(container, { instant: true, visible: true });
             }
         }
 
