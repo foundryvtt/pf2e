@@ -3,6 +3,7 @@ import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
+import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
@@ -1028,16 +1029,15 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
     }
 
-    protected override activateInventoryListeners(panel: HTMLElement | null): void {
-        super.activateInventoryListeners(panel);
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
 
-        // Toggle invested state
-        const inventory = this.isEditable ? htmlQuery(panel, ".inventory-pane") : null;
-        inventory?.addEventListener("click", (event) => {
-            const link = htmlClosest(event.target, "a[data-action=toggle-invested]");
-            const itemId = htmlClosest(link, ".item")?.dataset.itemId;
+        handlers["toggle-invested"] = (_, anchor) => {
+            const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
             if (itemId) this.actor.toggleInvested(itemId);
-        });
+        };
+
+        return handlers;
     }
 
     async #getBlastData(blast: ElementalBlast, config: ElementalBlastConfig): Promise<ElementalBlastSheetConfig> {
