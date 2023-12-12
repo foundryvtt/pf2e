@@ -1,18 +1,19 @@
 import { EffectSource } from "./data.ts";
 
-const createFinePowderEffect = (): PreCreate<EffectSource> => {
+/** Create the source data for a gag Disintegrate spell effect */
+const createDisintegrateEffect = (): PreCreate<EffectSource> => {
     return {
         _id: null,
         type: "effect",
-        name: game.i18n.localize("PF2E.Item.Effect.FinePowder.Name"),
+        name: game.i18n.localize("PF2E.Item.Effect.Disintegrated.Name"),
         img: "systems/pf2e/icons/effects/fine-powder.svg",
         system: {
             slug: "effect-fine-powder",
-            description: { value: game.i18n.localize("PF2E.Item.Effect.FinePowder.Description") },
+            description: { value: game.i18n.localize("PF2E.Item.Effect.Disintegrated.Description") },
             rules: [{ key: "TokenImage", value: "systems/pf2e/icons/effects/fine-powder.svg" }],
             tokenIcon: { show: false },
         },
     };
 };
 
-export { createFinePowderEffect };
+export { createDisintegrateEffect };

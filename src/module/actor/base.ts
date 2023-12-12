@@ -23,7 +23,7 @@ import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
-import { createFinePowderEffect } from "@item/effect/helpers.ts";
+import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
@@ -1347,7 +1347,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     (damageResult.totalApplied < 0 && !!token.combatant?.isDefeated))
             ) {
                 token.combatant?.toggleDefeated({ overlayIcon: !finePowder }).then(() => {
-                    if (finePowder) this.createEmbeddedDocuments("Item", [createFinePowderEffect()]);
+                    if (finePowder) this.createEmbeddedDocuments("Item", [createDisintegrateEffect()]);
                 });
             }
         }
