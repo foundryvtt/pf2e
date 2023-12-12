@@ -165,7 +165,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (flankingBuddies.length === 0) return false;
 
         // The actual "Gang Up" rule or similar
-        const gangingUp = flanking.canGangUp.some((g) => typeof g === "number" && g <= flankingBuddies.length);
+        const gangingUp =
+            flanking.canGangUp.some(
+                (g) =>
+                    (typeof g === "number" && g <= flankingBuddies.length) ||
+                    (g === true && flankingBuddies.length >= 1),
+            ) || flankingBuddies.some((b) => b.actor?.attributes.flanking.canGangUp.some((g) => g === true));
         if (gangingUp) return true;
 
         // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
