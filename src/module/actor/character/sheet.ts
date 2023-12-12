@@ -513,16 +513,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
-        // open ancestry, background, or class compendium
-        $html.find(".open-compendium").on("click", (event) => {
-            if (event.currentTarget.dataset.compendium) {
-                const compendium = game.packs.get(event.currentTarget.dataset.compendium);
-                if (compendium) {
-                    compendium.render(true);
-                }
-            }
-        });
-
         // MAIN
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
 
@@ -584,7 +574,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // ACTIONS
-        const actionsPanel = htmlQuery(html, ".tab.actions");
+        const actionsPanel = htmlQuery(html, ".tab[data-tab=actions]");
 
         // Filter strikes
         htmlQuery(actionsPanel, ".toggle-unready-strikes")?.addEventListener("click", () => {
@@ -641,24 +631,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        for (const activeToggle of htmlQueryAll(actionsPanel, "[data-action=toggle-exploration]")) {
-            activeToggle.addEventListener("click", () => {
-                const actionId = htmlClosest(activeToggle, "[data-item-id]")?.dataset.itemId;
-                if (!actionId) return;
-
-                const exploration = this.actor.system.exploration.filter((id) => this.actor.items.has(id));
-                if (!exploration.findSplice((id) => id === actionId)) {
-                    exploration.push(actionId);
-                }
-
-                this.actor.update({ "system.exploration": exploration });
-            });
-        }
-
-        htmlQuery(actionsPanel, "[data-action=clear-exploration]")?.addEventListener("click", () => {
-            this.actor.update({ "system.exploration": [] });
-        });
-
         // Handle adding and inputting custom user submitted modifiers
         for (const customModifierEl of htmlQueryAll(html, ".modifiers-tooltip")) {
             const stat = customModifierEl.dataset.stat;
@@ -696,24 +668,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         this.#activateBlastListeners(actionsPanel);
 
-        {
-            // Add and remove combat proficiencies
-            const tab = html.querySelector(".tab.proficiencies");
-            const header = tab?.querySelector("h3.attacks-defenses");
-            header
-                ?.querySelector<HTMLElement>("button[data-action=add-attack-proficiency]")
-                ?.addEventListener("click", (event) => {
-                    ManageAttackProficiencies.add(this.actor, event);
-                });
-            const list = tab?.querySelector("ol.combat-list") ?? null;
-            const links = htmlQueryAll(list, "li.custom a[data-action=remove-attack-proficiency]");
-            for (const link of links) {
-                link.addEventListener("click", (event) => {
-                    ManageAttackProficiencies.remove(this.actor, event);
-                });
-            }
-        }
-
         $html.find(".hover").tooltipster({
             trigger: "click",
             arrow: false,
@@ -723,10 +677,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             side: ["right", "bottom"],
             theme: "crb-hover",
             minWidth: 120,
-        });
-
-        htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
-            game.pf2e.actions.restForTheNight({ event, actors: this.actor });
         });
 
         // SPELLCASTING
@@ -748,8 +698,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // Update all "normal" spellcasting entries
-        for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {
-            select.addEventListener("click", () => {
+        for (const select of htmlQueryAll<HTMLSelectElement>(
+            castingPanel,
+            "select[data-action=update-spellcasting-rank]",
+        )) {
+            select.addEventListener("change", () => {
                 const newRank = Number(select.value);
                 if ([1, 2, 3, 4].includes(newRank)) {
                     const entries = this.actor.itemTypes.spellcastingEntry.filter((e) => !e.system.proficiency.slug);
@@ -762,7 +715,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // CRAFTING
-        const craftingTab = htmlQuery(html, ".tab.crafting");
+        const craftingTab = htmlQuery(html, ".tab[data-tab=crafting]");
 
         for (const element of htmlQueryAll<HTMLLIElement>(craftingTab, "li.formula-item")) {
             const quantity = htmlQuery<HTMLInputElement>(element, "input[data-action=enter-quantity]");
@@ -912,8 +865,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        const $craftingTab = $html.find(".tab.crafting");
-
+        const $craftingTab = craftingTab ? $(craftingTab) : $html.find(".tab[data-tab=crafting]");
         const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
         $craftingOptions.on("click", async (event) => {
             const flags: string[] = [];
@@ -981,32 +933,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
-        for (const spellcastingCollectionEl of htmlQueryAll(html, ".spellcasting-entry[data-item-id]")) {
+        for (const spellcastingCollectionEl of htmlQueryAll(castingPanel, ".spellcasting-entry[data-item-id]")) {
             const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
             htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {
                 entry?.statistic?.check.roll(eventToRollParams(event, { type: "check" }));
             });
         }
-
-        // Feat Browser shortcut links
-        for (const link of htmlQueryAll(html, "[data-action=browse-feats]")) {
-            link.addEventListener("click", () => this.#onClickBrowseFeats(link));
-        }
-
-        // BIOGRAPHY
-        const bioPanel = htmlQuery(html, ".tab[data-tab=biography]");
-
-        // Biography section visibility toggles
-        bioPanel?.addEventListener("click", (event) => {
-            const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
-            const section = anchor?.dataset.section;
-            if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
-                event.stopPropagation();
-                const { biography } = this.actor.system.details;
-                const path = `system.details.biography.visibility.${section}`;
-                this.actor.update({ [path]: !biography.visibility[section] });
-            }
-        });
     }
 
     /** Activate listeners of main sheet navigation section */
@@ -1032,9 +964,81 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
 
-        handlers["toggle-invested"] = (_, anchor) => {
-            const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+        // SIDEBAR
+        handlers["rest"] = (event) => {
+            game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        };
+
+        // MAIN TAB
+        handlers["open-compendium"] = (_, actionTarget) => {
+            game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
+        };
+
+        // ACTIONS
+
+        // Versatile-damage toggles
+        handlers["toggle-versatile"] = (button) => {
+            if (!(button instanceof HTMLButtonElement)) {
+                return;
+            }
+
+            const weapon = this.getStrikeFromDOM(button)?.item;
+            const baseType = weapon?.system.damage.damageType ?? null;
+            const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
+            const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
+            if (weapon && selectionIsValid) {
+                toggleWeaponTrait({ trait: "versatile", weapon, selection });
+            }
+        };
+
+        handlers["toggle-exploration"] = (event) => {
+            const actionId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            if (!actionId) return;
+
+            const exploration = this.actor.system.exploration.filter((id) => this.actor.items.has(id));
+            if (!exploration.findSplice((id) => id === actionId)) {
+                exploration.push(actionId);
+            }
+
+            this.actor.update({ "system.exploration": exploration });
+        };
+        handlers["clear-exploration"] = () => {
+            this.actor.update({ "system.exploration": [] });
+        };
+
+        // INVENTORY
+
+        handlers["toggle-invested"] = (event) => {
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             if (itemId) this.actor.toggleInvested(itemId);
+        };
+
+        // PROFICIENCIES
+
+        handlers["add-attack-proficiency"] = (event) => {
+            ManageAttackProficiencies.add(this.actor, event);
+        };
+        handlers["remove-attack-proficiency"] = (event) => {
+            ManageAttackProficiencies.remove(this.actor, event);
+        };
+
+        // FEATS
+
+        handlers["browse-feats"] = (_, anchor) => {
+            this.#onClickBrowseFeats(anchor);
+        };
+
+        // BIOGRAPHY
+
+        // Section visibility toggles
+        handlers["toggle-bio-visibility"] = (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
+            const section = anchor?.dataset.section;
+            if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
+                const { biography } = this.actor.system.details;
+                const path = `system.details.biography.visibility.${section}`;
+                this.actor.update({ [path]: !biography.visibility[section] });
+            }
         };
 
         return handlers;
