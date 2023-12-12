@@ -23,6 +23,7 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFla
 /** Create a message with collapsed action description and button to apply an effect */
 async function createSelfEffectMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
+    rollMode: RollMode | "roll" = "roll",
 ): Promise<ChatMessagePF2e | undefined> {
     if (!item.system.selfEffect) {
         throw ErrorPF2e(
@@ -38,10 +39,7 @@ async function createSelfEffectMessage(
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
     const flavor = await renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
-        action: {
-            glyph: getActionGlyph(actionCost),
-            title: item.name,
-        },
+        action: { title: item.name, glyph: getActionGlyph(actionCost) },
         item,
         traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
     });
@@ -66,8 +64,9 @@ async function createSelfEffectMessage(
         description,
     });
     const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
+    const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
 
-    return ChatMessagePF2e.create({ speaker, flavor, content, flags });
+    return ChatMessagePF2e.create(messageData);
 }
 
 async function applyDamageFromMessage({
