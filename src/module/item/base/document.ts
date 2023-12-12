@@ -374,7 +374,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         await this.update(updates, { diff: false, recursive: false });
-        if (notify) ui.notifications.info(`Item "${this.name}" has been refreshed.`);
+        if (options.notify) ui.notifications.info(`Item "${this.name}" has been refreshed.`);
     }
 
     getOriginData(): ItemOriginFlag {
