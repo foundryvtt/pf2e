@@ -9,13 +9,13 @@ export class Migration908TrueGangUp extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const slug = source.system.slug ?? "";
         if (slug === "gang-up" && source.type === "feat") {
-            source.system.rules = [this.gangUp];
+            source.system.rules = [this.#gangUp];
         }
     }
 
     /** Instead of merely shrugging the flat--footed condition, this will suppress all benefits of flanking */
 
-    private get gangUp(): AELikeSource {
+    get #gangUp(): AELikeSource {
         return {
             key: "ActiveEffectLike",
             mode: "add",

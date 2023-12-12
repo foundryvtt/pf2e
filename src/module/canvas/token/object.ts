@@ -170,10 +170,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 (g) =>
                     (typeof g === "number" && g <= flankingBuddies.length) ||
                     (g === true && flankingBuddies.length >= 1),
-            ) ||
-            flankingBuddies.some((b) => {
-                return b.actor?.attributes?.flanking?.canGangUp.some((g) => g === true);
-            });
+            ) || flankingBuddies.some((b) => b.actor?.attributes.flanking.canGangUp.some((g) => g === true));
         if (gangingUp) return true;
 
         // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
