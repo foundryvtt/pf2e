@@ -3,24 +3,17 @@
     "img": "icons/consumables/fruit/apricot-ripe-orange.webp",
     "name": "Panacea Fruit",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0.1
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": "8d8+30"
-        },
+        "category": "other",
         "containerId": null,
+        "damage": {
+            "formula": "8d8+30",
+            "kind": "healing",
+            "type": "untyped"
+        },
         "description": {
             "value": "<p>This fruit is slowly, constantly changing shape, transforming from one fruit into another, but always appearing at the peak of ripeness.</p>\n<p>When you consume the fruit, it attempts to counteract all curses, diseases, and poisons affecting you, and you immediately regain [[/r 8d8+30[healing]]]{8d8+30 Hit Points}. The fruit has a counteract level of 9 and a [[/r 1d20+30]] modifier for the rolls against each condition.</p>\n<p>The fruit's seed remains after consumption and can be planted later, becoming a seed-shaped @UUID[Compendium.pf2e.equipment-srd.Item.Feather Token (Tree)] that sprouts a tree bearing many kinds of mundane fruit.</p>"
         },
@@ -59,6 +52,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

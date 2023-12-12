@@ -49,8 +49,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const physicalItemFields = [...baseFields, "system.level.value"];
         const runedItemFields = [...physicalItemFields, "system.runes"];
         const armorAndWeaponFields = [...runedItemFields, "system.category", "system.group"];
-        const consumableFields = [...physicalItemFields, "system.consumableType"];
-        const indexFields = R.uniq([...armorAndWeaponFields, ...consumableFields]).sort();
+        const indexFields = R.uniq([...armorAndWeaponFields]).sort();
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -67,8 +66,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                             case "armor":
                             case "weapon":
                                 return !this.hasAllIndexFields(itemData, armorAndWeaponFields);
-                            case "consumable":
-                                return !this.hasAllIndexFields(itemData, consumableFields);
                             case "kit":
                                 return !this.hasAllIndexFields(itemData, baseFields);
                             case "shield":

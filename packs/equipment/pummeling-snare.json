@@ -3,24 +3,13 @@
     "img": "systems/pf2e/icons/equipment/snares/pummeling-snare.webp",
     "name": "Pummeling Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": 0,
-            "value": 0
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "snare",
         "containerId": "null",
+        "damage": null,
         "description": {
             "value": "<p>This snare unleashes a trio of large stones that batter the creature entering the snare's square, dealing @Damage[6d8[bludgeoning]] damage (@Check[type:reflex|dc:21|basic:true|traits:uncommon|showDC:all]).</p>"
         },
@@ -60,6 +49,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

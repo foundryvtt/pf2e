@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/scything-blade-snare.webp",
     "name": "Scything Blade Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "14d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "14d8",
+            "kind": "damage",
+            "type": "slashing"
+        },
         "description": {
             "value": "<p>This snare sends a powerful series of scything blades to slice through a creature entering the snare's square, dealing 14d8 slashing damage (DC 31 basic Reflex).</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

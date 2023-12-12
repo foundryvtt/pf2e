@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/omnidirectional-spear-snare.webp",
     "name": "Omnidirectional Spear Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "19d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "19d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>As soon as a creature enters the snare's square, the snare unleashes wickedly powerful spears at the creature from all directions, dealing 19d8 piercing damage (DC 37 basic Reflex).</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

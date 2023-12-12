@@ -1091,7 +1091,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.inventory.findStackableItem(item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
-        const isAmmunition = item.isOfType("consumable") && item.isAmmunition;
+        const isAmmunition = item.isOfType("consumable") && item.isAmmo;
 
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {

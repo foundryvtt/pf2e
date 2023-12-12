@@ -30,6 +30,7 @@ import {
     WeaponPF2e,
 } from "@item";
 import { ConditionSlug } from "@item/condition/types.ts";
+import { CONSUMABLE_CATEGORIES } from "@item/consumable/values.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { FeatOrFeatureCategory } from "@item/feat/index.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
@@ -262,6 +263,11 @@ const creatureTypes = R.pick(creatureTraits, [
     "vitality",
     "void",
     "undead",
+]);
+
+const consumableCategories = R.mapToObj(Array.from(CONSUMABLE_CATEGORIES), (c) => [
+    c,
+    `PF2E.Item.Consumable.Category.${c}`,
 ]);
 
 const deityDomains = R.mapToObj(Object.keys(EN_JSON.PF2E.Item.Deity.Domain), (key) => {
@@ -678,24 +684,7 @@ export const PF2ECONFIG = {
         wood: "PF2E.ArmorGroupWood",
     },
 
-    consumableTypes: {
-        ammo: "PF2E.ConsumableTypeAmmo",
-        catalyst: "PF2E.TraitCatalyst",
-        drug: "PF2E.ConsumableTypeDrug",
-        elixir: "PF2E.ConsumableTypeElixir",
-        fulu: "PF2E.TraitFulu",
-        gadget: "PF2E.TraitGadget",
-        oil: "PF2E.ConsumableTypeOil",
-        other: "PF2E.ConsumableTypeOther",
-        mutagen: "PF2E.ConsumableTypeMutagen",
-        poison: "PF2E.ConsumableTypePoison",
-        potion: "PF2E.ConsumableTypePotion",
-        scroll: "PF2E.ConsumableTypeScroll",
-        snare: "PF2E.ConsumableTypeSnare",
-        talisman: "PF2E.ConsumableTypeTalisman",
-        tool: "PF2E.ConsumableTypeTool",
-        wand: "PF2E.ConsumableTypeWand",
-    },
+    consumableCategories,
 
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 

@@ -1,5 +1,9 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
 import fs from "fs-extra";
 import { JSDOM } from "jsdom";
@@ -8,21 +12,6 @@ import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
 import "./lib/core-helpers.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { MigrationBase } from "@module/migration/base.ts";
-import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-
-import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
-import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
-import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
-import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
-import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
-import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
-import { Migration886CrossbowGroup } from "@module/migration/migrations/886-crossbow-group.ts";
-import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887-redirect-spell-links.ts";
-import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrations/888-remaster-languages-heritages.ts";
-import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
 import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
 import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
@@ -38,6 +27,7 @@ import { Migration904UndercommonToSakvroth } from "@module/migration/migrations/
 import { Migration905UnpersistUsage } from "@module/migration/migrations/905-unpersist-usage.ts";
 import { Migration906LimitStackGroup } from "@module/migration/migrations/906-limit-stack-group.ts";
 import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migrations/907-restructure-armor-weapon-runes.ts";
+import { Migration909RefineConsumableData } from "@module/migration/migrations/909-refine-consumable-data.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -47,16 +37,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration876FeatLevelTaken(),
-    new Migration877PublicationData(),
-    new Migration878TakeABreather(),
-    new Migration879DeviseAStratagemAndFriends(),
-    new Migration882SpellDataReorganization(),
-    new Migration884UnifiedSpellcasting(),
-    new Migration886CrossbowGroup(),
-    new Migration887RedirectSpellLinks(),
-    new Migration888RemasterLanguagesHeritages(),
-    new Migration889RemoveFocusMaxIncreases(),
     new Migration890RMClassItemClassDC(),
     new Migration891DruidicToWildsong(),
     new Migration894NoLayOnHandsVsUndead(),
@@ -72,6 +52,7 @@ const migrations: MigrationBase[] = [
     new Migration905UnpersistUsage(),
     new Migration906LimitStackGroup(),
     new Migration907RestructureArmorWeaponRunes(),
+    new Migration909RefineConsumableData(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

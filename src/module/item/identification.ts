@@ -119,7 +119,7 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
                     return "alchemical_elixir";
                 case "poison":
                     return "alchemical_poison";
-                case "tool":
+                case "toolkit":
                     return "alchemical_tool";
                 case "wand":
                     return "wands";

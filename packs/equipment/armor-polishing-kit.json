@@ -3,24 +3,13 @@
     "img": "icons/commodities/metal/ingot-silver.webp",
     "name": "Armor Polishing Kit",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0.1
         },
-        "charges": {
-            "max": 0,
-            "value": 0
-        },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "other",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p><strong>Activate</strong> 10 minutes (Interact)</p>\n<hr />\n<p>This kit can be used to clean and polish armor. Creatures wearing armor that has been maintained by this kit gain a +1 circumstance bonus on Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] on soldiers, guards, Gorumites, and other martially minded characters. This bonus expires after 24 hours, or if the armor is soiled in some way, such as by walking through a sewer or falling in a mud pit.</p>"
         },
@@ -58,6 +47,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

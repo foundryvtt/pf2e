@@ -341,7 +341,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             if (
                 currentSource.type === "consumable" &&
                 currentSource.system.spell?.system?.traits &&
-                tupleHasValue(["scroll", "wand"], currentSource.system.consumableType.value) &&
+                tupleHasValue(["scroll", "wand"], currentSource.system.category) &&
                 latestSource.type === "consumable" &&
                 !latestSource.system.spell
             ) {
@@ -350,7 +350,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 const refreshedSpell = await fromUuid(currentSource.system.spell.flags.core?.sourceId ?? "");
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
-                        type: currentSource.system.consumableType.value,
+                        type: currentSource.system.category,
                         heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
                     });
                     mergeObject(updates, {

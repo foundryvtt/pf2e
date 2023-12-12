@@ -67,7 +67,7 @@ class CraftingFormula implements CraftingFormulaData {
 
     get defaultBatchSize(): number {
         const { item } = this;
-        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
+        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmo && !item.isMagical;
         const isConsumable =
             (item instanceof ConsumablePF2e && item.category !== "wand") ||
             (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");

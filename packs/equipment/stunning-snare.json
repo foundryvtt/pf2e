@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/stunning-snare.webp",
     "name": "Stunning Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "6d6"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "6d6",
+            "kind": "damage",
+            "type": "bludgeoning"
+        },
         "description": {
             "value": "<p>You rig a snare to disorient a creature with a quick bash, leaving it with little ability to defend itself. The trap deals 6d6 bludgeoning damage to the first creature to enter its square; that creature must attempt a @Check[type:reflex|dc:31] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is off-guard for 1 round and stunned 1.</p>\n<p><strong>Failure</strong> The creature takes full damage and is off-guard for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is off-guard for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}.</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"
