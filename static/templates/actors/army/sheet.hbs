@@ -107,21 +107,14 @@
                 <span>{{localize "PF2E.Kingmaker.Army.RecruitmentDC"}}</span>
                 <input type="number" data-property="system.recruitmentDC" value="{{data.recruitmentDC}}"/>
             </label>
-        </section>
-
-        {{#if data.traits.senses.length}}
-            <section class="senses">
-                <header>
-                    <i class="fa-solid fa-fw fa-eye"></i>
-                    <h4>{{localize "PF2E.Senses"}}</h4>
-                </header>
-                <ol class="tags">
+            {{#if data.traits.senses.length}}
+                <ol class="tags senses">
                     {{#each data.traits.senses as |sense slug|}}
                         {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
                     {{/each}}
                 </ol>
-            </section>
-        {{/if}}
+            {{/if}}
+        </section>
 
         <section>
             <header>

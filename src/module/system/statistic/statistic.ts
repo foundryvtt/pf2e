@@ -402,7 +402,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
                     !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
-                    (!item || item.isOfType("action", "feat", "weapon")));
+                    (!item || item.isOfType("action", "campaignFeature", "feat", "weapon")));
 
             return isValidAttacker && isTargetedCheck
                 ? this.actor.getCheckContext({
