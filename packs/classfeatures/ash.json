@@ -34,12 +34,14 @@
             {
                 "key": "Resistance",
                 "type": "physical",
-                "value": "max(1,floor(@actor.level/2))"
+                "value": "max(1,floor(@actor.level/2))",
+                "predicate": ["class:oracle"]
             },
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
+                    ["class:oracle"],
                     {
                         "or": [
                             "action:shove",
