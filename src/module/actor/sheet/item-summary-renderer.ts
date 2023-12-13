@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor/base.ts";
-import type { ConsumablePF2e, SpellPF2e } from "@item";
+import type { SpellPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e } from "@item";
 import { ItemSummaryData, isItemSystemData } from "@item/base/data/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
@@ -19,21 +19,10 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
      * Returns true if it the item is valid and it was toggled.
      */
     async toggleSummary(element: HTMLElement, options: { visible?: boolean; instant?: boolean } = {}): Promise<void> {
-        const actor = this.sheet.actor;
+        if (element.dataset.itemType === "spellSlot") return;
 
-        const { itemId, itemType, actionIndex } = element.dataset;
-        const isFormula = !!element.dataset.isFormula;
         const duration = 0.4;
-
-        if (itemType === "spellSlot") return;
-
-        const item: ClientDocument | null = isFormula
-            ? await fromUuid(itemId ?? "")
-            : itemType === "condition"
-              ? actor.conditions.get(itemId, { strict: true })
-              : actionIndex
-                ? actor.system.actions?.[Number(actionIndex)].item ?? null
-                : actor.items.get(itemId ?? "") ?? null;
+        const item = await this.getItemFromElement(element);
 
         const summaryElem = await (async () => {
             const container = htmlQuery(element, ".item-summary");
@@ -72,10 +61,25 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         }
     }
 
+    /** Retrieves the item from the element that the current toggleable summary is for */
+    protected async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
+        const actor = this.sheet.actor;
+        const { itemId, itemType, actionIndex } = element.dataset;
+        const isFormula = !!element.dataset.isFormula;
+
+        return isFormula
+            ? await fromUuid(itemId ?? "")
+            : itemType === "condition"
+              ? actor.conditions.get(itemId, { strict: true })
+              : actionIndex
+                ? actor.system.actions?.[Number(actionIndex)].item ?? null
+                : actor.items.get(itemId ?? "") ?? null;
+    }
+
     /**
      * Called when an item summary is expanded and needs to be filled out.
      */
-    async renderItemSummary(div: HTMLElement, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
+    async renderItemSummary(container: HTMLElement, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
@@ -99,11 +103,11 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             selfEffect,
         });
 
-        div.innerHTML = summary;
-        UserVisibilityPF2e.process(div, { document: item });
+        container.innerHTML = summary;
+        UserVisibilityPF2e.process(container, { document: item });
 
         if (item.actor?.isOfType("creature")) {
-            for (const button of htmlQueryAll(div, "button")) {
+            for (const button of htmlQueryAll(container, "button")) {
                 button.addEventListener("click", (event) => {
                     event.preventDefault();
                     event.stopPropagation();
@@ -125,7 +129,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
                             break;
                         case "consume":
                             if (item.isOfType("consumable")) {
-                                (item as ConsumablePF2e<ActorPF2e>).consume();
+                                item.consume();
                             }
                             break;
                     }
