@@ -993,6 +993,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ? [`origin:distance:${distance}`, `target:distance:${distance}`]
                 : [null, null];
 
+        const originMarkOption = ((): string | null => {
+            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
+            return tokenMark ? `origin:mark:${tokenMark}` : null;
+        })();
+        const originRollOptions =
+            selfToken && targetToken
+                ? R.compact(
+                      R.uniq([
+                          ...selfActor.getSelfRollOptions("origin"),
+                          ...actionTraits.map((t) => `origin:action:trait${t}`),
+                          ...(originDistance ? [originDistance] : []),
+                          originMarkOption,
+                      ]),
+                  )
+                : [];
+
         // Target roll options
         const getTargetRollOptions = (actor: Maybe<ActorPF2e>): string[] => {
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
@@ -1015,29 +1031,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         // Add an epehemeral effect from flanking
-        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
+        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor, originRollOptions)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
         }
 
-        const originMarkOption = ((): string | null => {
-            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
-            return tokenMark ? `origin:mark:${tokenMark}` : null;
-        })();
-
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
             : (params.target?.actor ?? targetToken?.actor)?.getContextualClone(
-                  R.compact([
-                      ...selfActor.getSelfRollOptions("origin"),
-                      ...actionTraits.map((t) => `origin:action:trait${t}`),
-                      ...params.options,
-                      ...itemOptions,
-                      ...(originDistance ? [originDistance] : []),
-                      originMarkOption,
-                  ]),
+                  R.compact([...params.options, ...itemOptions, ...originRollOptions]),
                   targetEphemeralEffects,
               ) ?? null;
 

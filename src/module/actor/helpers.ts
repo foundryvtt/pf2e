@@ -242,14 +242,16 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 }
 
 /** Whether flanking puts this actor off-guard */
-function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
-    if (!target?.isOfType("creature")) return false;
+function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e, originRollOptions: string[]): boolean {
+    if (!target.isOfType("creature")) return false;
     const { flanking } = target.attributes;
-    return !flanking.flankable
-        ? false
-        : typeof flanking.offGuardable === "number"
-          ? origin.level > flanking.offGuardable
-          : flanking.offGuardable;
+    return (
+        flanking.flankable &&
+        (typeof flanking.offGuardable === "number" ? origin.level > flanking.offGuardable : flanking.offGuardable) &&
+        !target.attributes.immunities.some((i) =>
+            i.test(["item:type:condition", "item:slug:off-guard", ...originRollOptions]),
+        )
+    );
 }
 
 function getStrikeAttackDomains(
