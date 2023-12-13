@@ -367,7 +367,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     return;
                 }
             }
-        } else if (itemIsOfType(currentSource, "feat", "spell")) {
+        } else if (itemIsOfType(currentSource, "campaignFeature", "feat", "spell")) {
             // Preserve feat and spellcasting entry location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
         }
