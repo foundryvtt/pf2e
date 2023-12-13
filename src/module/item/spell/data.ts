@@ -1,8 +1,8 @@
-import { SaveType } from "@actor/types.ts";
-import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
-import { OneToTen, ValueAndMax } from "@module/data.ts";
-import { DamageCategoryUnique, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
-import { EffectAreaSize, EffectAreaType, MagicTradition, SpellTrait } from "./types.ts";
+import type { SaveType } from "@actor/types.ts";
+import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
+import type { OneToTen, ValueAndMax } from "@module/data.ts";
+import type { DamageCategoryUnique, DamageKind, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
+import type { EffectAreaSize, EffectAreaType, MagicTradition, SpellTrait } from "./types.ts";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
@@ -62,7 +62,7 @@ interface SpellArea {
 
 interface SpellDamageSource {
     formula: string;
-    kinds?: ("damage" | "healing")[];
+    kinds?: DamageKind[];
     applyMod?: boolean;
     type: DamageType;
     category: DamageCategoryUnique | null;
@@ -103,7 +103,7 @@ interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSy
 }
 
 interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {
-    kinds: Set<"damage" | "healing">;
+    kinds: Set<DamageKind>;
 }
 
 interface SpellDefenseData extends SpellDefenseSource {
