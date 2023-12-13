@@ -1,0 +1,59 @@
+{
+    "_id": "ttIvoQUl1yG5K62o",
+    "img": "icons/creatures/eyes/humanoid-single-blue.webp",
+    "name": "Effect: Watch Your Back",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Watch Your Back]</p>\n<p>The target gains a +2 status bonus to Perception checks against you, but it takes a –2 status penalty to Will saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "watch-your-back"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:watch-your-back"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
