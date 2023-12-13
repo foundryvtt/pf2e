@@ -1,10 +1,10 @@
 {
-    "_id": "J6EwMsXtXg30eaiB",
+    "_id": "eE3FEpjk2HdZDzSA",
     "img": "icons/skills/melee/hand-grip-hammer-spiked-blue.webp",
-    "name": "Effect: Stoke the Fervent (High Tormentor)",
+    "name": "Effect: Stoke the Fervent",
     "system": {
         "description": {
-            "value": "<p>Each ally that hears the call gains a +4 status bonus to attack rolls and damage rolls, a +2 status bonus to saving throws, and takes a -2 status penalty to AC. Affected allies must use at least one of their actions to Strike each round, if they are able (even if it means attacking an ally, object, or thin air).</p>\n<p><em>The effect duration has been set to the average duration of [[/br 2d4 #rounds]]{2d4 rounds}. Set the duration to the correct value when the effect is added.</em></p>"
+            "value": "<p>Each ally that hears the call gains a +1 status bonus to attack rolls, damage rolls, and saving throws, and takes a –1 status penalty to AC. Affected allies must use at least one of their actions to Strike each round, if they are able (even if it means attacking an ally, object, or thin air).</p>\n<p><em>The effect duration has been set to the average duration of [[/br 2d4 #rounds]]{2d4 rounds}. Set the duration to the correct value when the effect is added.</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,29 +18,24 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder #155: Lord of the Black Sands"
+            "title": "Pathfinder Bestiary 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "selector": [
                     "attack",
-                    "damage"
+                    "damage",
+                    "saving-throw"
                 ],
                 "type": "status",
-                "value": 4
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
+                "value": 1
             },
             {
                 "key": "FlatModifier",
                 "selector": "ac",
                 "type": "status",
-                "value": -2
+                "value": -1
             }
         ],
         "start": {
