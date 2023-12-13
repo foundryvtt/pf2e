@@ -14,7 +14,7 @@ import * as R from "remeda";
  */
 class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TActor> {
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
+    itemRenderer = new ItemSummaryRenderer(this);
 
     #searchEngine = new MiniSearch<Pick<SpellPF2e<TActor>, "id" | "name">>({
         fields: ["name"],

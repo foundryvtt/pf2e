@@ -77,7 +77,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
+    itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
