@@ -375,7 +375,7 @@ class DamageTypeManager {
         CONFIG.PF2E.weaponTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
         CONFIG.PF2E.npcAttackTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
 
-        const damageFlavor = data.label.toLocaleLowerCase(game.i18n.lang);
+        const damageFlavor = game.i18n.localize(data.label).toLocaleLowerCase(game.i18n.lang);
         collections.damageRollFlavorsLocalization[slug] = damageFlavor;
         collections.immunityTypes[slug] = damageFlavor;
         collections.weaknessTypes[slug] = damageFlavor;
