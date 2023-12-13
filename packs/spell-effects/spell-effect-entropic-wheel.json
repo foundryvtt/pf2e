@@ -1,0 +1,67 @@
+{
+    "_id": "znwjWUvGOFQ6VYaE",
+    "img": "systems/pf2e/icons/spells/entropic-wheel.webp",
+    "name": "Spell Effect: Entropic Wheel",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Entropic Wheel]</p>\n<p>When you Cast a Spell that deals fire damage, the target also takes cold damage equal to the number of motes in the entropic wheel. When you Cast a Spell that deals cold damage, the target also takes fire damage equal to the number of motes in the entropic wheel. This applies only to the initial damage of the spell, not to any persistent damage or ongoing effects.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:type:cold",
+                    {
+                        "not": "item:damage:type:persistent"
+                    }
+                ],
+                "selector": "spell-damage",
+                "slug": "entropic-wheel-fire",
+                "value": "@item.badge.value"
+            },
+            {
+                "damageType": "cold",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:damage:type:fire",
+                    {
+                        "not": "item:damage:type:persistent"
+                    }
+                ],
+                "selector": "spell-damage",
+                "slug": "entropic-wheel-cold",
+                "value": "@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
