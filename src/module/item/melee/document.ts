@@ -125,6 +125,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.npcAttackTraits);
+
         // Set precious material (currently unused)
         this.system.material = { type: null, grade: null, effects: [] };
 

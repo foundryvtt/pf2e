@@ -312,6 +312,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (this.system.category === "unarmed" && !this.system.traits.value.includes("unarmed")) {
             this.system.traits.value.push("unarmed");
         }
+        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.npcAttackTraits);
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;

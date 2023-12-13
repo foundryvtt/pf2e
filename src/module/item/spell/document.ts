@@ -560,6 +560,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.location.value = "rituals";
         }
 
+        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.spellTraits);
         if (this.system.traits.value.includes("attack")) {
             this.system.defense = mergeObject(this.system.defense ?? {}, {
                 passive: { statistic: "ac" as const },
