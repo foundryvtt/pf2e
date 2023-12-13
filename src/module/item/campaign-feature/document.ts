@@ -149,7 +149,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
                 : KINGMAKER_CATEGORY_TYPES[0];
             const behavior = KINGDOM_CATEGORY_DATA[category].behavior;
             if (behavior === "activity") {
-                system["-=level"] = null;
+                if ("level" in this.system) system["-=level"] = null;
             } else {
                 const level = system.level?.value ?? this.system.level?.value ?? 0;
                 system.level = { value: level };
