@@ -116,6 +116,7 @@
                                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                                             {{/if}}
                                         </div>
+                                        <div class="item-summary" hidden></div>
                                     </li>
                                 {{/each}}
                             </ol>
@@ -160,10 +161,8 @@
                                             </div>
                                         {{/if}}
                                     </div>
-                                    <div class="attack-detail sub-section expanded">
-                                        <div class="attack-description">
-                                            {{{action.description}}}
-                                        </div>
+                                    <div class="item-summary">
+                                        {{{action.description}}}
                                     </div>
                                 </li>
                             {{/each}}
