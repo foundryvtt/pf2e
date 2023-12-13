@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/striking-snare.webp",
     "name": "Striking Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "9d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "9d8",
+            "kind": "damage",
+            "type": "bludgeoning"
+        },
         "description": {
             "value": "<p>You affix a trip line or other trigger to a group of either stones or wooden stakes to strike a creature that enters the snare's square. The creature must attempt a @Check[type:reflex|dc:26|basic:true] saving throw. If you choose stones, the snare deals 9d8 bludgeoning damage; if you choose spikes, it deals 9d8 piercing damage.</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/fang-snare.webp",
     "name": "Fang Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": "2d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "2d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>You set snake fangs, poison stingers, or other venomous animal parts in the ground where they can be touched or stepped on by a creature that enters the snare's square. The first creature to enter the square must attempt a @Check[type:reflex|dc:20] saving throw.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target takes 1 piercing damage and 2d8 poison damage.</p>\n<p><strong>Critical Failure</strong> The target takes 2 piercing damage and 4d8 poison damage.</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

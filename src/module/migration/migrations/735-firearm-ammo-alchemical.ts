@@ -1,4 +1,5 @@
 import { ConsumableSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Add the "alchemical" trait to all firearm ammunition */
@@ -7,6 +8,8 @@ export class Migration735FirearmAmmoAlchemical extends MigrationBase {
 
     #needsTrait(source: ConsumableSource): boolean {
         return (
+            "consumableType" in source.system &&
+            R.isObject(source.system.consumableType) &&
             source.system.consumableType.value === "ammo" &&
             !!source.system.stackGroup?.startsWith("rounds") &&
             source.system.slug !== "cutlery" &&

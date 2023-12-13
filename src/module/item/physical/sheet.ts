@@ -69,6 +69,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         })();
 
         const adjustedPriceHint = (() => {
+            if (!priceAdjustment) return null;
             const baseData = item._source;
             const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = item.assetValue.copperValue;
