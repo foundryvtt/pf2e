@@ -20,9 +20,6 @@
             "value": [
                 {
                     "value": "tenets of good"
-                },
-                {
-                    "value": "liberator cause"
                 }
             ]
         },
@@ -31,7 +28,34 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "retributive-strike",
+                    "feature:paladin",
+                    "target:trait:dragon"
+                ],
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "dragonslayer-oath",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
