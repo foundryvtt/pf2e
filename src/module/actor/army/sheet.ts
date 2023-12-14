@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { CampaignFeaturePF2e, ItemPF2e } from "@item";
+import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
+import { CampaignFeaturePF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -12,9 +13,14 @@ import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHas
 import * as R from "remeda";
 import type { ArmyPF2e } from "./document.ts";
 import type { Alignment } from "./types.ts";
-import { ALIGNMENTS, ARMY_TYPES, getArmyGearData } from "./values.ts";
+import { ALIGNMENTS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData } from "./values.ts";
 
 class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
+    /** Basic war actions are sheet data. Note that they cannot ever work with rule elements */
+    basicWarActions: CampaignFeaturePF2e[] = [];
+
+    override itemRenderer = new ArmyItemRenderer(this);
+
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         return {
@@ -31,6 +37,17 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         const data = await super.getData(options);
         const actor = this.actor;
         const campaignFeatures = actor.itemTypes.campaignFeature;
+
+        if (!this.basicWarActions.length) {
+            const pack = game.packs.get("pf2e.kingmaker-features");
+            const compendiumFeatures = ((await pack?.getDocuments({ type: "campaignFeature" })) ?? []).filter(
+                (d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"),
+            );
+            this.basicWarActions = compendiumFeatures
+                .filter((d) => d.system.category === "army-war-action" && d.folder?.id === BASIC_WAR_ACTIONS_FOLDER)
+                .map((i) => new ItemProxyPF2e(i.toObject(true), { parent: this.actor }))
+                .filter((i): i is CampaignFeaturePF2e<ArmyPF2e> => i.isOfType("campaignFeature"));
+        }
 
         return {
             ...data,
@@ -72,6 +89,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 }),
                 (s) => s.label,
             ),
+            basicWarActions: this.basicWarActions,
             warActions: campaignFeatures.filter((f) => f.category === "army-war-action"),
         };
     }
@@ -225,6 +243,23 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         }
     }
 
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+
+        handlers["toggle-basic-war-action-summary"] = async (event) => {
+            const element = htmlClosest(event.target, "[data-slug]");
+            if (element) this.itemRenderer.toggleSummary(element);
+        };
+
+        handlers["use-basic-war-action"] = async (event) => {
+            const slug = htmlClosest(event.target, "[data-slug]")?.dataset.slug;
+            const item = this.basicWarActions.find((a) => a.slug === slug);
+            item?.toMessage(event);
+        };
+
+        return handlers;
+    }
+
     protected override async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasItemDataPF2e,
@@ -274,6 +309,14 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     }
 }
 
+class ArmyItemRenderer extends ItemSummaryRenderer<ArmyPF2e, ArmySheetPF2e> {
+    protected override async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
+        const slug = element.dataset.slug;
+        const item = this.sheet.basicWarActions.find((a) => a.slug === slug);
+        return item ?? super.getItemFromElement(element);
+    }
+}
+
 interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
     ac: {
         value: number;
@@ -291,6 +334,7 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
     armyTypes: Record<string, string>;
     rarityTraits: Record<string, string>;
     saves: ArmySaveSheetData[];
+    basicWarActions: CampaignFeaturePF2e[];
     warActions: CampaignFeaturePF2e[];
 }
 

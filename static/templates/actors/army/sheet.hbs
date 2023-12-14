@@ -305,14 +305,36 @@
 
         <fieldset class="actions">
             <legend>
-                <i class="fa-light fa-diamond"></i> {{localize "PF2E.Kingmaker.Army.WarActions"}}
+                <i class="fa-light fa-diamond"></i> {{localize "PF2E.Kingmaker.Army.BasicWarActions"}}
             </legend>
             <ol class="item-list">
-                {{#each warActions as |action|}}
-                    {{> actionItem action=action}}
+                {{#each basicWarActions as |action|}}
+                    <li class="item basic-war-action" data-slug="{{action.slug}}">
+                        <a class="icon item-image" data-action="use-basic-war-action">
+                            <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
+                            <i class="fa-solid fa-fw fa-comment-alt"></i>
+                        </a>
+                        <h4 class="item-name">
+                            <a data-action="toggle-basic-war-action-summary">{{action.name}}</a>
+                        </h4>
+                        <div class="item-summary" hidden></div>
+                    </li>
                 {{/each}}
             </ol>
         </fieldset>
+
+        {{#if warActions.length}}
+            <fieldset class="actions">
+                <legend>
+                    <i class="fa-light fa-diamond"></i> {{localize "PF2E.Kingmaker.Army.TacticalWarActions"}}
+                </legend>
+                <ol class="item-list">
+                    {{#each warActions as |action|}}
+                        {{> actionItem action=action}}
+                    {{/each}}
+                </ol>
+            </fieldset>
+        {{/if}}
 
         <fieldset data-group-id="{{document.tactics.id}}">
             <legend>
