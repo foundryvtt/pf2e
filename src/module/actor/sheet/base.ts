@@ -684,10 +684,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!section || !this.isEditable) return;
 
         for (const list of htmlQueryAll(section, "ul.inventory-items")) {
-            // const isNested = !!list.dataset.containerId;
             const options: Sortable.Options = {
                 ...SORTABLE_BASE_OPTIONS,
                 scroll: section,
+                // Necessary for drag/drop to other sheets/tokens to work
+                setData: (dataTransfer, dragEl) => {
+                    const item = this.actor.inventory.get(dragEl.dataset.itemId, { strict: true });
+                    dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
+                },
                 onMove: (event) => this.#onMoveInventoryItem(event),
                 onEnd: (event) => this.#onDropInventoryItem(event),
             };
@@ -698,7 +702,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle dragging of items in the inventory */
     #onMoveInventoryItem(event: Sortable.MoveEvent): boolean | 1 {
-        if (!this.isEditable) return false;
+        const isSeparateSheet = htmlClosest(event.target, "form") !== htmlClosest(event.related, "form");
+        if (!this.isEditable || isSeparateSheet) return false;
 
         const sourceItem = this.actor.inventory.get(event.dragged?.dataset.itemId ?? "");
         const targetSection = htmlClosest(event.related, "[data-item-types]")?.dataset.itemTypes?.split(",") ?? [];
@@ -720,7 +725,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Handle drop of inventory items */
     async #onDropInventoryItem(event: Sortable.SortableEvent & { originalEvent?: DragEvent }): Promise<void> {
-        if (!this.isEditable) return;
+        const isSeparateSheet = htmlClosest(event.target, "form") !== htmlClosest(event.originalEvent?.target, "form");
+        if (!this.isEditable || isSeparateSheet) return;
+
         const inventory = this.actor.inventory;
         const sourceItem = inventory.get(event.item.dataset.itemId, { strict: true });
         const itemsInList = htmlQueryAll(htmlClosest(event.item, "ul"), ":scope > li").map((li) =>
