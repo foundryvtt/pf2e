@@ -672,13 +672,13 @@ function getCheckDC({
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc?.startsWith("resolve") && actor) {
+        if (dc?.startsWith("resolve") && (item || actor)) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
                 try {
-                    const rollData = item?.getRollData() ?? actor?.getRollData();
+                    const rollData = item?.getRollData() ?? actor!.getRollData();
                     return Roll.safeEval(Roll.replaceFormulaData(resolveString, rollData));
                 } catch {
                     return 0;
