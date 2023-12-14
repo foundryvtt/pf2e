@@ -522,6 +522,10 @@ class PackExtractor {
                 delete (source.system as { specific?: unknown }).specific;
             }
 
+            if ("subitems" in source.system && source.system.subitems.length === 0) {
+                delete (source.system as { subitems?: unknown[] }).subitems;
+            }
+
             if (source.type === "weapon") {
                 delete (source.system as { property1?: unknown }).property1;
                 if ("value" in source.system.damage) {

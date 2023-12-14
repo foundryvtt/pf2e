@@ -2,7 +2,8 @@
 // @ts-nocheck
 
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { MockActor } from "tests/mocks/actor.ts";
@@ -22,11 +23,15 @@ characterData.effects = [];
 characterData.system._migration = { version: 0, previous: null };
 for (const item of characterData.items) {
     item.effects = [];
+    if (itemIsOfType(item, "armor", "equipment", "shield", "weapon")) {
+        item.system.subitems ??= [];
+    }
     item.system._migration = { version: 0, previous: null };
 }
 
 const armorData = fu.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.effects = [];
+armorData.system.subitems ??= [];
 armorData.system._migration = { version: 0, previous: null };
 
 describe("test migration runner", () => {

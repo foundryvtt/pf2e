@@ -1,6 +1,6 @@
 import { type ActorPF2e } from "@actor";
-import { ItemPF2e, type ContainerPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
+import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
+import { ItemSourcePF2e, ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
@@ -25,8 +25,22 @@ import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    // The cached container of this item, if in a container, or null
+    /** The item in which this item is embedded */
+    parentItem: PhysicalItemPF2e | null;
+
+    /**
+     * The cached container of this item, if in a container, or null
+     * @ignore
+     */
     private declare _container: ContainerPF2e<ActorPF2e> | null;
+
+    /** Doubly-embedded adjustments, attachments, talismans etc. */
+    declare subitems: PhysicalItemPF2e<TParent>[];
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: PhysicalItemConstructionContext<TParent> = {}) {
+        super(data, context);
+        this.parentItem = context.parentItem ?? null;
+    }
 
     get level(): number {
         return this.system.level.value;
@@ -258,6 +272,15 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this._container?.id !== this.system.containerId) {
             this._container = null;
         }
+
+        // Prepare doubly-embedded items if this is of an appropriate physical-item type
+        this.subitems =
+            "subitems" in this.system && Array.isArray(this.system.subitems)
+                ? this.system.subitems.map(
+                      (i) =>
+                          new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
+                  )
+                : [];
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
@@ -583,4 +606,9 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
     system: PhysicalSystemData;
 }
 
-export { PhysicalItemPF2e };
+interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
+    extends DocumentConstructionContext<TParent> {
+    parentItem?: PhysicalItemPF2e<TParent>;
+}
+
+export { PhysicalItemPF2e, type PhysicalItemConstructionContext };

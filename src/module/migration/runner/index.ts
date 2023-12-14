@@ -37,7 +37,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         document.updateSource({ "system._migration.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
-        if ("items" in document && "token" in document) {
+        if ("items" in document && "prototypeToken" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
                     item.updateSource({ "system._migration.version": currentVersion });
@@ -68,7 +68,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 }
             }
             const updated =
-                "items" in document
+                "prototypeToken" in document
                     ? await this.#migrateActor(migrations, document, { pack })
                     : await this.#migrateItem(migrations, document);
             if (updated) updateGroup.push(updated);
