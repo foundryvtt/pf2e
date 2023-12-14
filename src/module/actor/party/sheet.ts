@@ -18,7 +18,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import type { Statistic } from "@system/statistic/index.ts";
-import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 
@@ -100,10 +100,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
                 totalCoins:
-                    sum(members.map((actor) => actor.inventory.coins.goldValue ?? 0)) +
+                    R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
                     this.actor.inventory.coins.goldValue,
                 totalWealth:
-                    sum(members.map((actor) => actor.inventory.totalWealth.goldValue ?? 0)) +
+                    R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
                     this.actor.inventory.totalWealth.goldValue,
                 totalBulk: members
                     .map((actor) => actor.inventory.bulk.value)
@@ -160,8 +160,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
                 bestSkills: Object.values(actor.skills ?? {})
                     .filter((s): s is Statistic => !!s?.proficient && !s.lore)
-                    .sort(sortBy((s) => s.mod ?? 0))
-                    .reverse()
+                    .sort((a, b) => (b.mod ?? 0) - (a.mod ?? 0))
                     .slice(0, 4)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 genderPronouns,
@@ -394,7 +393,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
                 const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);
-                const label = `${statistic.actor.name} (${prof}) ${addSign(statistic.mod)}`;
+                const label = `${statistic.actor.name} (${prof}) ${signedInteger(statistic.mod)}`;
                 const row = createHTMLElement("div", { children: [label] });
                 row.style.textAlign = "right";
                 return row;
@@ -473,7 +472,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         if (droppedRegion === "inventoryMembers" && targetActor) {
             const item = await ItemPF2e.fromDropData(data);
             if (!item) return [];
-            const actorUuid = foundry.utils.parseUuid(targetActor).documentId;
+            const actorUuid = fu.parseUuid(targetActor).documentId;
             if (actorUuid && item.actor && item.isOfType("physical")) {
                 await this.moveItemBetweenActors(
                     event,

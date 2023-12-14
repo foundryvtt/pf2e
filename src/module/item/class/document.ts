@@ -37,7 +37,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const system = this.system;
 
         return {
-            ancestry: deepClone(system.ancestryFeatLevels.value),
+            ancestry: fu.deepClone(system.ancestryFeatLevels.value),
             class: [...system.classFeatLevels.value],
             skill: [...system.skillFeatLevels.value],
             general: [...system.generalFeatLevels.value],

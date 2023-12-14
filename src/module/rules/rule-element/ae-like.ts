@@ -29,7 +29,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             phase: new fields.StringField({
                 required: false,
                 nullable: false,
-                choices: deepClone(this.PHASES),
+                choices: fu.deepClone(this.PHASES),
                 initial: "applyAEs",
             }),
             value: new ResolvableValueField({ required: true, nullable: true, initial: undefined }),
@@ -84,7 +84,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
-                    (path) => getProperty(actor, path) !== undefined,
+                    (path) => fu.getProperty(actor, path) !== undefined,
                 ))
         );
     }
@@ -127,7 +127,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         if (!this.test(rollOptions)) return;
 
         const { actor } = this;
-        const current = getProperty(actor, path);
+        const current = fu.getProperty(actor, path);
         const change = this.resolveValue(this.value);
         const newValue = AELikeRuleElement.getNewValue(this.mode, current, change, this.merge);
         if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
@@ -142,7 +142,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             current.splice(current.indexOf(newValue), 1);
         } else {
             try {
-                setProperty(actor, path, newValue);
+                fu.setProperty(actor, path, newValue);
                 this.#logChange(change);
             } catch (error) {
                 if (error instanceof Error) {
@@ -221,7 +221,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             }
             case "override": {
                 if (merge && isObject(current) && isObject(change)) {
-                    return mergeObject(current, change);
+                    return fu.mergeObject(current, change);
                 }
                 return change;
             }

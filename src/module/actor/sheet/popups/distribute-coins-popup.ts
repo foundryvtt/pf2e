@@ -122,7 +122,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
             element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : [],
         );
-        options.updateData = mergeObject(options.updateData ?? {}, { actorIds: actorIds });
+        options.updateData = fu.mergeObject(options.updateData ?? {}, { actorIds: actorIds });
         return super._onSubmit(event, options);
     }
 }

@@ -286,7 +286,7 @@ const weaponReload: Record<WeaponReloadTime, string> = {
 };
 
 function notifyDeprecatedPath(configPath: string, locPath: string): void {
-    foundry.utils.logCompatibilityWarning(
+    fu.logCompatibilityWarning(
         `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
         { since: "5.2.0", until: "6.0.0" },
     );
@@ -876,7 +876,7 @@ export const PF2ECONFIG = {
     },
 
     // Year offsets relative to the current actual year
-    worldClock: mergeObject(configFromLocalization(EN_JSON.PF2E.WorldClock, "PF2E.WorldClock"), {
+    worldClock: fu.mergeObject(configFromLocalization(EN_JSON.PF2E.WorldClock, "PF2E.WorldClock"), {
         AR: { yearOffset: 2700 },
         IC: { yearOffset: 5200 },
         AD: { yearOffset: -95 },

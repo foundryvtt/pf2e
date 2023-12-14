@@ -1,6 +1,6 @@
-import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { Kingdom } from "./model.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery } from "@util";
+import { Kingdom } from "./model.ts";
 
 /** Handler for kingdom chat messages. Does nothing if there is no kingdom */
 export async function handleKingdomChatMessageEvents(options: KingdomChatMessageParams): Promise<void> {

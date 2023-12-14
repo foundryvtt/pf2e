@@ -1,4 +1,6 @@
+import { RawModifier } from "@actor/modifiers.ts";
 import { ZeroToFour } from "@module/data.ts";
+import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type { ArrayField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { KingdomAbility, KingdomSettlementData, KingdomSettlementType, KingdomSkill } from "./types.ts";
@@ -9,8 +11,6 @@ import {
     KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SKILLS,
 } from "./values.ts";
-import { RawModifier } from "@actor/modifiers.ts";
-import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 

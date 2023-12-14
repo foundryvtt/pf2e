@@ -38,7 +38,7 @@ async function importDocuments(actor: ActorPF2e, items: ItemPF2e[], skipDialog: 
             if (!incoming) return null;
 
             const data = R.pick(incoming, ["name", "img", "system"]);
-            const diff = diffObject(d.toObject(true), data);
+            const diff = fu.diffObject(d.toObject(true), data);
             return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
         }),
     );

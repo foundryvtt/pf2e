@@ -1,6 +1,6 @@
 export class LicenseViewer extends Application {
     static override get defaultOptions(): ApplicationOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             id: "license-viewer",
             title: game.i18n.localize("PF2E.LicenseViewer.Label"),
             template: "systems/pf2e/templates/packs/license-viewer.hbs",

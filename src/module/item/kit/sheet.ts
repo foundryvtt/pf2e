@@ -60,7 +60,7 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         }
         let id: string;
         do {
-            id = randomID(5);
+            id = fu.randomID(5);
         } while (items[id]);
 
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });

@@ -129,7 +129,7 @@ class Statistic extends BaseStatistic {
 
     /** @deprecated */
     get ability(): AttributeString | null {
-        foundry.utils.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
+        fu.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
             since: "5.5.0",
             until: "6.0.0",
         });
@@ -180,8 +180,8 @@ class Statistic extends BaseStatistic {
     }
 
     withRollOptions(options?: RollOptionConfig): Statistic {
-        const newOptions = mergeObject(this.config ?? {}, options ?? {}, { inplace: false });
-        return new Statistic(this.actor, deepClone(this.data), newOptions);
+        const newOptions = fu.mergeObject(this.config ?? {}, options ?? {}, { inplace: false });
+        return new Statistic(this.actor, fu.deepClone(this.data), newOptions);
     }
 
     /**
@@ -200,7 +200,7 @@ class Statistic extends BaseStatistic {
             return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
         }
 
-        const result = mergeObject(deepClone(this.data), data);
+        const result = fu.mergeObject(fu.deepClone(this.data), data);
         result.domains = maybeMergeArrays(this.domains, data.domains);
         result.modifiers = maybeMergeArrays(this.data.modifiers, data.modifiers);
         result.rollOptions = maybeMergeArrays(this.data.rollOptions, data.rollOptions);
@@ -277,7 +277,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
-        data.check = mergeObject(data.check ?? {}, { type: this.type });
+        data.check = fu.mergeObject(data.check ?? {}, { type: this.type });
 
         const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
         if (this.type === "attack-roll") {
@@ -375,7 +375,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
                     const { rollMode, skipDialog } = args;
-                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
+                    return fu.mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
                 }
             }
 

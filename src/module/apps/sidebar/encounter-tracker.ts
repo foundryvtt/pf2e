@@ -84,7 +84,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             // Highlight the active-turn participant's alliance color
             if (combatant?.actor && this.viewed?.combatant === combatant) {
                 const alliance = combatant.actor.alliance;
-                const dispositionColor = new foundry.utils.Color(
+                const dispositionColor = new fu.Color(
                     alliance === "party"
                         ? allyColor(combatant)
                         : alliance === "opposition"

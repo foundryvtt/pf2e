@@ -51,7 +51,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (_path.length === 0 && Object.keys(data).length === 0) {
             for (const [type, model] of Object.entries(game.system.model.Actor)) {
                 if (!["character", "npc"].includes(type)) continue;
-                foundry.utils.mergeObject(data, model);
+                fu.mergeObject(data, model);
             }
         }
 
@@ -64,9 +64,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             negative: /\b(?:rank|_?modifiers|item|classdc|dexcap|familiar|\w+hp\b)|bonus/i,
         };
 
-        const prunedData = expandObject<Record<string, unknown>>(
+        const prunedData = fu.expandObject<Record<string, unknown>>(
             Object.fromEntries(
-                Object.entries(flattenObject(data)).filter(
+                Object.entries(fu.flattenObject(data)).filter(
                     ([k, v]) =>
                         patterns.positive.test(k) &&
                         !patterns.negative.test(k) &&
@@ -189,7 +189,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags = mergeObject(this.flags, { pf2e: {} });
+        this.flags = fu.mergeObject(this.flags, { pf2e: {} });
         this.auras.clear();
 
         if (!this.actor || !this.isEmbedded) return;
@@ -197,7 +197,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         TokenDocumentPF2e.assignDefaultImage(this);
 
         for (const [key, data] of this.actor.auras.entries()) {
-            this.auras.set(key, new TokenAura({ token: this, ...deepClone(data) }));
+            this.auras.set(key, new TokenAura({ token: this, ...fu.deepClone(data) }));
         }
 
         if (!this.constructed) return;
@@ -209,7 +209,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
@@ -426,7 +426,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const initializeVision =
             !!this.scene?.isView &&
             this.sight.enabled &&
-            Object.keys(flattenObject(actorUpdates)).some((k) => k.startsWith("system.traits.senses"));
+            Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.traits.senses"));
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);
@@ -434,7 +434,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.reset();
         const postUpdate = this.toObject(false);
         const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+        const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
             this.object?._onUpdate(tokenChanges, {}, game.user.id);

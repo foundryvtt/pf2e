@@ -62,7 +62,7 @@ class ScenePF2e extends Scene {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject(
+        this.flags.pf2e = fu.mergeObject(
             {
                 hearingRange: null,
                 rulesBasedVision: null,

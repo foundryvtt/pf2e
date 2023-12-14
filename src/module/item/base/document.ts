@@ -88,8 +88,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const item = fromUuidSync(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
-                item._source.flags = mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
-                item.flags = mergeObject(item.flags, { core: { sourceId: item.uuid } });
+                item._source.flags = fu.mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
+                item.flags = fu.mergeObject(item.flags, { core: { sourceId: item.uuid } });
             }
         }
 
@@ -179,7 +179,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      */
     async toMessage(
         event?: MouseEvent | JQuery.TriggeredEvent,
-        options: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {},
+        options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -239,7 +239,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         super.prepareBaseData();
 
         const { flags } = this;
-        flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
         // Temporary measure until upstream issue is addressed (`null` slug is being set to empty string)
         this.system.slug ||= null;
@@ -310,7 +310,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const updates: Partial<foundry.documents.ItemSource> & { system: ItemSourcePF2e["system"] } = {
             name: options.name ? latestSource.name : currentSource.name,
             img: latestSource.img,
-            system: deepClone(latestSource.system),
+            system: fu.deepClone(latestSource.system),
         };
 
         if (updates.system.level && currentSource.type === "feat") {
@@ -322,9 +322,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         if (isPhysicalData(currentSource)) {
             // Preserve basic physical data
-            mergeObject(
+            fu.mergeObject(
                 updates,
-                expandObject({
+                fu.expandObject({
                     "system.containerId": currentSource.system.containerId,
                     "system.equipped": currentSource.system.equipped,
                     "system.material": currentSource.system.material,
@@ -335,7 +335,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             // Preserve runes
             if (itemIsOfType(currentSource, "armor", "shield", "weapon")) {
-                mergeObject(updates, expandObject({ "system.runes": currentSource.system.runes }));
+                fu.mergeObject(updates, fu.expandObject({ "system.runes": currentSource.system.runes }));
             }
 
             if (
@@ -353,7 +353,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                         type: currentSource.system.category,
                         heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
                     });
-                    mergeObject(updates, {
+                    fu.mergeObject(updates, {
                         name: spellConsumableData.name,
                         system: { spell: spellConsumableData.system.spell },
                     });
@@ -369,11 +369,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         } else if (itemIsOfType(currentSource, "campaignFeature", "feat", "spell")) {
             // Preserve feat and spellcasting entry location
-            mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
+            fu.mergeObject(updates, fu.expandObject({ "system.location": currentSource.system.location }));
         }
 
         if (currentSource.type === "feat" && currentSource.system.level.taken) {
-            mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
+            fu.mergeObject(updates, fu.expandObject({ "system.level.taken": currentSource.system.level.taken }));
         }
 
         await this.update(updates, { diff: false, recursive: false });
@@ -398,8 +398,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
-            const chatData = duplicate(data);
-            htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
+            const chatData = fu.duplicate(data);
+            htmlOptions.rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
             chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
                 ...htmlOptions,
                 async: true,
@@ -417,7 +417,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
-        return this.processChatData(htmlOptions, deepClone(systemData));
+        return this.processChatData(htmlOptions, fu.deepClone(systemData));
     }
 
     protected traitChatData(
@@ -526,7 +526,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ["affliction", "condition", "effect"].includes(s.type),
         );
         for (const source of effectSources) {
-            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](deepClone(source), { parent: actor });
+            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](fu.deepClone(source), { parent: actor });
             const isUnaffected = effect.isOfType("condition") && !actor.isAffectedBy(effect);
             const isImmune = actor.isImmuneTo(effect);
             if (isUnaffected || isImmune) {
@@ -570,7 +570,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             const items = sources.map((source): ItemPF2e<ActorPF2e> => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
-                    source._id = randomID();
+                    source._id = fu.randomID();
                 }
                 return new CONFIG.Item.documentClass(source, { parent: actor }) as ItemPF2e<ActorPF2e>;
             });
@@ -809,7 +809,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     }
                 }
                 if (itemUpdates.length > 0) {
-                    mergeObject(actorUpdates, { items: itemUpdates });
+                    fu.mergeObject(actorUpdates, { items: itemUpdates });
                 }
             } else {
                 // The above method of updating embedded items in an actor update does not work with synthetic actors

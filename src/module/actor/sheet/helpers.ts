@@ -31,7 +31,7 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
     } satisfies DeepPartial<SpellSource>;
 
     if (data.location === "rituals") {
-        source.system = mergeObject(source.system, { category: { value: "ritual" } });
+        source.system = fu.mergeObject(source.system, { category: { value: "ritual" } });
     }
 
     actor.createEmbeddedDocuments("Item", [source]);

@@ -130,7 +130,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     category: this.category,
                     damageType,
                     predicate: this.predicate,
-                    override: deepClone(this.override),
+                    override: fu.deepClone(this.override),
                     enabled: testPassed,
                     ...resolvedBrackets,
                 });

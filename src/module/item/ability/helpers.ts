@@ -27,7 +27,7 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
     if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
         const actionType = changed.system?.actionType?.value ?? document.system.actionType.value;
         const actionCount = Number(changed.system?.actions?.value ?? document.system.actions.value);
-        changed.system = mergeObject(changed.system, {
+        changed.system = fu.mergeObject(changed.system, {
             actionType: { value: actionType },
             actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
         });
@@ -64,7 +64,7 @@ function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffect
         data.name = indexEntry.name;
         data.img = indexEntry.img;
     }
-    const parsedUUID = foundry.utils.parseUuid(data.uuid);
+    const parsedUUID = fu.parseUuid(data.uuid);
     const linkData = {
         id: parsedUUID.documentId ?? null,
         type: parsedUUID.documentType ?? null,

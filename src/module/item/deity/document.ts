@@ -45,8 +45,8 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { deities } = this.actor.system.details;
         const systemData = this.system;
         deities.primary = {
-            skill: deepClone(systemData.skill),
-            weapons: deepClone(systemData.weapons),
+            skill: fu.deepClone(systemData.skill),
+            weapons: fu.deepClone(systemData.weapons),
         };
 
         // Set available domains from this deity

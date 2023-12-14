@@ -1,5 +1,6 @@
-import * as R from "remeda";
+import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 import { localizer } from "@util";
+import * as R from "remeda";
 import {
     KingdomAbility,
     KingdomCHG,
@@ -10,7 +11,6 @@ import {
     KingdomSettlementType,
     KingdomSkill,
 } from "./types.ts";
-import { ModifierAdjustment, RawModifier } from "@actor/modifiers.ts";
 
 const KINGDOM_ABILITIES = ["culture", "economy", "loyalty", "stability"] as const;
 const KINGDOM_LEADERSHIP = [
@@ -362,22 +362,22 @@ function getKingdomCHGData(): KingdomCHGData {
 
 export {
     CONTROL_DC_BY_LEVEL,
-    getKingdomCHGData,
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,
     KINGDOM_COMMODITIES,
     KINGDOM_COMMODITY_LABELS,
-    KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_LEADERSHIP,
+    KINGDOM_LEADERSHIP_ABILITIES,
     KINGDOM_RUIN_LABELS,
+    KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SETTLEMENT_TYPE_DATA,
     KINGDOM_SETTLEMENT_TYPE_LABELS,
-    KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SIZE_DATA,
+    KINGDOM_SKILLS,
     KINGDOM_SKILL_ABILITIES,
     KINGDOM_SKILL_LABELS,
-    KINGDOM_SKILLS,
     VACANCY_PENALTIES,
+    getKingdomCHGData,
 };
 
 export type { KingdomCHGData };

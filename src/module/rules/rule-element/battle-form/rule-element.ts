@@ -352,7 +352,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 modifiers: [baseMod],
                 filter: this.#filterModifier,
             }) as CharacterSkill;
-            this.actor.system.skills[skillShort] = mergeObject(
+            this.actor.system.skills[skillShort] = fu.mergeObject(
                 this.actor.system.skills[skillShort],
                 this.actor.skills[key].getTraceData(),
             );
@@ -568,9 +568,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 category: weapon.category,
                 group: weapon.group,
                 baseType: weapon.baseType,
-                traits: deepClone(weapon.system.traits.value),
+                traits: fu.deepClone(weapon.system.traits.value),
                 modifier: strike.modifier,
-                damage: deepClone(weapon.system.damage),
+                damage: fu.deepClone(weapon.system.damage),
                 ownIfHigher: strike.ownIfHigher,
             };
 

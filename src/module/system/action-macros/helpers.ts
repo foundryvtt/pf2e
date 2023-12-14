@@ -69,7 +69,7 @@ export class ActionMacroHelpers {
     ): CheckContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
-            options.actor.getStatistic(data.slug) ?? (getProperty(options.actor, property) as StatisticModifier);
+            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StatisticModifier);
         if (!statistic) {
             const { actor } = options;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;

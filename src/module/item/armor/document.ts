@@ -4,7 +4,7 @@ import { ItemSummaryData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { UserPF2e } from "@module/user/index.ts";
-import { ErrorPF2e, addSign, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
 import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
@@ -124,7 +124,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     ): Promise<ItemSummaryData> {
         const properties = [
             CONFIG.PF2E.armorCategories[this.category],
-            `${addSign(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
+            `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}`,
             `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,

@@ -43,12 +43,12 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
             }
             if (specificData.value === true) {
                 specificData["-=value"] = null;
-                specificData.runes = deepClone(system.runes);
+                specificData.runes = fu.deepClone(system.runes);
                 if (R.isObject(specificData.material) && "precious" in specificData.material) {
                     specificData.material["-=precious"] = null;
-                    specificData.material = mergeObject(specificData.material, deepClone(system.material));
+                    specificData.material = fu.mergeObject(specificData.material, fu.deepClone(system.material));
                 } else {
-                    specificData.material = deepClone(system.material);
+                    specificData.material = fu.deepClone(system.material);
                 }
             } else if ("value" in specificData) {
                 system.specific = null;

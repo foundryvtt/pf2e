@@ -289,7 +289,7 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
     const compendiumCondition = game.pf2e.ConditionManager.getCondition("clumsy");
     const conditionSource =
         wieldedOversizedWeapon && actor.conditions.bySlug("clumsy").length === 0
-            ? mergeObject(compendiumCondition.toObject(), {
+            ? fu.mergeObject(compendiumCondition.toObject(), {
                   _id: "xxxxOVERSIZExxxx",
                   system: { slug: "clumsy", references: { parent: { id: wieldedOversizedWeapon.id } } },
               })

@@ -20,7 +20,7 @@ export class Migration866LinkToActorSizeAgain extends MigrationBase {
             return;
         }
 
-        mergeObject(tokenSource.flags, {
+        fu.mergeObject(tokenSource.flags, {
             pf2e: {
                 linkToActorSize: false,
                 autoscale: false,

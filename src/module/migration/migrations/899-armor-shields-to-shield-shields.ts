@@ -222,9 +222,9 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
 
         const setSpecific = (): void => {
             system.specific = {
-                material: deepClone(system.material),
+                material: fu.deepClone(system.material),
                 runes: { reinforcing: 0 },
-                integrated: system.traits.integrated ? deepClone({ runes: system.traits.integrated.runes }) : null,
+                integrated: system.traits.integrated ? fu.deepClone({ runes: system.traits.integrated.runes }) : null,
             } satisfies SpecificShieldData;
         };
 

@@ -1,11 +1,9 @@
-import { FoundryUtils } from "../utils.ts";
-
 export class MockScene {
     _source: foundry.documents.SceneSource;
 
     constructor(data: Partial<foundry.documents.SceneSource>) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this._source = { _id: FoundryUtils.randomID(), name: "", ...data } as any;
+        this._source = { _id: fu.randomID(), name: "", ...data } as any;
         this._source.tokens = [];
     }
 
@@ -62,7 +60,7 @@ export class MockScene {
 
     update(changes: object): void {
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
+            fu.setProperty(this._source, k, v);
         }
     }
 
@@ -72,7 +70,7 @@ export class MockScene {
             obj = this._source.tokens?.find((t) => t._id === changes._id);
         }
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(obj!, k, v);
+            fu.setProperty(obj!, k, v);
         }
     }
 }

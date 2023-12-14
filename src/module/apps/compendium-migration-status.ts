@@ -31,7 +31,7 @@ class CompendiumMigrationStatus extends Application {
         // We pass a random string as a field to work around a stale index bug (as of 11.309)
         // https://github.com/foundryvtt/foundryvtt/issues/9984
         const index = await this.compendium.getIndex({
-            fields: [randomID(), "system._migration", "system.schema", "data.schema"],
+            fields: [fu.randomID(), "system._migration", "system.schema", "data.schema"],
         });
         const schemaVersion = Math.min(
             ...index.map((d) => {

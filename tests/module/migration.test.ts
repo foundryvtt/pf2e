@@ -14,12 +14,10 @@ import { MockMacro } from "tests/mocks/macro.ts";
 import { MockRollTable } from "tests/mocks/roll-table.ts";
 import { MockScene } from "tests/mocks/scene.ts";
 import { MockUser } from "tests/mocks/user.ts";
-import { FoundryUtils } from "tests/utils.ts";
 import armorJSON from "../../packs/equipment/scale-mail.json";
 import characterJSON from "../../packs/iconics/amiri-level-1.json";
-import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
 
-const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+const characterData = fu.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
 characterData.system._migration = { version: 0, previous: null };
 for (const item of characterData.items) {
@@ -27,13 +25,11 @@ for (const item of characterData.items) {
     item.system._migration = { version: 0, previous: null };
 }
 
-const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+const armorData = fu.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.effects = [];
 armorData.system._migration = { version: 0, previous: null };
 
 describe("test migration runner", () => {
-    populateFoundryUtilFunctions();
-
     const settings = {
         worldSchemaVersion: 10,
     };

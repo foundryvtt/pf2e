@@ -9,7 +9,7 @@ import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValu
 import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
-import "./core-helpers.ts";
+import "./foundry-utils.ts";
 import { getFilesRecursively, PackError } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";

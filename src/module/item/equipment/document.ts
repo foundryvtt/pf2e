@@ -107,7 +107,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (!hasApexTrait && this._source.system.apex) {
             delete changed.system?.apex;
             (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
-            changed.system = mergeObject(changed.system!, { "-=apex": null });
+            changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
         }
 
         return super._preUpdate(changed, options, user);

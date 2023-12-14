@@ -61,7 +61,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
         htmlQuery(html, "input[data-action=toggle-specific")?.addEventListener("change", () => {
             const newValue: SpecificShieldData | null = this.item.system.specific
                 ? null
-                : deepClone({
+                : fu.deepClone({
                       ...R.pick(this.item._source.system, ["material", "runes"]),
                       integrated: this.item._source.system.traits.integrated
                           ? { runes: this.item._source.system.traits.integrated.runes }

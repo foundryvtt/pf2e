@@ -50,7 +50,7 @@ class MeasuredTemplateDocumentPF2e<
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
         const areaType = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
-        initialized.flags.pf2e = mergeObject({ areaType }, initialized.flags.pf2e ?? {});
+        initialized.flags.pf2e = fu.mergeObject({ areaType }, initialized.flags.pf2e ?? {});
         return initialized;
     }
 

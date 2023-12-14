@@ -70,7 +70,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { dragSelector: ".item[draggable=true]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
-        return mergeObject(options, {
+        return fu.mergeObject(options, {
             classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
@@ -294,7 +294,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const propertyPath = input.dataset.property ?? "";
                 input.name = propertyPath;
                 if (input instanceof HTMLInputElement) {
-                    const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
+                    const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
                     input.value = baseValue.toString();
                     if (input.type === "text" && input.dataset.dtype === "Number") {
                         input.type = "number";
@@ -305,8 +305,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             input.addEventListener("blur", () => {
                 input.removeAttribute("name");
                 const propertyPath = input.dataset.property ?? "";
-                const preparedValue = Number(getProperty(this.actor, propertyPath)) || 0;
-                const baseValue = Math.trunc(Number(getProperty(this.actor._source, propertyPath)) || 0);
+                const preparedValue = Number(fu.getProperty(this.actor, propertyPath)) || 0;
+                const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
                 const newValue = Math.trunc(Number(input.value));
                 if (input instanceof HTMLInputElement) {
                     if (input.type === "number" && input.dataset.dtype === "Number") {
@@ -1016,7 +1016,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.traits.value.push(...originItem.traits);
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
-            const actorFormulas = deepClone(actor.system.crafting.formulas);
+            const actorFormulas = fu.deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
                 actorFormulas.push({ uuid: item.uuid });
                 await actor.update({ "system.crafting.formulas": actorFormulas });
@@ -1161,7 +1161,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (itemSource) {
             if (dataset.traits) {
                 const traits = dataset.traits?.split(",") ?? [];
-                itemSource.system = mergeObject(itemSource.system ?? {}, { traits: { value: traits } });
+                itemSource.system = fu.mergeObject(itemSource.system ?? {}, { traits: { value: traits } });
             }
 
             this.actor.createEmbeddedDocuments("Item", [itemSource]);
@@ -1275,7 +1275,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const strValue = el.value.trim();
                 const value = Number(strValue);
                 if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
-                    data[el.name] = Number(getProperty(this.actor, el.name)) + value;
+                    data[el.name] = Number(fu.getProperty(this.actor, el.name)) + value;
             }
         }
 

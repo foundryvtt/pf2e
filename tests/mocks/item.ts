@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/index.ts";
-import { ItemSystemSource } from "@item/base/data/system.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSystemSource } from "@item/base/data/system.ts";
 import type { ItemPF2e } from "@item/index.ts";
 
 export class MockItem {
@@ -12,7 +12,7 @@ export class MockItem {
         data: ItemSourcePF2e,
         public options: DocumentConstructionContext<ActorPF2e | null> = {},
     ) {
-        this._source = duplicate(data);
+        this._source = fu.duplicate(data);
         this.parent = options.parent ?? null;
     }
 
@@ -50,16 +50,16 @@ export class MockItem {
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);
-            if (item) mergeObject(item._source, update, { performDeletions: true });
+            if (item) fu.mergeObject(item._source, update, { performDeletions: true });
             return item ?? [];
         });
     }
 
     update(changes: object): void {
-        mergeObject(this._source, changes, { performDeletions: true });
+        fu.mergeObject(this._source, changes, { performDeletions: true });
     }
 
     toObject(): ItemSourcePF2e {
-        return duplicate(this._source);
+        return fu.duplicate(this._source);
     }
 }

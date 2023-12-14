@@ -72,7 +72,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Restrict the Implement tag to one-handed weapons
         const otherTags = ((): SheetOptions => {
-            const otherWeaponTags: Record<string, string> = deepClone(CONFIG.PF2E.otherWeaponTags);
+            const otherWeaponTags: Record<string, string> = fu.deepClone(CONFIG.PF2E.otherWeaponTags);
             if (weapon.hands !== "1") delete otherWeaponTags.implement;
             return createSheetTags(otherWeaponTags, sheetData.data.traits.otherTags);
         })();

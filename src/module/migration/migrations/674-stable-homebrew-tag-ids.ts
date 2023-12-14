@@ -7,10 +7,10 @@ import { MigrationBase } from "../base.ts";
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
     static override version = 0.674;
 
-    #homebrewKeys = deepClone(HOMEBREW_TRAIT_KEYS);
+    #homebrewKeys = fu.deepClone(HOMEBREW_TRAIT_KEYS);
 
     #homebrewTags = this.#homebrewKeys.reduce(
-        (settings, key) => mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
+        (settings, key) => fu.mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
         {} as Record<(typeof HOMEBREW_TRAIT_KEYS)[number], HomebrewTag[]>,
     );
 

@@ -14,7 +14,7 @@ import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/r
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, objectHasKey, sluggify } from "@util";
+import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import { VariantCloneParams } from "./types.ts";
 
@@ -32,7 +32,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     /** This NPC's attribute modifiers */
     override get abilities(): Abilities {
-        return deepClone(this.system.abilities);
+        return fu.deepClone(this.system.abilities);
     }
 
     get description(): string {
@@ -116,8 +116,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         })();
         attributes.classOrSpellDC = { value: attributes.classDC.value };
 
-        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
-        this.system.resources.focus = mergeObject({ value: 0, max: 0, cap: 3 }, this.system.resources.focus);
+        this.system.spellcasting = fu.mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
+        this.system.resources.focus = fu.mergeObject({ value: 0, max: 0, cap: 3 }, this.system.resources.focus);
     }
 
     override prepareDerivedData(): void {
@@ -178,17 +178,15 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 }),
             ].flat();
 
-            const hpData = deepClone(system.attributes.hp);
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
+            const hpData = fu.deepClone(system.attributes.hp);
+            const stat = fu.mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
             stat.base = base;
             stat.max = stat.max + stat.totalModifier;
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = [
                 game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
-                ...stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
             ].join(", ");
             system.attributes.hp = stat;
             setHitPointsRollOptions(this);
@@ -233,7 +231,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 ],
                 check: { type: "perception-check" },
             });
-            system.attributes.perception = mergeObject(
+            system.attributes.perception = fu.mergeObject(
                 system.attributes.perception,
                 this.perception.getTraceData({ value: "mod" }),
             );
@@ -284,7 +282,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
 
             saves[saveType] = stat;
-            mergeObject(this.system.saves[saveType], stat.getTraceData());
+            fu.mergeObject(this.system.saves[saveType], stat.getTraceData());
             systemData.saves[saveType].base = base;
         }
 

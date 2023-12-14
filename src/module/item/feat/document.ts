@@ -114,7 +114,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.frequency.value ??= this.system.frequency.max;
         }
 
-        this.system.subfeatures = mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
+        this.system.subfeatures = fu.mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
 
         this.system.selfEffect ??= null;
         // Self effects are only usable with actions
@@ -229,7 +229,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 traits.findSplice((t) => t === "lineage");
             }
         } else if ((Array.isArray(traits) && traits.includes("lineage")) || changed.system?.onlyLevel1) {
-            mergeObject(changed, { system: { maxTakable: 1 } });
+            fu.mergeObject(changed, { system: { maxTakable: 1 } });
         }
 
         return super._preUpdate(changed, options, user);

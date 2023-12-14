@@ -8,8 +8,7 @@ import { sluggify } from "@util";
 import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
-import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
-import "./lib/core-helpers.ts";
+import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
 import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
@@ -175,7 +174,7 @@ async function migrate() {
                         pruneFlags(item);
                     }
 
-                    update.items = update.items.map((i) => mergeObject({}, i, { performDeletions: true }));
+                    update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
                     for (const updatedItem of update.items) {
                         delete (updatedItem.system as { _migrations?: object })._migrations;
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
@@ -184,7 +183,7 @@ async function migrate() {
                         pruneFlags(updatedItem);
                     }
 
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
@@ -198,22 +197,22 @@ async function migrate() {
                     pruneFlags(source);
                     pruneFlags(update);
 
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isJournalEntryData(source)) {
                     const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
                     pruneFlags(source);
                     pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isMacroData(source)) {
                     const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneFlags(source);
                     pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isTableData(source)) {
                     const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
                     pruneFlags(source);
                     pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else {
                     pruneFlags(source);
                     return source;
@@ -248,7 +247,5 @@ function pruneFlags(source: { flags?: Record<string, Record<string, unknown> | u
         delete (source as { flags?: object }).flags;
     }
 }
-
-populateFoundryUtilFunctions();
 
 migrate().catch((err) => console.error(err));

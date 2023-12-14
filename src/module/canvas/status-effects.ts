@@ -11,7 +11,7 @@ import { StatusEffectIconTheme } from "@scripts/config/index.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import * as R from "remeda";
 
-const debouncedRender = foundry.utils.debounce(() => {
+const debouncedRender = fu.debounce(() => {
     canvas.tokens.hud.render();
 }, 20);
 

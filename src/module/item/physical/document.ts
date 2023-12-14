@@ -5,7 +5,7 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, isObject, sortBy } from "@util";
+import { ErrorPF2e, isObject } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -49,7 +49,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get hitPoints(): PhysicalItemHitPoints {
-        return deepClone(this.system.hp);
+        return fu.deepClone(this.system.hp);
     }
 
     get hardness(): number {
@@ -139,7 +139,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     get material(): ItemMaterialData {
-        return deepClone(this.system.material);
+        return fu.deepClone(this.system.material);
     }
 
     /** Whether this is a specific magic item: applicable to armor, shields, and weapons */
@@ -391,7 +391,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             return null;
         })();
         const inventory = this.actor.inventory;
-        const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort(sortBy((i) => i.sort));
+        const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort((a, b) => a.sort - b.sort);
 
         // If there is nothing to sort, perform the normal update and end here
         if (!sortBefore && !siblings.length && !!mainContainerUpdate) {
@@ -407,7 +407,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const updates = sorting.map((s) => {
             const baseUpdate = { _id: s.target.id, ...s.update };
             if (mainContainerUpdate && s.target.id === this.id) {
-                return mergeObject(baseUpdate, mainContainerUpdate);
+                return fu.mergeObject(baseUpdate, mainContainerUpdate);
             }
             return baseUpdate;
         });

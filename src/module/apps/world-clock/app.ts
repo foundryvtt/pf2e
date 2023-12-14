@@ -66,7 +66,7 @@ export class WorldClock extends Application {
     }
 
     static override get defaultOptions(): ApplicationOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             id: "world-clock",
             width: 400,
             template: "systems/pf2e/templates/system/world-clock.hbs",

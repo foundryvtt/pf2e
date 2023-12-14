@@ -165,13 +165,13 @@ class ModifierPF2e implements RawModifier {
         this.type = setHasElement(MODIFIER_TYPES, params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
-        this.adjustments = deepClone(params.adjustments ?? []);
+        this.adjustments = fu.deepClone(params.adjustments ?? []);
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = new PredicatePF2e(params.predicate ?? []);
-        this.traits = deepClone(params.traits ?? []);
+        this.traits = fu.deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
 
@@ -245,7 +245,7 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return deepClone({
+        return fu.deepClone({
             ...this,
             predicate: [...this.predicate],
             rule: this.rule?.toObject(),
@@ -676,7 +676,7 @@ class DamageDicePF2e {
     }
 
     toObject(): RawDamageDice {
-        return deepClone({ ...this, predicate: [...this.predicate] });
+        return fu.deepClone({ ...this, predicate: [...this.predicate] });
     }
 }
 

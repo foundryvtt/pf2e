@@ -147,7 +147,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
         return {
-            ...deepClone(this.system.damage),
+            ...fu.deepClone(this.system.damage),
             // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
             // add options
             damageType:
@@ -388,7 +388,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareSiblingData(): void {
         super.prepareSiblingData();
         // Set the default label to the ammunition item's name
-        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...deepClone(r) })) ?? [];
+        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...fu.deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
     }
 
@@ -467,7 +467,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (this.isRanged || !thrownTrait) return null;
 
         const range = Number(/(\d{1,3})$/.exec(thrownTrait)?.at(1)) as WeaponRangeIncrement;
-        const newTraits = deepClone(traits);
+        const newTraits = fu.deepClone(traits);
         newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
         const overlay: DeepPartial<WeaponSource> = {
             system: {
@@ -649,13 +649,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()
                     .reduce(
-                        (rolls: Record<string, NPCAttackDamage>, roll) => mergeObject(rolls, { [randomID()]: roll }),
+                        (rolls: Record<string, NPCAttackDamage>, roll) =>
+                            fu.mergeObject(rolls, { [fu.randomID()]: roll }),
                         {},
                     ),
                 traits: {
                     value: toAttackTraits(this.system.traits.value),
                 },
-                rules: deepClone(this._source.system.rules),
+                rules: fu.deepClone(this._source.system.rules),
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };

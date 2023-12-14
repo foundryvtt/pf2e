@@ -181,9 +181,9 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
      */
     async update(data: DeepPartial<KingdomSource> & Record<string, unknown>): Promise<void> {
         const expanded: DeepPartial<KingdomSource> & { system?: { campaign?: DeepPartial<KingdomSource> } } =
-            expandObject(data);
+            fu.expandObject(data);
 
-        const updateData = mergeObject(expanded, expanded.system?.campaign ?? {});
+        const updateData = fu.mergeObject(expanded, expanded.system?.campaign ?? {});
         delete updateData.system;
         await this.actor.update({ "system.campaign": updateData });
 

@@ -196,7 +196,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 check: { type: "saving-throw" },
             });
 
-            this.system.saves[saveType] = mergeObject(save, statistic.getTraceData());
+            this.system.saves[saveType] = fu.mergeObject(save, statistic.getTraceData());
             saves[saveType] = statistic;
 
             return saves;

@@ -11,7 +11,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    isBlank,
     isObject,
     localizer,
     objectHasKey,
@@ -334,7 +333,7 @@ class CompendiumBrowser extends Application {
                 await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
 
                 for (const [key, source] of Object.entries(this.packLoader.sourcesSettings.sources)) {
-                    if (!source || isBlank(source.name)) {
+                    if (!source?.name) {
                         delete this.packLoader.sourcesSettings.sources[key]; // just to make sure we clean up
                         continue;
                     }
@@ -360,7 +359,7 @@ class CompendiumBrowser extends Application {
 
                 for (const element of sourceSettings) {
                     const name = element.dataset.name?.toLocaleLowerCase(game.i18n.lang);
-                    const shouldBeHidden = !isBlank(value) && !isBlank(name) && !name.includes(value);
+                    const shouldBeHidden = !!value && !!name && !name.includes(value);
 
                     element.classList.toggle("hidden", shouldBeHidden);
                 }

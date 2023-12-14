@@ -345,7 +345,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 
     #processAppearanceData(): AuraAppearanceData {
-        const appearance = deepClone(this.appearance);
+        const appearance = fu.deepClone(this.appearance);
         const { border, highlight, texture } = appearance;
         const textureSrc = ((): ImageFilePath | VideoFilePath | null => {
             if (!texture) return null;

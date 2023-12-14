@@ -128,12 +128,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.armorTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.armorGroups),
         );
         this.filterData.checkboxes.weaponTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.weaponTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );

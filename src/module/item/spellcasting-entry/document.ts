@@ -32,7 +32,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     /** @deprecated */
     get ability(): AttributeString {
-        foundry.utils.logCompatibilityWarning(
+        fu.logCompatibilityWarning(
             "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" },
         );
