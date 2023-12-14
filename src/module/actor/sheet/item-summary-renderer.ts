@@ -10,8 +10,12 @@ import { htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor } from "@util";
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
-export class ItemSummaryRenderer<TActor extends ActorPF2e> {
-    constructor(protected sheet: Application & { get actor(): TActor }) {}
+export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Application & { get actor(): TActor }> {
+    protected sheet: TSheet;
+
+    constructor(sheet: TSheet) {
+        this.sheet = sheet;
+    }
 
     /**
      * Triggers toggling the visibility of an item summary element,
