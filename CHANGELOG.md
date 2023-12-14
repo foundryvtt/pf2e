@@ -1,3 +1,49 @@
+## 5.11.0
+
+### System Improvements
+
+-   (Supe, Cora) Add army actors
+-   (Drental) Update Gang Up flanking rule for Remaster
+
+### Bugfixes
+
+-   (Deatrathias) Don't set turn value before encounter start
+-   (Dire Weasel) Fix Treat Wounds macro warning to emit correct missing skill name
+-   (stwlam) Avoid declaring massive damage against actors with zero max hit points
+-   (stwlam) Fix determination of whether critical hits immunity applies
+-   (stwlam) Restore "Use" button in item summaries for consumables lacking formulas
+
+### Data Updates
+
+-   (Abaddon) Add ammunition type to spellstrike ammunition
+-   (Abaddon) Fix damage formula in cryomister
+-   (Dire Weasel) Add automation for Armored Skirt, Fey Influence, and Fey Ascension
+-   (Dire Weasel) Add Boots of Speed to remaster journal entry
+-   (Dire Weasel) Add effect for Elemental Betrayal, Forgefather's Seal, Shimmering Dust, Stoke the Fervent, Watch Your Back
+-   (Dire Weasel) Add inline damage link to Twist the Knife
+-   (Dire Weasel) Add token light rule element to Wand of Dazzling Rays
+-   (Dire Weasel) Add unified effect for Shifting Form
+-   (Dire Weasel) Fix fire weakness of Misbegotten Troll and improve Vicious Ranseur automation
+-   (Dire Weasel) Fix level and price of Greater Astral rune
+-   (Dire Weasel) Update rule elements on Sapling Shields
+-   (Dire Weasel) Fix source of Rewrite Memory
+-   (Dire Weasel) Fix traits and action cost of In Tune
+-   (Dire Weasel) Update deafened and stupefied descriptions to PC1 text
+-   (Dire Weasel) Update Divine Wings to be a self-applied effect
+-   (Dire Weasel) Update Sunburst description to remaster and add auto-heightening vitality damage link
+-   (Dire Weasel) Upgrade favored weapon proficiency to master in Warpriest's Final Doctrine
+-   (Dire Weasel) Use system description for Note for Know-It-All (Bard) and add outcomes
+-   (Drental) Fix the Athletics modifier rule element on Trip and Tangle
+-   (Intervención) Remove "manipulate" trait from Conceal Spell feat
+-   (LebombJames) Limit Ash Mystery benefit to Oracle class only
+-   (pedrogrullada) Remove erroneous attack traits from some spells
+-   (rectulo) Add Arcane tradition to Noise Blast spell
+-   (sirrus233 ) Update Puff of Poison with Remaster errata
+-   (Robert Beilich) Update traits of specific weapons
+-   (Tikael) Add automation to Ancestral Longevity and similar feats.
+-   (Tikael) Brush up automation of Paladin oath feats
+-   (Tikael) Clean up darkvision elixir effects
+
 ## 5.10.5
 
 ### Bugfixes
