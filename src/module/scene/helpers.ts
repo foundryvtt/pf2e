@@ -1,5 +1,4 @@
-import { ScenePF2e } from "./document.ts";
-import { TokenDocumentPF2e } from "./token-document/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
 // Prevent concurrent executions of this method in case of network latency
 let auraCheckLock = Promise.resolve();
