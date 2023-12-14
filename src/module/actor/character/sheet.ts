@@ -271,7 +271,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.data.details.keyability.singleOption = actor.class?.system.keyAbility.value.length === 1;
 
         // Is the stamina variant rule enabled?
-        sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant");
+        sheetData.hasStamina = game.pf2e.settings.variants.stamina;
         sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.bonus];
 

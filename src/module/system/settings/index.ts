@@ -23,6 +23,9 @@ export function registerSettings(): void {
         config: true,
         default: true,
         type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.tokens.autoscale = !!value;
+        },
     });
 
     game.settings.register("pf2e", "identifyMagicNotMatchingTraditionModifier", {
@@ -147,7 +150,8 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
+        onChange: (value) => {
+            game.pf2e.settings.totm = !!value;
             resetActors();
         },
     });
@@ -159,7 +163,7 @@ export function registerSettings(): void {
         config: false,
         default: "icons/svg/skull.svg",
         type: String,
-        onChange: (choice?: string) => {
+        onChange: (choice) => {
             if (isImageOrVideoPath(choice)) {
                 StatusEffects.reset();
             } else if (!choice) {
@@ -270,7 +274,10 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => resetActors(),
+        onChange: (value) => {
+            game.pf2e.settings.campaign.enabled = !!value;
+            resetActors(game.actors.filter((a) => a.isOfType("character")));
+        },
     });
 
     // Secret for now until the user side is complete and a UI is built
@@ -280,7 +287,10 @@ export function registerSettings(): void {
         config: false,
         default: [],
         type: Array,
-        onChange: () => resetActors(),
+        onChange: (value) => {
+            game.pf2e.settings.campaign.sections = Array.isArray(value) ? value : game.pf2e.settings.campaign.sections;
+            resetActors(game.actors.filter((a) => a.isOfType("character")));
+        },
     });
 
     // This only exists to not break existing macros (yet). We'll keep it for a few versions

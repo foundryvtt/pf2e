@@ -3,9 +3,9 @@ import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
-import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success.ts";
+import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/index.ts";
-import { earnIncome, EarnIncomeResult } from "./calculate.ts";
+import { EarnIncomeResult, earnIncome } from "./calculate.ts";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -66,10 +66,6 @@ function postToChat(skillName: string, earnIncomeResult: EarnIncomeResult): Prom
     });
 }
 
-function isProficiencyWithoutLevel() {
-    return game.settings.get("pf2e", "proficiencyVariant");
-}
-
 function calculateIncome({ actor, skill, rollBrief, level, days, dc }: CalculateIncomeParams): void {
     const options = {
         useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && !!skill.lore,
@@ -90,7 +86,7 @@ interface CalculateIncomeParams {
 }
 
 function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams): void {
-    const dc = calculateDC(level, { proficiencyWithoutLevel: isProficiencyWithoutLevel() });
+    const dc = calculateDC(level, { pwol: game.pf2e.settings.variants.pwol.enabled });
     const options = new Set(actor.getRollOptions(["all", "skill-check", skill.slug]));
     options.add("action:earn-income");
 

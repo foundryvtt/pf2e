@@ -76,7 +76,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             .filter((idx) => idx % 2 === 0);
 
         // Add free archetype (if active)
-        if (game.settings.get("pf2e", "freeArchetypeVariant")) {
+        if (game.pf2e.settings.variants.fa) {
             this.createGroup({
                 id: "archetype",
                 label: "PF2E.FeatArchetypeHeader",
@@ -111,7 +111,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         });
 
         // Add campaign feats if enabled
-        if (game.settings.get("pf2e", "campaignFeats")) {
+        if (game.pf2e.settings.campaign.enabled) {
             this.createGroup({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
         }
     }

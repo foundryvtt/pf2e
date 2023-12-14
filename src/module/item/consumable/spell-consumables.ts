@@ -131,7 +131,7 @@ interface TrickMagicItemDifficultyData {
 
 function calculateTrickMagicItemCheckDC(
     item: ConsumablePF2e,
-    options: DCOptions = { proficiencyWithoutLevel: false },
+    options: DCOptions = { pwol: false },
 ): TrickMagicItemDifficultyData {
     const level = Number(item.level);
     const saveDC = calculateDC(level, options);

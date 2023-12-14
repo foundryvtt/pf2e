@@ -314,7 +314,7 @@ function getStrikeAttackDomains(
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
 
-    return R.uniq(domains).sort();
+    return R.uniq(domains);
 }
 
 function getStrikeDamageDomains(
@@ -375,7 +375,7 @@ function getStrikeDamageDomains(
         }
     }
 
-    return R.uniq(domains).sort();
+    return R.uniq(domains);
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */

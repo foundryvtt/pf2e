@@ -601,7 +601,7 @@ class CheckPF2e {
 
             const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
                 .playersCanSeeName;
-            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+            const canSeeName = canSeeTokenName || !game.pf2e.settings.tokens.nameVisibility;
 
             return {
                 name: token?.name ?? targetActor?.name ?? "",

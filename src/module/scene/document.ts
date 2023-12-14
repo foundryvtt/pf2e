@@ -8,7 +8,7 @@ class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
-        return this.flags.pf2e.rulesBasedVision ?? game.settings.get("pf2e", "automation.rulesBasedVision");
+        return this.flags.pf2e.rulesBasedVision ?? game.pf2e.settings.rbv;
     }
 
     get hearingRange(): number | null {

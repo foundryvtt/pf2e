@@ -1,8 +1,6 @@
 import { calculateXP } from "@scripts/macros/xp/index.ts";
 
-const dcOptions = {
-    proficiencyWithoutLevel: false,
-};
+const dcOptions = { pwol: false };
 
 describe("should calculate xp", () => {
     test("party of 4", () => {

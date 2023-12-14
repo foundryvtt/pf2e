@@ -176,7 +176,7 @@ class Statistic extends BaseStatistic {
             rollOptions.push(...extraRollOptions);
         }
 
-        return new Set(rollOptions.sort());
+        return new Set(rollOptions);
     }
 
     withRollOptions(options?: RollOptionConfig): Statistic {
@@ -293,8 +293,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             }
         }
 
-        data.check.domains = Array.from(checkDomains).sort();
-        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat())).sort();
+        data.check.domains = Array.from(checkDomains);
+        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat()));
 
         this.label = this.#determineLabel(data);
 
@@ -613,7 +613,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {
         this.parent = parent;
-        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat())).sort();
+        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat()));
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 

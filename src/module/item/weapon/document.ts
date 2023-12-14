@@ -237,9 +237,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         })();
         const rangeIncrement = this.range?.increment;
 
-        return [
-            super.getRollOptions(prefix),
-            Object.entries({
+        const rollOptions = super.getRollOptions(prefix);
+        rollOptions.push(
+            ...Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group ?? "none"}`]: true,
                 ...baseTypeRollOptions,
@@ -263,11 +263,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 ...propertyRunes,
                 ...ammunitionRollOptions,
             })
-                .filter(([, isTrue]) => isTrue)
-                .map(([key]) => `${prefix}:${key}`),
-        ]
-            .flat()
-            .sort();
+                .filter((e) => !!e[1])
+                .map((e) => `${prefix}:${e[0]}`),
+        );
+
+        return rollOptions;
     }
 
     override prepareBaseData(): void {

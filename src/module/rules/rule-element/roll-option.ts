@@ -19,7 +19,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
 
         // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
-        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+        if (this.toggleable === "totm" && !game.pf2e.settings.totm) {
             this.ignored = true;
         }
 

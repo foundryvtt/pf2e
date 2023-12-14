@@ -46,7 +46,6 @@ import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
-import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -324,7 +323,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         flags.pf2e.showBasicUnarmed ??= true;
 
         // Build selections: boosts and skill trainings
-        const isGradual = game.settings.get("pf2e", "gradualBoostsVariant");
+        const isGradual = game.pf2e.settings.variants.gab;
         const boostLevels = [1, 5, 10, 15, 20] as const;
         const allowedBoosts = boostLevels.reduce(
             (result, level) => {
@@ -463,17 +462,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Attack and defense proficiencies
         type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (systemData.proficiencies.attacks ??= {});
-        for (const category of WEAPON_CATEGORIES) {
+        for (const category of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
-                custom: !!attacks[category]?.custom,
-                immutable: !!attacks[category]?.custom,
-            };
-        }
-        const homebrewCategories = game.settings.get("pf2e", "homebrew.weaponCategories").map((tag) => tag.id);
-        for (const category of homebrewCategories) {
-            attacks[category] ??= {
-                rank: 0,
                 custom: !!attacks[category]?.custom,
                 immutable: !!attacks[category]?.custom,
             };
@@ -556,7 +547,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const hitPoints = systemData.attributes.hp;
             const modifiers = [new ModifierPF2e("PF2E.AncestryHP", ancestryHP, "untyped")];
 
-            if (game.settings.get("pf2e", "staminaVariant")) {
+            if (game.pf2e.settings.variants.stamina) {
                 const halfClassHp = Math.floor(classHP / 2);
                 systemData.attributes.hp.sp = {
                     value: systemData.attributes.hp.sp?.value ?? 0,
@@ -761,7 +752,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of WEAPON_CATEGORIES) {
+        for (const key of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
             const rank = this.system.proficiencies.attacks[key].rank;
             rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
@@ -1046,8 +1037,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
 
-        const campaignFeatSections = game.settings.get("pf2e", "campaignFeatSections");
-        for (const section of campaignFeatSections) {
+        for (const section of game.pf2e.settings.campaign.sections) {
             this.feats.createGroup(section);
         }
 
@@ -1143,8 +1133,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
-        const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
-        const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
+        const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
 
         // Exclude handwraps as a strike
         const weapons = R.compact(
@@ -1854,7 +1843,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Clamp Stamina and Resolve
-        if (game.settings.get("pf2e", "staminaVariant")) {
+        if (game.pf2e.settings.variants.stamina) {
             // Do not allow stamina to go over max
             if (changed.system?.attributes?.hp?.sp) {
                 changed.system.attributes.hp.sp.value =

@@ -50,8 +50,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     get identificationDCs(): CreatureIdentificationData {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
-        return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
+        const pwol = game.pf2e.settings.variants.pwol.enabled;
+        return creatureIdentificationDCs(this, { pwol });
     }
 
     get isLootable(): boolean {
@@ -109,8 +109,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         attributes.spellDC = null;
         attributes.classDC = ((): { value: number } => {
-            const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
-            const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
+            const pwol = game.pf2e.settings.variants.pwol.enabled;
+            const levelBasedDC = calculateDC(level.base, { pwol, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
