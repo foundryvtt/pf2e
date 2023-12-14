@@ -27,8 +27,16 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
         })();
-        htmlQuery(html, "nav.tabs")?.append(...tab.content.children);
-        htmlQuery(html, ".tab[data-tab=ambience]")?.after(...panel.content.children);
+
+        const tabs = htmlQuery(html, "nav.tabs");
+        const ambientTabContent = htmlQuery(html, ".tab[data-tab=ambience]");
+        if (!tabs || !ambientTabContent) {
+            throw ErrorPF2e("Unexpected error in scene configuration");
+        }
+
+        // Add new tab and content, throwing a type error if it fails
+        tabs.append(...tab.content.children);
+        ambientTabContent.after(...panel.content.children);
 
         return $(html);
     }
@@ -58,11 +66,14 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     #activateRBVListeners(html: HTMLElement): void {
         if (!this.document.rulesBasedVision) return;
 
-        // Disable all global light settings
         const globalLight = html.querySelector<HTMLInputElement>("input[name^=globalLight]");
         const hasglobalThreshold = html.querySelector<HTMLInputElement>("input[name=hasGlobalThreshold]");
         const globalLightThreshold = html.querySelector<HTMLInputElement>("input[name=globalLightThreshold]");
-        if (!(globalLight && hasglobalThreshold && globalLightThreshold)) throw ErrorPF2e("");
+        if (!(globalLight && hasglobalThreshold && globalLightThreshold)) {
+            return;
+        }
+
+        // Disable all global light settings
         globalLight.disabled = true;
         hasglobalThreshold.disabled = true;
         globalLightThreshold.disabled = true;
