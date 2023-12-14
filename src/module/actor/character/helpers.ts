@@ -282,10 +282,11 @@ class WeaponAuxiliaryAction {
 
 /** Make a PC Clumsy 1 when wielding an oversized weapon */
 function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
+    if (actor.conditions.clumsy) return;
+
     const wieldedOversizedWeapon = actor.itemTypes.weapon.find(
         (w) => w.isEquipped && w.isOversized && w.category !== "unarmed",
     );
-
     const compendiumCondition = game.pf2e.ConditionManager.getCondition("clumsy");
     const conditionSource =
         wieldedOversizedWeapon && actor.conditions.bySlug("clumsy").length === 0
@@ -302,6 +303,7 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
     for (const rule of clumsyOne.prepareRuleElements()) {
         rule.beforePrepareData?.();
     }
+    actor.conditions.set(clumsyOne.id, clumsyOne);
 }
 
 interface CreateAttackModifiersParams {
