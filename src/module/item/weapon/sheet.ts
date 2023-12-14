@@ -30,10 +30,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const propertyRuneSlots = slotIndexes.map((i) => ({
             slug: runes.property[i] ?? null,
             label: RUNE_DATA.weapon.property[runes.property[i]]?.name ?? null,
-            disabled:
-                runes.potency === 0 ||
-                ((i === 3 || runes.potency < 3) && i > 0 && (!runes.property[i - 1] || !weapon.isSpecific)),
-            readOnly: weapon.isSpecific,
+            disabled: i > 0 && !runes.property[i - 1],
         }));
 
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
@@ -192,7 +189,6 @@ interface PropertyRuneSheetSlot {
     slug: string | null;
     label: string | null;
     disabled: boolean;
-    readOnly: boolean;
 }
 
 interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
