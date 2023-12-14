@@ -1,4 +1,4 @@
-import { ConditionSource } from "@item/base/data/index.ts";
+import type { ConditionSource } from "@item/base/data/index.ts";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
@@ -119,6 +119,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
+            fu: "foundry.utils",
         },
         esbuild: { keepNames: true },
         build: {

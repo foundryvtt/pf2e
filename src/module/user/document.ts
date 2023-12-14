@@ -15,7 +15,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
     /** Set user settings defaults */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.flags = mergeObject(
+        this.flags = fu.mergeObject(
             {
                 pf2e: {
                     settings: {
@@ -56,7 +56,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
         super._onUpdate(changed, options, userId);
         if (game.user.id !== userId) return;
 
-        const keys = Object.keys(flattenObject(changed));
+        const keys = Object.keys(fu.flattenObject(changed));
         if (keys.includes("flags.pf2e.settings.showEffectPanel")) {
             game.pf2e.effectPanel.refresh();
         }

@@ -9,7 +9,7 @@ import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./t
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        mergeObject(options, {
+        fu.mergeObject(options, {
             classes: [...options.classes, "hazard"],
             scrollY: [".container > section"],
             width: 700,
@@ -56,7 +56,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             return TextEditor.enrichHTML(content ?? "", { rollData, async: true });
         };
 
-        sheetData.enrichedContent = mergeObject(sheetData.enrichedContent, {
+        sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
             stealthDetails: await enrich(systemData.attributes.stealth.details),
             description: await enrich(systemData.details.description),
             disable: await enrich(systemData.details.disable),
@@ -155,7 +155,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor._source, propertyPath));
+            const baseValue = Number(fu.getProperty(this.actor._source, propertyPath));
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -167,7 +167,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             if (valueAttr) {
                 $input.val(valueAttr);
             } else {
-                const preparedValue = Number(getProperty(this.actor, propertyPath));
+                const preparedValue = Number(fu.getProperty(this.actor, propertyPath));
                 $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
             }
         });

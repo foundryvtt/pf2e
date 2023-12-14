@@ -84,7 +84,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
 
         let id: string;
         do {
-            id = randomID(5);
+            id = fu.randomID(5);
         } while (items[id]);
 
         await this.item.update({

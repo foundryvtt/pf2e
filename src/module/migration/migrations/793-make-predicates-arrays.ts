@@ -13,13 +13,13 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
         const keys = Object.keys(predicate);
         if (keys.length === 0) return [];
         if (keys.length === 1 && Array.isArray(predicate.all)) {
-            return deepClone(predicate.all);
+            return fu.deepClone(predicate.all);
         }
         if (keys.length === 1 && Array.isArray(predicate.any) && predicate.any.length === 1) {
-            return deepClone(predicate.any);
+            return fu.deepClone(predicate.any);
         }
 
-        return deepClone(
+        return fu.deepClone(
             [
                 predicate.all ?? [],
                 Array.isArray(predicate.any) ? { or: predicate.any } : [],

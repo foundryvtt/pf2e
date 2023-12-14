@@ -47,7 +47,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
     }
 
     toObject(): RawPredicate {
-        return deepClone([...this]);
+        return fu.deepClone([...this]);
     }
 
     clone(): PredicatePF2e {

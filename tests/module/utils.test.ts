@@ -1,18 +1,4 @@
-import { addSign, applyNTimes, padArray, zip } from "@util";
-
-describe("format sign for numbers", () => {
-    test("0", () => {
-        expect(addSign(0)).toEqual("+0");
-    });
-
-    test("negative", () => {
-        expect(addSign(-1)).toEqual("-1");
-    });
-
-    test("positive", () => {
-        expect(addSign(1)).toEqual("+1");
-    });
-});
+import { applyNTimes, padArray } from "@util";
 
 describe("pad array", () => {
     test("empty", () => {
@@ -25,27 +11,6 @@ describe("pad array", () => {
 
     test("one off", () => {
         expect(padArray([1], 2, 2)).toEqual([1, 2]);
-    });
-});
-
-describe("zip arrays", () => {
-    test("empty", () => {
-        expect(zip([], [], (a, b) => [a, b])).toEqual([]);
-    });
-
-    test("a larger", () => {
-        expect(zip([1, 3], [2], (a, b) => [a, b])).toEqual([[1, 2]]);
-    });
-
-    test("b larger", () => {
-        expect(zip([1], [2, 3], (a, b) => [a, b])).toEqual([[1, 2]]);
-    });
-
-    test("same length", () => {
-        expect(zip([1, 3], [2, 4], (a, b) => [a, b])).toEqual([
-            [1, 2],
-            [3, 4],
-        ]);
     });
 });
 

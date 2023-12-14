@@ -23,7 +23,7 @@ function isValuesList(value: unknown): value is ValuesList {
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
         });
     }
@@ -40,7 +40,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
-            mergeObject(this.choices, options.customChoices);
+            fu.mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
         }
     }
@@ -53,8 +53,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         const { chosen, custom, flat, disabled } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.document;
             // Compare source and prepared properties to determine which tags were automatically selected
-            const sourceProperty: unknown = getProperty(document.toObject(), this.objectProperty);
-            const preparedProperty: unknown = getProperty(document, this.objectProperty);
+            const sourceProperty: unknown = fu.getProperty(document.toObject(), this.objectProperty);
+            const preparedProperty: unknown = fu.getProperty(document, this.objectProperty);
 
             if (Array.isArray(preparedProperty)) {
                 const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];

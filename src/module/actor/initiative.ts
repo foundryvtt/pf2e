@@ -28,7 +28,7 @@ class ActorInitiative {
 
     /** @deprecated */
     get ability(): AttributeString | null {
-        foundry.utils.logCompatibilityWarning(
+        fu.logCompatibilityWarning(
             "`ActorInitiative#ability` is deprecated. Use `ActorInitiative#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" },
         );

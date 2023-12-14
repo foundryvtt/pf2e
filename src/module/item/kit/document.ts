@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
+import { Size } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
-import { Size } from "@module/data.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
 
 class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get entries(): KitEntryData[] {
@@ -36,7 +36,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
         return items.reduce(
             async (promise: PhysicalItemPF2e<null>[] | Promise<PhysicalItemPF2e<null>[]>, item, index) => {
                 const prepared = await promise;
-                const clone = item.clone({ _id: randomID(), system: { size } }, { keepId: true });
+                const clone = item.clone({ _id: fu.randomID(), system: { size } }, { keepId: true });
                 const entry = entries[index];
                 if (clone.isOfType("physical")) {
                     clone.updateSource({

@@ -57,7 +57,7 @@ class CheckPF2e {
     ): Promise<Rolled<CheckRoll> | null> {
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
-        if (event) mergeObject(context, eventToRollParams(event, { type: "check" }));
+        if (event) fu.mergeObject(context, eventToRollParams(event, { type: "check" }));
         context.skipDialog ??= !game.user.settings.showCheckDialogs;
         context.createMessage ??= true;
 
@@ -179,7 +179,7 @@ class CheckPF2e {
                     .reduce((record, data) => {
                         for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
                             if (data.adjustments[outcome]) {
-                                record[outcome] = deepClone(data.adjustments[outcome]);
+                                record[outcome] = fu.deepClone(data.adjustments[outcome]);
                             }
                         }
                         return record;
@@ -414,7 +414,7 @@ class CheckPF2e {
             }
         }
 
-        const systemFlags = deepClone(message.flags.pf2e);
+        const systemFlags = fu.deepClone(message.flags.pf2e);
         const context = systemFlags.context;
         if (!isCheckContextFlag(context)) return;
 

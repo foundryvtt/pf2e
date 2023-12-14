@@ -18,7 +18,6 @@ import {
     isObject,
     localizer,
     objectHasKey,
-    pick,
     sluggify,
     tupleHasValue,
 } from "@util";
@@ -63,7 +62,9 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 
     static override get defaultOptions(): FormApplicationOptions {
-        return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.hbs" });
+        return fu.mergeObject(super.defaultOptions, {
+            template: "systems/pf2e/templates/system/settings/homebrew.hbs",
+        });
     }
 
     protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData> {
@@ -157,7 +158,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     override async getData(): Promise<HomebrewElementsSheetData> {
         const data = await super.getData();
         const traitSettings = settingsToSheetData(this.constructor.traitSettings, this.cache, this.prefix);
-        const damageCategories = pick(CONFIG.PF2E.damageCategories, ["physical", "energy"]);
+        const damageCategories = R.pick(CONFIG.PF2E.damageCategories, ["physical", "energy"]);
         return {
             ...data,
             traitSettings,
@@ -190,7 +191,7 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     protected override _getSubmitData(updateData?: Record<string, unknown> | undefined): Record<string, unknown> {
         const original = super._getSubmitData(updateData);
-        const data: Partial<HomebrewSubmitData> = expandObject<Record<string, unknown>>(original);
+        const data: Partial<HomebrewSubmitData> = fu.expandObject(original);
 
         // Sanitize damage types data, including ensuring they are valid font awesome icons
         if ("damageTypes" in data && !!data.damageTypes && typeof data.damageTypes === "object") {

@@ -94,7 +94,7 @@ function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdju
 function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeData = WEAPON_PROPERTY_RUNES[rune];
-        return deepClone(runeData.damage?.dice ?? []).map((data) => {
+        return fu.deepClone(runeData.damage?.dice ?? []).map((data) => {
             const dice = new DamageDicePF2e({
                 selector: "strike-damage",
                 slug: rune,

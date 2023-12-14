@@ -281,11 +281,11 @@ class DamageRoll extends AbstractDamageRoll {
                       const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
                       const expression = ArithmeticExpression.fromData({
                           operator: "*",
-                          operands: [deepClone(multiplierTerm), rightOperand],
+                          operands: [fu.deepClone(multiplierTerm), rightOperand],
                       });
                       if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
 
-                      return DamageInstance.fromTerms([expression], deepClone(instance.options));
+                      return DamageInstance.fromTerms([expression], fu.deepClone(instance.options));
                   });
 
         if (addend !== 0) {
@@ -303,7 +303,7 @@ class DamageRoll extends AbstractDamageRoll {
                 operands: [termClone, addendTerm],
                 evaluated: true,
             });
-            instanceClones[0] = DamageInstance.fromTerms([expression], deepClone(firstInstance.options));
+            instanceClones[0] = DamageInstance.fromTerms([expression], fu.deepClone(firstInstance.options));
         }
 
         return DamageRoll.fromTerms([InstancePool.fromRolls(instanceClones)]) as this;

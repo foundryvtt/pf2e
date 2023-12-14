@@ -90,7 +90,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         if (this.system.traits.integrated) {
-            this.system.traits.integrated.runes = mergeObject(
+            this.system.traits.integrated.runes = fu.mergeObject(
                 { potency: 0, striking: 0, property: [] } satisfies IntegratedWeaponData["runes"],
                 this.system.traits.integrated.runes,
             );
@@ -137,7 +137,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const mainDamageType = damageTypeMap[traitParts.at(2) ?? ""] ?? "slashing";
             const versatileDamageType = isVersatileWeapon ? damageTypeMap[traitParts.at(-1) ?? ""] : null;
             if (this.system.traits.integrated && versatileDamageType) {
-                this.system.traits.integrated.versatile = mergeObject(
+                this.system.traits.integrated.versatile = fu.mergeObject(
                     { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
@@ -146,7 +146,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 this.system.traits.integrated.versatile = null;
             }
 
-            this.system.traits.integrated = mergeObject(
+            this.system.traits.integrated = fu.mergeObject(
                 {
                     damageType: mainDamageType,
                     runes: { potency: 0, striking: 0, property: [] },
@@ -207,7 +207,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
         };
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
-        const baseData: BaseWeaponData = deepClone({
+        const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
             system: {
@@ -248,7 +248,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
-            const combinedData = mergeObject(baseData, additionalData);
+            const combinedData = fu.mergeObject(baseData, additionalData);
 
             return new ItemProxyPF2e(combinedData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
         }

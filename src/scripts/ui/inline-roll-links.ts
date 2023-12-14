@@ -358,7 +358,7 @@ export const InlineRollLinks = {
             foundryDoc instanceof JournalEntry
                 ? { pf2e: { journalEntry: foundryDoc.uuid } }
                 : message?.flags.pf2e.origin
-                  ? { pf2e: { origin: deepClone(message.flags.pf2e.origin) } }
+                  ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
                   : {};
 
         ChatMessagePF2e.create({

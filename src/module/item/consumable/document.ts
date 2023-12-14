@@ -35,7 +35,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
-        return new SpellPF2e(deepClone(this.system.spell), {
+        return new SpellPF2e(fu.deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
         }) as SpellPF2e<ActorPF2e>;

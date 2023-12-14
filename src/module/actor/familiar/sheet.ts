@@ -6,7 +6,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
 import { htmlQuery } from "@util";
 import * as R from "remeda";
-import { FamiliarPF2e } from "./document.ts";
+import type { FamiliarPF2e } from "./document.ts";
 
 /**
  * @category Actor
@@ -17,13 +17,13 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        mergeObject(options, {
+        return {
+            ...options,
             classes: [...options.classes, "familiar"],
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
-        });
-        return options;
+        };
     }
 
     override get template(): string {

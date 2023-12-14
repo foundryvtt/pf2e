@@ -8,7 +8,7 @@ import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } fro
 import { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
@@ -101,7 +101,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Fields that need to exist for sheet compatibility so that they can exist pleasantly while doing nothing.
         // They should be automated via specific familiar item types, or added to template.json and manually edited.
         // This requires dev investment and interest aimed at what amounts to feat expensive set dressing (familiars).
-        systemData.traits = mergeObject(systemData.traits, {
+        systemData.traits = fu.mergeObject(systemData.traits, {
             dv: [],
             di: [],
             dr: [],
@@ -114,7 +114,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Set encounter roll options from the master's perspective
         if (master) {
-            this.flags.pf2e.rollOptions.all = mergeObject(
+            this.flags.pf2e.rollOptions.all = fu.mergeObject(
                 this.flags.pf2e.rollOptions.all,
                 createEncounterRollOptions(master),
             );
@@ -217,7 +217,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 modifiers,
                 check: { type: "perception-check" },
             });
-            systemData.attributes.perception = mergeObject(
+            systemData.attributes.perception = fu.mergeObject(
                 systemData.attributes.perception,
                 this.perception.getTraceData({ value: "mod" }),
             );

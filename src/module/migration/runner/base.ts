@@ -70,7 +70,7 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
-        const currentActor = deepClone(actor);
+        const currentActor = fu.deepClone(actor);
 
         for (const migration of migrations) {
             for (const currentItem of currentActor.items) {
@@ -108,7 +108,7 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = deepClone(item);
+        const current = fu.deepClone(item);
 
         for (const migration of migrations) {
             await migration.preUpdateItem?.(current);
@@ -134,7 +134,7 @@ export class MigrationRunnerBase {
         tableSource: foundry.documents.RollTableSource,
         migrations: MigrationBase[],
     ): Promise<foundry.documents.RollTableSource> {
-        const current = deepClone(tableSource);
+        const current = fu.deepClone(tableSource);
 
         for (const migration of migrations) {
             try {
@@ -151,7 +151,7 @@ export class MigrationRunnerBase {
         macroSource: foundry.documents.MacroSource,
         migrations: MigrationBase[],
     ): Promise<foundry.documents.MacroSource> {
-        const current = deepClone(macroSource);
+        const current = fu.deepClone(macroSource);
 
         for (const migration of migrations) {
             try {
@@ -168,7 +168,7 @@ export class MigrationRunnerBase {
         source: foundry.documents.JournalEntrySource,
         migrations: MigrationBase[],
     ): Promise<foundry.documents.JournalEntrySource> {
-        const clone = deepClone(source);
+        const clone = fu.deepClone(source);
 
         for (const migration of migrations) {
             try {
@@ -197,7 +197,7 @@ export class MigrationRunnerBase {
         userData: foundry.documents.UserSource,
         migrations: MigrationBase[],
     ): Promise<foundry.documents.UserSource> {
-        const current = deepClone(userData);
+        const current = fu.deepClone(userData);
         for (const migration of migrations) {
             try {
                 await migration.updateUser?.(current);

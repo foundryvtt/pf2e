@@ -145,7 +145,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** @deprecated */
     get keyAbility(): AttributeString {
-        foundry.utils.logCompatibilityWarning(
+        fu.logCompatibilityWarning(
             "`CharacterPF2e#keyAbility` is deprecated. Use `CharacterPF2e#keyAttribute` instead.",
             { since: "5.2.0", until: "6.0.0" },
         );
@@ -154,7 +154,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** This PC's ability scores */
     override get abilities(): CharacterAbilities {
-        return deepClone(this.system.abilities);
+        return fu.deepClone(this.system.abilities);
     }
 
     get handsFree(): ZeroToTwo {
@@ -181,7 +181,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     get heroPoints(): { value: number; max: number } {
-        return deepClone(this.system.resources.heroPoints);
+        return fu.deepClone(this.system.resources.heroPoints);
     }
 
     /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
@@ -310,7 +310,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
-        flags.pf2e.sheetTabs = mergeObject(
+        flags.pf2e.sheetTabs = fu.mergeObject(
             CHARACTER_SHEET_TABS.reduce(
                 (tabs, tab) => ({
                     ...tabs,
@@ -343,7 +343,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
         this.system.abilities = R.mapToObj(Array.from(ATTRIBUTE_ABBREVIATIONS), (a) => [
             a,
-            mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
+            fu.mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
         type SystemDataPartial = DeepPartial<
@@ -376,7 +376,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
 
         // Base saves structure
-        systemData.saves = mergeObject(
+        systemData.saves = fu.mergeObject(
             R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, ability: SAVING_THROW_DEFAULT_ATTRIBUTES[t] }]),
             systemData.saves ?? {},
         );
@@ -453,7 +453,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             cap: 3,
         };
 
-        resources.crafting = mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
+        resources.crafting = fu.mergeObject({ infusedReagents: { value: 0, max: 0 } }, resources.crafting ?? {});
         resources.crafting.infusedReagents.max = 0;
 
         // Size
@@ -480,7 +480,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
-        systemData.crafting = mergeObject({ formulas: [], entries: {} }, systemData.crafting ?? {});
+        systemData.crafting = fu.mergeObject({ formulas: [], entries: {} }, systemData.crafting ?? {});
         for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }
@@ -592,7 +592,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }),
             );
 
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
+            const stat = fu.mergeObject(new StatisticModifier("hp", modifiers), hitPoints, { overwrite: false });
 
             // PFS Level Bump - hit points
             if (systemData.pfs.levelBump) {
@@ -624,7 +624,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             domains: ["perception", "all"],
             check: { type: "perception-check" },
         });
-        systemData.attributes.perception = mergeObject(
+        systemData.attributes.perception = fu.mergeObject(
             systemData.attributes.perception,
             this.perception.getTraceData({ value: "mod" }),
         );
@@ -640,7 +640,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.classDCs = {};
         for (const [slug, classDC] of Object.entries(systemData.proficiencies.classDCs)) {
             const statistic = this.prepareClassDC(slug, classDC);
-            systemData.proficiencies.classDCs[slug] = mergeObject(classDC, statistic.getTraceData({ value: "dc" }));
+            systemData.proficiencies.classDCs[slug] = fu.mergeObject(classDC, statistic.getTraceData({ value: "dc" }));
             this.classDCs[slug] = statistic;
             if (classDC.primary) {
                 this.classDC = statistic;
@@ -880,7 +880,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
 
             saves[saveType] = stat;
-            this.system.saves[saveType] = mergeObject(this.system.saves[saveType], stat.getTraceData());
+            this.system.saves[saveType] = fu.mergeObject(this.system.saves[saveType], stat.getTraceData());
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
@@ -951,7 +951,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }) as CharacterSkill;
 
             builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = mergeObject(this.system.skills[shortForm], statistic.getTraceData());
+            this.system.skills[shortForm] = fu.mergeObject(this.system.skills[shortForm], statistic.getTraceData());
 
             return builtSkills;
         }, {} as CharacterSkills);
@@ -1083,7 +1083,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const handwraps = itemTypes.weapon.find(
             (w) => w.slug === handwrapsSlug && w.category === "unarmed" && w.isEquipped && w.isInvested,
         );
-        const unarmedRunes = deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
+        const unarmedRunes = fu.deepClone(handwraps?._source.system.runes) ?? { potency: 0, striking: 0, property: [] };
 
         // Add a basic unarmed strike
         const basicUnarmed = includeBasicUnarmed
@@ -1252,7 +1252,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Get best weapon potency
         const weaponPotency = (() => {
             const potency = attackDomains
-                .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
+                .flatMap((key) => fu.deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => wp.predicate.test(initialRollOptions));
 
             if (weapon.system.runes.potency > 0) {
@@ -1409,7 +1409,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (weapon.isEquipped && handsAvailable) ||
             (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
 
-        const action: CharacterStrike = mergeObject(strikeStat, {
+        const action: CharacterStrike = fu.mergeObject(strikeStat, {
             label: weapon.name,
             quantity: weapon.quantity,
             ready,
@@ -1838,7 +1838,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     currentHP + hpMaxDifference,
                     currentHP === 0 ? 0 : 1, // Refrain from killing the character merely by lowering level
                 );
-                changed.system = mergeObject(changed.system ?? {}, { attributes: { hp: { value: newHP } } });
+                changed.system = fu.mergeObject(changed.system ?? {}, { attributes: { hp: { value: newHP } } });
             }
         }
 

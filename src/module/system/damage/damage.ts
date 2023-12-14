@@ -51,7 +51,7 @@ export class DamagePF2e {
             ): string =>
                 slugs
                     .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
-                    .sort((a, b) => a.label.localeCompare(b.label))
+                    .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                     .map((tag) => {
                         const description = descriptions[tag.value] ?? "";
 
@@ -148,7 +148,7 @@ export class DamagePF2e {
                 return damage.roll.evaluate({ async: true });
             }
 
-            const formula = deepClone(damage.formula[outcome ?? "success"]);
+            const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
                 ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;

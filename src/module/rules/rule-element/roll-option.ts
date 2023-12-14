@@ -49,7 +49,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             phase: new fields.StringField({
                 required: false,
                 nullable: false,
-                choices: deepClone(AELikeRuleElement.PHASES),
+                choices: fu.deepClone(AELikeRuleElement.PHASES),
                 initial: "applyAEs",
             }),
             suboptions: new fields.ArrayField(

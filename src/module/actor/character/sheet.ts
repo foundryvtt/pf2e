@@ -308,7 +308,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ),
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        sheetData.tabVisibility = deepClone(actor.flags.pf2e.sheetTabs);
+        sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
 
         // Enrich content
         const rollData = actor.getRollData();
@@ -1144,7 +1144,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             } else if (filterType === "traits") {
                 const trait = traits.options.find((t) => t.value === value);
                 if (trait) {
-                    traits.selected.push(deepClone(trait));
+                    traits.selected.push(fu.deepClone(trait));
                 }
             } else if (filterType === "conjunction" && (value === "and" || value === "or")) {
                 filter.multiselects.traits.conjunction = value;
@@ -1181,7 +1181,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
         }
-        if (newValue !== getProperty(item, propertyKey)) {
+        if (newValue !== fu.getProperty(item, propertyKey)) {
             ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
         }
     }
@@ -1358,7 +1358,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!entry) {
                 throw ErrorPF2e(`Crafting entry "${entrySelector}" doesn't exist!`);
             }
-            const formulas = deepClone(entry.preparedFormulaData);
+            const formulas = fu.deepClone(entry.preparedFormulaData);
             const source = formulas.find((f) => f.itemUUID === sourceFormula.uuid);
             const target = formulas.find((f) => f.itemUUID === targetUuid);
             if (source && target) {

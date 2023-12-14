@@ -3,8 +3,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
-import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, pick } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data.ts";
@@ -31,7 +30,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             itemType: game.i18n.localize(definingTrait ? CONFIG.PF2E.actionTraits[definingTrait] : "PF2E.LevelLabel"),
             conditionTypes: R.omit(CONFIG.PF2E.conditionTypes, ["persistent-damage"]),
             damageTypes: CONFIG.PF2E.damageTypes,
-            damageCategories: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
+            damageCategories: R.pick(CONFIG.PF2E.damageCategories, ["precision", "persistent", "splash"]),
             durationUnits: R.omit(CONFIG.PF2E.timeUnits, ["encounter"]),
             onsetUnits: R.omit(CONFIG.PF2E.timeUnits, ["encounter", "unlimited"]),
             saves: CONFIG.PF2E.saves,
@@ -95,8 +94,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 },
             };
 
-            const id = randomID();
-            this.item.update({ system: { stages: { [id]: stage } } });
+            this.item.update({ system: { stages: { [fu.randomID()]: stage } } });
         });
 
         for (const deleteIcon of htmlQueryAll(html, "[data-action=stage-delete]")) {
@@ -114,7 +112,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 if (!this.item.system.stages[stageId ?? ""]) return;
 
                 const damage: AfflictionDamage = { formula: "", type: "untyped" };
-                this.item.update({ [`system.stages.${stageId}.damage.${randomID()}`]: damage });
+                this.item.update({ [`system.stages.${stageId}.damage.${fu.randomID()}`]: damage });
             });
         }
 
@@ -138,7 +136,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                     value: 1,
                 };
 
-                this.item.update({ [`system.stages.${stageId}.conditions.${randomID()}`]: newCondition });
+                this.item.update({ [`system.stages.${stageId}.conditions.${fu.randomID()}`]: newCondition });
             });
         }
 

@@ -21,7 +21,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     protected override getInitialValue(): object {
         this.#effectsMap.clear();
         this.#effectsMap = new Map(
-            this.object.effects.map((e, index): [number, AuraEffectSource] => [index, deepClone(e)]),
+            this.object.effects.map((e, index): [number, AuraEffectSource] => [index, fu.deepClone(e)]),
         );
 
         return super.getInitialValue();
@@ -148,7 +148,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     }
 
     override async updateItem(updates: Partial<AuraRuleElementSource> | Record<string, unknown>): Promise<void> {
-        const expanded = expandObject<Partial<AuraRuleElementSource>>(updates);
+        const expanded = fu.expandObject<Partial<AuraRuleElementSource>>(updates);
         if (expanded.effects) {
             // Restore clobbered effects array and perform updates
             expanded.effects = this.#updateEffectsMap(expanded);
@@ -217,7 +217,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         // Reconstruct the map with deleted defaults
         this.#effectsMap = new Map(
             Object.values(source.effects ?? {}).map((data, index): [number, AuraREEffectSource] => {
-                const updatedData = deepClone(data);
+                const updatedData = fu.deepClone(data);
                 const deletions: { [K in `-=${keyof AuraREEffectSource}`]?: null | undefined } = {};
 
                 // Clean up save data
@@ -247,7 +247,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                     deletions["-=predicate"] = null;
                 }
 
-                return [index, mergeObject(updatedData, deletions, { performDeletions: true })];
+                return [index, fu.mergeObject(updatedData, deletions, { performDeletions: true })];
             }),
         );
 

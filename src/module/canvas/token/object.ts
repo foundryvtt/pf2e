@@ -135,8 +135,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param flankee   Potentially flanked token
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
-        const { lineSegmentIntersects } = foundry.utils;
-
         const [centerA, centerB] = [flankerA.center, flankerB.center];
         const { bounds } = flankee;
 
@@ -144,7 +142,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
         const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
         const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
-        const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
+        const intersectsSide = (side: Ray): boolean => fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
         return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
     }
@@ -312,13 +310,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                     this.document.auras.get(slug) ?? { radius: null, appearance: null },
                     properties,
                 );
-                const canvasData = R.pick(aura, properties);
                 if (sceneData.radius === null) return true;
+                const canvasData = R.pick(aura, properties);
 
-                const diffCount =
-                    Object.keys(diffObject(canvasData, sceneData)).length +
-                    Object.keys(diffObject(sceneData, canvasData)).length;
-                return diffCount > 0;
+                return !R.equals(sceneData, canvasData);
             })
             .map(([slug]) => slug);
         const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));

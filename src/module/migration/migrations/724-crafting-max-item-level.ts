@@ -42,7 +42,7 @@ export class Migration724CraftingMaxItemLevel extends MigrationBase {
             const selector = this.pathPattern.exec(rule.path)?.[1] ?? null;
             if (selector) {
                 type RawPredicateAll = OldRawPredicate & { all: PredicateStatement[] };
-                const predicate: RawPredicateAll = (rule.predicate = mergeObject(
+                const predicate: RawPredicateAll = (rule.predicate = fu.mergeObject(
                     { all: [] },
                     isObject(rule.predicate) ? rule.predicate : {},
                 ));

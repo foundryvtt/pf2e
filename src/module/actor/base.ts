@@ -140,7 +140,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
             // Add debounced checkAreaEffects method
             checkAreaEffects: {
-                value: foundry.utils.debounce(checkAreaEffects, 50),
+                value: fu.debounce(checkAreaEffects, 50),
             },
         });
     }
@@ -425,7 +425,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         return this.clone(
             {
-                items: [deepClone(this._source.items), applicableEffects].flat(),
+                items: [fu.deepClone(this._source.items), applicableEffects].flat(),
                 flags: { pf2e: { rollOptions: { all: rollOptionsAll } } },
             },
             { keepId: true },
@@ -471,7 +471,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     },
                 };
 
-                const source = mergeObject(effect.toObject(), { flags });
+                const source = fu.mergeObject(effect.toObject(), { flags });
                 source.system.level.value = aura.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
@@ -568,7 +568,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 linkable &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
-            const merged = mergeObject(source, {
+            const merged = fu.mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
@@ -665,7 +665,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             weaponPotency: {},
             preparationWarnings: {
                 add: (warning: string) => preparationWarnings.add(warning),
-                flush: foundry.utils.debounce(() => {
+                flush: fu.debounce(() => {
                     for (const warning of preparationWarnings) {
                         console.warn(warning);
                     }
@@ -691,7 +691,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (options?.pack && initialized._id) {
             const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
             const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
-            return mergeObject(initialized, art);
+            return fu.mergeObject(initialized, art);
         }
 
         return initialized;
@@ -746,7 +746,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, offGuardable: false };
 
         const { attributes, details } = this.system;
-        attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
+        attributes.hp &&= fu.mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
         attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
         attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
         attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
@@ -756,7 +756,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, {
             rollOptions: {
                 all: {
                     [`self:type:${this.type}`]: true,
@@ -856,7 +856,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
-        this.prototypeToken.flags = mergeObject(
+        this.prototypeToken.flags = fu.mergeObject(
             { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
             this.prototypeToken.flags,
         );
@@ -1451,7 +1451,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   persistent: persistentCreated.map((c) => c.id),
                   updates: Object.entries(damageResult.updates)
                       .map(([path, newValue]) => {
-                          const preUpdateValue = getProperty(preUpdateSource, path);
+                          const preUpdateValue = fu.getProperty(preUpdateSource, path);
                           if (typeof preUpdateValue === "number") {
                               const difference = preUpdateValue - newValue;
                               if (difference === 0) {
@@ -1494,7 +1494,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
         for (const update of updates) {
-            const currentValue = getProperty(this, update.path);
+            const currentValue = fu.getProperty(this, update.path);
             if (typeof currentValue === "number") {
                 actorUpdates[update.path] = currentValue + update.value;
             }
@@ -1706,11 +1706,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const prop of ["abilities", "attributes", "details", "skills", "saves"] as const) {
             Object.defineProperty(rollData, prop, {
                 get: () => {
-                    foundry.utils.logCompatibilityWarning(`@${prop} is deprecated`, {
+                    fu.logCompatibilityWarning(`@${prop} is deprecated`, {
                         since: "5.0.1",
                         until: "6",
                     });
-                    return objectHasKey(this.system, prop) ? deepClone(this.system[prop]) : null;
+                    return objectHasKey(this.system, prop) ? fu.deepClone(this.system[prop]) : null;
                 },
             });
         }

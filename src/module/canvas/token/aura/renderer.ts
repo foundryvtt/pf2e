@@ -5,7 +5,6 @@ import { isVideoFilePath } from "@util";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
-import { IDestroyOptions } from "pixi.js";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -190,7 +189,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             .addChild(text);
     }
 
-    override destroy(options?: boolean | IDestroyOptions): void {
+    override destroy(options?: boolean | PIXI.IDestroyOptions): void {
         super.destroy(options);
 
         if (this.textureContainer) {

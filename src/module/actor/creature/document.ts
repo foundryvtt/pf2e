@@ -257,7 +257,7 @@ abstract class CreaturePF2e<
         attributes.flanking.flankable = true;
         attributes.flanking.offGuardable = true;
         attributes.reach = { base: 0, manipulate: 0 };
-        attributes.speed = mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
+        attributes.speed = fu.mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
 
         if (attributes.initiative) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -573,7 +573,7 @@ abstract class CreaturePF2e<
             landSpeed.value = Math.max(landSpeed.value, ...fromSynthetics.map((s) => s.value));
 
             const modifiers = extractModifiers(this.synthetics, domains);
-            const stat: CreatureSpeeds = mergeObject(
+            const stat: CreatureSpeeds = fu.mergeObject(
                 new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
                 landSpeed,
                 { overwrite: false },
@@ -586,7 +586,7 @@ abstract class CreaturePF2e<
             };
             this.rollOptions.all["speed:land"] = true;
 
-            const merged = mergeObject(stat, otherData);
+            const merged = fu.mergeObject(stat, otherData);
             Object.defineProperties(merged, {
                 total: {
                     get(): number {
@@ -632,7 +632,7 @@ abstract class CreaturePF2e<
 
             const modifiers = extractModifiers(this.synthetics, domains);
             const stat = new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions);
-            const merged = mergeObject(stat, speed, { overwrite: false });
+            const merged = fu.mergeObject(stat, speed, { overwrite: false });
             Object.defineProperties(merged, {
                 total: {
                     get(): number {

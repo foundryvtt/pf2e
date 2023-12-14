@@ -172,7 +172,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     category: null,
                     materials: [],
                 };
-                this.item.update({ [`${baseKey}.damage.${randomID()}`]: emptyDamage });
+                this.item.update({ [`${baseKey}.damage.${fu.randomID()}`]: emptyDamage });
             });
         }
 

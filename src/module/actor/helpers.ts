@@ -105,8 +105,8 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i?.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
-    const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
-    const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
+    const tokenDefaults = fu.deepClone(game.settings.get("core", "defaultToken"));
+    const actor = new ActorProxyPF2e(fu.mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();
@@ -435,7 +435,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         adjustment.adjustTraits?.(item, actionTraits);
     }
 
-    const strike: NPCStrike = mergeObject(statistic, {
+    const strike: NPCStrike = fu.mergeObject(statistic, {
         label: item.name,
         type: "strike" as const,
         glyph: getActionGlyph({ type: "action", value: 1 }),

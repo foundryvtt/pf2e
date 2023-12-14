@@ -22,7 +22,7 @@ abstract class IWR<TType extends IWRType> {
 
     constructor(data: IWRConstructorData<TType>) {
         this.type = data.type;
-        this.exceptions = deepClone(data.exceptions ?? []);
+        this.exceptions = fu.deepClone(data.exceptions ?? []);
         this.definition = data.definition ?? null;
         this.source = data.source ?? null;
         this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
@@ -210,7 +210,7 @@ abstract class IWR<TType extends IWRType> {
     toObject(): Readonly<IWRDisplayData<TType>> {
         return {
             type: this.type,
-            exceptions: deepClone(this.exceptions),
+            exceptions: fu.deepClone(this.exceptions),
             source: this.source,
             label: this.label,
         };
@@ -308,7 +308,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     ) {
         super(data);
         this.value = data.value;
-        this.doubleVs = deepClone(data.doubleVs ?? []);
+        this.doubleVs = fu.deepClone(data.doubleVs ?? []);
     }
 
     get label(): string {
@@ -346,7 +346,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
         return {
             ...super.toObject(),
             value: this.value,
-            doubleVs: deepClone(this.doubleVs),
+            doubleVs: fu.deepClone(this.doubleVs),
         };
     }
 

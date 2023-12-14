@@ -239,7 +239,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         } else if (typeof source === "string") {
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
                 const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
-                const value = getProperty(data, prop);
+                const value = fu.getProperty(data, prop);
                 if (value === undefined) {
                     this.ignored = true;
                     if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
@@ -284,7 +284,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
         if (resolvedFromBracket instanceof Object) {
             return defaultValue instanceof Object
-                ? mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
+                ? fu.mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
                 : resolvedFromBracket;
         }
 
@@ -346,13 +346,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             switch (source) {
                 case "actor":
-                    return Number(getProperty(actor, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(actor, field.substring(separator + 1))) || 0;
                 case "item":
-                    return Number(getProperty(item, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(item, field.substring(separator + 1))) || 0;
                 case "rule":
-                    return Number(getProperty(this, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(this, field.substring(separator + 1))) || 0;
                 default:
-                    return Number(getProperty(actor, field.substring(0))) || 0;
+                    return Number(fu.getProperty(actor, field.substring(0))) || 0;
             }
         })();
         const brackets = value.brackets ?? [];

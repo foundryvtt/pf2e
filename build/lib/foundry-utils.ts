@@ -1,4 +1,42 @@
 /**
+ * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
+ * This method DOES support recursive data structures containing inner objects or arrays.
+ * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
+ * @param original Some sort of data
+ * @return The clone of that data
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
+    // Simple types
+    if (typeof original !== "object" || original === null)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Arrays
+    if (original instanceof Array)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Dates
+    if (original instanceof Date)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Unsupported advanced objects
+    if ((original as { constructor: unknown }).constructor !== Object)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Other objects
+    const clone: Record<string, unknown> = {};
+    for (const k of Object.keys(original)) {
+        clone[k] = deepClone(original[k as keyof typeof original]);
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return clone as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+}
+
+/**
  * A helper function which searches through an object to assign a value using a string key
  * This string key supports the notation a.b.c which would target object[a][b][c]
  *
@@ -112,7 +150,7 @@ export function mergeObject(
                 Object.keys(original).forEach((k) => delete (original as Record<string, unknown>)[k]);
                 Object.assign(original, expanded);
             } else original = expanded;
-        } else if (!inplace) original = deepClone(original);
+        } else if (!inplace) original = foundry.utils.deepClone(original);
     }
 
     // Iterate over the other object
@@ -246,10 +284,15 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
     );
 }
 
-export function populateFoundryUtilFunctions(): void {
-    global.setProperty = setProperty;
-    global.getType = getType;
-    global.mergeObject = mergeObject;
-    global.diffObject = diffObject;
-    global.duplicate = duplicate;
-}
+const f = (global.foundry = {
+    utils: {
+        deepClone,
+        diffObject,
+        duplicate,
+        expandObject,
+        mergeObject,
+        setProperty,
+    },
+} as typeof foundry);
+
+global.fu = f.utils;

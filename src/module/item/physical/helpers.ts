@@ -170,7 +170,7 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
 
     // Get a clone of the item, through an actor clone if owned
     const actorSource = item.actor?.toObject();
-    const changedSource = item.clone(deepClone(changed), { keepId: true }).toObject();
+    const changedSource = item.clone(fu.deepClone(changed), { keepId: true }).toObject();
     const itemIndex = actorSource?.items.findIndex((i) => i._id === item._id);
     if (itemIndex === -1) return;
     actorSource?.items.splice(itemIndex ?? 0, 1, changedSource);
@@ -180,7 +180,7 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
     // Adjust current HP proportionally if max HP changed
     const maxHPDifference = itemClone.system.hp.max - item.system.hp.max;
     if (maxHPDifference !== 0) {
-        changed.system = mergeObject(changed.system ?? {}, {
+        changed.system = fu.mergeObject(changed.system ?? {}, {
             hp: { value: Math.max(item.system.hp.value + maxHPDifference, 0) },
         });
     }
@@ -188,7 +188,7 @@ function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalIte
     // Final overage check
     const newValue = changed.system?.hp?.value ?? itemClone.system.hp.value;
     if (newValue > itemClone.system.hp.max) {
-        changed.system = mergeObject(changed.system ?? {}, { hp: { value: itemClone.system.hp.max } });
+        changed.system = fu.mergeObject(changed.system ?? {}, { hp: { value: itemClone.system.hp.max } });
     }
 }
 

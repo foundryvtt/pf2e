@@ -158,7 +158,7 @@ class CombatantPF2e<
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
         this.flags.pf2e.roundOfLastTurn ??= null;
         this.flags.pf2e.initiativeStatistic ??= null;
     }

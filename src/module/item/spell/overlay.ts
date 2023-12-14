@@ -30,7 +30,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         overlayType: SpellOverlayType,
         options: { renderSheet: boolean } = { renderSheet: false },
     ): Promise<void> {
-        const id = randomID();
+        const id = fu.randomID();
 
         switch (overlayType) {
             case "override":
@@ -66,7 +66,10 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         // Diff data and only save the difference
         const variantSource = variantSpell.toObject();
         const originSource = this.spell.toObject();
-        const difference = diffObject<DeepPartial<SpellSource> & { overlayType: string }>(originSource, variantSource);
+        const difference = fu.diffObject<DeepPartial<SpellSource> & { overlayType: string }>(
+            originSource,
+            variantSource,
+        );
 
         if (Object.keys(difference).length === 0) return variantSpell;
 

@@ -166,7 +166,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
         $html.find("[data-action=activation-add]").on("click", (event) => {
             event.preventDefault();
-            const id = randomID(16);
+            const id = fu.randomID(16);
             const action: ItemActivation = {
                 id,
                 actionCost: { value: 1, type: "action" },
@@ -232,7 +232,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         }
 
         // Normalize nullable fields for embedded actions
-        const expanded = expandObject(formData) as DeepPartial<BasePhysicalItemSource<PhysicalItemType>>;
+        const expanded = fu.expandObject(formData) as DeepPartial<BasePhysicalItemSource<PhysicalItemType>>;
         for (const action of Object.values(expanded.system?.activations ?? [])) {
             // Ensure activation time is in a proper format
             const actionCost = action.actionCost;
@@ -244,7 +244,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             }
         }
 
-        return super._updateObject(event, flattenObject(expanded));
+        return super._updateObject(event, fu.flattenObject(expanded));
     }
 }
 

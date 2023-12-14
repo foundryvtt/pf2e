@@ -146,7 +146,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updated = await this.getUpdatedJournalEntry(journalEntry.toObject(), migrations);
-            const changes = diffObject(journalEntry.toObject(), updated);
+            const changes = fu.diffObject(journalEntry.toObject(), updated);
             if (Object.keys(changes).length > 0) {
                 await journalEntry.update(changes, { noHook: true });
             }
@@ -160,7 +160,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
-            const changes = diffObject(macro.toObject(), updatedMacro);
+            const changes = fu.diffObject(macro.toObject(), updatedMacro);
             if (Object.keys(changes).length > 0) {
                 await macro.update(changes, { noHook: true });
             }
@@ -174,7 +174,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
-            const changes = diffObject(table.toObject(), updatedMacro);
+            const changes = fu.diffObject(table.toObject(), updatedMacro);
             if (Object.keys(changes).length > 0) {
                 table.update(changes, { noHook: true });
             }
@@ -191,7 +191,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
-            const changes = diffObject(token.toObject(), updatedToken);
+            const changes = fu.diffObject(token.toObject(), updatedToken);
 
             if (Object.keys(changes).length > 0) {
                 try {
@@ -213,7 +213,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
-            const changes = diffObject(user.toObject(), updatedUser);
+            const changes = fu.diffObject(user.toObject(), updatedUser);
             if (Object.keys(changes).length > 0) {
                 await user.update(changes, { noHook: true });
             }

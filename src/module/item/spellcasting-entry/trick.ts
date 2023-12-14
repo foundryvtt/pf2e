@@ -38,7 +38,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     /** @deprecated */
     get ability(): AttributeString {
-        foundry.utils.logCompatibilityWarning(
+        fu.logCompatibilityWarning(
             "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
             { since: "5.3.0", until: "6.0.0" },
         );

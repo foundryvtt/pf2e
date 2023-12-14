@@ -8,7 +8,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.traits.senses";
 
     static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             height: "auto",
             template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
             id: "sense-selector",

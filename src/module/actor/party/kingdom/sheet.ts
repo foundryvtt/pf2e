@@ -384,7 +384,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Add settlement and individual settlement actions
         htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
-            const id = randomID(16);
+            const id = fu.randomID();
             this.#editingSettlements[id] = true;
             this.focusElement = `[name="settlements.${id}.name"]`;
             this.kingdom.update({ [`settlements.${id}`]: {} });
@@ -649,7 +649,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         if (!this.actor.id) return;
 
-        const data: DeepPartial<KingdomSource> = expandObject(formData);
+        const data: DeepPartial<KingdomSource> = fu.expandObject(formData);
 
         // Ensure penalties are all negative numbers
         for (const abilitySlug of KINGDOM_ABILITIES) {

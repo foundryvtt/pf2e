@@ -2,12 +2,11 @@ import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, applyStackingRules } from
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import {
     ErrorPF2e,
-    addSign,
     fontAwesomeIcon,
     htmlQuery,
     htmlQueryAll,
-    pick,
     setHasElement,
+    signedInteger,
     sluggify,
     sortStringRecord,
     tupleHasValue,
@@ -165,7 +164,7 @@ class DamageModifierDialog extends Application {
                     d.diceNumber && d.dieSize
                         ? `${d.diceNumber}${d.dieSize}`
                         : d.diceNumber
-                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: addSign(d.diceNumber) })
+                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
                           : "",
                 enabled: d.enabled,
                 ignored: d.ignored,
@@ -205,7 +204,9 @@ class DamageModifierDialog extends Application {
             ),
             isCritical: this.isCritical,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
-            damageSubtypes: sortStringRecord(pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE)),
+            damageSubtypes: sortStringRecord(
+                R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
+            ),
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context?.rollMode,
             showDamageDialogs: game.user.settings.showDamageDialogs,

@@ -1,10 +1,10 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { CharacterPF2e, NPCPF2e, type ActorPF2e } from "@actor";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
+import type { ItemPF2e } from "@item";
 import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { ItemPF2e } from "@item";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
@@ -59,7 +59,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                 rollOptions: actionRollOptions,
                 target: opts.target,
             });
-            const statistic = getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
+            const statistic = fu.getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
             return {
                 actor: opts.actor,
                 rollOptions,
@@ -155,4 +155,4 @@ class EscapeAction extends SingleCheckAction {
 
 const action = new EscapeAction();
 
-export { escape as legacy, action };
+export { action, escape as legacy };

@@ -187,7 +187,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.group = "brawling";
             this.baseType = "fist";
             this.traits = ["agile", "finesse", "nonlethal"];
-            this.traitToggles = mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
+            this.traitToggles = fu.mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
             this.otherTags = [];
             this.range = null;
             this.damage = {
@@ -261,7 +261,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      */
     #constructWeapon(damageType: DamageType, dice: number): WeaponPF2e<ActorPF2e> {
         const actorIsNPC = this.actor.isOfType("npc");
-        const source: PreCreate<WeaponSource> = deepClone({
+        const source: PreCreate<WeaponSource> = fu.deepClone({
             _id: this.item.id,
             name: this.label,
             type: "weapon",
@@ -313,7 +313,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     /** Toggle the modular or versatile trait of this strike's weapon */
     async toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void> {
-        const ruleSources = deepClone(this.item._source.system.rules);
+        const ruleSources = fu.deepClone(this.item._source.system.rules);
         const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
         if (rule?.key === "Strike") {
             rule.traitToggles = { ...this.traitToggles, [trait]: selection };

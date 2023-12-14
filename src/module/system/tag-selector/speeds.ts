@@ -7,7 +7,7 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.attributes.speed.otherSpeeds";
 
     static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             id: "speed-selector",
             template: "systems/pf2e/templates/system/tag-selector/speeds.hbs",
             title: "PF2E.SpeedTypes",

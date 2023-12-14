@@ -65,7 +65,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const expanded = expandObject<DeepPartial<EffectSource>>(formData);
+        const expanded = fu.expandObject<DeepPartial<EffectSource>>(formData);
         const badge = expanded.system?.badge;
         if (badge) {
             // Ensure badge labels remain an array
@@ -78,7 +78,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
             }
         }
 
-        super._updateObject(event, flattenObject(expanded));
+        super._updateObject(event, fu.flattenObject(expanded));
     }
 }
 

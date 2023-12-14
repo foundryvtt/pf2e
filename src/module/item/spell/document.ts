@@ -167,7 +167,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** @deprecated */
     get ability(): AttributeString {
-        foundry.utils.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
+        fu.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
             since: "5.3.0",
             until: "6.0.0",
         });
@@ -271,7 +271,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 if (scalingFormula && partCount > 0) {
                     const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
                     for (let i = 0; i < partCount; i++) {
-                        terms.push(...deepClone(scalingTerms));
+                        terms.push(...fu.deepClone(scalingTerms));
                     }
                 }
             }
@@ -415,7 +415,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             // If there are no overlays, only return an override if this is a simple heighten
             if (!heightenEntries.length && !overlays.length) {
                 if (castLevel !== this.rank) {
-                    return mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
+                    return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
                 } else {
                     return null;
                 }
@@ -437,7 +437,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         delete source.system.overlays;
                         source.system.rules = [];
 
-                        source = mergeObject(source, data, { overwrite: true });
+                        source = fu.mergeObject(source, data, { overwrite: true });
                         break;
                     }
                 }
@@ -445,7 +445,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
 
             for (const overlay of heightenEntries) {
-                mergeObject(source.system, overlay.system);
+                fu.mergeObject(source.system, overlay.system);
             }
 
             // Set the spell as heightened if necessary (either up or down)
@@ -508,7 +508,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                     origin: {
                         name: this.name,
                         slug: this.slug,
-                        traits: deepClone(this.system.traits.value),
+                        traits: fu.deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
                     areaType: this.system.area?.type ?? null,
@@ -562,7 +562,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.spellTraits);
         if (this.system.traits.value.includes("attack")) {
-            this.system.defense = mergeObject(this.system.defense ?? {}, {
+            this.system.defense = fu.mergeObject(this.system.defense ?? {}, {
                 passive: { statistic: "ac" as const },
                 save: this.system.defense?.save ?? null,
             });
@@ -610,7 +610,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override prepareSiblingData(this: SpellPF2e<ActorPF2e>): void {
         if (this.spellcasting?.isInnate) {
-            mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
+            fu.mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
     }
 
@@ -685,7 +685,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Only spells/consumables currently use DOM data.
         // Eventually sheets should be handling "retrieve spell but heightened"
         const domData = htmlClosest(event?.currentTarget, ".item")?.dataset;
-        const castData = mergeObject(data ?? {}, domData ?? {});
+        const castData = fu.mergeObject(data ?? {}, domData ?? {});
 
         // If this is for a higher level spell, heighten it first
         const castLevel = Number(castData.castLevel ?? "");

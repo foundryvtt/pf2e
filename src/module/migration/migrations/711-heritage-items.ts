@@ -180,7 +180,7 @@ export class Migration711HeritageItems extends MigrationBase {
         }
 
         return {
-            _id: randomID(),
+            _id: fu.randomID(),
             type: "heritage",
             img: feature.img.endsWith("/feat.svg") ? "systems/pf2e/icons/default-icons/heritage.svg" : feature.img,
             name: feature.name,

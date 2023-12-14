@@ -53,7 +53,7 @@ export const Ready = {
                 // Update the world system version
                 const previous = game.settings.get("pf2e", "worldSystemVersion");
                 const current = game.system.version;
-                if (foundry.utils.isNewerVersion(current, previous)) {
+                if (fu.isNewerVersion(current, previous)) {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }
 
@@ -69,8 +69,7 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.compatibility.verified, "10.312")),
+                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
                 for (const badModule of subV10Modules) {

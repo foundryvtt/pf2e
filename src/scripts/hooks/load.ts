@@ -129,7 +129,7 @@ export const Load = {
                 }
                 const lang = await response.json();
                 const apply = (): void => {
-                    mergeObject(game.i18n.translations, lang);
+                    fu.mergeObject(game.i18n.translations, lang);
                     rerenderApps(path);
                 };
                 if (game.ready) {

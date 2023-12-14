@@ -76,7 +76,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             }
         }
 
-        mergeObject(source.system.attributes, iwr);
+        fu.mergeObject(source.system.attributes, iwr);
         traits.value = R.uniq(traits.value.sort());
         if (traits.value.includes("holy") && traits.value.includes("unholy")) {
             // Something weird about this one!

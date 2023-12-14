@@ -100,7 +100,7 @@ export const SetGamePF2e = {
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
-        game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
+        game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
         game.pf2e.ConditionManager.initialize();
         game.pf2e.settings = {
             campaign: {
