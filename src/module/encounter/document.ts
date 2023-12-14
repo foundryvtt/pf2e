@@ -200,7 +200,7 @@ class EncounterPF2e extends Combat {
         );
         await this.updateEmbeddedDocuments("Combatant", updates);
         // Ensure the current turn is preserved
-        await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
+        if (this.turn !== null) await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
     override async setInitiative(id: string, value: number): Promise<void> {
