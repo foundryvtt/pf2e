@@ -1072,8 +1072,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
             const uses = system?.location?.uses;
             if (uses) {
-                const currentUses = uses.value ?? this._source.system.location.uses?.value ?? 1;
-                const currentMax = uses.max ?? this._source.system.location.uses?.max;
+                const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
+                const currentMax = uses.max ?? this.system.location.uses?.max ?? 1;
                 uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
             }
         }
