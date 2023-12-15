@@ -37,7 +37,7 @@ declare global {
     >;
     type HookParamsRender<T extends Application, N extends string> = HookParameters<
         `render${N}`,
-        [T, JQuery, ReturnType<T["getData"]>]
+        [T, JQuery, Awaited<ReturnType<T["getData"]>>]
     >;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",
