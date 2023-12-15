@@ -62,10 +62,6 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/icons/pfs.hbs",
         "systems/pf2e/templates/actors/character/icons/plus.hbs",
 
-        // Actor Sheet Partials (SVG images)
-        "systems/pf2e/templates/actors/partials/images/header_stroke.hbs",
-        "systems/pf2e/templates/actors/partials/images/header_stroke_large.hbs",
-
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.hbs",
         "systems/pf2e/templates/actors/npc/tabs/inventory.hbs",
