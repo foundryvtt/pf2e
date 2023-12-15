@@ -1,6 +1,6 @@
 <section class="inventory-list directory-list inventory-pane" data-inventory>
     {{#each inventory.sections as |section|}}
-        <div class="inventory-header">
+        <header>
             <h3 class="item-name">{{section.label}}</h3>
             {{#if (and (includes section.types "equipment") @root.inventory.invested)}}
                 <span class="item-invested-total{{#if (gt @root.inventory.invested.value @root.inventory.invested.max)}} overinvested{{/if}}">
@@ -26,7 +26,7 @@
                         ><i class="fa-solid fa-fw fa-search"></i></a>
                 </div>
             {{/if}}
-        </div>
+        </header>
         <ul class="items" data-item-types="{{section.types}}"{{#if @root.isLootSheet}} data-loot{{/if}}>
             {{#each section.items}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=this editable=@root.editable owner=@root.owner user=@root.user}}
