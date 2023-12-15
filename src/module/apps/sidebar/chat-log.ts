@@ -35,11 +35,15 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     activateClickListener(html: HTMLElement): void {
         html.addEventListener("click", async (event): Promise<void> => {
             const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
+            if (!message) return;
 
             const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
             if (senderEl && message) return this.#onClickSender(message, event);
 
-            if (message?.isDamageRoll) {
+            const button = htmlClosest(event.target, "button[data-action]");
+            if (!button) return;
+
+            if (message.isDamageRoll) {
                 const button = htmlClosest(event.target, "button");
                 if (!button) return;
 
@@ -48,10 +52,10 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 }
 
                 const actions = [
-                    "apply-healing",
-                    "half-damage",
                     "apply-damage",
+                    "apply-healing",
                     "double-damage",
+                    "half-damage",
                     "triple-damage",
                 ] as const;
                 for (const action of actions) {
@@ -60,16 +64,13 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         return this.#onClickDamageButton(message, action, event.shiftKey, index);
                     }
                 }
-            }
-
-            const revertDamageButton = htmlClosest(event.target, "button[data-action=revert-damage]");
-            if (revertDamageButton) {
+            } else if (button.dataset.action === "revert-damage") {
                 const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
                 if (appliedDamageFlag) {
                     const reverted = await this.#onClickRevertDamage(appliedDamageFlag);
                     if (reverted) {
                         htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
-                        revertDamageButton.remove();
+                        button.remove();
                         await message.update({
                             "flags.pf2e.appliedDamage.isReverted": true,
                             content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
@@ -83,6 +84,17 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 handleKingdomChatMessageEvents({ event, message, messageEl });
             }
         });
+    }
+
+    /** Handle clicks of "Set as initiative" buttons */
+    protected override _onDiceRollClick(event: JQuery.ClickEvent): void {
+        const message = ChatLogPF2e.#messageFromEvent(event.originalEvent).message;
+        if (message && htmlClosest(event.target, "button[data-action=set-as-initiative]")) {
+            event.stopPropagation();
+            this.#onClickSetAsInitiative(message);
+        } else {
+            return super._onDiceRollClick(event);
+        }
     }
 
     /** Replace parent method in order to use DamageRoll class as needed */
@@ -116,9 +128,9 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     }
 
     static #messageFromEvent(
-        event: Event,
+        event: Maybe<Event>,
     ): { element: HTMLLIElement; message: ChatMessagePF2e } | { element: null; message: null } {
-        const element = htmlClosest<HTMLLIElement>(event.target, "li[data-message-id]");
+        const element = htmlClosest<HTMLLIElement>(event?.target, "li[data-message-id]");
         const messageId = element?.dataset.messageId ?? "";
         const message = game.messages.get(messageId);
         return element && message ? { element, message } : { element: null, message: null };
@@ -285,6 +297,27 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 canvas.animatePan({ ...token.center, scale, duration: 1000 });
             }
         }
+    }
+
+    async #onClickSetAsInitiative(message: ChatMessagePF2e): Promise<void> {
+        const { actor, token } = message;
+        if (!token) {
+            ui.notifications.error(
+                game.i18n.format("PF2E.Encounter.NoTokenInScene", {
+                    actor: message.actor?.name ?? message.user?.name ?? "",
+                }),
+            );
+            return;
+        }
+        if (!actor) return;
+        const combatant = await CombatantPF2e.fromActor(actor);
+        if (!combatant) return;
+        const value = message.rolls.at(0)?.total ?? 0;
+        await combatant.encounter.setInitiative(combatant.id, value);
+
+        ui.notifications.info(
+            game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: token.name, initiative: value }),
+        );
     }
 
     protected override _getEntryContextOptions(): EntryContextOption[] {
