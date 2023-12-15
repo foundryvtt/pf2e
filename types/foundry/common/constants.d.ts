@@ -680,9 +680,11 @@ declare global {
     type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
     type ChatMessageType = (typeof CONST.CHAT_MESSAGE_TYPES)[keyof typeof CONST.CHAT_MESSAGE_TYPES];
     type CompatibilityMode = (typeof CONST.COMPATIBILITY_MODES)[keyof typeof CONST.COMPATIBILITY_MODES];
+    type DirectorySearchMode = (typeof DIRECTORY_SEARCH_MODES)[keyof typeof DIRECTORY_SEARCH_MODES];
     type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
     type DocumentOwnershipString = keyof typeof DOCUMENT_OWNERSHIP_LEVELS;
     type DrawingFillType = (typeof DRAWING_FILL_TYPES)[keyof typeof DRAWING_FILL_TYPES];
+    type DrawingShapeType = "r" | "e" | "t" | "p" | "f";
     type FileCategory = keyof typeof FILE_CATEGORIES;
     type FileExtension = keyof typeof UPLOADABLE_FILE_EXTENSIONS;
     type FolderDocumentType = (typeof FOLDER_DOCUMENT_TYPES)[number];
@@ -713,5 +715,4 @@ declare global {
     type WallMovementType = (typeof WALL_MOVEMENT_TYPES)[keyof typeof WALL_MOVEMENT_TYPES];
     type WallRestrictionType = (typeof WALL_RESTRICTION_TYPES)[number];
     type WallSenseType = (typeof WALL_SENSE_TYPES)[keyof typeof WALL_SENSE_TYPES];
-    type DrawingShapeType = "r" | "e" | "t" | "p" | "f";
 }
