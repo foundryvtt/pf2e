@@ -28,6 +28,6 @@ declare global {
         scaleX: number;
         scaleY: number;
         rotation: number;
-        tint: Color;
+        tint: foundry.utils.Color;
     }
 }
