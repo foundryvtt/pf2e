@@ -147,6 +147,12 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      */
     protected override _getEntryContextOptions(): EntryContextOption[];
 
+    /** Handle keydown events in the chat entry textarea */
+    protected _onChatKeyDown(event: KeyboardEvent): void;
+
+    /** Handle clicking of dice tooltip buttons */
+    protected _onDiceRollClick(event: JQuery.ClickEvent): void;
+
     /**
      * Handle scroll events within the chat log container
      * @param event The initial scroll event
