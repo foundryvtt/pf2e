@@ -1117,15 +1117,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             : null;
 
         // Regenerate unarmed strikes from handwraps so that all runes are included
-        if (handwraps?.system.runes) {
+        if (handwraps) {
             for (const [slug, weapon] of synthetics.strikes.entries()) {
                 if (weapon.category === "unarmed") {
-                    synthetics.strikes.set(slug, weapon.clone({ system: unarmedRunes }, { keepId: true }));
+                    const clone = weapon.clone({ system: { runes: unarmedRunes } }, { keepId: true });
+                    synthetics.strikes.set(slug, clone);
+                    // Prevent synthetic strikes from being renamed by runes
+                    clone.name = clone._source.name;
                 }
-
-                // Prevent synthetic strikes from being renamed by runes
-                const clone = synthetics.strikes.get(slug)!;
-                clone.name = clone._source.name;
             }
         }
 
