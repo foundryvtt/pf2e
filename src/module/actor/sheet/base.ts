@@ -67,7 +67,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const options = super.defaultOptions;
         options.dragDrop = [
             { dragSelector: "[data-foundry-list] .drag-handle" },
-            { dragSelector: ".item[draggable=true]" },
+            { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
         return fu.mergeObject(options, {
@@ -126,27 +126,28 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         })();
 
         const sheetData: ActorSheetDataPF2e<TActor> = {
+            actor: actorData,
             cssClass: this.actor.isOwner ? "editable" : "locked",
-            editable: this.isEditable,
+            data: actorData.system,
             document: this.actor,
+            editable: this.isEditable,
+            effects: [],
+            enrichedContent: {},
+            inventory: this.prepareInventory(),
+            isLootSheet: this.isLootSheet,
+            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
+            items: actorData.items,
             limited: this.actor.limited,
             options,
             owner: this.actor.isOwner,
             title: this.title,
-            actor: actorData,
-            data: actorData.system,
-            effects: [],
-            items: actorData.items,
-            user: { isGM: game.user.isGM },
-            traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             toggles: this.actor.synthetics.toggles,
-            isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:off-guard"],
             totalCoinage,
             totalCoinageGold,
             totalWealth,
             totalWealthGold,
-            inventory: this.prepareInventory(),
-            enrichedContent: {},
+            traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
+            user: { isGM: game.user.isGM },
         };
 
         await this.prepareItems?.(sheetData);
@@ -683,7 +684,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const section = htmlQuery(panel, "section[data-inventory]");
         if (!section || !this.isEditable) return;
 
-        for (const list of htmlQueryAll(section, "ul.inventory-items")) {
+        for (const list of htmlQueryAll(section, "ul[data-item-types]")) {
             const options: Sortable.Options = {
                 ...SORTABLE_BASE_OPTIONS,
                 scroll: section,
@@ -822,7 +823,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         const targetElement = event.currentTarget;
-        const previewElement = htmlClosest(targetElement, ".item");
+        const previewElement = htmlClosest(targetElement, "[data-item-id]");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop

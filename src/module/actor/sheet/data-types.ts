@@ -43,17 +43,18 @@ export interface SheetInventory {
 }
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {
-    traits: SheetOptions;
+    canDistributeCoins?: { enabled: boolean } | null;
+    enrichedContent: Record<string, string>;
+    inventory: SheetInventory;
+    isLootSheet: boolean;
     isTargetFlatFooted: boolean;
-    user: { isGM: boolean };
     toggles: RollOptionToggle[];
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
     totalWealth: Coins;
     totalWealthGold: string;
-    canDistributeCoins?: { enabled: boolean } | null;
-    inventory: SheetInventory;
-    enrichedContent: Record<string, string>;
+    traits: SheetOptions;
+    user: { isGM: boolean };
 }
 
 export interface ActorSheetRenderOptionsPF2e extends RenderOptions {

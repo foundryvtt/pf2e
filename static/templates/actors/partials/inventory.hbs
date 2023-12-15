@@ -27,7 +27,7 @@
                 </div>
             {{/if}}
         </div>
-        <ul class="inventory-items item-list" data-item-types="{{section.types}}">
+        <ul class="items" data-item-types="{{section.types}}"{{#if @root.isLootSheet}} data-loot{{/if}}>
             {{#each section.items}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" this=this editable=@root.editable owner=@root.owner user=@root.user}}
             {{/each}}
