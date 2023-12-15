@@ -11,10 +11,25 @@
     }
 
     section {
+        div[contenteditable] {
+            line-height: 1.5em;
+            padding: calc((var(--form-field-height) - 1.5em) / 2) 3px;
+            width: calc(100% - 6px);
+        }
+
         &.editable {
             .editor-content,
             input {
                 background: rgba(0, 0, 0, 5%);
+            }
+
+            div[contenteditable] {
+                border: none;
+                background: rgba(0, 0, 0, 5%);
+
+                &:focus {
+                    outline: none;
+                }
             }
 
             .editor-content {
@@ -58,6 +73,12 @@
                     width: 100%;
                 }
             }
+
+            .edicts,
+            .anathema,
+            .catchphrases {
+                flex-basis: 100%;
+            }
         }
 
         &.campaign {
@@ -95,33 +116,6 @@
         }
 
         .bio {
-            h3 {
-                @include p-reset;
-                background-color: rgba($text-dark-color, 0.1);
-                border: none;
-                color: var(--text-dark);
-                font: 700 var(--font-size-14) var(--body-serif);
-                grid-area: mod;
-                height: 26px;
-                padding: 8px 4px 6px;
-                width: calc(100% - 6px);
-
-                i {
-                    position: relative;
-                    right: -2px;
-                    top: -2px;
-                    float: right;
-                }
-
-                span.value {
-                    display: inline-block;
-                    max-width: 87%;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-            }
-
             h4.details-label {
                 margin-bottom: 0;
                 width: 100%;

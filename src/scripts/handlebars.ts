@@ -19,6 +19,11 @@ export function registerHandlebarsHelpers(): void {
         return args.slice(0, -1).some((a) => !!a);
     });
 
+    /** Used for content editables. Keeps the text as plain text but enables newlines */
+    Handlebars.registerHelper("breakLines", (value: string): string => {
+        return Handlebars.Utils.escapeExpression(value).replaceAll("\n", "<br/>");
+    });
+
     Handlebars.registerHelper("disabled", (condition: unknown): string => {
         return condition ? "disabled" : "";
     });

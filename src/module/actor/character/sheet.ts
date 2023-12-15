@@ -489,6 +489,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         this.#activateNavListeners(html);
 
+        // Handlers for content editable text inputs
+        for (const input of htmlQueryAll(html, "div[contenteditable][data-property]")) {
+            if (!this.options.editable) {
+                input.contentEditable = "false";
+                continue;
+            }
+
+            const propertyPath = input.dataset.property ?? "";
+            input.addEventListener("blur", () => {
+                const newValue = input.innerText;
+                this.actor.update({ [propertyPath]: newValue });
+            });
+        }
+
         // Toggle the availability of the roll-initiative link
         this.toggleInitiativeLink();
 
