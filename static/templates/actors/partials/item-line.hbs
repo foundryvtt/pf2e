@@ -19,7 +19,7 @@
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
                 {{#if item.isTemporary}}<i class="fa-solid fa-info-circle" data-tooltip="PF2E.TemporaryItemToolTip"></i>{{/if}}
             </h4>
-            {{#if (and item.uses.max (or (gt item.uses.max 1) (eq item.system.consumableType.value "wand")))}}
+            {{#if (and item.uses.max (or (gt item.uses.max 1) (eq item.category "wand")))}}
                 <span class="item-charges">({{item.uses.value}}/{{item.uses.max}})</span>
             {{/if}}
         </div>
