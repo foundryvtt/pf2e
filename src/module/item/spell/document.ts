@@ -629,9 +629,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override getRollOptions(prefix = this.type): string[] {
+        const { spellcasting } = this;
         const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
-        const entryHasSlots = !!(this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous);
+        if (spellcasting?.tradition) {
+            spellOptions.add(`${prefix}:trait:${spellcasting.tradition}`);
+        }
+
+        const entryHasSlots = !!(spellcasting?.isPrepared || spellcasting?.isSpontaneous);
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
             spellOptions.add(`${prefix}:spell-slot`);
         }
@@ -667,7 +672,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         // Include spellcasting roll options (if available)
-        for (const option of this.spellcasting?.getRollOptions?.("spellcasting") ?? []) {
+        for (const option of spellcasting?.getRollOptions?.("spellcasting") ?? []) {
             spellOptions.add(option);
         }
 
