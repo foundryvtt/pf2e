@@ -27,6 +27,7 @@ import { Migration905UnpersistUsage } from "@module/migration/migrations/905-unp
 import { Migration906LimitStackGroup } from "@module/migration/migrations/906-limit-stack-group.ts";
 import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migrations/907-restructure-armor-weapon-runes.ts";
 import { Migration909RefineConsumableData } from "@module/migration/migrations/909-refine-consumable-data.ts";
+import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration906LimitStackGroup(),
     new Migration907RestructureArmorWeaponRunes(),
     new Migration909RefineConsumableData(),
+    new Migration910EdictsAnathemaArrays(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

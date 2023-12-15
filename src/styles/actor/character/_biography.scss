@@ -58,6 +58,36 @@
                     width: 100%;
                 }
             }
+
+            .edicts,
+            .anathema {
+                flex-basis: 100%;
+
+                > * {
+                    width: 100%;
+                }
+
+                .label-add {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    width: calc(100% - 0.75em);
+                }
+
+                ol {
+                    list-style-type: decimal;
+                    margin-top: 0;
+
+                    li {
+                        white-space: nowrap;
+
+                        input {
+                            margin: 0.2em;
+                            max-width: calc(100% - 2rem);
+                        }
+                    }
+                }
+            }
         }
 
         &.campaign {
