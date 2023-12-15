@@ -33,7 +33,7 @@
     <div class="card-buttons">
         {{#if (and data.usesCharges data.isUsable)}}
             {{#if data.hasCharges}}
-                <button type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}} {{item.consumableType}}</button>
+                <button type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.UseItem" item=item.category}}</button>
             {{else}}
                 <button type="button" disabled="disabled">{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
             {{/if}}
