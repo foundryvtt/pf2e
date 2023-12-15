@@ -15,37 +15,6 @@
             font-weight: 500;
             gap: 0.25rem;
             padding-right: 0.25rem;
-
-            h3,
-            h4 {
-                font-weight: 500;
-                line-height: var(--font-size-12);
-                margin: auto auto auto 0;
-                padding: 2px;
-                word-break: break-word;
-
-                &:hover {
-                    color: var(--primary);
-                }
-
-                i.fa-info-circle {
-                    color: var(--text-dark);
-
-                    &:hover {
-                        color: var(--text-dark);
-                    }
-                }
-            }
-
-            .size {
-                font-size: 0.8em;
-                color: var(--alt);
-                margin: 0;
-            }
-
-            .item-charges {
-                color: var(--sub);
-            }
         }
 
         .quantity,
@@ -59,19 +28,6 @@
         .sell-value {
             justify-content: end;
             padding-right: 3px;
-        }
-
-        .quantity {
-            justify-content: space-around;
-
-            .decrease,
-            .increase {
-                @include flex-center;
-                font-family: var(--sans-serif-monospace);
-                height: 100%;
-                text-align: center;
-                width: 18px;
-            }
         }
 
         .bulk {
@@ -174,6 +130,31 @@
                 width: 100%;
 
                 .item-name {
+                    h3,
+                    h4 {
+                        font-weight: 500;
+                        line-height: var(--font-size-12);
+                        margin: auto auto auto 0;
+                        padding: 2px;
+                        word-break: break-word;
+
+                        a:hover {
+                            text-shadow: none;
+                        }
+
+                        &:hover {
+                            color: var(--primary);
+                        }
+
+                        i.fa-info-circle {
+                            color: var(--text-dark);
+
+                            &:hover {
+                                color: var(--text-dark);
+                            }
+                        }
+                    }
+
                     h4:not(:hover) {
                         &.rarity-uncommon {
                             border-color: var(--color-rarity-uncommon);
@@ -191,8 +172,14 @@
                         }
                     }
 
-                    a:hover {
-                        text-shadow: none;
+                    .size {
+                        font-size: 0.8em;
+                        color: var(--alt);
+                        margin: 0;
+                    }
+
+                    .item-charges {
+                        color: var(--sub);
                     }
                 }
 
@@ -202,39 +189,52 @@
                 .sell-value {
                     border-left: 1px solid var(--alt);
                 }
-            }
 
-            .item-controls {
-                color: var(--text-dark);
-                font-size: var(--font-size-13);
+                .quantity {
+                    justify-content: space-around;
 
-                .item-control {
-                    &.toggle-invested,
-                    &.item-carry-type {
-                        color: rgba(black, 0.5);
+                    .decrease,
+                    .increase {
+                        @include flex-center;
+                        font-family: var(--sans-serif-monospace);
+                        height: 100%;
+                        text-align: center;
+                        width: 18px;
+                    }
+                }
 
-                        &.active {
-                            color: var(--secondary);
+                .item-controls {
+                    color: var(--text-dark);
+                    font-size: var(--font-size-13);
+
+                    .item-control {
+                        &.toggle-invested,
+                        &.item-carry-type {
+                            color: rgba(black, 0.5);
+
+                            &.active {
+                                color: var(--secondary);
+                            }
                         }
-                    }
 
-                    &.item-carry-type {
-                        text-align: right;
-                    }
-
-                    // Hands-held with interior number
-                    .fa-stack {
-                        margin: -3px -2px 0;
-
-                        .fa-1,
-                        .fa-2 {
-                            left: 1px;
-                            position: relative;
+                        &.item-carry-type {
+                            text-align: right;
                         }
-                    }
 
-                    & .notify {
-                        @include requires-user-attention;
+                        // Hands-held with interior number
+                        .fa-stack {
+                            margin: -3px -2px 0;
+
+                            .fa-1,
+                            .fa-2 {
+                                left: 1px;
+                                position: relative;
+                            }
+                        }
+
+                        & .notify {
+                            @include requires-user-attention;
+                        }
                     }
                 }
             }
