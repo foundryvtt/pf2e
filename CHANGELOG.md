@@ -1,3 +1,18 @@
+## 5.11.1
+
+### Bugfixes
+
+-   (stwlam) Restore NPC attack generation
+-   (stwlam) Fix selectability of weapon and armor property runes
+-   (stwlam) Show clumsy condition when wielding oversized weapons
+-   (Supe) Fix certain innate spells being stuck at null uses
+-   (Supe) Fix inventory drag/drop to tokens and other sheets
+
+### Data Updates
+
+-   (Ajulex) Add effect for Entropic Wheel
+-   (Dire Weasel) Add effect for Heroes' Feast
+
 ## 5.11.0
 
 ### System Improvements
