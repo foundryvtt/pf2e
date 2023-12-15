@@ -1,3 +1,30 @@
+## 5.11.2
+
+### System Improvements
+
+-   (stwlam) Convert edicts and anathema on PC sheets to lists
+
+### Bugfixes
+
+-   (Dire Weasel) Allow check DCs to resolve for items with no actors
+-   (stwlam) Fix application of handwrap runes to synthetic unarmed attacks
+-   (stwlam) Fix inventory looting by players
+-   (Supe) Fix display of wand charges in inventory
+-   (Supe) Fix invalid spacing in journals created with prosemirror
+-   (Supe) Mark fast healing/regen as healing
+-   (Supe) Include spell tradition trait in roll options
+
+### Data Updates
+
+-   (Dire Weasel) Fix Ash Mystery predicate
+-   (Dire Weasel) Fix Cornucopia's "Consume all produce" link to be healing
+-   (Dire Weasel) Fix token name of Narlmarch Hunters
+-   (Dire Weasel) Update condition descriptions to remaster text
+-   (Dire Weasel) Add Druidic -> Wildsong to Remaster Changes journal entry
+-   (stwlam) Fix bulk of coins
+-   (Tikael) Fix spell attack of Wood Giant
+-   (TMun) Update gouging claw damage for remaster
+
 ## 5.11.1
 
 ### Bugfixes
