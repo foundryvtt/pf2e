@@ -31,7 +31,7 @@ export class Migration909RefineConsumableData extends MigrationBase {
         if ("charges" in system) {
             if (R.isObject(system.charges)) {
                 const value = Math.min(Math.max(Math.floor(Number(system.charges.value) || 0), 0), 9999);
-                const max = Math.min(Math.max(Math.floor(Number(system.charges.value) || 0), 0), 9999);
+                const max = Math.min(Math.max(Math.floor(Number(system.charges.max) || 0), 0), 9999);
                 system.uses = { value, max, autoDestroy };
                 if (system.uses.max === 0) {
                     system.uses.value = 1;
