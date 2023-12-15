@@ -479,6 +479,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return data;
     }
 
+    /** Overriden to open sub-tabs if requested */
+    protected override openTab(name: string): void {
+        if (["encounter", "exploration", "downtime"].includes(name)) {
+            super.openTab("actions");
+            this._tabs[1].activate(name);
+        } else {
+            super.openTab(name);
+        }
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -1041,6 +1051,28 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
+        // Edicts and anathema
+        handlers["add-edict-anathema"] = (_, anchor) => {
+            anchor.style.pointerEvents = "none";
+            const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
+            if (!tupleHasValue(["edicts", "anathema"], field)) {
+                throw ErrorPF2e("Unexpected error adding edicts or anathema");
+            }
+            const list = this.actor._source.system.details.biography[field];
+            this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
+        };
+        handlers["delete-edict-anathema"] = (_, anchor) => {
+            anchor.style.pointerEvents = "none";
+            const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
+            const index = anchor.dataset.index ?? "";
+            if (!tupleHasValue(["edicts", "anathema"], field) || !/^\d+$/.test(index)) {
+                throw ErrorPF2e("Unexpected error adding edicts or anathema");
+            }
+            const list = [...this.actor._source.system.details.biography[field]];
+            list.splice(Number(index), 1);
+            this.actor.update({ [`system.details.biography.${field}`]: list });
+        };
+
         return handlers;
     }
 
@@ -1399,14 +1431,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return super._onSortItem(event, itemSource);
     }
 
-    /** Overriden to open sub-tabs if requested */
-    protected override openTab(name: string): void {
-        if (["encounter", "exploration", "downtime"].includes(name)) {
-            super.openTab("actions");
-            this._tabs[1].activate(name);
-        } else {
-            super.openTab(name);
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Collect edicts and anathema, reconstruct arrays
+        for (const field of ["edicts", "anathema"] as const) {
+            const keys = Array.fromRange(this.actor._source.system.details.biography[field].length).map(
+                (i) => `system.details.biography.${field}.${i}`,
+            );
+            const lines = keys.map((k) => String(formData[k] ?? "").trim());
+            for (const key of keys) {
+                delete formData[key];
+            }
+            if (lines.length > 0) formData[`system.details.biography.${field}`] = lines;
         }
+
+        return super._updateObject(event, formData);
     }
 }
 

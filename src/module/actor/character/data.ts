@@ -114,19 +114,18 @@ interface CharacterDetailsSource extends CreatureDetailsSource {
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
 
-    /** How old the character is (user-provided field). */
+    /** How old the character is */
     age: { value: string };
-    /** Character height (user-provided field). */
+    /** Character height */
     height: { value: string };
-    /** Character weight (user-provided field). */
+    /** Character weight */
     weight: { value: string };
-    /** Character gender/pronouns (user-provided field). */
+    /** Character gender/pronouns */
     gender: { value: string };
-    /** Character ethnicity (user-provided field). */
+    /** Character ethnicity */
     ethnicity: { value: string };
-    /** Character nationality (i.e, what nation they hail from; user-provided field). */
     nationality: { value: string };
-    /** User-provided biography for their character; value is HTML. */
+    /** User-provided biography for their character */
     biography: CharacterBiography;
 
     /** The amount of experience this character has. */
@@ -143,33 +142,25 @@ interface CharacterDetailsSource extends CreatureDetailsSource {
 }
 
 interface CharacterBiography {
-    /** Character appearance (user-provided field). value is HTML */
+    /** HTML value */
     appearance: string;
-    /** Character Backstory (user-provided field). value is HTML */
+    /** HTML value */
     backstory: string;
-    /** Character birthPlace (user-provided field). */
     birthPlace: string;
-    /** Character attitude (user-provided field). */
     attitude: string;
-    /** Character beliefs (user-provided field). */
     beliefs: string;
-    /** Character edicts (user-provided field). */
-    edicts: string;
-    /** Character anathema (user-provided field). */
-    anathema: string;
-    /** Character likes (user-provided field). */
+    edicts: string[];
+    anathema: string[];
     likes: string;
-    /** Character dislikes (user-provided field). */
     dislikes: string;
-    /** Character catchphrases (user-provided field). */
     catchphrases: string;
-    /** Campaign notes (user-provided field). value is HTML */
+    /** HTML value */
     campaignNotes: string;
-    /** Character allies (user-provided field). value is HTML */
+    /** HTML value */
     allies: string;
-    /** Character enemies (user-provided field). value is HTML */
+    /** HTML value */
     enemies: string;
-    /** Character organizations (user-provided field). value is HTML */
+    /** HTML value */
     organizations: string;
     /** Visibility (to users with limited ownership of the PC) toggle states */
     visibility: {
