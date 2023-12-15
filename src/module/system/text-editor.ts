@@ -54,10 +54,10 @@ class TextEditorPF2e extends TextEditor {
         options: EnrichmentOptionsPF2e = {},
     ): string | Promise<string> {
         options.secrets ??= game.user.isGM;
-        if (content?.startsWith("<p>@Localize")) {
-            // Remove tags
-            content = content.substring(3, content.length - 4);
-        }
+
+        // Remove tags from @Localize only enriches.
+        // Those often include HTML, including <p>, and <p> tags cannot be nested.
+        content = content?.replace(/^\s*<p>@Localize\[([\w.]+)\]<\/p>\s*$/, "@Localize[$1]") ?? null;
 
         const enriched = superEnrichHTML.apply(this, [content, options]);
         if (typeof enriched === "string" && (options.processVisibility ?? true)) {
