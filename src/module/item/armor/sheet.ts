@@ -22,12 +22,9 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         // Armor property runes
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const runes = armor.system.runes;
-        const slotIndexes = ((): number[] => {
-            if (runes.potency === 0) return [];
-            if (armor.isSpecific) return runes.property.map((_p, index) => index);
-            return Array.fromRange(getPropertyRuneSlots(armor));
-        })();
-        const propertyRuneSlots = slotIndexes.map((i) => ({
+        const propertyRuneSlots = Array.fromRange(
+            armor.isSpecific ? runes.property.length : getPropertyRuneSlots(armor),
+        ).map((i) => ({
             slug: runes.property[i] ?? null,
             label: RUNE_DATA.armor.property[runes.property[i]]?.name ?? null,
             disabled: i > 0 && !runes.property[i - 1],
