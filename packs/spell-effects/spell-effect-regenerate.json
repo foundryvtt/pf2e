@@ -4,7 +4,7 @@
     "name": "Spell Effect: Regenerate",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Regenerate]</em>.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Regenerate]</p>\n<p>The target gains regeneration, which restores Hit Points to it at the start of each of its turns.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -16,9 +16,9 @@
             "value": 7
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -28,20 +28,7 @@
                 ],
                 "key": "FastHealing",
                 "type": "regeneration",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "start": 7,
-                            "value": 15
-                        },
-                        {
-                            "start": 9,
-                            "value": 20
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level,9),20,15)"
             }
         ],
         "start": {
