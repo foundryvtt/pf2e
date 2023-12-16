@@ -22,12 +22,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const runes = weapon.system.runes;
-        const slotIndexes = ((): number[] => {
-            if (runes.potency === 0) return [];
-            if (weapon.isSpecific) return runes.property.map((_p, index) => index);
-            return Array.fromRange(getPropertyRuneSlots(weapon));
-        })();
-        const propertyRuneSlots = slotIndexes.map((i) => ({
+        const propertyRuneSlots = Array.fromRange(
+            weapon.isSpecific ? runes.property.length : getPropertyRuneSlots(weapon),
+        ).map((i) => ({
             slug: runes.property[i] ?? null,
             label: RUNE_DATA.weapon.property[runes.property[i]]?.name ?? null,
             disabled: i > 0 && !runes.property[i - 1],
