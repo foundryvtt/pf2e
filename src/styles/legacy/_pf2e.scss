@@ -248,15 +248,17 @@ li.list-row.hover-container {
 }
 
 button {
-    &:hover::not(:disabled) {
-        box-shadow: 0 0 3px #c00;
-    }
-    &:disabled {
-        color: #666;
+    &:not(:disabled) {
+        &:hover {
+            box-shadow: 0 0 3px #c00;
+        }
+        &:active {
+            box-shadow: 0 0 5px red;
+        }
     }
 
-    &:active {
-        box-shadow: 0 0 5px red;
+    &:disabled {
+        color: #666;
     }
 }
 
