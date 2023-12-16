@@ -148,11 +148,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isCantrip(): boolean {
-        return this.traits.has("cantrip") && !this.isRitual;
+        return this.system.traits.value.includes("cantrip");
     }
 
     get isFocusSpell(): boolean {
-        return this.traits.has("focus");
+        const traits = this._source.system.traits;
+        return (traits.traditions.length === 0 && this.isCantrip) || traits.value.includes("focus");
     }
 
     get isRitual(): boolean {
@@ -548,29 +549,30 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.area = null;
         }
 
+        const traits = this.system.traits;
+        traits.value = traits.value.filter((t) => t in CONFIG.PF2E.spellTraits);
+
         if (this.isRitual) {
             this.system.damage = {};
             this.system.defense = null;
-            this.system.traits.value = this.system.traits.value.filter(
-                (t) => !["attack", "cantrip", "focus"].includes(t),
-            );
-            this.system.traits.traditions = [];
+            traits.value = traits.value.filter((t) => !["attack", "cantrip", "focus"].includes(t));
+            traits.traditions = [];
             this.system.location.value = "rituals";
         }
 
-        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.spellTraits);
-        if (this.system.traits.value.includes("attack")) {
+        if (traits.value.includes("attack")) {
             this.system.defense = fu.mergeObject(this.system.defense ?? {}, {
                 passive: { statistic: "ac" as const },
                 save: this.system.defense?.save ?? null,
             });
         }
+        this.system.fpCost = Number(!this.isCantrip && this.isFocusSpell);
 
         const castTime = (this.system.time.value = this.system.time.value.trim());
         // Special case for Horizon Thunder Sphere until glyph generation refactor
         if (!["", "2 to 2 rounds"].includes(castTime) && !this.isRitual && !getActionGlyph(castTime)) {
-            this.system.traits.value.push("exploration");
-            this.system.traits.value.sort();
+            traits.value.push("exploration");
+            traits.value.sort();
         }
 
         // Ensure formulas are never empty string and default to 0
@@ -1072,11 +1074,19 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 }
             }
 
-            const uses = system?.location?.uses;
+            const uses = system.location?.uses;
             if (uses) {
                 const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
                 const currentMax = uses.max ?? this.system.location.uses?.max ?? 1;
                 uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+            }
+
+            const traits = system.traits;
+            if (traits?.value?.includes("focus")) {
+                if (traits.value.includes("cantrip")) {
+                    traits.value.splice(traits.value.indexOf("focus"), 1);
+                }
+                traits.traditions = [];
             }
         }
 

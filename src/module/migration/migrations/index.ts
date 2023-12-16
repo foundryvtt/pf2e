@@ -277,3 +277,4 @@ export { Migration908TrueGangUp } from "./908-true-gang-up.ts";
 export { Migration909RefineConsumableData } from "./909-refine-consumable-data.ts";
 export { Migration910EdictsAnathemaArrays } from "./910-edicts-anathema-arrays.ts";
 export { Migration911CoinBulk } from "./911-coin-bulk.ts";
+export { Migration912RmFocusTraitFocusCantrips } from "./912-rm-focus-trait-focus-cantrips.ts";

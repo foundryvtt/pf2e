@@ -1,5 +1,5 @@
 <fieldset class="basics">
-    {{#unless item.isRitual}}
+    {{#unless (or item.isRitual (and item.isFocusSpell (not item.isCantrip)))}}
         <div class="form-group">
             <label>{{localize "PF2E.SpellTraditionsLabel"}}</label>
             <input class="tags paizo-style" name="system.traits.traditions" value="{{json data.traits.traditions}}" data-dtype="JSON" />

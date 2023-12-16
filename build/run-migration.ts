@@ -29,6 +29,7 @@ import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migra
 import { Migration909RefineConsumableData } from "@module/migration/migrations/909-refine-consumable-data.ts";
 import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
 import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
+import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration909RefineConsumableData(),
     new Migration910EdictsAnathemaArrays(),
     new Migration911CoinBulk(),
+    new Migration912RmFocusTraitFocusCantrips(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
