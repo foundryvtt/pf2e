@@ -709,13 +709,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // Update all "normal" spellcasting entries
-        for (const select of htmlQueryAll<HTMLSelectElement>(
-            castingPanel,
-            "select[data-action=update-spellcasting-rank]",
-        )) {
+        for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {
             select.addEventListener("change", () => {
                 const newRank = Number(select.value);
-                if ([1, 2, 3, 4].includes(newRank)) {
+                if (![1, 2, 3, 4].includes(newRank)) {
+                    throw ErrorPF2e("Unexpected rank received while changing proficiency");
+                }
+                const autoChanges = (
+                    this.actor.system.autoChanges["system.proficiencies.spellcasting.rank"] ?? []
+                ).filter((ac) => typeof ac.value === "number" && ac.mode === "upgrade");
+                const highestUpgrade = R.sortBy(autoChanges, (ac) => Number(ac.value)).at(-1);
+                if (typeof highestUpgrade?.value === "number" && highestUpgrade.value > newRank) {
+                    const ranks: readonly string[] = CONFIG.PF2E.proficiencyLevels;
+                    const rank = ranks[highestUpgrade.value];
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.Actor.Character.Proficiency.HigherUpgrade", {
+                            ability: highestUpgrade.source,
+                            rank: game.i18n.format(rank),
+                        }),
+                    );
+                    this.render();
+                } else {
                     const entries = this.actor.itemTypes.spellcastingEntry.filter((e) => !e.system.proficiency.slug);
                     this.actor.updateEmbeddedDocuments(
                         "Item",
