@@ -1,3 +1,17 @@
+## 5.11.3
+
+### Bugfixes
+
+-   (stwlam) Fix ammo listeners on attack popouts
+-   (stwlam) Fix using wands from actor sheets and recharging on rest
+-   (stwlam) Fix displayed rune slots in armor/weapon sheets with ABP enabled
+-   (stwlam) Fix moving items into/out of containers
+
+### Data Updates
+
+-   (Dire Weasel) Fix action cost of Vengeful Spirit Deck and autolevel damage links
+-   (stwlam) Fix choice set on Bespell Strikes effect
+
 ## 5.11.2
 
 ### System Improvements
