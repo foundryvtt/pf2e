@@ -127,9 +127,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get traditions(): Set<MagicTradition> {
-        return this.spellcasting?.tradition
-            ? new Set([this.spellcasting.tradition])
-            : new Set(this.system.traits.traditions);
+        return new Set(this.system.traits.traditions);
     }
 
     get actionGlyph(): string | null {
@@ -140,7 +138,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
         const spellcastingId = this.system.location.value;
         if (this.trickMagicEntry) return this.trickMagicEntry;
-        return (this.actor?.spellcasting.find((e) => e.id === spellcastingId) ?? null) as BaseSpellcastingEntry<
+        return (this.actor?.spellcasting.get(spellcastingId ?? "") ?? null) as BaseSpellcastingEntry<
             NonNullable<TParent>
         > | null;
     }
@@ -703,20 +701,19 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const messageSource = message.toObject();
         const flags = messageSource.flags.pf2e;
-        const entry = this.spellcasting;
+        const spellcasting = this.spellcasting;
 
-        if (entry?.statistic) {
+        if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
-            const tradition = Array.from(this.traditions).at(0);
-            flags.casting = {
-                id: entry.id,
-                tradition: entry.tradition ?? tradition ?? "arcane",
-            };
-            if (this.isFromConsumable) flags.casting.embeddedSpell = this.toObject();
+            const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
+            flags.casting = { id: spellcasting.id, tradition };
+            if (this.isFromConsumable) {
+                flags.casting.embeddedSpell = this.toObject();
+            }
 
             // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
             if (this.system.defense) {
-                const dc = entry.statistic.withRollOptions({ item: this }).dc;
+                const dc = spellcasting.statistic.withRollOptions({ item: this }).dc;
                 flags.context = {
                     type: "spell-cast",
                     domains: dc.domains,
