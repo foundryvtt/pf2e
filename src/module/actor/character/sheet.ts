@@ -92,6 +92,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.width = 750;
         options.height = 800;
         options.scrollY.push(".tab.active .tab-content");
+        options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
         options.tabs = [
             { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
             { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
@@ -591,7 +592,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.flags.pf2e.showUnreadyStrikes);
         });
 
-        for (const strikeElem of htmlQueryAll(actionsPanel, ".strikes-list li")) {
+        for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
             // Versatile-damage toggles
             const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -1104,7 +1105,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     #activateBlastListeners(panel: HTMLElement | null): void {
-        const blastList = htmlQuery(panel, "ol.elemental-blasts");
+        const blastList = htmlQuery(panel, "ol[data-elemental-blasts]");
         const { elementTraits, damageTypes } = CONFIG.PF2E;
         const selectors = ["roll-attack", "roll-damage", "set-damage-type"]
             .map((s) => `button[data-action=${s}]`)
