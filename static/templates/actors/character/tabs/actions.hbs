@@ -20,14 +20,14 @@
 
                     {{#if elementalBlasts}}
                         <!-- ELEMENTAL BLASTS -->
-                        <ol class="actions-list directory-list elemental-blasts">
+                        <ol class="actions-list directory-list elemental-blasts" data-elemental-blasts>
                             {{#each elementalBlasts as |blast|}}
                                 {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast}}
                             {{/each}}
                         </ol>
                     {{/if}}
 
-                    <ol class="actions-list item-list directory-list strikes-list">
+                    <ol class="actions-list item-list directory-list strikes-list" data-strikes>
                         {{#each data.actions as |strike ai|}}
                             {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
                         {{/each}}

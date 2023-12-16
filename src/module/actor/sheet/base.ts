@@ -823,7 +823,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         const targetElement = event.currentTarget;
-        const previewElement = htmlClosest(targetElement, "[data-item-id]");
+        const previewElement = htmlClosest(targetElement, "[data-item-id], [data-strike]");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
