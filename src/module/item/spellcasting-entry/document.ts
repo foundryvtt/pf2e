@@ -124,6 +124,18 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
+    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
+        const actor = this.parent;
+        if (!this.system.proficiency.slug && !this.isInnate && actor.isOfType("character")) {
+            const spellProficiency = actor.system.proficiencies.spellcasting;
+            spellProficiency.rank = Math.clamped(
+                Math.max(spellProficiency.rank, this.system.proficiency.value),
+                1,
+                4,
+            ) as OneToFour;
+        }
+    }
+
     /** Prepares the statistic for this spellcasting entry */
     prepareStatistic(): void {
         const actor = this.actor;
