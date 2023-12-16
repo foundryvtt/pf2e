@@ -175,7 +175,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
             if (this.system.damage) {
                 const { formula, type, kind } = this.system.damage;
-                new DamageRoll(`${formula}[${type},${kind}]`).toMessage({ speaker, flavor: content, flags });
+                new DamageRoll(`(${formula})[${type},${kind}]`).toMessage({ speaker, flavor: content, flags });
             } else {
                 ChatMessage.create({ speaker, content, flags });
             }
