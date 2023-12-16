@@ -684,7 +684,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const section = htmlQuery(panel, "section[data-inventory]");
         if (!section || !this.isEditable) return;
 
-        for (const list of htmlQueryAll(section, "ul[data-item-types]")) {
+        for (const list of htmlQueryAll(section, "ul[data-item-list]")) {
             const options: Sortable.Options = {
                 ...SORTABLE_BASE_OPTIONS,
                 scroll: section,
@@ -707,7 +707,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!this.isEditable || isSeparateSheet) return false;
 
         const sourceItem = this.actor.inventory.get(event.dragged?.dataset.itemId ?? "");
-        const targetSection = htmlClosest(event.related, "[data-item-types]")?.dataset.itemTypes?.split(",") ?? [];
+        const targetSection = htmlClosest(event.related, "ul[data-item-types]")?.dataset.itemTypes?.split(",") ?? [];
         if (!sourceItem || targetSection.length === 0) return false;
         if (targetSection.includes(sourceItem.type)) return true;
 

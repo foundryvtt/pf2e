@@ -96,7 +96,7 @@
     </div>
 
     {{#if (and isContainer (not item.isCollapsed))}}
-        <ul class="items container-contents" data-container-id="{{item.id}}">
+        <ul class="items container-contents" data-item-list data-container-id="{{item.id}}">
             {{#each heldItems}}
                 {{> "systems/pf2e/templates/actors/partials/item-line.hbs" editable=@root.editable user=@root.user owner=@root.owner}}
             {{/each}}
