@@ -706,19 +706,34 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const isSeparateSheet = htmlClosest(event.target, "form") !== htmlClosest(event.related, "form");
         if (!this.isEditable || isSeparateSheet) return false;
 
-        const sourceItem = this.actor.inventory.get(event.dragged?.dataset.itemId ?? "");
+        const sourceItem: PhysicalItemPF2e<ActorPF2e> | undefined = this.actor.inventory.get(
+            event.dragged?.dataset.itemId,
+            { strict: true },
+        );
+
+        const containerRowData = htmlQueryAll(this.form, "li[data-is-container] > .data");
+        for (const row of containerRowData) {
+            row.classList.remove("drop-highlight");
+        }
+
         const targetSection = htmlClosest(event.related, "ul[data-item-types]")?.dataset.itemTypes?.split(",") ?? [];
-        if (!sourceItem || targetSection.length === 0) return false;
+        if (targetSection.length === 0) return false;
         if (targetSection.includes(sourceItem.type)) return true;
 
         if (targetSection.includes("backpack")) {
-            const containerId = htmlClosest(event.related, "ul[data-container-id]")?.dataset.containerId ?? "";
-            const container = this.actor.inventory.get(containerId);
-            if (!container?.isOfType("backpack")) return false;
+            const openContainerId = htmlClosest(event.related, "ul[data-container-id]")?.dataset.containerId ?? "";
+            const openContainer: PhysicalItemPF2e<ActorPF2e> | undefined = this.actor.inventory.get(openContainerId);
+            const targetItemRow = htmlClosest(event.related, "li[data-item-id]");
+            const targetItem = this.actor.inventory.get(targetItemRow?.dataset.itemId ?? "");
+            if (targetItemRow && targetItem?.isOfType("backpack") && !openContainer) {
+                for (const row of containerRowData) {
+                    if (row !== targetItemRow) row.classList.remove("drop-highlight");
+                }
+                htmlQuery(targetItemRow, ":scope > .data")?.classList.add("drop-highlight");
+                return false;
+            }
 
-            const targetItemId = htmlClosest(event.related, "[data-item-id]")?.dataset.itemId ?? "";
-            const targetItem = this.actor.inventory.get(targetItemId);
-            return targetItem?.container === container ? true : 1;
+            return !!targetItem;
         }
 
         return false;
@@ -729,16 +744,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const isSeparateSheet = htmlClosest(event.target, "form") !== htmlClosest(event.originalEvent?.target, "form");
         if (!this.isEditable || isSeparateSheet) return;
 
+        const containerRowData = htmlQueryAll(this.form, "li[data-is-container] > .data");
+        for (const row of containerRowData) {
+            row.classList.remove("drop-highlight");
+        }
+
         const inventory = this.actor.inventory;
         const sourceItem = inventory.get(event.item.dataset.itemId, { strict: true });
         const itemsInList = htmlQueryAll(htmlClosest(event.item, "ul"), ":scope > li").map((li) =>
             li.dataset.itemId === sourceItem.id ? sourceItem : inventory.get(li.dataset.itemId, { strict: true }),
         );
 
+        const targetItemId = htmlClosest(event.originalEvent?.target, "li[data-item-id]")?.dataset.itemId ?? "";
+        const targetItem = this.actor.inventory.get(targetItemId);
+
         // Determine if the "real" drop target is a stackable item
         const stackTarget = ((): PhysicalItemPF2e | null => {
-            const targetItemId = htmlClosest(event.originalEvent?.target, "li[data-item-id]")?.dataset.itemId ?? "";
-            const targetItem = this.actor.inventory.get(targetItemId);
             return targetItem?.isStackableWith(sourceItem) ? targetItem : null;
         })();
         if (stackTarget) return sourceItem.move({ toStack: stackTarget });
@@ -746,7 +767,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Update container if dropping into one
         const containerElem = htmlClosest(event.item, "ul[data-container-id]");
         const containerId = containerElem?.dataset.containerId ?? "";
-        const container = inventory.get(containerId);
+        const container = targetItem?.isOfType("backpack") ? targetItem : inventory.get(containerId);
         if (container && !container.isOfType("backpack")) {
             throw ErrorPF2e("Unexpected non-container retrieved while sorting items");
         }
@@ -1033,7 +1054,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         if (isPhysicalData(itemSource)) {
-            const containerId = htmlClosest(event.target, "li[data-item-is-container]")?.dataset.itemId?.trim() || null;
+            const containerId = htmlClosest(event.target, "li[data-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
                 itemSource.system.containerId = containerId;
@@ -1095,7 +1116,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const containerId = htmlClosest(event.target, "[data-item-is-container=true]")?.dataset.containerId?.trim();
+        const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.inventory.findStackableItem(item._source);
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
