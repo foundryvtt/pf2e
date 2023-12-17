@@ -8,7 +8,7 @@ import { disarm } from "./athletics/disarm.ts";
 import * as forceOpen from "./athletics/force-open.ts";
 import { grapple } from "./athletics/grapple.ts";
 import { highJump } from "./athletics/high-jump.ts";
-import { longJump } from "./athletics/long-jump.ts";
+import * as longJump from "./athletics/long-jump.ts";
 import * as reposition from "./athletics/reposition.ts";
 import { shove } from "./athletics/shove.ts";
 import { swim } from "./athletics/swim.ts";
@@ -92,7 +92,7 @@ export const ActionMacros = {
     forceOpen: forceOpen.legacy,
     grapple,
     highJump,
-    longJump,
+    longJump: longJump.legacy,
     reposition: reposition.legacy,
     shove,
     swim,
@@ -169,6 +169,7 @@ export const SystemActions: Action[] = [
     hide.action,
     interact,
     leap,
+    longJump.action,
     maneuverInFlight.action,
     palmAnObject.action,
     pickALock.action,
