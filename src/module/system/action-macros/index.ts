@@ -3,7 +3,7 @@ import * as maneuverInFlight from "./acrobatics/maneuver-in-flight.ts";
 import * as squeeze from "./acrobatics/squeeze.ts";
 import * as tumbleThrough from "./acrobatics/tumble-through.ts";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam.ts";
-import { climb } from "./athletics/climb.ts";
+import * as climb from "./athletics/climb.ts";
 import { disarm } from "./athletics/disarm.ts";
 import * as forceOpen from "./athletics/force-open.ts";
 import { grapple } from "./athletics/grapple.ts";
@@ -87,7 +87,7 @@ export const ActionMacros = {
     tumbleThrough: tumbleThrough.legacy,
 
     // Athletics
-    climb,
+    climb: climb.legacy,
     disarm,
     forceOpen: forceOpen.legacy,
     grapple,
@@ -154,6 +154,7 @@ export const SystemActions: Action[] = [
     aid,
     avoidNotice.action,
     balance.action,
+    climb.action,
     coerce.action,
     commandAnAnimal.action,
     concealAnObject.action,
