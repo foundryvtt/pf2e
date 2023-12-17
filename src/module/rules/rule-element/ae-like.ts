@@ -154,6 +154,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         }
     }
 
+    static getNewValue(mode: AELikeChangeMode, current: number, change: number, merge?: boolean): number;
     static getNewValue<TCurrent>(
         mode: AELikeChangeMode,
         current: TCurrent,
