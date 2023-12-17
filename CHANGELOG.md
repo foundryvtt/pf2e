@@ -1,3 +1,21 @@
+## 5.11.4
+
+### Bugfixes
+
+-   (stwlam) Fix dropping items into closed containers
+-   (stwlam) Fix deducting uses from non-auto-destroy items
+-   (stwlam) Fix tagging consumable formulas that contain arithmetic as healing
+
+## Data Updates
+
+-   (Dire Weasel) Add burst to Dispelling Globe
+-   (Dire Weasel) Change some Panache links to point to the effect rather than the feature
+-   (DocSchlock) Add Keep Stone Ingot and Chunk
+-   (DocSchlock) Change Precise Debilitations effect to expire at end of turn
+-   (DocSchlock) Fix Liberator Edicts and Anathemas
+-   (DocSchlock) Fix positioning of effects in Methodical Debilitations Feat
+-   (stwlam) Fix definition of unholy IWR
+
 ## 5.11.3
 
 ### Bugfixes
