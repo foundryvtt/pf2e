@@ -299,7 +299,7 @@ function getStrikeAttackDomains(
         const alternativeAttributeModifier = actor.isOfType("character")
             ? weaponTraits.has("finesse")
                 ? createAttributeModifier({ actor, attribute: "dex", domains })
-                : weaponTraits.has("brutal")
+                : weaponTraits.has("brutal") || weaponTraits.has("propulsive")
                   ? createAttributeModifier({ actor, attribute: "str", domains })
                   : null
             : null;
