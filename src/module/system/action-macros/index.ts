@@ -11,7 +11,7 @@ import { highJump } from "./athletics/high-jump.ts";
 import * as longJump from "./athletics/long-jump.ts";
 import * as reposition from "./athletics/reposition.ts";
 import { shove } from "./athletics/shove.ts";
-import { swim } from "./athletics/swim.ts";
+import * as swim from "./athletics/swim.ts";
 import * as trip from "./athletics/trip.ts";
 import { whirlingThrow } from "./athletics/whirling-throw.ts";
 import { aid } from "./basic/aid.ts";
@@ -95,7 +95,7 @@ export const ActionMacros = {
     longJump: longJump.legacy,
     reposition: reposition.legacy,
     shove,
-    swim,
+    swim: swim.legacy,
     trip: trip.legacy,
     whirlingThrow,
 
@@ -187,6 +187,7 @@ export const SystemActions: Action[] = [
     step,
     stride,
     subsist.action,
+    swim.action,
     takeCover,
     track.action,
     treatDisease.action,
