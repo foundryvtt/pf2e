@@ -726,9 +726,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const targetItemRow = htmlClosest(event.related, "li[data-item-id]");
             const targetItem = this.actor.inventory.get(targetItemRow?.dataset.itemId ?? "");
             if (targetItemRow && targetItem?.isOfType("backpack") && !openContainer) {
-                for (const row of containerRowData) {
-                    if (row !== targetItemRow) row.classList.remove("drop-highlight");
-                }
                 htmlQuery(targetItemRow, ":scope > .data")?.classList.add("drop-highlight");
                 return false;
             }
