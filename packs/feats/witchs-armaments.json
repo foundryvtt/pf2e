@@ -16,32 +16,51 @@
         "level": {
             "value": 1
         },
+        "maxTakable": 3,
         "prerequisites": {
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "choices": [
                     {
-                        "label": "Eldritch Nails",
+                        "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
+                        "label": "PF2E.SpecificRule.Witch.WitchsArmaments.EldritchNails",
+                        "predicate": [
+                            {
+                                "not": "witchs-armaments:nails"
+                            }
+                        ],
                         "value": "nails"
                     },
                     {
-                        "label": "Iron Teeth",
+                        "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
+                        "label": "PF2E.SpecificRule.Witch.WitchsArmaments.IronTeeth",
+                        "predicate": [
+                            {
+                                "not": "witchs-armaments:teeth"
+                            }
+                        ],
                         "value": "teeth"
                     },
                     {
-                        "label": "Living Hair",
+                        "img": "icons/creatures/webs/web-thin-pruple.webp",
+                        "label": "PF2E.SpecificRule.Witch.WitchsArmaments.LivingHair",
+                        "predicate": [
+                            {
+                                "not": "witchs-armaments:hair"
+                            }
+                        ],
                         "value": "hair"
                     }
                 ],
                 "key": "ChoiceSet",
-                "prompt": "Select a witch's armament",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
                 "rollOption": "witchs-armaments"
             },
             {
@@ -54,8 +73,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
                 "key": "Strike",
-                "label": "Eldritch Nails",
+                "label": "PF2E.SpecificRule.Witch.WitchsArmaments.EldritchNails",
                 "predicate": [
                     "witchs-armaments:nails"
                 ],
@@ -75,8 +95,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-rows-red.webp",
                 "key": "Strike",
-                "label": "Iron Teeth",
+                "label": "PF2E.SpecificRule.Witch.WitchsArmaments.IronTeeth",
                 "predicate": [
                     "witchs-armaments:teeth"
                 ],
@@ -95,8 +116,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "icons/creatures/webs/web-thin-pruple.webp",
                 "key": "Strike",
-                "label": "Living Hair",
+                "label": "PF2E.SpecificRule.Witch.WitchsArmaments.LivingHair",
                 "predicate": [
                     "witchs-armaments:hair"
                 ],
