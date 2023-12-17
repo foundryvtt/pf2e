@@ -34,13 +34,13 @@ const MODIFIER_TYPES = new Set([
 
 type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 
-interface BaseRawModifier {
+interface RawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
     /** The display name of this modifier; can be a localization key (see en.json). */
     label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
-    modifier?: number;
+    modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
@@ -63,12 +63,12 @@ interface BaseRawModifier {
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean | null;
-    /** Any notes about this modifier. */
-    notes?: string;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Hide this modifier in UIs if it is disabled */
     hideIfDisabled?: boolean;
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force?: boolean;
 }
 
 interface ModifierAdjustment {
@@ -80,12 +80,6 @@ interface ModifierAdjustment {
     suppress?: boolean;
     getNewValue?: (current: number) => number;
     getDamageType?: (current: DamageType | null) => DamageType | null;
-}
-
-interface RawModifier extends BaseRawModifier {
-    modifier: number;
-    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
-    force?: boolean;
 }
 
 interface DeferredValueParams {
@@ -129,7 +123,6 @@ class ModifierPF2e implements RawModifier {
     predicate: PredicatePF2e;
     critical: boolean | null;
     traits: string[];
-    notes: string;
     hideIfDisabled: boolean;
 
     /**
@@ -161,7 +154,6 @@ class ModifierPF2e implements RawModifier {
                   enabled: args[3],
                   ignored: args[4],
                   source: args[5],
-                  notes: args[6],
               }
             : args[0];
 
@@ -173,14 +165,13 @@ class ModifierPF2e implements RawModifier {
         this.type = setHasElement(MODIFIER_TYPES, params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
-        this.adjustments = deepClone(params.adjustments ?? []);
+        this.adjustments = fu.deepClone(params.adjustments ?? []);
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = new PredicatePF2e(params.predicate ?? []);
-        this.notes = params.notes ?? "";
-        this.traits = deepClone(params.traits ?? []);
+        this.traits = fu.deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
 
@@ -248,12 +239,18 @@ class ModifierPF2e implements RawModifier {
 
     /** Sets the ignored property after testing the predicate */
     test(options: string[] | Set<string>): void {
+        if (this.predicate.length === 0) return;
         const rollOptions = this.rule ? [...options, ...this.rule.item.getRollOptions("parent")] : options;
         this.ignored = !this.predicate.test(rollOptions);
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate({ ...this, item: undefined });
+        return fu.deepClone({
+            ...this,
+            predicate: [...this.predicate],
+            rule: this.rule?.toObject(),
+            item: undefined,
+        });
     }
 
     toString(): string {
@@ -273,7 +270,7 @@ type ModifierOrderedParams = [
     enabled?: boolean,
     ignored?: boolean,
     source?: string,
-    notes?: string
+    notes?: string,
 ];
 
 /**
@@ -316,16 +313,10 @@ function createProficiencyModifier({
 }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+    const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
     const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? [
-              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-              game.settings.get("pf2e", "proficiencyTrainedModifier"),
-              game.settings.get("pf2e", "proficiencyExpertModifier"),
-              game.settings.get("pf2e", "proficiencyMasterModifier"),
-              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-          ]
+        ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
     const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
@@ -362,7 +353,7 @@ const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modi
 function applyStacking(
     best: Record<string, ModifierPF2e>,
     modifier: ModifierPF2e,
-    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean
+    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -556,7 +547,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
                 }
                 return resolved;
             },
-            { value: modifier.modifier, relabel: null }
+            { value: modifier.modifier, relabel: null },
         );
         modifier.modifier = resolvedAdjustment.value;
 
@@ -567,7 +558,7 @@ function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): v
         // If applicable, change the damage type of this modifier, using only the final adjustment found
         modifier.damageType = adjustments.reduce(
             (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
-            modifier.damageType
+            modifier.damageType,
         );
     }
 }
@@ -586,7 +577,7 @@ class CheckModifier extends StatisticModifier {
         slug: string,
         statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
         modifiers: ModifierPF2e[] = [],
-        rollOptions: string[] | Set<string> = new Set()
+        rollOptions: string[] | Set<string> = new Set(),
     ) {
         const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
         super(slug, baseModifiers.concat(modifiers), rollOptions);
@@ -663,8 +654,8 @@ class DamageDicePF2e {
         this.category = tupleHasValue(["persistent", "precision", "splash"], params.category)
             ? params.category
             : this.damageType === "bleed"
-            ? "persistent"
-            : null;
+              ? "persistent"
+              : null;
         this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
 
         this.predicate =
@@ -685,14 +676,11 @@ class DamageDicePF2e {
     }
 
     toObject(): RawDamageDice {
-        return {
-            ...this,
-            predicate: deepClone([...this.predicate]),
-        };
+        return fu.deepClone({ ...this, predicate: [...this.predicate] });
     }
 }
 
-type RawDamageDice = Required<DamageDiceParameters>;
+interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
     CheckModifier,
@@ -708,7 +696,6 @@ export {
     ensureProficiencyOption,
 };
 export type {
-    BaseRawModifier,
     DamageDiceOverride,
     DamageDiceParameters,
     DeferredPromise,
@@ -716,6 +703,7 @@ export type {
     DeferredValueParams,
     ModifierAdjustment,
     ModifierType,
+    RawDamageDice,
     RawModifier,
     TestableDeferredValueParams,
 };

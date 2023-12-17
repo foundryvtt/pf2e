@@ -1,10 +1,13 @@
 {
     "_id": "uuBhzN6xrplrwKyI",
-    "img": "systems/pf2e/icons/default-icons/armor.svg",
+    "img": "systems/pf2e/icons/equipment/armor/coral-armor.webp",
     "name": "Reef Heart",
     "system": {
         "acBonus": 3,
         "baseItem": "coral-armor",
+        "bulk": {
+            "value": 2
+        },
         "category": "medium",
         "checkPenalty": -2,
         "containerId": null,
@@ -12,9 +15,6 @@
             "value": "<p>This <em>+2 resilient coral armor</em>, often favored by allies of merfolk and aquatic elves, is made of living coral carefully harvested from the ocean depths. Legends speak of a variety of similar coral armors with distinct powers, but surface-dwellers know of <em>reef heart</em> as a magic armor that makes it easier for them to travel under the sea. <em>Reef heart</em> enables you to breathe underwater and gives you a swim Speed equal to half your land Speed.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> command, envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Coral Eruption]</em>. If you conjure the coral underwater, it ceases dealing damage after 1 minute, but its duration is unlimited. If the magical coral remains in place for 1 year, it becomes non-magical coral from which a reef might grow.</p>"
         },
         "dexCap": 2,
-        "equippedBulk": {
-            "value": "2"
-        },
         "group": "skeletal",
         "hardness": 0,
         "hp": {
@@ -28,33 +28,17 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potencyRune": {
-            "value": 2
-        },
         "price": {
             "value": {
                 "gp": 2000
             }
         },
-        "propertyRune1": {
-            "value": null
-        },
-        "propertyRune2": {
-            "value": null
-        },
-        "propertyRune3": {
-            "value": null
-        },
-        "propertyRune4": {
-            "value": null
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "resiliencyRune": {
-            "value": "resilient"
-        },
         "rules": [
             {
                 "key": "BaseSpeed",
@@ -62,10 +46,12 @@
                 "value": "floor(@actor.attributes.speed.total/2)"
             }
         ],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder Treasure Vault"
+        "runes": {
+            "potency": 2,
+            "property": [],
+            "resilient": 1
         },
+        "size": "med",
         "specific": {
             "material": {
                 "grade": null,
@@ -73,25 +59,17 @@
             },
             "runes": {
                 "potency": 2,
+                "property": [],
                 "resilient": 1
-            },
-            "value": true
+            }
         },
         "speedPenalty": -5,
-        "stackGroup": null,
         "strength": 2,
         "traits": {
             "rarity": "common",
             "value": [
-                "aquadynamic",
-                "conjuration"
+                "aquadynamic"
             ]
-        },
-        "usage": {
-            "value": "wornarmor"
-        },
-        "weight": {
-            "value": "3"
         }
     },
     "type": "armor"

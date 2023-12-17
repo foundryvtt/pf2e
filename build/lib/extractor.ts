@@ -1,7 +1,8 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
-import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, SpellSource, isPhysicalData } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
+import { PublicationData } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, sluggify } from "@util/index.ts";
 import fs from "fs";
@@ -123,7 +124,7 @@ class PackExtractor {
 
                     console.log(`Finished extracting ${sourceCount} documents from pack ${dbDirectory}`);
                     return sourceCount;
-                })
+                }),
             )
         ).reduce((runningTotal, count) => runningTotal + count, 0);
     }
@@ -140,7 +141,7 @@ class PackExtractor {
             const getFolderPath = (folder: DBFolder, parts: string[] = []): string => {
                 if (parts.length > 3) {
                     throw PackError(
-                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`
+                        `Error: Maximum folder depth exceeded for "${folder.name}" in pack: ${packDirectory}`,
                     );
                 }
                 parts.unshift(sluggify(folder.name));
@@ -229,7 +230,7 @@ class PackExtractor {
             if (oldSource._id !== newSource._id) {
                 throw PackError(
                     `The ID of doc "${newSource.name}" (${newSource._id}) does not match the current ID ` +
-                        `(${oldSource._id}). Documents that are already in the system must keep their current ID.`
+                        `(${oldSource._id}). Documents that are already in the system must keep their current ID.`,
                 );
             }
         }
@@ -314,7 +315,7 @@ class PackExtractor {
                 if (typeof slug === "string" && slug !== sluggify(docSource.name)) {
                     console.warn(
                         `Warning: Name change detected on ${docSource.name}. ` +
-                            "Please remember to create a slug migration before next release."
+                            "Please remember to create a slug migration before next release.",
                     );
                 }
 
@@ -347,7 +348,7 @@ class PackExtractor {
                 } catch (error) {
                     console.error(error);
                     throw PackError(
-                        `Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`
+                        `Failed to parse description of ${docSource.name} (${docSource._id}):\n${description}`,
                     );
                 }
             })();
@@ -414,14 +415,14 @@ class PackExtractor {
             if (key === "_id") {
                 topLevel = docSource;
                 if (docSource.folder === null) {
-                    delete docSource.folder;
+                    delete (docSource as { folder?: null }).folder;
                 }
                 delete (docSource as { _stats?: unknown })._stats;
 
                 if ("img" in docSource && typeof docSource.img === "string") {
                     docSource.img = docSource.img.replace(
                         "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                        "systems/pf2e/"
+                        "systems/pf2e/",
                     ) as ImageFilePath;
                 }
 
@@ -435,16 +436,16 @@ class PackExtractor {
                 if ("type" in docSource) {
                     if (isActorSource(docSource) || isItemSource(docSource)) {
                         docSource.name = docSource.name.trim();
-                        delete (docSource as { ownership?: unknown }).ownership;
-                        delete (docSource as { effects?: unknown }).effects;
-                        delete (docSource.system as { schema?: unknown }).schema;
+                        delete (docSource as { ownership?: object }).ownership;
+                        delete (docSource as { effects?: object[] }).effects;
+                        delete (docSource.system as { _migration?: object })._migration;
                     }
 
                     if (isActorSource(docSource)) {
                         this.#lastActor = docSource;
 
                         if (docSource.prototypeToken?.name === docSource.name) {
-                            delete (docSource as { prototypeToken?: unknown }).prototypeToken;
+                            delete (docSource as { prototypeToken?: object }).prototypeToken;
                         } else if (docSource.prototypeToken) {
                             const withToken: {
                                 img: ImageFilePath;
@@ -459,13 +460,14 @@ class PackExtractor {
                             }
                         }
 
+                        if ("publication" in docSource.system.details) {
+                            const publication: Partial<PublicationData> = docSource.system.details.publication;
+                            if (!publication.authors?.trim()) delete publication.authors;
+                        }
+
                         if (docSource.type === "character") {
                             delete (docSource.system.details.biography as { visibility?: unknown }).visibility;
                         } else if (docSource.type === "npc") {
-                            const source: Partial<NPCSystemSource["details"]["source"]> =
-                                docSource.system.details.source;
-                            if (!source.author?.trim()) delete source.author;
-
                             const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
                             if (!speed.details?.trim()) delete speed.details;
 
@@ -483,8 +485,6 @@ class PackExtractor {
                         delete (docSource as Partial<PackEntry>).ownership;
                     }
                 }
-            } else if (["_modifiers", "_sheetTab"].includes(key)) {
-                delete docSource[key as DocumentKey];
             } else if (docSource[key as DocumentKey] instanceof Object) {
                 this.#pruneTree(docSource[key as DocumentKey] as unknown as PackEntry, topLevel);
             }
@@ -506,20 +506,26 @@ class PackExtractor {
             delete (source.system.traits as { otherTags?: unknown }).otherTags;
         }
 
+        const publication: Partial<PublicationData> = source.system.publication;
+        if (!publication.authors?.trim()) delete publication.authors;
+
         if (isPhysicalData(source)) {
             delete (source.system as { identification?: unknown }).identification;
-
+            if ("stackGroup" in source.system && !source.system.stackGroup) {
+                delete (source.system as { stackGroup?: unknown }).stackGroup;
+            }
             if (source.type === "consumable" && !source.system.spell) {
                 delete (source.system as { spell?: unknown }).spell;
+            }
+
+            if (itemIsOfType(source, "armor", "shield", "weapon") && !source.system.specific) {
+                delete (source.system as { specific?: unknown }).specific;
             }
 
             if (source.type === "weapon") {
                 delete (source.system as { property1?: unknown }).property1;
                 if ("value" in source.system.damage) {
                     delete source.system.damage.value;
-                }
-                if (source.system.specific?.value === false) {
-                    delete source.system.specific;
                 }
                 if (!source.system.damage.persistent) {
                     delete (source.system.damage as { persistent?: unknown }).persistent;
@@ -541,7 +547,7 @@ class PackExtractor {
             }
         } else if (source.type === "feat") {
             const isFeat = !["ancestryfeature", "classfeature", "pfsboon", "deityboon", "curse"].includes(
-                source.system.category
+                source.system.category,
             );
             if (isFeat && source.img === "systems/pf2e/icons/default-icons/feat.svg") {
                 source.img = "systems/pf2e/icons/features/feats/feats.webp";
@@ -552,11 +558,6 @@ class PackExtractor {
             }
             if (!source.system.onlyLevel1) {
                 delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
-            }
-        } else if (source.type === "spell") {
-            const components: Record<string, boolean> = source.system.components;
-            for (const [key, value] of Object.entries(components)) {
-                if (value === false) delete components[key];
             }
         } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
             delete (source.system as { ability?: unknown }).ability;
@@ -582,6 +583,7 @@ class PackExtractor {
             "spellcastingEntry",
             "spell",
             "weapon",
+            "shield",
             "armor",
             "equipment",
             "consumable",
@@ -654,7 +656,7 @@ class PackExtractor {
             if (!itemTypeList.includes(key)) {
                 if (this.emitWarnings) {
                     console.log(
-                        `Warning in ${docSource.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`
+                        `Warning in ${docSource.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
                     );
                 }
                 for (const item of itemSet) {
@@ -725,7 +727,7 @@ class PackExtractor {
             [
                 new RegExp(
                     "(\\+|\\-)\\d+ (Status|Circumstance) (Bonus )?(to|on) ((All|Fortitude|Reflex|Will) )?Saves",
-                    "i"
+                    "i",
                 ),
                 "top",
             ],
@@ -770,7 +772,7 @@ class PackExtractor {
             const notAbilityMatch = notAbilities.find((naName) => ability.name.match(naName[0]));
             if (notAbilityMatch) {
                 console.log(
-                    `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`
+                    `Error in ${docName}: ${notAbilityMatch[0]} has type action but should be type ${notAbilityMatch[1]}!`,
                 );
             }
 
@@ -818,7 +820,7 @@ class PackExtractor {
     #sortItemsWithOverrides(
         docName: string,
         actions: ItemSourcePF2e[],
-        overrides: Map<RegExp, "top" | "bottom">
+        overrides: Map<RegExp, "top" | "bottom">,
     ): ItemSourcePF2e[] {
         const topActions: ItemSourcePF2e[] = [];
         const middleActions: ItemSourcePF2e[] = [];
@@ -834,7 +836,7 @@ class PackExtractor {
                 } else {
                     if (this.emitWarnings) {
                         console.log(
-                            `Warning in ${docName}: Override item '${regexp}' has undefined override section '${position}', should be top or bottom!`
+                            `Warning in ${docName}: Override item '${regexp}' has undefined override section '${position}', should be top or bottom!`,
                         );
                     }
                 }

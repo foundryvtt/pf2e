@@ -4,7 +4,7 @@ export class MockUser {
     readonly _source: UserSourcePF2e;
 
     constructor(data: UserSourcePF2e) {
-        this._source = duplicate(data);
+        this._source = fu.duplicate(data);
     }
 
     get name(): string {
@@ -13,7 +13,7 @@ export class MockUser {
 
     async update(changes: Record<string, unknown>): Promise<this> {
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
+            fu.setProperty(this._source, k, v);
         }
         return this;
     }

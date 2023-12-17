@@ -1,6 +1,6 @@
 {
     "_id": "oUhwrijg4rClCplO",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Brutal Bully",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You push your foes around and leave bruises. While raging, when you successfully Disarm, Grapple, Shove, or Trip a foe, you deal that foe [[/r @actor.abilties.str.mod[bludgeoning]]]{bludgeoning damage} equal to your Strength modifier; add this to the damage from a critical success to Trip.</p>"
+            "value": "<p>You push your foes around and leave bruises. While raging, when you successfully Disarm, Grapple, Shove, or Trip a foe, you deal that foe @Damage[@actor.abilities.str.mod[bludgeoning]]{bludgeoning} damage equal to your Strength modifier; add this to the damage from a critical success to Trip.</p>"
         },
         "level": {
             "value": 6
@@ -23,10 +23,16 @@
                 }
             ]
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "key": "Note",
                 "outcome": [
+                    "criticalSuccess",
                     "success"
                 ],
                 "predicate": [
@@ -35,8 +41,8 @@
                         "or": [
                             "action:disarm",
                             "action:grapple",
-                            "action:trip",
-                            "action:shove"
+                            "action:shove",
+                            "action:trip"
                         ]
                     }
                 ],
@@ -45,9 +51,6 @@
                 "title": "{item|name}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

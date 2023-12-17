@@ -1,5 +1,5 @@
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";

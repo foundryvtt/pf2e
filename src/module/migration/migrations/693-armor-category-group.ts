@@ -1,6 +1,6 @@
 import { ArmorSystemSource } from "@item/armor/data.ts";
 import { ArmorCategory, ArmorGroup } from "@item/armor/types.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Normalize armor range to numeric or null, remove ability property, and let's do category and group too! */

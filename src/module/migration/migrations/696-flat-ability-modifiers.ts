@@ -1,6 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { setHasElement, sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -12,7 +12,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     private abilityModPattern = /@abilities\.([a-z]{3})\.mod\b/;
 
     private abbreviationMap = new Map(
-        Array.from(ATTRIBUTE_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a])
+        Array.from(ATTRIBUTE_ABBREVIATIONS).map((a) => [`PF2E.Ability${sluggify(a, { camel: "bactrian" })}`, a]),
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {

@@ -1,0 +1,84 @@
+{
+    "_id": "DrjFwJhp66GfH5Wi",
+    "img": "icons/equipment/neck/choker-rounded-gold-green.webp",
+    "name": "Entertainer's Cincture (Greater)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>The designs adorning these lush sashes often imitate the decor of famous opera houses, theaters, and museums. When you invest this item, choose Deception, Diplomacy, Intimidation, or Performance; you gain a +3 item bonus to that skill.</p>\n<hr />\n<p><strong>Activate—Encore!</strong> <span class=\"action-glyph\">F</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Gain 1 Focus Point, which you can spend only to cast a bard composition spell. If you don't spend this point by the end of this turn, it is lost.</p>\n<hr />\n<p><strong>Activate—Transcribe</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You tuck a small roll of paper into the cincture. For the next hour or until you Dismiss the activation, any performance you make is recorded on the paper, and the paper expands as necessary to accommodate it. Depending on the type of performance, this might take the form of sheet music, a transcript, or a diagram of dance moves.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You are a bard.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 17
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 13000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "entertainers-cincture-skill",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "performance"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.entertainersCinctureSkill}",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "focused",
+                "invested",
+                "occult"
+            ]
+        },
+        "usage": {
+            "value": "wornbelt"
+        }
+    },
+    "type": "equipment"
+}

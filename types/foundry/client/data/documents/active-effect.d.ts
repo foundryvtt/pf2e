@@ -11,12 +11,7 @@ declare global {
      * Each ActiveEffect belongs to the effects collection of its parent Document.
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
-    class ActiveEffect<
-            TParent extends
-                | Actor<TokenDocument<Scene | null> | null>
-                | Item<Actor<TokenDocument<Scene | null> | null> | null>
-                | null
-        >
+    class ActiveEffect<TParent extends Actor | Item | null>
         extends ClientBaseActiveEffect<TParent>
         implements TemporaryEffect
     {
@@ -67,7 +62,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor<TokenDocument<Scene | null>>, change: ActiveEffectSource["changes"][number]): unknown;
+        apply(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -82,10 +77,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyAdd(
-            actor: Actor<TokenDocument<Scene | null>>,
-            change: ActiveEffectSource["changes"][number]
-        ): unknown;
+        protected _applyAdd(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses a MULTIPLY application mode.
@@ -94,10 +86,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyMultiply(
-            actor: Actor<TokenDocument<Scene | null>>,
-            change: ActiveEffectSource["changes"][number]
-        ): unknown;
+        protected _applyMultiply(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses an OVERRIDE application mode.
@@ -106,10 +95,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyOverride(
-            actor: Actor<TokenDocument<Scene | null>>,
-            change: ActiveEffectSource["changes"][number]
-        ): unknown;
+        protected _applyOverride(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
@@ -118,10 +104,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyUpgrade(
-            actor: Actor<TokenDocument<Scene | null>>,
-            change: ActiveEffectSource["changes"][number]
-        ): unknown;
+        protected _applyUpgrade(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /**
          * Apply an ActiveEffect that uses a CUSTOM application mode.
@@ -129,10 +112,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyCustom(
-            actor: Actor<TokenDocument<Scene | null>>,
-            change: ActiveEffectSource["changes"][number]
-        ): unknown;
+        protected _applyCustom(actor: Actor<TokenDocument>, change: ActiveEffectSource["changes"][number]): unknown;
 
         /** Get the name of the source of the Active Effect */
         protected _getSourceName(): Promise<string>;
@@ -142,18 +122,13 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preCreate(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options: DocumentModificationContext<TParent>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
     }
 
-    interface ActiveEffect<
-        TParent extends
-            | Actor<TokenDocument<Scene | null> | null>
-            | Item<Actor<TokenDocument<Scene | null> | null> | null>
-            | null
-    > extends ClientBaseActiveEffect<TParent> {
+    interface ActiveEffect<TParent extends Actor | Item | null> extends ClientBaseActiveEffect<TParent> {
         duration: PreparedEffectDurationData;
     }
 

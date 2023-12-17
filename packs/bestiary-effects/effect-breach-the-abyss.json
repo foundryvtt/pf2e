@@ -1,0 +1,136 @@
+{
+    "_id": "68oispwYGLUUxjzt",
+    "img": "icons/magic/unholy/hand-weapon-glow-black-green.webp",
+    "name": "Effect: Breach the Abyss",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d20"
+        },
+        "description": {
+            "value": "<p>the weapon deals an extra 2d6 damage.</p>\n<p>Roll 1d20 to determine the type:</p>\n<ul>\n<li>1-7 acid</li>\n<li>8-9 cold</li>\n<li>10-11 electricity</li>\n<li>12-18 fire</li>\n<li>19-20 void</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Scenario #5-06: Ukuja, the First Wall"
+        },
+        "rules": [
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:effect:breach-the-abyss",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-abyss",
+                            8
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-abyss",
+                            9
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-abyss",
+                            10
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-abyss",
+                            11
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-abyss",
+                            12
+                        ]
+                    },
+                    {
+                        "lte": [
+                            "self:effect:breach-the-abyss",
+                            18
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:effect:breach-the-abyss",
+                            19
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

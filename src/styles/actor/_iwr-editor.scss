@@ -15,15 +15,14 @@
 
             label {
                 flex: unset;
-                margin-right: 0.5em;
                 white-space: nowrap;
                 width: 6em;
             }
 
             a.form-action,
-            i.synthetic-source {
+            .synthetic-source {
                 flex: 0;
-                margin-left: auto;
+                margin-left: 0.5em;
             }
         }
 
@@ -32,22 +31,21 @@
         }
     }
 
-    select {
-        max-width: fit-content;
-
-        &:disabled {
-            color: var(--color-text-dark-7);
-        }
+    select:disabled {
+        color: var(--color-text-dark-7);
     }
 
     tags.tagify.pf2e-tagify {
         background: rgba(black, 0.05);
         border: 1px solid var(--color-border-light-tertiary);
+
+        &[disabled] > .tagify__input {
+            margin: 0;
+        }
     }
 
     input[type="number"] {
         max-width: 5ch;
-        margin-left: 0.5em;
     }
 }
 

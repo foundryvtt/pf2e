@@ -1,0 +1,35 @@
+<div class="pf2e chat-card item-card" data-tooltip-class="pf2e">
+    <header class="card-header flexrow">
+        <img src="{{img}}" title="{{localize name}}" />
+        <h3>{{localize name}}</h3>
+        <h4>{{localize "PF2E.Kingmaker.Army.Gear.ItemLevel" level=level}}</h4>
+    </header>
+
+    <section class="item-properties tags">
+        {{#each traits as |trait|}}
+            <span class="tag" data-trait="{{localize trait.label}}" data-tooltip="{{localize trait.description}}">{{localize trait.label}}</span>
+        {{/each}}
+    </section>
+
+    <hr/>
+
+    <section class="card-content">
+        {{{localize description}}}
+    </section>
+
+    {{#each ranks as |rank|}}
+        <hr/>
+        <section>
+            <div class="flexrow">
+                <h4 style="min-width: 60%"><em>{{localize rank.name}}</em></h4>
+                <span>{{localize "PF2E.Kingmaker.Army.Gear.LevelLabel" level=rank.level}}</span>
+                <span style="text-align: right">{{rank.price}} {{localize "PF2E.Kingmaker.Kingdom.Resources.RP"}}</span>
+            </div>
+            {{#if rank.description}}<span>{{localize rank.description}}</span>{{/if}}
+        </section>
+    {{/each}}
+    {{#if price}}
+        <hr/>
+        <div>{{price}} {{localize "PF2E.Kingmaker.Kingdom.Resources.RP"}}</div>
+    {{/if}}
+</div>

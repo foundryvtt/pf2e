@@ -1,6 +1,6 @@
 {
     "_id": "Z56DtGBd3AcZOCeG",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Cultural Adaptability",
     "system": {
         "actionType": {
@@ -19,15 +19,38 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "eq": [
+                                "item:trait",
+                                "{actor|system.details.ancestry.adopted}"
+                            ]
+                        },
+                        "item:level:1"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

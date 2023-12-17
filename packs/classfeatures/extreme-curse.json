@@ -1,6 +1,6 @@
 {
     "_id": "F4brPlp1tHGUqyuI",
-    "img": "systems/pf2e/icons/features/classes/extreme-curse.webp",
+    "img": "icons/equipment/neck/necklace-carved-bone-skull.webp",
     "name": "Extreme Curse",
     "system": {
         "actionType": {
@@ -19,10 +19,35 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
         },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "oracular-curse:stage:4",
+                    {
+                        "not": "self:condition:doomed"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Doomed"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "oracular-curse:stage:4",
+                    "item:slug:doomed"
+                ],
+                "property": "badge-value",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

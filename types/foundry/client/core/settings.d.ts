@@ -75,7 +75,7 @@ declare global {
         register<TChoices extends Record<string, unknown> | undefined>(
             module: string,
             key: string,
-            data: SettingRegistration<TChoices>
+            data: SettingRegistration<TChoices>,
         ): void;
 
         /**
@@ -118,7 +118,7 @@ declare global {
     }
 
     interface SettingRegistration<
-        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined
+        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined,
     > extends Omit<SettingConfig<TChoices>, "config" | "key" | "namespace" | "scope"> {
         config?: boolean;
         scope?: "client" | "world";
@@ -131,7 +131,7 @@ declare global {
     }
 
     /** A simple interface for World settings storage which imitates the API provided by localStorage */
-    class WorldSettingsStorage extends Map<string, unknown> {
+    class WorldSettingsStorage extends Collection<Setting> {
         constructor(settings: object);
 
         getItem(key: string): string | null;

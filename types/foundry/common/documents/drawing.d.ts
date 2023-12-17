@@ -1,88 +1,107 @@
-import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseScene, BaseUser } from "./module.d.ts";
-import type { ShapeData } from "../data/data.d.ts";
-
-/** The Drawing embedded document model. */
-export default class BaseDrawing<TParent extends BaseScene | null> extends Document<TParent> {
-    static override get metadata(): DrawingMetadata;
-
-    /** Is a user able to update or delete an existing Drawing document? */
-    protected static _canModify(user: BaseUser, doc: BaseDrawing<BaseScene | null>, data: DrawingSource): boolean;
-}
-
-export default interface BaseDrawing<TParent extends BaseScene | null> extends Document<TParent> {
-    author: BaseUser;
-    shape: ShapeData<this>;
-    readonly _source: DrawingSource;
-}
+import type * as abstract from "../abstract/module.d.ts";
+import type * as data from "../data/data.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
- * The data schema for a Drawing embedded document.
- * @see BaseDrawing
+ * The Document definition for a Drawing.
+ * Defines the DataSchema and common behaviors for a Drawing which are shared between both client and server.
+ * @memberof documents
  *
- * @param data       Initial data used to construct the data object
- * @param [document] The embedded document to which this data object belongs
- *
- * @property t                    The value in CONST.DRAWING_TYPES which defines the geometry type of this drawing
- * @property x                    The x-coordinate position of the top-left corner of the drawn shape
- * @property y                    The y-coordinate position of the top-left corner of the drawn shape
- * @property width                The pixel width of the drawing figure
- * @property height               The pixel height of the drawing figure
- * @property [rotation=0]         The angle of rotation for the drawing figure
- * @property [z=0]                The z-index of this drawing relative to other siblings
- * @property [points]             An array of points [x,y] which define polygon vertices
- * @property [bezierFactor=0]     An amount of bezier smoothing applied, between 0 and 1
- * @property [fillType=0]         The fill type of the drawing shape, a value from CONST.DRAWING_FILL_TYPES
- * @property [fillColor]          An optional color string with which to fill the drawing geometry
- * @property [fillAlpha=0.5]      The opacity of the fill applied to the drawing geometry
- * @property [strokeWidth=8]      The width in pixels of the boundary lines of the drawing geometry
- * @property [strokeColor]        The color of the boundary lines of the drawing geometry
- * @property [strokeAlpha=1]      The opacity of the boundary lines of the drawing geometry
- * @property [texture]            The path to a tiling image texture used to fill the drawing geometry
- * @property [text]               Optional text which is displayed overtop of the drawing
- * @property [fontFamily=Signika] The font family used to display text within this drawing
- * @property [fontSize=48]        The font size used to display text within this drawing
- * @property [textColor=#FFFFFF]  The color of text displayed within this drawing
- * @property [textAlpha=1]        The opacity of text displayed within this drawing
- * @property [hidden=false]       Is the drawing currently hidden?
- * @property [locked=false]       Is the drawing currently locked?
+ * @param data    Initial data from which to construct the Drawing
+ * @param context Construction context options
  */
-export interface DrawingSource {
-    _id: string | null;
-    shape: ShapeData<null>["_source"];
-    t: DrawingShapeType;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    rotation?: number;
-    z?: number;
-    points?: [number, number][];
-    bezierFactor?: number;
-    fillType?: number;
-    fillColor?: string;
-    fillAlpha?: number;
-    strokeWidth?: number;
-    strokeColor?: number;
-    strokeAlpha?: number;
-    texture?: string;
-    text?: string;
-    fontFamily?: string;
-    fontSize?: number;
-    textColor?: string;
-    textAlpha?: number;
-    hidden?: boolean;
-    locked?: boolean;
+export default class BaseDrawing<TParent extends documents.BaseScene | null> extends abstract.Document<
+    TParent,
+    DrawingSchema
+> {
+    /* ---------------------------------------- */
+    /*  Model Configuration                     */
+    /* ---------------------------------------- */
+
+    static override get metadata(): DrawingMetadata;
+
+    static override defineSchema(): DrawingSchema;
+
+    static override validateJoint(data: DrawingSource): void;
+
+    /* ---------------------------------------- */
+    /*  Model Methods                           */
+    /* ---------------------------------------- */
+
+    override testUserPermission(
+        user: documents.BaseUser,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean },
+    ): boolean;
 }
 
-interface DrawingMetadata extends DocumentMetadata {
+export default interface BaseDrawing<TParent extends documents.BaseScene | null>
+    extends abstract.Document<TParent, DrawingSchema>,
+        ModelPropsFromSchema<DrawingSchema> {
+    get documentName(): DrawingMetadata["name"];
+}
+
+interface DrawingMetadata extends abstract.DocumentMetadata {
     name: "Drawing";
     collection: "drawings";
     label: "DOCUMENT.Drawing";
+    labelPlural: "DOCUMENT.Drawings";
     isEmbedded: true;
     permissions: {
-        create: "TEMPLATE_CREATE";
-        update: (typeof BaseDrawing)["_canModify"];
-        delete: (typeof BaseDrawing)["_canModify"];
+        create: "DRAWING_CREATE";
+        update: abstract.MetadataPermission;
+        delete: abstract.MetadataPermission;
     };
 }
+
+type DrawingSchema = {
+    /** The _id which uniquely identifies this BaseDrawing embedded document */
+    _id: fields.DocumentIdField;
+    /** The _id of the user who created the drawing */
+    author: fields.ForeignDocumentField<documents.BaseUser, true, false, true>;
+    /** The geometric shape of the drawing */
+    shape: fields.EmbeddedDataField<data.ShapeData<BaseDrawing<documents.BaseScene | null>>>;
+    /** The x-coordinate position of the top-left corner of the drawn shape */
+    x: fields.NumberField<number, number, true, false, true>;
+    /** The y-coordinate position of the top-left corner of the drawn shape */
+    y: fields.NumberField<number, number, true, false, true>;
+    /** The z-index of this drawing relative to other siblings */
+    z: fields.NumberField<number, number, true, false, true>;
+    /** The angle of rotation for the drawing figure */
+    rotation: fields.AngleField;
+    /** An amount of bezier smoothing applied, between 0 and 1 */
+    bezierFactor: fields.AlphaField;
+    /** The fill type of the drawing shape, a value from CONST.DRAWING_FILL_TYPES */
+    fillType: fields.NumberField<DrawingFillType, DrawingFillType, true, true, true>;
+    /** An optional color string with which to fill the drawing geometry */
+    fillColor: fields.ColorField;
+    /** The opacity of the fill applied to the drawing geometry */
+    fillAlpha: fields.AlphaField;
+    /** The width in pixels of the boundary lines of the drawing geometry */
+    strokeWidth: fields.NumberField;
+    /** The color of the boundary lines of the drawing geometry */
+    strokeColor: fields.ColorField;
+    /** The opacity of the boundary lines of the drawing geometry */
+    strokeAlpha: fields.AlphaField;
+    /** The path to a tiling image texture used to fill the drawing geometry */
+    texture: fields.FilePathField<ImageFilePath>;
+    /** Optional text which is displayed overtop of the drawing */
+    text: fields.StringField;
+    /** The font family used to display text within this drawing, defaults to CONFIG.defaultFontFamily */
+    fontFamily: fields.StringField;
+    /** The font size used to display text within this drawing */
+    fontSize: fields.NumberField;
+    /** The color of text displayed within this drawing */
+    textColor: fields.ColorField;
+    /** The opacity of text displayed within this drawing */
+    textAlpha: fields.AlphaField;
+    /** Is the drawing currently hidden? */
+    hidden: fields.BooleanField;
+    /** Is the drawing currently locked? */
+    locked: fields.BooleanField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+type DrawingSource = SourceFromSchema<DrawingSchema>;

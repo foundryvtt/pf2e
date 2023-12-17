@@ -9,10 +9,11 @@
  * @param item      The Item instance being displayed within the sheet.
  * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<
-    TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null>
-> extends DocumentSheet<TItem> {
-    constructor(item: TItem, options?: Partial<DocumentSheetOptions>);
+declare class ItemSheet<TItem extends Item, TOptions extends DocumentSheetOptions> extends DocumentSheet<
+    TItem,
+    TOptions
+> {
+    constructor(item: TItem, options?: Partial<TOptions>);
 
     static override get defaultOptions(): DocumentSheetOptions;
 
@@ -26,7 +27,7 @@ declare class ItemSheet<
     /** The Actor instance which owns this item. This may be null if the item is unowned. */
     get actor(): TItem["parent"];
 
-    override getData(option?: Partial<this["options"]>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
+    override getData(option?: Partial<TOptions>): ItemSheetData<TItem> | Promise<ItemSheetData<TItem>>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events
@@ -35,8 +36,7 @@ declare class ItemSheet<
     override activateListeners(html: JQuery): void;
 }
 
-declare interface ItemSheetData<TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null>>
-    extends DocumentSheetData<TItem> {
+declare interface ItemSheetData<TItem extends Item> extends DocumentSheetData<TItem> {
     item: TItem;
     data: object;
 }

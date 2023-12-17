@@ -1,0 +1,112 @@
+{
+    "_id": "M7c4uXraP05HYNXs",
+    "img": "icons/commodities/treasure/broach-jewel-gold-blue.webp",
+    "name": "Shining Symbol (Greater)",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>If you worship a deity, this golden amulet transforms into your deity's religious symbol when you invest it. You gain a +2 item bonus to Religion. The symbol casts dim light in a @Template[type:emanation|distance:20].</p>\n<hr />\n<p><strong>Activate—Spiritual Light</strong> <span class=\"action-glyph\">2</span> (concentrate, light, revelation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The light cast by the symbol becomes bright light for 10 minutes and shines through bodies to reveal hints of the spirits within. Creatures in the light receive a –2 status penalty to Deception and Stealth checks, and while it's active your enemies in the light gain weakness 5 to spirit damage.</p>\n<p>You can Dismiss this activation.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Aura: Shining Symbol]</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must be holy or unholy.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 650
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "religion",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    {
+                        "not": "self:effect:aura-shining-symbol"
+                    }
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 2,
+                        "speed": 1,
+                        "type": "starlight"
+                    },
+                    "color": "#bfbfbf",
+                    "dim": 20
+                }
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "self:effect:aura-shining-symbol"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 2,
+                        "speed": 1,
+                        "type": "starlight"
+                    },
+                    "bright": 20,
+                    "color": "#bfbfbf"
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    {
+                        "not": "self:effect:aura-shining-symbol"
+                    }
+                ],
+                "value": "icons/commodities/treasure/broach-jewel-gold-blue.webp"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.shiningSymbolPenalty",
+                "value": -2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.shiningSymbolWeakness",
+                "value": 5
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divine",
+                "invested",
+                "light"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        }
+    },
+    "type": "equipment"
+}

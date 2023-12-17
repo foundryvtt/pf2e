@@ -1,0 +1,103 @@
+.roll-inspector {
+    .window-content {
+        overflow: hidden;
+    }
+
+    .content {
+        display: grid;
+        gap: 1em;
+        grid-template: auto 1fr / 2fr 50%;
+        height: 100%;
+    }
+
+    .summary {
+        grid-column: span 2;
+
+        .type {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+        }
+
+        .tags.domains {
+            justify-items: end;
+            margin-top: 4px;
+
+            .tag {
+                font-size: var(--font-size-12);
+                font-weight: normal;
+                text-transform: none;
+                user-select: all;
+            }
+        }
+    }
+
+    .roll-options,
+    .modifiers {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .roll-options {
+        .filter {
+            margin-bottom: 0.25em;
+        }
+
+        > ul {
+            @include p-reset;
+            border-radius: 3px;
+            border: 1px solid var(--color-border-dark-tertiary);
+            height: 100%;
+            list-style-type: none;
+            overflow: hidden scroll;
+            white-space: nowrap;
+
+            li {
+                line-height: 1.5em;
+                overflow-x: hidden;
+                padding-left: 5px;
+                text-overflow: ellipsis;
+                user-select: text;
+
+                &:nth-child(even of :not([hidden])) {
+                    background-color: #00000011;
+                }
+            }
+        }
+    }
+
+    .modifiers {
+        grid-area: "modifiers";
+    }
+
+    .modifier-list {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 0;
+        gap: 4px;
+        overflow: hidden scroll;
+
+        .modifier {
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 4px;
+
+            &.disabled {
+                border-style: dashed;
+                opacity: 0.6;
+            }
+
+            h4 {
+                font-size: 1.1em;
+                margin-bottom: 0.37em;
+            }
+
+            & > div {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+            }
+        }
+    }
+}

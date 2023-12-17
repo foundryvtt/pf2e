@@ -1,0 +1,53 @@
+{
+    "_id": "rF8Nsas5KrrBEeqr",
+    "folder": "tavHHn3vqI7bCnl6",
+    "img": "icons/skills/melee/shield-block-gray-orange.webp",
+    "name": "Effect: Guard (Success)",
+    "system": {
+        "description": {
+            "value": "<p>This army gains a +2 item bonus to its AC until the start of your next turn against attacks from the targeted army.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "guarded-target"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Guarded",
+                "predicate": [
+                    "origin:action:slug:army-strike",
+                    "origin:mark:guarded-target"
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

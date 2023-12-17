@@ -8,6 +8,7 @@ export { FamiliarPF2e } from "./familiar/document.ts";
 export { NPCPF2e } from "./npc/document.ts";
 
 // Others
+export { ArmyPF2e } from "./army/document.ts";
 export { HazardPF2e } from "./hazard/document.ts";
 export { LootPF2e } from "./loot/document.ts";
 export { PartyPF2e } from "./party/document.ts";

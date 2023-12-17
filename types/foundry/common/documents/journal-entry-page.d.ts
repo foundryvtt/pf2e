@@ -17,8 +17,6 @@ export default class BaseJournalEntryPage<TParent extends BaseJournalEntry | nul
 export default interface BaseJournalEntryPage<TParent extends BaseJournalEntry | null>
     extends abstract.Document<TParent, JournalEntryPageSchema>,
         ModelPropsFromSchema<JournalEntryPageSchema> {
-    readonly _source: SourceFromSchema<JournalEntryPageSchema>;
-
     get documentName(): (typeof BaseJournalEntryPage)["metadata"]["name"];
 }
 
@@ -34,7 +32,7 @@ interface JournalEntryPageMetadata extends abstract.DocumentMetadata {
 type JournalEntryPageSchema<
     TType extends string = string,
     TSystemSource extends object = object,
-    TSystemData extends object = TSystemSource
+    TSystemData extends object = TSystemSource,
 > = {
     _id: fields.DocumentIdField;
     /** The text name of this page. */
@@ -52,7 +50,7 @@ type JournalEntryPageSchema<
     }>;
     /** Data particular to text journal entry pages. */
     text: fields.SchemaField<{
-        content: fields.HTMLField<string, string, false>;
+        content: fields.HTMLField<string, string, false, false, false>;
         markdown: fields.StringField<string, string, false, false, false>;
         format: fields.NumberField<JournalEntryPageFormat>;
     }>;

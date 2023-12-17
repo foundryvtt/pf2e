@@ -1,5 +1,5 @@
-import type { SlugField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
+import type { BooleanField, EmbeddedDataField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { RuleElementSchema } from "../data.ts";
 import type { ItemAlteration } from "../item-alteration/alteration.ts";
 
@@ -8,8 +8,6 @@ type GrantItemSchema = RuleElementSchema & {
     uuid: StringField<string, string, true, false, false>;
     /** A flag for referencing the granted item ID in other rule elements */
     flag: SlugField<true, true, true>;
-    /** Whether the granted item should replace the granting item */
-    replaceSelf: BooleanField<boolean, boolean, false, false, true>;
     /** Permit this grant to be applied during an actor update--if it isn't already granted and the predicate passes */
     reevaluateOnUpdate: BooleanField<boolean, boolean, false, false, true>;
     /**
@@ -20,7 +18,7 @@ type GrantItemSchema = RuleElementSchema & {
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     allowDuplicate: BooleanField<boolean, boolean, false, false, true>;
     /** A list of alterations to make on the item before granting it */
-    alterations: ArrayField<EmbeddedDataField<ItemAlteration>>;
+    alterations: StrictArrayField<EmbeddedDataField<ItemAlteration>>;
     /**
      * Track a granted physical item from roll options: the sluggified `flag` will serve as a prefix for item roll
      * options, which are added to the `all` domain.

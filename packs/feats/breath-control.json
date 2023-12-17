@@ -1,6 +1,6 @@
 {
     "_id": "aJUXbe9HJVvv0Mxa",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Breath Control",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "general",
         "description": {
-            "value": "<p>You have incredible breath control, which grants you advantages when air is hazardous or sparse. You can hold your breath for 25 times as long as usual before suffocating. You gain a +1 circumstance bonus to saving throws against inhaled threats, such as inhaled poisons, and if you roll a success on such a saving throw, you get a critical success instead.</p>"
+            "value": "<p>You can breathe even in hazardous or sparse air. You can hold your breath for 25 times as long as usual before suffocating. You gain a +1 circumstance bonus to saving throws against inhaled threats, such as inhaled poisons, and if you roll a success on such a saving throw, you get a critical success instead.</p>"
         },
         "level": {
             "value": 1
@@ -19,10 +19,14 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Breath control (vs. inhaled)",
                 "predicate": [
                     "inhaled"
                 ],
@@ -38,11 +42,18 @@
                 "selector": "saving-throw",
                 "text": "If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.",
                 "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "inhaled"
+                ],
+                "selector": "saving-throw"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

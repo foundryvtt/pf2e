@@ -1,25 +1,20 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
 import type * as documents from "./module.d.ts";
-import type { BaseJournalEntryPage } from "./module.d.ts";
 
 /** The JournalEntry document model. */
 export default class BaseJournalEntry extends Document<null, JournalEntrySchema> {
     static override get metadata(): JournalEntryMetadata;
 
     static override defineSchema(): JournalEntrySchema;
-
-    readonly pages: EmbeddedCollection<BaseJournalEntryPage<this>>;
 }
 
 export default interface BaseJournalEntry
     extends Document<null, JournalEntrySchema>,
         ModelPropsFromSchema<JournalEntrySchema> {
-    readonly _source: JournalEntrySource;
+    readonly pages: EmbeddedCollection<documents.BaseJournalEntryPage<this>>;
 
     get documentName(): (typeof BaseJournalEntry)["metadata"]["name"];
-
-    foo: this["_source"]["pages"];
 }
 
 interface JournalEntryMetadata extends DocumentMetadata {
@@ -44,8 +39,7 @@ type JournalEntrySchema = {
     /** The name of this JournalEntry */
     name: fields.StringField<string, string, true, false, false>;
     /** The pages contained within this JournalEntry document */
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    pages: fields.EmbeddedCollectionField<documents.BaseJournalEntryPage<any>>;
+    pages: fields.EmbeddedCollectionField<documents.BaseJournalEntryPage<BaseJournalEntry>>;
     /** The _id of a Folder which contains this JournalEntry */
     folder: fields.ForeignDocumentField<documents.BaseFolder>;
     /** The numeric sort value which orders this JournalEntry relative to its siblings */

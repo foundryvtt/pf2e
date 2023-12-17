@@ -1,4 +1,4 @@
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -9,7 +9,7 @@ export class Migration806TorchImprovisedOtherTags extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "equipment" && source.system.slug === "torch") {
             const torchStrikeRE = source.system.rules.find(
-                (r: MaybeStrikeSource): r is MaybeStrikeSource => r.key === "Strike" && r.otherTags === undefined
+                (r: MaybeStrikeSource): r is MaybeStrikeSource => r.key === "Strike" && r.otherTags === undefined,
             );
             if (torchStrikeRE) {
                 delete torchStrikeRE.traits;

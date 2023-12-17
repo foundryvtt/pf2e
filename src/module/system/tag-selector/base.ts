@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import { htmlQueryAll } from "@util";
 import { SelectableTagField } from "./index.ts";
 
@@ -17,9 +17,10 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
     TagSelectorOptions
 > {
     static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             id: "tag-selector",
             classes: ["pf2e", "tag-selector"],
+            sheetConfig: false,
             width: "auto",
         });
     }
@@ -71,8 +72,8 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
      */
     #getChoices(): Record<string, string> {
         const choices = this.configTypes.reduce(
-            (types: Record<string, string>, key) => mergeObject(types, CONFIG.PF2E[key]),
-            {}
+            (types: Record<string, string>, key) => fu.mergeObject(types, CONFIG.PF2E[key]),
+            {},
         );
         return this.sortChoices(choices);
     }
@@ -83,8 +84,8 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
             .map(([key, value]) => [key, game.i18n.localize(value)])
             .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
             .reduce(
-                (accumulated: Record<string, string>, [key, value]) => mergeObject(accumulated, { [key]: value }),
-                {}
+                (accumulated: Record<string, string>, [key, value]) => fu.mergeObject(accumulated, { [key]: value }),
+                {},
             );
     }
 }

@@ -10,6 +10,9 @@
         "bonusDamage": {
             "value": 0
         },
+        "bulk": {
+            "value": 1
+        },
         "category": "simple",
         "containerId": null,
         "damage": {
@@ -19,9 +22,6 @@
         },
         "description": {
             "value": "<p>This long, thin +1 striking @UUID[Compendium.pf2e.equipment-srd.Item.Wounding] dagger has a smooth edge on one side and a serrated edge on the other.</p>\n<p>Its persistent bleed damage comes from slicing away long strips of the target's flesh, and it deals @Damage[1d8[bleed]] on a hit instead of 1d6. A creature takes a -2 status penalty to saving throws against diseases for as long as it has persistent bleed damage from this knife.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "group": "knife",
         "hardness": 0,
@@ -36,28 +36,15 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potencyRune": {
-            "value": 1
-        },
         "price": {
             "value": {
                 "gp": 480
             }
         },
-        "propertyRune1": {
-            "value": "wounding"
-        },
-        "propertyRune2": {
-            "value": null
-        },
-        "propertyRune3": {
-            "value": null
-        },
-        "propertyRune4": {
-            "value": null
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Adventure: The Slithering"
         },
         "quantity": 1,
         "range": null,
@@ -82,24 +69,29 @@
                 "text": "PF2E.PersistentDamage.Bleed1d8.criticalSuccess"
             }
         ],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder Adventure: The Slithering"
+        "runes": {
+            "potency": 1,
+            "property": [
+                "wounding"
+            ],
+            "striking": 1
         },
+        "size": "med",
         "specific": {
-            "material": null,
+            "material": {
+                "grade": null,
+                "type": null
+            },
             "runes": {
                 "potency": 1,
-                "striking": "striking"
-            },
-            "value": true
+                "property": [
+                    "wounding"
+                ],
+                "striking": 1
+            }
         },
         "splashDamage": {
             "value": 0
-        },
-        "stackGroup": null,
-        "strikingRune": {
-            "value": "striking"
         },
         "traits": {
             "rarity": "uncommon",
@@ -107,16 +99,12 @@
                 "agile",
                 "finesse",
                 "magical",
-                "necromancy",
                 "thrown-10",
                 "versatile-s"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "weight": {
-            "value": "1"
         }
     },
     "type": "weapon"

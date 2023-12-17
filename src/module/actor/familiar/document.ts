@@ -5,9 +5,10 @@ import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/help
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
-import { ItemType } from "@item/data/index.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
+import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { PredicatePF2e } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
@@ -45,6 +46,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         return this.masterAttributeModifier;
     }
 
+    override get combatant(): CombatantPF2e<EncounterPF2e> | null {
+        return this.master?.combatant ?? null;
+    }
+
     /** Re-render the sheet if data preparation is called from the familiar's master */
     override reset({ fromMaster = false } = {}): void {
         super.reset();
@@ -58,6 +63,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             details: {};
         };
         const systemData: PartialSystemData = this.system;
+        systemData.details.level = { value: 0 };
         systemData.traits = {
             value: ["minion"],
             senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
@@ -75,8 +81,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
-
-        systemData.details.alignment = { value: "N" };
 
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};
@@ -97,22 +101,22 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         // Fields that need to exist for sheet compatibility so that they can exist pleasantly while doing nothing.
         // They should be automated via specific familiar item types, or added to template.json and manually edited.
         // This requires dev investment and interest aimed at what amounts to feat expensive set dressing (familiars).
-        systemData.traits = mergeObject(systemData.traits, {
+        systemData.traits = fu.mergeObject(systemData.traits, {
             dv: [],
             di: [],
             dr: [],
         });
 
         const { master } = this;
-        systemData.details.level = { value: master?.level ?? 0 };
+        systemData.details.level.value = master?.level ?? 0;
         this.rollOptions.all[`self:level:${this.level}`] = true;
         systemData.details.alliance = master?.alliance ?? "party";
 
         // Set encounter roll options from the master's perspective
         if (master) {
-            this.flags.pf2e.rollOptions.all = mergeObject(
+            this.flags.pf2e.rollOptions.all = fu.mergeObject(
                 this.flags.pf2e.rollOptions.all,
-                createEncounterRollOptions(master)
+                createEncounterRollOptions(master),
             );
         }
     }
@@ -134,7 +138,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, masterAttributeModifier } = this;
 
-        const masterLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : level;
+        const masterLevel = game.pf2e.settings.variants.pwol.enabled ? 0 : level;
 
         const { synthetics } = this;
         const speeds = (attributes.speed = this.prepareSpeed("land"));
@@ -161,26 +165,29 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         systemData.attributes.ac = statistic.getTraceData();
 
         // Saving Throws
-        this.saves = SAVE_TYPES.reduce((partialSaves, saveType) => {
-            const save = master?.saves[saveType];
-            const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
-            const totalMod = applyStackingRules(source);
-            const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
-            const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
-            const stat = new Statistic(this, {
-                slug: saveType,
-                label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
-                domains: selectors,
-                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
-                check: { type: "saving-throw" },
-            });
+        this.saves = SAVE_TYPES.reduce(
+            (partialSaves, saveType) => {
+                const save = master?.saves[saveType];
+                const source = save?.modifiers.filter((m) => !["status", "circumstance"].includes(m.type)) ?? [];
+                const totalMod = applyStackingRules(source);
+                const attribute = CONFIG.PF2E.savingThrowDefaultAttributes[saveType];
+                const selectors = [saveType, `${attribute}-based`, "saving-throw", "all"];
+                const stat = new Statistic(this, {
+                    slug: saveType,
+                    label: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
+                    domains: selectors,
+                    modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, "untyped")],
+                    check: { type: "saving-throw" },
+                });
 
-            return { ...partialSaves, [saveType]: stat };
-        }, {} as Record<SaveType, Statistic>);
+                return { ...partialSaves, [saveType]: stat };
+            },
+            {} as Record<SaveType, Statistic>,
+        );
 
         this.system.saves = SAVE_TYPES.reduce(
             (partial, saveType) => ({ ...partial, [saveType]: this.saves[saveType].getTraceData() }),
-            {} as CreatureSaves
+            {} as CreatureSaves,
         );
 
         // Senses
@@ -210,9 +217,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 modifiers,
                 check: { type: "perception-check" },
             });
-            systemData.attributes.perception = mergeObject(
+            systemData.attributes.perception = fu.mergeObject(
                 systemData.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 

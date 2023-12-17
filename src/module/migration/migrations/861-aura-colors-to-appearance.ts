@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -9,7 +9,7 @@ export class Migration861AuraColorsToAppearance extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const auraREs = source.system.rules.filter(
-            (r): r is AuraREWithColors => r.key === "Aura" && "colors" in r && isObject(r.colors)
+            (r): r is AuraREWithColors => r.key === "Aura" && "colors" in r && isObject(r.colors),
         );
 
         for (const rule of auraREs) {

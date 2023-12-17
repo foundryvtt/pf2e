@@ -9,7 +9,7 @@ declare global {
      */
     class Combatant<
         TParent extends Combat | null,
-        TTokenDocument extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null> | null
+        TTokenDocument extends TokenDocument | null = TokenDocument | null,
     > extends ClientBaseCombatant<TParent> {
         constructor(data: PreCreate<foundry.documents.CombatantSource>, context?: DocumentConstructionContext<TParent>);
 
@@ -50,7 +50,7 @@ declare global {
         override testUserPermission(
             user: User,
             permission: DocumentOwnershipString | DocumentOwnershipLevel,
-            { exact }?: { exact?: boolean }
+            { exact }?: { exact?: boolean },
         ): boolean;
 
         /**
@@ -82,7 +82,7 @@ declare global {
 
     interface Combatant<
         TParent extends Combat | null,
-        TTokenDocument extends TokenDocument<Scene | null> | null = TokenDocument<Scene | null> | null
+        TTokenDocument extends TokenDocument | null = TokenDocument | null,
     > extends ClientBaseCombatant<TParent> {
         _sheet: CombatantConfig<this>;
     }

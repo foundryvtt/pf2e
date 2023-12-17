@@ -1,9 +1,9 @@
+import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 import { sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { CampaignFeatureFilters, CompendiumBrowserIndexData } from "./data.ts";
-import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 
 export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "campaignFeature";
@@ -25,7 +25,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumBrowserIndexData[] = [];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
         const indexFields = [
             "img",
             "system.actionType.value",
@@ -33,25 +33,25 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
             "system.category",
             "system.level.value",
             "system.prerequisites.value",
-            "system.source.value",
             "system.traits",
+            "system.publication",
+            "system.source",
         ];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("campaignFeature"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index.filter((i) => i.type === "campaignFeature")) {
                 featData.filters = {};
 
-                // Prepare source
-                const source = featData.system.source.value;
-                const sourceSlug = sluggify(source);
-                if (source) {
-                    sources.add(source);
-                }
+                // Prepare publication source
+                const { system } = featData;
+                const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                const sourceSlug = sluggify(pubSource);
+                if (pubSource) publications.add(pubSource);
 
                 // Only store essential data
                 feats.push({
@@ -61,7 +61,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                     uuid: `Compendium.${pack.collection}.${featData._id}`,
                     level: featData.system.level?.value,
                     category: featData.system.category,
-                    traits: featData.system.traits.value,
+                    traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: featData.system.traits.rarity,
                     source: sourceSlug,
                 });
@@ -74,7 +74,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
@@ -142,8 +142,8 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
                 },
             },
             sliders: {

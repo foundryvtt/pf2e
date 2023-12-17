@@ -1,0 +1,66 @@
+{
+    "_id": "woKCbf1kXPrPjeZG",
+    "img": "icons/equipment/head/crown-horns-brown.webp",
+    "name": "Stance: Crowned in Tempest's Fury",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Crowned in Tempest's Fury]</p>\n<p>You become one with a devastating thunderstorm from the Plane of Air, placing a crown of lightning upon your brow. Sparks flash in your eyes, and lightning strikes constantly in the air around you as howling winds lift you from the ground.</p>\n<ul>\n<li>Any creature that enters your kinetic aura or ends its turn there takes @Damage[2d12[electricity]] damage.</li>\n<li>If you don't have a fly Speed, you gain a 20-foot fly Speed. If you have the Cyclonic Ascent impulse, you instead gain that fly Speed and the extra benefits.</li>\n<li>You gain a +10-foot status bonus to all your Speeds.</li>\n<li>Your air Elemental Blasts deal an additional @Damage[1d12[electricity]] damage.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d12",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:air"
+                ],
+                "selector": "elemental-blast-damage"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:cyclonic-ascent"
+                ],
+                "selector": "fly",
+                "value": "max(30,@actor.attributes.speed.total)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

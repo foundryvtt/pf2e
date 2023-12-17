@@ -1,7 +1,9 @@
-import { ImmunityData } from "@actor/data/iwr.ts";
+import { Immunity } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { IWRRuleElement, IWRRuleSchema } from "./base.ts";
+import type { StrictArrayField } from "@system/schema-data-fields.ts";
+import * as R from "remeda";
+import { ModelPropsFromRESchema } from "../data.ts";
+import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
@@ -9,12 +11,9 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     readonly value = null;
 
     static override defineSchema(): ImmunityRuleSchema {
-        const { fields } = foundry.data;
         return {
             ...super.defineSchema(),
-            exceptions: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
-            ),
+            exceptions: this.createExceptionsField(this.dictionary),
         };
     }
 
@@ -22,43 +21,43 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
         return CONFIG.PF2E.immunityTypes;
     }
 
-    get property(): ImmunityData[] {
+    get property(): Immunity[] {
         return this.actor.system.attributes.immunities;
     }
 
-    getIWR(): ImmunityData[] {
+    getIWR(): Immunity[] {
+        const immunities = this.property;
+
         return this.type
             .map(
-                (t): ImmunityData =>
-                    new ImmunityData({
+                (t): Immunity =>
+                    new Immunity({
                         type: t,
+                        customLabel: t === "custom" ? this.label : null,
+                        definition: this.definition,
                         exceptions: this.exceptions,
-                        source: this.label,
-                    })
+                        source: this.item.name,
+                    }),
             )
             .filter((immunity) => {
-                const existing = this.property.find((e) => e.type === immunity.type);
-                return (
-                    this.mode === "remove" ||
-                    !(
-                        existing?.type === immunity.type &&
-                        existing.exceptions.every((x) => immunity.exceptions.includes(x))
-                    )
+                const existing = immunities.find(
+                    (i) =>
+                        i.type === immunity.type &&
+                        (this.exceptions.length === 0 || R.equals(i.exceptions, this.exceptions)) &&
+                        R.equals(i.definition, this.definition ?? null),
                 );
+                return !existing || this.mode === "remove";
             });
     }
 }
 
-interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromSchema<ImmunityRuleSchema> {
-    // Just a string at compile time, but ensured by parent class at runtime
+interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromRESchema<ImmunityRuleSchema> {
     type: ImmunityType[];
-
-    // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
-    exceptions: ImmunityType[];
+    exceptions: IWRException<ImmunityType>[];
 }
 
 type ImmunityRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
-    exceptions: ArrayField<StringField<ImmunityType, ImmunityType, true, false, false>>;
+    exceptions: StrictArrayField<IWRExceptionField<ImmunityType>>;
 };
 
 export { ImmunityRuleElement };

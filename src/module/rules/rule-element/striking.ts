@@ -1,10 +1,8 @@
 import { ActorType } from "@actor/data/index.ts";
-import { WeaponPF2e } from "@item";
-import { getStrikingDice } from "@item/physical/runes.ts";
-import { StrikingSynthetic } from "../synthetics.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
+import { StrikingSynthetic } from "../synthetics.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
@@ -22,7 +20,7 @@ class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        const strikingValue = this.value ?? (this.item instanceof WeaponPF2e ? getStrikingDice(this.item.system) : 0);
+        const strikingValue = this.value ?? (this.item.isOfType("weapon") ? this.item.system.runes.striking : 0);
         const value = this.resolveValue(strikingValue);
         if (selector && typeof value === "number") {
             const striking: StrikingSynthetic = {
@@ -38,7 +36,7 @@ class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     }
 }
 
-interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromSchema<StrikingRuleSchema> {}
+interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromRESchema<StrikingRuleSchema> {}
 
 type StrikingRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

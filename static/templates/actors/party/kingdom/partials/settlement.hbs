@@ -1,5 +1,5 @@
 {{log this}}
-<li class="item settlement expandable" data-settlement-id="{{settlement.id}}" data-item-summary-id="{{settlement.id}}">
+<li class="item settlement" data-settlement-id="{{settlement.id}}" data-item-summary-id="{{settlement.id}}">
     <div class="item-name">
         {{#if settlement.editing}}
             <h4 class="drag-handle"><i class="fa-solid fa-bars"></i></h4>
@@ -12,7 +12,7 @@
                 {{/select}}
             </select>
         {{else}}
-            <h4 class="name drag-handle">{{settlement.name}}</h4>
+            <h4 class="name drag-handle"><a data-action="toggle-summary">{{settlement.name}}</a></h4>
             <span class="type">{{localize settlement.typeLabel}}</span>
         {{/if}}
         <label class="level">
@@ -36,7 +36,7 @@
         {{/if}}
     </div>
 
-    <div class="item-summary">
+    <div class="item-summary" hidden="hidden">
         <section class="settlement-data">
             <section class="stats">
                 <div>{{settlement.blocks}} {{localize "PF2E.Kingmaker.Settlement.Blocks"}}</div>

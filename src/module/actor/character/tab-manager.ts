@@ -1,7 +1,10 @@
 import type { CharacterPF2e } from "./document.ts";
 
 export class PCSheetTabManager {
-    constructor(public actor: CharacterPF2e, public link: HTMLAnchorElement) {
+    constructor(
+        public actor: CharacterPF2e,
+        public link: HTMLAnchorElement,
+    ) {
         renderTemplate("systems/pf2e/templates/actors/character/manage-tabs.hbs").then((template) => {
             $(this.link).tooltipster({
                 content: template,
@@ -32,7 +35,8 @@ export class PCSheetTabManager {
         for (const tab of Array.from(tabs)) {
             const tabName = tab.dataset.tab ?? "";
             const selector = `input[data-tab-name="${tabName}"]`;
-            tooltip.querySelector<HTMLInputElement>(selector)!.checked = tabVisibility[tabName];
+            const input = tooltip.querySelector<HTMLInputElement>(selector);
+            if (input) input.checked = tabVisibility[tabName];
             if (tab.classList.contains("hidden")) {
                 tab.classList.remove("hidden");
                 tab.classList.add("to-hide");

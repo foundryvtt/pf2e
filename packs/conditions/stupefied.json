@@ -3,20 +3,31 @@
     "img": "systems/pf2e/icons/conditions/stupefied.webp",
     "name": "Stupefied",
     "system": {
+        "active": false,
         "description": {
-            "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these ability scores. Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>"
+            "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack modifiers, spell DCs, and skill checks that use these attribute modifiers. Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] while stupefied, the spell is disrupted unless you succeed at a @Check[type:flat|showDC:all|dc:resolve(5+@item.badge.value)] with a DC equal to 5 + your stupefied value.</p>"
         },
         "duration": {
-            "value": 0
+            "expiry": null,
+            "perpetual": false,
+            "text": "",
+            "unit": "unlimited",
+            "value": -1
         },
         "group": "abilities",
         "overrides": [],
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "references": {
             "children": [],
             "immunityFrom": [],
             "overriddenBy": [],
             "overrides": []
         },
+        "removable": false,
         "rules": [
             {
                 "key": "FlatModifier",
@@ -30,10 +41,9 @@
                 "value": "-@item.badge.value"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
+        "traits": {},
         "value": {
+            "immutable": false,
             "isValued": true,
             "value": 1
         }

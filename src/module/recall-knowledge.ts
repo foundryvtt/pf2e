@@ -53,12 +53,9 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
     };
 }
 
-function creatureIdentificationDCs(
-    creature: NPCPF2e,
-    { proficiencyWithoutLevel = false }: DCOptions = {}
-): CreatureIdentificationData {
+function creatureIdentificationDCs(creature: NPCPF2e, { pwol = false }: DCOptions = {}): CreatureIdentificationData {
     const { level, rarity } = creature;
-    const dc = calculateDC(level, { proficiencyWithoutLevel });
+    const dc = calculateDC(level, { pwol });
 
     const traits = creature.system.traits.value;
     const skills = Array.from(new Set(traits.flatMap((t) => identifySkills.get(t) ?? [])));

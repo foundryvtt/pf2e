@@ -1,10 +1,10 @@
 {
     "_id": "sDftJWPPSUeSZD3A",
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/ladder.webp",
+    "img": "icons/sundries/misc/ladder.webp",
     "name": "Effect: Favored Terrain (Gain Climb Speed)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Favored Terrain]{Favored Terrain (Forest, Moutain or Underground)} if you have the @UUID[Compendium.pf2e.classfeatures.Item.Wild Stride] class feature, and are in forested, mountainous or underground terrain and do not already have a climb Speed.</p>\n<p>You gain a climb Speed equal to your Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Favored Terrain]{Favored Terrain (Forest, Moutain or Underground)} if you have the @UUID[Compendium.pf2e.classfeatures.Item.Unimpeded Journey]{Wild Stride} class feature, and are in forested, mountainous or underground terrain and do not already have a climb Speed.</p>\n<p>You gain a climb Speed equal to your Speed.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,6 +15,11 @@
         "level": {
             "value": 11
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "key": "BaseSpeed",
@@ -22,9 +27,6 @@
                 "value": "@actor.attributes.speed.total"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

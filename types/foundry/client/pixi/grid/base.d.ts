@@ -38,7 +38,7 @@ declare global {
          */
         highlightGridPosition(
             layer: GridHighlight,
-            data?: { x?: number; y?: number; color?: number; border?: number; alpha?: number }
+            data?: { x?: number; y?: number; color?: number; border?: number; alpha?: number },
         ): this;
 
         /* -------------------------------------------- */

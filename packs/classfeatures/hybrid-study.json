@@ -19,34 +19,19 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "level 1 magus class feature",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:magus",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:magus-hybrid-study"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Inexorable Iron"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Laughing Shadow"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Sparkling Targe"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Starlit Span"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Twisting Tree"
-                    }
-                ],
                 "flag": "hybridStudy",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Magus.HybridStudy.Prompt"
@@ -56,9 +41,6 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.hybridStudy}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Secrets of Magic"
-        },
         "traits": {
             "rarity": "common",
             "value": [

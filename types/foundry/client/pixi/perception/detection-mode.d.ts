@@ -49,7 +49,7 @@ declare global {
         testVisibility(
             visionSource: VisionSource<Token>,
             mode: TokenDetectionMode,
-            config?: CanvasVisibilityTestConfig
+            config?: CanvasVisibilityTestConfig,
         ): boolean;
 
         /**
@@ -73,7 +73,7 @@ declare global {
             visionSource: VisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
-            test: CanvasVisibilityTest
+            test: CanvasVisibilityTest,
         ): boolean;
 
         /**
@@ -90,7 +90,7 @@ declare global {
             visionSource: VisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
-            test: CanvasVisibilityTest
+            test: CanvasVisibilityTest,
         ): boolean;
 
         /**
@@ -105,7 +105,7 @@ declare global {
             visionSource: VisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
-            test: CanvasVisibilityTest
+            test: CanvasVisibilityTest,
         ): boolean;
     }
 
@@ -121,7 +121,7 @@ declare global {
             visionSource: VisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
-            test: CanvasVisibilityTest
+            test: CanvasVisibilityTest,
         ): boolean;
     }
 

@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/hemlock.webp",
     "name": "Hemlock",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 1,
-            "value": 1
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "poison"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "poison",
         "containerId": null,
+        "damage": null,
         "description": {
-            "value": "<p>Concentrated hemlock is a particularly deadly toxin that halts muscle action-including that of the victim's heart.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Onset</strong> 30 minutes</p>\n<p><strong>Maximum Duration</strong> 60 minutes</p>\n<p><strong>Stage 1</strong> @Damage[17d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (10 minutes)</p>\n<p><strong>Stage 2</strong> @Damage[21d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (10 minutes)</p>\n<p><strong>Stage 3</strong> @Damage[26d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (10 minutes)</p>"
-        },
-        "equippedBulk": {
-            "value": ""
+            "value": "<p>Concentrated hemlock is a particularly deadly toxin that halts muscle action-including that of the victim's heart.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Onset</strong> 30 minutes</p>\n<p><strong>Maximum Duration</strong> 60 minutes</p>\n<p><strong>Stage 1</strong> @Damage[16d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (10 minutes)</p>\n<p><strong>Stage 2</strong> @Damage[17d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 3} (10 minutes)</p>\n<p><strong>Stage 3</strong> @Damage[16d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (10 minutes)</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +25,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 2250
             }
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -63,8 +50,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

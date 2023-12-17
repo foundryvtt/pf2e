@@ -5,6 +5,9 @@
     "system": {
         "acBonus": 4,
         "baseItem": "breastplate",
+        "bulk": {
+            "value": 2
+        },
         "category": "medium",
         "checkPenalty": -2,
         "containerId": "null",
@@ -12,9 +15,6 @@
             "value": "<p>This <em>+3 greater resilient greater fortification breastplate</em> absorbs impacts for later release. While wearing the armor, you gain resistance 5 to bludgeoning, piercing, and slashing damage and resistance 10 to force damage. Keep track of how much damage the armor prevents from enemy attacks, as the armor absorbs that damage.</p>\n<p>After 1 minute, the absorbed damage disperses harmlessly and resets to 0. Only damage caused by foes or hazards powers the armor, not damage you take from yourself, allies, or the environment.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Requirements</strong> Your armor has absorbed at least 30 damage</p>\n<hr />\n<p><strong>Effect</strong> The absorbed energy explodes from your armor in a pulse of force. Creatures in a @Template[type:emanation|distance:30] take @Damage[10d6[force]] damage with a @Check[type:fortitude|dc:43|basic:true|name:Rebounding Breastplaye Force Damage|showDC:all] save. On a failure, they're pushed 10 feet away from you, and on a critical failure, they're pushed 20 feet away from you and fall @UUID[Compendium.pf2e.conditionitems.Item.Prone]. The armor's absorbed damage resets to 0.</p>"
         },
         "dexCap": 1,
-        "equippedBulk": {
-            "value": "2"
-        },
         "group": "plate",
         "hardness": 0,
         "hp": {
@@ -28,38 +28,26 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potencyRune": {
-            "value": 3
-        },
         "price": {
             "value": {
                 "gp": 70000
             }
         },
-        "propertyRune1": {
-            "value": "greaterFortification"
-        },
-        "propertyRune2": {
-            "value": ""
-        },
-        "propertyRune3": {
-            "value": ""
-        },
-        "propertyRune4": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
         },
         "quantity": 1,
-        "resiliencyRune": {
-            "value": "greaterResilient"
-        },
         "rules": [],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder Secrets of Magic"
+        "runes": {
+            "potency": 3,
+            "property": [
+                "greaterFortification"
+            ],
+            "resilient": 2
         },
+        "size": "med",
         "specific": {
             "material": {
                 "grade": null,
@@ -67,26 +55,20 @@
             },
             "runes": {
                 "potency": 3,
-                "resilient": 3
-            },
-            "value": true
+                "property": [
+                    "greaterFortification"
+                ],
+                "resilient": 2
+            }
         },
         "speedPenalty": -5,
-        "stackGroup": null,
         "strength": 3,
         "traits": {
             "rarity": "common",
             "value": [
-                "evocation",
                 "force",
                 "magical"
             ]
-        },
-        "usage": {
-            "value": "wornarmor"
-        },
-        "weight": {
-            "value": "3"
         }
     },
     "type": "armor"

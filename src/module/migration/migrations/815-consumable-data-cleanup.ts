@@ -1,5 +1,5 @@
 import { ConsumableSystemSource } from "@item/consumable/data.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 

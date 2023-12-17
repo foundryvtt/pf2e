@@ -1,13 +1,13 @@
-import { CreatureSheetData } from "@actor/creature/types.ts";
 import { HitPointsStatistic, PerceptionData } from "@actor/data/base.ts";
 import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
-import type { AbilityItemPF2e, EffectPF2e, ItemPF2e } from "@item";
+import type { AbilityItemPF2e, ItemPF2e } from "@item";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import type { NPCPF2e, NPCStrike } from "./index.ts";
+import type { CreatureSheetData } from "@actor/creature/sheet.ts";
 
 interface ActionsDetails {
     label: string;
@@ -72,7 +72,6 @@ interface NPCSheetData<TActor extends NPCPF2e = NPCPF2e> extends CreatureSheetDa
     actions: NPCActionSheetData;
     data: NPCSystemSheetData;
     items: NPCSheetItemData<ItemPF2e<TActor>>[];
-    effectItems: EffectPF2e[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     identificationDCs: NPCIdentificationSheetData;
@@ -99,7 +98,7 @@ interface NPCSpeedSheetData {
     adjustedLower: boolean;
 }
 
-type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = RawObject<TItem> & {
+type NPCSheetItemData<TItem extends ItemPF2e<NPCPF2e>> = Omit<RawObject<TItem>, "traits"> & {
     glyph: string;
     imageUrl: string;
     traits: {

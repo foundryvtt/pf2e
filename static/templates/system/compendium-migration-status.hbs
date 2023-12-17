@@ -1,0 +1,49 @@
+<div class="content">
+    <table>
+        <tr>
+            <th>{{localize "Name"}}</th>
+            <td>{{compendium.metadata.label}}</td>
+        </tr>
+        <tr>
+            <th>{{localize "PF2E.CompendiumMigrationStatus.Document"}}</th>
+            <td>{{compendium.documentName}}</td>
+        </tr>
+        <tr>
+            <th>{{localize "PACKAGE.Type.module"}}</th>
+            <td>
+                {{#if module}}
+                    {{module.title}}
+                {{else}}
+                    <span class="empty">({{localize "None"}})</span>
+                {{/if}}
+            </td>
+        </tr>
+        <tr>
+            <th>{{localize "PF2E.CompendiumMigrationStatus.Size"}}</th>
+            <td>{{size}}</td>
+        </tr>
+        {{#if size}}
+            <tr>
+                <th>{{localize "PF2E.CompendiumMigrationStatus.Schema"}}</th>
+                <td>{{schemaVersion}}</td>
+            </tr>
+            <tr>
+                <th>{{localize "PF2E.CompendiumMigrationStatus.Foundry"}}</th>
+                <td>{{foundryVersion}}</td>
+            </tr>
+        {{/if}}
+    </table>
+    <div class="migrate">
+        {{#if updated}}
+            <div class="updated">{{localize "PF2E.CompendiumMigrationStatus.UpToDate"}}</div>
+        {{else}}
+            <button
+                type="button"
+                data-action="migrate"
+                {{#if compendium.locked}}data-tooltip="{{localize "PF2E.CompendiumMigrationStatus.LockedTooltip"}}"{{/if}}
+                {{disabled this.compendium.locked}}>
+                <i class="fa-solid fa-crow"></i> {{localize "PF2E.CompendiumMigrationStatus.MigrateCompendium"}}
+            </button>
+        {{/if}}
+    </div>
+</div>

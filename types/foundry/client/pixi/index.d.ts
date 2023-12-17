@@ -17,6 +17,7 @@ import {
     FORMATS,
     FederatedEvent,
     FederatedPointerEvent,
+    FederatedWheelEvent,
     Filter,
     FilterState,
     FilterSystem,
@@ -51,11 +52,10 @@ import {
     UniformGroup,
     utils,
 } from "pixi.js";
-import "./canvas.d.ts";
+import "./board.d.ts";
 import "./core/index.d.ts";
 import "./groups/index.d.ts";
-import "./layers/controls/ruler.d.ts";
-import "./layers/effects/visibility.d.ts";
+import "./layers/index.d.ts";
 import "./perception/index.d.ts";
 import "./placeable.d.ts";
 import "./placeables/index.d.ts";
@@ -80,6 +80,7 @@ declare global {
             Extract,
             FederatedEvent,
             FederatedPointerEvent,
+            FederatedWheelEvent,
             Filter,
             FilterState,
             FilterSystem,

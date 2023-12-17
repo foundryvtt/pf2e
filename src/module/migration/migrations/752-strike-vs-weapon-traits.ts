@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { weaponTraits } from "@scripts/config/traits.ts";
 import { objectHasKey } from "@util";
@@ -15,7 +15,7 @@ export class Migration752StrikeVsWeaponTraits extends MigrationBase {
         if (this.#toSkip.has(source.system.slug ?? "")) return;
 
         const rules = source.system.rules.filter(
-            (r: MaybeAdjustStrike): r is AdjustStrikeSource => r.key === "AdjustStrike" && r.property === "traits"
+            (r: MaybeAdjustStrike): r is AdjustStrikeSource => r.key === "AdjustStrike" && r.property === "traits",
         );
 
         for (const rule of rules) {

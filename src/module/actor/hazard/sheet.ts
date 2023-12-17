@@ -2,14 +2,14 @@ import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { tagify, traitSlugToObject } from "@util";
-import { HazardPF2e } from "./document.ts";
 import { HazardSystemData } from "./data.ts";
+import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        mergeObject(options, {
+        fu.mergeObject(options, {
             classes: [...options.classes, "hazard"],
             scrollY: [".container > section"],
             width: 700,
@@ -56,7 +56,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             return TextEditor.enrichHTML(content ?? "", { rollData, async: true });
         };
 
-        sheetData.enrichedContent = mergeObject(sheetData.enrichedContent, {
+        sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
             stealthDetails: await enrich(systemData.attributes.stealth.details),
             description: await enrich(systemData.details.description),
             disable: await enrich(systemData.details.disable),
@@ -134,7 +134,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // Tagify the traits selection
         const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
@@ -155,7 +155,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor._source, propertyPath));
+            const baseValue = Number(fu.getProperty(this.actor._source, propertyPath));
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -167,7 +167,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             if (valueAttr) {
                 $input.val(valueAttr);
             } else {
-                const preparedValue = Number(getProperty(this.actor, propertyPath));
+                const preparedValue = Number(fu.getProperty(this.actor, propertyPath));
                 $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
             }
         });
@@ -178,14 +178,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             if (name) {
                 this.activateEditor(name);
             }
-        });
-
-        const $hint = $html.find(".emits-sound i.hint");
-        $hint.tooltipster({
-            maxWidth: 275,
-            position: "right",
-            theme: "crb-hover",
-            content: game.i18n.localize("PF2E.Actor.Hazard.EmitsSound.Hint"),
         });
 
         if (!this.options.editable) return;

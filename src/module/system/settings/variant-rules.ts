@@ -1,45 +1,36 @@
 import { resetActors } from "@actor/helpers.ts";
+import { htmlQuery, tupleHasValue } from "@util";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
-        name: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Name",
-        hint: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Hint",
+        name: "PF2E.SETTINGS.Variant.GradualBoosts.Name",
+        hint: "PF2E.SETTINGS.Variant.GradualBoosts.Hint",
         default: false,
         type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.variants.gab = !!value;
+            resetActors(game.actors.filter((a) => a.type === "character"));
+        },
     },
     staminaVariant: {
         name: "PF2E.SETTINGS.Variant.Stamina.Name",
         hint: "PF2E.SETTINGS.Variant.Stamina.Hint",
-        default: 0,
-        type: Number,
-        choices: {
-            0: "PF2E.SETTINGS.Variant.Stamina.Choices.0",
-            1: "PF2E.SETTINGS.Variant.Stamina.Choices.1", // I plan to expand this, hence the dropdown.
-        },
-        onChange: () => {
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.variants.stamina = !!value;
             resetActors(game.actors.filter((a) => a.type === "character"));
         },
-    },
-    ancestryParagonVariant: {
-        name: "PF2E.SETTINGS.Variant.AncestryParagon.Name",
-        hint: "PF2E.SETTINGS.Variant.AncestryParagon.Hint",
-        default: 0,
-        type: Boolean,
     },
     freeArchetypeVariant: {
         name: "PF2E.SETTINGS.Variant.FreeArchetype.Name",
         hint: "PF2E.SETTINGS.Variant.FreeArchetype.Hint",
-        default: 0,
+        default: false,
         type: Boolean,
-        onChange: () => {
+        onChange: (value) => {
+            game.pf2e.settings.variants.fa = !!value;
             resetActors(game.actors.filter((a) => a.type === "character"));
         },
-    },
-    dualClassVariant: {
-        name: "PF2E.SETTINGS.Variant.DualClass.Name",
-        hint: "PF2E.SETTINGS.Variant.DualClass.Hint",
-        default: 0,
-        type: Boolean,
     },
     automaticBonusVariant: {
         name: "PF2E.SETTINGS.Variant.AutomaticBonus.Name",
@@ -51,49 +42,66 @@ const SETTINGS: Record<string, SettingRegistration> = {
             ABPFundamentalPotency: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency",
             ABPRulesAsWritten: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten",
         },
-        onChange: () => {
+        onChange: (value) => {
+            const choices = ["noABP", "ABPFundamentalPotency", "ABPRulesAsWritten"] as const;
+            game.pf2e.settings.variants.abp = tupleHasValue(choices, value) ? value : game.pf2e.settings.variants.abp;
             resetActors(game.actors.filter((a) => a.type === "character"));
         },
     },
     proficiencyVariant: {
         name: "PF2E.SETTINGS.Variant.Proficiency.Name",
         hint: "PF2E.SETTINGS.Variant.Proficiency.Hint",
-        default: "ProficiencyWithLevel",
-        type: String,
-        choices: {
-            ProficiencyWithLevel: "PF2E.SETTINGS.Variant.Proficiency.Choices.ProficiencyWithLevel",
-            ProficiencyWithoutLevel: "PF2E.SETTINGS.Variant.Proficiency.Choices.ProficiencyWithoutLevel",
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.enabled = !!value;
+            resetActors(game.actors.filter((a) => a.type === "character"));
         },
     },
     proficiencyUntrainedModifier: {
         name: "PF2E.SETTINGS.Variant.UntrainedModifier.Name",
         hint: "PF2E.SETTINGS.Variant.UntrainedModifier.Hint",
-        default: 0,
+        default: -2,
         type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[0] = Number(value) || 0;
+        },
     },
     proficiencyTrainedModifier: {
         name: "PF2E.SETTINGS.Variant.TrainedModifier.Name",
         hint: "PF2E.SETTINGS.Variant.TrainedModifier.Hint",
         default: 2,
         type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[1] = Number(value) || 0;
+        },
     },
     proficiencyExpertModifier: {
         name: "PF2E.SETTINGS.Variant.ExpertModifier.Name",
         hint: "PF2E.SETTINGS.Variant.ExpertModifier.Hint",
         default: 4,
         type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[2] = Number(value) || 0;
+        },
     },
     proficiencyMasterModifier: {
         name: "PF2E.SETTINGS.Variant.MasterModifier.Name",
         hint: "PF2E.SETTINGS.Variant.MasterModifier.Hint",
         default: 6,
         type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[3] = Number(value) || 0;
+        },
     },
     proficiencyLegendaryModifier: {
         name: "PF2E.SETTINGS.Variant.LegendaryModifier.Name",
         hint: "PF2E.SETTINGS.Variant.LegendaryModifier.Hint",
         default: 8,
         type: Number,
+        onChange: (value) => {
+            game.pf2e.settings.variants.pwol.modifiers[4] = Number(value) || 0;
+        },
     },
 };
 
@@ -116,15 +124,15 @@ export class VariantRulesSettings extends FormApplication {
                 ...data,
                 [key]: { value: game.settings.get("pf2e", key), setting },
             }),
-            {}
+            {},
         );
     }
 
     static registerSettings(): void {
-        for (const [k, v] of Object.entries(SETTINGS)) {
-            v.config = false;
-            v.scope = "world";
-            game.settings.register("pf2e", k, v);
+        for (const [key, value] of Object.entries(SETTINGS)) {
+            value.config = false;
+            value.scope = "world";
+            game.settings.register("pf2e", key, value);
         }
     }
 
@@ -134,27 +142,14 @@ export class VariantRulesSettings extends FormApplication {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $html.find("button[name=reset]").on("click", (event) => this.onResetDefaults(event));
-    }
 
-    /**
-     * Handle button click to reset default settings
-     * @param event The initial button click event
-     */
-    private async onResetDefaults(event: JQuery.ClickEvent): Promise<this> {
-        event.preventDefault();
-        for (const [k, v] of Object.entries(SETTINGS)) {
-            await game.settings.set("pf2e", k, v?.default);
-        }
-        return this.render();
-    }
-
-    protected override async _onSubmit(
-        event: Event,
-        options: OnSubmitFormOptions = {}
-    ): Promise<Record<string, unknown>> {
-        event.preventDefault();
-        return super._onSubmit(event, options);
+        htmlQuery($html[0], "button[name=reset]")?.addEventListener("click", async (event) => {
+            event.preventDefault();
+            for (const [key, value] of Object.entries(SETTINGS)) {
+                await game.settings.set("pf2e", key, value?.default);
+            }
+            return this.render();
+        });
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {

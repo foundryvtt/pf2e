@@ -33,7 +33,7 @@ declare global {
                 roll?: Roll | null;
                 messageData?: Partial<foundry.documents.ChatMessageSource>;
                 messageOptions?: ChatMessageModificationContext;
-            }
+            },
         ): Promise<ChatMessage | undefined>;
 
         /**
@@ -77,7 +77,7 @@ declare global {
                 recursive,
                 displayChat,
                 rollMode,
-            }?: { roll?: Roll | null; recursive?: boolean; displayChat?: boolean; rollMode?: RollMode | null }
+            }?: { roll?: Roll | null; recursive?: boolean; displayChat?: boolean; rollMode?: RollMode | null },
         ): Promise<RollTableDraw<this>>;
 
         /** Normalize the probabilities of rolling each item in the RollTable based on their assigned weights */
@@ -132,7 +132,7 @@ declare global {
             documents: TableResult<this>[],
             data: TableResult<this>["_source"][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDeleteDescendantDocuments(
@@ -141,7 +141,7 @@ declare global {
             documents: TableResult<this>[],
             ids: string[],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /* -------------------------------------------- */

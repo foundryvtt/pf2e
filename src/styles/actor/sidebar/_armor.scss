@@ -7,13 +7,14 @@
     grid-column-gap: 4px;
 
     .shield {
-        display: flex;
-        justify-content: flex-start;
         align-items: center;
+        display: flex;
         flex-direction: column;
         height: 74px;
-        text-align: center;
+        justify-content: start;
         padding: 14px 10px 0 10px;
+        text-align: center;
+
         .data-value {
             h2,
             input[type="number"] {
@@ -24,15 +25,18 @@
         label {
             white-space: normal;
         }
+
         &.ac {
             grid-area: ac;
             background: url("/assets/sheet/shield-blue.webp") no-repeat center center;
         }
+
         &.hp {
             grid-area: shield-hp;
             background: url("/assets/sheet/shield-red.webp") no-repeat top center;
         }
     }
+
     .shield-stats {
         grid-area: shield-data;
         ol {
@@ -104,18 +108,22 @@
     }
 
     .armor_footer {
-        grid-area: shield-footer;
         display: inline-flex;
         flex-direction: column;
+        grid-area: shield-footer;
         justify-content: center;
         justify-self: center;
         width: calc(100% - 6px);
+
         .shield-max {
             display: flex;
             flex-direction: column;
+            align-items: center;
+
             label {
                 white-space: normal;
                 text-align: center;
+                width: 5em;
                 margin-bottom: 4px;
             }
         }

@@ -1,5 +1,5 @@
 import { AuraAppearanceData } from "@actor/types.ts";
-import { ItemTrait } from "@item/data/base.ts";
+import { ItemTrait } from "@item/base/data/system.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { TokenDocumentPF2e } from "../index.ts";
 

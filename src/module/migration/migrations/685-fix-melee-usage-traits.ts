@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ComboWeaponMeleeUsage } from "@item/weapon/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { MigrationBase } from "../base.ts";

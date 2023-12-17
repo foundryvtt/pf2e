@@ -38,12 +38,13 @@ import type {
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
-} from "@scene/index.ts";
+} from "@scene";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
 import type {
     calculateXP,
+    checkPrompt,
     editPersistent,
     launchTravelSheet,
     perceptionForSelected,
@@ -60,7 +61,7 @@ import type { ModuleArt } from "@system/module-art.ts";
 import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
-import type Peggy from "peggy";
+import type EnJSON from "static/lang/en.json";
 
 interface GamePF2e
     extends Game<
@@ -84,6 +85,7 @@ interface GamePF2e
         rollItemMacro: typeof rollItemMacro;
         gm: {
             calculateXP: typeof calculateXP;
+            checkPrompt: typeof checkPrompt;
             editPersistent: typeof editPersistent;
             launchTravelSheet: typeof launchTravelSheet;
             perceptionForSelected: typeof perceptionForSelected;
@@ -112,6 +114,47 @@ interface GamePF2e
         StatisticModifier: typeof StatisticModifier;
         StatusEffects: typeof StatusEffects;
         TextEditor: typeof TextEditorPF2e;
+        /** Cached values of frequently-checked settings */
+        settings: {
+            /** Campaign feat slots */
+            campaign: {
+                enabled: boolean;
+                sections: FeatGroupOptions[];
+            };
+            /** Encumbrance automation */
+            encumbrance: boolean;
+            /** Immunities, weaknesses, and resistances */
+            iwr: boolean;
+            /** Rules-based vision */
+            rbv: boolean;
+            tokens: {
+                /** Automatic scaling of tokens belong to small actor */
+                autoscale: boolean;
+                /** Token nameplate visibility sets name visibility in encounter tracker */
+                nameVisibility: boolean;
+                /** Nath Mode */
+                nathMode: boolean;
+            };
+            /** Theater-of-the-mind toggles */
+            totm: boolean;
+            /** Variant urles */
+            variants: {
+                /** Automatic Bonus Progression */
+                abp: "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
+                /** Free Archetype */
+                fa: boolean;
+                /** Gradual Ability Boosts */
+                gab: boolean;
+                /** Proficiency without Level */
+                pwol: {
+                    enabled: boolean;
+                    /** Modifiers for each proficiency rank */
+                    modifiers: [number, number, number, number, number];
+                };
+                /** Stamina */
+                stamina: boolean;
+            };
+        };
     };
 }
 
@@ -155,6 +198,8 @@ declare global {
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: GamePF2e;
+        // eslint-disable-next-line no-var
+        var fu: typeof foundry.utils;
 
         // eslint-disable-next-line no-var
         var ui: FoundryUI<
@@ -192,12 +237,10 @@ declare global {
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
 
         get(module: "pf2e", setting: "gradualBoostsVariant"): boolean;
-        get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
         get(module: "pf2e", setting: "automaticBonusVariant"): "noABP" | "ABPFundamentalPotency" | "ABPRulesAsWritten";
-        get(module: "pf2e", setting: "dualClassVariant"): boolean;
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
-        get(module: "pf2e", setting: "proficiencyVariant"): "ProficiencyWithLevel" | "ProficiencyWithoutLevel";
-        get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
+        get(module: "pf2e", setting: "proficiencyVariant"): boolean;
+        get(module: "pf2e", setting: "staminaVariant"): boolean;
 
         get(module: "pf2e", setting: "proficiencyUntrainedModifier"): number;
         get(module: "pf2e", setting: "proficiencyTrainedModifier"): number;
@@ -238,7 +281,6 @@ declare global {
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
-        get(module: "pf2e", setting: "dataTools"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
@@ -268,5 +310,6 @@ declare global {
 
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
-    const ROLL_PARSER: Peggy.Parser;
+    const EN_JSON: typeof EnJSON;
+    const ROLL_PARSER: string;
 }

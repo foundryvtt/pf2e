@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { ImmunityData, IWRSource, ResistanceData, WeaknessData } from "@actor/data/iwr.ts";
+import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
+import * as R from "remeda";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
     category: ListCategory;
@@ -16,9 +17,9 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         }
         this.category = options.category;
         this.types = {
-            immunities: CONFIG.PF2E.immunityTypes,
-            weaknesses: CONFIG.PF2E.weaknessTypes,
-            resistances: CONFIG.PF2E.resistanceTypes,
+            immunities: R.omit(CONFIG.PF2E.immunityTypes, ["custom"]),
+            weaknesses: R.omit(CONFIG.PF2E.weaknessTypes, ["custom"]),
+            resistances: R.omit(CONFIG.PF2E.resistanceTypes, ["custom"]),
         }[this.category];
     }
 
@@ -72,9 +73,9 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
 
     /** Reconstruct the entire IWR array from form inputs */
     getUpdatedData({ includeNew = false } = {}): ProbablyIWRData[] {
-        const entryElems = htmlQueryAll(this.element[0]!, ".entry:not(.new,[data-synthetic])");
+        const entryElems = htmlQueryAll(this.element[0], ".entry:not(.new,[data-synthetic])");
         if (includeNew) {
-            entryElems.push(...htmlQueryAll(this.element[0]!, ".entry.new"));
+            entryElems.push(...htmlQueryAll(this.element[0], ".entry.new"));
         }
 
         return entryElems.flatMap((entryElem): ProbablyIWRData | never[] => {
@@ -83,12 +84,12 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
             const value =
                 Math.trunc(
                     Math.abs(
-                        Number(htmlQuery<HTMLInputElement>(entryElem, "input[data-property=value]")?.value ?? "NaN")
-                    )
+                        Number(htmlQuery<HTMLInputElement>(entryElem, "input[data-property=value]")?.value ?? "NaN"),
+                    ),
                 ) || 5;
 
             const exceptionsData: unknown = JSON.parse(
-                htmlQuery<HTMLInputElement>(entryElem, "input[data-property=exceptions]")?.value || "[]"
+                htmlQuery<HTMLInputElement>(entryElem, "input[data-property=exceptions]")?.value || "[]",
             );
             if (
                 !(
@@ -101,13 +102,13 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
             const exceptions = exceptionsData.map((e: { id: string }) => e.id);
 
             const doubleVsData: unknown = JSON.parse(
-                htmlQuery<HTMLInputElement>(entryElem, "input[data-property=doubleVs]")?.value || "[]"
+                htmlQuery<HTMLInputElement>(entryElem, "input[data-property=doubleVs]")?.value || "[]",
             );
             const doubleVsIsValid =
                 Array.isArray(doubleVsData) &&
                 doubleVsData.every(
                     (o: unknown): o is { id: string } =>
-                        isObject<"id">(o) && typeof o.id === "string" && o.id in this.types
+                        isObject<"id">(o) && typeof o.id === "string" && o.id in this.types,
                 );
             const doubleVs =
                 doubleVsIsValid && this.category === "resistances" ? doubleVsData.map((d) => d.id) : undefined;
@@ -127,7 +128,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     async #updateIWR({ includeNew = false } = {}): Promise<void> {
         const data = this.getUpdatedData({ includeNew });
         // The lone named input element that contains the full form data
-        const formInput = htmlQuery<HTMLInputElement>(this.element[0]!, "input[name]");
+        const formInput = htmlQuery<HTMLInputElement>(this.element[0], "input[name]");
         if (!formInput) throw ErrorPF2e("Unexpected error getting for input element");
 
         formInput.value = JSON.stringify(data);
@@ -144,7 +145,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     override activateListeners($html: JQuery): void {
-        const html = $html[0]!;
+        const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
             tagify(input, { whitelist: this.types, maxTags: 4 });
@@ -190,7 +191,7 @@ interface IWREditorConstructorOptions extends Partial<DocumentSheetOptions> {
 interface IWREditorData<TActor extends ActorPF2e> extends DocumentSheetData<TActor> {
     header: string;
     category: ListCategory;
-    list: ImmunityData[] | WeaknessData[] | ResistanceData[];
+    list: Immunity[] | Weakness[] | Resistance[];
     sourceData: IWRSource<ImmunityType | WeaknessType | ResistanceType>[];
     types: Record<string, string>;
 }

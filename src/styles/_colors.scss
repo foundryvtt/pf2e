@@ -63,7 +63,7 @@ $adjusted-lower: #cc3311 !default;
     --bg: #{$background-color};
     --bg-dark: #{$background-dark};
     --sub: #{$sub-color};
-    --color-disabled: #{$light-gray-color};
+    --color-disabled: var(--color-text-dark-4);
 
     // Inline links and user visibility
     --inline-link-bg: #ddd;
@@ -83,6 +83,7 @@ $adjusted-lower: #cc3311 !default;
     --text-dark: var(--color-text-dark-primary);
     --text-light: #f5efe0;
     --color-text-dark-input: #333;
+    --color-text-dark-improved: #006644;
 
     /* Borders */
     --color-border-divider: #baa991;
@@ -98,7 +99,6 @@ $adjusted-lower: #cc3311 !default;
     --sidebar-title: var(--tertiary);
 
     /** Traits */
-    --color-bg-alignment: #576293;
     --color-bg-size: #3a7b59;
     --color-bg-trait: #{$primary-color};
     --color-border-trait: #d8c384;
@@ -199,7 +199,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-acid);
                 color: var(--color-text-acid);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-acid);
                 }
             }
@@ -209,7 +209,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-bleed);
                 color: var(--color-text-bleed);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-bleed);
                 }
             }
@@ -221,7 +221,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-physical);
                 color: var(--color-text-physical);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-physical);
                 }
             }
@@ -231,7 +231,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-chaotic);
                 color: var(--color-text-chaotic);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-chaotic);
                 }
             }
@@ -239,10 +239,9 @@ $adjusted-lower: #cc3311 !default;
             &.cold {
                 background-color: var(--color-bg-cold);
                 border-color: var(--color-border-cold);
-                box-shadow: var(--color-border-cold);
                 color: var(--color-text-cold);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-cold);
                 }
             }
@@ -252,7 +251,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-electricity);
                 color: var(--color-text-electricity);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-electricity);
                 }
             }
@@ -262,7 +261,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-evil);
                 color: var(--color-text-evil);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-evil);
                 }
             }
@@ -270,10 +269,9 @@ $adjusted-lower: #cc3311 !default;
             &.fire {
                 background-color: var(--color-bg-fire);
                 border-color: var(--color-border-fire);
-                box-shadow: var(--color-border-fire);
                 color: var(--color-text-fire);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-fire);
                 }
             }
@@ -283,7 +281,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-force);
                 color: var(--color-text-force);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-force);
                 }
             }
@@ -293,7 +291,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-good);
                 color: var(--color-text-good);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-good);
                 }
             }
@@ -303,7 +301,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-lawful);
                 color: var(--color-text-lawful);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-lawful);
                 }
             }
@@ -313,7 +311,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-mental);
                 color: var(--color-text-mental);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-mental);
                 }
             }
@@ -323,7 +321,7 @@ $adjusted-lower: #cc3311 !default;
                 border-color: var(--color-border-poison);
                 color: var(--color-text-poison);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-poison);
                 }
             }
@@ -333,7 +331,7 @@ $adjusted-lower: #cc3311 !default;
                 background-color: var(--color-bg-sonic);
                 color: var(--color-text-sonic);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-sonic);
                 }
             }
@@ -343,7 +341,7 @@ $adjusted-lower: #cc3311 !default;
                 background-color: var(--color-bg-spirit);
                 color: var(--color-text-spirit);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-spirit);
                 }
             }
@@ -354,7 +352,7 @@ $adjusted-lower: #cc3311 !default;
                 color: var(--color-text-vitality);
                 text-shadow: 1px 1px var(--color-text-dark-1);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-vitality);
                 }
             }
@@ -362,9 +360,9 @@ $adjusted-lower: #cc3311 !default;
             &.void {
                 background-color: var(--color-bg-void);
                 border-color: var(--color-border-void);
-                color: var(--color-border-void);
+                color: var(--color-text-void);
 
-                .icon {
+                i[class^="fa-"] {
                     color: var(--color-border-void);
                 }
             }

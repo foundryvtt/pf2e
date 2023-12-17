@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
+import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import type { TokenDocumentPF2e } from "./index.ts";
-import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     static override get defaultOptions(): DocumentSheetOptions {
@@ -45,7 +45,7 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        const html = $html[0]!;
+        const html = $html[0];
 
         this.#disableVisionInputs(html);
 
@@ -103,16 +103,14 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     #disableVisionInputs(html: HTMLElement): void {
         const actorIsPCOrFamiliar = ["character", "familiar"].includes(this.actor?.type ?? "");
         const rulesBasedVision =
-            actorIsPCOrFamiliar &&
-            (this.token.rulesBasedVision ||
-                (this.isPrototype && game.settings.get("pf2e", "automation.rulesBasedVision")));
+            actorIsPCOrFamiliar && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
         if (!rulesBasedVision) return;
 
         const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
         const sightInputs = Array.from(
             html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-                sightInputNames.map((n) => `[name="${n}"]`).join(", ")
-            )
+                sightInputNames.map((n) => `[name="${n}"]`).join(", "),
+            ),
         );
 
         const sightEnabledInput = html.querySelector<HTMLInputElement>('input[name="sight.enabled"]');

@@ -1,0 +1,56 @@
+{
+    "_id": "Z6jMZgAxI1zRO7Sl",
+    "folder": "i18YzT3zo3skuWng",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "All-Out Assault",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "campaign": "kingmaker",
+        "category": "army-war-action",
+        "description": {
+            "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Merciless]</p>\n<hr />\n<p>Your army attacks with frightening vigor. Attempt a melee Strike against an enemy army's AC.</p>\n<p><strong>Critical Success</strong> Your army inflicts @Damage[3|domains:melee-damage,strike-damage] points of damage to the target army. If your army's next war action this turn is an attack war action against a different target army, you gain a +1 circumstance bonus to the Strike as your fury continues to the new target.</p>\n<p><strong>Success</strong> Your army deals @Damage[2|domains:melee-damage,strike-damage] points of damage to the target army.</p>\n<p><strong>Failure</strong> Your army falters, but still deals @Damage[1|domains:melee-damage,strike-damage] point of damage to the target army.</p>\n<p><strong>Critical Failure</strong> Your army deals no damage to the target army and becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Outflanked] until the start of its next turn.</p>"
+        },
+        "location": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "label": "All-Out Assault Followup Attack (Crit Success)",
+                "option": "all-out-assault-followup",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "All-Out Assault Followup (Crit Success)",
+                "predicate": [
+                    "all-out-assault-followup"
+                ],
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "attack",
+                "cavalry",
+                "infantry"
+            ]
+        }
+    },
+    "type": "campaignFeature"
+}

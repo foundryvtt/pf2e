@@ -1,7 +1,7 @@
 {
     "_id": "lcNZMlMNPUrnMgQ2",
     "folder": "e185cDQaLjU3uZ62",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Sharpshooter",
     "system": {
         "actionType": {
@@ -13,7 +13,7 @@
         "campaign": "kingmaker",
         "category": "army-tactic",
         "description": {
-            "value": "<p>The commander drills the army in precision ranged attacks. You gain a +1 status bonus on attacks with ranged Strikes, but suffer a –2 status bonus on attacks with melee Strikes. At 9th level, the penalty to melee Strikes is reduced to –1, and at 15th level the penalty to melee Strikes is removed. The army can use the Covering Fire tactical war action.</p>"
+            "value": "<p>The commander drills the army in precision ranged attacks. You gain a +1 status bonus on attacks with ranged Strikes, but suffer a –2 status bonus on attacks with melee Strikes. At 9th level, the penalty to melee Strikes is reduced to –1, and at 15th level the penalty to melee Strikes is removed.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Covering Fire] tactical war action.</p>"
         },
         "level": {
             "value": 5
@@ -22,13 +22,54 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
         },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.kingmaker-features.Item.Covering Fire"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ranged-attack-roll",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "melee-attack-roll",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 1,
+                            "value": -2
+                        },
+                        {
+                            "end": 14,
+                            "start": 9,
+                            "value": -1
+                        },
+                        {
+                            "start": 15,
+                            "value": 0
+                        }
+                    ],
+                    "field": "actor|level"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "cavalry",
+                "infantry",
+                "skirmisher"
+            ]
         }
     },
     "type": "campaignFeature"

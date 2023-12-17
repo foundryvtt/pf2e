@@ -1,0 +1,146 @@
+{
+    "_id": "MN2Bw4uzDJxuIOWa",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "uNxToGmQN5AbL2Gl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ib8BcumGskNVJdZS"
+                }
+            },
+            "folder": "tavHHn3vqI7bCnl6",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Overrun",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p><em><strong>Note</strong>: Basic cavalry armies know Overrun automatically, and must 'spend' their first tactic on it.</em></p>\n<hr />\n<p>Cavalry armies gain a +1 status bonus on weapon attacks against infantry and skirmisher armies, but they suffer a –1 status penalty on Maneuver and Morale saves against area attacks and mental attacks.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Infantry and Skirmisher",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:infantry",
+                                    "target:trait:skirmisher"
+                                ]
+                            }
+                        ],
+                        "selector": "attack-roll",
+                        "slug": "overrun-attacks",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Area or Mental attacks",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental-attack",
+                                    "area-attack"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "maneuver-check",
+                            "morale-check"
+                        ],
+                        "slug": "overrun-saves",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": "overrun",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Basic Cavalry",
+    "prototypeToken": {
+        "name": "Cavalry"
+    },
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 19
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": 2,
+        "details": {
+            "alignment": "N",
+            "blurb": "",
+            "description": "<p>Cavalry consists of armored soldiers armed with melee weapons and mounted on horses.</p>",
+            "level": {
+                "value": 3
+            }
+        },
+        "recruitmentDC": 18,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 12,
+            "morale": 6
+        },
+        "scouting": 9,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "cavalry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Weapons",
+                "potency": 0
+            },
+            "ranged": null
+        }
+    },
+    "type": "army"
+}

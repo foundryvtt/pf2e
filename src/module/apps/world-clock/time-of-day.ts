@@ -9,7 +9,7 @@ class TimeOfDay {
     constructor(
         public readonly hour: HourNumbers,
         public readonly minute: MinuteNumbers,
-        public readonly second: SecondNumbers
+        public readonly second: SecondNumbers,
     ) {}
 
     /** Point in morning twilight where dim light begins */

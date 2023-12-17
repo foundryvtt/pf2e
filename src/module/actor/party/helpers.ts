@@ -13,7 +13,7 @@ async function createFirstParty(): Promise<void> {
                 type: "party",
                 name: game.i18n.localize("PF2E.Actor.Party.DefaultName"),
             },
-            { keepId: true }
+            { keepId: true },
         );
         await game.settings.set("pf2e", "activeParty", CONFIG.PF2E.defaultPartyId);
     }

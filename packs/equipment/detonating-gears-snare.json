@@ -3,26 +3,19 @@
     "img": "systems/pf2e/icons/equipment/snares/detonating-gears-snare.webp",
     "name": "Detonating Gears Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 1,
-            "value": 1
+        "bulk": {
+            "value": 0
         },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "3d8"
-        },
+        "category": "snare",
         "containerId": "null",
+        "damage": {
+            "formula": "3d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>This snare uses clockwork stressed almost to the breaking point, which activates with a powerful explosion that deals @Damage[3d8[piercing]] damage to the first creature entering the snare's square. The creature must attempt a @Check[type:reflex|dc:19] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and @Damage[3[bleed]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and @Damage[6[bleed]] damage.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +29,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 12
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Guns & Gears"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -65,8 +56,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

@@ -4,16 +4,21 @@
     "name": "Spell Effect: Weapon Surge",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</em> when applied to a weapon without a major striking rune.</p>\n<p>On your next Strike with that weapon before the start of your next turn, you gain a +1 status bonus to the attack roll and the weapon deals an additional die of damage.</p>\n<p>If the weapon has a striking rune, this instead increases the number of dice from the striking rune by 1 (to a maximum of 3 extra weapon dice).</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Weapon Surge]</em></p>\n<p>On your next Strike with the weapon before the start of your next turn, you gain a +1 status bonus to the attack roll, the weapon deals additional spirit damage, and the Strike gains the sanctified trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
             "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -37,14 +42,22 @@
                 "value": 1
             },
             {
-                "diceNumber": 1,
+                "damageType": "spirit",
+                "diceNumber": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,5),2,1))",
+                "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}-damage"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectWeaponSurge}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "sanctified"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

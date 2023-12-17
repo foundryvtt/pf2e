@@ -4,7 +4,7 @@
     "name": "Effect: Perfect Droplet - Armor",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet]</p>\n<p>You gain resistance 2 to water effects and attacks by water creatures.</p>\n<p><strong>Unimplemented effects:</strong> Resistance to attacks by water creatures.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Perfect Droplet]</p>\n<p>You gain resistance 2 to water effects and attacks by water creatures.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,16 +15,29 @@
         "level": {
             "value": 3
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
         "rules": [
             {
                 "key": "Resistance",
                 "type": "water",
                 "value": 2
+            },
+            {
+                "definition": [
+                    "attack",
+                    "origin:creature",
+                    "origin:trait:water"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksWaterCreatures",
+                "type": "custom",
+                "value": 2
             }
         ],
-        "source": {
-            "value": "Pathfinder Secrets of Magic"
-        },
         "start": {
             "initiative": null,
             "value": 0

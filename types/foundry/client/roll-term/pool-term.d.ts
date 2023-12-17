@@ -102,7 +102,7 @@ declare global {
 
         protected static override _fromData<D extends RollTermData, T extends RollTerm<D>>(
             this: ConstructorOf<T>,
-            data: D
+            data: D,
         ): T;
 
         /**
@@ -114,7 +114,7 @@ declare global {
         static fromExpression<D extends PoolTermData, T extends PoolTerm<D>>(
             this: ConstructorOf<T>,
             formula: string,
-            options?: Record<string, unknown>
+            options?: Record<string, unknown>,
         ): T | null;
 
         /**

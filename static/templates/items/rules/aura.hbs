@@ -21,7 +21,7 @@
     <div class="grid-item">
         <label>
             {{localize fields.level.label}}
-            <i class="fa-solid fa-info-circle small" data-tooltip={{fields.level.hint}}></i>
+            <i class="fa-solid fa-info-circle" data-tooltip="{{fields.level.hint}}"></i>
         </label>
         <div class="resolvable">
             {{{form.resolvableValue "level"}}}
@@ -35,13 +35,13 @@
     <div class="stacked">
         <div class="grid-item">
             <label>{{localize fields.traits.label}}</label>
-            <input type="text" class="pf2e-tagify tagify-traits" name="system.rules.{{index}}.traits" value="{{json object.traits}}" data-dtype="JSON"/>
+            <input type="text" class="pf2e-tagify tagify-traits" name="system.rules.{{index}}.traits" value="{{json object.traits}}" data-dtype="JSON" />
         </div>
 
         <div class="grid-item long-label">
             <label>
                 {{localize fields.mergeExisting.label}}
-                <i class="fa-solid fa-info-circle small" data-tooltip={{fields.mergeExisting.hint}}></i>
+                <i class="fa-solid fa-info-circle" data-tooltip="{{fields.mergeExisting.hint}}"></i>
             </label>
             <div class="checkbox">
                 <input type="checkbox" name="system.rules.{{index}}.mergeExisting" {{checked object.mergeExisting}}/>
@@ -66,7 +66,13 @@
             <input type="hidden" name="system.rules.{{../index}}.effects.{{eid}}.uuid" value="{{effect.uuid}}" />
 
             <div class="item-controls">
-                <a class="remove-aura-effect" data-rule-index="{{../index}}" data-effect-id="{{eid}}" data-action="remove-effect" data-tooltip="PF2E.RuleEditor.Aura.Effects.RemoveEffect"><i class="fa-solid fa-trash"></i></a>
+                <a
+                    class="remove-aura-effect"
+                    data-rule-index="{{../index}}"
+                    data-effect-id="{{eid}}"
+                    data-action="remove-effect"
+                    data-tooltip="PF2E.RuleEditor.Aura.Effects.RemoveEffect"
+                ><i class="fa-solid fa-trash"></i></a>
             </div>
         </div>
 
@@ -207,7 +213,7 @@
                 <div class="three-items translation long-label">
                     <label>
                         {{localize fields.appearance.fields.texture.fields.translation.label}}
-                        <i class="fa-solid fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.translation.hint}}></i>
+                        <i class="fa-solid fa-info-circle" data-tooltip="{{fields.appearance.fields.texture.fields.translation.hint}}"></i>
                     </label>
                     <input type="number"
                         name="system.rules.{{index}}.appearance.texture.translation.x"
@@ -227,7 +233,7 @@
                     <div class="three-items long-label">
                         <label>
                             {{localize fields.appearance.fields.texture.fields.playbackRate.label}}
-                            <i class="fa-solid fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.playbackRate.hint}}></i>
+                            <i class="fa-solid fa-info-circle" data-tooltip="{{fields.appearance.fields.texture.fields.playbackRate.hint}}"></i>
                         </label>
                         {{rangePicker name=(concat "system.rules." index ".appearance.texture.playbackRate") value=object.appearance.texture.playbackRate placeholder="1" min="0" max="4" step="0.05"}}
                     </div>
@@ -235,7 +241,7 @@
                     <div class="grid-item long-label">
                         <label>
                             {{localize fields.appearance.fields.texture.fields.loop.label}}
-                            <i class="fa-solid fa-info-circle small" data-tooltip={{fields.appearance.fields.texture.fields.loop.hint}}></i>
+                            <i class="fa-solid fa-info-circle" data-tooltip="{{fields.appearance.fields.texture.fields.loop.hint}}"></i>
                         </label>
                         <input type="checkbox" name="system.rules.{{index}}.appearance.texture.loop" {{checked object.appearance.texture.loop}}/>
                     </div>

@@ -1,7 +1,7 @@
 import type { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
-import { ResolvableValueField } from "./data.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -33,7 +33,7 @@ class DexterityModifierCapRuleElement extends RuleElementPF2e<DexterityModifierC
 
 interface DexterityModifierCapRuleElement
     extends RuleElementPF2e<DexterityModifierCapRuleSchema>,
-        ModelPropsFromSchema<DexterityModifierCapRuleSchema> {
+        ModelPropsFromRESchema<DexterityModifierCapRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 

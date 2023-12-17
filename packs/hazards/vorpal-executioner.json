@@ -18,26 +18,19 @@
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature attempts to exit the room.</p>\n<hr />\n<p><strong>Effect</strong> The saw blade travels along its path, making one Strike against each creature in the room, twisting and varying its height for a maximum chance of beheading its targets.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "attack",
                         "death"
                     ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -52,7 +45,11 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "decapitation",
+                        "no-map"
+                    ]
                 },
                 "bonus": {
                     "value": 40
@@ -64,16 +61,21 @@
                     }
                 },
                 "description": {
-                    "value": "<p>No multiple attack penalty.</p>"
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "deadly-d12",
+                        "death"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -97,23 +99,45 @@
                 "description": {
                     "value": "<p>On a critical hit, a target must succeed at a @Check[type:fortitude|dc:39|traits:damaging-effect] save or be decapitated, dying instantly unless it can survive without a head.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1HPSHShNAV8hxPe3",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No Map",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "trigger": {
-                    "value": ""
+                "actions": {
+                    "value": null
                 },
-                "weapon": {
-                    "value": ""
+                "category": null,
+                "description": {
+                    "value": "<p>The saw blade Strikes do not apply a MAP.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
                 }
             },
             "type": "action"
@@ -125,7 +149,8 @@
             "ac": {
                 "value": 43
             },
-            "hardness": 0,
+            "emitsSound": "encounter",
+            "hardness": 30,
             "hasHealth": true,
             "hp": {
                 "details": "per junction",
@@ -155,12 +180,13 @@
             "level": {
                 "value": 19
             },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
+            },
             "reset": "<p>The trap resets over the course of the round and can be triggered again 1 round later.</p>",
-            "routine": "",
-            "source": {
-                "author": "",
-                "value": "Pathfinder Core Rulebook"
-            }
+            "routine": ""
         },
         "saves": {
             "fortitude": {
@@ -183,7 +209,8 @@
                 "value": "med"
             },
             "value": [
-                "mechanical"
+                "mechanical",
+                "trap"
             ]
         }
     },

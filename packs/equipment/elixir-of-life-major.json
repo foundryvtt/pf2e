@@ -3,26 +3,19 @@
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
     "name": "Elixir of Life (Major)",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 1,
-            "value": 1
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "elixir"
-        },
-        "consume": {
-            "value": "8d6+21"
-        },
+        "category": "elixir",
         "containerId": null,
-        "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (8d6+21)[healing]]]{8d6+21 Hit Points} and gain +3 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Major)]</p>"
+        "damage": {
+            "formula": "8d6+21",
+            "kind": "healing",
+            "type": "untyped"
         },
-        "equippedBulk": {
-            "value": ""
+        "description": {
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (8d6+21)[healing]]]{8d6+21 Hit Points} and gain +3 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Major)]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +29,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 1300
             }
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -63,8 +54,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

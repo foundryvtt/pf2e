@@ -1,0 +1,27 @@
+<section class="rule-form" data-key="{{rule.key}}" data-idx="{{index}}">
+    <header class="rule-element-header">
+        <i class="fa-solid fa-bars drag-handle"></i>
+        <h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>
+        <label class="priority" data-tooltip="{{localize "PF2E.RuleEditor.General.PriorityHint"}}">
+            <i class="fa-solid fa-fw fa-list-ol"></i>
+            <input type="number" value="{{rule.priority}}" {{#unless rule.priority includeZero=true}}placeholder="{{object.priority}}"{{/unless}}/>
+        </label>
+        <div class="item-controls">
+            <a class="edit-rule-element" data-rule-index="{{index}}" data-tooltip="{{localize "PF2E.Item.Rules.Edit"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+            <a class="remove-rule-element" data-rule-index="{{index}}" data-tooltip="{{localize "PF2E.Item.Rules.Remove"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+        </div>
+    </header>
+    <div class="container">
+        {{{template}}}
+    </div>
+
+    {{#if validationFailures}}
+        <div class="validation-failures">
+            <ul>
+                {{#each validationFailures as |message|}}
+                    <li><span>{{message}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+</section>

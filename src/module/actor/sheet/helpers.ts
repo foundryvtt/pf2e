@@ -1,10 +1,10 @@
 import type { ActorPF2e } from "@actor";
 import { SpellSource } from "@item/spell/index.ts";
 import { ZeroToTen } from "@module/data.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, ordinalString } from "@util";
 import * as R from "remeda";
 
-function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): void {
+function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | undefined>): void {
     if (!data.location) {
         throw ErrorPF2e("Unexpected missing spellcasting-entry location");
     }
@@ -14,8 +14,8 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): vo
     const [rankLabel, spellLabel] =
         rank > 0
             ? [
-                  game.i18n.localize(`PF2E.SpellLevel${rank}`),
-                  game.i18n.localize(data.location === "rituals" ? "PF2E.SpellCategoryRitual" : "PF2E.SpellLabel"),
+                  game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                  game.i18n.localize(data.location === "rituals" ? "PF2E.Item.Spell.Ritual.Label" : "TYPES.Item.spell"),
               ]
             : [null, game.i18n.localize("PF2E.TraitCantrip")];
     const source = {
@@ -31,7 +31,7 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, unknown>): vo
     } satisfies DeepPartial<SpellSource>;
 
     if (data.location === "rituals") {
-        source.system = mergeObject(source.system, { category: { value: "ritual" } });
+        source.system = fu.mergeObject(source.system, { category: { value: "ritual" } });
     }
 
     actor.createEmbeddedDocuments("Item", [source]);

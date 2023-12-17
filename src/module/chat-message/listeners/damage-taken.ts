@@ -8,7 +8,7 @@ export const DamageTaken = {
         if (!damageTakenCard) return;
 
         // Obscure target name if "tokenSetsNameVisibility" setting is enabled
-        const settingEnabled = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+        const settingEnabled = game.pf2e.settings.tokens.nameVisibility;
         if (!game.user.isGM && settingEnabled && message.token && !message.token.playersCanSeeName) {
             const nameElem = htmlQuery(damageTakenCard, ".target-name");
             if (nameElem) nameElem.innerText = game.i18n.localize("PF2E.Actor.ApplyDamage.TheTarget");
@@ -30,7 +30,7 @@ export const DamageTaken = {
                             "type" in a &&
                             typeof a.type === "string" &&
                             "adjustment" in a &&
-                            typeof a.adjustment === "number"
+                            typeof a.adjustment === "number",
                     )
                     ? parsed
                     : null;

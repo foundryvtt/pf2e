@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ChoiceSetOwnedItems } from "@module/rules/rule-element/choice-set/data.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";

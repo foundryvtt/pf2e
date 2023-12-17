@@ -8,7 +8,7 @@ class ScenePF2e extends Scene {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
-        return this.flags.pf2e.rulesBasedVision ?? game.settings.get("pf2e", "automation.rulesBasedVision");
+        return this.flags.pf2e.rulesBasedVision ?? game.pf2e.settings.rbv;
     }
 
     get hearingRange(): number | null {
@@ -62,18 +62,17 @@ class ScenePF2e extends Scene {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject(
+        this.flags.pf2e = fu.mergeObject(
             {
                 hearingRange: null,
                 rulesBasedVision: null,
                 syncDarkness: "default",
             },
-            this.flags.pf2e ?? {}
+            this.flags.pf2e ?? {},
         );
 
         if (this.rulesBasedVision) {
             this.globalLight = true;
-            this.hasGlobalThreshold = true;
             this.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
         }
     }
@@ -91,7 +90,8 @@ class ScenePF2e extends Scene {
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
 
-        if (changed.active && canvas.scene === this) {
+        // Check if this is the new active scene or an update to an already active scene
+        if (changed.active !== false && canvas.scene === this) {
             for (const token of canvas.tokens.placeables) {
                 token.auras.reset();
             }
@@ -104,7 +104,7 @@ class ScenePF2e extends Scene {
         documents: foundry.abstract.Document[],
         ids: string[],
         options: DocumentModificationContext<this>,
-        userId: string
+        userId: string,
     ): void {
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
 
@@ -114,7 +114,7 @@ class ScenePF2e extends Scene {
             (d) =>
                 d instanceof TokenDocumentPF2e &&
                 !(d._source.light.dim || d._source.light.bright) &&
-                d.actor?.synthetics.tokenOverrides.light
+                d.actor?.synthetics.tokenOverrides.light,
         );
         if (tokensHadSyntheticLights) {
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
@@ -136,6 +136,17 @@ interface ScenePF2e extends Scene {
     readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;
+
+    createEmbeddedDocuments(
+        embeddedName: "Token",
+        data: PreCreate<foundry.documents.TokenSource>[],
+        context?: DocumentModificationContext<this>,
+    ): Promise<TokenDocumentPF2e<this>[]>;
+    createEmbeddedDocuments(
+        embeddedName: string,
+        data: object[],
+        context?: DocumentModificationContext<this>,
+    ): Promise<foundry.abstract.Document[]>;
 }
 
 // Added as debounced method

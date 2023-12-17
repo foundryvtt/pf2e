@@ -1,0 +1,349 @@
+{
+    "_id": "pz4U2u7oUA76JlJm",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "SfS5ne2W6a9yHBl4",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.FG2BifRmaZ54fxhS"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "counterattack": {
+                            "id": "yDbd3BCYbZULuTwC",
+                            "onDelete": "detach"
+                        },
+                        "dirtyFighting": {
+                            "id": "N2toa3SxsMdrC0ni",
+                            "onDelete": "detach"
+                        },
+                        "feint": {
+                            "id": "ZdBXSPvHn6OklfJm",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "r0oRLqAxCBP3VxTz",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Pitaxian Training",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The Pitaxian Raiders can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Counterattack], @UUID[Compendium.pf2e.kingmaker-features.Item.Dirty Fighting], and @UUID[Compendium.pf2e.kingmaker-features.Item.Feint] tactical actions.</p>"
+                },
+                "level": {
+                    "value": 12
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "flag": "counterattack",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Counterattack"
+                    },
+                    {
+                        "flag": "dirtyFighting",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Dirty Fighting"
+                    },
+                    {
+                        "flag": "feint",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Feint"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "yDbd3BCYbZULuTwC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.8wjiF3ctXUjP9oyX"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "SfS5ne2W6a9yHBl4",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Counterattack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<p><strong>Trigger</strong> An army you are engaged with attempts a maneuver war action.</p>\n<hr />\n<p>Your army lashes out at the foe as they attempt to perform a maneuver. Attempt a melee Strike against the triggering army's AC. Counterattack doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>\n<p><strong>Critical Success</strong> You inflict 1 point of damage on the army and increase its @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken] condition value by 1.</p>\n<p><strong>Success</strong> You inflict 1 point of damage on the army.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "counterattack",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "N2toa3SxsMdrC0ni",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.G2eBcOnUHb3yT7JL"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "SfS5ne2W6a9yHBl4",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Dirty Fighting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<hr />\n<p>Your army uses trickery, deception, and unfair tactics to attempt a devastating attack against an outflanked army. Attempt a melee Strike or a ranged Strike against the AC of a target outflanked army that is not distant.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Weary]{Weary 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes weary 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your attack deals no damage to the target army, which is emboldened by your failed attempt at dirty fighting. This reduces the target army's weary value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "dirty-fighting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "ZdBXSPvHn6OklfJm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.Hi4LKGOKe6yMDOH5"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "SfS5ne2W6a9yHBl4",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feint",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p>Requirement Flexible Tactics Your army launches a probing attack meant to trick the enemy into thinking you are attacking from one quarter while your real thrust comes elsewhere. Critical Success The target army's defenses are thrown off; it is outflanked until the end of your turn. Success The target army is fooled, but only momentarily. It is outflanked against the next melee Strike your army attempts against it before the end of your current turn. Critical Failure The enemy anticipates your feint and presses the advantage. You are outflanked by the target army until the end of your next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "feint",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "ESlSLDiToG3liLeC",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.mHWGxMPebgifsdny"
+                }
+            },
+            "folder": "r0oRLqAxCBP3VxTz",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Plentiful Ammunition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p><em><strong>Note</strong>: This tactic does not appear in the original text of Pathfinder: Kingmaker. It was created to serve as an explanation and source for some of the Pitaxian Raiders' unique modifiers which previously did not have a listed source, allowing the statistics you see here to match those used in the adventure.</em></p>\n<hr />\n<p>The well-supplied Pitaxian forces are not concerned with making every shot count. They have a -2 penalty to ranged strikes, but can carry additional ammunition, increasing the number of times they can use ranged Strikes in each war encounter by 2. This tactic does not count against the maximum number of tactics the Pitaxian Raiders can possess.</p>"
+                },
+                "level": {
+                    "value": 12
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.resources.ammunition.max",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": [
+                            "ranged-attack-roll"
+                        ],
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Pitaxian Raiders",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 33
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "CN",
+            "blurb": "",
+            "description": "<p>The Pitaxian Raiders consist of a mix of Pitax city guards and mercenaries eager for battle.</p>",
+            "level": {
+                "value": 12
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 7
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 25,
+            "morale": 19
+        },
+        "scouting": 22,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "skirmisher",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Swords",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Longbows",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

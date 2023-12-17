@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "adjustName": false,
@@ -29,78 +34,71 @@
                                 "item:category:deity",
                                 "item:category:pantheon"
                             ]
+                        },
+                        {
+                            "not": "item:sanctification:none"
                         }
                     ],
                     "itemType": "deity"
                 },
                 "flag": "deity",
                 "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "not": "deity"
+                    }
+                ],
                 "prompt": "PF2E.SpecificRule.Prompt.Deity"
             },
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.deity}"
             },
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.DeityAndCause.AllowedDrops",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:champion",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:type:feature",
+                        "item:tag:champion-cause",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:tag:holy",
+                                        {
+                                            "or": [
+                                                "deity:primary:sanctification:can:holy",
+                                                "deity:primary:sanctification:must:holy"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:unholy",
+                                        {
+                                            "or": [
+                                                "deity:primary:sanctification:can:unholy",
+                                                "deity:primary:sanctification:must:unholy"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 },
-                "choices": [
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:lg"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Paladin"
-                    },
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:ng"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Redeemer"
-                    },
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:cg"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Liberator"
-                    },
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:le"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Tyrant"
-                    },
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:ne"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Desecrator"
-                    },
-                    {
-                        "predicate": [
-                            "deity:primary:alignment:follower:ce"
-                        ],
-                        "value": "Compendium.pf2e.classfeatures.Item.Antipaladin"
-                    }
-                ],
                 "flag": "cause",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt"
             },
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.cause}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

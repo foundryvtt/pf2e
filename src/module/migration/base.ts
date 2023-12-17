@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ScenePF2e } from "@scene/index.ts";
 
 /**
@@ -77,7 +77,7 @@ interface MigrationBase {
     updateToken?(
         tokenData: foundry.documents.TokenSource,
         actor: Readonly<ActorPF2e | null>,
-        scene: Readonly<ScenePF2e | null>
+        scene: Readonly<ScenePF2e | null>,
     ): Promise<void>;
 
     /**

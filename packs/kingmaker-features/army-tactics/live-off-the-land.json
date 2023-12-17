@@ -1,7 +1,7 @@
 {
     "_id": "sdwSrVfu9yG1uwio",
     "folder": "e185cDQaLjU3uZ62",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Live off the Land",
     "system": {
         "actionType": {
@@ -22,13 +22,37 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
         },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.Kingmaker.Army.Toggles.LiveOffTheLand",
+                "option": "live-off-the-land",
+                "priority": 1,
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.consumption",
+                "predicate": [
+                    "live-off-the-land"
+                ],
+                "value": -1
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "cavalry",
+                "infantry",
+                "skirmisher"
+            ]
         }
     },
     "type": "campaignFeature"

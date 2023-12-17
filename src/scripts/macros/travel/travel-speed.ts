@@ -1,8 +1,6 @@
-import { Fraction, sum } from "@util";
+import * as R from "remeda";
 
-/**
- * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
- */
+/** Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470 */
 export interface ExplorationOptions {
     practicedDefender: boolean;
     swiftSneak: boolean;
@@ -53,6 +51,11 @@ export enum DetectionMode {
     DETECT_BEFORE_WALKING_INTO_IT,
 }
 
+interface Fraction {
+    numerator: number;
+    denominator: number;
+}
+
 function sneaksAtFullSpeed(activity: ExplorationActivities, explorationOptions: ExplorationOptions) {
     return (
         activity === ExplorationActivities.AVOID_NOTICE &&
@@ -68,7 +71,7 @@ export function calculateNormalizedCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
     detectionMode: DetectionMode,
-    explorationOptions: ExplorationOptions
+    explorationOptions: ExplorationOptions,
 ): number {
     // you can be reduced below 5 ft, also gets rid of division by 0
     return Math.max(5, calculateCharacterSpeed(defaultSpeedInFeet, activity, detectionMode, explorationOptions));
@@ -78,7 +81,7 @@ function calculateCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
     detectionMode: DetectionMode,
-    explorationOptions: ExplorationOptions
+    explorationOptions: ExplorationOptions,
 ): number {
     const halvedSpeed = defaultSpeedInFeet / 2;
     if (sneaksAtFullSpeed(activity, explorationOptions) || defendsAtFullSpeed(activity, explorationOptions)) {
@@ -145,12 +148,12 @@ export enum TimeUnit {
     HOUR,
 }
 
-export interface Velocity {
+interface Velocity {
     distance: Distance;
     time: TimeUnit;
 }
 
-export function speedToVelocity(speedInFeet: number): Velocity {
+function speedToVelocity(speedInFeet: number): Velocity {
     return {
         distance: {
             unit: LengthUnit.FEET,
@@ -279,7 +282,7 @@ function toTravelDuration({
     };
 }
 
-export function calculateTravelDuration({
+function calculateTravelDuration({
     journey,
     velocity,
     hustleDurationInMinutes = 0,
@@ -290,7 +293,10 @@ export function calculateTravelDuration({
     hustleDurationInMinutes?: number;
     hoursPerDay?: number;
 }): TravelDuration {
-    const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
+    const distanceInFeet = R.sumBy(journey, increaseDistanceByTerrain);
     const feetPerMinute = toFeetPerMinute(velocity);
     return toTravelDuration({ distanceInFeet, feetPerMinute, hustleDurationInMinutes, hoursPerDay });
 }
+
+export { calculateTravelDuration, speedToVelocity };
+export type { Fraction, Velocity };

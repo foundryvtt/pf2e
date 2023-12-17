@@ -1,5 +1,5 @@
 import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { stackDefinitions } from "@item/physical/bulk.ts";
+import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
 import { Coins, Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { Rarity } from "@module/data.ts";
@@ -17,13 +17,13 @@ class CraftingFormula implements CraftingFormulaData {
 
     constructor(
         public item: PhysicalItemPF2e,
-        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {}
+        { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {},
     ) {
         this.dc =
             dc ??
             calculateDC(item.level, {
                 rarity: item.rarity,
-                proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
+                pwol: game.pf2e.settings.variants.pwol.enabled,
             });
 
         /** Use the passed batch size if provided or otherwise according to the following */
@@ -62,12 +62,12 @@ class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return stackDefinitions[this.item.system.stackGroup ?? ""]?.size ?? 1;
+        return STACK_DEFINITIONS[this.item.system.stackGroup ?? ""]?.size ?? 1;
     }
 
     get defaultBatchSize(): number {
         const { item } = this;
-        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
+        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmo && !item.isMagical;
         const isConsumable =
             (item instanceof ConsumablePF2e && item.category !== "wand") ||
             (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");

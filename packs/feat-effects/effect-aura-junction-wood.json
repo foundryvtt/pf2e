@@ -15,6 +15,11 @@
         "level": {
             "value": 1
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
         "rules": [
             {
                 "events": {
@@ -22,12 +27,9 @@
                     "onTurnStart": true
                 },
                 "key": "TempHP",
-                "value": "ternary(gte(@item.origin.level,15), 3, ternary(gte(@item.origin.level,10), 2, 1))"
+                "value": "ternary(gte(@item.level,15), 3, ternary(gte(@item.level,10), 2, 1))"
             }
         ],
-        "source": {
-            "value": "Pathfinder Rage of Elements"
-        },
         "start": {
             "initiative": null,
             "value": 0

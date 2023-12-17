@@ -1,6 +1,7 @@
 import { ActorType } from "@actor/data/index.ts";
 import { ErrorPF2e } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { ModelPropsFromRESchema } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
 
 class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
@@ -77,6 +78,6 @@ type ActorTraitsRuleSchema = RuleElementSchema & {
 
 interface ActorTraitsRuleElement
     extends RuleElementPF2e<ActorTraitsRuleSchema>,
-        ModelPropsFromSchema<ActorTraitsRuleSchema> {}
+        ModelPropsFromRESchema<ActorTraitsRuleSchema> {}
 
 export { ActorTraitsRuleElement };

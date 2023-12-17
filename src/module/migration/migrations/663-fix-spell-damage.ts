@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { sluggify } from "@util";
@@ -63,7 +63,8 @@ export class Migration663FixSpellDamage extends MigrationBase {
     }
 }
 
-interface SpellScalingOld extends SpellSystemSource {
+interface SpellScalingOld extends Omit<SpellSystemSource, "damage"> {
+    damage: Record<string, unknown>;
     scaling?: {
         interval: number;
         damage: Record<string, string>;

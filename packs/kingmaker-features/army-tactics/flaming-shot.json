@@ -1,7 +1,7 @@
 {
     "_id": "HUGtP04pX8h0vgUc",
     "folder": "e185cDQaLjU3uZ62",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Flaming Shot",
     "system": {
         "actionType": {
@@ -13,7 +13,7 @@
         "campaign": "kingmaker",
         "category": "army-tactic",
         "description": {
-            "value": "<p>The army attacks with projectiles treated with alchemical or magical oils that ignite as they are fired. When your army succeeds at a ranged Strike, the target army must attempt a Maneuver check against your army's attack DC; if it fails, the Strike inflicts 1 additional point of damage.</p>"
+            "value": "<p>The army attacks with projectiles treated with alchemical or magical oils that ignite as they are fired. When your army succeeds at a ranged Strike, the target army must attempt a @Check[type:maneuver|dc:resolve(@actor.strikes.ranged.variants.0.mod + 10)] check against your army's attack DC; if it fails, the Strike inflicts [[/r 1 #damage]] additional point of damage.</p>"
         },
         "level": {
             "value": 9
@@ -22,13 +22,31 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
         },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "selector": "ranged-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "cavalry",
+                "infantry",
+                "siege",
+                "skirmisher"
+            ]
         }
     },
     "type": "campaignFeature"

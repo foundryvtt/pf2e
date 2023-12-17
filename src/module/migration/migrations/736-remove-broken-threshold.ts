@@ -1,5 +1,5 @@
-import { ItemSourcePF2e, PhysicalItemSource } from "@item/data/index.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
+import { ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Remove brokenThreshold property left undeleted in `Migration728FlattenPhysicalProperties` */

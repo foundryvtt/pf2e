@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -12,7 +12,7 @@ export class Migration763RestoreAnimalStrikeOptions extends MigrationBase {
         }
 
         const strikeRE = source.system.rules.find(
-            (r: RESourceWithOptions): r is RESourceWithOptions => r.key === "Strike" && !Array.isArray(r.options)
+            (r: RESourceWithOptions): r is RESourceWithOptions => r.key === "Strike" && !Array.isArray(r.options),
         );
         if (strikeRE) strikeRE.options = ["animal-instinct"];
     }

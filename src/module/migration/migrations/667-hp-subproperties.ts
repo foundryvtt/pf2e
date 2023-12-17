@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -13,7 +13,7 @@ export class Migration667HPSubProperties extends MigrationBase {
         const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
             (rule: Record<string, unknown>) =>
-                "path" in rule && rule["path"] === "system.attributes.hp.recoveryMultiplier"
+                "path" in rule && rule["path"] === "system.attributes.hp.recoveryMultiplier",
         );
         if (needsRuleElement) {
             const element: AELikeSource = {
@@ -30,7 +30,8 @@ export class Migration667HPSubProperties extends MigrationBase {
         if (!["dhampir", "negative-healing"].includes(slug)) return;
         const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
-            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "system.attributes.hp.negativeHealing"
+            (rule: Record<string, unknown>) =>
+                "path" in rule && rule["path"] === "system.attributes.hp.negativeHealing",
         );
 
         if (needsRuleElement) {

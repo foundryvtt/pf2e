@@ -148,7 +148,7 @@
                     {{buildEntry.name}}
                     {{#if @root.options.editable}}
                         <div class="item-controls">
-                            <a data-action="set" {{disabled (not stale)}}><i class="fas fa-fw fa-save"></i></a>
+                            <a data-action="set" {{disabled (not stale)}}><i class="fa-solid fa-fw fa-save"></i></a>
                         </div>
                     {{/if}}
                 </h3>
@@ -217,7 +217,7 @@
 
     {{#*inline "boostButtonSingle"}}
         <button type="button" data-action="{{type}}" class="tooltip boost-button {{type}} {{number}}{{#if button.selected}} selected{{/if}}{{#if button.locked}} locked{{/if}}" {{disabled (and button.disabled (not button.selected))}}>
-            {{#if button.locked}}<i class="fas fa-lock"></i>{{/if}}
+            {{#if button.locked}}<i class="fa-solid fa-lock"></i>{{/if}}
             {{#if (eq number "second")}}
                 x2
             {{else if (eq type "flaw")}}

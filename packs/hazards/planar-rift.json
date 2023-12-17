@@ -18,27 +18,19 @@
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the rift.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 30 feet of the rift are drawn into another plane. Each creature can attempt a @Check[type:reflex|dc:33] save to avoid this fate.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "conjuration",
                         "occult",
                         "teleportation"
                     ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -50,6 +42,7 @@
             "ac": {
                 "value": 10
             },
+            "emitsSound": "encounter",
             "hardness": 0,
             "hasHealth": false,
             "hp": {
@@ -67,17 +60,18 @@
         "creatureType": "",
         "details": {
             "description": "<p>A rift attempts to draw creatures into another plane (the GM chooses the specific plane).</p>",
-            "disable": "<p>@Check[type:thievery|dc:33|name:Assemble a Rift Seal|traits:action:disable-a-device] (master) to assemble a rift seal using objects strongly grounded to your plane, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level; counteract DC 31) to counteract the rift</p>",
+            "disable": "<p>@Check[type:thievery|dc:33|name:Assemble a Rift Seal|traits:action:disable-a-device] (master) to assemble a rift seal using objects strongly grounded to your plane, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th rank; counteract DC 31) to counteract the rift</p>",
             "isComplex": false,
             "level": {
                 "value": 13
             },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
+            },
             "reset": "",
-            "routine": "",
-            "source": {
-                "author": "",
-                "value": "Pathfinder Core Rulebook"
-            }
+            "routine": ""
         },
         "saves": {
             "fortitude": {
@@ -100,7 +94,8 @@
                 "value": "med"
             },
             "value": [
-                "magical"
+                "magical",
+                "trap"
             ]
         }
     },

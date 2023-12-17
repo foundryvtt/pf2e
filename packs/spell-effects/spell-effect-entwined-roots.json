@@ -1,10 +1,10 @@
 {
     "_id": "nFOJ53IkO5khO4Rr",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/magic/nature/root-vine-barrier-wall-brown.webp",
     "name": "Spell Effect: Entwined Roots",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Entwined Roots]</em></p>\n<p>Each affected creature gains resistance to bludgeoning and piercing damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,12 @@
             "value": 10
         },
         "level": {
-            "value": 1
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
         },
         "rules": [
             {
@@ -22,12 +27,9 @@
                     "bludgeoning",
                     "piercing"
                 ],
-                "value": "5*floor((@item.level -2)/3)"
+                "value": "5*(max(0,floor((@item.level -5)/2))+1)"
             }
         ],
-        "source": {
-            "value": "Pathfinder Rage of Elements"
-        },
         "start": {
             "initiative": null,
             "value": 0

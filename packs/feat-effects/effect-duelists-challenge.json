@@ -1,0 +1,70 @@
+{
+    "_id": "maBSHuVHyGwga9uC",
+    "img": "icons/skills/melee/weapons-crossed-swords-purple.webp",
+    "name": "Effect: Duelist's Challenge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Duelist's Challenge].</p>\n<p>Select one foe that you can see and proclaim a challenge. That foe is your dueling opponent until they are defeated, flee, or the encounter ends.</p>\n<p>Any time you hit that enemy using a single one-handed melee weapon while your other hand or hands are free, you gain a circumstance bonus to the Strike's damage equal to the number of damage dice your weapon deals.</p>\n<p>If you attack a creature other than your dueling opponent, you take a circumstance penalty to damage equal to the number of damage dice your weapon deals.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "duelists-challenge"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:hands-held:1",
+                    "target:mark:duelists-challenge",
+                    {
+                        "nor": [
+                            "hands-free:0",
+                            "item:category:unarmed",
+                            "target:condition:fleeing"
+                        ]
+                    }
+                ],
+                "selector": "melee-strike-damage",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:mark:duelists-challenge"
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "duelists-challenge-wrong-target",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice * -1"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

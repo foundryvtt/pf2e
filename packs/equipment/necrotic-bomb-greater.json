@@ -10,6 +10,9 @@
         "bonusDamage": {
             "value": 0
         },
+        "bulk": {
+            "value": 0.1
+        },
         "category": "martial",
         "containerId": null,
         "damage": {
@@ -18,10 +21,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p>Necrotic bombs combine reagents most people consider disgusting at best and unholy at worst, creating a life-sucking miasma upon contact with air. A necrotic bomb deals the listed negative damage and splash damage, and it sickens the primary target on a critical hit. This damage harms only living creatures.</p>\n<hr />\n<p>You gain a +2 bonus to attack rolls.</p>\n<p>The bomb deals @Damage[3d6[void]] damage and [[/r (3[splash])[void]]]{3 negative splash damage}. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>Necrotic bombs combine reagents most people consider disgusting at best and unholy at worst, creating a life-sucking miasma upon contact with air. A necrotic bomb deals the listed void damage and splash damage, and it sickens the primary target on a critical hit. This damage harms only living creatures.</p>\n<hr />\n<p>You gain a +2 bonus to attack rolls.</p>\n<p>The bomb deals 3d6 void damage and 3 void splash damage. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}.</p>"
         },
         "group": "bomb",
         "hardness": 0,
@@ -36,28 +36,15 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potencyRune": {
-            "value": null
-        },
         "price": {
             "value": {
                 "gp": 250
             }
         },
-        "propertyRune1": {
-            "value": null
-        },
-        "propertyRune2": {
-            "value": null
-        },
-        "propertyRune3": {
-            "value": null
-        },
-        "propertyRune4": {
-            "value": null
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #165: Eyes of Empty Death"
         },
         "quantity": 1,
         "range": 20,
@@ -68,30 +55,20 @@
             {
                 "key": "Note",
                 "outcome": [
-                    "success"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.NecroticBomb.Greater.success"
-            },
-            {
-                "key": "Note",
-                "outcome": [
                     "criticalSuccess"
                 ],
                 "selector": "{item|_id}-damage",
                 "text": "PF2E.BombNotes.NecroticBomb.Greater.criticalSuccess"
             }
         ],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder #165: Eyes of Empty Death"
+        "runes": {
+            "potency": 0,
+            "property": [],
+            "striking": 0
         },
+        "size": "med",
         "splashDamage": {
             "value": 3
-        },
-        "stackGroup": null,
-        "strikingRune": {
-            "value": ""
         },
         "traits": {
             "rarity": "common",
@@ -99,15 +76,12 @@
                 "alchemical",
                 "bomb",
                 "consumable",
-                "void",
-                "splash"
+                "splash",
+                "void"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "weight": {
-            "value": "L"
         }
     },
     "type": "weapon"

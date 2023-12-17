@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorSystemSource } from "@actor/data/base.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { ScenePF2e } from "@scene";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -20,8 +20,11 @@ export class MockActor {
 
     _itemGuid = 1;
 
-    constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<null> = {}) {
-        this._source = duplicate(data);
+    constructor(
+        data: ActorSourcePF2e,
+        public options: DocumentConstructionContext<null> = {},
+    ) {
+        this._source = fu.duplicate(data);
         this._source.items ??= [];
         this.prepareData();
     }
@@ -47,13 +50,13 @@ export class MockActor {
         }
 
         for (const source of this._source.items) {
-            const item = this.items.get(source._id);
+            const item = this.items.get(source._id ?? "");
             if (item) {
-                (item as { _source: object })._source = duplicate(source);
+                (item as { _source: object })._source = fu.duplicate(source);
             } else {
                 this.items.set(
-                    source._id,
-                    new MockItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e<ActorPF2e>
+                    source._id ?? "",
+                    new MockItem(source, { parent: this as unknown as ActorPF2e }) as unknown as ItemPF2e<ActorPF2e>,
                 );
             }
         }
@@ -62,14 +65,14 @@ export class MockActor {
     update(changes: Record<string, unknown>): void {
         delete changes.items;
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
+            fu.setProperty(this._source, k, v);
         }
         this.prepareData();
     }
 
     static async updateDocuments(
-        updates: DocumentUpdateData<ActorPF2e>[] = [],
-        _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {}
+        updates: Record<string, unknown>[] = [],
+        _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {},
     ): Promise<ActorPF2e[]> {
         return updates.flatMap((update) => {
             const actor = game.actors.find((a) => a.id === update._id);
@@ -77,14 +80,14 @@ export class MockActor {
 
             const itemUpdates = (update.items ?? []) as DeepPartial<ItemSourcePF2e>[];
             delete update.items;
-            mergeObject(actor._source, update);
+            fu.mergeObject(actor._source, update);
             for (const partial of itemUpdates) {
                 partial._id ??= "item1";
                 const source = actor._source.items.find(
-                    (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id
+                    (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id,
                 );
                 if (source) {
-                    mergeObject(source, partial);
+                    fu.mergeObject(source, partial);
                 } else {
                     actor.createEmbeddedDocuments("Item", [partial]);
                 }
@@ -98,7 +101,7 @@ export class MockActor {
         for (const changes of data) {
             if (type === "Item") {
                 const source = this._source.items.find((i) => i._id === changes._id);
-                if (source) mergeObject(source, changes);
+                if (source) fu.mergeObject(source, changes);
             }
         }
         this.prepareData();
@@ -107,7 +110,7 @@ export class MockActor {
     async createEmbeddedDocuments(
         type: string,
         data: ItemSourcePF2e[],
-        _context: DocumentModificationContext<ActorPF2e>
+        _context: DocumentModificationContext<ActorPF2e>,
     ): Promise<void> {
         if (type === "Item") {
             for (const source of data) {
@@ -121,12 +124,12 @@ export class MockActor {
 
     async deleteEmbeddedDocuments(type: string, ids: string[]): Promise<void> {
         if (type === "Item") {
-            this._source.items = this._source.items.filter((source: { _id: string }) => !ids.includes(source._id));
+            this._source.items = this._source.items.filter((i) => !ids.includes(i._id ?? ""));
         }
         this.prepareData();
     }
 
     toObject(): ActorSourcePF2e {
-        return duplicate(this._source);
+        return fu.duplicate(this._source);
     }
 }

@@ -34,7 +34,7 @@
                                 placeholder="0"
                             />
                         </div>
-                        <div class="ability-score inline-field">
+                        <div class="attribute inline-field">
                             <select data-base-property="data.items.{{eid}}.system.ability.value">
                                 {{#select entry.attribute}}
                                     <option value="str">{{localize "PF2E.AbilityId.str"}}</option>
@@ -64,7 +64,7 @@
                 </div>
                 {{#if entry.hasCollection}}
                     <div class="body">
-                        {{> "systems/pf2e/templates/actors/spellcasting-spell-list.hbs" entry=entry}}
+                        {{> "systems/pf2e/templates/actors/partials/spell-collection.hbs" entry=entry}}
                     </div>
                 {{/if}}
             </li>
@@ -74,7 +74,7 @@
 
     {{#if options.editable}}
         <div class="footer">
-            <button type="button" class="spellcasting-create" data-action="spellcasting-create"><i class="fas fa-plus"></i> {{localize "PF2E.AddSpellcastingEntryTitle"}}</button>
+            <button type="button" class="spellcasting-create" data-action="spellcasting-create"><i class="fa-solid fa-plus"></i> {{localize "PF2E.AddSpellcastingEntryTitle"}}</button>
         </div>
     {{/if}}
 </div>

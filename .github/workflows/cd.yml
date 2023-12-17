@@ -13,10 +13,10 @@ jobs:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -31,6 +31,7 @@ jobs:
       - name: Update Manifest
         run: |
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
+          perl -pi -E "s|latest/download/pf2e\\.zip|download/$SYSTEM_VERSION/pf2e.zip|" dist/system.json
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
 
       - name: Zip Files

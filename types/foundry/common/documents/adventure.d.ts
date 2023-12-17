@@ -1,16 +1,19 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseUser } from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
- * The base User document, which is extended by both the server and client.
- * This base User provides shared functionality which is consistent for both sides of the application.
- * Each client who connects to a Foundry Virtual Tabletop session assumes the identity of one (and only one) User.
+ * The Document definition for an Adventure.
+ * Defines the DataSchema and common behaviors for an Adventure which are shared between both client and server.
+ * @memberof documents
  *
- * @param data                 Initial data from which to construct the document.
- * @property data The constructed data object for the document.
+ * @param data    Initial data from which to construct the Actor
+ * @param context Construction context options
  */
-export default class BaseAdventure extends Document<null> {
+export default class BaseAdventure extends Document<null, AdventureSchema> {
     static override get metadata(): AdventureMetadata;
+
+    static override defineSchema(): AdventureSchema;
 
     /* ---------------------------------------- */
     /*  Permissions                             */
@@ -29,7 +32,7 @@ export default class BaseAdventure extends Document<null> {
      */
     can(action: UserAction): boolean;
 
-    getUserLevel(user: BaseUser): DocumentOwnershipLevel;
+    getUserLevel(user: documents.BaseUser): DocumentOwnershipLevel;
 
     /**
      * Test whether the User has at least a specific permission
@@ -47,10 +50,8 @@ export default class BaseAdventure extends Document<null> {
     hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
 }
 
-export default interface BaseAdventure extends Document<null> {
-    readonly _source: AdventureSource;
-
-    get documentName(): "Adventure";
+export default interface BaseAdventure extends Document<null, AdventureSchema>, ModelPropsFromSchema<AdventureSchema> {
+    get documentName(): AdventureMetadata["name"];
 }
 
 interface AdventureMetadata extends DocumentMetadata {
@@ -60,15 +61,44 @@ interface AdventureMetadata extends DocumentMetadata {
     isPrimary: true;
 }
 
-interface AdventureSource {
-    _id: string;
-    avatar: ImageFilePath;
-    img: ImageFilePath;
-    character: string | null;
-    color: HexColorString;
-    hotbar: Record<number, string>;
-    name: string;
-    password: string;
-    role: UserRole;
-    flags: DocumentFlags;
-}
+type AdventureSchema = {
+    /** The _id which uniquely identifies this Adventure document */
+    _id: fields.DocumentIdField;
+    /** The human-readable name of the Adventure */
+    name: fields.StringField<string, string, true, false, false>;
+    /** The human-readable name of the Adventure*/
+    img: fields.FilePathField<ImageFilePath>;
+    /** A string caption displayed under the primary image banner */
+    caption: fields.HTMLField;
+    /** An HTML text description for the adventure */
+    description: fields.HTMLField;
+    /** An array of Actor documents which are included in the adventure */
+    actors: fields.SetField<fields.EmbeddedDataField<documents.BaseActor<null>>>;
+    /** An array of Combat documents which are included in the adventure */
+    combats: fields.SetField<fields.EmbeddedDataField<documents.BaseCombat>>;
+    /** An array of Item documents which are included in the adventure */
+    items: fields.SetField<fields.EmbeddedDataField<documents.BaseItem<null>>>;
+    /** An array of JournalEntry documents which are included in the adventure */
+    journal: fields.SetField<fields.EmbeddedDataField<documents.BaseJournalEntry>>;
+    /** An array of Scene documents which are included in the adventure */
+    scenes: fields.SetField<fields.EmbeddedDataField<documents.BaseScene>>;
+    /** An array of RollTable documents which are included in the adventure */
+    tables: fields.SetField<fields.EmbeddedDataField<documents.BaseRollTable>>;
+    /** An array of Macro documents which are included in the adventure */
+    macros: fields.SetField<fields.EmbeddedDataField<documents.BaseMacro>>;
+    /** An array of Cards documents which are included in the adventure */
+    cards: fields.SetField<fields.EmbeddedDataField<documents.BaseCards>>;
+    /** An array of Playlist documents which are included in the adventure */
+    playlists: fields.SetField<fields.EmbeddedDataField<documents.BasePlaylist>>;
+    /** An array of Folder documents which are included in the adventure */
+    folders: fields.SetField<fields.EmbeddedDataField<documents.BaseFolder>>;
+    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    /** The sort order of this adventure relative to its siblings */
+    sort: fields.IntegerSortField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+    /** An object of creation and access information */
+    _stats: fields.DocumentStatsField;
+};
+
+type AdventureSource = SourceFromSchema<AdventureSchema>;

@@ -21,6 +21,11 @@
                 },
                 "group": null,
                 "overrides": [],
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "references": {
                     "children": [],
                     "immunityFrom": [],
@@ -29,9 +34,6 @@
                 },
                 "rules": [],
                 "slug": "slowed",
-                "source": {
-                    "value": ""
-                },
                 "value": {
                     "isValued": true,
                     "value": 1
@@ -66,11 +68,13 @@
                 "description": {
                     "value": ""
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -104,23 +108,16 @@
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
                 "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -141,20 +138,66 @@
                 "description": {
                     "value": "<p>A zombie is permanently @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oW4GlZx8glb20tAK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Piping Dirge",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
                 },
-                "trigger": {
-                    "value": ""
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Living creatures that enter the aura or start their turn within it become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and can't reduce their frightened value below 1 while within the aura.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "piping-dirge",
+                        "traits": [
+                            "auditory",
+                            "emotion",
+                            "fear",
+                            "mental",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "auditory",
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
                 }
             },
             "type": "action"
@@ -167,8 +210,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Negative Healing",
-            "sort": 500000,
+            "name": "Void Healing",
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -180,8 +223,10 @@
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
                 },
                 "rules": [
                     {
@@ -192,75 +237,9 @@
                     }
                 ],
                 "slug": "negative-healing",
-                "source": {
-                    "value": "Pathfinder Bestiary 2"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "oW4GlZx8glb20tAK",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Piping Dirge",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Living creatures that enter the aura or start their turn within it become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and can't reduce their frightened value below 1 while within the aura.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 30,
-                        "slug": "piping-dirge",
-                        "traits": [
-                            "auditory",
-                            "aura",
-                            "emotion",
-                            "enchantment",
-                            "fear",
-                            "mental",
-                            "occult"
-                        ]
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "auditory",
-                        "aura",
-                        "emotion",
-                        "enchantment",
-                        "fear",
-                        "mental",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -281,24 +260,19 @@
                 "description": {
                     "value": "<p>The dirge piper expels air and bile in a trumpeting blast from its exposed guts. Each non-zombie creature within a @Template[type:emanation|distance:30] takes @Damage[4d6[sonic]] damage (@Check[type:fortitude|dc:20|basic:true]). A creature that fails the save is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The dirge piper can't use Putrid Blast again for [[/br 1d4 #Recharge Putrid Blast]]{1d4 rounds}.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "evocation",
                         "occult",
                         "sonic"
                     ]
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -319,24 +293,19 @@
                 "description": {
                     "value": "<p>The dirge piper lets out an eerie keening through its rotting orifices that drives nearby zombies to feast more vigorously. Each other zombie within 10 feet of the dirge piper is @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round and can use the extra action to Grab, Stride, or Strike.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "evocation",
                         "occult"
                     ]
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -362,23 +331,16 @@
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
                 "slug": "grab",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -398,11 +360,13 @@
                 "proficient": {
                     "value": 0
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                }
+                "slug": null
             },
             "type": "lore"
         },
@@ -421,11 +385,13 @@
                 "proficient": {
                     "value": 0
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                }
+                "slug": null
             },
             "type": "lore"
         }
@@ -461,7 +427,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "negative healing",
+                "details": "void healing",
                 "max": 95,
                 "temp": 0,
                 "value": 95
@@ -505,18 +471,16 @@
             ]
         },
         "details": {
-            "alignment": {
-                "value": "NE"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 3
             },
             "privateNotes": "",
             "publicNotes": "<p>Under rare circumstances, an attempt to reanimate a skilled musician or performer as a mindless zombie is impeded by lingering occult magic that anchors a piece of the being's artistic soul to its shambling body. The resulting dirge piper retains a fragment of the person's former intellect and personality, but lacks the coordination and acuity to make true music any longer. Instead, they force air through the cavities and organs of their decomposing bodies to produce haunting piping, squelches, and trumpeting.</p>\n<p>Most dirge pipers cling to a sense of fashion from their former lives, often obsessing over the condition of their clothes. They are aware enough of their deteriorating bodies that their own decay drives them into deepening despair. The only thing more disturbing to a dirge piper than their corpse is their own music. Despite hating the sounds they make, they cannot help but produce constant noise from their mouths and their wounds.</p>\n<p>Although many necromancers consider the noisy dirge pipers a mistake, dirge pipers can be useful as leaders of other groups of zombies because their piping invigorates their fellow walking corpses. Even their putrid, trumpeting blasts resonate in a way that doesn't harm other zombies.</p>",
-            "source": {
-                "value": "Pathfinder #181: Zombie Feast"
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #181: Zombie Feast"
             }
         },
         "resources": {},
@@ -551,7 +515,9 @@
                 "value": "med"
             },
             "value": [
+                "evil",
                 "undead",
+                "unholy",
                 "zombie"
             ]
         }

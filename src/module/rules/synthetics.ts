@@ -7,7 +7,7 @@ import type { TokenEffect } from "@actor/token-effect.ts";
 import { MovementType } from "@actor/types.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/index.ts";
-import { ConditionSource, EffectSource } from "@item/data/index.ts";
+import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
@@ -24,12 +24,10 @@ interface RuleElementSynthetics {
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
-    ephemeralEffects: {
-        [K in string]?: {
-            target: DeferredEphemeralEffect[];
-            origin: DeferredEphemeralEffect[];
-        };
-    };
+    ephemeralEffects: Record<
+        string,
+        { target: DeferredEphemeralEffect[]; origin: DeferredEphemeralEffect[] } | undefined
+    >;
     modifierAdjustments: ModifierAdjustmentSynthetics;
     modifiers: ModifierSynthetics;
     movementTypes: { [K in MovementType]?: DeferredMovementType[] };
@@ -62,11 +60,12 @@ interface RuleElementSynthetics {
 type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];
 type CritSpecSynthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>) => CritSpecEffect | null;
 
-type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & { [K in string]?: DeferredDamageDice[] };
-type ModifierSynthetics = Record<"all" | "damage", DeferredModifier[]> & { [K in string]?: DeferredModifier[] };
-type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: ModifierAdjustment[] } & {
-    [K in string]?: ModifierAdjustment[];
-};
+type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & Record<string, DeferredDamageDice[] | undefined>;
+type ModifierSynthetics = Record<"all" | "damage", DeferredModifier[]> & Record<string, DeferredModifier[] | undefined>;
+type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: ModifierAdjustment[] } & Record<
+    string,
+    ModifierAdjustment[] | undefined
+>;
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
@@ -124,7 +123,7 @@ interface SenseSynthetic {
 interface StrikeAdjustment {
     adjustDamageRoll?: (
         weapon: WeaponPF2e | MeleePF2e,
-        { materials }: { materials?: Set<MaterialDamageEffect> }
+        { materials }: { materials?: Set<MaterialDamageEffect> },
     ) => void;
     adjustWeapon?: (weapon: WeaponPF2e | MeleePF2e) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;

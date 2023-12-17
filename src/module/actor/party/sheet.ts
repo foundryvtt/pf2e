@@ -7,9 +7,10 @@ import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/da
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -17,10 +18,9 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import type { Statistic } from "@system/statistic/index.ts";
-import { addSign, createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, sortBy, sum } from "@util";
+import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 
 interface PartySheetRenderOptions extends ActorSheetRenderOptionsPF2e {
     actors?: boolean;
@@ -66,7 +66,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
                     const users = game.users.filter((u) => !u.isSelf);
                     game.socket.emit("system.pf2e", {
@@ -100,10 +100,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
                 totalCoins:
-                    sum(members.map((actor) => actor.inventory.coins.goldValue ?? 0)) +
+                    R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
                     this.actor.inventory.coins.goldValue,
                 totalWealth:
-                    sum(members.map((actor) => actor.inventory.totalWealth.goldValue ?? 0)) +
+                    R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
                     this.actor.inventory.totalWealth.goldValue,
                 totalBulk: members
                     .map((actor) => actor.inventory.bulk.value)
@@ -114,7 +114,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 speed: this.actor.system.attributes.speed.total,
                 activities:
                     Object.entries(CONFIG.PF2E.hexplorationActivities).find(
-                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total
+                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
                     )?.[1] ?? 0,
             },
             orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
@@ -145,10 +145,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                           class: actor.class.name,
                       })
                     : actor.isOfType("familiar") && actor.master
-                    ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
-                    : actor.isOfType("npc")
-                    ? actor.system.details.blurb.trim() || null
-                    : null;
+                      ? game.i18n.format("PF2E.Actor.Familiar.Blurb", { master: actor.master.name })
+                      : actor.isOfType("npc")
+                        ? actor.system.details.blurb.trim() || null
+                        : null;
             const heroPoints =
                 actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")
@@ -160,8 +160,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
                 bestSkills: Object.values(actor.skills ?? {})
                     .filter((s): s is Statistic => !!s?.proficient && !s.lore)
-                    .sort(sortBy((s) => s.mod ?? 0))
-                    .reverse()
+                    .sort((a, b) => (b.mod ?? 0) - (a.mod ?? 0))
                     .slice(0, 4)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 genderPronouns,
@@ -191,16 +190,22 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
                     // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
                     // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                    // We remove low-light vision from the result if the actor has darkvision.
-                    const hasDarkvision = rawSenses.some((s) => s.type === "darkvision");
-                    const adjustedSenses = hasDarkvision
-                        ? rawSenses.filter((r) => r.type !== "lowLightVision")
-                        : rawSenses;
-                    return adjustedSenses.map((r) => ({
-                        acuity: r.acuity,
-                        labelFull: r.label ?? "",
-                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
-                    }));
+                    // We remove low-light vision from the result if the actor has darkvision, and darkvision if greater darkvision
+                    const senseTypes = new Set(rawSenses.map((s) => s.type));
+                    if (senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")) {
+                        senseTypes.delete("lowLightVision");
+                    }
+                    if (senseTypes.has("greaterDarkvision")) {
+                        senseTypes.delete("darkvision");
+                    }
+
+                    return rawSenses
+                        .filter((r) => senseTypes.has(r.type))
+                        .map((r) => ({
+                            acuity: r.acuity,
+                            labelFull: r.label ?? "",
+                            label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                        }));
                 })(),
                 hp: actor.hitPoints,
                 activities: activities.map((action) => ({
@@ -233,7 +238,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             members
                 .flatMap((m) => Object.values(m.skills))
                 .filter((s): s is Statistic => !!s?.lore)
-                .map((s) => s.slug)
+                .map((s) => s.slug),
         );
 
         function getBestSkill(slug: string): SkillData | null {
@@ -249,9 +254,9 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         slug,
                         label: game.i18n.localize(CONFIG.PF2E.languages[slug]),
                         actors: this.#getActorsThatUnderstand(slug),
-                    })
+                    }),
                 ),
-                (l) => l.label
+                (l) => l.label,
             ),
             skills: R.sortBy(
                 Array.from(SKILL_LONG_FORMS).map((slug): SkillData => {
@@ -259,7 +264,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     const label = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
                     return best ?? { mod: 0, label, slug, rank: 0 };
                 }),
-                (s) => s.label
+                (s) => s.label,
             ),
             knowledge: {
                 regular: R.compact(baseKnowledgeSkills.map(getBestSkill)),
@@ -316,7 +321,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             rollLink.addEventListener("click", (event) => {
                 const rollMode = rollLink.dataset.secret ? (game.user.isGM ? "gmroll" : "blindroll") : undefined;
                 const statistic = actor.getStatistic(rollLink.dataset.statistic ?? "");
-                statistic?.roll({ ...eventToRollParams(event), rollMode });
+                statistic?.roll({ ...eventToRollParams(event, { type: "check" }), rollMode });
             });
         }
 
@@ -388,7 +393,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
                 const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);
-                const label = `${statistic.actor.name} (${prof}) ${addSign(statistic.mod)}`;
+                const label = `${statistic.actor.name} (${prof}) ${signedInteger(statistic.mod)}`;
                 const row = createHTMLElement("div", { children: [label] });
                 row.style.textAlign = "right";
                 return row;
@@ -433,11 +438,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         htmlQuery(html, "[data-action=rest]")?.addEventListener("click", (event) => {
             game.pf2e.actions.restForTheNight({ event, actors: this.actor.members });
         });
+
+        htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
+            game.pf2e.gm.checkPrompt({ actors: this.actor.members });
+        });
     }
 
     /** Overriden to prevent inclusion of campaign-only item types. Those should get added to their own sheet */
     protected override async _onDropItemCreate(
-        itemData: ItemSourcePF2e | ItemSourcePF2e[]
+        itemData: ItemSourcePF2e | ItemSourcePF2e[],
     ): Promise<Item<PartyPF2e>[]> {
         const toTest = Array.isArray(itemData) ? itemData : [itemData];
         const supported = [...PHYSICAL_ITEM_TYPES, ...this.actor.baseAllowedItemTypes];
@@ -456,14 +465,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e & { fromInventory?: boolean }
+        data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const droppedRegion = event.target?.closest<HTMLElement>("[data-region]")?.dataset.region;
         const targetActor = event.target?.closest<HTMLElement>("[data-actor-uuid]")?.dataset.actorUuid;
         if (droppedRegion === "inventoryMembers" && targetActor) {
             const item = await ItemPF2e.fromDropData(data);
             if (!item) return [];
-            const actorUuid = foundry.utils.parseUuid(targetActor).documentId;
+            const actorUuid = fu.parseUuid(targetActor).documentId;
             if (actorUuid && item.actor && item.isOfType("physical")) {
                 await this.moveItemBetweenActors(
                     event,
@@ -471,7 +480,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     item.actor.token?.id ?? null,
                     actorUuid,
                     null,
-                    item.id
+                    item.id,
                 );
                 return [item];
             }
@@ -516,7 +525,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _renderInner(
         data: Record<string, unknown>,
-        options: RenderOptions
+        options: RenderOptions,
     ): Promise<JQuery<HTMLElement>> {
         const result = await super._renderInner(data, options);
         await this.#renderRegions(result[0], data);
@@ -526,7 +535,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _onDropActor(
         event: DragEvent,
-        data: DropCanvasData<"Actor", PartyPF2e>
+        data: DropCanvasData<"Actor", PartyPF2e>,
     ): Promise<false | void> {
         await super._onDropActor(event, data);
 

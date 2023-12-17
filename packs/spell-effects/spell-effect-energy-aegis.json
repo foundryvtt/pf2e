@@ -4,7 +4,7 @@
     "name": "Spell Effect: Energy Aegis",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Energy Aegis]</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Energy Aegis]</p>\n<p>The target gains resistance to acid, cold, electricity, fire, force, sonic, vitality, and void damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -15,6 +15,11 @@
         "level": {
             "value": 7
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "Resistance",
@@ -24,16 +29,13 @@
                     "electricity",
                     "fire",
                     "force",
-                    "void",
+                    "sonic",
                     "vitality",
-                    "sonic"
+                    "void"
                 ],
-                "value": "5*floor((@item.level -5)/2)"
+                "value": "ternary(gte(@item.level,9),10,5)"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

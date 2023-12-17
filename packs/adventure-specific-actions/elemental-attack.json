@@ -1,0 +1,62 @@
+{
+    "_id": "6U04OKtvRURExkli",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Elemental Attack",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Choose from air, earth, fire, metal, water, or wood (this choice can't be changed once you select it for the impersonator). The noppera-bo impersonator targets a creature within 60 feet and creates a detonation of that element; that creature takes @Damage[4d6[@item.flags.pf2e.rulesSelections.damage]] (slashing (air), bludgeoning (earth, water, or wood), piercing (metal), or fire (fire)) damage (@Check[type:reflex|dc:24|basic:true] save). Elemental Attack gains the appropriate elemental trait.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #198: No Breath to Cry"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "bludgeoning"
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element"
+            }
+        ],
+        "traits": {
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "action"
+}

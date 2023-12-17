@@ -4,7 +4,7 @@ declare global {
      * @param document The Document instance which is represented by this object
      */
     abstract class PlaceableObject<
-        TDocument extends CanvasDocument = CanvasDocument
+        TDocument extends CanvasDocument = CanvasDocument,
     > extends RenderFlagsContainer<TDocument> {
         constructor(document: TDocument);
 
@@ -32,12 +32,18 @@ declare global {
         /** A mouse interaction manager instance which handles mouse workflows related to this object. */
         mouseInteractionManager: MouseInteractionManager;
 
-        /** Identify the official EmbeddedEntity name for this PlaceableObject class */
-        static embeddedName: string;
-
         /* -------------------------------------------- */
         /* Properties                                   */
         /* -------------------------------------------- */
+
+        /** Identify the official EmbeddedEntity name for this PlaceableObject class */
+        static embeddedName: string;
+
+        /** Passthrough certain drag operations on locked objects. */
+        protected _dragPassthrough: boolean;
+
+        /** Know if a placeable is in the hover-in state.  */
+        protected _isHoverIn: boolean;
 
         /**
          * The bounding box for this PlaceableObject.
@@ -160,7 +166,7 @@ declare global {
          * The inner _destroy method which may optionally be defined by each PlaceableObject subclass.
          * @param [options] Options passed to the initial destroy call
          */
-        protected _destroy(options?: object): void;
+        protected _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Draw the placeable object into its parent container */
         draw(): Promise<this>;
@@ -174,17 +180,17 @@ declare global {
          */
         refresh(): this;
 
-        /**
-         * The inner _refresh method which must be defined by each PlaceableObject subclass.
-         * @param options Options which may modify the refresh workflow
-         */
-        protected abstract _refresh(options: object): void;
+        /** Update the quadtree. */
+        protected _updateQuadtree(): void;
+
+        /** Get the target opacity that should be used for a Placeable Object depending on its preview state. */
+        protected _getTargetAlpha(): number;
 
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
         protected _onCreate(
             data: TDocument["_source"],
             options: DocumentModificationContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is updated with new data */
@@ -192,7 +198,7 @@ declare global {
         protected _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
             options: DocumentUpdateContext<TDocument["parent"]>,
-            userId: string
+            userId: string,
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
@@ -267,7 +273,7 @@ declare global {
         /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
         protected _onHoverIn(
             event: PIXI.FederatedPointerEvent,
-            { hoverOutOthers }?: { hoverOutOthers?: boolean }
+            { hoverOutOthers }?: { hoverOutOthers?: boolean },
         ): boolean | void;
 
         /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
@@ -311,13 +317,13 @@ declare global {
         protected _onDragEnd(): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
+        protected _onDragLeftMove(event: PlaceablesLayerPointerEvent<this>): void;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<TDocument[]>;
+        protected _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<TDocument[] | void>;
 
         /** Callback actions which occur on a mouse-move operation. */
-        protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;
+        protected _onDragLeftCancel(event: PlaceablesLayerPointerEvent<this>): void;
     }
 
     interface PlaceableObject<TDocument extends CanvasDocument = CanvasDocument>

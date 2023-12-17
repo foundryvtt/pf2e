@@ -2,7 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import type { ConsumablePF2e } from "@item";
 import { TrickMagicItemDifficultyData, calculateTrickMagicItemCheckDC } from "@item/consumable/spell-consumables.ts";
 import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry, TrickMagicItemSkill } from "@item/spellcasting-entry/trick.ts";
-import { ErrorPF2e, localizer } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, localizer } from "@util";
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
@@ -39,7 +39,7 @@ export class TrickMagicItemPopup {
         }));
         const buttons = skills.reduce((accumulated: Record<string, DialogButton>, skill) => {
             const button: DialogButton = {
-                icon: '<i class="fas fa-dice-d20"></i>',
+                icon: fontAwesomeIcon("dice-d20").outerHTML,
                 label: `${skill.label} (${skill.modifier < 0 ? "" : "+"}${skill.modifier})`,
                 callback: () => this.#handleTrickItem(skill.value),
             };
@@ -51,7 +51,7 @@ export class TrickMagicItemPopup {
                 content: `<p>${this.#localize("Label")}</p>`,
                 buttons,
             },
-            { classes: ["dialog", "trick-magic-item"], width: "auto" }
+            { classes: ["dialog", "trick-magic-item"], width: "auto" },
         ).render(true);
     }
 

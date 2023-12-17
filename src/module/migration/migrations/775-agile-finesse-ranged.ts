@@ -1,4 +1,4 @@
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement } from "@system/predication.ts";
 import { isObject } from "@util";

@@ -1,14 +1,14 @@
 import { ActorPF2e } from "@actor";
+import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
+import { Size } from "@module/data.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
-import { Size } from "@module/data.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
 
 class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     get entries(): KitEntryData[] {
@@ -24,7 +24,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
 
     /** Expand a tree of kit entry data into a list of physical items */
     override async createGrantedItems(
-        options: { entries?: KitEntryData[]; containerId?: string; size?: Size } = {}
+        options: { entries?: KitEntryData[]; containerId?: string; size?: Size } = {},
     ): Promise<PhysicalItemPF2e<null>[]> {
         const size = new ActorSizePF2e({ value: options.size ?? "med", smallIsMedium: true }).value;
         const entries = options.entries ?? this.entries;
@@ -36,7 +36,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
         return items.reduce(
             async (promise: PhysicalItemPF2e<null>[] | Promise<PhysicalItemPF2e<null>[]>, item, index) => {
                 const prepared = await promise;
-                const clone = item.clone({ _id: randomID(), system: { size } }, { keepId: true });
+                const clone = item.clone({ _id: fu.randomID(), system: { size } }, { keepId: true });
                 const entry = entries[index];
                 if (clone.isOfType("physical")) {
                     clone.updateSource({
@@ -61,14 +61,14 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
 
                 return prepared;
             },
-            []
+            [],
         );
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         if (!changed.system) {
             return await super._preUpdate(changed, options, user);

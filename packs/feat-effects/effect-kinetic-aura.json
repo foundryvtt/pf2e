@@ -15,6 +15,11 @@
         "level": {
             "value": 1
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
         "rules": [
             {
                 "adjustName": false,
@@ -82,24 +87,37 @@
                         "events": [
                             "enter"
                         ],
+                        "predicate": [
+                            "junction:air:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Air)"
+                    },
+                    {
+                        "affects": "enemies",
+                        "predicate": [
+                            "junction:fire:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Fire)"
+                    },
+                    {
+                        "affects": "all",
+                        "predicate": [
+                            "junction:water:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Water)"
+                    },
+                    {
+                        "affects": "allies",
                         "includeSelf": false,
                         "predicate": [
                             "junction:wood:aura"
                         ],
                         "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Wood)"
-                    },
-                    {
-                        "affects": "allies",
-                        "events": [
-                            "enter"
-                        ],
-                        "predicate": [
-                            "junction:air:aura"
-                        ],
-                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Air)"
                     }
                 ],
                 "key": "Aura",
+                "level": "@actor.level",
+                "priority": 99,
                 "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
                 "slug": "kinetic-aura",
                 "traits": [
@@ -114,9 +132,6 @@
                 "value": "@item.flags.pf2e.rulesSelections.auraRadius"
             }
         ],
-        "source": {
-            "value": "Pathfinder Rage of Elements"
-        },
         "start": {
             "initiative": null,
             "value": 0

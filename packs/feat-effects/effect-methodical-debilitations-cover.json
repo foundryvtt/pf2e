@@ -1,0 +1,51 @@
+{
+    "_id": "4HNPQ6pnMDRe8jaN",
+    "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
+    "name": "Effect: Methodical Debilitations (Cover)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Methodical Debilitations]</p>\n<p>The target doesn't gain a circumstance bonus to AC from Raising a Shield, lesser cover, or standard cover; it gains a +2 circumstance bonus to AC only from greater cover or Taking Cover.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "selector": "ac",
+                "slug": "cover",
+                "value": -2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "selector": "ac",
+                "slug": "cover",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

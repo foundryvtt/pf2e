@@ -1,5 +1,7 @@
 import { ActorProxyPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import { resetActors } from "@actor/helpers.ts";
+import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -18,12 +20,16 @@ import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
 import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
+import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
     listen(): void {
+        // Assign database backend to handle migrations
+        CONFIG.DatabaseBackend = new ClientDatabaseBackendPF2e();
+
         // Assign document classes
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.collection = ActorsPF2e;
@@ -81,6 +87,7 @@ export const Load = {
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
             feat: "fa-solid fa-medal",
+            shield: "fa-solid fa-shield-halved",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
             weapon: "fa-solid fa-sword",
@@ -100,16 +107,49 @@ export const Load = {
             }
         });
 
-        // HMR for template files
-        if (import.meta.hot) {
-            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
-                delete _templateCache[path];
-                await getTemplate(path);
-                const apps = [...Object.values(ui.windows), ui.sidebar];
-                for (const app of apps) {
+        function rerenderApps(path: string): void {
+            const apps = [...Object.values(ui.windows), ui.sidebar];
+            for (const app of apps) {
+                if (path.endsWith(".json") && app instanceof ActorSheetPF2e) {
+                    resetActors([app.actor]);
+                } else {
                     app.render();
                 }
-                if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            }
+            if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+        }
+
+        // HMR for template files
+        if (import.meta.hot) {
+            import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
+                const response = await fetch(path);
+                if (!response.ok) {
+                    ui.notifications.error(`Failed to load ${path}`);
+                    return;
+                }
+                const lang = await response.json();
+                const apply = (): void => {
+                    fu.mergeObject(game.i18n.translations, lang);
+                    rerenderApps(path);
+                };
+                if (game.ready) {
+                    apply();
+                } else {
+                    Hooks.once("ready", apply);
+                }
+            });
+
+            import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+                const apply = async (): Promise<void> => {
+                    delete _templateCache[path];
+                    await getTemplate(path);
+                    rerenderApps(path);
+                };
+                if (game.ready) {
+                    apply();
+                } else {
+                    Hooks.once("ready", apply);
+                }
             });
         }
     },

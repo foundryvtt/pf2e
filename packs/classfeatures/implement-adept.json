@@ -19,83 +19,33 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Amulet",
-                        "predicate": [
-                            "feature:amulet"
-                        ],
-                        "value": "amulet"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Bell",
-                        "predicate": [
-                            "feature:bell"
-                        ],
-                        "value": "bell"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Chalice",
-                        "predicate": [
-                            "feature:chalice"
-                        ],
-                        "value": "chalice"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Lantern",
-                        "predicate": [
-                            "feature:lantern"
-                        ],
-                        "value": "lantern"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Mirror",
-                        "predicate": [
-                            "feature:mirror"
-                        ],
-                        "value": "mirror"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Regalia",
-                        "predicate": [
-                            "feature:regalia"
-                        ],
-                        "value": "regalia"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Tome",
-                        "predicate": [
-                            "feature:tome"
-                        ],
-                        "value": "tome"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Wand",
-                        "predicate": [
-                            "feature:wand"
-                        ],
-                        "value": "wand"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.Weapon",
-                        "predicate": [
-                            "feature:weapon"
-                        ],
-                        "value": "weapon"
-                    }
-                ],
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:tag:thaumaturge-implement"
+                    ],
+                    "types": [
+                        "feat"
+                    ]
+                },
                 "flag": "implementAdept",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
-                "rollOption": "adept"
+                "key": "ChoiceSet"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.implementAdept}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "thaumaturge-implement-adept"
             }
         ],
-        "source": {
-            "value": "Pathfinder Dark Archive"
-        },
         "traits": {
             "rarity": "common",
             "value": [

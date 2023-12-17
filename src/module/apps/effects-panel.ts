@@ -1,10 +1,11 @@
-import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
-import { EffectExpiryType } from "@item/effect/data.ts";
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
+import type { AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
+import { AbstractEffectPF2e } from "@item";
+import type { EffectExpiryType } from "@item/abstract-effect/index.ts";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
+import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
-import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -19,7 +20,7 @@ export class EffectsPanel extends Application {
      * Debounce and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
      * to properly wait for promises to resolve before refreshing the UI.
      */
-    refresh = foundry.utils.debounce(this.render, 100);
+    refresh = fu.debounce(this.render, 100);
 
     static override get defaultOptions(): ApplicationOptions {
         return {
@@ -62,7 +63,7 @@ export class EffectsPanel extends Application {
                         : this.#getRemainingDurationLabel(
                               duration.remaining,
                               system.start.initiative ?? 0,
-                              system.duration.expiry
+                              system.duration.expiry,
                           );
                 }
                 return effect;
@@ -90,7 +91,7 @@ export class EffectsPanel extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         // For inline roll links in descriptions
         InlineRollLinks.listen(html, this.actor);
@@ -227,7 +228,7 @@ export class EffectsPanel extends Application {
                 const actor = "actor" in effect ? effect.actor : null;
                 const rollData = { actor, item: effect };
                 return await TextEditor.enrichHTML(effect.description, { async: true, rollData });
-            })
+            }),
         );
     }
 }

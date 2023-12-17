@@ -1,0 +1,259 @@
+{
+    "_id": "NeOFdBMSjhuZKEwG",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "4jCRKsBUCHXnjB3y",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.o4LgcCVBBpf0wpfD"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Low-Light Vision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army includes several spotters and scouts who have low-light vision, and the rest of the soldiers have been trained to follow their lead so that the army itself functions as if it had low-light vision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "gz6czmyiSK98aBxc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.4h7c6C5doDA5rxyO"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Ambush",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Your skirmishers are experts at ambushing. On the first round of a war encounter, if your turn occurs before any enemy army turns, you can choose to start the encounter with your army already engaged with an enemy army whose initiative result is lower than yours. If you do so, your army gains a +2 status bonus on the first Attack war action they make against that army on the first round of the encounter.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "First Attack war action against ambushed opponent",
+                        "option": "ambushed",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ambushed"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "ambush",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "v2dxVfLV0uTtLUEC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.lcNZMlMNPUrnMgQ2"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Sharpshooter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The commander drills the army in precision ranged attacks. You gain a +1 status bonus on attacks with ranged Strikes, but suffer a –2 status bonus on attacks with melee Strikes. At 9th level, the penalty to melee Strikes is reduced to –1, and at 15th level the penalty to melee Strikes is removed.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Covering Fire] tactical war action.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Covering Fire"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ranged-attack-roll",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "melee-attack-roll",
+                        "type": "status",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 8,
+                                    "start": 1,
+                                    "value": -2
+                                },
+                                {
+                                    "end": 14,
+                                    "start": 9,
+                                    "value": -1
+                                },
+                                {
+                                    "start": 15,
+                                    "value": 0
+                                }
+                            ],
+                            "field": "actor|level"
+                        }
+                    }
+                ],
+                "slug": "sharpshooter",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Catspaw Marauders",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 31
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "CN",
+            "blurb": "",
+            "description": "<p>The Catspaw Marauders consist mostly of humans and half-elves who fight with kukris and longbows.</p>",
+            "level": {
+                "value": 11
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 24,
+            "morale": 18
+        },
+        "scouting": 21,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "skirmisher",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Kukris",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Magic Longbows",
+                "potency": 1
+            }
+        }
+    },
+    "type": "army"
+}

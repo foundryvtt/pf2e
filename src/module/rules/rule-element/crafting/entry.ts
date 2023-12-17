@@ -1,6 +1,5 @@
 import type { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import type {
@@ -10,8 +9,8 @@ import type {
     SchemaField,
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "../data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "../data.ts";
 
 /**
  * @category RuleElement
@@ -39,9 +38,9 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
                         expended: new fields.BooleanField({ required: false, initial: undefined }),
                         isSignatureItem: new fields.BooleanField({ required: false, initial: undefined }),
                     },
-                    { required: true, nullable: false }
+                    { required: true, nullable: false },
                 ),
-                { initial: [] }
+                { initial: [] },
             ),
         };
     }
@@ -54,11 +53,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-
         const craftableItems = this.craftableItems ?? [];
-        if (!PredicatePF2e.isValid(craftableItems)) {
-            return this.failValidation("Malformed craftableItems predicate");
-        }
 
         this.actor.system.crafting.entries[this.selector] = {
             selector: selector,
@@ -81,7 +76,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
 
 interface CraftingEntryRuleElement
     extends RuleElementPF2e<CraftingEntryRuleSchema>,
-        ModelPropsFromSchema<CraftingEntryRuleSchema> {
+        ModelPropsFromRESchema<CraftingEntryRuleSchema> {
     get actor(): CharacterPF2e;
 }
 

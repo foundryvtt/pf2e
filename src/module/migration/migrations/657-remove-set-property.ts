@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { RuleElementSource, RuleValue } from "@module/rules/rule-element/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
@@ -24,7 +24,7 @@ export class Migration657RemoveSetProperty extends MigrationBase {
                 typeof rule["property"] === "string" &&
                 typeof rule["on"] === "object" &&
                 rule["on"] !== null &&
-                "added" in rule["on"]
+                "added" in rule["on"],
         );
         const aeLikes = setPropertyRules.map(
             (setProperty): AELikeSource => ({
@@ -33,7 +33,7 @@ export class Migration657RemoveSetProperty extends MigrationBase {
                 path: setProperty.property.replace(/^flags\.2e/, "flags.pf2e"),
                 value: setProperty.on.added,
                 priority: 10,
-            })
+            }),
         );
         for (const setPropertyRule of setPropertyRules) {
             const index = rules.indexOf(setPropertyRule);
@@ -42,7 +42,7 @@ export class Migration657RemoveSetProperty extends MigrationBase {
 
         // Remove any surviving (likely malformed) SetProperty rule elements
         itemSource.system.rules = itemSource.system.rules.filter(
-            (rule) => rule && typeof rule.key === "string" && !rule.key.trim().endsWith("SetProperty")
+            (rule) => rule && typeof rule.key === "string" && !rule.key.trim().endsWith("SetProperty"),
         );
     }
 }

@@ -1,6 +1,6 @@
 {
     "_id": "ZZzgqFTOtUgnzSLZ",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Monstrous Peacemaker",
     "system": {
         "actionType": {
@@ -19,11 +19,18 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "monstrous-peacemaker"
+                    {
+                        "not": "target:trait:humanoid"
+                    }
                 ],
                 "selector": "diplomacy",
                 "type": "circumstance",
@@ -32,21 +39,20 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:sense-motive",
-                    "monstrous-peacemaker"
+                    {
+                        "not": "target:trait:humanoid"
+                    },
+                    "action:sense-motive"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [
-                "half-orc"
+                "dromaar"
             ]
         }
     },

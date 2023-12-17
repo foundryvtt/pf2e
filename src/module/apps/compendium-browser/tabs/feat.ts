@@ -1,6 +1,6 @@
 import { isObject, sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { CompendiumBrowserIndexData, FeatFilters, MultiselectData } from "./data.ts";
 
@@ -26,19 +26,17 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumBrowserIndexData[] = [];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
         const indexFields = [
             "img",
             "system.actionType.value",
             "system.actions.value",
             "system.category",
-            // Migrated to `system.category` but still retrieved in case of unmigrated items
-            // Remove in system version 5?
-            "system.featType.value",
             "system.level.value",
             "system.prerequisites.value",
-            "system.source.value",
             "system.traits",
+            "system.publication",
+            "system.source",
         ];
 
         const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
@@ -48,14 +46,14 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     [key]: game.i18n.localize(value).toLocaleLowerCase(game.i18n.lang),
                 };
             },
-            {}
+            {},
         );
         const skillList = Object.entries(translatedSkills);
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("feat"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const featData of index) {
@@ -65,12 +63,12 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     // compatible support for unmigrated feats in non-system compendiums.
                     const categoryPaths = ["system.category", "system.featType.value"];
                     const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
-                    const categoryPathFound = categoryPaths.some((p) => foundry.utils.hasProperty(featData, p));
+                    const categoryPathFound = categoryPaths.some((p) => fu.hasProperty(featData, p));
 
                     if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
                         console.warn(
                             `Feat "${featData.name}" does not have all required data fields.`,
-                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`
+                            `Consider unselecting pack "${pack.metadata.label}" in the compendium browser settings.`,
                         );
                         continue;
                     }
@@ -85,7 +83,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     // Prerequisites are strings that could contain translated skill names
                     const prereqs: { value: string }[] = featData.system.prerequisites.value;
                     const prerequisitesArr = prereqs.map((prerequisite) =>
-                        prerequisite?.value ? prerequisite.value.toLowerCase() : ""
+                        prerequisite?.value ? prerequisite.value.toLowerCase() : "",
                     );
                     const skills: Set<string> = new Set();
                     for (const prereq of prerequisitesArr) {
@@ -99,11 +97,9 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     }
 
                     // Prepare source
-                    const source = featData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    const pubSource = featData.system.publication?.title ?? featData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
 
                     // Only store essential data
                     feats.push({
@@ -114,7 +110,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
-                        traits: featData.system.traits.value,
+                        traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         rarity: featData.system.traits.rarity,
                         source: sourceSlug,
                     });
@@ -129,7 +125,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.featCategories);
         this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
@@ -138,7 +134,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     protected override filterTraits(
         traits: string[],
         selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"]
+        condition: MultiselectData["conjunction"],
     ): boolean {
         // Pre-filter the selected traits if the current ancestry item has no ancestry traits
         if (
@@ -218,8 +214,8 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
                 },
             },
             sliders: {

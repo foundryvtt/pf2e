@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -55,9 +55,9 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                     .trim()
                     .replace(
                         /^\{([^}]+)\}\[([a-z]+)\]$/i,
-                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]"
+                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]",
                     )
-                    .toLowerCase()
+                    .toLowerCase(),
             );
 
             const reassembled = instances.length === 1 ? `[[/r ${instances[0]}]]` : `[[/r {${instances.join(",")}}]]`;
@@ -65,8 +65,8 @@ export class Migration805InlineDamageRolls extends MigrationBase {
             return customLabel && !this.#damageTypeLabelPattern.test(customLabel)
                 ? `${reassembled}{${customLabel}}`
                 : labelEndsWithDamage
-                ? `${reassembled} damage`
-                : reassembled;
+                  ? `${reassembled} damage`
+                  : reassembled;
         });
     }
 

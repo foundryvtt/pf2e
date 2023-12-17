@@ -21,20 +21,19 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: HeritagePF2e<ActorPF2e>): void {
         if (!this.actor.isOfType("character")) throw ErrorPF2e("heritage embedded on non-character");
+        const slug = this.slug ?? sluggify(this.name);
         // Some abilities allow for a second heritage. If the PC has more than one, set this heritage as the actor's
         // main one only if it wasn't granted by another item.
         if (this.actor.itemTypes.heritage.length === 1 || !this.grantedBy) {
             this.actor.heritage = this as HeritagePF2e<CharacterPF2e>;
+            this.actor.system.details.heritage = {
+                name: this.name,
+                trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
+            };
         }
 
         // Add and remove traits as specified
         this.actor.system.traits.value.push(...this.traits);
-
-        const slug = this.slug ?? sluggify(this.name);
-        this.actor.system.details.heritage = {
-            name: this.name,
-            trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
-        };
 
         // If this heritage is versatile, add to the "countsAs" array
         // (serves as a list of traits of eligible ancestry feats)

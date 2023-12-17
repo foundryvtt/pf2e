@@ -6,7 +6,7 @@ import type { EncounterPF2e } from "./index.ts";
 
 class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
-    TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
+    TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
     get encounter(): TParent {
         return this.parent;
@@ -28,7 +28,7 @@ class CombatantPF2e<
 
     hasHigherInitiative(
         this: RolledCombatant<NonNullable<TParent>>,
-        { than }: { than: RolledCombatant<NonNullable<TParent>> }
+        { than }: { than: RolledCombatant<NonNullable<TParent>> },
     ): boolean {
         if (this.parent.id !== than.parent.id) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
@@ -41,7 +41,7 @@ class CombatantPF2e<
     static async fromActor(
         actor: ActorPF2e,
         render = true,
-        options: { combat?: EncounterPF2e } = {}
+        options: { combat?: EncounterPF2e } = {},
     ): Promise<CombatantPF2e<EncounterPF2e> | null> {
         if (!game.combat) {
             ui.notifications.error(game.i18n.localize("PF2E.Encounter.NoActiveEncounter"));
@@ -63,7 +63,7 @@ class CombatantPF2e<
                         hidden: token.document.hidden,
                     },
                 ],
-                { render }
+                { render },
             );
             return combatants.at(0) ?? null;
         }
@@ -74,11 +74,11 @@ class CombatantPF2e<
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>
+        context?: DocumentModificationContext<TDocument["parent"]>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (CombatantPF2e | PreCreate<foundry.documents.CombatantSource>)[] = [],
-        context: DocumentModificationContext<EncounterPF2e> = {}
+        context: DocumentModificationContext<EncounterPF2e> = {},
     ): Promise<Combatant<EncounterPF2e, TokenDocument<Scene | null> | null>[]> {
         type DataType = (typeof data)[number];
         const entries: { token: TokenDocumentPF2e | null; data: DataType }[] = data.map((d) => {
@@ -158,17 +158,22 @@ class CombatantPF2e<
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
         this.flags.pf2e.roundOfLastTurn ??= null;
         this.flags.pf2e.initiativeStatistic ??= null;
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
-    async toggleDefeated({ to = !this.isDefeated } = {}): Promise<void> {
+    async toggleDefeated({ to = !this.isDefeated, overlayIcon = true } = {}): Promise<void> {
         if (to === this.isDefeated) return;
 
         await this.update({ defeated: to });
-        await this.token?.object?.toggleEffect(game.settings.get("pf2e", "deathIcon"), { active: to, overlay: true });
+        if (overlayIcon) {
+            await this.token?.object?.toggleEffect(game.settings.get("pf2e", "deathIcon"), {
+                active: to,
+                overlay: true,
+            });
+        }
 
         /** Remove this combatant's token as a target if it died */
         if (this.isDefeated && this.token?.object?.isTargeted) {
@@ -226,7 +231,7 @@ class CombatantPF2e<
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 
@@ -257,7 +262,7 @@ class CombatantPF2e<
 
 interface CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
-    TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null
+    TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
     flags: CombatantFlags;
 }

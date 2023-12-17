@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellSource, SpellSystemSource } from "@item/spell/data.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
 import { OneToTen } from "@module/data.ts";
@@ -11,7 +11,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
 
     override async updateActor(actor: ActorSourcePF2e): Promise<void> {
         const entries = actor.items.filter(
-            (item): item is SpellcastingEntrySource => item.type === "spellcastingEntry"
+            (item): item is SpellcastingEntrySource => item.type === "spellcastingEntry",
         );
         const spells = actor.items.filter((item): item is SpellSource => item.type === "spell");
 
@@ -24,7 +24,7 @@ export class Migration734SpellLocationPropsAndSignature extends MigrationBase {
             const entryData: SpellcastingEntrySystemDataOld = entrySource.system;
             if (!entryData.signatureSpells) continue;
 
-            const isSignature = entryData.signatureSpells.value.includes(spellSource._id);
+            const isSignature = entryData.signatureSpells.value.includes(spellSource._id ?? "");
             if (isSignature) {
                 spellData.location.signature = true;
             }

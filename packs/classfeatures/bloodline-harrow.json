@@ -11,13 +11,18 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.True Seeing]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Weird]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</em></p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
+            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Truesight]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Weird]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</em></p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
         },
         "level": {
             "value": 1
         },
         "prerequisites": {
             "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder: Stolen Fate Player's Guide"
         },
         "rules": [
             {
@@ -31,88 +36,12 @@
                 "mode": "upgrade",
                 "path": "system.skills.prf.rank",
                 "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.focus.max",
-                "predicate": [
-                    "class:sorcerer"
-                ],
-                "priority": 10,
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.proficiencies.aliases.sorcerer",
-                "priority": 39,
-                "value": "occult"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.sorcerer.bloodline.spells",
-                "value": {
-                    "1st": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.6ZIKB0151LUR19Rw",
-                        "slug": "ill-omen"
-                    },
-                    "2nd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X",
-                        "slug": "augury"
-                    },
-                    "3rd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.ppA1StEigPLKEQqR",
-                        "slug": "wanderers-guide"
-                    },
-                    "4th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.qwlh6aDgi86U3Q7H",
-                        "slug": "suggestion"
-                    },
-                    "5th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.tcwT97RWKxsJiefG",
-                        "slug": "shadow-siphon"
-                    },
-                    "6th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.uqlxMQQeSGWEVjki",
-                        "slug": "true-seeing"
-                    },
-                    "7th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.rsZ5c0AUyywe5yoK",
-                        "slug": "retrocognition"
-                    },
-                    "8th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.y2cQYLr5mljDSu1G",
-                        "slug": "unrelenting-observation"
-                    },
-                    "9th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.qDjeG6dxT4aEEC6J",
-                        "slug": "weird"
-                    },
-                    "advanced": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.82gDiXTKsCmdIF6Q",
-                        "slug": "invoke-the-harrow"
-                    },
-                    "cantrip": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl",
-                        "slug": "detect-magic"
-                    },
-                    "greater": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.BAu5AgqoO556clyK",
-                        "slug": "rewrite-possibility"
-                    },
-                    "initial": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.PaHxcqXihXkkXPsB",
-                        "slug": "unraveling-blast"
-                    }
-                }
             }
         ],
-        "source": {
-            "value": "Pathfinder: Stolen Fate Player's Guide"
-        },
         "traits": {
+            "otherTags": [
+                "sorcerer-bloodline"
+            ],
             "rarity": "common",
             "value": [
                 "sorcerer"

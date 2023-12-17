@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -137,7 +137,7 @@ export class Migration714RangeIncrementREs extends MigrationBase {
                 }
                 case "hunt-prey": {
                     const needsRE = !rules.some(
-                        (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.huntPrey.option
+                        (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.huntPrey.option,
                     );
                     if (needsRE) rules.push(this.huntPrey);
 
@@ -149,7 +149,7 @@ export class Migration714RangeIncrementREs extends MigrationBase {
                 }
                 case "masterful-hunter": {
                     const needsRE = !rules.some(
-                        (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.masterfulHunter.option
+                        (r: MaybeRollOptionRE) => r.key === "RollOption" && r.option === this.masterfulHunter.option,
                     );
                     if (needsRE) rules.push(this.masterfulHunter);
 

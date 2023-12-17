@@ -1,8 +1,7 @@
-import { ActorPF2e } from "@actor";
 import { EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
-import { ErrorPF2e, getActionGlyph, localizer } from "@util";
+import { ErrorPF2e, localizer } from "@util";
 
 /** Effect: Raise a Shield */
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.Item.2YgXoHvJfrDHucMr";
@@ -18,22 +17,30 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
-    if (actors.length > 1 || !(actor && ["character", "npc"].includes(actor.type))) {
+    if (actors.length > 1 || !actor?.isOfType("character", "npc")) {
         ui.notifications.error(localize("BadArgs"));
         return;
+    }
+
+    const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+    if (existingEffect) {
+        await existingEffect.delete();
+        return;
+    }
+
+    // Use auxiliary action from PCs
+    if (actor.isOfType("character")) {
+        const { heldShield } = actor;
+        const shieldAction = actor.system.actions
+            .find((a) => a.ready && !!a.item.shield && a.item.shield === heldShield)
+            ?.auxiliaryActions.find((aux) => aux.action === "raise-a-shield");
+        return shieldAction?.execute();
     }
 
     const shield = actor.heldShield;
     const speaker = ChatMessagePF2e.getSpeaker({ actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        const effects: EffectPF2e<ActorPF2e>[] = actor.itemTypes.effect;
-        const existingEffect = effects.find((e) => e.flags.core?.sourceId === ITEM_UUID);
-        if (existingEffect) {
-            await existingEffect.delete();
-            return false;
-        }
-
         if (shield?.isDestroyed) {
             ui.notifications.warn(localize("ShieldIsDestroyed", { actor: speaker.alias, shield: shield.name }));
             return false;
@@ -53,17 +60,17 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         }
     })();
 
-    if (isSuccess) {
+    if (shield && isSuccess) {
         const combatActor = (game.combat?.started && game.combat.combatant?.actor) || null;
-        const [actionType, costSymbol] =
+        const [actionType, glyph] =
             combatActor && combatActor !== actor ? (["Reaction", "R"] as const) : (["SingleAction", "1"] as const);
 
         const content = await renderTemplate(TEMPLATES.content, {
-            imgPath: shield!.img,
-            message: localize("Content", { actor: speaker.alias }),
+            imgPath: shield.img,
+            message: localize("Content", { actor: speaker.alias, shield: game.i18n.localize("TYPES.Item.shield") }),
         });
         const flavor = await renderTemplate(TEMPLATES.flavor, {
-            action: { title: localize(`${actionType}Title`), glyph: getActionGlyph(costSymbol) },
+            action: { title: localize(`${actionType}Title`), glyph },
         });
 
         await ChatMessagePF2e.create({

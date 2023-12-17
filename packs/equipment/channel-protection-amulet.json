@@ -4,12 +4,12 @@
     "name": "Channel Protection Amulet",
     "system": {
         "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
         "containerId": null,
         "description": {
             "value": "<p>This nugget of polished tektite is trapped in a cage of braided wire and hangs from a silken cord. When wearing this amulet, you gain resistance 5 against damage from <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spells if you're living, or against <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spells if you're undead.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -23,34 +23,55 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": ""
-        },
         "price": {
             "value": {
                 "gp": 56
             }
         },
-        "quantity": 1,
-        "rules": [],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
-        "stackGroup": null,
+        "quantity": 1,
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:mode:living",
+                                    "item:type:spell",
+                                    "item:slug:harm"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:mode:undead",
+                                    "item:type:spell",
+                                    "item:slug:heal"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.SpecificRule.Equipment.ChannelProtectionAmuletLabel",
+                "type": "custom",
+                "value": 5
+            }
+        ],
+        "size": "med",
         "traits": {
             "rarity": "uncommon",
             "value": [
-                "abjuration",
                 "invested",
                 "magical"
             ]
         },
         "usage": {
             "value": "worn"
-        },
-        "weight": {
-            "value": "-"
         }
     },
     "type": "equipment"

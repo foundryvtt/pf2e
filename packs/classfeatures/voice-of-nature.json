@@ -1,0 +1,55 @@
+{
+    "_id": "d5BFFHXFJYKs5LXr",
+    "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+    "name": "Voice of Nature",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You gain your choice of the @UUID[Compendium.pf2e.feats-srd.Item.Animal Empathy] or @UUID[Compendium.pf2e.feats-srd.Item.Plant Empathy] druid feat.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Animal Empathy"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Plant Empathy"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

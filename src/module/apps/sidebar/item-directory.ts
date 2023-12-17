@@ -28,10 +28,10 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
     /** Include flattened update data so parent method can read nested update keys */
     protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
         // Create new reference in case other applications are using the same context object
-        context = deepClone(context);
+        context = fu.deepClone(context);
 
         if (context.action === "update" && context.documentType === "Item" && context.data) {
-            context.data = context.data.map((d) => ({ ...d, ...flattenObject(d) }));
+            context.data = context.data.map((d) => ({ ...d, ...fu.flattenObject(d) }));
         }
 
         return super._render(force, context);
@@ -44,7 +44,7 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
         browseButton.append(
             fontAwesomeIcon("search", { fixedWidth: true }),
             " ",
-            game.i18n.localize("PF2E.CompendiumBrowser.Title")
+            game.i18n.localize("PF2E.CompendiumBrowser.Title"),
         );
         browseButton.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.render(true, { focus: true });

@@ -6,7 +6,7 @@ import {
     ItemSystemData,
     ItemSystemSource,
     ItemTraitsNoRarity,
-} from "@item/data/base.ts";
+} from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import { ActionCategory, ActionTrait } from "./types.ts";
 
@@ -23,12 +23,6 @@ interface AbilitySystemSource extends ItemSystemSource {
         value: OneToThree | null;
     };
     category: ActionCategory | null;
-    requirements: {
-        value: string;
-    };
-    trigger: {
-        value: string;
-    };
     deathNote: boolean;
     frequency?: FrequencySource;
     level?: never;

@@ -2,12 +2,12 @@ import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
-import { ErrorPF2e, isObject, setHasElement } from "@util";
+import { ErrorPF2e, htmlClosest, isObject, setHasElement } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
     override async _onDrop(event: ElementDragEvent): Promise<void> {
-        const li = event.target.closest<HTMLElement>(".macro");
+        const li = htmlClosest(event.target, ".macro");
         const slot = Number(li?.dataset.slot) || null;
         if (!slot) return;
 
@@ -31,15 +31,19 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     typeof data.pack === "string"
                         ? `Compendium.${data.pack}`
                         : typeof data.actorId === "string"
-                        ? `Actor.${data.actorId}.Item`
-                        : "Item";
+                          ? `Actor.${data.actorId}.Item`
+                          : "Item";
                 const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
                 if (!(item instanceof ItemPF2e)) return;
 
                 if (item.isOfType("condition", "effect")) {
                     return createToggleEffectMacro(item, slot);
+                } else if (uuid?.startsWith("Compendium.")) {
+                    ui.notifications.error("PF2E.Macro.NoCompendiumItem", { localize: true });
+                    return;
+                } else {
+                    return HotbarPF2e.#createItemMacro(item, slot);
                 }
-                return HotbarPF2e.#createItemMacro(item, slot);
             }
             case "RollOption": {
                 const item = fromUuidSync(data.uuid ?? "");
@@ -55,8 +59,13 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
             case "Action": {
-                if (!(typeof data.index === "number")) return;
-                return createActionMacro(data.index, slot);
+                if (typeof data.index !== "number" && !data.elementTrait) return;
+                return createActionMacro({
+                    actorUUID: data.actorUUID,
+                    actionIndex: data.index,
+                    slot,
+                    elementTrait: data.elementTrait,
+                });
             }
         }
     }
@@ -91,14 +100,14 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                     img: item.img,
                     flags: { pf2e: { itemMacro: true } },
                 },
-                { renderSheet: false }
+                { renderSheet: false },
             ));
         game.user.assignHotbarMacro(macro ?? null, slot);
     }
 
     static async #createRollOptionToggleMacro(
         data: Pick<RollOptionData, "label" | "domain" | "option"> & { item: ItemPF2e },
-        slot: number
+        slot: number,
     ): Promise<void> {
         const name = game.i18n.format("PF2E.ToggleWithName", { property: data.label });
         const escapedName = new Handlebars.SafeString(data.label);
@@ -125,11 +134,13 @@ if (typeof result === "boolean") {
 
 type HotbarDropData = Partial<DropCanvasData> & {
     actorId?: string;
+    actorUUID?: ActorUUID;
     slot?: number;
     skill?: string;
     skillName?: string;
     index?: number;
     itemType?: string;
+    elementTrait?: string;
     pf2e?: {
         type: string;
         property: string;

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -8,7 +8,7 @@ export class Migration808CountDamageDice extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system = recursiveReplaceString(source.system, (s) =>
-            s.replace(/\(?\b1\s*\+\s*@(item|weapon)(?:.system)?.runes.striking\)?/g, "@$1.system.damage.dice")
+            s.replace(/\(?\b1\s*\+\s*@(item|weapon)(?:.system)?.runes.striking\)?/g, "@$1.system.damage.dice"),
         );
     }
 }

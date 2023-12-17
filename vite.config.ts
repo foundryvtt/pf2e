@@ -1,4 +1,4 @@
-import { ConditionSource } from "@item/data/index.ts";
+import type { ConditionSource } from "@item/base/data/index.ts";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
@@ -14,11 +14,17 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
     return JSON.parse(output.slice(output.indexOf("[")));
 })();
+const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
-    const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const outDir = "dist";
+
+    const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
+    const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
+        "return {\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };",
+        "AbstractDamageRoll.parser = { SyntaxError: peg$SyntaxError, parse: peg$parse };",
+    );
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
     // Handle minification after build to allow for tree-shaking and whitespace minification
@@ -48,7 +54,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                     { src: "README.md", dest: "." },
                     { src: "CONTRIBUTING.md", dest: "." },
                 ],
-            })
+            }),
         );
     } else {
         plugins.push(
@@ -67,9 +73,21 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 name: "hmr-handler",
                 apply: "serve",
                 handleHotUpdate(context) {
-                    if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
+                    if (context.file.startsWith(outDir)) return;
+
+                    if (context.file.endsWith("en.json")) {
+                        const basePath = context.file.slice(context.file.indexOf("lang/"));
+                        console.log(`Updating lang file at ${basePath}`);
+                        fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
+                            context.server.ws.send({
+                                type: "custom",
+                                event: "lang-update",
+                                data: { path: `systems/pf2e/${basePath}` },
+                            });
+                        });
+                    } else if (context.file.endsWith(".hbs")) {
                         const basePath = context.file.slice(context.file.indexOf("templates/"));
-                        console.log(`Updating template at ${basePath}`);
+                        console.log(`Updating template file at ${basePath}`);
                         fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
                             context.server.ws.send({
                                 type: "custom",
@@ -79,7 +97,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                         });
                     }
                 },
-            }
+            },
         );
     }
 
@@ -93,13 +111,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
+    const reEscape = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+
     return {
         base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
         define: {
             BUILD_MODE: JSON.stringify(buildMode),
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
-            ROLL_PARSER: Peggy.generate(rollGrammar, { output: "source" }),
+            EN_JSON: JSON.stringify(EN_JSON),
+            ROLL_PARSER: JSON.stringify(ROLL_PARSER),
+            fu: "foundry.utils",
         },
         esbuild: { keepNames: true },
         build: {
@@ -114,8 +136,19 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 fileName: "pf2e",
             },
             rollupOptions: {
+                external: new RegExp(
+                    [
+                        "(?:",
+                        reEscape("../../icons/weapons/"),
+                        "[-a-z/]+",
+                        reEscape(".webp"),
+                        "|",
+                        reEscape("../ui/parchment.jpg"),
+                        ")$",
+                    ].join(""),
+                ),
                 output: {
-                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name!),
+                    assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name ?? ""),
                     chunkFileNames: "[name].mjs",
                     entryFileNames: "pf2e.mjs",
                     manualChunks: {
@@ -124,6 +157,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 },
                 watch: { buildDelay: 100 },
             },
+            target: "es2022",
         },
         server: {
             port: 30001,

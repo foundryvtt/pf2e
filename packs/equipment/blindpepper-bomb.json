@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/blindpepper-bomb.webp",
     "name": "Blindpepper Bomb",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": "alchemical-bomb",
-        "charges": {
-            "max": 1,
-            "value": 1
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "bomb"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "other",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<p>Though expensive, these single-use alchemical bombs are often used by police forces to disperse unruly crowds and quell riots without risking permanent physical injury to either officers or civilians.</p>\n<p>The bomb can be thrown up to 30 feet, causing it to explode, spraying the aerosolized pepper dust in a @Template[type:burst|distance:15]{15-foot-radius burst}. All creatures in the area must succeed at a @Check[type:reflex|dc:18|showDC:all] save to avoid inhaling the dust or getting it in their eyes.</p>\n<p>On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>\n<p>On a critical failure, the creature is blinded for 1 round, @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, and dazzled until it removes the sickened condition.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +25,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 40
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #157: Devil at the Dreaming Palace"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder #157: Devil at the Dreaming Palace"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "uncommon",
             "value": [
@@ -62,8 +49,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

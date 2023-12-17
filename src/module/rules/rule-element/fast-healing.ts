@@ -3,8 +3,8 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { localizeList, objectHasKey } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * Rule element to implement fast healing and regeneration.
@@ -12,7 +12,7 @@ import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
  * @category RuleElement
  */
 class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
-    static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
+    static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {
         const { fields } = foundry.data;
@@ -33,7 +33,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
             }),
             deactivatedBy: new fields.ArrayField(
                 new fields.StringField({ required: true, nullable: false, blank: false }),
-                { required: false, initial: undefined }
+                { required: false, initial: undefined },
             ),
         };
     }
@@ -58,7 +58,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
                 const typesArr = data.deactivatedBy.map((type) =>
                     objectHasKey(CONFIG.PF2E.weaknessTypes, type)
                         ? game.i18n.localize(CONFIG.PF2E.weaknessTypes[type])
-                        : type
+                        : type,
                 );
 
                 const types = localizeList(typesArr);
@@ -76,10 +76,11 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
             return this.failValidation("value must be a number or a roll formula");
         }
 
-        const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
         const receivedMessage = game.i18n.localize(`PF2E.Encounter.Broadcast.FastHealing.${this.type}.ReceivedMessage`);
         const postFlavor = `<div data-visibility="owner">${this.details ?? this.getReducedLabel()}</div>`;
         const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
+
+        const roll = (await new DamageRoll(`{(${value})[healing]}`).evaluate({ async: true })).toJSON();
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
         ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
@@ -95,7 +96,7 @@ type FastHealingRuleSchema = RuleElementSchema & {
 
 interface FastHealingRuleElement
     extends RuleElementPF2e<FastHealingRuleSchema>,
-        ModelPropsFromSchema<FastHealingRuleSchema> {}
+        ModelPropsFromRESchema<FastHealingRuleSchema> {}
 
 type FastHealingType = "fast-healing" | "regeneration";
 

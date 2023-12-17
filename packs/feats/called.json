@@ -1,6 +1,6 @@
 {
     "_id": "2vlQ09QIBli5u9Gz",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Called",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have heard the Call, and in constantly resisting that persistent demand, you've developed a mental bulwark against effects that would target your mind.</p>\n<p>You gain a +1 circumstance bonus to Will saving throws against mental effects. If you roll a success on your saving throw against a mental effect that would make you @UUID[Compendium.pf2e.conditionitems.Item.Controlled], you get a critical success instead.</p>"
+            "value": "<p>You've heard the Call, and by resisting it, you've developed a bulwark against effects that target your mind. You gain a +1 circumstance bonus to Will saving throws against mental effects. If you roll a success on your saving throw against a mental effect that would make you @UUID[Compendium.pf2e.conditionitems.Item.Controlled], you get a critical success instead.</p>"
         },
         "level": {
             "value": 5
@@ -19,10 +19,14 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. mental effects (Called)",
                 "predicate": [
                     "mental"
                 ],
@@ -36,7 +40,8 @@
                     "success"
                 ],
                 "predicate": [
-                    "mental"
+                    "mental",
+                    "inflicts:controlled"
                 ],
                 "selector": "saving-throw",
                 "text": "When you roll a success on an saving throw against a mental effect that would make you controlled, you get a critical success instead.",
@@ -49,15 +54,12 @@
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "mental",
-                    "target:condition:controlled"
+                    "inflicts:controlled"
                 ],
                 "selector": "saving-throw",
                 "type": "save"
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

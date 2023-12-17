@@ -1,0 +1,147 @@
+{
+    "_id": "yHtlXoXKPis7eTR0",
+    "img": "systems/pf2e/icons/equipment/weapons/mace.webp",
+    "name": "Chaplain's Cudgel",
+    "system": {
+        "baseItem": "mace",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d6"
+        },
+        "description": {
+            "value": "<p>This simple wooden <em>+1 striking mace</em> transforms in the hands of a wielder with great faith in a deity.</p>\n<hr />\n<p><strong>Activate—Bow to a Higher Power</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> You worship a deity</p>\n<p><strong>Effect</strong> You supplicate yourself to your deity, and the <em>chaplain's cudgel</em> becomes a conduit for their power. It transforms into your deity's favored weapon (as the <em>@UUID[Compendium.pf2e.equipment-srd.Item.Shifting]</em> rune), and etchings of your deity's religious symbol and other divine depictions spread across the weapon from end to end. This lasts until this activation is used again. While the weapon is attuned to you in this way, you get the following benefits.</p>\n<ul>\n<li>If you have the holy or unholy trait, you can add that trait to Strikes you make with the weapon.</li>\n<li>Whenever you cast a divine spell that takes 2 actions or more to cast, the next Strike you make with this weapon before the end of your next turn gets a status bonus to its damage roll equal to the weapon's number of damage dice. Casting a spell matching the options from your deity's divine font grants this benefit no matter how many actions you spent casting it.</li>\n</ul>"
+        },
+        "group": "club",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 650
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "deity"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ChaplainsCudgel.BowToAHigherPowerLabel",
+                "option": "chaplains-cudgel:bow-to-a-higher-power",
+                "toggleable": true
+            },
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ChaplainsCudgel.CastTwoActionSpellLabel",
+                "option": "chaplains-cudgel:two-action-spell",
+                "predicate": [
+                    "chaplains-cudgel:bow-to-a-higher-power"
+                ],
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "chaplains-cudgel:bow-to-a-higher-power",
+                    "self:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "chaplains-cudgel:bow-to-a-higher-power",
+                    "self:trait:unholy"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "chaplains-cudgel:two-action-spell",
+                    "item:id:{item|_id}"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical",
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

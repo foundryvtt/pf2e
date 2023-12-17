@@ -1,7 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
-
     <!-- ITEM SHEET HEADER -->
-    <header class="sheet-header">
+    <header class="sheet-header" data-tooltip-class="pf2e">
         {{!-- Source image in case of change during data preparation --}}
         <img src="{{item._source.img}}" data-edit="img" />
         <div class="details">
@@ -15,15 +14,11 @@
                 aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
             />
 
-            {{#if (and item.actionCost (not (eq item.type "action")))}}
-                <span class="feat-action-cost">
-                    {{{actionGlyph item.actionCost}}}
-                </span>
-            {{/if}}
+            {{#if (or item.actionCost item.actionGlyph)}}{{{actionGlyph (coalesce item.actionCost item.actionGlyph)}}}{{/if}}
 
             {{#if itemType}}
                 <span class="level">
-                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
+                    {{#if adjustedLevelHint}}<i class="fa-solid fa-info-circle" data-tooltip="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
                     <input
                         type="number"
@@ -38,7 +33,7 @@
             {{/if}}
             <template class="traits-extra">
                 {{#if item.rarity}}
-                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity" data-base-value="{{item._source.system.traits.rarity}}">
+                    <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity">
                         {{#select item.rarity}}
                             {{#each rarities as |label key|}}
                                 <option value="{{key}}">{{localize label}}</option>
@@ -47,7 +42,6 @@
                     </select>
                 {{/if}}
             </template>
-            <!-- showTraits {{showTraits}} -->
             {{#if showTraits}}
                 <input class="paizo-style tags" name="system.traits.value" value="{{json traitTagifyData}}" data-dtype="JSON"
                     {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
@@ -57,12 +51,12 @@
         </div>
     </header>
 
-    <nav class="sheet-navigation">
-        {{#if hasSidebar}}
-            <h4 class="sidebar-summary">{{sidebarTitle}}</h4>
+    <nav class="sheet-tabs">
+        {{#if sidebarTemplate}}
+            <div class="sidebar-summary">{{sidebarTitle}}</div>
         {{/if}}
 
-        <h4 class="sheet-tabs tabs" data-tab-container="primary">
+        <div class="tabs" data-tab-container="primary">
             <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
             <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
             {{#if (and isPhysical user.isGM)}}
@@ -71,14 +65,14 @@
             {{#if (and enabledRulesUI (not isVariant))}}
                 <a class="list-row" data-tab="rules">{{localize "PF2E.Item.Rules.Tab"}}</a>
             {{/if}}
-        </h4>
+        </div>
     </nav>
 
     <!-- ITEM SHEET CONTENT -->
     <div class="sheet-content">
         <!-- ITEM SHEET SIDEBAR -->
-        {{#if hasSidebar}}
-            <section class="sheet-sidebar">
+        {{#if sidebarTemplate}}
+            <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
@@ -87,29 +81,37 @@
         <div class="sheet-body">
             <!-- Item Description -->
             <section class="tab description" data-tab="description">
-                <div class="descriptions">
-                    {{#if user.isGM}}
-                        <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
-                            {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
-                        </section>
-                    {{/if}}
-                    <section class="main editor-container">
-                        {{#if (not isVariant)}}
-                            {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
-                        {{else}}
-                            {{{enrichedContent.description}}}
-                        {{/if}}
+                {{#if user.isGM}}
+                    <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
+                        {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
                     </section>
-                </div>
+                {{/if}}
+                <section class="main editor-container">
+                    {{#if (not isVariant)}}
+                        {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
+                    {{else}}
+                        <div class="editor">
+                            <div class="editor-content">{{{enrichedContent.description}}}</div>
+                        </div>
+                    {{/if}}
+                </section>
             </section>
 
             <!-- Item Details -->
-            <section class="tab details" data-tab="details">
+            <section
+                class="tab details{{#unless sidebarTemplate}} no-sidebar{{/unless}}"
+                data-tab="details"
+                data-tooltip-class="pf2e"
+                data-tooltip-direction="UP"
+            >
                 {{> (lookup . "detailsTemplate")}}
-                <div class="form-group">
-                    <label for="{{item.uuid}}-source">{{localize "PF2E.Source.Label"}}</label>
-                    <input type="text" name="system.source.value" id="{{item.uuid}}-source" value="{{data.source.value}}" />
-                </div>
+
+                <fieldset class="publication">
+                    <legend>{{localize "PF2E.Publication.Label"}}</legend>
+                    <div class="data">
+                        {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.publication" data=data.publication}}
+                    </div>
+                </fieldset>
             </section>
 
             <!-- Mystification Details -->
@@ -119,7 +121,7 @@
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
-                <section class="tab rules" data-tab="rules">
+                <section class="tab rules" data-tab="rules" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
                     {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
                 </section>

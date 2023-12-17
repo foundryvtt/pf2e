@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -19,7 +19,7 @@ export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase
                 typeof r.value.field === "string" &&
                 /^actor\|system\.abilities\.[a-z]{3}\.value$/.test(r.value.field) &&
                 Array.isArray(r.value.brackets) &&
-                r.value.brackets.every((b) => isObject(b) && typeof b.value === "number")
+                r.value.brackets.every((b) => isObject(b) && typeof b.value === "number"),
         );
 
         for (const aeLike of aeLikes) {

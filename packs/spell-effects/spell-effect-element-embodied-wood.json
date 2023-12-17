@@ -1,0 +1,120 @@
+{
+    "_id": "xPNKt1aQc3dquKlt",
+    "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+    "name": "Spell Effect: Element Embodied (Wood)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Element Embodied]</em></p>\n<p>Drawing upon the deepest wells of magic in an elemental plane, you transform into a spectacular elemental. You can choose between an air elemental, earth elemental, fire elemental, or water elemental. Your battle form is Gargantuan, and you must have enough space to expand into or the spell is lost. While in this form, you gain the elemental trait and the trait for the element you choose. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 25 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>30 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +34, and you use the listed damage. These attacks are Dexterity based if you choose an air or fire elemental, or Strength based if you choose an earth or water elemental. (This distinction doesn't change the statistics, but matters for the enfeebled and clumsy conditions, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics modifier of +36 for air or fire elemental or Athletics modifier of +36 for earth or water elemental, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Wood Elemental</strong> 30 feet, climb 35 feet; resistance 5 to physical; weakness to axes 10;\n<ul>\n<li><strong>Lush Growth</strong> (aura, wood) 30 feet. Ground in the area is difficult terrain, and any time a creature in the area regains HP from a healing vitality effect, the aura grants a +5 status bonus to the healing;</li>\n<li><strong>Woody Toughness</strong> You gain 40 temporary Hit Points when you choose this form instead of 30;</li>\n<li><strong>Melee</strong> <span class=\"action-glyph\">1</span> branch (reach 25 feet), <strong>Damage</strong> 3d10+18 bludgeoning;</li>\n<li><strong>Ranged</strong> <span class=\"action-glyph\">1</span> seed (range increment 40 feet), <strong>Damage</strong> 4d8+6 bludgeoning.</li>\n</ul>\n</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "hasHands": true,
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "25 + @actor.level"
+                    },
+                    "resistances": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ],
+                    "senses": {
+                        "darkvision": {}
+                    },
+                    "size": "grg",
+                    "skills": {
+                        "ath": {
+                            "modifier": 23
+                        }
+                    },
+                    "speeds": {
+                        "climb": 35,
+                        "land": 30
+                    },
+                    "strikes": {
+                        "branch": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 18
+                            },
+                            "modifier": 34,
+                            "traits": [
+                                "reach-25",
+                                "unarmed"
+                            ]
+                        },
+                        "seed": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 4,
+                                "die": "d8",
+                                "modifier": 6
+                            },
+                            "img": "icons/magic/nature/seed-acorn-glowing-green.webp",
+                            "modifier": 34,
+                            "range": {
+                                "increment": 40
+                            },
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 40,
+                    "traits": [
+                        "elemental",
+                        "wood"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "axe-vulnerability",
+                            "value": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "Aura",
+                "radius": 30,
+                "slug": "lush-growth",
+                "traits": [
+                    "wood"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

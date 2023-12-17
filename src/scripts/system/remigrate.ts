@@ -18,7 +18,7 @@ export async function remigrate(versionRange: { from: number; to?: number }): Pr
             game.i18n.format("PF2E.Migrations.OutsideSchemaRange", {
                 minimum: MigrationRunner.RECOMMENDED_SAFE_VERSION,
                 maximum: MigrationRunner.LATEST_SCHEMA_VERSION,
-            })
+            }),
         );
         return;
     }

@@ -1,0 +1,53 @@
+{
+    "_id": "mFqMSQoNl0NMDklv",
+    "img": "icons/magic/fire/projectile-feathers-embers-gold.webp",
+    "name": "Faith's Flamekeeper",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your patron contacted you in a moment your willpower was close to sputtering out. Their reassuring presence was like breath and kindling bringing an ember back aflame, their magic giving you the strength to carry on and bring others to your cause. Your patron is likely a divine being like an angel or aeon acting covertly, though the possibility exists they might be a more sinister entity, using you to unknown ends.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Patron Skill</strong> Religion</p>\n<p><strong>Lesson of Fervor's Grasp</strong> Your patron has taught you that nothing can seize the heart like faith, whether used to inspire or direct. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Stoke the Heart] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Command].</p>\n<p><strong>Familiar of Restored Spirit</strong> Your familiar is pleasantly warm and soft, seeming to wash away worries with its mere presence. When you Cast or Sustain a hex, one willing creature within 15 feet of your familiar gains temporary Hit Points equal to 2 + half your level, which last until the start of your next turn.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.rel.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "divine"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -67,18 +67,10 @@ export class MockActors extends MockWorldCollection<ActorPF2e<null>> {
     tokens: Record<string, ActorPF2e | undefined> = {};
 
     documentClass = MockActor as unknown as typeof ActorPF2e;
-
-    constructor(entries: [string, ActorPF2e<null>][] = []) {
-        super(entries);
-    }
 }
 
 export class MockItems extends MockWorldCollection<ItemPF2e<null>> {
     tokens: Record<string, ActorPF2e | undefined> = {};
 
     documentClass = MockItem as unknown as typeof ItemPF2e;
-
-    constructor(entries: [string, ItemPF2e<null>][] = []) {
-        super(entries);
-    }
 }

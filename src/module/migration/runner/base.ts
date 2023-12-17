@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { DocumentSchemaRecord } from "@module/data.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { MigrationRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 
@@ -13,11 +13,19 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.87;
+    static LATEST_SCHEMA_VERSION = 0.911;
 
-    static MINIMUM_SAFE_VERSION = 0.618;
+    static MINIMUM_SAFE_VERSION = 0.634;
 
-    static RECOMMENDED_SAFE_VERSION = 0.634;
+    static RECOMMENDED_SAFE_VERSION = 0.781;
+
+    /** The minimum schema version for the foundry version number */
+    static FOUNDRY_SCHEMA_VERSIONS = {
+        0.8: 0.634,
+        9: 0.7,
+        10: 0.781,
+        11: 0.841,
+    };
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
@@ -55,14 +63,14 @@ export class MigrationRunnerBase {
 
         // since we've been deleting them as we process, the ones remaining need to be deleted
         for (const source of origSources.values()) {
-            diffs.deleted.push(source._id);
+            diffs.deleted.push(source._id!);
         }
 
         return diffs;
     }
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
-        const currentActor = deepClone(actor);
+        const currentActor = fu.deepClone(actor);
 
         for (const migration of migrations) {
             for (const currentItem of currentActor.items) {
@@ -88,11 +96,11 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
-            currentActor.system.schema ??= { version: null, lastMigration: null };
-            this.#updateSchemaRecord(currentActor.system.schema, latestMigration);
+            currentActor.system._migration ??= { version: null, previous: null };
+            this.#updateMigrationRecord(currentActor.system._migration, latestMigration);
             for (const itemSource of currentActor.items) {
-                itemSource.system.schema ??= { version: null, lastMigration: null };
-                this.#updateSchemaRecord(itemSource.system.schema, latestMigration);
+                itemSource.system._migration ??= { version: null, previous: null };
+                this.#updateMigrationRecord(itemSource.system._migration, latestMigration);
             }
         }
 
@@ -100,7 +108,7 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = deepClone(item);
+        const current = fu.deepClone(item);
 
         for (const migration of migrations) {
             await migration.preUpdateItem?.(current);
@@ -117,16 +125,16 @@ export class MigrationRunnerBase {
             }
         }
 
-        if (migrations.length > 0) this.#updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
+        if (migrations.length > 0) this.#updateMigrationRecord(current.system._migration, migrations.slice(-1)[0]);
 
         return current;
     }
 
     async getUpdatedTable(
         tableSource: foundry.documents.RollTableSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.RollTableSource> {
-        const current = deepClone(tableSource);
+        const current = fu.deepClone(tableSource);
 
         for (const migration of migrations) {
             try {
@@ -141,9 +149,9 @@ export class MigrationRunnerBase {
 
     async getUpdatedMacro(
         macroSource: foundry.documents.MacroSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.MacroSource> {
-        const current = deepClone(macroSource);
+        const current = fu.deepClone(macroSource);
 
         for (const migration of migrations) {
             try {
@@ -158,9 +166,9 @@ export class MigrationRunnerBase {
 
     async getUpdatedJournalEntry(
         source: foundry.documents.JournalEntrySource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.JournalEntrySource> {
-        const clone = deepClone(source);
+        const clone = fu.deepClone(source);
 
         for (const migration of migrations) {
             try {
@@ -175,7 +183,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(
         token: TokenDocumentPF2e<ScenePF2e>,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
@@ -187,9 +195,9 @@ export class MigrationRunnerBase {
 
     async getUpdatedUser(
         userData: foundry.documents.UserSource,
-        migrations: MigrationBase[]
+        migrations: MigrationBase[],
     ): Promise<foundry.documents.UserSource> {
-        const current = deepClone(userData);
+        const current = fu.deepClone(userData);
         for (const migration of migrations) {
             try {
                 await migration.updateUser?.(current);
@@ -201,17 +209,15 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    #updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+    #updateMigrationRecord(migrations: MigrationRecord, latestMigration: MigrationBase): void {
         if (!("game" in globalThis && latestMigration)) return;
 
-        const fromVersion = typeof schema.version === "number" ? schema.version : null;
-        schema.version = latestMigration.version;
-        schema.lastMigration = {
-            version: {
-                schema: fromVersion,
-                foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.version : undefined,
-            },
+        const fromVersion = typeof migrations.version === "number" ? migrations.version : null;
+        migrations.version = latestMigration.version;
+        migrations.previous = {
+            schema: fromVersion,
+            foundry: game.version,
+            system: game.system.version,
         };
     }
 }

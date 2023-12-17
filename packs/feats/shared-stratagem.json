@@ -1,6 +1,6 @@
 {
     "_id": "N4wCUZH2KG6FoGqh",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Shared Stratagem",
     "system": {
         "actionType": {
@@ -19,35 +19,26 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
         "rules": [
             {
                 "key": "Note",
-                "predicate": [
-                    "devise-a-stratagem",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse",
-                            {
-                                "and": [
-                                    "item:ranged",
-                                    {
-                                        "not": "item:thrown-melee"
-                                    }
-                                ]
-                            },
-                            "item:base:sap"
-                        ]
-                    }
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
                 ],
-                "selector": "strike-damage",
-                "text": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to a designated ally on the next attack the ally makes against the creature before the start of your next turn.",
+                "predicate": [
+                    "target:mark:devise-a-stratagem"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Investigator.SharedStratagem.Note",
                 "title": "{item|name}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

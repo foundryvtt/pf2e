@@ -1,6 +1,6 @@
 {
     "_id": "7vUOlVqjheZV0Nmc",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Vivacious Conduit",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your connection to the First World has grown, and its positive energy flows into you rapidly. If you rest for 10 minutes, you gain Hit Points equal to your [[/r @actor.abilities.con.mod*(ceil(@actor.level/2))]]{Constitution modifier × half your level}. This is cumulative with any healing you receive from Treat Wounds.</p>"
+            "value": "<p>Your connection to the First World has grown, and its vital energy flows into you rapidly. If you rest for 10 minutes, you regain Hit Points equal to your [[/r (@actor.abilities.con.mod*(floor(@actor.level/2)))[vitality,healing] #Vivacious Conduit]]{Constitution modifier × half your level}. This is a healing vitality effect and is cumulative with any healing you receive from @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds].</p>"
         },
         "level": {
             "value": 9
@@ -19,10 +19,12 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": [

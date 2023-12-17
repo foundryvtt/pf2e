@@ -19,7 +19,7 @@ declare class SortingHelpers {
      */
     static performIntegerSort<T extends object>(
         source: T,
-        { target, siblings, sortKey, sortBefore }: SortingOptions<T>
+        { target, siblings, sortKey, sortBefore }: SortingOptions<T>,
     ): { target: T; update: Record<string, number> }[];
 }
 

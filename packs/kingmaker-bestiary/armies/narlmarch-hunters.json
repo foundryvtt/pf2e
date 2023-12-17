@@ -1,0 +1,203 @@
+{
+    "_id": "EM8SeGIwho2W1EMX",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "uyQLjXUU5UdUafiQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.DrUT5sE0EuU5dtPa"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Increased Ammunition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>You increase the number of times your army can use ranged Strikes in each war encounter by 2. This tactic can be taken multiple times; each time you do so, increase the army's maximum number of ranged Strikes by 2.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.resources.ammunition.max",
+                        "value": 2
+                    }
+                ],
+                "slug": "increased-ammunition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "wqsQjbcWjRcqJ0jJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.lcNZMlMNPUrnMgQ2"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Sharpshooter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The commander drills the army in precision ranged attacks. You gain a +1 status bonus on attacks with ranged Strikes, but suffer a –2 status bonus on attacks with melee Strikes. At 9th level, the penalty to melee Strikes is reduced to –1, and at 15th level the penalty to melee Strikes is removed.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Covering Fire] tactical war action.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Covering Fire"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "ranged-attack-roll",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "melee-attack-roll",
+                        "type": "status",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 8,
+                                    "start": 1,
+                                    "value": -2
+                                },
+                                {
+                                    "end": 14,
+                                    "start": 9,
+                                    "value": -1
+                                },
+                                {
+                                    "start": 15,
+                                    "value": 0
+                                }
+                            ],
+                            "field": "actor|level"
+                        }
+                    }
+                ],
+                "slug": "sharpshooter",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Narlmarch Hunters",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 24
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": 1,
+        "details": {
+            "alignment": "NG",
+            "blurb": "",
+            "description": "<p>This army is a band of hunters and trappers who have gathered into a ragtag group of archers led by Mayor Loy Rezbin.</p>",
+            "level": {
+                "value": 6
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 7
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 17,
+            "morale": 11
+        },
+        "scouting": 14,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "skirmisher",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Hatchets and shortswords",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Longbows",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

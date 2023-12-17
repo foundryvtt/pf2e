@@ -1,19 +1,22 @@
 import type { ActorPF2e } from "@actor/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSystemSource } from "@item/base/data/system.ts";
 import type { ItemPF2e } from "@item/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { ItemSystemSource } from "@item/data/base.ts";
 
 export class MockItem {
     readonly _source: ItemSourcePF2e;
 
     readonly parent: ActorPF2e | null;
 
-    constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ActorPF2e | null> = {}) {
-        this._source = duplicate(data);
+    constructor(
+        data: ItemSourcePF2e,
+        public options: DocumentConstructionContext<ActorPF2e | null> = {},
+    ) {
+        this._source = fu.duplicate(data);
         this.parent = options.parent ?? null;
     }
 
-    get id(): string {
+    get id(): string | null {
         return this._source._id;
     }
 
@@ -42,23 +45,21 @@ export class MockItem {
     }
 
     static async updateDocuments(
-        updates: DocumentUpdateData<ItemPF2e<ActorPF2e | null>>[] = [],
-        _context: DocumentModificationContext<ActorPF2e | null> = {}
+        updates: Record<string, unknown>[] = [],
+        _context: DocumentModificationContext<ActorPF2e | null> = {},
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);
-            if (item) mergeObject(item._source, update);
+            if (item) fu.mergeObject(item._source, update, { performDeletions: true });
             return item ?? [];
         });
     }
 
     update(changes: object): void {
-        for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
-        }
+        fu.mergeObject(this._source, changes, { performDeletions: true });
     }
 
     toObject(): ItemSourcePF2e {
-        return duplicate(this._source);
+        return fu.duplicate(this._source);
     }
 }

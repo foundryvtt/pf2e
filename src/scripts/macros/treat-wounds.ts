@@ -1,9 +1,10 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS, DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import { fontAwesomeIcon, objectHasKey } from "@util";
 
 function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
@@ -23,7 +24,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
     const medicineName = game.i18n.localize("PF2E.SkillMedicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
-    const domIdAppend = randomID(); // Attached to element id attributes for DOM uniqueness
+    const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const dialog = new Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
@@ -76,12 +77,12 @@ ${
 `,
         buttons: {
             yes: {
-                icon: `<i class="fas fa-hand-holding-medical"></i>`,
+                icon: fontAwesomeIcon("hand-holding-medical").outerHTML,
                 label: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
                 callback: ($html) => treat(actor, $html, options.event, domIdAppend),
             },
             no: {
-                icon: `<i class="fas fa-times"></i>`,
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: game.i18n.localize("Cancel"),
             },
         },
@@ -94,7 +95,7 @@ async function treat(
     actor: CreaturePF2e,
     $html: JQuery,
     event: JQuery.TriggeredEvent | Event | null = null,
-    domIdAppend: string
+    domIdAppend: string,
 ): Promise<void> {
     const { name } = actor;
     const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
@@ -104,15 +105,19 @@ async function treat(
     const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
+        const skillName = objectHasKey(CONFIG.PF2E.skillList, skillSlug)
+            ? game.i18n.localize(CONFIG.PF2E.skillList[skillSlug])
+            : skillSlug;
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skill: skillName }));
         return;
     }
 
     const rank = skill.rank ?? 1;
     const usedProf = requestedProf <= rank ? requestedProf : rank;
     const medicBonus = CheckFeat(actor, "medic-dedication") ? (usedProf - 1) * 5 : 0;
+    const magicHandsBonus = CheckFeat(actor, "magic-hands") ? actor.system.details.level.value : 0;
     const dcValue = [15, 20, 30, 40][usedProf - 1] + mod;
-    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
+    const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus + magicHandsBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
     rollOptions.push("action:treat-wounds");
@@ -128,12 +133,12 @@ async function treat(
     });
 
     (actor.synthetics.degreeOfSuccessAdjustments["medicine"] ??= []).push(
-        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : [])
+        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : []),
     );
 
     skill.check.roll({
         dc,
-        ...eventToRollParams(event),
+        ...eventToRollParams(event, { type: "check" }),
         extraRollOptions: rollOptions,
         callback: async (_roll, outcome, message) => {
             const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
@@ -143,9 +148,9 @@ async function treat(
             const healFormula = (() => {
                 switch (outcome) {
                     case "criticalSuccess":
-                        return magicHands ? `32${bonusString}` : `4d8${bonusString}`;
+                        return magicHands ? `4d10${bonusString}` : `4d8${bonusString}`;
                     case "success":
-                        return magicHands ? `16${bonusString}` : `2d8${bonusString}`;
+                        return magicHands ? `2d10${bonusString}` : `2d8${bonusString}`;
                     case "criticalFailure":
                         return "1d8";
                     default:
@@ -166,7 +171,8 @@ async function treat(
             }
 
             if (healFormula) {
-                const healRoll = await new DamageRoll(`{(${healFormula})[healing]}`).roll({ async: true });
+                const formulaModifier = outcome === "criticalFailure" ? "" : "[healing]";
+                const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll({ async: true });
                 const rollType =
                     outcome !== "criticalFailure"
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")

@@ -19,16 +19,16 @@ import type {
     SkillAbbreviation,
     SkillLongForm,
 } from "@actor/types.ts";
-import type { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import type { Statistic, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense.ts";
-import { Alignment, CreatureTrait } from "./types.ts";
+import { CreatureActorType, CreatureTrait } from "./types.ts";
+import { LANGUAGES } from "./values.ts";
 
-type BaseCreatureSource<TType extends CreatureType, TSystemSource extends CreatureSystemSource> = BaseActorSourcePF2e<
-    TType,
-    TSystemSource
->;
+type BaseCreatureSource<
+    TType extends CreatureActorType,
+    TSystemSource extends CreatureSystemSource,
+> = BaseActorSourcePF2e<TType, TSystemSource>;
 
 /** Skill and Lore statistics for rolling. */
 type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
@@ -51,8 +51,6 @@ interface CreatureSystemSource extends ActorSystemSource {
 type CreatureDetailsSource = ActorDetailsSource;
 
 type CreatureDetails = {
-    /** The alignment this creature has */
-    alignment: { value: Alignment };
     /** The alliance this NPC belongs to: relevant to mechanics like flanking */
     alliance: ActorAlliance;
     /** The creature level for this actor */
@@ -97,8 +95,6 @@ interface CreatureSystemData extends Omit<CreatureSystemSource, "attributes">, A
     resources?: CreatureResources;
 }
 
-type CreatureType = (typeof CREATURE_ACTOR_TYPES)[number];
-
 interface SenseData {
     type: SenseType;
     acuity?: SenseAcuity;
@@ -115,8 +111,8 @@ interface AbilityData {
 type Abilities = Record<AttributeString, AbilityData>;
 
 /** A type representing the possible ability strings. */
-type Language = keyof ConfigPF2e["PF2E"]["languages"];
-type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
+type Language = (typeof LANGUAGES)[number];
+type Attitude = keyof typeof CONFIG.PF2E.attitude;
 
 interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
     senses?: { value: string } | CreatureSensePF2e[];
@@ -137,7 +133,7 @@ type CreatureSaves = Record<SaveType, SaveData>;
 interface CreatureAttributes extends ActorAttributes {
     hp: ActorHitPoints;
     ac: { value: number };
-    hardness?: { value: number };
+    hardness: { value: number };
     perception: CreaturePerception;
 
     /** The creature's natural reach */
@@ -234,6 +230,7 @@ export type {
     AbilityData,
     Attitude,
     BaseCreatureSource,
+    CreatureActorType,
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
@@ -247,7 +244,6 @@ export type {
     CreatureSystemSource,
     CreatureTraitsData,
     CreatureTraitsSource,
-    CreatureType,
     HeldShieldData,
     LabeledSpeed,
     Language,

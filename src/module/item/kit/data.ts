@@ -1,4 +1,4 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import { PhysicalItemTraits, PartialPrice } from "@item/physical/data.ts";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;

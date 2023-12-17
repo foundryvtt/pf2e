@@ -1,0 +1,65 @@
+{
+    "_id": "JaPNzmgD7p7hHH8o",
+    "img": "icons/commodities/treasure/token-runed-nyd-yellow.webp",
+    "name": "Effect: Thorn Triad - Armor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Thorn Triad]</p>\n<p>After you cast a plant spell by activating the triad, you gain resistance 2 to bludgeoning and piercing damage and weakness 3 to fire until the end of your next turn, or double the resistance for a non-cantrip spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitCantrip",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Label.NonCantrip",
+                        "value": 4
+                    }
+                ],
+                "flag": "spellCategory",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CantripOrNonCantrip"
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.spellCategory}"
+            },
+            {
+                "key": "Weakness",
+                "type": "fire",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

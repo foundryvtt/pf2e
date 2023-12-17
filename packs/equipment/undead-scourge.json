@@ -10,6 +10,9 @@
         "bonusDamage": {
             "value": 0
         },
+        "bulk": {
+            "value": 0.1
+        },
         "category": "simple",
         "containerId": null,
         "damage": {
@@ -18,10 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>An <em>undead scourge</em> is a <em>+1 striking disrupting dagger</em> with a bluish-white metal blade that emits a faint glow. These used to be weapons of Pharasmin undead slayers only, but the slayers have since shared these daggers with the Knights of Lastwall.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You damage an undead creature with the undead scourge</p>\n<hr />\n<p><strong>Effect</strong> You disrupt the undead's connection to negative energy. For 1 minute, the undead damaged with the dagger can't be healed by negative energy unless the effect attempting to heal the undead first counteracts the undead scourge's effect, with a counteract level of 4 and DC of 25. Positive energy still has the usual effects on the undead.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
+            "value": "<p>An <em>undead scourge</em> is a <em>+1 striking disrupting dagger</em> with a bluish-white metal blade that emits a faint glow. These used to be weapons of Pharasmin undead slayers only, but the slayers have since shared these daggers with the Knights of Lastwall.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You damage an undead creature with the undead scourge</p>\n<hr />\n<p><strong>Effect</strong> You disrupt the undead's connection to void energy. For 1 minute, the undead damaged with the dagger can't be healed by void energy unless the effect attempting to heal the undead first counteracts the undead scourge's effect, with a counteract level of 4 and DC of 25. Vitality energy still has the usual effects on the undead.</p>"
         },
         "group": "knife",
         "hardness": 0,
@@ -36,28 +36,15 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potencyRune": {
-            "value": 1
-        },
         "price": {
             "value": {
                 "gp": 350
             }
         },
-        "propertyRune1": {
-            "value": "disrupting"
-        },
-        "propertyRune2": {
-            "value": null
-        },
-        "propertyRune3": {
-            "value": null
-        },
-        "propertyRune4": {
-            "value": null
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Knights of Lastwall"
         },
         "quantity": 1,
         "range": null,
@@ -65,10 +52,14 @@
             "value": "-"
         },
         "rules": [],
-        "size": "med",
-        "source": {
-            "value": "Pathfinder Lost Omens: Knights of Lastwall"
+        "runes": {
+            "potency": 1,
+            "property": [
+                "disrupting"
+            ],
+            "striking": 1
         },
+        "size": "med",
         "specific": {
             "material": {
                 "base": [
@@ -77,26 +68,19 @@
                         "type": "steel"
                     }
                 ],
-                "precious": null
-            },
-            "price": {
-                "cp": 0,
-                "gp": 250,
-                "pp": 0,
-                "sp": 0
+                "grade": null,
+                "type": null
             },
             "runes": {
                 "potency": 1,
-                "striking": "striking"
-            },
-            "value": true
+                "property": [
+                    "disrupting"
+                ],
+                "striking": 1
+            }
         },
         "splashDamage": {
             "value": 0
-        },
-        "stackGroup": null,
-        "strikingRune": {
-            "value": "striking"
         },
         "traits": {
             "rarity": "common",
@@ -104,16 +88,12 @@
                 "agile",
                 "finesse",
                 "magical",
-                "necromancy",
                 "thrown-10",
                 "versatile-s"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
-        },
-        "weight": {
-            "value": "L"
         }
     },
     "type": "weapon"

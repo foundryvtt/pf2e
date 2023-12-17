@@ -1,7 +1,7 @@
 {
     "_id": "GhNppJC2nzceW8FC",
     "folder": "e185cDQaLjU3uZ62",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Bloodied but Unbroken",
     "system": {
         "actionType": {
@@ -22,13 +22,46 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
         },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:under-rout-threshold"
+                ],
+                "selector": [
+                    "ac",
+                    "morale-check",
+                    "maneuver-check",
+                    "attack-roll"
+                ],
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": 1
+                        },
+                        {
+                            "start": 10,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|level"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "cavalry",
+                "infantry",
+                "skirmisher"
+            ]
         }
     },
     "type": "campaignFeature"

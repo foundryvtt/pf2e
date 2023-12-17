@@ -25,13 +25,13 @@ export function perform(options: { variant: PerformVariant } & SkillActionOption
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
-        actionGlyph: options.glyph ?? "A",
+        actionGlyph: options.glyph ?? "1",
         title: `PF2E.Actions.Perform.${options.variant.charAt(0).toUpperCase()}${options.variant.slice(1)}.Title`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["concentrate", ...traits].sort(),
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass ?? "perception",
+        difficultyClass: options.difficultyClass ?? "will",
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Perform", "success"),

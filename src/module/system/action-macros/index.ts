@@ -5,10 +5,11 @@ import * as tumbleThrough from "./acrobatics/tumble-through.ts";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam.ts";
 import { climb } from "./athletics/climb.ts";
 import { disarm } from "./athletics/disarm.ts";
-import { forceOpen } from "./athletics/force-open.ts";
+import * as forceOpen from "./athletics/force-open.ts";
 import { grapple } from "./athletics/grapple.ts";
 import { highJump } from "./athletics/high-jump.ts";
 import { longJump } from "./athletics/long-jump.ts";
+import * as reposition from "./athletics/reposition.ts";
 import { shove } from "./athletics/shove.ts";
 import { swim } from "./athletics/swim.ts";
 import * as trip from "./athletics/trip.ts";
@@ -88,10 +89,11 @@ export const ActionMacros = {
     // Athletics
     climb,
     disarm,
-    forceOpen,
+    forceOpen: forceOpen.legacy,
     grapple,
     highJump,
     longJump,
+    reposition: reposition.legacy,
     shove,
     swim,
     trip: trip.legacy,
@@ -163,6 +165,7 @@ export const SystemActions: Action[] = [
     disableDevice.action,
     dropProne,
     escape.action,
+    forceOpen.action,
     hide.action,
     interact,
     leap,
@@ -171,6 +174,7 @@ export const SystemActions: Action[] = [
     pickALock.action,
     ready,
     release,
+    reposition.action,
     seek.action,
     senseDirection.action,
     senseMotive.action,

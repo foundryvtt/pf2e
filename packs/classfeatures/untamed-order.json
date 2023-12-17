@@ -1,0 +1,58 @@
+{
+    "_id": "v0EjtiwdeMj8ykI0",
+    "img": "icons/magic/nature/stealth-hide-beast-eyes-green.webp",
+    "name": "Untamed Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The uncontrollable call of the natural world courses through your body. You might have been raised by a wild animal, or you might have come to reject the artifices of cities after growing up in one. Now, primal magic grants you the ability to wear the form of an untamed creature.</p>\n<p><strong>Order Skill</strong> Intimidation</p>\n<p><strong>Druid Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Untamed Form]</p>\n<p><strong>Order Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Untamed Shift]</p>\n<p><strong>Anathema</strong> Become fully domesticated by the temptations of civilization. (This doesn't prevent you from buying and using processed goods or staying in a city for an adventure, but you can never come to rely on these conveniences or truly call such a place your permanent home.)</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.itm.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:untamed-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:druid"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Untamed Form"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "druid-order"
+            ],
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

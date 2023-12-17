@@ -26,7 +26,7 @@ class AidAction extends SingleCheckAction {
             cost: "reaction",
             description: "PF2E.Actions.Aid.Description",
             difficultyClass: {
-                value: 20,
+                value: 15,
             },
             name: "PF2E.Actions.Aid.Title",
             notes: [

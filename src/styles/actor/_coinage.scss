@@ -11,7 +11,7 @@
     .label {
         color: var(--color-text-light-0);
         font-weight: 500;
-        margin: 0 10px 0 4px;
+        margin: 0 0.5rem 0 0.25rem;
     }
 
     .denomination {
@@ -38,7 +38,9 @@
 
         label {
             color: #ffe8d1;
-            text-shadow: 1px 1px 1px rgba(white, 0.2), -1px -1px 1px rgba(black, 0.2);
+            text-shadow:
+                1px 1px 1px rgba(white, 0.2),
+                -1px -1px 1px rgba(black, 0.2);
             @include micro;
         }
 
@@ -70,8 +72,8 @@
 
         .currency-image {
             @include gold-border;
-            height: 24px;
-            width: 24px;
+            height: 1.5rem;
+            width: 1.5rem;
             background-size: cover !important;
         }
     }
@@ -82,14 +84,17 @@
         background-color: var(--tertiary);
         border-radius: 1px;
         border: none;
-        box-shadow: 0 0 0 1px rgba(black, 0.25), inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+        box-shadow:
+            0 0 0 1px rgba(black, 0.25),
+            inset 0 0 0 1px rgba(white, 0.25),
+            0 0 3px rgba(black, 0.5);
         color: rgba(black, 0.75);
         font-size: var(--font-size-13);
         font-weight: 600;
-        height: 24px;
+        height: 1.5rem;
         line-height: 1;
         margin-left: 2px;
-        width: 30px;
+        width: 1.875rem;
 
         > i {
             @include p-reset;
@@ -109,20 +114,21 @@
 
 .wealth {
     @include micro;
+    @include button;
     align-items: center;
     background-color: var(--alt);
     display: flex;
-    margin-bottom: 10px;
-    min-height: 22px;
+    margin-bottom: 0.5rem;
+    min-height: 1.5rem;
     justify-content: flex-end;
-    @include button;
+    padding: 0 0.25rem;
 
     h3 {
         font-size: var(--font-size-13);
         text-transform: capitalize;
         text-shadow: 0 0 2px rgba(black, 0.75);
         margin: 2px;
-        margin-left: 4px;
+        margin-left: 0.25rem;
         cursor: default;
         &:hover {
             color: var(--color-text-light-0);
@@ -134,10 +140,9 @@
         color: var(--color-text-light-0);
         margin-bottom: 0;
         font-weight: bold;
-        margin: 0 5px;
 
         span {
-            margin-left: 5px;
+            margin-left: 0.25rem;
             font-weight: normal;
             text-transform: uppercase;
         }

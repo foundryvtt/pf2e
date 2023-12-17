@@ -24,14 +24,14 @@ export default class BaseTile<TParent extends BaseScene | null> extends Document
 export default interface BaseTile<TParent extends BaseScene | null>
     extends Document<TParent, TileSchema>,
         ModelPropsFromSchema<TileSchema> {
-    readonly _source: TileSource;
+    get documentName(): TileMetadata["name"];
 }
 
 interface TileMetadata extends DocumentMetadata {
     name: "Tile";
     collection: "tiles";
     label: "DOCUMENT.Tile";
-    isEmbedded: true;
+    labelPlural: "DOCUMENT.Tiles";
 }
 
 type TileSchema = {

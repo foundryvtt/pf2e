@@ -1,13 +1,13 @@
 {{#each effects as |effect|}}
     {{#if (or effect.isIdentified @root.user.isGM)}}
-        <li class="item effects expandable{{#unless effect.isIdentified}} unidentified{{/unless}}" data-item-type="{{effect.type}}" data-item-id="{{effect.id}}">
+        <li class="item effects{{#unless effect.isIdentified}} unidentified{{/unless}}" data-item-type="{{effect.type}}" data-item-id="{{effect.id}}">
             <div class="item-name rollable">
                 <div class="item-image framed">
                     <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
                     <i class="fa-solid fa-message"></i>
                 </div>
-                <h4 class="action-name">
-                    {{effect.name}}
+                <h4 class="action-name name">
+                    <a data-action="toggle-summary">{{effect.name}}</a>
                     {{#if (and (eq effect.type "effect") (eq effect.badge.type "counter"))}}
                         ({{coalesce effect.badge.label effect.badge.value}})
                     {{/if}}
@@ -32,6 +32,8 @@
                     <a class="item-control info-only" title="{{effect.breakdown}}"><i class="fa-solid fa-fw fa-info-circle"></i></a>
                 {{/if}}
             </div>
+
+            <div class="item-summary" hidden="hidden"></div>
         </li>
     {{/if}}
 {{/each}}

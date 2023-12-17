@@ -3,26 +3,19 @@
     "img": "systems/pf2e/icons/equipment/snares/flying-blade-wheel-snare.webp",
     "name": "Flying Blade Wheel Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": "1",
-            "value": "1"
+        "bulk": {
+            "value": 0
         },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "8d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "8d8",
+            "kind": "damage",
+            "type": "slashing"
+        },
         "description": {
             "value": "<p>When a creature enters the square, a deadly flying wheel of spinning blades launches at it, making a Strike with an attack modifier of +33 and dealing 8d8 slashing damage. Once on each of your turns, you can use an Interact action within 120 feet of the wheel to cause it to Fly up to 60 feet toward the creature it's chasing and make another Strike if it's within 5 feet of its target after it moves. After 1 minute, the spinning ceases and the wheel falls to the ground. Creatures can destroy the wheel to stop it (AC 37, Fort +29, Ref +20, HP 200, Hardness 10, object immunities).</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +29,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 10000
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -63,8 +54,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

@@ -1,37 +1,14 @@
 export {};
 
 declare global {
-    interface ActorSheetOptions extends DocumentSheetOptions {
-        token: TokenDocument<Scene | null> | null;
-    }
-
-    interface ActorSheetData<TActor extends Actor<TokenDocument<Scene | null> | null>>
-        extends DocumentSheetData<TActor> {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        actor: any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data: any;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        items: any;
-        cssClass: "editable" | "locked";
-        effects: RawObject<ActiveEffect<TActor>>[];
-        limited: boolean;
-        options: ActorSheetOptions;
-    }
-
     /**
-     * The Actor configuration sheet.
+     * The Application responsible for displaying and editing a single Actor document.
      * This Application is responsible for rendering an actor's attributes and allowing the actor to be edited.
-     * System modifications may elect to override this class to better suit their own game system by re-defining the value
-     * CONFIG.Actor.sheetClass.
-
-     * @param actor                   The Actor instance being displayed within the sheet.
-     * @param options    Additional application configuration options.
+     * @category - Applications
+     * @param actor     The Actor instance being displayed within the sheet.
+     * @param [options] Additional application configuration options.
      */
-    class ActorSheet<
-        TActor extends Actor<TokenDocument<Scene | null> | null>,
-        TItem extends Item<Actor<TokenDocument<Scene | null> | null> | null> = Item<Actor<TokenDocument<Scene | null> | null> | null>
-    > extends DocumentSheet<TActor, ActorSheetOptions> {
+    class ActorSheet<TActor extends Actor, TItem extends Item = Item> extends DocumentSheet<TActor, ActorSheetOptions> {
         static override get defaultOptions(): ActorSheetOptions;
 
         override get id(): string;
@@ -54,7 +31,7 @@ declare global {
 
         protected override _getHeaderButtons(): ApplicationHeaderButton[];
 
-        protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown>;
+        protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
 
         /* -------------------------------------------- */
         /*  Event Listeners                             */
@@ -95,7 +72,7 @@ declare global {
          */
         protected _onDropActiveEffect<TDocument extends ActiveEffect<TActor>>(
             event: DragEvent,
-            data?: DropCanvasData<"ActiveEffect", TDocument>
+            data?: DropCanvasData<"ActiveEffect", TDocument>,
         ): Promise<TDocument | void>;
 
         /**
@@ -129,7 +106,7 @@ declare global {
          * @param itemData The item data requested for creation
          */
         protected _onDropItemCreate(
-            itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[]
+            itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[],
         ): Promise<Item<TActor>[]>;
 
         /**
@@ -139,7 +116,24 @@ declare global {
          */
         protected _onSortItem(
             event: DragEvent,
-            itemData: CollectionValue<TActor["items"]>["_source"]
+            itemData: CollectionValue<TActor["items"]>["_source"],
         ): Promise<CollectionValue<TActor["items"]>[]>;
+    }
+
+    interface ActorSheetOptions extends DocumentSheetOptions {
+        token: TokenDocument | null;
+    }
+
+    interface ActorSheetData<TActor extends Actor> extends DocumentSheetData<TActor> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        actor: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        data: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        items: any;
+        cssClass: "editable" | "locked";
+        effects: RawObject<ActiveEffect<TActor>>[];
+        limited: boolean;
+        options: Partial<ActorSheetOptions>;
     }
 }

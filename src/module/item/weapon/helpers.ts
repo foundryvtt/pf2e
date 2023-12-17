@@ -18,9 +18,9 @@ class WeaponTraitToggles {
         const selection = tupleHasValue(options, sourceSelection)
             ? sourceSelection
             : // If the weapon's damage type is represented among the modular options, set the selection to it
-            options.includes(this.#weapon.system.damage.damageType)
-            ? this.#weapon.system.damage.damageType
-            : null;
+              options.includes(this.#weapon.system.damage.damageType)
+              ? this.#weapon.system.damage.damageType
+              : null;
 
         return { options, selection };
     }
@@ -75,9 +75,11 @@ async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTrait
         await item.update({ [`system.traits.toggles.${trait}.selection`]: selection });
     } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
         item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selection });
+    } else if (trait === "versatile" && item?.isOfType("shield")) {
+        item.update({ "system.traits.integrated.versatile.selection": selection });
     } else {
         const rule = item?.rules.find(
-            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug
+            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug,
         );
         await rule?.toggleTrait({ trait, selection });
     }

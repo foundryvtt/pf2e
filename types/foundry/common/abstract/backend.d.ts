@@ -1,9 +1,10 @@
+import type Document from "../abstract/document.d.ts";
 import type BaseUser from "../documents/user.d.ts";
 
 /**
  * An interface shared by both the client and server-side which defines how creation, update, and deletion operations are transacted.
  */
-export default abstract class DatabaseBackend<TDocument extends foundry.abstract.Document> {
+export default abstract class DatabaseBackend {
     /* -------------------------------------------- */
     /*  Get Operations                              */
     /* -------------------------------------------- */
@@ -16,17 +17,17 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
      * @returns               The created Document instances
      */
     get(
-        documentClass: ConstructorOf<TDocument>,
+        documentClass: typeof Document,
         context: Partial<DatabaseBackendGetContext>,
-        user?: BaseUser
-    ): Promise<TDocument[]>;
+        user?: BaseUser,
+    ): Promise<Document[]>;
 
     /** Get primary Document instances */
     protected abstract _getDocuments(
-        documentClass: ConstructorOf<TDocument>,
+        documentClass: typeof Document,
         request: DatabaseBackendGetContext,
-        user: BaseUser
-    ): Promise<(DeepPartial<TDocument["_source"][]> & CompendiumIndexData) | TDocument[]>;
+        user: BaseUser,
+    ): Promise<CompendiumIndexData[] | Document[]>;
 
     /* -------------------------------------------- */
     /*  Create Operations                           */
@@ -40,17 +41,17 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
      * @returns                The created Document instances
      */
     create(
-        documentClass: ConstructorOf<TDocument>,
-        context: DatabaseBackendCreateContext<TDocument>,
-        user?: User
-    ): Promise<TDocument[]>;
+        documentClass: typeof Document,
+        context: DatabaseBackendCreateContext<Document>,
+        user?: BaseUser,
+    ): Promise<Document[]>;
 
     /** Create primary Document instances */
     protected abstract _createDocuments(
-        documentClass: ConstructorOf<TDocument>,
-        context: DatabaseBackendCreateContext<TDocument>,
-        user: User
-    ): Promise<TDocument[]>;
+        documentClass: typeof Document,
+        context: DatabaseBackendCreateContext<Document>,
+        user: BaseUser,
+    ): Promise<Document[]>;
 
     /* -------------------------------------------- */
     /*  Update Operations                           */
@@ -64,17 +65,17 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
      * @returns                The updated Document instances
      */
     update(
-        documentClass: ConstructorOf<TDocument>,
-        context: DatabaseBackendUpdateContext<TDocument>,
-        user?: User
-    ): Promise<TDocument[]>;
+        documentClass: typeof Document,
+        context: DatabaseBackendUpdateContext<Document>,
+        user?: User,
+    ): Promise<Document[]>;
 
     /** Update primary Document instances */
     protected abstract _updateDocuments(
-        documentClass: ConstructorOf<TDocument>,
-        context: DatabaseBackendUpdateContext<TDocument>,
-        user: User
-    ): Promise<TDocument[]>;
+        documentClass: typeof Document,
+        context: DatabaseBackendUpdateContext<Document>,
+        user: BaseUser,
+    ): Promise<Document[]>;
 
     /* -------------------------------------------- */
     /*  Delete Operations                           */
@@ -88,17 +89,17 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
      * @returns               The deleted Document instances
      */
     delete(
-        documentClass: ConstructorOf<TDocument>,
+        documentClass: ConstructorOf<Document>,
         context: DatabaseBackendDeleteContext,
-        user: User
-    ): Promise<TDocument>;
+        user: BaseUser,
+    ): Promise<Document>;
 
     /** Delete primary Document instances */
     protected abstract _deleteDocuments(
-        documentClass: ConstructorOf<TDocument>,
+        documentClass: typeof Document,
         context: DatabaseBackendDeleteContext,
-        user: User
-    ): Promise<TDocument[]>;
+        user: BaseUser,
+    ): Promise<Document[]>;
 
     /* -------------------------------------------- */
     /*  Helper Methods                              */
@@ -127,7 +128,7 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
         action: string,
         type: string,
         documents: foundry.abstract.Document[],
-        options?: { level?: string; parent?: foundry.abstract.Document; pack: string }
+        options?: { level?: string; parent?: foundry.abstract.Document; pack: string },
     ): void;
 
     /** Construct a standardized error message given the context of an attempted operation */
@@ -135,7 +136,7 @@ export default abstract class DatabaseBackend<TDocument extends foundry.abstract
         user: User,
         action: string,
         subject: string,
-        options?: { parent: foundry.abstract.Document; pack?: string }
+        options?: { parent: foundry.abstract.Document; pack?: string },
     ): string;
 }
 

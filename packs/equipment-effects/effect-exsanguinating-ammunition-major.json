@@ -15,16 +15,28 @@
         "level": {
             "value": 12
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
         "rules": [
             {
                 "key": "Weakness",
                 "type": "bleed",
                 "value": 5
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 17
             }
         ],
-        "source": {
-            "value": "Pathfinder Guns & Gears"
-        },
         "start": {
             "initiative": null,
             "value": 0

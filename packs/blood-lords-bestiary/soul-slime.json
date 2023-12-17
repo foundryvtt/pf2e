@@ -29,11 +29,13 @@
                 "description": {
                     "value": ""
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -73,11 +75,13 @@
                 "description": {
                     "value": ""
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -111,23 +115,16 @@
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
                 "slug": "lifesense",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -148,20 +145,16 @@
                 "description": {
                     "value": "<p><strong>Trigger</strong> The soul slime takes physical damage</p>\n<hr />\n<p><strong>Effect</strong> The impact causes the soul slime to release a burst of semi-digested soul fragments. The soul slime becomes @UUID[Compendium.pf2e.conditionitems.Item.Concealed] until the beginning of its next turn. The soul slime can't use this concealment to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak].</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -182,24 +175,19 @@
                 "description": {
                     "value": "<p><strong>Requirements</strong> The soul slime is using Soul Facsimile to adopt a creature's form</p>\n<hr />\n<p><strong>Effect</strong> The soul slime releases an incoherent wail composed of countless overlapping noises made by the creatures whose souls it has siphoned. This disturbing cacophony deals @Damage[6d10[mental],6d10[sonic]]{6d10 mental damage and 6d10 sonic damage} to each creature in a @Template[type:burst|distance:30]{30-foot-radius burst} centered on the soul slime (@Check[type:will|dc:37|basic:true]). On a failed save, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 2}. The soul slime can't use Disturbing Wail again for [[/br 1d4 #Recharge Disturbing Wail]]{1d4 rounds}.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "evocation",
                         "mental"
                     ]
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -225,23 +213,16 @@
                 "description": {
                     "value": "<p>@Check[type:reflex|dc:40], @Damage[5d10[bludgeoning]] damage, Escape DC 40, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
                 "slug": "engulf",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -260,12 +241,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal @Damage[3d6[void]] damage to living creatures and @Damage[3d6[vitality]] damage to undead and other creatures with negative healing.</p>"
+                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch]</em> property rune and deal @Damage[3d6[void]] damage to living creatures and @Damage[3d6[vitality]] damage to undead and other creatures with void healing.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "property-runes",
+                        "value": "ghost-touch"
+                    },
                     {
                         "damageType": "void",
                         "diceNumber": 3,
@@ -282,21 +271,20 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:mode:undead"
+                            {
+                                "or": [
+                                    "target:mode:undead",
+                                    "target:negative-healing"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -317,23 +305,18 @@
                 "description": {
                     "value": "<p>The soul slime assumes the shape and features of any Large, Medium, or Small creature whose soul the soul slime has siphoned for up to 1 minute. This doesn't change the soul slime's statistics, only its outward appearance. While transformed in this way, the soul slime can revert to its natural shape as a single action, and the soul slime automatically reverts to its natural shape when it takes physical damage.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
                 },
                 "rules": [],
                 "slug": null,
-                "source": {
-                    "value": ""
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "occult",
-                        "transmutation"
+                        "occult"
                     ]
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -353,11 +336,13 @@
                 "proficient": {
                     "value": 0
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                }
+                "slug": null
             },
             "type": "lore"
         }
@@ -448,18 +433,16 @@
             }
         },
         "details": {
-            "alignment": {
-                "value": "N"
-            },
             "blurb": "",
-            "creatureType": "",
             "level": {
                 "value": 18
             },
             "privateNotes": "",
             "publicNotes": "<p>Soul slimes are swirling, blue-gray masses of protoplasm that feed on the quintessence contained within souls. Typically, soul slimes acquire this quintessence by consuming the living, the undead, or souls imprisoned in other objects, although soul slimes can also feed on the quintessence of the Outer Planes and their occupants. Soul slimes digest these siphoned souls over decades. As long as a portion of a soul remains undigested, a soul slime can adopt the shape and use the vocalizations of that soul—a tactic soul slimes routinely adopt to get close to their prey while hunting. As soul slimes lack the intelligence to truly impersonate or mimic the souls they digest, they are obvious facsimiles and are entirely incapable of speech.</p>",
-            "source": {
-                "value": "Pathfinder #186: Ghost King's Rage"
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #186: Ghost King's Rage"
             }
         },
         "resources": {},

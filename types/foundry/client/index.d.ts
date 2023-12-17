@@ -1,5 +1,5 @@
-import GSAP from "gsap";
-import HANDLEBARS from "handlebars";
+import type GSAP from "gsap";
+import type HANDLEBARS from "handlebars";
 
 declare global {
     const CONST: typeof Constants;
@@ -8,7 +8,7 @@ declare global {
         export import gsap = GSAP;
         export import Handlebars = HANDLEBARS;
 
-        module foundry {
+        namespace foundry {
             export import CONST = Constants;
             export import abstract = Abstract;
             export import data = Data;

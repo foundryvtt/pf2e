@@ -3,9 +3,10 @@ import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { type CampaignFeaturePF2e, ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -13,7 +14,7 @@ import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
-    SORTABLE_DEFAULTS,
+    SORTABLE_BASE_OPTIONS,
     createHTMLElement,
     fontAwesomeIcon,
     htmlClosest,
@@ -23,7 +24,9 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
+import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
+import { calculateKingdomCollectionData } from "./helpers.ts";
 import { Kingdom } from "./model.ts";
 import {
     KingdomAbilityData,
@@ -44,9 +47,6 @@ import {
     KINGDOM_SETTLEMENT_TYPE_LABELS,
     KINGDOM_SKILL_LABELS,
 } from "./values.ts";
-import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { calculateKingdomCollectionData } from "./helpers.ts";
-import Sortable from "sortablejs";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -104,7 +104,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             buttons.unshift({
                 label: "JOURNAL.ActionShow",
                 class: "show-sheet",
-                icon: "fas fa-eye",
+                icon: "fa-solid fa-eye",
                 onclick: () => {
                     const users = game.users.filter((u) => !u.isSelf);
                     game.socket.emit("system.pf2e", {
@@ -130,7 +130,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const settlementEntries = R.pipe(
             Object.entries(this.kingdom.settlements),
             R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
-            R.sortBy((entry) => entry[1].sort)
+            R.sortBy((entry) => entry[1].sort),
         );
 
         return {
@@ -161,10 +161,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             resourceDice: {
                 ...kingdom.resources.dice,
                 icon: fontAwesomeIcon(`dice-d${kingdom.resources.dice.faces}`).outerHTML,
-                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus)
-                    .adjustmentClass,
-                penaltyAdjustment: getAdjustment(kingdom.resources.dice.penalty, kingdom._source.resources.dice.penalty)
-                    .adjustmentClass,
+                bonusAdjustment: getAdjustment(kingdom.resources.dice.bonus, kingdom._source.resources.dice.bonus),
+                penaltyAdjustment: getAdjustment(
+                    kingdom.resources.dice.penalty,
+                    kingdom._source.resources.dice.penalty,
+                ),
             },
             leadership: KINGDOM_LEADERSHIP.map((slug) => {
                 const data = this.kingdom.leadership[slug];
@@ -184,7 +185,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 item,
                 traits: createSheetTags(
                     CONFIG.PF2E.kingmakerTraits,
-                    item.system.traits.value.filter((t) => t !== "downtime")
+                    item.system.traits.value.filter((t) => t !== "downtime"),
                 ),
             })),
             skills: R.sortBy(Object.values(this.kingdom.skills), (s) => s.label),
@@ -197,7 +198,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             settlements: await Promise.all(
                 settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
-                })
+                }),
             ),
             eventText: await TextEditor.enrichHTML(kingdom.event.text, {
                 async: true,
@@ -216,8 +217,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             data.level[1] === Infinity
                 ? `${data.level[0]}+`
                 : data.level[0] === data.level[1]
-                ? String(data.level[0])
-                : data.level.join("-");
+                  ? String(data.level[0])
+                  : data.level.join("-");
         const populationRange = data.population[1] === Infinity ? `${data.population[0]}+` : data.population.join("-");
 
         return {
@@ -310,7 +311,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             rollableStat.addEventListener("click", (event) => {
                 const statistic = this.actor.getStatistic(statSlug);
-                statistic?.roll(eventToRollParams(event));
+                statistic?.roll(eventToRollParams(event, { type: "check" }));
             });
         }
 
@@ -383,7 +384,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         // Add settlement and individual settlement actions
         htmlQuery(html, "[data-action=add-settlement]")?.addEventListener("click", () => {
-            const id = randomID(16);
+            const id = fu.randomID();
             this.#editingSettlements[id] = true;
             this.focusElement = `[name="settlements.${id}.name"]`;
             this.kingdom.update({ [`settlements.${id}`]: {} });
@@ -433,7 +434,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const settlementList = htmlQuery(html, ".settlement-list");
         if (settlementList) {
             Sortable.create(settlementList, {
-                ...SORTABLE_DEFAULTS,
+                ...SORTABLE_BASE_OPTIONS,
                 handle: ".drag-handle",
                 onEnd: (event) => {
                     const settlements = this.kingdom.settlements as Record<string, KingdomSettlementData>;
@@ -448,7 +449,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     // Perform the resort and update
                     const siblings = R.sortBy(
                         settlementsWithIds.filter((s) => s !== settlement),
-                        (s) => s.sort
+                        (s) => s.sort,
                     );
                     siblings.splice(newIndex, 0, settlement);
                     const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
@@ -472,7 +473,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 {
                     ...(await this.getData()),
                     settlement: await this.#prepareSettlement(id, settlement),
-                }
+                },
             );
 
             // Create the new settlement and replace the current one. We'll also need to re-listen to it.
@@ -525,7 +526,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 gsap.fromTo(
                     element,
                     { height: 0, opacity: 0, hidden: false },
-                    { height: "auto", opacity: 1, duration }
+                    { height: "auto", opacity: 1, duration },
                 );
             } else if (!visible && !element.hidden) {
                 gsap.to(element, {
@@ -572,7 +573,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e
+        data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
@@ -583,9 +584,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
 
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
-            const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "bonus", slotId: null };
-            const group = featSlot.categoryId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
-            return group.insertFeat(item, featSlot);
+            const slotData = this.#getFeatSlotData(event) ?? { groupId: "bonus", slotId: null };
+            const group = slotData.groupId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
+            return group.insertFeat(item, slotData.slotId);
         }
 
         return super._onDropItem(event, data);
@@ -594,19 +595,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(
         event: ElementDragEvent,
-        itemSource: ItemSourcePF2e
+        itemSource: ItemSourcePF2e,
     ): Promise<ItemPF2e<PartyPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id);
+        const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
-            const featSlot = this.#getNearestFeatSlotId(event);
+            const featSlot = this.#getFeatSlotData(event);
             if (!featSlot) return [];
 
-            const group = featSlot.categoryId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
+            const group = featSlot.groupId === "bonus" ? this.kingdom.bonusFeats : this.kingdom.feats;
             const resorting = item.group === group && !group?.slotted;
             if (group?.slotted && !featSlot.slotId) {
                 return [];
             } else if (!resorting) {
-                return group.insertFeat(item, featSlot);
+                return group.insertFeat(item, featSlot.slotId);
             }
         }
 
@@ -615,7 +616,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     protected override async _onDropActor(
         event: ElementDragEvent,
-        data: DropCanvasData<"Actor", PartyPF2e>
+        data: DropCanvasData<"Actor", PartyPF2e>,
     ): Promise<false | void> {
         await super._onDropActor(event, data);
 
@@ -628,10 +629,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    #getNearestFeatSlotId(event: ElementDragEvent) {
-        const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
+    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
-        return typeof categoryId === "string" ? { slotId, categoryId } : null;
+        return typeof groupId === "string" ? { slotId, groupId } : null;
     }
 
     /** Override to not auto-disable fields on a thing meant to be used by players */
@@ -648,7 +649,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         if (!this.actor.id) return;
 
-        const data: DeepPartial<KingdomSource> = expandObject(formData);
+        const data: DeepPartial<KingdomSource> = fu.expandObject(formData);
 
         // Ensure penalties are all negative numbers
         for (const abilitySlug of KINGDOM_ABILITIES) {

@@ -1,0 +1,105 @@
+{
+    "_id": "U0yn2XcgMw4bPU5B",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "INrRbMnpo1Ydq3Ap",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Flare Up",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The warding bell's light increases from a faint flickering to luminous enough that the whole room is brightly lit. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Warding Bell",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 31
+            },
+            "emitsSound": "encounter",
+            "hardness": 20,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 0
+            }
+        },
+        "details": {
+            "description": "<p>At the heart of the shrine hangs a massive bronze temple bell.</p>",
+            "disable": "<p>Ringing the bell as an Interact action eight times in succession with the ceremonial ringer (carried by Mago Kai) over the course of three consecutive rounds automatically deactivates the hazard, @Check[type:thievery|dc:36] to extinguish the flame within the bell, @Check[type:religion|dc:36] to appeal to Pharasma to extinguish the flame, or dispel magic or a shimmerthief's Drain Light (6th level; counteract DC 29)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #198: No Breath to Cry"
+            },
+            "reset": "<p>Reactivating the warding bell requires a complicated rite taking several days.</p>",
+            "routine": "<p>(1 action; divine, emotion, enchantment, fear, mental) The warding bell emits a harrowing ring that can be heard only by undead or transmigrated PCs in area <strong>C11</strong>; affected characters must attempt a @Check[type:will|dc:30|traits:divine,emotion,enchantment,fear,mental] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to the warding bell's routine for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and takes @Damage[6d6[mental]] damage.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}, takes @Damage[12d6[mental]] damage, and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] as long as it remains frightened.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}

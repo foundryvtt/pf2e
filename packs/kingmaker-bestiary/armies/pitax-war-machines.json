@@ -1,0 +1,339 @@
+{
+    "_id": "mCUB9NQUkbEayP7d",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "3b2RJnJKoGKlvWfq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.DrUT5sE0EuU5dtPa"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Increased Ammunition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>You increase the number of times your army can use ranged Strikes in each war encounter by 2. This tactic can be taken multiple times; each time you do so, increase the army's maximum number of ranged Strikes by 2.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.resources.ammunition.max",
+                        "value": 2
+                    }
+                ],
+                "slug": "increased-ammunition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "d5x6WrErWAOeUlLO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ZSUPsqeMBDTaX2H4"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "overwhelmingBombardment": {
+                            "id": "4VhEvG7Plwz0Wszk",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Explosive Shot",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army's ranged attacks explode and spray fire, shrapnel, or other damaging material in every direction. Whenever the army critically hits a non-distant army with a ranged Strike, inflict 1 point of additional damage to another non-distant enemy army of your choice. You can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Overwhelming Bombardment] tactical war action with the army.</p>"
+                },
+                "level": {
+                    "value": 11
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "flag": "overwhelmingBombardment",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Overwhelming Bombardment"
+                    }
+                ],
+                "slug": "explosive-shot",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "siege"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "4VhEvG7Plwz0Wszk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.HLu1o1RzCZxWjOJJ"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "d5x6WrErWAOeUlLO",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Overwhelming Bombardment",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong>@UUID[Compendium.pf2e.kingmaker-features.Item.Explosive Shot]</p>\n<hr />\n<p>Your siege engines focus all their fire on a fortification. This war action counts as using two ranged Strikes for the purposes of depleting an army's shots. Attempt a ranged Strike against the target fortification's AC.</p>\n<p><strong>Critical Success</strong> You deal 2 points of damage to the fortification. You also deal 1 point of damage to up to two armies of your choice that are within the fortification.</p>\n<p><strong>Success</strong> You deal 1 point of damage to the fortification, and an additional 1 point of damage either to the fortification or to an army within the fortification (your choice of which).</p>\n<p><strong>Failure</strong> You deal 1 damage to the fortification.</p>\n<p><strong>Critical Failure</strong> You deal no damage, and your army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Outflanked] until the start of its next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "overwhelming-bombardment",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "siege"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "8MX7QPWvOAspWNmN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.IiD3kKszFfHZ9cZ1"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughened Soldiers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is particularly hardy. Increase its maximum Hit Points by 1. You can take this tactic multiple times; each time you do, increase the army's maximum Hit Points by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.hp.max",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughened-soldiers",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "WzQrGDUWVBV0XU2r",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.IiD3kKszFfHZ9cZ1"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughened Soldiers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is particularly hardy. Increase its maximum Hit Points by 1. You can take this tactic multiple times; each time you do, increase the army's maximum Hit Points by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.hp.max",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughened-soldiers",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Pitax War Machines",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 36
+        },
+        "attributes": {
+            "hp": {
+                "max": 6,
+                "routThreshold": 4,
+                "value": 8
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "CN",
+            "blurb": "",
+            "description": "<p>These siege weapons are positioned atop all of the city’s watchtowers and afford a controlling view of all approaches.</p>",
+            "level": {
+                "value": 14
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 7
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 22,
+            "morale": 28
+        },
+        "scouting": 25,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "siege",
+            "value": []
+        },
+        "weapons": {
+            "melee": null,
+            "ranged": {
+                "name": "Siege Engine",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

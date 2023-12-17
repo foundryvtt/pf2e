@@ -3,7 +3,7 @@ export {};
 declare global {
     interface QuadtreeObject<
         TPlaceableObject extends PlaceableObject = PlaceableObject,
-        TQuadtree extends Quadtree<TPlaceableObject> = Quadtree<TPlaceableObject>
+        TQuadtree extends Quadtree<TPlaceableObject> = Quadtree<TPlaceableObject>,
     > {
         r: Rectangle;
         t: TPlaceableObject;
@@ -44,7 +44,7 @@ declare global {
 
         constructor(
             bounds: Rectangle,
-            options?: { maxObjects?: number; maxDepth?: number; _depth?: number; _root?: Quadtree<TPlaceableObject> }
+            options?: { maxObjects?: number; maxDepth?: number; _depth?: number; _root?: Quadtree<TPlaceableObject> },
         );
 
         /**
@@ -118,7 +118,7 @@ declare global {
             options?: {
                 collisionTest?: (obj: QuadtreeObject, rect: Rectangle) => boolean;
                 _s: Set<TPlaceableObject>;
-            }
+            },
         ): Set<TPlaceableObject>;
 
         /**

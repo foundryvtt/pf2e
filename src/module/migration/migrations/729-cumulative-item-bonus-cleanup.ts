@@ -1,4 +1,4 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Clean up after bug overhauling cumulative item bonuses */

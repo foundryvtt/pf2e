@@ -1,17 +1,12 @@
 &.biography {
-    h3.header {
+    & > header {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
         padding: 0 1px;
 
-        a {
-            color: var(--color-text-dark-primary);
-            font-size: var(--font-size-12);
-
-            i.fa-eye-slash {
-                opacity: 75%;
-            }
+        i.fa-eye-slash {
+            opacity: 75%;
         }
     }
 
@@ -61,6 +56,36 @@
 
                 span {
                     width: 100%;
+                }
+            }
+
+            .edicts,
+            .anathema {
+                flex-basis: 100%;
+
+                > * {
+                    width: 100%;
+                }
+
+                .label-add {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    width: calc(100% - 0.75em);
+                }
+
+                ol {
+                    list-style-type: decimal;
+                    margin-top: 0;
+
+                    li {
+                        white-space: nowrap;
+
+                        input {
+                            margin: 0.2em;
+                            max-width: calc(100% - 2rem);
+                        }
+                    }
                 }
             }
         }

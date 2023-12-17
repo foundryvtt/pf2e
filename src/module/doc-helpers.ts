@@ -1,15 +1,15 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import type { TokenDocumentPF2e } from "@scene";
 import { isObject } from "@util";
+import { CombatantPF2e } from "./encounter/index.ts";
 import { MigrationList, MigrationRunner } from "./migration/index.ts";
 import { MigrationRunnerBase } from "./migration/runner/base.ts";
-import { CombatantPF2e } from "./encounter/index.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
 async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
     document: TDocument,
-    json: string
+    json: string,
 ): Promise<string | null> {
     const source: unknown = JSON.parse(json);
     if (!isObject<TDocument["_source"] & { data?: unknown }>(source)) return null;
@@ -22,16 +22,16 @@ async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
     }
     if (!isObject(source.system)) return null;
 
-    const sourceSchemaVersion = Number(source.system?.schema?.version) || 0;
+    const sourceSchemaVersion = Number(source.system?._migration?.version) || 0;
     const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
-    if (foundry.utils.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
+    if (fu.isNewerVersion(sourceSchemaVersion, worldSchemaVersion)) {
         // Refuse to import if the schema version on the document is higher than the system schema verson;
         ui.notifications.error(
             game.i18n.format("PF2E.ErrorMessage.CantImportTooHighVersion", {
                 sourceName: game.i18n.localize("DOCUMENT.Actor"),
                 sourceSchemaVersion,
                 worldSchemaVersion,
-            })
+            }),
         );
         return null;
     }

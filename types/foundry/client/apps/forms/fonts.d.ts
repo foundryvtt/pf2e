@@ -27,7 +27,7 @@ declare global {
          */
         protected _getDataForDefinition(
             family: string,
-            definition: FontFamilyDefinition
+            definition: FontFamilyDefinition,
         ): { family: string; index: number; selected?: true; font: unknown }[];
 
         override activateListeners(html: JQuery): void;

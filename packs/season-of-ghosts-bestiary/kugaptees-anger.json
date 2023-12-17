@@ -1,0 +1,102 @@
+{
+    "_id": "pkmzf4BMRJNXwLTc",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "mLnkyKpiwoYbaLoj",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Terrifying Roar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A PC picks up Sui-Jing's heart</p>\n<hr />\n<p><strong>Effect</strong> A thunderous roar ripples through the forest. All of the PCs must attempt a @Check[type:will|dc:22] save. The haunt rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The character is unaffected and is temporally immune to Terrifying Roar for 24 hours.</p>\n<p><strong>Success</strong> The character is unaffected.</p>\n<p><strong>Failure</strong> The character is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The character's frightened condition increases by 2. If this would increase the character's frightened condition value above 4, the character is instead @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] until the end of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Kugaptee's Anger",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 22
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The sound of toppling trees and thunderous footsteps fills the air, as if some immense giant had taken notice and now slowly approaches through the forest.</p>",
+            "disable": "<p>@Check[type:nature|dc:23] or @Check[type:religion|dc:23] to offer prayers against the evil to reduce Kugaptee's Anger's actions during its routine to 1 (see below) for 1 round; Placing Sui-Jing's heart into her corpse at area <strong>A2</strong> is the only way to disable this hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #197: Let the Leaves Fall"
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) The sound of something immense striding just out of sight through the forest, darkness, and fog fills the air. The haunt's first action is to unleash a Terrifying Roar (@Check[type:will|dc:22] with the same effects as Terrifying Roar above). The second action is to infuse the trees of the entire mindscape with malevolent life, causing clawlike branches to lash out at each PC. These claws inflict @Damage[4d6[slashing]] damage (@Check[type:reflex|dc:22|basic:true] save) to each character. A character standing on the path or in a clearing gets a +1 circumstance bonus to this saving throw, and the character who carries Sui-Jing's heart gains a +4 item bonus to this saving throw. On a PC's turn, they can take further action to protect themselves from the clawed branches. By Raising a Shield or by Dropping Prone, a PC gains a +2 circumstance bonus to their Reflex saving throw. A @UUID[Compendium.pf2e.conditionitems.Item.Prone] PC can @UUID[Compendium.pf2e.actionspf2e.Item.Take Cover] to gain the benefits of greater cover against the claws (increasing their circumstance bonus to this Reflex save to +4). A PC who Tumbles Through on their turn and succeeds at a @Check[type:acrobatics|dc:22] check gains a +2 status bonus to their Reflex saves against the clawed branches. A PC who succeeds at a @Check[type:stealth|dc:22] check to @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] improves the result of their Reflex save by one degree of success.</p>\n<p>If a PC successfully used Nature or Religion to pray against the evil on the previous round, Kugaptee's Anger has only 1 action; randomly determine if it uses its Terrifying Roar or lashes out with trees with this action.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

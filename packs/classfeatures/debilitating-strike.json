@@ -1,0 +1,272 @@
+{
+    "_id": "9SruVg2lZpNaYLOB",
+    "img": "icons/skills/melee/strike-sword-blood-red.webp",
+    "name": "Debilitating Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When taking advantage of an opening, you both hinder and harm your foe. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Debilitating Strike] free action.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Debilitating Strike"
+            },
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Rogue.Debilitation.Label",
+                "option": "debilitation",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Bloody.Label",
+                        "predicate": [
+                            "feat:bloody-debilitation"
+                        ],
+                        "value": "bloody"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Clumsy.Label",
+                        "predicate": [
+                            "feat:vicious-debilitations"
+                        ],
+                        "value": "clumsy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Critical.Label",
+                        "predicate": [
+                            "feat:critical-debilitation"
+                        ],
+                        "value": "critical"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Enfeebled.Label",
+                        "value": "enfeebled"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.OffGuard.Label",
+                        "predicate": [
+                            "feat:precise-debilitations"
+                        ],
+                        "value": "off-guard"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.PrecisionDamage.Label",
+                        "predicate": [
+                            "feat:precise-debilitations"
+                        ],
+                        "value": "precision-damage"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.PreventFlanking.Label",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feat:tactical-debilitations",
+                                    "feat:methodical-debilitations"
+                                ]
+                            }
+                        ],
+                        "value": "prevent-flanking"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.PreventReactions.Label",
+                        "predicate": [
+                            "feat:tactical-debilitations"
+                        ],
+                        "value": "prevent-reactions"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.PreventStep.Label",
+                        "predicate": [
+                            "feat:eldritch-debilitations"
+                        ],
+                        "value": "prevent-step"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.ReduceCover.Label",
+                        "predicate": [
+                            "feat:methodical-debilitations"
+                        ],
+                        "value": "reduce-cover"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.SpeedPenalty.Label",
+                        "value": "speed-penalty"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Stupefied.Label",
+                        "predicate": [
+                            "feat:eldritch-debilitations"
+                        ],
+                        "value": "stupefied"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Rogue.Debilitation.Weakness.Label",
+                        "predicate": [
+                            "feat:vicious-debilitations"
+                        ],
+                        "value": "weakness"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:speed-penalty",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.SpeedPenalty.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:enfeebled",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Enfeebled.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:bloody",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Bloody.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:clumsy",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Clumsy.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:critical",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Critical.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:off-guard",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.OffGuard.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:precision-damage",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.PrecisionDamage.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:prevent-flanking",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.PreventFlanking.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:prevent-reactions",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.PreventReactions.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:prevent-step",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.PreventStep.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:reduce-cover",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.ReduceCover.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:stupefied",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Stupefied.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "debilitation:weakness",
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-damage",
+                "text": "<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Trigger]</p>\n<p>@Localize[PF2E.SpecificRule.Rogue.Debilitation.Weakness.Note]</p>",
+                "title": "PF2E.SpecificRule.Rogue.Debilitation.Title"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "rogue"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { isObject } from "@util";
@@ -54,11 +54,11 @@ export class Migration790MultipleClassDCs extends MigrationBase {
             const { description } = source.system;
             description.value = description.value.replace(
                 oldClassDCPattern,
-                `system.proficiencies.classDCs.${classSlug}`
+                `system.proficiencies.classDCs.${classSlug}`,
             );
 
             const notes = source.system.rules.filter(
-                (r: MaybeREWithText): r is REWithText => r.key === "Note" && typeof r.text === "string"
+                (r: MaybeREWithText): r is REWithText => r.key === "Note" && typeof r.text === "string",
             );
             for (const note of notes) {
                 note.text = note.text.replace(oldClassDCPattern, `system.proficiencies.classDCs.${classSlug}`);

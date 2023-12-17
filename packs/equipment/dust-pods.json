@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/equipment/snares/dust-pods.webp",
     "name": "Dust Pods",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": "1",
-            "value": "1"
+        "bulk": {
+            "value": 0
         },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p>You hide fragile pods of pollen or other clinging powder that get in the eyes of the first creature that enters the snare's square. The creature must attempt a @Check[type:reflex|dc:17] saving throw. A creature dazzled by the pollen can use an Interact action to attempt a @Check[type:flat|dc:5] to remove the condition.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is dazzled for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 10 minutes.</p>\n<p><strong>Critical Failure</strong> The creature is blinded for 1 round and dazzled for 10 minutes after.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +25,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 3
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #151: The Show Must Go On"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder #151: The Show Must Go On"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "uncommon",
             "value": [
@@ -63,8 +50,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

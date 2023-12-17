@@ -1,6 +1,7 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
-import { isPhysicalData } from "@item/data/helpers.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Size, SIZES, ValueAndMax } from "@module/data.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Flatten several physical-item properties, remove others no longer in use */
@@ -26,13 +27,13 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
             systemSource["-=hands"] = null;
         }
 
-        if (systemSource.equipped && systemSource.invested instanceof Object) {
+        if (systemSource.equipped && R.isObject(systemSource.invested)) {
             const value = systemSource.invested.value;
             if (typeof value === "boolean" || value === null) {
                 const traits: string[] = source.system.traits.value;
                 const shouldBeBoolean =
                     traits.includes("invested") ||
-                    (source.type === "armor" && (source.system.potencyRune.value ?? 0) > 0);
+                    (source.type === "armor" && (systemSource.potencyRune?.value ?? 0) > 0);
 
                 systemSource.equipped.invested = shouldBeBoolean ? Boolean(value) : null;
             }
@@ -104,10 +105,11 @@ type MaybeOldSystemSource = {
     hp: ValueAndMax & { brokenThreshold?: number };
     quantity: number | { value: number };
     hardness: number | { value: number };
-    stackGroup: string | null | { value: string | null };
+    stackGroup?: string | null | { value: string | null };
     containerId: string | null | { value: string | null };
     size: Size | { value: Size };
     temporary?: boolean | { value: boolean };
+    potencyRune?: { value?: Maybe<number> };
 
     brokenThreshold?: { value: number };
     "-=brokenThreshold"?: null;

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Size } from "@module/data.ts";
 import { BracketedValue, RuleElementSource } from "@module/rules/rule-element/index.ts";
 import { isObject } from "@util";

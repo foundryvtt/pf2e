@@ -1,6 +1,6 @@
 {
     "_id": "1k3H7cnARIzAVCsm",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Fearsome Brute",
     "system": {
         "actionType": {
@@ -11,13 +11,18 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Fear makes your foes weak and more vulnerable to your attacks.</p>\n<p>You gain a circumstance bonus to damage rolls for Strikes against @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures. The bonus is equal to double the target's frightened value.</p>\n<p>If you have master proficiency in Intimidation, increase the bonus to triple the target's frightened value.</p>"
+            "value": "<p>Fear makes your foes weak and more vulnerable to your attacks. You gain a circumstance bonus to damage rolls for Strikes against @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creatures. The bonus is equal to double the target's frightened value.</p>\n<p>If you're a master in Intimidation, increase the bonus to triple the target's frightened value.</p>"
         },
         "level": {
             "value": 10
         },
         "prerequisites": {
             "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -28,39 +33,7 @@
                 "selector": "strike-damage",
                 "slug": "fearsome-brute",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 2
-                        },
-                        {
-                            "start": 3,
-                            "value": 3
-                        }
-                    ],
-                    "field": "actor|system.skills.itm.rank"
-                }
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "multiply",
-                "predicate": [
-                    "target:condition:frightened:2"
-                ],
-                "selector": "strike-damage",
-                "slug": "fearsome-brute",
-                "value": 2
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "multiply",
-                "predicate": [
-                    "target:condition:frightened:3"
-                ],
-                "selector": "strike-damage",
-                "slug": "fearsome-brute",
-                "value": 3
+                "value": "2 * @target.conditions.frightened.badge.value"
             },
             {
                 "key": "AdjustModifier",
@@ -68,19 +41,16 @@
                 "predicate": [
                     {
                         "gte": [
-                            "target:condition:frightened",
-                            4
+                            "skill:rank:itm",
+                            3
                         ]
                     }
                 ],
                 "selector": "strike-damage",
                 "slug": "fearsome-brute",
-                "value": 4
+                "value": 1.5
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

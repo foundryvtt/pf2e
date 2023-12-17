@@ -1,7 +1,7 @@
 import { createHTMLElement, fontAwesomeIcon } from "@util";
-import { PartyCampaign } from "./types.ts";
+import type { DataSchema } from "types/foundry/common/data/fields.d.ts";
 import { PartyPF2e } from "./document.ts";
-import { DataSchema } from "types/foundry/common/data/fields.js";
+import { PartyCampaign } from "./types.ts";
 
 const { DataModel } = foundry.abstract;
 

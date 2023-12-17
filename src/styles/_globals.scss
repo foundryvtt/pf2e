@@ -12,25 +12,15 @@
 /* Layout                                    */
 /* ----------------------------------------- */
 
-/** A vertical rule in a flexbox */
-.vr {
-    border: 1px inset;
-    margin: 1px;
+[hidden] {
+    display: none !important;
 }
 
-/* ----------------------------------------- */
-/* Typography                                */
-/* ----------------------------------------- */
-
-.pf2e,
-.app.sheet.actor {
-    font-family: var(--sans-serif);
-    h1,
-    h2,
-    h3,
-    h4 {
-        font-weight: 600;
-    }
+/** A vertical rule in a flexbox */
+hr.vr {
+    border: 1px inset;
+    height: 1.25em;
+    margin: 1px 2px;
 }
 
 // ensure higher specificity than the sheet styles
@@ -129,6 +119,23 @@ a.foundry-href {
         color: var(--color-text-dark-inactive);
         margin-right: 0.25em;
     }
+}
+
+a.content-link {
+    line-height: 1.6em;
+
+    // Automatically italicize spell content links
+    &:has(i.fa-sparkles) {
+        font-style: italic;
+    }
+}
+
+#tooltip a.content-link {
+    color: var(--color-text-dark-primary);
+}
+
+.inline-roll.altered {
+    color: var(--color-text-dark-improved);
 }
 
 /* ----------------------------------------- */
@@ -318,6 +325,23 @@ a[href]:hover {
 
 #tinymce {
     @include journal-styling;
+}
+
+// System theme Foundry tooltips
+#tooltip.pf2e {
+    @include corner-boxes;
+    background: rgba(black, 0.9);
+    font-size: var(--font-size-14);
+    padding: 0.25rem 0;
+    text-align: left;
+
+    h1,
+    h2,
+    h3 {
+        font-size: var(--font-size-12);
+        font-weight: 500;
+        text-align: left;
+    }
 }
 
 /* ----------------------------------------- */

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement } from "@system/predication.ts";
 import { sluggify } from "@util";
@@ -10,7 +10,7 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         const rules: MaybeLinkedProficiency[] = itemSource.system.rules.filter(
-            (r): r is MaybeLinkedProficiency => r.key === "LinkedProficiency"
+            (r): r is MaybeLinkedProficiency => r.key === "LinkedProficiency",
         );
         for (const rule of rules) {
             rule.key = "MartialProficiency";

@@ -31,7 +31,7 @@ declare global {
          */
         createScrollingText(
             content: string,
-            { anchor, direction, duration, jitter, ...textStyle }?: ScrollingTextOptions
+            { anchor, direction, duration, jitter, ...textStyle }?: ScrollingTextOptions,
         ): Promise<PreciseText | null>;
 
         /**

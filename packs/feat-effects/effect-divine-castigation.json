@@ -1,0 +1,47 @@
+{
+    "_id": "U2Pgm6B4nmdQ2Gpd",
+    "img": "icons/magic/symbols/runes-star-pentagon-orange-purple.webp",
+    "name": "Effect: Divine Castigation",
+    "system": {
+        "description": {
+            "value": "<p>Imposed by @UUID[Compendium.pf2e.feats-srd.Item.Divine Castigation]</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spells you cast damage fiends as though they were undead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "self:trait:fiend"
+                ],
+                "value": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

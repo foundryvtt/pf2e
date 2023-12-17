@@ -14,12 +14,13 @@ export const RenderDialog = {
             // The class we're checking for is injected by the item document's createDialog() method
             if (html.classList.contains("dialog-item-create")) {
                 const select = html.querySelector<HTMLSelectElement>("select[name=type]");
-                const localize = localizer("PF2E.Item.CreationDialog.Categories");
-                if (select) {
+                const option = select?.querySelector("option");
+                if (select && option) {
+                    const localize = localizer("PF2E.Item.CreationDialog.Categories");
                     select.append(extractOptGroup(select, localize("Physical"), [...PHYSICAL_ITEM_TYPES, "kit"]));
                     select.append(extractOptGroup(select, localize("Character"), Array.from(PC_ITEM_TYPES)));
                     select.append(extractOptGroup(select, localize("Other")));
-                    select.querySelector("option")!.selected = true;
+                    option.selected = true;
                 }
             }
         });

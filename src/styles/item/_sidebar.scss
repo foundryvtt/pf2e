@@ -1,8 +1,7 @@
-section.sheet-sidebar {
-    flex: 0 0 220px;
+section.sidebar {
+    flex: 0 0 13.75rem;
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-flow: column nowrap;
 
     > * {
         flex: 1;
@@ -10,8 +9,8 @@ section.sheet-sidebar {
 
     .item-summary {
         @include serif-condensed;
-        flex: 0 0 28px;
-        line-height: 28px;
+        flex: 0 0 1.5em;
+        line-height: 1.5em;
         text-align: center;
         font-size: var(--font-size-18);
         color: #444;
@@ -23,25 +22,25 @@ section.sheet-sidebar {
         list-style: none;
 
         .tag {
-            display: block;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            text-align: center;
         }
     }
 
     .inventory-details,
     .feat-details {
         overflow: hidden scroll;
-        padding: 0 4px 0 0;
-
-        label {
-            font-weight: 500;
-            max-width: 6em;
-            white-space: nowrap;
-        }
+        padding: 0 0.25rem 0 0;
 
         .form-group {
             margin: 3px 0;
+
+            label {
+                font-weight: 500;
+                max-width: 6em;
+                white-space: nowrap;
+            }
 
             input {
                 text-align: right;
@@ -55,26 +54,6 @@ section.sheet-sidebar {
             select {
                 max-width: 12em;
             }
-
-            &.longtext {
-                height: fit-content;
-                align-items: start;
-                margin: 0 0 0.5em 0;
-
-                label {
-                    max-width: 6em;
-                    white-space: normal;
-                    line-height: unset;
-                }
-
-                .editor-content {
-                    min-height: 3em;
-                    > p {
-                        font-weight: 400;
-                        margin: 0;
-                    }
-                }
-            }
         }
 
         .price-fields {
@@ -86,53 +65,9 @@ section.sheet-sidebar {
         }
     }
 
-    select {
-        font-family: inherit;
-        font-size: 0.85em;
-        height: 1.8em;
-    }
-
     button {
         padding-top: 0;
         padding-bottom: 0;
         white-space: nowrap;
-    }
-
-    .badge-label-row {
-        width: 100%;
-        label {
-            cursor: pointer;
-            max-width: unset;
-        }
-
-        input[type="radio"] {
-            margin: 0;
-            top: 0;
-        }
-
-        .badge-value {
-            margin-right: 0.1rem;
-            width: 3ch;
-            font-weight: bold;
-            text-align: end;
-        }
-
-        input[type="text"] {
-            flex: 1;
-            text-align: end;
-        }
-    }
-
-    .add-badge {
-        display: flex;
-        align-items: center;
-        select {
-            flex: 1;
-            max-width: unset;
-        }
-        button {
-            flex: 0;
-            line-height: 1.2em;
-        }
     }
 }

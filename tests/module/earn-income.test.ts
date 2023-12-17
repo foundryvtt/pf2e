@@ -5,9 +5,7 @@ const options = {
     useLoreAsExperiencedProfessional: false,
 };
 
-const dcOptions = {
-    proficiencyWithoutLevel: false,
-};
+const dcOptions = { pwol: false };
 
 describe("earn income", () => {
     test("should earn a crit failure", () => {
@@ -21,7 +19,7 @@ describe("earn income", () => {
                 proficiency: 1,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: { combined: {}, perDay: {} },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_FAILURE,
@@ -44,7 +42,7 @@ describe("earn income", () => {
                 proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { cp: 2 },
@@ -70,7 +68,7 @@ describe("earn income", () => {
                 proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: {
@@ -100,7 +98,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: { combined: { cp: 2 }, perDay: { cp: 2 } },
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
@@ -122,7 +120,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { sp: 2 },
@@ -147,7 +145,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { sp: 10 },
@@ -172,7 +170,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { gp: 300 },
@@ -188,7 +186,7 @@ describe("earn income", () => {
 
     test("should earn a critical success with variant proficiency without level", () => {
         const level = 20;
-        const dc = calculateDC(level, { proficiencyWithoutLevel: true });
+        const dc = calculateDC(level, { pwol: true });
         expect(
             earnIncome({
                 level: 20,
@@ -197,7 +195,7 @@ describe("earn income", () => {
                 proficiency: 4,
                 options,
                 dc,
-            })
+            }),
         ).toMatchObject({
             rewards: {
                 combined: { gp: 300 },

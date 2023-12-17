@@ -1,0 +1,401 @@
+{
+    "_id": "JMFfbmnOG75RuuXv",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "19k1Hz7RxuXoLfGr",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Darkvision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army includes several spotters and scouts who have darkvision, and the rest of the soldiers have been trained to follow their lead so that the army itself functions as if it had darkvision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "a6FAJSwLzdqWyr1E",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "allOutAssault": {
+                            "id": "dfkhWGWMHIa1bk83",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Brutal Assault",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The Troll Marauders can use the All-Out-Assault action. When they do, an army damaged by the assault must succeed at a DC24 Morale check to avoid becoming @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken]{shaken 1} (or @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken]{shaken 2} on a critical failure) as a result of the brutality of this attack.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "flag": "allOutAssault",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.All-Out Assault"
+                    }
+                ],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "dfkhWGWMHIa1bk83",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.Z6jMZgAxI1zRO7Sl"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "a6FAJSwLzdqWyr1E",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "All-Out Assault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Merciless]</p>\n<hr />\n<p>Your army attacks with frightening vigor. Attempt a melee Strike against an enemy army's AC.</p>\n<p><strong>Critical Success</strong> Your army inflicts @Damage[3|domains:melee-damage,strike-damage] points of damage to the target army. If your army's next war action this turn is an attack war action against a different target army, you gain a +1 circumstance bonus to the Strike as your fury continues to the new target.</p>\n<p><strong>Success</strong> Your army deals @Damage[2|domains:melee-damage,strike-damage] points of damage to the target army.</p>\n<p><strong>Failure</strong> Your army falters, but still deals @Damage[1|domains:melee-damage,strike-damage] point of damage to the target army.</p>\n<p><strong>Critical Failure</strong> Your army deals no damage to the target army and becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Outflanked] until the start of its next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "All-Out Assault Followup Attack (Crit Success)",
+                        "option": "all-out-assault-followup",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "All-Out Assault Followup (Crit Success)",
+                        "predicate": [
+                            "all-out-assault-followup"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "all-out-assault",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "cavalry",
+                        "infantry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "jn0QB3sq8yQTujyd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "taunt": {
+                            "id": "zxEuPlI4wj8gArdg",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "DHXjHHXYj6zl4W6F",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Frightening Foe",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The Troll Marauders can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Taunt] tactical action. When they do, they gain a +2 status bonus on their Morale check if they used the Regeneration tactic this turn.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "flag": "taunt",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Taunt"
+                    }
+                ],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "zxEuPlI4wj8gArdg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ggVahjiAlVICpiPA"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "jn0QB3sq8yQTujyd",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Taunt",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong>@UUID[Compendium.pf2e.kingmaker-features.Item.Focused Devotion]</p>\n<hr />\n<p>Your army attempts to frighten and cow an enemy army. Attempt a @Check[morale|defense:morale|roller:self] check against the target army.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken]{Shaken 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes shaken 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your failed attempt bolsters the enemy's spirits. This reduces the target army's shaken value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "taunt",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "morale"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "nRUQZPAnP2YUPGdC",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.w95Ah3tIP3fqZGmv"
+                }
+            },
+            "folder": "Orkajqnbw5JiOwtt",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Regeneration",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>At the beginning of its turn, the Troll Marauders regain 1 Hit Point. The Troll Marauders cannot be destroyed as usual unless they lose this tactic. The PCs can cause the trolls to lose the Regeneration tactic via prepared firepots (see Kingmaker page 296); while the trolls’ Regeneration tactic is lost, their RT increases to 3.</p>\n<p>Otherwise, an army that engages the Troll Marauders while they are defeated can take a three-round action to burn the trolls and destroy their army.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "deactivatedBy": [
+                            "fire"
+                        ],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Troll Marauders",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 28
+        },
+        "attributes": {
+            "hp": {
+                "max": 5,
+                "routThreshold": 1,
+                "value": 5
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "NE",
+            "blurb": "",
+            "description": "<p>There are only a few dozen trolls in this army, but their ferocity and regenerative capability make them a dangerous force nonetheless.</p>",
+            "level": {
+                "value": 8
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 13,
+            "morale": 19
+        },
+        "scouting": 16,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "infantry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Claws and fangs",
+                "potency": 0
+            },
+            "ranged": null
+        }
+    },
+    "type": "army"
+}

@@ -1,0 +1,82 @@
+{
+    "_id": "QrJ06Sc2GiloQ6hB",
+    "img": "icons/magic/earth/construct-stone.webp",
+    "name": "Stance: Assume Earth's Mantle",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assume Earth's Mantle]</p>\n<p>Enormous pieces of rock cluster around your body. You can Dismiss this impulse.</p>\n<ul>\n<li>You become Large if you were smaller. This increases your reach by 5 feet (or by 10 feet if you started out Tiny).</li>\n<li>You gain a climb Speed equal to your land Speed, but you can use it only to climb surfaces of earthen matter.</li>\n<li>The armor grants you a +1 circumstance bonus to your Fortitude saves and a +2 circumstance bonus to your Fortitude or Reflex DCs against attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] you, @UUID[Compendium.pf2e.actionspf2e.Item.Trip] you, or knock you @UUID[Compendium.pf2e.conditionitems.Item.Prone].</li>\n<li>If your Strength is below +4, this armor raises your Strength to +4. If your Strength is +4 or higher, this armor grants you a +1 item bonus to your Strength.</li>\n<li>If you have the Armor in Earth impulse, you can add its effects to Assume Earth's Mantle.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "large"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip",
+                            "inflicts:prone"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.abilities.str.mod",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.abilities.str.mod",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

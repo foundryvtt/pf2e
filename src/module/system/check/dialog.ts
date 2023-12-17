@@ -1,6 +1,6 @@
-import { MODIFIER_TYPES, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RollTwiceOption } from "../rolls.ts";
 import { CheckRollContext } from "./types.ts";
@@ -19,10 +19,13 @@ export class CheckModifiersDialog extends Application {
     /** Has the promise been resolved? */
     isResolved = false;
 
+    /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
+    #originallyEnabled: Set<ModifierPF2e>;
+
     constructor(
         check: StatisticModifier,
         resolve: (value: boolean) => void,
-        context: CheckRollContext = { options: new Set() }
+        context: CheckRollContext = { options: new Set() },
     ) {
         // The title often has HTML in it: get the base text
         const title = ((): string => {
@@ -41,6 +44,8 @@ export class CheckModifiersDialog extends Application {
         this.check = check;
         this.resolve = resolve;
         this.context = context;
+
+        this.#originallyEnabled = new Set(check.modifiers.filter((m) => m.enabled));
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -63,11 +68,14 @@ export class CheckModifiersDialog extends Application {
 
         return {
             appId: this.id,
-            modifiers: this.check.modifiers,
+            modifiers: this.check.modifiers.map((m) => ({
+                ...m,
+                hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
+            })),
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode,
-            showRollDialogs: game.user.settings.showRollDialogs,
+            showCheckDialogs: game.user.settings.showCheckDialogs,
             substitutions: this.#resolveSubstitutions(),
             fortune,
             none,
@@ -174,44 +182,16 @@ export class CheckModifiersDialog extends Application {
             this.context.rollMode = rollMode;
         });
 
-        // Dialog settings menu
-        const settingsButton = htmlQuery(htmlClosest(html, ".app"), "a.header-button.settings");
-        if (settingsButton && !settingsButton?.dataset.tooltipContent) {
-            settingsButton.dataset.tooltipContent = `#${this.id}-settings`;
-            const $tooltip = $(settingsButton).tooltipster({
-                animation: "fade",
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["top"],
-                theme: "crb-hover",
-                minWidth: 165,
-            });
-
-            const toggle = htmlQuery<HTMLInputElement>(html, ".settings-list input.quick-rolls-submit");
-            toggle?.addEventListener("click", async () => {
-                await game.user.setFlag("pf2e", "settings.showRollDialogs", toggle.checked);
-                $tooltip.tooltipster("close");
-            });
-        }
+        // Toggle show dialog default
+        const toggle = htmlQuery<HTMLInputElement>(html, "input[data-action=change-show-default]");
+        toggle?.addEventListener("click", async () => {
+            await game.user.update({ "flags.pf2e.settings.showCheckDialogs": toggle.checked });
+        });
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
         if (!this.isResolved) this.resolve(false);
         super.close(options);
-    }
-
-    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
-        const buttons = super._getHeaderButtons();
-        const settingsButton: ApplicationHeaderButton = {
-            label: game.i18n.localize("PF2E.SETTINGS.Settings"),
-            class: "settings",
-            icon: "fa-solid fa-cog",
-            onclick: () => null,
-        };
-        return [settingsButton, ...buttons];
     }
 
     /** Overriden to add some additional first-render behavior */
@@ -225,11 +205,11 @@ export class CheckModifiersDialog extends Application {
 
 interface CheckDialogData {
     appId: string;
-    modifiers: readonly ModifierPF2e[];
+    modifiers: RawModifier[];
     totalModifier: number;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | "roll" | undefined;
-    showRollDialogs: boolean;
+    showCheckDialogs: boolean;
     substitutions: RollSubstitutionDialogData[];
     fortune: boolean;
     none: boolean;

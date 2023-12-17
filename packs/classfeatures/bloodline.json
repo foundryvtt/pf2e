@@ -19,102 +19,19 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.sorcerer}.rank",
-                "predicate": [
-                    "class:sorcerer"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 2
-                        },
-                        {
-                            "end": 18,
-                            "start": 15,
-                            "value": 3
-                        },
-                        {
-                            "start": 19,
-                            "value": 4
-                        }
-                    ],
-                    "field": "actor|system.details.level.value"
-                }
-            },
-            {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "level 1 sorcerer class feature",
-                    "predicate": [
-                        "item:level:1",
-                        "item:trait:sorcerer",
-                        "item:type:feature"
+                "choices": {
+                    "filter": [
+                        "item:tag:sorcerer-bloodline"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Aberrant"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Angelic"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Demonic"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Diabolic"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Draconic"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Elemental"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Fey"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Genie"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Hag"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Imperial"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Nymph"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Phoenix"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Psychopomp"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Shadow"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Undead"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Wyrmblessed"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Bloodline: Harrow"
-                    }
-                ],
                 "flag": "bloodline",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
@@ -124,9 +41,6 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

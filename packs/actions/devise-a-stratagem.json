@@ -17,14 +17,16 @@
             "max": 1,
             "per": "round"
         },
-        "requirements": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "devise-a-stratagem",
+                "option": "target:mark:devise-a-stratagem",
                 "toggleable": "totm"
             },
             {
@@ -32,12 +34,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "class:investigator",
-                    {
-                        "or": [
-                            "devise-a-stratagem",
-                            "target:mark:devise-a-stratagem"
-                        ]
-                    },
+                    "target:mark:devise-a-stratagem",
                     {
                         "or": [
                             "item:trait:agile",
@@ -62,9 +59,6 @@
             "name": "Effect: Devise a Stratagem",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Devise a Stratagem"
         },
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [
@@ -72,12 +66,6 @@
                 "fortune",
                 "investigator"
             ]
-        },
-        "trigger": {
-            "value": ""
-        },
-        "weapon": {
-            "value": ""
         }
     },
     "type": "action"

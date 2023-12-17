@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ConsumablePF2e } from "@item";
-import { EquipmentSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { EquipmentSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { KitEntryData } from "@item/kit/data.ts";
 import { ErrorPF2e, isObject } from "@util";
 import { MigrationBase } from "../base.ts";

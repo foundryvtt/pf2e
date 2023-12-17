@@ -1,13 +1,13 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { setHasElement, sluggify } from "@util";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -54,8 +54,8 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
         const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
             ? this.actor.skills[proficiency]
             : proficiency === "ac"
-            ? systemData.attributes.ac
-            : null;
+              ? systemData.attributes.ac
+              : null;
 
         if (statistic) {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
@@ -68,7 +68,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
 
 interface FixedProficiencyRuleElement
     extends RuleElementPF2e<FixedProficiencyRuleSchema>,
-        ModelPropsFromSchema<FixedProficiencyRuleSchema> {
+        ModelPropsFromRESchema<FixedProficiencyRuleSchema> {
     get actor(): CharacterPF2e;
 }
 

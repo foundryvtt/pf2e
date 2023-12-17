@@ -1,15 +1,15 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
+import { PredicateField, StrictStringField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -26,7 +26,6 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
                 initial: "attack",
             }),
             definition: new PredicateField({ required: true, nullable: false }),
-            immutable: new StrictBooleanField({ required: false, initial: true }),
             sameAs: new StrictStringField({
                 required: false,
                 nullable: false,
@@ -54,7 +53,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
         const key = this.kind === "attack" ? "attacks" : "defenses";
         this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
-            immutable: this.immutable,
+            immutable: true,
             label: this.label,
             sameAs: this.sameAs,
             rank,
@@ -67,7 +66,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
 
 interface MartialProficiencyRuleElement
     extends RuleElementPF2e<MartialProficiencySchema>,
-        ModelPropsFromSchema<MartialProficiencySchema> {
+        ModelPropsFromRESchema<MartialProficiencySchema> {
     get actor(): CharacterPF2e;
 }
 
@@ -76,8 +75,6 @@ type MartialProficiencySchema = RuleElementSchema & {
     kind: StrictStringField<"attack" | "defense", "attack" | "defense", true, false, true>;
     /** The criteria for matching qualifying weapons and other attacks */
     definition: PredicateField<true, false, false>;
-    /** Whether this proficiency's rank can be manually changed */
-    immutable: StrictBooleanField<false, false, true>;
     /** The attack category to which this proficiency's rank is linked */
     sameAs: StrictStringField<WeaponCategory | ArmorCategory, WeaponCategory | ArmorCategory, false, false, false>;
     /** The maximum rank this proficiency can reach, if any */

@@ -17,11 +17,13 @@
                 "proficient": {
                     "value": 1
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                }
+                "slug": null
             },
             "type": "lore"
         },
@@ -40,11 +42,13 @@
                 "proficient": {
                     "value": 2
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
                 "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                }
+                "slug": null
             },
             "type": "lore"
         },
@@ -67,6 +71,11 @@
                 "description": {
                     "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -84,9 +93,6 @@
                     }
                 ],
                 "slug": "strong-blooded-dwarf",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -136,11 +142,13 @@
                         "uuid": "Compendium.pf2e.feats-srd.Item.Pickpocket"
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "street-urchin",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "trainedLore": "<City> Lore",
                 "trainedSkills": {
                     "value": [
@@ -161,7 +169,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.jDdOqFmZLwE4dblQ"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Pickpocket",
             "sort": 0,
             "system": {
@@ -176,6 +184,7 @@
                     "value": "<p>You can Steal or Palm an Object that's closely guarded, such as in a pocket, without taking the -5 penalty. You can't steal objects that would be extremely noticeable or time consuming to remove (like worn shoes or armor or actively wielded objects). If you're a master in Thievery, you can attempt to Steal from a creature in combat or otherwise on guard. When doing so, Stealing requires 2 manipulate actions instead of 1, and you take a -5 penalty.</p>"
                 },
                 "level": {
+                    "taken": 1,
                     "value": 1
                 },
                 "location": "b4WzJwA8NBgopQ5Z",
@@ -186,11 +195,13 @@
                         }
                     ]
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "pickpocket",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -208,7 +219,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.C1R4wd6G46CAVIn7"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Unburdened Iron",
             "sort": 0,
             "system": {
@@ -220,26 +231,52 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>You've learned techniques first devised by your ancestors during their ancient wars, allowing you to comfortably wear massive suits of armor. Ignore the reduction to your Speed from any armor you wear. In addition, any time you're taking a penalty to your Speed from some other reason (such as from the encumbered condition or from a spell), deduct 5 feet from the penalty. For example, the encumbered condition normally gives a -10-foot penalty to Speed, but it gives you only a -5-foot penalty. If your Speed is taking multiple penalties, pick only one penalty to reduce.</p>"
+                    "value": "<p>You've learned techniques first devised by your ancestors during their ancient wars, allowing you to comfortably wear massive suits of armor. Ignore the reduction to your Speed from any armor you wear.</p>\n<p>In addition, any time you're taking a penalty to your Speed for some other reason (such as from the @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] condition or from a spell), deduct 5 feet from the penalty. For example, the encumbered condition normally gives a –10-foot penalty to Speed, but this feat would reduce it to a –5-foot penalty. If your Speed is taking multiple penalties, pick only one penalty to reduce.</p>"
                 },
                 "level": {
+                    "taken": 1,
                     "value": 1
                 },
                 "location": "ancestry-1",
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
                 "rules": [
                     {
-                        "domain": "speed",
-                        "key": "RollOption",
-                        "option": "armor:ignore-speed-penalty"
+                        "key": "AdjustModifier",
+                        "selectors": [
+                            "land-speed"
+                        ],
+                        "slug": "armor-speed-penalty",
+                        "suppress": true
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "maxApplications": 1,
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "not": "penalty:slug:armor-speed-penalty"
+                            },
+                            {
+                                "lte": [
+                                    "penalty:value",
+                                    -5
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "land-speed"
+                        ],
+                        "value": 5
                     }
                 ],
                 "slug": "unburdened-iron",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -256,7 +293,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.HOUHs5rahwIsQoBf"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Stonecunning",
             "sort": 0,
             "system": {
@@ -271,11 +308,17 @@
                     "value": "<p>You have a knack for noticing even small inconsistencies and craftsmanship techniques in the stonework around you. You gain a +2 circumstance bonus to Perception checks to notice unusual stonework. This bonus applies to checks to discover mechanical traps made of stone or hidden within stone. If you aren't using the Seek action or searching, the GM automatically rolls a secret check for you to notice unusual stonework anyway. This check doesn't gain the circumstance bonus, and it takes a -2 circumstance penalty.</p>"
                 },
                 "level": {
+                    "taken": 5,
                     "value": 1
                 },
                 "location": "ancestry-5",
                 "prerequisites": {
                     "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [
                     {
@@ -305,9 +348,6 @@
                     }
                 ],
                 "slug": "stonecunning",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -324,7 +364,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.w8Ycgeq2zfyshtoS"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Reactive Shield",
             "sort": 0,
             "system": {
@@ -339,17 +379,20 @@
                     "value": "<p><strong>Trigger</strong> An enemy hits you with a melee strike.</p>\n<hr />\n<p>You can snap your shield into place just as you would take a blow, avoiding the hit at the last second. You immediately use the @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] action and gain your shield's bonus to AC. The circumstance bonus from the shield applies to your AC when you're determining the outcome of the triggering attack.</p>"
                 },
                 "level": {
+                    "taken": 1,
                     "value": 1
                 },
                 "location": "class-1",
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "reactive-shield",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "selected": {
@@ -369,7 +412,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.19OLlTrxvEtDAOHc"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Aggressive Block",
             "sort": 0,
             "system": {
@@ -384,17 +427,20 @@
                     "value": "<p><strong>Trigger</strong> You use the Shield Block reaction, and the opponent that triggered Shield Block is adjacent to you and is your size or smaller.</p>\n<hr />\n<p>You push back as you block, knocking your foe away or off balance.</p>\n<p>You use your shield to push the triggering creature, either automatically @UUID[Compendium.pf2e.actionspf2e.Item.Shove]{Shoving} it 5 feet or causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn.</p>\n<p>The triggering creature chooses whether to be moved or become off-guard. If it chooses to be moved, you choose the direction. If the Shove would cause it to hit a solid object, enter a square of difficult terrain, or enter another creature's space, it must become off-guard instead of being moved.</p>"
                 },
                 "level": {
+                    "taken": 2,
                     "value": 2
                 },
                 "location": "class-2",
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "aggressive-block",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -411,7 +457,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.lkcM4V3VDAtjlR9P"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Intimidating Strike",
             "sort": 0,
             "system": {
@@ -426,17 +472,20 @@
                     "value": "<p>Your blow not only wounds creatures but also shatters their confidence.</p>\n<p>Make a melee Strike. If you hit and deal damage, the target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit.</p>"
                 },
                 "level": {
+                    "taken": 4,
                     "value": 2
                 },
                 "location": "class-4",
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "intimidating-strike",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -456,7 +505,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.JHcvySfCM9uYNb9N"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Revealing Stab",
             "sort": 0,
             "system": {
@@ -471,17 +520,20 @@
                     "value": "<p><strong>Requirements</strong> You are wielding a melee weapon that deals piercing damage</p>\n<hr />\n<p>You drive your piercing weapon into an imperceptible foe, revealing its location to your allies.</p>\n<p>Make a Strike with the required melee weapon. You don't have to attempt a flat check to hit a @UUID[Compendium.pf2e.conditionitems.Item.Concealed] creature, and you have to succeed at only a @Check[type:flat|dc:5] to target a @UUID[Compendium.pf2e.conditionitems.Item.Hidden] creature.</p>\n<p>If you hit and deal damage, you can drive the required weapon into a corporeal target, revealing its current position. You @UUID[Compendium.pf2e.actionspf2e.Item.Release] the weapon, and it becomes lodged in the target.</p>\n<p>If the target is concealed, other creatures don't need to succeed at a flat check to hit it. If the target is hidden, other creatures have to succeed at only a @Check[type:flat|dc:5] to target it. The creatures need to be able to see your weapon to gain any of these benefits, and the target can't become undetected to anyone who sees your weapon. If the target is @UUID[Compendium.pf2e.conditionitems.Item.Invisible], the weapon remains visible while lodged in it. This benefit lasts until the weapon is removed from the creature. An adjacent creature or the target can remove the weapon with 2 Interact actions.</p>"
                 },
                 "level": {
+                    "taken": 6,
                     "value": 6
                 },
                 "location": "class-6",
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "revealing-stab",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -498,7 +550,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Additional Lore",
             "sort": 0,
             "system": {
@@ -513,6 +565,7 @@
                     "value": "<p>Your knowledge has expanded to encompass a new field. Choose an additional Lore skill subcategory. You become trained in it. At 3rd, 7th, and 15th levels, you gain an additional skill increase you can apply only to the chosen Lore subcategory.</p>\n<p><strong>Special</strong> You can select this feat more than once. Each time you must select a new subcategory of Lore and you gain the additional skill increases to that subcategory for the listed levels.</p>"
                 },
                 "level": {
+                    "taken": 2,
                     "value": 1
                 },
                 "location": "skill-2",
@@ -524,11 +577,13 @@
                         }
                     ]
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "additional-lore",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -546,7 +601,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Combat Climber",
             "sort": 0,
             "system": {
@@ -561,6 +616,7 @@
                     "value": "<p>Your techniques allow you to fight as you climb. You're not off-guard while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
                 },
                 "level": {
+                    "taken": 4,
                     "value": 1
                 },
                 "location": "skill-4",
@@ -571,11 +627,13 @@
                         }
                     ]
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "combat-climber",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -593,7 +651,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.ASy9AKEIRxPYUi5o"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Quick Repair",
             "sort": 0,
             "system": {
@@ -608,6 +666,7 @@
                     "value": "<p>You take 1 minute to Repair an item. If you're a master in Crafting, it takes 3 actions. If you're legendary, it takes 1 action.</p>"
                 },
                 "level": {
+                    "taken": 6,
                     "value": 1
                 },
                 "location": "skill-6",
@@ -618,11 +677,13 @@
                         }
                     ]
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "quick-repair",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -640,7 +701,7 @@
                     "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Fleet",
             "sort": 0,
             "system": {
@@ -655,11 +716,17 @@
                     "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
                 },
                 "level": {
+                    "taken": 3,
                     "value": 1
                 },
                 "location": "general-3",
                 "prerequisites": {
                     "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [
                     {
@@ -669,9 +736,6 @@
                     }
                 ],
                 "slug": "fleet",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -699,6 +763,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -714,9 +781,6 @@
                     "handsHeld": 0,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
                 "group": "sword",
                 "hardness": 0,
                 "hp": {
@@ -730,28 +794,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": null
-                },
                 "price": {
                     "value": {
                         "sp": 9
                     }
                 },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "range": null,
@@ -759,17 +810,15 @@
                     "value": ""
                 },
                 "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
                 "size": "med",
                 "slug": "shortsword",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "splashDamage": {
                     "value": 0
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": ""
                 },
                 "traits": {
                     "rarity": "common",
@@ -781,9 +830,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -806,6 +852,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -821,9 +870,6 @@
                     "handsHeld": 0,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
                 "group": "shield",
                 "hardness": 0,
                 "hp": {
@@ -837,28 +883,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 1
-                },
                 "price": {
                     "value": {
                         "sp": 5
                     }
                 },
-                "propertyRune1": {
-                    "value": null
-                },
-                "propertyRune2": {
-                    "value": null
-                },
-                "propertyRune3": {
-                    "value": null
-                },
-                "propertyRune4": {
-                    "value": null
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "range": null,
@@ -866,17 +899,15 @@
                     "value": ""
                 },
                 "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 0
+                },
                 "size": "med",
                 "slug": "shield-boss",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "splashDamage": {
                     "value": 0
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": null
                 },
                 "traits": {
                     "rarity": "common",
@@ -886,9 +917,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
                 }
             },
             "type": "weapon"
@@ -911,6 +939,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -926,9 +957,6 @@
                     "handsHeld": 1,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
                 "group": "spear",
                 "hardness": 0,
                 "hp": {
@@ -942,28 +970,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 1
-                },
                 "price": {
                     "value": {
                         "gp": 1
                     }
                 },
-                "propertyRune1": {
-                    "value": "returning"
-                },
-                "propertyRune2": {
-                    "value": null
-                },
-                "propertyRune3": {
-                    "value": null
-                },
-                "propertyRune4": {
-                    "value": null
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "range": null,
@@ -971,17 +986,17 @@
                     "value": "-"
                 },
                 "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [
+                        "returning"
+                    ],
+                    "striking": 1
+                },
                 "size": "med",
                 "slug": "trident",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "splashDamage": {
                     "value": 0
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": "striking"
                 },
                 "traits": {
                     "rarity": "common",
@@ -991,9 +1006,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "weapon"
@@ -1016,6 +1028,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "martial",
                 "containerId": null,
                 "damage": {
@@ -1031,9 +1046,6 @@
                     "handsHeld": 0,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
                 "group": "bomb",
                 "hardness": 0,
                 "hp": {
@@ -1047,28 +1059,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 10
                     }
                 },
-                "propertyRune1": {
-                    "value": null
-                },
-                "propertyRune2": {
-                    "value": null
-                },
-                "propertyRune3": {
-                    "value": null
-                },
-                "propertyRune4": {
-                    "value": null
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "range": 20,
@@ -1082,17 +1081,15 @@
                         "text": "PF2E.BombNotes.BottledLightning.Moderate.success"
                     }
                 ],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
                 "size": "med",
                 "slug": "bottled-lightning-moderate",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "splashDamage": {
                     "value": 2
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": ""
                 },
                 "traits": {
                     "rarity": "common",
@@ -1106,9 +1103,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -1125,23 +1119,19 @@
             "sort": 600000,
             "system": {
                 "acBonus": 2,
-                "baseItem": null,
-                "category": "shield",
-                "checkPenalty": null,
+                "baseItem": "steel-shield",
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": null,
                 "description": {
                     "value": "<p>With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy.</p>\n<p>The shield has Hardness 8, HP 64, and BT 32.</p>"
                 },
-                "dexCap": 0,
                 "equipped": {
                     "carryType": "held",
                     "handsHeld": 1,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": null,
                 "hardness": 8,
                 "hp": {
                     "max": 64,
@@ -1154,57 +1144,43 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 100
                     }
                 },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
                 "size": "med",
                 "slug": "sturdy-shield-minor",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
+                "specific": {
+                    "integrated": null,
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "reinforcing": 0
+                    }
                 },
-                "speedPenalty": null,
-                "stackGroup": null,
-                "strength": null,
+                "speedPenalty": 0,
                 "traits": {
+                    "integrated": null,
                     "rarity": "common",
                     "value": [
-                        "abjuration",
                         "magical"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
-            "type": "armor"
+            "type": "shield"
         },
         {
             "_id": "T2G1oKfW29Qj1Ltl",
@@ -1219,6 +1195,9 @@
             "system": {
                 "acBonus": 5,
                 "baseItem": "half-plate",
+                "bulk": {
+                    "value": 3
+                },
                 "category": "heavy",
                 "checkPenalty": -3,
                 "containerId": null,
@@ -1231,9 +1210,6 @@
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "3"
                 },
                 "group": "plate",
                 "hardness": 0,
@@ -1248,52 +1224,30 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {},
-                "potencyRune": {
-                    "value": 0
-                },
                 "price": {
                     "value": {
                         "gp": 18
                     }
                 },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
-                "resiliencyRune": {
-                    "value": ""
-                },
                 "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
                 "size": "med",
                 "slug": "half-plate",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "speedPenalty": -10,
-                "stackGroup": null,
                 "strength": 3,
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": "wornarmor"
-                },
-                "weight": {
-                    "value": "4"
                 }
             },
             "type": "armor"
@@ -1309,29 +1263,18 @@
             "name": "Fear Gem",
             "sort": 800000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
-                "charges": {
-                    "max": 1,
-                    "value": 1
+                "bulk": {
+                    "value": 0
                 },
-                "consumableType": {
-                    "value": "talisman"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "talisman",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Usage</strong> affixed to a weapon</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Strike]</p>\n<p>Dark smoke seems to writhe within this obsidian gem. When you activate the gem, you make an Intimidating Strike, as the fighter feat.</p>\n<p>If you have the Intimidating Strike feat, increase the frightened condition value from this Intimidating Strike to frightened 2, or frightened 3 on a critical hit.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1345,27 +1288,24 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 20
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "fear-gem",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "consumable",
-                        "enchantment",
                         "fear",
                         "magical",
                         "mental",
@@ -1375,8 +1315,10 @@
                 "usage": {
                     "value": "affixed-to-weapon"
                 },
-                "weight": {
-                    "value": "-"
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1392,29 +1334,22 @@
             "name": "Healing Potion (Lesser)",
             "sort": 900000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
-                "charges": {
-                    "max": 1,
-                    "value": 1
+                "bulk": {
+                    "value": 0.1
                 },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "2d8+5"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1428,38 +1363,37 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 12
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "healing-potion-lesser",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "consumable",
                         "healing",
                         "magical",
-                        "necromancy",
-                        "vitality",
-                        "potion"
+                        "potion",
+                        "vitality"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
-                    "value": "L"
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1475,29 +1409,18 @@
             "name": "Cat's Eye Elixir",
             "sort": 1000000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
-                "charges": {
-                    "max": 1,
-                    "value": 1
+                "bulk": {
+                    "value": 0.1
                 },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>After you consume this elixir, your vision sharpens and you become sensitive to even the most minute movements.</p>\n<p>For the next minute, you reduce the flat check to target hidden creatures to 5, and you don't need to attempt a flat check to target concealed creatures. These benefits apply only against creatures within 30 feet of you.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1511,22 +1434,20 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 7
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "cats-eye-elixir",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1538,8 +1459,10 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
-                    "value": "L"
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1556,8 +1479,11 @@
             "sort": 1100000,
             "system": {
                 "baseItem": null,
-                "bulkCapacity": {
-                    "value": "4"
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
                 },
                 "collapsed": false,
                 "containerId": null,
@@ -1569,9 +1495,6 @@
                     "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": "0"
                 },
                 "hardness": 0,
                 "hp": {
@@ -1585,22 +1508,20 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "2"
-                },
                 "price": {
                     "value": {
                         "sp": 1
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "backpack",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "stowing": true,
                 "traits": {
                     "rarity": "common",
@@ -1608,9 +1529,6 @@
                 },
                 "usage": {
                     "value": "wornbackpack"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "backpack"
@@ -1627,15 +1545,15 @@
             "sort": 1200000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
                     "carryType": "worn"
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1649,31 +1567,24 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 1
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 5,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "usage": {
-                    "value": ""
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "type": "treasure"
@@ -1690,6 +1601,9 @@
             "sort": 1400000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
                     "value": "<p>You can throw a grappling hook with a rope tied to it to make a climb easier. To anchor a grappling hook, make an attack roll with the secret trait against a DC depending on the target, typically at least DC 20. On a success, your hook has a firm hold, but on a critical failure, the hook seems like it will hold but actually falls when you're partway up.</p>"
@@ -1697,9 +1611,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1713,31 +1624,26 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 1
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "grappling-hook",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -1754,6 +1660,9 @@
             "sort": 1300000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
                     "value": "<p>When Forcing Open an object that doesn't have an easy grip, a crowbar makes it easier to gain the necessary leverage. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open (similar to using a shoddy item).</p>"
@@ -1761,9 +1670,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1777,13 +1683,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 5
                     }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "rules": [
@@ -1796,19 +1704,12 @@
                 ],
                 "size": "med",
                 "slug": "crowbar",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -1825,6 +1726,9 @@
             "sort": 1600000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
                     "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
@@ -1832,9 +1736,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1848,31 +1749,26 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "gp": 2
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "repair-kit",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "1"
                 }
             },
             "type": "equipment"
@@ -1889,16 +1785,16 @@
             "sort": 1700000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
-                    "value": "<p>These are replacement picks for @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Tools].</p>"
+                    "value": "<p>These are replacement picks for @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit]{Thieves' Tools}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1912,31 +1808,26 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 3
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "thieves-tools-replacement-picks",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -1953,6 +1844,9 @@
             "sort": 1650000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
                     "value": "<p>50 feet of rope.</p>"
@@ -1960,9 +1854,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -1976,31 +1867,26 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "sp": 5
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "rope",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2017,16 +1903,16 @@
             "sort": 1675000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
-                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
+                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2040,31 +1926,26 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": ""
-                },
                 "price": {
                     "value": {
                         "gp": 3
                     }
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "thieves-tools",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-two-hands"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2081,6 +1962,9 @@
             "sort": 1500000,
             "system": {
                 "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
                 "containerId": "1j7NpgiEiz6l0y2o",
                 "description": {
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
@@ -2088,9 +1972,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
                 },
                 "hardness": 0,
                 "hp": {
@@ -2104,13 +1985,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
                 "price": {
                     "value": {
                         "sp": 1
                     }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "rules": [
@@ -2123,19 +2006,12 @@
                 ],
                 "size": "med",
                 "slug": "religious-symbol-wooden",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "equipment"
@@ -2170,7 +2046,6 @@
                     "simple": 2,
                     "unarmed": 2
                 },
-                "classDC": 1,
                 "classFeatLevels": {
                     "value": [
                         1,
@@ -2225,7 +2100,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Armor Expertise"
                     },
                     "e1e4m": {
-                        "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
                         "level": 1,
                         "name": "Shield Block",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
@@ -2261,10 +2136,10 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Armor Mastery"
                     },
                     "r6269": {
-                        "img": "systems/pf2e/icons/features/classes/attack-of-opportunity.webp",
+                        "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
                         "level": 1,
                         "name": "Attack of Opportunity",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Attack of Opportunity"
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reactive Strike"
                     },
                     "r6jbx": {
                         "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
@@ -2285,7 +2160,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
                     },
                     "u8k07": {
-                        "img": "systems/pf2e/icons/features/classes/fighter-weapon-mastery.webp",
+                        "img": "icons/weapons/swords/sword-guard-steel-green.webp",
                         "level": 5,
                         "name": "Fighter Weapon Mastery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Weapon Mastery"
@@ -2311,6 +2186,11 @@
                     ]
                 },
                 "perception": 2,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "savingThrows": {
                     "fortitude": 2,
@@ -2345,9 +2225,7 @@
                     ]
                 },
                 "slug": "fighter",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
+                "spellcasting": 0,
                 "trainedSkills": {
                     "additional": 3,
                     "value": []
@@ -2374,7 +2252,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/attack-of-opportunity.webp",
+            "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
             "name": "Attack of Opportunity",
             "sort": 0,
             "system": {
@@ -2386,7 +2264,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Ever watchful for weaknesses, you can quickly attack foes that leave an opening in their defenses. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Attack of Opportunity] reaction.</p>"
+                    "value": "<p>Ever watchful for weaknesses, you can quickly attack foes that leave an opening in their defenses. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Reactive Strike] reaction.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2395,17 +2273,19 @@
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [
                     {
                         "flag": "attackOfOpportunity",
                         "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Attack of Opportunity"
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Reactive Strike"
                     }
                 ],
                 "slug": "attack-of-opportunity",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2430,7 +2310,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/shield-block.webp",
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
             "name": "Shield Block",
             "sort": 100,
             "system": {
@@ -2451,6 +2331,11 @@
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [
                     {
                         "flag": "shieldBlock",
@@ -2459,9 +2344,6 @@
                     }
                 ],
                 "slug": "shield-block",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2501,6 +2383,11 @@
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [
                     {
                         "key": "Note",
@@ -2530,9 +2417,6 @@
                     }
                 ],
                 "slug": "bravery",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2549,7 +2433,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.gApJtAdNb9ST4Ms9"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/fighter-weapon-mastery.webp",
+            "img": "icons/weapons/swords/sword-guard-steel-green.webp",
             "name": "Fighter Weapon Mastery (Spear)",
             "sort": 1500,
             "system": {
@@ -2569,6 +2453,11 @@
                 "location": "I26kncLA96hoqXla",
                 "prerequisites": {
                     "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [
                     {
@@ -2617,9 +2506,6 @@
                     }
                 ],
                 "slug": "fighter-weapon-mastery",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2656,20 +2542,16 @@
                 "description": {
                     "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p>You lash out at a foe that leaves an opening. Make a melee Strike against the triggering creature. If your attack is a critical hit and the trigger was a manipulate action, you disrupt that action. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>"
                 },
-                "requirements": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [],
                 "slug": "attack-of-opportunity",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": []
-                },
-                "trigger": {
-                    "value": ""
                 }
             },
             "type": "action"
@@ -2687,7 +2569,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
             "name": "Shield Block",
             "sort": 0,
             "system": {
@@ -2708,11 +2590,13 @@
                 "prerequisites": {
                     "value": []
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "rules": [],
                 "slug": "shield-block",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2742,7 +2626,7 @@
                         "jotun",
                         "orcish",
                         "petran",
-                        "undercommon"
+                        "sakvroth"
                     ]
                 },
                 "boosts": {
@@ -2794,13 +2678,15 @@
                         "dwarven"
                     ]
                 },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
                 "reach": 5,
                 "rules": [],
                 "size": "med",
                 "slug": "dwarf",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "speed": 20,
                 "traits": {
                     "rarity": "common",
@@ -2848,6 +2734,11 @@
                 "location": "xywrUErNu0To9kfJ",
                 "prerequisites": {
                     "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "rules": [
                     {
@@ -2897,9 +2788,6 @@
                     }
                 ],
                 "slug": "clan-dagger",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2933,6 +2821,9 @@
                 "bonusDamage": {
                     "value": 0
                 },
+                "bulk": {
+                    "value": 0.1
+                },
                 "category": "simple",
                 "containerId": null,
                 "damage": {
@@ -2948,9 +2839,6 @@
                     "handsHeld": 0,
                     "invested": null
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
                 "group": "knife",
                 "hardness": 0,
                 "hp": {
@@ -2964,28 +2852,15 @@
                     "grade": null,
                     "type": null
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": null
-                },
                 "price": {
                     "value": {
                         "gp": 2
                     }
                 },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 1,
                 "range": null,
@@ -2993,17 +2868,15 @@
                     "value": ""
                 },
                 "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
                 "size": "med",
                 "slug": "clan-dagger",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
                 "splashDamage": {
                     "value": null
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": ""
                 },
                 "traits": {
                     "rarity": "uncommon",
@@ -3016,9 +2889,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
                 }
             },
             "type": "weapon"
@@ -3027,23 +2897,12 @@
     "name": "Kangir",
     "system": {
         "attributes": {
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
             "hp": {
                 "temp": 0,
                 "value": 88
             },
             "initiative": {
                 "statistic": "perception"
-            },
-            "resolve": {
-                "max": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "value": 0
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3076,12 +2935,10 @@
             "age": {
                 "value": ""
             },
-            "alignment": {
-                "value": "NE"
-            },
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "<p>Kangir is a ruthless mercenary who shrugs off any punishment while skewering foes near and far with her trident. Despite her heavy armor, she's sneaky and subtle when it suits her.</p>\n<p>Left with only a Gozran holy symbol and a few coins after her parents' deaths at sea, Kangir grew up on Absalom's streets. Her cunning and local knowledge made her a favorite guide for merchants and pilgrims-so much so that the Bloody Barbers thieves guild recruited her to lead hapless travelers into alleys and ambushes. With the Barbers, Kangir developed a taste for violence and brigandry that launched her career as a mercenary, and she's traveled the Inner Sea to serve countless scoundrels. Last month, she returned to Absalom and burgled one minor politician's office and abducted a Petal District dignitary, all at the behest of an anonymous patron who then, rather than sending the promised payment, tried to have her killed! The job's moral implications didn't bother Kangir (she's done far worse), but she doesn't suffer betrayal. After interrogating and killing the hapless cutthroat, Kangir now knows her mysterious patron's identity: Doatara Kelorbeyan, a noblewoman who lives in the Petal District. Conveniently, three Red Mantis assassins are also after Doatara, and Kangir's joined forces with them to get her revenge!</p>\n<p><strong>Eteleon and Yacob:</strong> Kangir doesn't know these two except by the Red Mantis' reputation-professional, lethal, and unlikely to betray her.</p>\n<p><strong>Zeah:</strong> When a wetwork job in the port city of Manaket went wrong years ago, Kangir found herself on the run from Rahadoumi law enforcement-led by the young detective Zeah. Kangir narrowly escaped justice. She's fascinated by and supportive of Zeah's transformation into a cold killer.</p>",
@@ -3090,6 +2947,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3209,7 +3067,9 @@
                 ]
             },
             "senses": [],
-            "value": []
+            "value": [
+                "evil"
+            ]
         }
     },
     "type": "character"

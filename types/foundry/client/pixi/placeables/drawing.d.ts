@@ -3,7 +3,7 @@
  * Each Drawing is a placeable object in the DrawingsLayer.
  */
 declare class Drawing<
-    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>
+    TDocument extends DrawingDocument<Scene | null> = DrawingDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
@@ -57,10 +57,6 @@ declare class Drawing<
     /** Create elements for the Drawing border and handles */
     protected _createFrame(): void;
 
-    override refresh(): this;
-
-    protected override _refresh(options: object): void;
-
     /** Draw rectangular shapes */
     protected _drawRectangle(): void;
 
@@ -85,7 +81,7 @@ declare class Drawing<
         factor: number,
         previous: [number, number],
         point: [number, number],
-        next: [number, number]
+        next: [number, number],
     ): void;
 
     /** Refresh the boundary frame which outlines the Drawing shape */

@@ -1,15 +1,14 @@
-import {
+import type {
     BasePhysicalItemSource,
     PhysicalItemTraits,
     PhysicalSystemData,
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
-import { SpellSource } from "@item/spell/data.ts";
-import type { ConsumableTrait, OtherConsumableTag } from "./types.ts";
+import type { SpellSource } from "@item/spell/data.ts";
+import type { DamageKind, DamageType } from "@system/damage/index.ts";
+import type { AmmoStackGroup, ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
 
 type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSource>;
-
-type ConsumableCategory = keyof ConfigPF2e["PF2E"]["consumableTypes"];
 
 interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
     otherTags: OtherConsumableTag[];
@@ -17,25 +16,41 @@ interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
 
 interface ConsumableSystemSource extends PhysicalSystemSource {
     traits: ConsumableTraits;
-
-    consumableType: {
-        value: ConsumableCategory;
-    };
-    charges: {
-        value: number;
-        max: number;
-    };
-    consume: {
-        value: string;
-    };
-    autoDestroy: {
-        value: boolean;
-    };
+    category: ConsumableCategory;
+    uses: ConsumableUses;
+    /** A formula for a healing or damage roll */
+    damage: ConsumableDamageHealing | null;
     spell: SpellSource | null;
+    usage: { value: string };
+    stackGroup: AmmoStackGroup | null;
 }
 
-interface ConsumableSystemData
-    extends Omit<ConsumableSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">,
-        Omit<PhysicalSystemData, "traits"> {}
+type ConsumableUses = {
+    value: number;
+    max: number;
+    /** Whether to delete the consumable upon use if it has no remaining uses and a quantity of 1 */
+    autoDestroy: boolean;
+};
 
-export type { ConsumableCategory, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrait };
+type ConsumableDamageHealing = {
+    formula: string;
+    type: DamageType;
+    kind: DamageKind;
+};
+
+interface ConsumableSystemData
+    extends Omit<
+            ConsumableSystemSource,
+            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
+        >,
+        Omit<PhysicalSystemData, "traits"> {
+    stackGroup: AmmoStackGroup | null;
+}
+
+export type {
+    ConsumableDamageHealing,
+    ConsumableSource,
+    ConsumableSystemData,
+    ConsumableSystemSource,
+    ConsumableTrait,
+};

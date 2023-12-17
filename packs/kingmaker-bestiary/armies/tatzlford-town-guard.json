@@ -1,0 +1,183 @@
+{
+    "_id": "CfSo8UrTJic4zroJ",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "MWtnzzojapVTZHGd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.899sW8mbJSn16zga"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Hold the Line",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army has trained to maintain position even in the face of overwhelming opponents. The army gains a +1 status bonus on Morale checks made to resist rout, and its Rout Threshold is equal to 1/4 it's total Hit Points (rounded up).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "downgrade",
+                        "path": "system.attributes.hp.routThreshold",
+                        "value": "ceil(@actor.hitPoints.max / 4)"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "Morale checks made to resist Rout",
+                        "predicate": [
+                            "vs-rout"
+                        ],
+                        "selector": "morale-check",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": "hold-the-line",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "RSTa5PC03EfvKjNr",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.IiD3kKszFfHZ9cZ1"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughened Soldiers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is particularly hardy. Increase its maximum Hit Points by 1. You can take this tactic multiple times; each time you do, increase the army's maximum Hit Points by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.hp.max",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughened-soldiers",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Tatzlford Town Guard",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 25
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 5
+            }
+        },
+        "consumption": 1,
+        "details": {
+            "alignment": "NG",
+            "blurb": "",
+            "description": "<p>Tatzlford’s town guards have been organized into an impromptu army, armed with longswords and led by Captain Coren Lawry.</p>",
+            "level": {
+                "value": 7
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 12,
+            "morale": 18
+        },
+        "scouting": 15,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "infantry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Longwords",
+                "potency": 0
+            },
+            "ranged": null
+        }
+    },
+    "type": "army"
+}

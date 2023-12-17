@@ -1,5 +1,7 @@
 import { CoinsPF2e } from "@item/physical/helpers.ts";
+import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { localizer, sluggify } from "@util";
+import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -40,24 +42,20 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
         const inventoryItems: CompendiumBrowserIndexData[] = [];
-        const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
+        const itemTypes = ["weapon", "shield", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "system.price", "system.traits"];
-        const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
-        const armorFields = [...baseFields, "system.category", "system.group", "system.potencyRune.value"];
-        const weaponFields = [...armorFields, "system.strikingRune.value", "system.potencyRune.value"];
-        const consumableFields = [...baseFields, "system.consumableType.value"];
-        const indexFields = [
-            ...new Set([...armorFields, ...weaponFields, ...consumableFields]),
-            "system.denomination.value",
-            "system.value.value",
-        ];
-        const sources: Set<string> = new Set();
+
+        const baseFields = ["img", "system.price", "system.traits", "system.publication", "system.source"];
+        const physicalItemFields = [...baseFields, "system.level.value"];
+        const runedItemFields = [...physicalItemFields, "system.runes"];
+        const armorAndWeaponFields = [...runedItemFields, "system.category", "system.group"];
+        const indexFields = R.uniq([...armorAndWeaponFields]).sort();
+        const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("equipment"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
@@ -66,20 +64,19 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     const skip = (() => {
                         switch (itemData.type) {
                             case "armor":
-                                return !this.hasAllIndexFields(itemData, armorFields);
                             case "weapon":
-                                return !this.hasAllIndexFields(itemData, weaponFields);
+                                return !this.hasAllIndexFields(itemData, armorAndWeaponFields);
                             case "kit":
-                                return !this.hasAllIndexFields(itemData, kitFields);
-                            case "consumable":
-                                return !this.hasAllIndexFields(itemData, consumableFields);
-                            default:
                                 return !this.hasAllIndexFields(itemData, baseFields);
+                            case "shield":
+                                return !this.hasAllIndexFields(itemData, runedItemFields);
+                            default:
+                                return !this.hasAllIndexFields(itemData, physicalItemFields);
                         }
                     })();
                     if (skip) {
                         console.warn(
-                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
                         continue;
                     }
@@ -90,19 +87,20 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
 
-                    // Prepare source
-                    const source = itemData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    // Prepare publication source
+                    const { system } = itemData;
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
 
                     // Infer magical trait from runes
                     const traits = itemData.system.traits.value ?? [];
+                    const runes = itemData.system.runes;
+                    const traditionTraits: Set<string> = MAGIC_TRADITIONS;
                     if (
-                        (itemData.type === "armor" && itemData.system.potencyRune.value) ||
-                        (itemData.type === "weapon" &&
-                            (itemData.system.strikingRune.value || itemData.system.potencyRune.value))
+                        !traits.some((t: string) => traditionTraits.has(t)) &&
+                        ["armor", "shield", "weapon"].includes(itemData.type) &&
+                        (runes.potency || runes.reinforcing || runes.resilient || runes.striking)
                     ) {
                         traits.push("magical");
                     }
@@ -117,7 +115,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         group: itemData.system.group ?? "",
                         price: priceCoins,
                         priceInCopper: coinValue,
-                        traits: itemData.system.traits.value,
+                        traits: R.uniq(itemData.system.traits.value),
                         rarity: itemData.system.traits.rarity,
                         source: sourceSlug,
                     });
@@ -130,25 +128,27 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.armorTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.armorGroups)
+            this.generateCheckboxOptions(CONFIG.PF2E.armorGroups),
         );
         this.filterData.checkboxes.weaponTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.weaponTypes.options,
-            this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups)
+            this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );
 
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions({
             ...CONFIG.PF2E.armorTraits,
             ...CONFIG.PF2E.consumableTraits,
             ...CONFIG.PF2E.equipmentTraits,
+            ...CONFIG.PF2E.shieldTraits,
             ...CONFIG.PF2E.weaponTraits,
         });
 
-        this.filterData.checkboxes.itemtypes.options = this.generateCheckboxOptions({
+        this.filterData.checkboxes.itemTypes.options = this.generateCheckboxOptions({
             weapon: "TYPES.Item.weapon",
+            shield: "TYPES.Item.shield",
             armor: "TYPES.Item.armor",
             equipment: "TYPES.Item.equipment",
             consumable: "TYPES.Item.consumable",
@@ -157,7 +157,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
@@ -171,7 +171,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
             return false;
         // Item type
-        if (checkboxes.itemtypes.selected.length > 0 && !checkboxes.itemtypes.selected.includes(entry.type)) {
+        if (checkboxes.itemTypes.selected.length > 0 && !checkboxes.itemTypes.selected.includes(entry.type)) {
             return false;
         }
         // Armor
@@ -228,7 +228,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override prepareFilterData(): EquipmentFilters {
         return {
             checkboxes: {
-                itemtypes: {
+                itemTypes: {
                     isExpanded: true,
                     label: "PF2E.BrowserFilterInventoryTypes",
                     options: {},
@@ -271,9 +271,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
-                    price: "PF2E.BrowserSortyByPriceLabel",
+                    name: "Name",
+                    level: "PF2E.LevelLabel",
+                    price: "PF2E.PriceLabel",
                 },
             },
             ranges: {

@@ -1,6 +1,6 @@
 import { SkillLongForm } from "@actor/types.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
 import { setHasElement } from "@util";

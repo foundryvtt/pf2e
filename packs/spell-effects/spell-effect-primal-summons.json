@@ -1,0 +1,200 @@
+{
+    "_id": "PQuQtDixruZmmvT4",
+    "img": "icons/creatures/mammals/humanoid-wolf-dog-blue.webp",
+    "name": "Spell Effect: Primal Summons",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Primal Summons]</p>\n<p>You enhance a summoned creature with the power of the elements.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "img": "icons/magic/air/wind-tornado-funnel-blue-grey.webp",
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "img": "icons/magic/earth/construct-stone.webp",
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "img": "icons/magic/fire/elemental-fire-flying.webp",
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
+                        "label": "PF2E.TraitMetal",
+                        "value": "metal"
+                    },
+                    {
+                        "img": "icons/magic/water/wave-water-blue.webp",
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "img": "icons/magic/nature/tree-animated-strike.webp",
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "flag": "spellEffectPrimalSummons",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "primal-summons"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "primal-summons:air"
+                ],
+                "selector": "fly",
+                "value": 60
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "primal-summons:earth"
+                ],
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "primal-summons:earth"
+                ],
+                "selector": "land-speed",
+                "value": -10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "primal-summons:earth"
+                ],
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "primal-summons:fire"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "primal-summons:fire"
+                ],
+                "type": "fire",
+                "value": 10
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "primal-summons:fire"
+                ],
+                "type": [
+                    "cold",
+                    "water"
+                ],
+                "value": 5
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "primal-summons:metal"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "primal-summons:metal"
+                ],
+                "type": "electricity",
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "primal-summons:water"
+                ],
+                "selector": "swim",
+                "value": 60
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "melee",
+                    "primal-summons:water"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.BattleForm.Note.Shove",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "primal-summons:water"
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "primal-summons:wood"
+                ],
+                "selector": "climb",
+                "value": 30
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "primal-summons:wood"
+                ],
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

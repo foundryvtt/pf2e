@@ -5,16 +5,13 @@
         </div>
         <h2 class="name">{{actor.name}}</h2>
     </section>
-    <section class="npc-body sheet-body">
-        <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
-            <div class="items inventory-section">
-                {{#if @root.owner}}
-                    {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
-                {{/if}}
-                <div class="body">
-                    {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
-                </div>
-                <div class="footer">
+    <section class="npc-body">
+        <div class="sheet-body">
+            <div class="tab inventory item-container active" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
+                <div class="items inventory-section">
+                    <div class="body">
+                        {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+                    </div>
                 </div>
             </div>
         </div>

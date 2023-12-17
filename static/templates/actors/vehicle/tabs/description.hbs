@@ -1,0 +1,13 @@
+<section class="tab description" data-tab="description">
+    <div class="description">
+        <header class="details-label">{{localize "PF2E.vehicle.DescriptionHeading"}}</header>
+        {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable}}
+    </div>
+
+    <div class="publication">
+        <header class="details-label">{{localize "PF2E.Publication.Label"}}</header>
+        <div class="content">
+            {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
+        </div>
+    </div>
+</section>

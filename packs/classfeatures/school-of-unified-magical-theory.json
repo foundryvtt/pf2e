@@ -1,0 +1,57 @@
+{
+    "_id": "xYYhJtGhFSWNifcO",
+    "img": "icons/sundries/books/book-rounded-teal.webp",
+    "name": "School of Unified Magical Theory",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You eschew the idea that magic can be neatly expressed by the teachings of any single school or college, instead directing your self-study to pick up the best of every school of magic. In doing so, you'll find the truths that lie at the intersection of each school, coming closer to the ideal nature of arcane magic. One day, you'll uncover that single elegant theory detailing all magic (perhaps a theory bearing your name?), but until then, your studies continue.</p>\n<p><strong>No Curriculum</strong> You don't have a set curriculum, and so you don't have curriculum spells and can't benefit from abilities that specifically affect them. Instead, you gain an additional 1st-level wizard class feat, and you add one 1st-rank spell of your choice to your spellbook to represent your diverse studies.</p>\n<p>Your studies into the very nature of magic itself have let you use it more efficiently—instead of using @UUID[Compendium.pf2e.actionspf2e.Item.Drain Bonded Item] only once per day, you can use it once per day for each rank of spell you can cast, recalling a spell of that rank each time.</p>\n<p><strong>School Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Hand of the Apprentice]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Interdisciplinary Incantation]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:type:feat",
+                        "item:trait:wizard",
+                        "item:level:1"
+                    ]
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Wizard.UnifiedMagicalTheory.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "wizard-arcane-school"
+            ],
+            "rarity": "common",
+            "value": [
+                "wizard"
+            ]
+        }
+    },
+    "type": "feat"
+}

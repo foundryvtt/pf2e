@@ -57,7 +57,7 @@ const SKILL_DICTIONARY = {
 const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
 
 const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
-    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
+    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation]),
 );
 
 const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
@@ -99,12 +99,12 @@ export {
     MOVEMENT_TYPES,
     RESISTANCE_TYPES,
     SAVE_TYPES,
+    SIZE_LINKABLE_ACTOR_TYPES,
     SKILL_ABBREVIATIONS,
     SKILL_DICTIONARY,
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
     SKILL_LONG_FORMS,
-    SIZE_LINKABLE_ACTOR_TYPES,
     UNAFFECTED_TYPES,
     WEAKNESS_TYPES,
 };

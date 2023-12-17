@@ -1,5 +1,5 @@
 declare class AmbientSound<
-    TDocument extends AmbientSoundDocument<Scene | null> = AmbientSoundDocument<Scene | null>
+    TDocument extends AmbientSoundDocument<Scene | null> = AmbientSoundDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     /** The Sound which manages playback for this AmbientSound effect */
     sound: Sound | null;
@@ -49,8 +49,6 @@ declare class AmbientSound<
 
     protected _drawControlIcon(): ControlIcon;
 
-    protected override _refresh(options: object): void;
-
     /** Refresh the display of the ControlIcon for this AmbientSound source */
     refreshControl(): void;
 
@@ -69,13 +67,13 @@ declare class AmbientSound<
     protected override _onCreate(
         data: TDocument["_source"],
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentUpdateContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;

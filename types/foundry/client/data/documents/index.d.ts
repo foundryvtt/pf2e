@@ -1,8 +1,10 @@
 import "./active-effect.d.ts";
 import "./actor.d.ts";
 import "./actor-delta.d.ts";
+import "./adventure.d.ts";
 import "./ambient-light-document.d.ts";
 import "./ambient-sound-document.d.ts";
+import "./card.d.ts";
 import "./cards.d.ts";
 import "./chat-message.d.ts";
 import "./client-base-mixes.d.ts";
@@ -22,6 +24,7 @@ import "./playlist.d.ts";
 import "./playlist-sound.d.ts";
 import "./roll-table.d.ts";
 import "./scene.d.ts";
+import "./setting.d.ts";
 import "./table-result.d.ts";
 import "./tile-document.d.ts";
 import "./token-document.d.ts";

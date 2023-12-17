@@ -9,7 +9,7 @@ export const GetSceneControlButtons = {
             tokenTools?.push({
                 name: "worldclock",
                 title: "CONTROLS.WorldClock",
-                icon: "fas fa-clock",
+                icon: "fa-solid fa-clock",
                 button: true,
                 visible:
                     game.settings.get("pf2e", "worldClock.showClockButton") &&
@@ -36,7 +36,7 @@ export const GetSceneControlButtons = {
                 name: "darkness-adjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
                 icon: "fa-solid fa-adjust",
-                visible: game.user.isGM && game.settings.get("pf2e", "automation.rulesBasedVision"),
+                visible: game.user.isGM && game.pf2e.settings.rbv,
                 toggle: true,
                 active: false,
                 onClick: (): void => {

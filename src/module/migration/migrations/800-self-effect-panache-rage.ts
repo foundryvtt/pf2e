@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -19,7 +19,7 @@ export class Migration800SelfEffectPanacheRage extends MigrationBase {
         for (const rule of source.system.rules) {
             if (rule.predicate && Array.isArray(rule.predicate)) {
                 rule.predicate = recursiveReplaceString(rule.predicate, (s) =>
-                    s.replace(/^(rage|panache)$/, "self:effect:$1")
+                    s.replace(/^(rage|panache)$/, "self:effect:$1"),
                 );
             }
         }

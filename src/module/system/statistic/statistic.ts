@@ -21,13 +21,13 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckRollContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject, traitSlugToObject } from "@util";
+import { ErrorPF2e, isObject, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -68,15 +68,16 @@ class Statistic extends BaseStatistic {
                 ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.attribute) ??
                   createAttributeModifier({ actor, attribute: data.attribute, domains })
                 : null;
+        if (data.attribute) domains.push(`${data.attribute}-based`);
 
         // If this is a character with a proficiency, add a proficiency modifier
         const proficiencyModifier = !actor.isOfType("character")
             ? null
             : typeof data.rank === "number"
-            ? createProficiencyModifier({ actor, rank: data.rank, domains })
-            : data.rank === "untrained-level"
-            ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
-            : null;
+              ? createProficiencyModifier({ actor, rank: data.rank, domains })
+              : data.rank === "untrained-level"
+                ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
+                : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
         const baseModifiers = R.compact([attributeModifier, proficiencyModifier]);
@@ -128,7 +129,7 @@ class Statistic extends BaseStatistic {
 
     /** @deprecated */
     get ability(): AttributeString | null {
-        foundry.utils.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
+        fu.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
             since: "5.5.0",
             until: "6.0.0",
         });
@@ -175,12 +176,12 @@ class Statistic extends BaseStatistic {
             rollOptions.push(...extraRollOptions);
         }
 
-        return new Set(rollOptions.sort());
+        return new Set(rollOptions);
     }
 
     withRollOptions(options?: RollOptionConfig): Statistic {
-        const newOptions = mergeObject(this.config ?? {}, options ?? {}, { inplace: false });
-        return new Statistic(this.actor, deepClone(this.data), newOptions);
+        const newOptions = fu.mergeObject(this.config ?? {}, options ?? {}, { inplace: false });
+        return new Statistic(this.actor, fu.deepClone(this.data), newOptions);
     }
 
     /**
@@ -192,14 +193,14 @@ class Statistic extends BaseStatistic {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
             modifiers?: ModifierPF2e[];
-        }
+        },
     ): Statistic {
         function maybeMergeArrays<T>(arr1: Maybe<T[]>, arr2: Maybe<T[]>) {
             if (!arr1 && !arr2) return undefined;
             return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
         }
 
-        const result = mergeObject(deepClone(this.data), data);
+        const result = fu.mergeObject(fu.deepClone(this.data), data);
         result.domains = maybeMergeArrays(this.domains, data.domains);
         result.modifiers = maybeMergeArrays(this.data.modifiers, data.modifiers);
         result.rollOptions = maybeMergeArrays(this.data.rollOptions, data.rollOptions);
@@ -276,7 +277,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     constructor(parent: TParent, data: StatisticData, config: RollOptionConfig = {}) {
         this.parent = parent;
         this.type = data.check?.type ?? "check";
-        data.check = mergeObject(data.check ?? {}, { type: this.type });
+        data.check = fu.mergeObject(data.check ?? {}, { type: this.type });
 
         const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
         if (this.type === "attack-roll") {
@@ -292,8 +293,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             }
         }
 
-        data.check.domains = Array.from(checkDomains).sort();
-        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat())).sort();
+        data.check.domains = Array.from(checkDomains);
+        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat()));
 
         this.label = this.#determineLabel(data);
 
@@ -302,7 +303,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const parentModifiers = parent.modifiers.map((modifier) => {
             const clone = modifier.clone();
             clone.adjustments.push(
-                ...extractModifierAdjustments(modifierAdjustments, data.check?.domains ?? [], clone.slug)
+                ...extractModifierAdjustments(modifierAdjustments, data.check?.domains ?? [], clone.slug),
             );
             return clone;
         });
@@ -318,8 +319,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     ...extractModifierAdjustments(
                         parent.actor.synthetics.modifierAdjustments,
                         parent.domains,
-                        this.parent.slug
-                    )
+                        this.parent.slug,
+                    ),
                 );
                 return modifier;
             });
@@ -374,35 +375,37 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
                     const { rollMode, skipDialog } = args;
-                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event));
+                    return fu.mergeObject({ rollMode, skipDialog }, eventToRollParams(event, { type: "check" }));
                 }
             }
 
             return args;
         })();
 
-        const { actor, domains } = this;
-        const token = args.token ?? actor.getActiveTokens(false, true).shift();
+        const { domains } = this;
+        const token = args.token ?? this.actor.getActiveTokens(false, true).shift();
         const item = args.item ?? null;
 
         const { origin } = args;
         const targetToken = origin
             ? null
-            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find((t) =>
-                  t.actor?.isOfType("creature")
+            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find(
+                  (t) => t.actor?.isOfType("army", "creature", "hazard"),
               ) ?? null;
 
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
-            const isValidAttacker = actor.isOfType("creature", "hazard");
+            const isValidAttacker = targetToken?.actor?.isOfType("army")
+                ? this.actor.isOfType("army")
+                : this.actor.isOfType("creature", "hazard");
             const isTargetedCheck =
                 (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
                     !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
-                    (!item || item.isOfType("action", "feat", "weapon")));
+                    (!item || item.isOfType("action", "campaignFeature", "feat", "weapon")));
 
             return isValidAttacker && isTargetedCheck
-                ? actor.getCheckContext({
+                ? this.actor.getCheckContext({
                       item: item?.isOfType("action", "melee", "spell", "weapon") ? item : null,
                       domains,
                       statistic: this,
@@ -414,6 +417,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 : null;
         })();
 
+        const selfActor = rollContext?.self.actor ?? this.actor;
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
@@ -432,32 +436,32 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             extraRollOptions.push(`check:statistic:base:${this.parent.base.slug}`);
         }
         const options = this.createRollOptions({ ...args, origin, target: targetActor, extraRollOptions });
-        const notes = [...extractNotes(actor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
+        const notes = [...extractNotes(selfActor.synthetics.rollNotes, domains), ...(args.extraRollNotes ?? [])];
 
         // Get just-in-time roll options from rule elements
-        for (const rule of actor.rules.filter((r) => !r.ignored)) {
+        for (const rule of selfActor.rules.filter((r) => !r.ignored)) {
             rule.beforeRoll?.(domains, options);
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = dc ? [extractDegreeOfSuccessAdjustments(actor.synthetics, domains)].flat() : [];
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(selfActor.synthetics, domains) : [];
 
         // Handle special case of incapacitation trait
         if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
             const effectLevel = item?.isOfType("spell")
                 ? 2 * item.rank
                 : item?.isOfType("physical")
-                ? item.level
-                : origin?.level ?? actor.level;
+                  ? item.level
+                  : origin?.level ?? selfActor.level;
 
             const amount =
-                this.type === "saving-throw" && actor.level > effectLevel
+                this.type === "saving-throw" && selfActor.level > effectLevel
                     ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
                     : !!targetActor &&
-                      targetActor.level > effectLevel &&
-                      ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
-                    ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
-                    : null;
+                        targetActor.level > effectLevel &&
+                        ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
+                      ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+                      : null;
 
             if (amount) {
                 dosAdjustments.push({
@@ -484,16 +488,23 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         // Process any given action traits, then add to roll options
-        const traits = args.traits?.map((t) =>
-            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t
-        );
-        for (const trait of traits ?? []) {
-            options.add(trait.name);
+        const traits =
+            args.traits
+                ?.map((t) => (typeof t === "string" ? t : t.name))
+                .filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+        for (const trait of traits) {
+            options.add(trait);
+        }
+        if (args.action) {
+            options.add(`self:action:slug:${sluggify(args.action)}`);
+            for (const trait of traits) {
+                options.add(`self:action:trait:${trait}`);
+            }
         }
 
         // Create parameters for the check roll function
         const context: CheckRollContext = {
-            actor,
+            actor: selfActor,
             token,
             item,
             type: this.type,
@@ -507,8 +518,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             damaging: args.damaging,
             rollMode,
             skipDialog,
-            rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
-            substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            rollTwice: args.rollTwice || extractRollTwice(selfActor.synthetics.rollTwice, domains, options),
+            substitutions: extractRollSubstitutions(selfActor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
             title: args.title?.trim() || args.label?.trim() || this.label,
@@ -523,7 +534,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const roll = await CheckPF2e.roll(check, context, null, args.callback);
 
         if (roll) {
-            for (const rule of actor.rules.filter((r) => !r.ignored)) {
+            for (const rule of selfActor.rules.filter((r) => !r.ignored)) {
                 await rule.afterRoll?.({
                     roll,
                     check,
@@ -590,6 +601,7 @@ interface StatisticRollParameters {
     callback?: CheckRollCallback;
 }
 
+import { ActionTrait } from "@item/ability/types.ts";
 import { signedInteger } from "@util";
 
 class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
@@ -601,7 +613,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {
         this.parent = parent;
-        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat())).sort();
+        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat()));
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 
@@ -610,7 +622,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
         const parentModifiers = parent.modifiers.map((modifier) => {
             const clone = modifier.clone();
             clone.adjustments.push(
-                ...extractModifierAdjustments(modifierAdjustments, data.dc?.domains ?? [], clone.slug)
+                ...extractModifierAdjustments(modifierAdjustments, data.dc?.domains ?? [], clone.slug),
             );
             return clone;
         });
@@ -626,8 +638,8 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
                     ...extractModifierAdjustments(
                         parent.actor.synthetics.modifierAdjustments,
                         parent.domains,
-                        this.parent.slug
-                    )
+                        this.parent.slug,
+                    ),
                 );
                 return modifier;
             });
@@ -645,7 +657,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
             new StatisticModifier(
                 "",
                 this.modifiers.map((m) => m.clone()),
-                this.options
+                this.options,
             ).totalModifier
         );
     }

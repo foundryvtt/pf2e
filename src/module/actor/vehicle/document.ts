@@ -1,7 +1,7 @@
 import { setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorDimensions } from "@actor/types.ts";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
@@ -85,7 +85,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         // Hit Points
         const { attributes } = this;
         const hitPoints = new HitPointsStatistic(this, { baseMax: attributes.hp.max });
-        attributes.hp = mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
+        attributes.hp = fu.mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
         setHitPointsRollOptions(this);
 
         // Prepare AC
@@ -131,13 +131,13 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         });
 
         this.saves = { fortitude };
-        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, fortitude.getTraceData());
+        this.system.saves.fortitude = fu.mergeObject(this.system.saves.fortitude, fortitude.getTraceData());
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<VehicleSource>,
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         const result = await super._preUpdate(changed, options, user);
         if (result === false) return result;
@@ -149,7 +149,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                 length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
-            changed.prototypeToken = mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
+            changed.prototypeToken = fu.mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
 
             if (canvas.scene) {
                 const updates = this.getActiveTokens()

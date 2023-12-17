@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
         "rules": [
             {
                 "domain": "all",
@@ -31,11 +36,10 @@
                 "toggleable": true
             },
             {
-                "itemType": "armor",
+                "itemType": "shield",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:category:shield",
                     "item:equipped",
                     {
                         "or": [
@@ -45,7 +49,7 @@
                         ]
                     },
                     "self:effect:arcane-cascade",
-                    "self:shield:raised",
+                    "self:effect:raise-a-shield",
                     {
                         "not": "feature:weapon-specialization"
                     }
@@ -54,11 +58,10 @@
                 "value": 1
             },
             {
-                "itemType": "armor",
+                "itemType": "shield",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:category:shield",
                     "item:equipped",
                     {
                         "or": [
@@ -68,7 +71,7 @@
                         ]
                     },
                     "self:effect:arcane-cascade",
-                    "self:shield:raised",
+                    "self:effect:raise-a-shield",
                     "feature:weapon-specialization",
                     {
                         "not": "feature:greater-weapon-specialization"
@@ -78,11 +81,10 @@
                 "value": 2
             },
             {
-                "itemType": "armor",
+                "itemType": "shield",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:category:shield",
                     "item:equipped",
                     {
                         "or": [
@@ -92,7 +94,7 @@
                         ]
                     },
                     "self:effect:arcane-cascade",
-                    "self:shield:raised",
+                    "self:effect:raise-a-shield",
                     "feature:greater-weapon-specialization"
                 ],
                 "property": "hardness",
@@ -121,10 +123,10 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
             }
         ],
-        "source": {
-            "value": "Pathfinder Secrets of Magic"
-        },
         "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
             "rarity": "common",
             "value": [
                 "magus"

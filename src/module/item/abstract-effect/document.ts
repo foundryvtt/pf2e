@@ -4,10 +4,12 @@ import { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts
 import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
 import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
 import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data.ts";
-import type { UserPF2e } from "@module/user/document.ts";
+import { calculateRemainingDuration } from "./helpers.ts";
+import { DURATION_UNITS } from "./values.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -21,21 +23,21 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
-        const requiresActorConstructed = !!(this.actor?._id && this.actor.isToken);
-        const requiresCanvasReady = !!this.system.context?.origin.actor.startsWith("Scene");
-        if ((requiresActorConstructed && !this.actor?.constructed) || (requiresCanvasReady && !canvas.ready)) {
-            return null;
+        const originUUID = this.system.context?.origin.actor;
+        if (!originUUID || originUUID === this.actor?.uuid) return this.actor;
+        // Acquire a synthetic actor with some caution: `TokenDocument#delta` is a getter that lazily constructs the
+        // actor, and it may be in the middle of construction presently.
+        if (originUUID.startsWith("Scene.")) {
+            const tokenUUID = originUUID.replace(/\.Actor\..+$/, "");
+            const tokenDoc = fromUuidSync(tokenUUID);
+            if (!(tokenDoc instanceof TokenDocumentPF2e)) return null;
+            const descriptor = Object.getOwnPropertyDescriptor(tokenDoc, "delta");
+            return descriptor?.value instanceof ActorDelta ? descriptor.value.syntheticActor ?? null : null;
         }
 
-        const actorOrToken: unknown = this.system.context?.origin.actor
-            ? fromUuidSync(this.system.context.origin.actor)
-            : this.actor;
+        const actor = fromUuidSync(originUUID);
 
-        return actorOrToken instanceof ActorPF2e
-            ? actorOrToken
-            : actorOrToken instanceof TokenDocumentPF2e
-            ? actorOrToken.actor
-            : this.actor;
+        return actor instanceof ActorPF2e ? actor : null;
     }
 
     /** If false, the AbstractEffect should be hidden from the user unless they are a GM */
@@ -50,6 +52,19 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     /** Whether this effect originated from a spell */
     get fromSpell(): boolean {
         return this.system.fromSpell;
+    }
+
+    get totalDuration(): number {
+        const { duration } = this.system;
+        if (["unlimited", "encounter"].includes(duration.unit)) {
+            return Infinity;
+        } else {
+            return duration.value * (DURATION_UNITS[duration.unit] ?? 0);
+        }
+    }
+
+    get remainingDuration(): { expired: boolean; remaining: number } {
+        return calculateRemainingDuration(this, this.system.duration);
     }
 
     override getRollOptions(prefix = this.type): string[] {
@@ -98,7 +113,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         if (typeof badge?.value === "number") {
             const otherEffects = actor.items.filter(
                 (i): i is AbstractEffectPF2e<ActorPF2e> =>
-                    i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug
+                    i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug,
             );
             const values = otherEffects
                 .map((effect) => effect.badge?.value)
@@ -111,9 +126,9 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     /** Log whether this effect originated from a spell */
     protected override _preCreate(
-        data: PreDocumentId<this["_source"]>,
+        data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         data.system.fromSpell ??= ((): boolean => {
             const slug = this.slug ?? sluggify(this.name);
@@ -132,7 +147,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         this.handleChange({ create: this });

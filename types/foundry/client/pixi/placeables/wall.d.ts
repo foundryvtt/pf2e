@@ -54,11 +54,9 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
      * Draw a directional prompt icon for one-way walls to illustrate their direction of effect.
      * @return The drawn icon
      */
-    _drawDirection(): PIXI.Sprite | null;
+    protected _drawDirection(): PIXI.Sprite | null;
 
     refresh(): this;
-
-    protected override _refresh(options: object): void;
 
     /**
      * Compute an approximate Polygon which encloses the line segment providing a specific hitArea for the line
@@ -109,13 +107,13 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
     protected override _onCreate(
         data: TDocument["_source"],
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;

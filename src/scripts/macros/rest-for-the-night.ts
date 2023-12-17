@@ -1,6 +1,5 @@
-import { CharacterAttributes, CharacterResources } from "@actor/character/data.ts";
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { CharacterPF2e } from "@actor";
+import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
@@ -39,8 +38,11 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
     const messages: PreCreate<ChatMessageSourcePF2e>[] = [];
 
     for (const actor of characters) {
-        const actorUpdates: ActorUpdates = { attributes: {}, resources: {} };
-        const itemUpdates: EmbeddedDocumentUpdateData<ItemPF2e<ActorPF2e>>[] = [];
+        const actorUpdates: ActorUpdates = {
+            attributes: { hp: { value: actor._source.system.attributes.hp.value } },
+            resources: {},
+        };
+        const itemUpdates: EmbeddedDocumentUpdateData[] = [];
         // A list of messages informing the user of updates made due to rest
         const statements: string[] = [];
 
@@ -93,7 +95,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         // Restore wand charges
         const items = actor.itemTypes;
         const wands = items.consumable.filter((i) => i.category === "wand" && i.uses.value < i.uses.max);
-        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": wand.uses.max })));
+        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.uses.value": wand.uses.max })));
         const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
@@ -120,25 +122,25 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                 a.frequency &&
                 (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
                     Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
-                a.frequency.value < a.frequency.max
+                a.frequency.value < a.frequency.max,
         );
-        if (withFrequency.length) {
+        if (withFrequency.length > 0) {
             statements.push(localize("Message.Frequencies"));
-            itemUpdates.push(...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency!.max })));
+            itemUpdates.push(
+                ...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency?.max ?? 0 })),
+            );
         }
 
         // Stamina points
-        const staminaEnabled = !!game.settings.get("pf2e", "staminaVariant");
-        const stamina = attributes.sp;
-        const resolve = attributes.resolve;
-
-        if (staminaEnabled) {
+        if (game.pf2e.settings.variants.stamina) {
+            const stamina = attributes.hp.sp ?? { value: 0, max: 0 };
+            const resolve = resources.resolve ?? { value: 0, max: 0 };
             if (stamina.value < stamina.max) {
-                actorUpdates.attributes.sp = { value: stamina.max };
+                actorUpdates.attributes.hp.sp = { value: stamina.max };
                 statements.push(localize("Message.StaminaPoints"));
             }
             if (resolve.value < resolve.max) {
-                actorUpdates.attributes.resolve = { value: resolve.max };
+                actorUpdates.resources.resolve = { value: resolve.max };
                 statements.push(localize("Message.Resolve"));
             }
         }
@@ -198,7 +200,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
                 const listItem = document.createElement("li");
                 listItem.innerText = statement;
                 return listItem;
-            })
+            }),
         );
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 
@@ -215,6 +217,6 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 }
 
 interface ActorUpdates {
-    attributes: DeepPartial<CharacterAttributes>;
-    resources: DeepPartial<CharacterResources>;
+    attributes: DeepPartial<CharacterAttributesSource> & { hp: { value: number } };
+    resources: DeepPartial<CharacterResourcesSource>;
 }

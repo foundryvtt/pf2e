@@ -9,3 +9,51 @@
 @mixin input-glow {
     text-shadow: 0 0 4px var(--tertiary);
 }
+
+@mixin publication-data {
+    align-items: baseline;
+    gap: 0.25em;
+    display: grid;
+    grid-template:
+        "title title title" 2fr
+        "authors license remaster" 3fr / 60% 20% 20%;
+
+    label {
+        font-weight: 500;
+        min-width: unset;
+    }
+
+    input[type="text"] {
+        height: 1.6rem;
+    }
+
+    .title {
+        grid-area: title;
+        margin-right: 0;
+    }
+
+    .authors {
+        grid-area: authors;
+    }
+
+    .license {
+        grid-area: license;
+
+        select {
+            margin-top: 1px;
+        }
+    }
+
+    .remaster {
+        grid-area: remaster;
+    }
+
+    .license,
+    .remaster {
+        text-align: center;
+
+        label {
+            padding: 0;
+        }
+    }
+}

@@ -42,7 +42,7 @@ declare global {
         assignHotbarMacro(
             macro: Macro | null,
             slot?: number | string,
-            { fromSlot }?: { fromSlot?: number | undefined }
+            { fromSlot }?: { fromSlot?: number | undefined },
         ): Promise<this>;
 
         /**
@@ -83,7 +83,7 @@ declare global {
         protected override _onUpdate(
             changed: DeepPartial<foundry.documents.UserSource>,
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;

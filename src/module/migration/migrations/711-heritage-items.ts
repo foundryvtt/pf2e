@@ -1,7 +1,7 @@
 import { CharacterDetailsSource } from "@actor/character/data.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
 import { HeritageSource, HeritageSystemSource } from "@item/heritage/data.ts";
 import { Rarity } from "@module/data.ts";
@@ -180,7 +180,7 @@ export class Migration711HeritageItems extends MigrationBase {
         }
 
         return {
-            _id: randomID(),
+            _id: fu.randomID(),
             type: "heritage",
             img: feature.img.endsWith("/feat.svg") ? "systems/pf2e/icons/default-icons/heritage.svg" : feature.img,
             name: feature.name,
@@ -193,17 +193,17 @@ export class Migration711HeritageItems extends MigrationBase {
                 description: feature.system.description,
                 rules: feature.system.rules,
                 schema: feature.system.schema,
+                _migration: { version: null, previous: null },
                 slug: feature.system.slug,
                 ancestry: ancestryReference,
                 traits: {
                     value: traits.value.filter(
                         (t): t is CreatureTrait =>
-                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries)
+                            (t in creatureTraits || t.startsWith("hb_")) && !(t in this.#officialAncestries),
                     ),
                     rarity: traits.rarity,
                     otherTags: [],
                 },
-                source: feature.system.source,
             },
         };
     }
@@ -266,11 +266,11 @@ type MaybeWithHeritageFeatType<TSource extends ItemSourcePF2e = ItemSourcePF2e> 
     };
 };
 
-interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"> {
+interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system" | "_stats"> {
     system: HeritageSystemSourceWithNoAncestrySlug;
 }
 
-interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry"> {
+interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry" | "publication"> {
     ancestry: { uuid: ItemUUID; name: string } | null;
 }
 

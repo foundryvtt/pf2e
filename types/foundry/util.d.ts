@@ -10,7 +10,7 @@ declare global {
 
     type Maybe<T> = T | null | undefined;
 
-    type DeepPartial<T> = {
+    type DeepPartial<T extends object> = {
         [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
     };
 
@@ -39,6 +39,9 @@ declare global {
     type TypeParamOf<T> = T extends TypeWithGeneric<infer U> ? U : never;
 
     type ValueOf<T extends object> = T[keyof T];
+
+    /** A JSON-compatible value, plus `undefined` */
+    type JSONValue = string | number | boolean | object | null | undefined;
 }
 
 type TypeWithGeneric<T> = T[];

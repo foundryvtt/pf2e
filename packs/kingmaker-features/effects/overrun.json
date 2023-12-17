@@ -1,0 +1,75 @@
+{
+    "_id": "ib8BcumGskNVJdZS",
+    "folder": "tavHHn3vqI7bCnl6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Overrun",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "campaign": "kingmaker",
+        "category": "army-tactic",
+        "description": {
+            "value": "<p><em><strong>Note</strong>: Basic cavalry armies know Overrun automatically, and must 'spend' their first tactic on it.</em></p>\n<hr />\n<p>Cavalry armies gain a +1 status bonus on weapon attacks against infantry and skirmisher armies, but they suffer a –1 status penalty on Maneuver and Morale saves against area attacks and mental attacks.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "location": null,
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "vs Infantry and Skirmisher",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:infantry",
+                            "target:trait:skirmisher"
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "overrun-attacks",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "vs Area or Mental attacks",
+                "predicate": [
+                    {
+                        "or": [
+                            "mental-attack",
+                            "area-attack"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "maneuver-check",
+                    "morale-check"
+                ],
+                "slug": "overrun-saves",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "cavalry"
+            ]
+        }
+    },
+    "type": "campaignFeature"
+}

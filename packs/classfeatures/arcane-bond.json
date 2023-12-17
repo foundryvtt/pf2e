@@ -1,6 +1,6 @@
 {
     "_id": "au0lwQ1nAcNQwcGh",
-    "img": "systems/pf2e/icons/features/classes/arcane-bond.webp",
+    "img": "icons/weapons/wands/wand-carved-pink.webp",
     "name": "Arcane Bond",
     "system": {
         "actionType": {
@@ -19,15 +19,22 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:improved-familiar-attunement"
+                    }
+                ],
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Drain Bonded Item"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

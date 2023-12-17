@@ -1,4 +1,4 @@
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -26,8 +26,8 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
             if (systemData.speed) {
                 systemData.speed.value = Number(systemData.speed.value) || 0;
             }
-            const potencyRune: { value: ZeroToFour | null } = systemData.potencyRune;
-            potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
+            const potencyRune = systemData.potencyRune ?? {};
+            potencyRune.value = (Number(systemData.potencyRune?.value) || 0) as ZeroToFour;
             if ("resilient" in systemData) {
                 // Aborted attempt to store rune data?
                 "game" in globalThis ? (systemData["-=resilient"] = null) : delete systemData.resilient;
@@ -37,6 +37,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 }
 
 type ArmorSystemSourceWithResilient = ArmorSource["system"] & {
+    potencyRune?: { value?: ZeroToFour | null } | undefined;
     resilient?: unknown;
     speed?: { value: number };
     armor?: { value: number };

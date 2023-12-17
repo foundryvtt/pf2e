@@ -1,9 +1,5 @@
-.tab.rules {
-    overflow: hidden scroll;
-
+.tab.active.rules {
     select {
-        font-size: var(--font-size-12);
-        height: 1.36rem;
         width: auto;
 
         span {
@@ -31,9 +27,10 @@
         label {
             align-items: center;
             display: flex;
-            flex: 0 0 70px;
+            flex: 0 0 4.5rem;
+            white-space: nowrap;
             line-height: 1.5em;
-            margin-right: 4px;
+            margin-right: 1.25rem;
             min-width: 8em;
 
             i.fa-info-circle {
@@ -44,8 +41,8 @@
     }
 
     .rules {
-        padding-top: 7px;
-        padding-right: 7px;
+        padding-top: 0.5em;
+        padding-right: 0.5em;
 
         .add-rule-element {
             text-align: right;
@@ -116,8 +113,6 @@
 
     // Style of a single rule editor form
     .rule-form {
-        --form-field-height: normal; // unset global styling
-
         border-bottom: 1px solid var(--color-border-light-primary);
         padding-bottom: 0.5rem;
         margin-bottom: 0.5rem;
@@ -295,6 +290,27 @@
             a.active {
                 font-weight: 600;
                 text-decoration: underline;
+            }
+        }
+
+        .validation-failures {
+            background: rgba(214, 150, 0, 0.5);
+            border-radius: 3px;
+
+            ul {
+                list-style: "\f071" outside;
+                padding: 0.25em 0.25em 0.25em 1.5em;
+
+                li {
+                    font-weight: 900;
+                    font-family: var(--font-awesome);
+
+                    > span {
+                        margin-left: 0.25em;
+                        font-weight: normal;
+                        font-family: var(--font-primary);
+                    }
+                }
             }
         }
 

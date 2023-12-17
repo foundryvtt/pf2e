@@ -1,4 +1,4 @@
-import { MystifiedTraits } from "@item/data/values.ts";
+import { MystifiedTraits } from "@item/base/data/values.ts";
 import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
@@ -23,7 +23,6 @@ import { registerFonts } from "@scripts/register-fonts.ts";
 import { registerKeybindings } from "@scripts/register-keybindings.ts";
 import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
-import { HomebrewElements } from "@system/settings/homebrew/menu.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 
@@ -86,9 +85,9 @@ export const Init = {
                 title: "PF2E",
                 items: [
                     {
-                        title: "Icons A D T F R",
+                        title: "Icons 1 2 3 F R",
                         inline: "span",
-                        classes: ["pf2-icon"],
+                        classes: ["action-glyph"],
                         wrapper: true,
                     },
                     {
@@ -179,9 +178,6 @@ export const Init = {
             }
 
             game.pf2e.StatusEffects.initialize();
-
-            // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-            new HomebrewElements().onInit();
         });
     },
 };

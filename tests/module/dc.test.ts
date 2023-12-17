@@ -40,38 +40,38 @@ describe("test DCs", () => {
     });
 
     test("should calculate DC by level without proficiency", () => {
-        expect(calculateDC(-1, { proficiencyWithoutLevel: true })).toBe(13);
-        expect(calculateDC(0, { proficiencyWithoutLevel: true })).toBe(14);
-        expect(calculateDC(1, { proficiencyWithoutLevel: true })).toBe(14);
-        expect(calculateDC(2, { proficiencyWithoutLevel: true })).toBe(14);
-        expect(calculateDC(3, { proficiencyWithoutLevel: true })).toBe(15);
-        expect(calculateDC(4, { proficiencyWithoutLevel: true })).toBe(15);
-        expect(calculateDC(5, { proficiencyWithoutLevel: true })).toBe(15);
-        expect(calculateDC(6, { proficiencyWithoutLevel: true })).toBe(16);
-        expect(calculateDC(7, { proficiencyWithoutLevel: true })).toBe(16);
-        expect(calculateDC(8, { proficiencyWithoutLevel: true })).toBe(16);
-        expect(calculateDC(9, { proficiencyWithoutLevel: true })).toBe(17);
-        expect(calculateDC(10, { proficiencyWithoutLevel: true })).toBe(17);
-        expect(calculateDC(11, { proficiencyWithoutLevel: true })).toBe(17);
-        expect(calculateDC(12, { proficiencyWithoutLevel: true })).toBe(18);
-        expect(calculateDC(13, { proficiencyWithoutLevel: true })).toBe(18);
-        expect(calculateDC(14, { proficiencyWithoutLevel: true })).toBe(18);
-        expect(calculateDC(15, { proficiencyWithoutLevel: true })).toBe(19);
-        expect(calculateDC(16, { proficiencyWithoutLevel: true })).toBe(19);
-        expect(calculateDC(17, { proficiencyWithoutLevel: true })).toBe(19);
-        expect(calculateDC(18, { proficiencyWithoutLevel: true })).toBe(20);
-        expect(calculateDC(19, { proficiencyWithoutLevel: true })).toBe(20);
-        expect(calculateDC(20, { proficiencyWithoutLevel: true })).toBe(20);
-        expect(calculateDC(21, { proficiencyWithoutLevel: true })).toBe(21);
-        expect(calculateDC(22, { proficiencyWithoutLevel: true })).toBe(22);
-        expect(calculateDC(23, { proficiencyWithoutLevel: true })).toBe(23);
-        expect(calculateDC(24, { proficiencyWithoutLevel: true })).toBe(24);
-        expect(calculateDC(25, { proficiencyWithoutLevel: true })).toBe(25);
+        expect(calculateDC(-1, { pwol: true })).toBe(13);
+        expect(calculateDC(0, { pwol: true })).toBe(14);
+        expect(calculateDC(1, { pwol: true })).toBe(14);
+        expect(calculateDC(2, { pwol: true })).toBe(14);
+        expect(calculateDC(3, { pwol: true })).toBe(15);
+        expect(calculateDC(4, { pwol: true })).toBe(15);
+        expect(calculateDC(5, { pwol: true })).toBe(15);
+        expect(calculateDC(6, { pwol: true })).toBe(16);
+        expect(calculateDC(7, { pwol: true })).toBe(16);
+        expect(calculateDC(8, { pwol: true })).toBe(16);
+        expect(calculateDC(9, { pwol: true })).toBe(17);
+        expect(calculateDC(10, { pwol: true })).toBe(17);
+        expect(calculateDC(11, { pwol: true })).toBe(17);
+        expect(calculateDC(12, { pwol: true })).toBe(18);
+        expect(calculateDC(13, { pwol: true })).toBe(18);
+        expect(calculateDC(14, { pwol: true })).toBe(18);
+        expect(calculateDC(15, { pwol: true })).toBe(19);
+        expect(calculateDC(16, { pwol: true })).toBe(19);
+        expect(calculateDC(17, { pwol: true })).toBe(19);
+        expect(calculateDC(18, { pwol: true })).toBe(20);
+        expect(calculateDC(19, { pwol: true })).toBe(20);
+        expect(calculateDC(20, { pwol: true })).toBe(20);
+        expect(calculateDC(21, { pwol: true })).toBe(21);
+        expect(calculateDC(22, { pwol: true })).toBe(22);
+        expect(calculateDC(23, { pwol: true })).toBe(23);
+        expect(calculateDC(24, { pwol: true })).toBe(24);
+        expect(calculateDC(25, { pwol: true })).toBe(25);
     });
 
     test("unknown DC should become 0 level DC", () => {
         expect(calculateDC(-2)).toBe(14);
-        expect(calculateDC(-2, { proficiencyWithoutLevel: true })).toBe(14);
+        expect(calculateDC(-2, { pwol: true })).toBe(14);
     });
 
     test("rarities should affect DC", () => {
@@ -89,11 +89,11 @@ describe("test DCs", () => {
     });
 
     test("simple DCs without proficiency", () => {
-        expect(calculateSimpleDC("untrained", { proficiencyWithoutLevel: true })).toBe(10);
-        expect(calculateSimpleDC("trained", { proficiencyWithoutLevel: true })).toBe(15);
-        expect(calculateSimpleDC("expert", { proficiencyWithoutLevel: true })).toBe(20);
-        expect(calculateSimpleDC("master", { proficiencyWithoutLevel: true })).toBe(25);
-        expect(calculateSimpleDC("legendary", { proficiencyWithoutLevel: true })).toBe(30);
+        expect(calculateSimpleDC("untrained", { pwol: true })).toBe(10);
+        expect(calculateSimpleDC("trained", { pwol: true })).toBe(15);
+        expect(calculateSimpleDC("expert", { pwol: true })).toBe(20);
+        expect(calculateSimpleDC("master", { pwol: true })).toBe(25);
+        expect(calculateSimpleDC("legendary", { pwol: true })).toBe(30);
     });
 
     test("should return adjustment by rarity", () => {

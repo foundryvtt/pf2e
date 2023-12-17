@@ -38,8 +38,8 @@ export class CreatureSensePF2e implements SenseData {
                       range,
                   })
                 : acuity
-                ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuity", { sense, acuity: acuityLabel })
-                : sense;
+                  ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuity", { sense, acuity: acuityLabel })
+                  : sense;
         };
 
         const range = this.range < Infinity ? this.range : undefined;

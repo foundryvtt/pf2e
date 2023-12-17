@@ -1,39 +1,35 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { populateFoundryUtilFunctions } from "../fixtures/foundryshim.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
-import { MigrationRunner } from "@module/migration/runner/index.ts";
+import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
 import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { MockActor } from "tests/mocks/actor.ts";
+import { MockChatMessage } from "tests/mocks/chat-message.ts";
+import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
 import { MockItem } from "tests/mocks/item.ts";
+import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
 import { MockMacro } from "tests/mocks/macro.ts";
 import { MockRollTable } from "tests/mocks/roll-table.ts";
-import { MockUser } from "tests/mocks/user.ts";
 import { MockScene } from "tests/mocks/scene.ts";
-import { MockChatMessage } from "tests/mocks/chat-message.ts";
-import characterJSON from "../../packs/iconics/amiri-level-1.json";
+import { MockUser } from "tests/mocks/user.ts";
 import armorJSON from "../../packs/equipment/scale-mail.json";
-import { ArmorSource, ItemSourcePF2e } from "@item/data/index.ts";
-import { FoundryUtils } from "tests/utils.ts";
-import { MockActors, MockCollection, MockItems, MockWorldCollection } from "tests/mocks/collection.ts";
-import { MockJournalEntry } from "tests/mocks/journal-entry.ts";
+import characterJSON from "../../packs/iconics/amiri-level-1.json";
 
-const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+const characterData = fu.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
-characterData.system.schema = { version: 0, lastMigration: null };
+characterData.system._migration = { version: 0, previous: null };
 for (const item of characterData.items) {
     item.effects = [];
-    item.system.schema = { version: 0, lastMigration: null };
+    item.system._migration = { version: 0, previous: null };
 }
 
-const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+const armorData = fu.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.effects = [];
-armorData.system.schema = { version: 0, lastMigration: null };
+armorData.system._migration = { version: 0, previous: null };
 
 describe("test migration runner", () => {
-    populateFoundryUtilFunctions();
-
     const settings = {
         worldSchemaVersion: 10,
     };
@@ -106,10 +102,10 @@ describe("test migration runner", () => {
         }
     }
 
-    class ChangeAlignmentMigration extends MigrationBase {
+    class ChangeXPMigration extends MigrationBase {
         static version = 12;
         async updateActor(source: CharacterSource) {
-            source.system.details.alignment.value = "CG";
+            source.system.details.xp.value = 3;
         }
     }
 
@@ -122,8 +118,7 @@ describe("test migration runner", () => {
 
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateItem(item: any) {
+        async updateItem(item: { system: Record<string, unknown> }) {
             item.system["-=someFakeProperty"] = null;
         }
     }
@@ -175,9 +170,9 @@ describe("test migration runner", () => {
     test("expect update actor deep property", async () => {
         game.actors.set(characterData._id, new MockActor(characterData));
 
-        const migrationRunner = new MigrationRunner([new ChangeAlignmentMigration()]);
+        const migrationRunner = new MigrationRunner([new ChangeXPMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0].system.details.alignment.value).toEqual("CG");
+        expect(game.actors.contents[0].system.details.xp.value).toEqual(3);
     });
 
     test.skip("expect unlinked actor in scene gets migrated", async () => {
@@ -225,8 +220,7 @@ describe("test migration runner", () => {
     test("migrations run in sequence", async () => {
         class ChangeItemProp extends MigrationBase {
             static version = 13;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            async updateItem(item: any) {
+            async updateItem(item: { system: Record<string, unknown> }) {
                 item.system.prop = 456;
             }
         }
@@ -250,8 +244,7 @@ describe("test migration runner", () => {
     test("migrations can remove items from actors", async () => {
         class RemoveItemsFromActor extends MigrationBase {
             static version = 13;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            async updateActor(actor: any) {
+            async updateActor(actor: { items: unknown[] }) {
                 actor.items = [];
             }
         }
@@ -269,8 +262,7 @@ describe("test migration runner", () => {
 
         requiresFlush = true;
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateActor(actor: { items: any[] }) {
+        async updateActor(actor: { items: unknown[] }) {
             actor.items.push({
                 name: "sample item",
                 type: "melee",
@@ -299,8 +291,7 @@ describe("test migration runner", () => {
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        async updateActor(actor: { items: any[] }) {
+        async updateActor(actor: { items: Record<string, unknown>[] }) {
             actor.system.sampleItemId = actor.items.find((i: { name: string }) => i.name === "sample item")._id;
         }
     }

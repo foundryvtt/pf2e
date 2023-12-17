@@ -84,7 +84,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 position[0],
                 position[1],
                 Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height)
+                Math.max(canvas.grid.size, bounds.height),
             );
         }
 
@@ -93,7 +93,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Short-circuit calculation for long sight ranges */
     override get sightRange(): number {
-        return this.document.sight.range >= canvas.dimensions!.maxR ? canvas.dimensions!.maxR : super.sightRange;
+        if (!canvas.dimensions) return 0;
+        return this.document.sight.range >= canvas.dimensions.maxR ? canvas.dimensions!.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -134,8 +135,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param flankee   Potentially flanked token
      */
     protected onOppositeSides(flankerA: TokenPF2e, flankerB: TokenPF2e, flankee: TokenPF2e): boolean {
-        const { lineSegmentIntersects } = foundry.utils;
-
         const [centerA, centerB] = [flankerA.center, flankerB.center];
         const { bounds } = flankee;
 
@@ -143,7 +142,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const right = new Ray({ x: bounds.right, y: bounds.top }, { x: bounds.right, y: bounds.bottom });
         const top = new Ray({ x: bounds.left, y: bounds.top }, { x: bounds.right, y: bounds.top });
         const bottom = new Ray({ x: bounds.left, y: bounds.bottom }, { x: bounds.right, y: bounds.bottom });
-        const intersectsSide = (side: Ray): boolean => lineSegmentIntersects(centerA, centerB, side.A, side.B);
+        const intersectsSide = (side: Ray): boolean => fu.lineSegmentIntersects(centerA, centerB, side.A, side.B);
 
         return (intersectsSide(left) && intersectsSide(right)) || (intersectsSide(top) && intersectsSide(bottom));
     }
@@ -159,12 +158,17 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Return true if a flanking buddy is found
         const { flanking } = this.actor.attributes;
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"]))
+            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
         );
         if (flankingBuddies.length === 0) return false;
 
         // The actual "Gang Up" rule or similar
-        const gangingUp = flanking.canGangUp.some((g) => typeof g === "number" && g <= flankingBuddies.length);
+        const gangingUp =
+            flanking.canGangUp.some(
+                (g) =>
+                    (typeof g === "number" && g <= flankingBuddies.length) ||
+                    (g === true && flankingBuddies.length >= 1),
+            ) || flankingBuddies.some((b) => b.actor?.attributes.flanking.canGangUp.some((g) => g === true));
         if (gangingUp) return true;
 
         // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
@@ -194,6 +198,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return canvas.tokens.placeables
             .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
             .filter((b) => this.onOppositeSides(this, b, flankee));
+    }
+
+    /** Reposition aura textures after this token has moved. */
+    protected override _applyRenderFlags(flags: Record<string, boolean>): void {
+        super._applyRenderFlags(flags);
+        if (flags.refreshPosition) this.auras.refreshPositions();
     }
 
     /** Draw auras and flanking highlight lines if certain conditions are met */
@@ -298,15 +308,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const properties = ["radius", "appearance"] as const;
                 const sceneData = R.pick(
                     this.document.auras.get(slug) ?? { radius: null, appearance: null },
-                    properties
+                    properties,
                 );
-                const canvasData = R.pick(aura, properties);
                 if (sceneData.radius === null) return true;
+                const canvasData = R.pick(aura, properties);
 
-                const diffCount =
-                    Object.keys(diffObject(canvasData, sceneData)).length +
-                    Object.keys(diffObject(sceneData, canvasData)).length;
-                return diffCount > 0;
+                return !R.equals(sceneData, canvasData);
             })
             .map(([slug]) => slug);
         const newAuraSlugs = Array.from(this.document.auras.keys()).filter((s) => !this.auras.has(s));
@@ -443,7 +450,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     override async animate(
         updateData: Record<string, unknown>,
-        options?: TokenAnimationOptionsPF2e<this>
+        options?: TokenAnimationOptionsPF2e<this>,
     ): Promise<void> {
         // Handle system "spin" animation option
         if (options?.spin) {
@@ -536,7 +543,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

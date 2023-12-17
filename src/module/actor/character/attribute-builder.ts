@@ -3,7 +3,7 @@ import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { maintainFocusInRender } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, addSign, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 class AttributeBuilder extends Application {
@@ -49,7 +49,7 @@ class AttributeBuilder extends Application {
                 // Allow decimal values in manual mode (to track partial boosts)
                 const mod = build.manual ? actor._source.system.abilities?.[attribute].mod ?? 0 : value.base;
                 return {
-                    mod: addSign(Number(mod.toFixed(1))),
+                    mod: Number(mod.toFixed(1)).signedString(),
                     label: CONFIG.PF2E.abilities[attribute],
                 };
             }),
@@ -63,10 +63,13 @@ class AttributeBuilder extends Application {
     }
 
     #createButtons(): Record<AttributeString, BoostFlawState> {
-        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce((accumulated, attribute) => {
-            accumulated[attribute] = { ability: attribute };
-            return accumulated;
-        }, {} as Record<AttributeString, BoostFlawState>);
+        return Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+            (accumulated, attribute) => {
+                accumulated[attribute] = { ability: attribute };
+                return accumulated;
+            },
+            {} as Record<AttributeString, BoostFlawState>,
+        );
     }
 
     #calculateAncestryBoosts(): { ancestryBoosts: AncestryBoosts | null; voluntaryFlaws: VoluntaryFlaws | null } {
@@ -157,6 +160,7 @@ class AttributeBuilder extends Application {
             buttons,
             remaining,
             labels: this.#getBoostFlawLabels(ancestry.system.boosts),
+            flawLabels: this.#getBoostFlawLabels(ancestry.system.flaws),
             alternate: !!ancestry.system.alternateAncestryBoosts,
         };
 
@@ -255,7 +259,7 @@ class AttributeBuilder extends Application {
     }
 
     #getBoostFlawLabels(
-        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>
+        boostData: Record<string, { value: AttributeString[]; selected: AttributeString | null }>,
     ): string[] {
         return Object.values(boostData).flatMap((boosts) => {
             if (boosts.value.length === 6) {
@@ -298,8 +302,6 @@ class AttributeBuilder extends Application {
             theme: "crb-hover",
         });
 
-        $html.find("div.tooltip").tooltipster();
-
         // Input handling for manual attribute score entry
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             input.addEventListener("focus", () => {
@@ -314,7 +316,7 @@ class AttributeBuilder extends Application {
                 if (input.type === "number" && input.dataset.dtype === "Number") {
                     input.type = "text";
                     const newValue = Math.clamped(Number(input.value) || 0, -5, 10);
-                    input.value = addSign(newValue);
+                    input.value = signedInteger(newValue);
 
                     const propertyPath = input.dataset.property;
                     if (!propertyPath) throw ErrorPF2e("Empty property path");
@@ -367,7 +369,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
@@ -375,7 +377,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: attribute });
@@ -428,7 +430,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const boostToRemove = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => b.selected === attribute
+                    ([, b]) => b.selected === attribute,
                 );
                 if (boostToRemove) {
                     actor.background?.update({
@@ -438,7 +440,7 @@ class AttributeBuilder extends Application {
                 }
 
                 const freeBoost = Object.entries(actor.background?.system.boosts ?? {}).find(
-                    ([, b]) => !b.selected && b.value.length > 0
+                    ([, b]) => !b.selected && b.value.length > 0,
                 );
                 if (freeBoost) {
                     actor.background?.update({
@@ -471,7 +473,7 @@ class AttributeBuilder extends Application {
                     return;
                 }
 
-                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
+                const buildSource = fu.mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
                 const boosts = (buildSource.attributes.boosts[level] ??= []);
                 if (boosts.includes(attribute)) {
                     boosts.splice(boosts.indexOf(attribute), 1);
@@ -498,9 +500,28 @@ class AttributeBuilder extends Application {
         }
 
         htmlQuery(html, "input[name=toggle-manual-mode]")?.addEventListener("click", () => {
-            actor.toggleAttributeManagement();
+            this.#toggleAttributeManagement();
         });
         htmlQuery(html, "button[data-action=close]")?.addEventListener("click", () => this.close());
+    }
+
+    /** Toggle between boost-driven and manual management of attributes */
+    async #toggleAttributeManagement(): Promise<void> {
+        const { actor } = this;
+        if (Object.keys(actor._source.system.abilities ?? {}).length === 0) {
+            // Add stored attribute modifiers for manual management
+            const baseAbilities = Array.from(ATTRIBUTE_ABBREVIATIONS).reduce(
+                (accumulated: Record<string, { value: 10 }>, abbrev) => ({
+                    ...accumulated,
+                    [abbrev]: { value: 10 as const },
+                }),
+                {},
+            );
+            await actor.update({ "system.abilities": baseAbilities });
+        } else {
+            // Delete stored attribute modifiers for boost-driven management
+            await actor.update({ "system.abilities": null });
+        }
     }
 }
 
@@ -544,6 +565,7 @@ interface BoostFlawRow {
 interface AncestryBoosts extends BoostFlawRow {
     alternate: boolean;
     labels: string[];
+    flawLabels: string[];
 }
 
 interface VoluntaryFlaws extends BoostFlawRow {

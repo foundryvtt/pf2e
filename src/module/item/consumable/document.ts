@@ -1,14 +1,18 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
-import { PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
+import type { WeaponPF2e } from "@item";
+import { PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { RuleElementPF2e } from "@module/rules/index.ts";
+import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ErrorPF2e } from "@util";
-import { ConsumableCategory, ConsumableSource, ConsumableSystemData } from "./data.ts";
-import { OtherConsumableTag } from "./types.ts";
+import { ErrorPF2e, setHasElement } from "@util";
+import * as R from "remeda";
+import { ConsumableSource, ConsumableSystemData } from "./data.ts";
+import { ConsumableCategory, OtherConsumableTag } from "./types.ts";
+import { DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get otherTags(): Set<OtherConsumableTag> {
@@ -16,44 +20,34 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     get category(): ConsumableCategory {
-        return this.system.consumableType.value;
+        return this.system.category;
     }
 
-    get isAmmunition(): boolean {
+    get isAmmo(): boolean {
         return this.category === "ammo";
     }
 
     get uses(): ValueAndMax {
-        return {
-            value: this.system.charges.value,
-            max: this.system.charges.max,
-        };
-    }
-
-    /** Should this item be automatically destroyed upon use */
-    get autoDestroy(): boolean {
-        return this.system.autoDestroy.value;
+        return R.pick(this.system.uses, ["value", "max"]);
     }
 
     get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
-        return new SpellPF2e(deepClone(this.system.spell), {
+        return new SpellPF2e(fu.deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
         }) as SpellPF2e<ActorPF2e>;
     }
 
-    get formula(): string | null {
-        return this.system.consume.value.trim() || null;
-    }
-
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.system.uses.max ||= 1;
+
         // Refuse to serve rule elements if this item is ammunition and has types that perform writes
-        if (!this.isAmmunition) return;
+        if (!this.isAmmo) return;
         for (const rule of this.system.rules) {
             if (rule.key === "RollOption" && "toggleable" in rule && !!rule.toggleable) {
                 console.warn("Toggleable RollOption rule elements may not be added to ammunition");
@@ -80,17 +74,17 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-        rollOptions: Record<string, unknown> = {}
+        rollOptions: Record<string, unknown> = {},
     ): Promise<ItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
-        const [consumableType, isUsable] = this.isIdentified
-            ? [game.i18n.localize(CONFIG.PF2E.consumableTypes[this.category]), true]
+        const [category, isUsable] = this.isIdentified
+            ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
-                  !["other", "scroll", "talisman", "tool", "wand"].includes(this.category),
+                  !["other", "scroll", "talisman", "toolkit", "wand"].includes(this.category),
               ];
 
-        const usesLabel = game.i18n.localize("PF2E.ConsumableChargesLabel");
+        const usesLabel = game.i18n.localize("PF2E.Item.Consumable.Uses.Label");
         const fromFormula = !!rollOptions.fromFormula;
 
         return this.processChatData(htmlOptions, {
@@ -98,9 +92,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             traits,
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
-            usesCharges: this.uses.max > 0,
-            hasCharges: this.uses.max > 0 && this.uses.value > 0,
-            consumableType,
+            category,
             isUsable: fromFormula ? false : isUsable,
         });
     }
@@ -114,8 +106,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.category)
                 ? liquidOrSubstance()
                 : ["scroll", "snare", "ammo"].includes(this.category)
-                ? CONFIG.PF2E.consumableTypes[this.category]
-                : "PF2E.identification.UnidentifiedType.Object"
+                  ? CONFIG.PF2E.consumableCategories[this.category]
+                  : "PF2E.identification.UnidentifiedType.Object",
         );
 
         if (typeOnly) return itemType;
@@ -135,8 +127,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     isAmmoFor(weapon: WeaponPF2e): boolean {
-        if (!this.isAmmunition) return false;
-        if (!(weapon instanceof WeaponPF2e)) {
+        if (!this.isAmmo) return false;
+        if (!weapon.isOfType("weapon")) {
             console.warn("Cannot load a consumable into a non-weapon");
             return false;
         }
@@ -162,15 +154,14 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 ui.notifications.warn(message);
                 return;
             }
-        } else {
+        } else if (this.category !== "ammo") {
+            // Announce consumption of non-ammunition
             const exhausted = max > 1 && value === 1;
             const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
                 current: value - 1,
             });
-
-            // If using this consumable creates a roll, we need to show it
             const flags = {
                 pf2e: {
                     origin: {
@@ -180,40 +171,35 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                     },
                 },
             };
+            const speaker = ChatMessage.getSpeaker({ actor });
 
-            if (this.category !== "ammo") {
-                const speaker = ChatMessage.getSpeaker({ actor });
-
-                if (this.formula) {
-                    const damageType = this.traits.has("vitality")
-                        ? "vitality"
-                        : this.traits.has("void")
-                        ? "void"
-                        : "untyped";
-                    new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
-                } else {
-                    ChatMessage.create({ speaker, content, flags });
-                }
+            if (this.system.damage) {
+                const { formula, type, kind } = this.system.damage;
+                new DamageRoll(`(${formula})[${type},${kind}]`).toMessage({ speaker, flavor: content, flags });
+            } else {
+                ChatMessage.create({ speaker, content, flags });
             }
         }
 
-        const quantity = this.quantity;
-
         // Optionally destroy the item
-        if (this.autoDestroy && value <= 1) {
-            if (quantity <= 1) {
+        if (this.system.uses.autoDestroy && value <= 1) {
+            const { quantity } = this;
+
+            // Keep ammunition if it has rule elements
+            const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
+            if (quantity <= 1 && !isPreservedAmmo) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
                     "system.quantity": Math.max(quantity - 1, 0),
-                    "system.charges.value": max,
+                    "system.uses.value": max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "system.charges.value": Math.max(value - 1, 0),
+                "system.uses.value": Math.max(value - 1, 0),
             });
         }
     }
@@ -229,7 +215,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             return actor.spellcasting
                 .filter(
                     (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
-                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this })
+                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this }),
                 )
                 .reduce((previous, current) => {
                     const previousDC = previous.statistic.dc.value;
@@ -246,6 +232,52 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
             entry.cast(spell, { consume: false });
         }
+    }
+
+    protected override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentUpdateContext<TParent>,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        if (typeof changed.system.damage?.type === "string") {
+            const category = changed.system.category ?? this.system.category;
+            if (!setHasElement(DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES, category)) {
+                changed.system.damage = null;
+            } else if (
+                setHasElement(DAMAGE_ONLY_CONSUMABLE_CATEGORIES, category) ||
+                !["vitality", "void", "untyped"].includes(changed.system.damage.type)
+            ) {
+                // Ensure kind is still valid after changing damage type
+                changed.system.damage.kind = "damage";
+            }
+        }
+
+        if (changed.system.uses) {
+            if ("value" in changed.system.uses) {
+                const minimum = this.system.uses.autoDestroy ? 1 : 0;
+                changed.system.uses.value = Math.clamped(
+                    Math.floor(Number(changed.system.uses.value)) || minimum,
+                    minimum,
+                    9999,
+                );
+            }
+
+            if ("max" in changed.system.uses) {
+                changed.system.uses.max = Math.clamped(Math.floor(Number(changed.system.uses.max)) || 1, 1, 9999);
+            }
+
+            if (typeof changed.system.uses.value === "number" && typeof changed.system.uses.max === "number") {
+                changed.system.uses.value = Math.min(changed.system.uses.value, changed.system.uses.max);
+            }
+        }
+
+        if (changed.system.price?.per !== undefined) {
+            changed.system.price.per = Math.clamped(Math.floor(Number(changed.system.price.per)) || 1, 1, 999);
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 

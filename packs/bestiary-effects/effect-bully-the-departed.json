@@ -4,7 +4,7 @@
     "name": "Effect: Bully the Departed",
     "system": {
         "description": {
-            "value": "<p>The creature gains regeneration 15 (deactivated by force or good), and deals an extra @Damage[1d8[evil]] damage on its Strikes.</p>"
+            "value": "<p>The creature gains regeneration 15 (deactivated by force or good), and deals an extra @Damage[1d8[spirit]] damage on its Strikes.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -15,27 +15,29 @@
         "level": {
             "value": 5
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Bestiary 3"
+        },
         "rules": [
             {
                 "deactivatedBy": [
                     "force",
-                    "good"
+                    "holy"
                 ],
                 "key": "FastHealing",
                 "type": "regeneration",
                 "value": 15
             },
             {
-                "damageType": "evil",
+                "damageType": "spirit",
                 "diceNumber": 1,
                 "dieSize": "d8",
                 "key": "DamageDice",
                 "selector": "strike-damage"
             }
         ],
-        "source": {
-            "value": "Pathfinder Bestiary 3"
-        },
         "start": {
             "initiative": null,
             "value": 0

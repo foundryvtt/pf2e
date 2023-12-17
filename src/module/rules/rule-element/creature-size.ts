@@ -1,14 +1,14 @@
-import { CreaturePF2e } from "@actor";
+import type { CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";
-import { tupleHasValue } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField } from "./data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
+import { tupleHasValue } from "@util";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -25,7 +25,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             reach: new RecordField(
                 new fields.StringField({ required: true, nullable: false, choices: ["add", "upgrade", "override"] }),
                 new ResolvableValueField({ required: true, nullable: false }),
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined },
             ),
             resizeEquipment: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
             minimumSize: new fields.StringField({
@@ -81,7 +81,7 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
         if (!(typeof value === "string" || typeof value === "number")) {
             this.failValidation(
                 `CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name})`,
-                "has a non-string, non-numeric value"
+                "has a non-string, non-numeric value",
             );
             return;
         }
@@ -107,11 +107,11 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
             actor.system.traits.size = new ActorSizePF2e({ value: size });
         } else {
             const validValues = Array.from(
-                new Set(Object.entries(CreatureSizeRuleElement.wordToAbbreviation).flat())
+                new Set(Object.entries(CreatureSizeRuleElement.wordToAbbreviation).flat()),
             ).join('", "');
             this.failValidation(
                 `CreatureSize Rule Element on actor ${actor.id} (${actor.name})`,
-                `has an invalid value: must be one of "${validValues}", +1, or -1`
+                `has an invalid value: must be one of "${validValues}", +1, or -1`,
             );
             return;
         }
@@ -153,14 +153,14 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
         return newSize.isLargerThan(originalSize)
             ? Math.max(SIZE_TO_REACH[this.actor.size], current)
             : newSize.isSmallerThan(originalSize)
-            ? Math.min(SIZE_TO_REACH[this.actor.size], current)
-            : current;
+              ? Math.min(SIZE_TO_REACH[this.actor.size], current)
+              : current;
     }
 }
 
 interface CreatureSizeRuleElement
     extends RuleElementPF2e<CreatureSizeRuleSchema>,
-        ModelPropsFromSchema<CreatureSizeRuleSchema> {
+        ModelPropsFromRESchema<CreatureSizeRuleSchema> {
     get actor(): CreaturePF2e;
 }
 

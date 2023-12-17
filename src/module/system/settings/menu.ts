@@ -8,7 +8,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
-        return mergeObject(options, {
+        return fu.mergeObject(options, {
             title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
             id: `${this.namespace}-settings`,
             template: `systems/pf2e/templates/system/settings/menu.hbs`,
@@ -53,7 +53,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
     override async getData(): Promise<MenuTemplateData> {
         const settings = (this.constructor as typeof SettingsMenuPF2e).settings;
         const templateData = settingsToSheetData(settings, this.cache, this.prefix);
-        return mergeObject(await super.getData(), {
+        return fu.mergeObject(await super.getData(), {
             settings: templateData,
             instructions: `PF2E.SETTINGS.${this.namespace.titleCase()}.Hint`,
         });
@@ -128,7 +128,7 @@ interface SettingsMenuOptions extends FormApplicationOptions {
 function settingsToSheetData(
     settings: Record<string, PartialSettingsData>,
     cache: Record<string, unknown>,
-    prefix = ""
+    prefix = "",
 ): Record<string, SettingsTemplateData> {
     return Object.entries(settings).reduce((result: Record<string, SettingsTemplateData>, [key, setting]) => {
         const lookupKey = `${prefix}${key}`;

@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ErrorPF2e } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -18,7 +18,7 @@ export class Migration676ReplaceItemsWithRELikeAEs extends MigrationBase {
     private replaceItem({ items, type, slug, replacement }: ReplaceItemArgs): void {
         if (!(replacement instanceof ItemPF2e)) throw ErrorPF2e("Unexpected error retrieving compendium item");
         const current = items.find(
-            (itemSource) => itemSource.type === type && itemSource.system.slug?.replace(/'/g, "") === slug
+            (itemSource) => itemSource.type === type && itemSource.system.slug?.replace(/'/g, "") === slug,
         );
         if (current) {
             const newSource = replacement.toObject();

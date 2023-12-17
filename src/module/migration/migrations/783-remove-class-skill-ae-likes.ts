@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -15,7 +15,7 @@ export class Migration783RemoveClassSkillAELikes extends MigrationBase {
                         typeof r.path === "string" &&
                         /^system.skills\.[a-z]{3}\.rank$/.test(r.path) &&
                         r.value === 1
-                    )
+                    ),
             );
         }
     }

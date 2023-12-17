@@ -1,5 +1,6 @@
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ConsumableSystemSource } from "@item/consumable/data.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 export class Migration804RemoveConsumableProperties extends MigrationBase {
@@ -11,34 +12,33 @@ export class Migration804RemoveConsumableProperties extends MigrationBase {
         const system: MaybeWithConsumableOldData = source.system;
         if (system.uses) {
             delete system.uses;
-            system["-=uses"] = null;
         }
         if (system.autoUse) {
             delete system.autoUse;
             system["-=autoUse"] = null;
         }
-        if ("_deprecated" in system.charges) {
+        if (R.isObject(system.charges) && "_deprecated" in system.charges) {
             delete system.charges._deprecated;
             system.charges["-=deprecated"] = null;
         }
-        if ("_deprecated" in system.consume) {
+        if (R.isObject(system.consume) && "_deprecated" in system.consume) {
             delete system.consume._deprecated;
             system.consume["-=deprecated"] = null;
         }
     }
 }
 
-interface MaybeWithConsumableOldData extends ConsumableSystemSource {
-    uses?: unknown;
+type MaybeWithConsumableOldData = Omit<ConsumableSystemSource, "uses"> & {
+    uses: unknown;
     "-=uses"?: unknown;
     autoUse?: unknown;
     "-=autoUse"?: unknown;
-    charges: ConsumableSystemSource["charges"] & {
+    charges?: {
         _deprecated?: unknown;
         "-=deprecated"?: null;
     };
-    consume: ConsumableSystemSource["consume"] & {
+    consume?: {
         _deprecated?: unknown;
         "-=deprecated"?: null;
     };
-}
+};

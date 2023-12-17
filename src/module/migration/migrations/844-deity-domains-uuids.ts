@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Update UUIDS of domain journal entries to newer pages */
@@ -10,11 +10,11 @@ export class Migration844DeityDomainUUIDs extends MigrationBase {
         return this.#idMap.reduce((oldText, data) => {
             const pattern = new RegExp(
                 String.raw`\bCompendium\.pf2e\.domains\.(?:JournalEntry?\.)?(?:${data.oldId}|${data.name})\](?:\{[^}]+})?`,
-                "g"
+                "g",
             );
             return oldText.replace(
                 pattern,
-                `Compendium.pf2e.journals.JournalEntry.EEZvDB1Z7ezwaxIr.JournalEntryPage.${data.pageId}]{${data.name}}`
+                `Compendium.pf2e.journals.JournalEntry.EEZvDB1Z7ezwaxIr.JournalEntryPage.${data.pageId}]{${data.name}}`,
             );
         }, text);
     }

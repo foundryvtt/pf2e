@@ -3,26 +3,19 @@
     "img": "systems/pf2e/icons/default-icons/consumable.svg",
     "name": "Potion of Annulment (Moderate)",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 0,
-            "value": 0
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "potion"
-        },
-        "consume": {
-            "value": "1d20+24"
-        },
+        "category": "potion",
         "containerId": null,
+        "damage": {
+            "formula": "1d20+24",
+            "kind": "healing",
+            "type": "untyped"
+        },
         "description": {
             "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>A potion of annulment magically breaks a supernatural deal you have made, such as an infernal contract, a sea hag's bargain, or the <em>@UUID[Compendium.pf2e.spells-srd.Item.Geas]</em> ritual. Upon drinking the potion, attempt a counteract check against the highest- level such effect, with a counteract modifier of [[/r 1d20+24 #Counteract]]{+24}. If the check is successful, the deal ends for all parties. You're not penalized for breaking the contract, but you also enjoy none of its benefits or rewards. Individuals with whom you shared the contract are aware it has been annulled and may seek vengeance. This potion can't rewind time or negate effects that have already occurred; for example, if you have killed someone to fulfill an infernal contract, drinking this potion and canceling the contract doesn't bring the dead individual back to life.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,25 +29,22 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 1300
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #182: Graveclaw"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder #182: Graveclaw"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "rare",
             "value": [
-                "abjuration",
                 "consumable",
                 "magical",
                 "potion"
@@ -63,8 +53,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

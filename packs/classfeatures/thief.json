@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows and escaping via rooftops, or a safecracker breaking into carefully guarded vaults. You might even work as a consultant, testing clients' defenses by trying to steal something precious.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
+            "value": "<p>Nothing beats the thrill of taking something that belongs to someone else. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing your clients' vaults for openings.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon or finesse melee unarmed attack, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
         },
         "level": {
             "value": 1
@@ -19,16 +19,18 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "ability": "dex",
                 "key": "FlatModifier",
                 "predicate": [
                     "item:melee",
-                    "item:trait:finesse",
-                    {
-                        "not": "item:category:unarmed"
-                    }
+                    "item:trait:finesse"
                 ],
                 "selector": "strike-damage",
                 "type": "ability"
@@ -40,10 +42,10 @@
                 "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
+            "otherTags": [
+                "rogue-racket"
+            ],
             "rarity": "common",
             "value": [
                 "rogue"

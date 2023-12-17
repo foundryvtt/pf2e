@@ -1,10 +1,8 @@
 import "./active-effect-config.d.ts";
 import "./actor-sheet.d.ts";
-import "./base.d.ts";
 import "./combatant-config.d.ts";
 import "./item-sheet.d.ts";
 import "./journal-page-sheet.d.ts";
-import "./journal-sheet.d.ts";
 import "./macro-config.d.ts";
 import "./note-config.d.ts";
 import "./roll-table-config.d.ts";

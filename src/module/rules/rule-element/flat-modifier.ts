@@ -5,8 +5,14 @@ import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
 import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleValue } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import {
+    ModelPropsFromRESchema,
+    ResolvableValueField,
+    RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
+} from "./data.ts";
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
@@ -26,10 +32,6 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 this.label = CONFIG.PF2E.abilities[this.ability];
                 // As a resolvable since ability modifiers aren't yet set for PCs
                 this.value = `@actor.abilities.${source.ability}.mod`;
-            } else {
-                this.failValidation(
-                    'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
-                );
             }
         }
 
@@ -39,18 +41,24 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                 : null;
 
         if (this.force && this.type === "untyped") {
-            this.failValidation("A forced bonus or penalty must have a type");
+            this.failValidation("type: may not be undefined");
         }
 
         if (this.removeAfterRoll && !this.item.isOfType("effect")) {
-            this.failValidation("  removeAfterRoll: may only be used with effects");
+            this.failValidation("removeAfterRoll: may only be used with effects");
         }
     }
 
     static override validateJoint(data: SourceFromSchema<FlatModifierSchema>): void {
         super.validateJoint(data);
+        if (data.selector.length === 0) {
+            throw Error("selector: must have at least 1");
+        }
+        if (data.type === "ability" && !data.ability) {
+            throw Error("ability: must be defined");
+        }
         if (data.type !== "ability" && data.value === undefined) {
-            throw Error('must have defined value if type is not "ability"');
+            throw Error("value: may not be undefined");
         }
     }
 
@@ -60,7 +68,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, initial: undefined })
+                new fields.StringField({ required: true, blank: false, initial: undefined }),
             ),
             type: new fields.StringField({
                 required: true,
@@ -97,7 +105,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     }),
                     new PredicateField({ required: false, nullable: false, initial: undefined }),
                 ],
-                { required: false, nullable: false, initial: false }
+                { required: false, nullable: false, initial: false },
             ),
         };
     }
@@ -113,9 +121,6 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         const slug = this.slug ?? sluggify(label);
 
         const selectors = this.selectors.map((s) => this.resolveInjectedProperties(s)).filter((s) => !!s);
-        if (selectors.length === 0) {
-            return this.failValidation("must have at least one selector");
-        }
 
         for (const selector of selectors) {
             if (selector === "null") continue;
@@ -138,7 +143,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
                     // If this rule element's predicate would have passed without there being a resolvable damage type,
                     // send out a warning.
                     if (this.test(options.test ?? [])) {
-                        this.failValidation(`Unrecognized damage type: ${damageType}`);
+                        this.failValidation(`damageType: "${damageType}" is unrecognized`);
                     }
                     return null;
                 }
@@ -184,7 +189,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 
 interface FlatModifierRuleElement
     extends RuleElementPF2e<FlatModifierSchema>,
-        ModelPropsFromSchema<FlatModifierSchema> {
+        ModelPropsFromRESchema<FlatModifierSchema> {
     value: RuleValue;
 }
 

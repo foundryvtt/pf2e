@@ -19,11 +19,7 @@ declare global {
     type HookParamsLightingRefresh = HookParameters<"lightingRefresh", [LightingLayer]>;
     type HookParamsPreCreateItem = HookParameters<
         "preCreateItem",
-        [
-            PreCreate<foundry.documents.ItemSource>,
-            DocumentModificationContext<Actor<TokenDocument<Scene | null> | null> | null>,
-            string
-        ]
+        [PreCreate<foundry.documents.ItemSource>, DocumentModificationContext<Actor | null>, string]
     >;
     type HooksParamsPreUpdateCombat = HookParameters<
         "preUpdateCombat",
@@ -36,12 +32,12 @@ declare global {
             foundry.documents.TokenSource,
             DeepPartial<foundry.documents.TokenSource>,
             { diff: boolean; [key: string]: unknown },
-            string
+            string,
         ]
     >;
     type HookParamsRender<T extends Application, N extends string> = HookParameters<
         `render${N}`,
-        [T, JQuery, ReturnType<T["getData"]>]
+        [T, JQuery, Awaited<ReturnType<T["getData"]>>]
     >;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",
@@ -50,7 +46,7 @@ declare global {
     type HookParamsTargetToken = HookParameters<"targetToken", [User, Token<TokenDocument<Scene>>, boolean]>;
     type HookParamsUpdate<T extends foundry.abstract.Document, N extends string> = HookParameters<
         `update${N}`,
-        [T, DocumentUpdateData<T>, DocumentModificationContext<T["parent"]>]
+        [T, Record<string, unknown>, DocumentModificationContext<T["parent"]>]
     >;
     type HookParamsUpdateWorldTime = HookParameters<"updateWorldTime", [number, number]>;
 

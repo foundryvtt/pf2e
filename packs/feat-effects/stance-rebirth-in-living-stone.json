@@ -1,0 +1,69 @@
+{
+    "_id": "zqgOjMU9TGoGwJWc",
+    "img": "icons/magic/earth/construct-stone-long-arms.webp",
+    "name": "Stance: Rebirth In Living Stone",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Rebirth In Living Stone]<br /><br /></p>\n<p>Rock overflows from within you to consume your form before cracking open to reveal your body transformed into living stone. You gain 40 temporary Hit Points. You're immune to critical hits and precision damage. You can't be pushed, pulled, or tripped while you're standing on earth or stone. Your earth Elemental Blasts deal an additional 1d10 damage of their normal type. These benefits last until the end of your next turn, but you can Sustain them up to 1 minute. After you gain temporary Hit Points from this impulse, you can't do so again for 10 minutes.</p>\n<hr />\n<p><strong>Level (20th)</strong> You gain 50 temporary Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 19,
+                            "value": 40
+                        },
+                        {
+                            "start": 20,
+                            "value": 50
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "Immunity",
+                "type": "precision"
+            },
+            {
+                "key": "Immunity",
+                "type": "critical-hits"
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:trait:earth"
+                ],
+                "selector": "elemental-blast-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

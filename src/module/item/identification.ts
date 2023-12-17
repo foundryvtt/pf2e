@@ -43,7 +43,7 @@ export interface GenericIdentifyDCs {
 function getIdentifyMagicDCs(
     item: PhysicalItemPF2e,
     baseDC: number,
-    notMatchingTraditionModifier: number
+    notMatchingTraditionModifier: number,
 ): IdentifyMagicDCs {
     const result = {
         occult: baseDC,
@@ -73,9 +73,9 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
+    { pwol = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const baseDC = calculateDC(item.level, { proficiencyWithoutLevel });
+    const baseDC = calculateDC(item.level, { pwol });
     const rarity = getDcRarity(item);
     const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {
@@ -101,7 +101,9 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
                 return "weapon";
             }
         } else if (item.isOfType("armor")) {
-            return item.category === "shield" ? "shields" : "armor";
+            return "armor";
+        } else if (item.isOfType("shield")) {
+            return "shields";
         } else if (item.isOfType("consumable")) {
             switch (item.category) {
                 case "ammo":
@@ -117,7 +119,7 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
                     return "alchemical_elixir";
                 case "poison":
                     return "alchemical_poison";
-                case "tool":
+                case "toolkit":
                     return "alchemical_tool";
                 case "wand":
                     return "wands";

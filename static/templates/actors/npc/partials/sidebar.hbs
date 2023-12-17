@@ -1,13 +1,18 @@
 <div class="image-container">
-    <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
-    <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+    <img
+        class="profile-img"
+        src="{{actor.img}}"
+        {{#if editable}}data-edit="img"{{/if}}
+        alt="{{actor.name}}"
+    />
+    <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
 </div>
 
 <div class="side-bar-section armor-section">
     {{#with data.attributes.ac as |ac|}}
         <div class="side-bar-section-header" title="{{ac.breakdown}}">
             <div class="side-bar-label armor-label">
-                <i class="fas fa-fw fa-shield-alt"></i>
+                <i class="fa-solid fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
             </div>
             <div class="armor-base labelled-field">
@@ -35,7 +40,7 @@
     <div class="side-bar-section shield-section{{#if data.attributes.shield.broken}} broken" title="{{localize "PF2E.Item.Physical.Broken"}}{{/if}}">
         <div class="side-bar-section-header">
             <div class="side-bar-label shield-label">
-                <i class="fas fa-fw fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
+                <i class="fa-solid fa-fw fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
                 <h4>{{localize "PF2E.ShieldLabel"}}</h4>
                 <div class="hit-points">
                     <input type="number" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" class="current" placeholder="0" />
@@ -46,11 +51,11 @@
         </div>
         <div class="side-bar-section-content">
             <div class="shield-details">
-                <label class="label" title="{{localize "PF2E.ShieldACBonusTitle"}}">{{localize "PF2E.ArmorClassShortLabel"}}</label>
+                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.ACBonus"}}">{{localize "PF2E.ArmorClassShortLabel"}}</label>
                 <label class="value">{{data.attributes.shield.ac}}</label>
-                <label class="label" title="{{localize "PF2E.ShieldHardnessTitle"}}">{{localize "PF2E.ShieldHardnessShortLabel"}}</label>
+                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.Hardness.Hint"}}">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</label>
                 <label class="value">{{data.attributes.shield.hardness}}</label>
-                <label class="label" title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTShortLabel"}}</label>
+                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.BrokenThreshold"}}">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</label>
                 <label class="value">{{data.attributes.shield.brokenThreshold}}</label>
             </div>
         </div>
@@ -59,7 +64,7 @@
 <div class="health-section side-bar-section">
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
-            <i class="fas fa-fw fa-heart"></i>
+            <i class="fa-solid fa-fw fa-heart"></i>
             <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
             <div class="hit-points">
                 {{#with data.attributes.hp as |hp|}}
@@ -86,8 +91,8 @@
         <div class="side-bar-label">
             <i class="fa-solid fa-swords fa-fw"></i>
             <h4>{{localize "PF2E.InitiativeLabel"}}</h4>
-            <a class="roll-icon roll-init">
-                <i class="fas fa-dice-d20"></i>
+            <a class="roll-icon roll-init{{#unless editable}} disabled{{/unless}}" data-action="roll-initiative">
+                <i class="fa-solid fa-dice-d20"></i>
                 <div>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</div>
             </a>
         </div>
@@ -106,12 +111,12 @@
 
 <!-- IMMUNITIES, WEAKNESSES, AND RESISTANCES -->
 <div class="immunities side-bar-section">
-    <div class="side-bar-section-header{{#unless data.attributes.immunities}} disabled{{/unless}}">
-        <div class="side-bar-label">
-            <i class="fas fa-fw fa-ankh"></i>
+    <div class="side-bar-section-header">
+        <div class="side-bar-label{{#unless data.attributes.immunities}} empty{{/unless}}">
+            <i class="fa-solid fa-fw fa-ankh"></i>
             <h4>{{localize "PF2E.ImmunitiesLabel"}}</h4>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="immunities-controls controls">
                 <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
@@ -125,12 +130,12 @@
     </div>
 </div>
 <div class="weaknesses side-bar-section">
-    <div class="side-bar-section-header{{#unless data.attributes.weaknesses}} disabled{{/unless}}">
-        <div class="side-bar-label">
-            <i class="fas fa-fw fa-heart-broken"></i>
+    <div class="side-bar-section-header">
+        <div class="side-bar-label{{#unless data.attributes.weaknesses}} empty{{/unless}}">
+            <i class="fa-solid fa-fw fa-heart-broken"></i>
             <h4>{{localize "PF2E.WeaknessesLabel"}}</h4>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="weaknesses-controls controls">
                 <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
@@ -143,12 +148,12 @@
     </div>
 </div>
 <div class="resistances side-bar-section">
-    <div class="side-bar-section-header{{#unless data.attributes.resistances}} disabled{{/unless}}">
-        <div class="side-bar-label">
-            <i class="fas fa-fw fa-shield-virus"></i>
+    <div class="side-bar-section-header">
+        <div class="side-bar-label{{#unless data.attributes.resistances}} empty{{/unless}}">
+            <i class="fa-solid fa-fw fa-shield-virus"></i>
             <h4>{{localize "PF2E.ResistancesLabel"}}</h4>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="resistances-controls controls">
                 <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
@@ -179,12 +184,12 @@
 <div class="speed-section side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
-            <i class="fas fa-fw fa-shoe-prints"></i>
+            <i class="fa-solid fa-fw fa-shoe-prints"></i>
             <h4>{{localize "PF2E.NPC.SpeedLabel"}}</h4>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="speed-controls controls">
-                <a class="tag-selector edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fas fa-edit"></i></a>
+                <a class="tag-selector edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>

@@ -3,7 +3,8 @@ import { EquippedData } from "./data.ts";
 interface HeldUsage {
     value: string;
     type: "held";
-    hands: number;
+    where?: never;
+    hands: 1 | 2;
 }
 
 interface WornUsage {
@@ -16,6 +17,7 @@ interface WornUsage {
 interface CarriedUsage {
     value: "carried";
     type: "carried";
+    where?: never;
     hands?: 0;
 }
 
@@ -45,6 +47,7 @@ function getUsageDetails(usage: string): UsageDetails {
 
         case "held-in-one-hand":
         case "held-in-one-plus-hands":
+        case "held-in-one-or-two-hands":
             return { value: usage, type: "held", hands: 1 };
         case "held-in-two-hands":
             return { value: usage, type: "held", hands: 2 };
@@ -92,4 +95,4 @@ function getUsageDetails(usage: string): UsageDetails {
 }
 
 export { getUsageDetails, isEquipped };
-export type { UsageDetails, UsageType };
+export type { CarriedUsage, HeldUsage, UsageDetails, UsageType, WornUsage };

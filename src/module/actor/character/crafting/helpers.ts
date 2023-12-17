@@ -1,12 +1,14 @@
-import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { DegreeOfSuccess } from "@system/degree-of-success.ts";
-import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
-import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { OneToTen } from "@module/data.ts";
+import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ItemProxyPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { CheckRoll } from "@system/check/index.ts";
+import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { OneToTen } from "@module/data.ts";
+import { getIncomeForLevel } from "@scripts/macros/earn-income/calculate.ts";
+import { CheckRoll } from "@system/check/index.ts";
+import { DegreeOfSuccess } from "@system/degree-of-success.ts";
+import { fontAwesomeIcon } from "@util";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
@@ -43,7 +45,7 @@ function calculateCosts(
     item: PhysicalItemPF2e,
     quantity: number,
     actor: CharacterPF2e,
-    degreeOfSuccess: number
+    degreeOfSuccess: number,
 ): Costs | null {
     const itemPrice = CoinsPF2e.fromPrice(item.price, quantity);
     const materialCosts = itemPrice.scale(0.5);
@@ -73,7 +75,7 @@ export async function craftItem(
     item: PhysicalItemPF2e,
     itemQuantity: number,
     actor: ActorPF2e,
-    infused?: boolean
+    infused?: boolean,
 ): Promise<void> {
     const itemSource = item.toObject();
     itemSource.system.quantity = itemQuantity;
@@ -104,7 +106,7 @@ export async function craftItem(
 export async function craftSpellConsumable(
     item: ConsumablePF2e,
     itemQuantity: number,
-    actor: ActorPF2e
+    actor: ActorPF2e,
 ): Promise<void> {
     const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
@@ -113,10 +115,13 @@ export async function craftSpellConsumable(
     ) as OneToTen;
     const validSpells = actor.itemTypes.spell
         .filter((s) => s.baseRank <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
-        .reduce((result, spell) => {
-            result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
-            return result;
-        }, {} as Record<number, SpellPF2e<ActorPF2e>[]>);
+        .reduce(
+            (result, spell) => {
+                result[spell.baseRank] = [...(result[spell.baseRank] || []), spell];
+                return result;
+            },
+            {} as Record<number, SpellPF2e<ActorPF2e>[]>,
+        );
     const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
@@ -126,21 +131,21 @@ export async function craftSpellConsumable(
         content,
         buttons: {
             cancel: {
-                icon: '<i class="fa fa-times"></i>',
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: game.i18n.localize("Cancel"),
             },
             craft: {
-                icon: '<i class="fa fa-hammer"></i>',
+                icon: fontAwesomeIcon("hammer").outerHTML,
                 label: game.i18n.localize("PF2E.Actions.Craft.SelectSpellDialog.CraftButtonLabel"),
                 callback: async ($dialog) => {
                     const spellId = String($dialog.find("select[name=spell]").val());
                     const spell = actor.items.get(spellId);
                     if (!spell?.isOfType("spell")) return;
-                    const item = await createConsumableFromSpell(spell, {
+                    const data = await createConsumableFromSpell(spell, {
                         type: consumableType,
                         heightenedLevel: spellLevel,
                     });
-                    return craftItem(new ConsumablePF2e(item), itemQuantity, actor);
+                    return craftItem(new ItemProxyPF2e(data) as PhysicalItemPF2e, itemQuantity, actor);
                 },
             },
         },
@@ -153,7 +158,7 @@ export async function renderCraftingInline(
     roll: Rolled<CheckRoll>,
     quantity: number,
     actor: ActorPF2e,
-    free: boolean
+    free: boolean,
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 

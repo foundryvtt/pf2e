@@ -1,0 +1,761 @@
+{
+    "_id": "2nCGeGTO7HQjEETs",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "i1JPZN2W4H4q1lv3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Darkvision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army includes several spotters and scouts who have darkvision, and the rest of the soldiers have been trained to follow their lead so that the army itself functions as if it had darkvision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "AY2NO75pZICF0XpF",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.YbYXwVTcKHmY0GEk"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Battlefield Adaptability",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p>The First World army has a wide range of creatures in its ranks, and it can shift its tactics to support those with different mobilities. It can take this action to achieve one of the following benefits: Ignore ground-based difficult terrain, reduce @UUID[Compendium.pf2e.kingmaker-features.Item.Mired] to 0, become @UUID[Compendium.pf2e.kingmaker-features.Item.Concealed], or gain a +2 circumstance bonus on Maneuver checks to Advance and to Disengage. The effect lasts until the start of the First World Army’s next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Used Battlefield Adaptability",
+                        "predicate": [
+                            "battlefield-adaptability",
+                            "action:advance",
+                            "action:disengage"
+                        ],
+                        "selector": "maneuver-check",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "X0zUD7ZGrBohmkIo",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.uX6NPOLF0v5Acz4V"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Primal Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> The First World army is not @UUID[Compendium.pf2e.kingmaker-features.Item.Engaged];</p>\n<hr />\n<p><strong>Effect</strong> The First World army uses its primal magic against another army on the battlefield and must attempt a Morale check against the target’s Morale DC. If they succeed, the First World army applies one of the following effects, determined randomly ([[/r 1d10]]), to the target army.</p>\n<p><strong>1–2 Entangling Vines</strong> Coils of whipping vines grow out of the ground to entangle the army. The army increases its @UUID[Compendium.pf2e.kingmaker-features.Item.Mired] condition by 1 (2 on a critical hit).</p>\n<p><strong>3–4 Horrific Visions</strong> The soldiers’ minds are assaulted with horrific illusions. The army increases its @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken] condition by 1 (2 on a critical hit).</p>\n<p><strong>5–6 Primal Storm</strong> A churning storm cloud above the army strikes the soldiers dozens of times with bolts of lightning, inflicting 1 point of damage to the army (2 points of damage on a critical hit). Until the end of the targeted army’s next turn, it functions as if in high wind and rain (see Battlefield Terrain Features on page 578).</p>\n<p><strong>7–8 Sensory Assault</strong> The soldiers become overwhelmed with strange lights or tricked by illusions. Until the end of their next turn, the army takes a –2 circumstance penalty on all attacks and Maneuver checks.</p>\n<p><strong>9–10 Overwhelming Magic</strong> Roll twice and apply both results, but the First World army suffers a –4 circumstance penalty on its Morale check against the target army’s Morale DC.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "Ki0hKh6wGZNOoUQ4",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h4NITFrc7jDJtt0v"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Battlefield Adaptability",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "kingdom-activity",
+                "description": {
+                    "value": ""
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "4y82QTrhUtnUuOJ5",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h4NITFrc7jDJtt0v"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Battlefield Adaptability",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army gains the unique Battlefield Adaptability war action.</p>"
+                },
+                "level": {
+                    "value": 16
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "WkkGL2yvRPyYRUef",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h4NITFrc7jDJtt0v"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Primal Magic",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army gains the unique Primal Magic war action.</p>"
+                },
+                "level": {
+                    "value": 16
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "E8m5W5YjbYBLCmCr",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h4NITFrc7jDJtt0v"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Swift Recovery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army gains the unique Swift Recovery war action.</p>"
+                },
+                "level": {
+                    "value": 16
+                },
+                "location": "3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "6HoAqX3dVG5JpFr1",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.Y7FEwot01pJaeO7p"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Supernatural Attacks",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Whenever a First World army scores a critical hit on another army, it increases that army’s @UUID[Compendium.pf2e.kingmaker-features.Item.Weary] condition by 1 as their attacks cause some soldiers to become poisoned, fall asleep, shrink in size, or suffer other eerie side effects.</p>"
+                },
+                "level": {
+                    "value": 16
+                },
+                "location": "4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "6mPy5lldAAxIx3uB",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.4ggMoGJ7fZlGR7P7"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "counterattack": {
+                            "id": "7gxdZ17ZVnIaeQJ0",
+                            "onDelete": "detach"
+                        },
+                        "dirtyFighting": {
+                            "id": "dA3qooHGMtiyMWlU",
+                            "onDelete": "detach"
+                        },
+                        "feint": {
+                            "id": "bywShUI7f26P8Tjb",
+                            "onDelete": "detach"
+                        },
+                        "taunt": {
+                            "id": "XN0yNEBpJrB6PWoD",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Tactical Training",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The First World Army can use the following tactical actions: @UUID[Compendium.pf2e.kingmaker-features.Item.Counterattack], @UUID[Compendium.pf2e.kingmaker-features.Item.Dirty Fighting], @UUID[Compendium.pf2e.kingmaker-features.Item.Feint], and @UUID[Compendium.pf2e.kingmaker-features.Item.Taunt].</p>\n<hr />\n<p><em><strong>Note</strong>: This tactic also grants the army a +1 bonus to attacks in order to keep its attack bonus in line with the statistics given in the Kingmaker adventure.</em></p>"
+                },
+                "level": {
+                    "value": 16
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "flag": "counterattack",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Counterattack"
+                    },
+                    {
+                        "flag": "dirtyFighting",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Dirty Fighting"
+                    },
+                    {
+                        "flag": "feint",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Feint"
+                    },
+                    {
+                        "flag": "taunt",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Taunt"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "attack-roll",
+                        "type": "untyped",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "7gxdZ17ZVnIaeQJ0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.8wjiF3ctXUjP9oyX"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6mPy5lldAAxIx3uB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Counterattack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<p><strong>Trigger</strong> An army you are engaged with attempts a maneuver war action.</p>\n<hr />\n<p>Your army lashes out at the foe as they attempt to perform a maneuver. Attempt a melee Strike against the triggering army's AC. Counterattack doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>\n<p><strong>Critical Success</strong> You inflict 1 point of damage on the army and increase its @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken] condition value by 1.</p>\n<p><strong>Success</strong> You inflict 1 point of damage on the army.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "counterattack",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "dA3qooHGMtiyMWlU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.G2eBcOnUHb3yT7JL"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6mPy5lldAAxIx3uB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Dirty Fighting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<hr />\n<p>Your army uses trickery, deception, and unfair tactics to attempt a devastating attack against an outflanked army. Attempt a melee Strike or a ranged Strike against the AC of a target outflanked army that is not distant.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Weary]{Weary 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes weary 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your attack deals no damage to the target army, which is emboldened by your failed attempt at dirty fighting. This reduces the target army's weary value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "dirty-fighting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "bywShUI7f26P8Tjb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.Hi4LKGOKe6yMDOH5"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6mPy5lldAAxIx3uB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Feint",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p>Requirement Flexible Tactics Your army launches a probing attack meant to trick the enemy into thinking you are attacking from one quarter while your real thrust comes elsewhere. Critical Success The target army's defenses are thrown off; it is outflanked until the end of your turn. Success The target army is fooled, but only momentarily. It is outflanked against the next melee Strike your army attempts against it before the end of your current turn. Critical Failure The enemy anticipates your feint and presses the advantage. You are outflanked by the target army until the end of your next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "feint",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "XN0yNEBpJrB6PWoD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ggVahjiAlVICpiPA"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6mPy5lldAAxIx3uB",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Taunt",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong>@UUID[Compendium.pf2e.kingmaker-features.Item.Focused Devotion]</p>\n<hr />\n<p>Your army attempts to frighten and cow an enemy army. Attempt a @Check[morale|defense:morale|roller:self] check against the target army.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken]{Shaken 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes shaken 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your failed attempt bolsters the enemy's spirits. This reduces the target army's shaken value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "taunt",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "morale"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "CN7EFuW1kD1V2Cj9",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.uX6NPOLF0v5Acz4V"
+                }
+            },
+            "folder": "uLbGIZIMsFR1IrAN",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Swift Recovery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per battle;</p>\n<p><strong>Effect</strong> The army calls upon its magical connection to the First World to recover. This either restores 2 hit points or reduces the army’s @UUID[Compendium.pf2e.kingmaker-features.Item.Weary] condition value by 2.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "First World Army",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 38
+        },
+        "attributes": {
+            "hp": {
+                "max": 6,
+                "routThreshold": 3,
+                "value": 6
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "CE",
+            "blurb": "",
+            "description": "<p>This army is composed of an eclectic mix of fey, beasts, and plants—a supernatural mob of monsters with a wide range of options in battle.</p>",
+            "level": {
+                "value": 16
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 30,
+            "morale": 25
+        },
+        "scouting": 28,
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "type": "skirmisher",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Weapons and claws",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Bows and hurled thorns",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

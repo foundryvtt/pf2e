@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
@@ -23,7 +23,7 @@ function isValuesList(value: unknown): value is ValuesList {
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     static override get defaultOptions(): TagSelectorOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
         });
     }
@@ -40,7 +40,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         this.objectProperty = options.objectProperty;
         this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
-            mergeObject(this.choices, options.customChoices);
+            fu.mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
         }
     }
@@ -53,8 +53,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         const { chosen, custom, flat, disabled } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.document;
             // Compare source and prepared properties to determine which tags were automatically selected
-            const sourceProperty: unknown = getProperty(document.toObject(), this.objectProperty);
-            const preparedProperty: unknown = getProperty(document, this.objectProperty);
+            const sourceProperty: unknown = fu.getProperty(document.toObject(), this.objectProperty);
+            const preparedProperty: unknown = fu.getProperty(document, this.objectProperty);
 
             if (Array.isArray(preparedProperty)) {
                 const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];
@@ -72,14 +72,17 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
             }
         })();
 
-        const choices = Object.keys(this.choices).reduce((accumulated, type) => {
-            accumulated[type] = {
-                label: this.choices[type],
-                selected: chosen.includes(type),
-                disabled: disabled.includes(type),
-            };
-            return accumulated;
-        }, {} as Record<string, { label: string; selected: boolean; disabled: boolean }>);
+        const choices = Object.keys(this.choices).reduce(
+            (accumulated, type) => {
+                accumulated[type] = {
+                    label: this.choices[type],
+                    selected: chosen.includes(type),
+                    disabled: disabled.includes(type),
+                };
+                return accumulated;
+            },
+            {} as Record<string, { label: string; selected: boolean; disabled: boolean }>,
+        );
 
         return {
             ...(await super.getData(options)),
@@ -102,7 +105,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const { flat } = event.target ? $(event.target).data() : { flat: false };
+        const flat = event.target instanceof HTMLElement ? event.target.dataset.flat : false;
         const value = this.#getUpdateData(formData);
         if (this.allowCustom && typeof formData["custom"] === "string") {
             return super._updateObject(event, { [this.objectProperty]: { value, custom: formData["custom"] } });

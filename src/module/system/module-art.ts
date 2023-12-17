@@ -17,7 +17,7 @@ class ModuleArt {
                 const pack = game.packs.get(`pf2e.${packName}`);
                 if (!pack) {
                     console.warn(
-                        `PF2e System | Failed pack lookup from module art registration (${moduleKey}): ${packName}`
+                        `PF2e System | Failed pack lookup from module art registration (${moduleKey}): ${packName}`,
                     );
                     continue;
                 }
@@ -54,7 +54,7 @@ class ModuleArt {
         }
 
         const apps = Object.values(ui.windows).filter(
-            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium
+            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium,
         );
         for (const compendium of apps) {
             compendium.render();
@@ -108,8 +108,8 @@ class ModuleArt {
                                     isImageOrVideoPath(art.token.img) &&
                                     (!("scale" in art.token) ||
                                         (typeof art.token.scale === "number" && art.token.scale > 0)) &&
-                                    (!("randomImg" in art.token) || typeof art.token.randomImg === "boolean")))
-                    )
+                                    (!("randomImg" in art.token) || typeof art.token.randomImg === "boolean"))),
+                    ),
             )
         );
     }

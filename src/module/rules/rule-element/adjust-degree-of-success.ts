@@ -6,9 +6,10 @@ import {
     DegreeAdjustmentAmount,
     DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
+import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { ModelPropsFromRESchema } from "./data.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 /**
  * @category RuleElement
@@ -28,7 +29,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
                     choices: ["all", ...DEGREE_OF_SUCCESS_STRINGS],
                 }),
                 new fields.StringField({ required: true, nullable: false, choices: degreeAdjustmentAmountString }),
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
         };
     }
@@ -50,13 +51,16 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
             "to-critical-success": DEGREE_ADJUSTMENT_AMOUNTS.TO_CRITICAL_SUCCESS,
         } as const;
 
-        const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce((accumulated, outcome) => {
-            const adjustment = adjustments[outcome];
-            if (adjustment) {
-                accumulated[outcome] = { label: this.label, amount: stringToAdjustment[adjustment] };
-            }
-            return accumulated;
-        }, {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } });
+        const record = (["all", ...DEGREE_OF_SUCCESS_STRINGS] as const).reduce(
+            (accumulated, outcome) => {
+                const adjustment = adjustments[outcome];
+                if (adjustment) {
+                    accumulated[outcome] = { label: this.label, amount: stringToAdjustment[adjustment] };
+                }
+                return accumulated;
+            },
+            {} as { [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount } },
+        );
 
         const synthetics = (this.actor.synthetics.degreeOfSuccessAdjustments[selector] ??= []);
         synthetics.push({
@@ -68,7 +72,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
 
 interface AdjustDegreeOfSuccessRuleElement
     extends RuleElementPF2e<AdjustDegreeRuleSchema>,
-        ModelPropsFromSchema<AdjustDegreeRuleSchema> {
+        ModelPropsFromRESchema<AdjustDegreeRuleSchema> {
     get actor(): CharacterPF2e | NPCPF2e;
 }
 

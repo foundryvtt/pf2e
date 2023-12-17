@@ -1,4 +1,4 @@
-import { CharacterPF2e } from "@actor";
+import type { CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
 import { SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense.ts";
@@ -11,9 +11,9 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
-import { ResolvableValueField, RuleElementSource } from "../data.ts";
-import { RuleElementOptions, RuleElementPF2e } from "../index.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
 import { ImmunityRuleElement } from "../iwr/immunity.ts";
 import { ResistanceRuleElement } from "../iwr/resistance.ts";
 import { WeaknessRuleElement } from "../iwr/weakness.ts";
@@ -55,7 +55,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                                 initial: true,
                             }),
                         },
-                        { required: false, initial: undefined }
+                        { required: false, initial: undefined },
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
@@ -69,7 +69,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                             }),
                             range: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
                         }),
-                        { required: false, initial: undefined }
+                        { required: false, initial: undefined },
                     ),
                     size: new fields.StringField({ required: false, blank: false, initial: undefined }),
                     speeds: new fields.ObjectField({ required: false, initial: undefined }),
@@ -79,7 +79,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                     weaknesses: new fields.ArrayField(new fields.ObjectField()),
                     resistances: new fields.ArrayField(new fields.ObjectField()),
                 },
-                { required: true, nullable: false }
+                { required: true, nullable: false },
             ),
             ownUnarmed: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             canCast: new fields.BooleanField({ required: false, nullable: false, initial: false }),
@@ -93,7 +93,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         this.overrides = this.resolveValue(
             this.value,
-            this.overrides
+            this.overrides,
         ) as ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
 
         this.modifierLabel = this.getReducedLabel();
@@ -168,7 +168,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onCreate(
-                actorUpdates
+                actorUpdates,
             );
         }
     }
@@ -211,7 +211,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.#prepareIWR();
 
         // Initiative is built from skills/perception, so re-initialize just in case
-        this.actor.initiative = new ActorInitiative(this.actor);
+        const initiativeSkill = this.actor.system.attributes.initiative?.statistic || "perception";
+        this.actor.initiative = new ActorInitiative(this.actor, { statistic: initiativeSkill });
         this.actor.system.attributes.initiative = this.actor.initiative.getTraceData();
     }
 
@@ -222,7 +223,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
             new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onDelete(
-                actorUpdates
+                actorUpdates,
             );
         }
     }
@@ -253,9 +254,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         attributes.handsFree = Math.max(
             Object.values(this.overrides.strikes ?? {}).reduce(
                 (count, s) => (s.category === "unarmed" ? count : count - 1),
-                2
+                2,
             ),
-            0
+            0,
         );
 
         for (const num of [0, 1, 2]) {
@@ -351,9 +352,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 modifiers: [baseMod],
                 filter: this.#filterModifier,
             }) as CharacterSkill;
-            this.actor.system.skills[skillShort] = mergeObject(
+            this.actor.system.skills[skillShort] = fu.mergeObject(
                 this.actor.system.skills[skillShort],
-                this.actor.skills[key].getTraceData()
+                this.actor.skills[key].getTraceData(),
             );
         }
     }
@@ -362,6 +363,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #prepareStrikes(): void {
         const { synthetics } = this.actor;
         const strikes = this.overrides.strikes ?? {};
+        for (const strike of Object.values(strikes)) {
+            strike.ownIfHigher ??= true;
+        }
 
         const ruleData = Object.entries(strikes).map(([slug, strikeData]) => ({
             key: "Strike",
@@ -369,17 +373,17 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 game.i18n.localize(strikeData.label) ??
                 `PF2E.BattleForm.Attack.${sluggify(slug, { camel: "bactrian" })}`,
             slug,
+            predicate: strikeData.predicate ?? [],
             img: strikeData.img ?? BattleFormRuleElement.#defaultIcons[slug] ?? this.item.img,
             category: strikeData.category,
             group: strikeData.group,
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: strikeData.range,
-            maxRange: strikeData.maxRange,
+            range: { increment: strikeData.range ?? null, max: strikeData.maxRange ?? null },
             traits: strikeData.traits ?? [],
             ability: strikeData.ability,
-            ownIfHigher: (strikeData.ownIfHigher ??= true),
+            battleForm: true,
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
@@ -389,7 +393,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             }
             this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
-            synthetics.strikes.clear();
+            for (const [slug, strike] of synthetics.strikes.entries()) {
+                if (!strike.flags.pf2e.battleForm) synthetics.strikes.delete(slug);
+            }
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
                 predicate.push({ not: "battle-form" });
@@ -397,14 +403,12 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement({ ...datum, battleForm: true }, { parent: this.item }).beforePrepareData();
+                new StrikeRuleElement(datum, { parent: this.item }).beforePrepareData();
             }
         }
 
         this.actor.system.actions = this.actor
-            .prepareStrikes({
-                includeBasicUnarmed: this.ownUnarmed,
-            })
+            .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
             .filter((a) => (a.slug && a.slug in strikes) || (this.ownUnarmed && a.item.category === "unarmed"));
         const strikeActions = this.actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
@@ -420,7 +424,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 // replace inapplicable attack-roll modifiers with the battle form's
                 this.#suppressModifiers(action);
                 this.#suppressNotes(
-                    Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : []))
+                    Object.entries(synthetics.rollNotes).flatMap(([key, note]) => (/\bdamage\b/.test(key) ? note : [])),
                 );
                 const baseModifier = Number(this.resolveValue(strike.modifier)) || 0;
                 action.unshift(new ModifierPF2e(this.modifierLabel, baseModifier, "untyped"));
@@ -438,16 +442,12 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             new ImmunityRuleElement({ key: "Immunity", ...immunity }, { parent: this.item }).afterPrepareData();
         }
         for (const weakness of this.overrides.weaknesses) {
-            new WeaknessRuleElement(
-                { key: "Weakness", ...weakness, override: true },
-                { parent: this.item }
-            ).afterPrepareData();
+            const args = { key: "Weakness", ...weakness, override: true };
+            new WeaknessRuleElement(args, { parent: this.item }).afterPrepareData();
         }
         for (const resistance of this.overrides.resistances) {
-            new ResistanceRuleElement(
-                { key: "Resistance", ...resistance, override: true },
-                { parent: this.item }
-            ).afterPrepareData();
+            const args = { key: "Resistance", ...resistance, override: true };
+            new ResistanceRuleElement(args, { parent: this.item }).afterPrepareData();
         }
     }
 
@@ -568,9 +568,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 category: weapon.category,
                 group: weapon.group,
                 baseType: weapon.baseType,
-                traits: deepClone(weapon.system.traits.value),
+                traits: fu.deepClone(weapon.system.traits.value),
                 modifier: strike.modifier,
-                damage: deepClone(weapon.system.damage),
+                damage: fu.deepClone(weapon.system.damage),
                 ownIfHigher: strike.ownIfHigher,
             };
 
@@ -581,7 +581,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
 interface BattleFormRuleElement
     extends RuleElementPF2e<BattleFormRuleSchema>,
-        ModelPropsFromSchema<BattleFormRuleSchema> {
+        ModelPropsFromRESchema<BattleFormRuleSchema> {
     get actor(): CharacterPF2e;
 }
 

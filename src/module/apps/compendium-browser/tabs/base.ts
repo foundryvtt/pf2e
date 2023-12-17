@@ -62,7 +62,7 @@ export abstract class CompendiumBrowserTab {
         });
         this.searchEngine.addAll(this.indexData);
         // Set defaultFilterData for resets
-        this.defaultFilterData = deepClone(this.filterData);
+        this.defaultFilterData = fu.deepClone(this.filterData);
         // Initialization complete
         this.isInitialized = true;
     }
@@ -103,12 +103,12 @@ export abstract class CompendiumBrowserTab {
         if (!this.isInitialized) {
             await this.init();
         }
-        return deepClone(this.defaultFilterData);
+        return fu.deepClone(this.defaultFilterData);
     }
 
     /** Reset all filters */
     resetFilters(): void {
-        this.filterData = deepClone(this.defaultFilterData);
+        this.filterData = fu.deepClone(this.defaultFilterData);
     }
 
     /** Check this tabs type */
@@ -129,7 +129,7 @@ export abstract class CompendiumBrowserTab {
     protected filterTraits(
         traits: string[],
         selected: MultiselectData["selected"],
-        condition: MultiselectData["conjunction"]
+        condition: MultiselectData["conjunction"],
     ): boolean {
         const selectedTraits = selected.filter((s) => !s.not).map((s) => s.value);
         const notTraits = selected.filter((t) => t.not).map((s) => s.value);
@@ -175,6 +175,8 @@ export abstract class CompendiumBrowserTab {
                     return entryA.level - entryB.level || entryA.name.localeCompare(entryB.name, lang);
                 case "price":
                     return entryA.priceInCopper - entryB.priceInCopper || entryA.name.localeCompare(entryB.name, lang);
+                case "rank":
+                    return entryA.rank - entryB.rank || entryA.name.localeCompare(entryB.name, lang);
                 default:
                     return 0;
             }
@@ -205,7 +207,7 @@ export abstract class CompendiumBrowserTab {
                 ...result,
                 [key]: game.i18n.localize(label),
             }),
-            {}
+            {},
         );
         // Return localized and sorted CheckBoxOptions
         return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
@@ -216,17 +218,17 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {}
+            {},
         );
     }
 
     protected generateMultiselectOptions<T extends string>(
         optionsRecord: Record<T, string>,
-        sort?: boolean
+        sort?: boolean,
     ): { value: T; label: string }[];
     protected generateMultiselectOptions(
         optionsRecord: Record<string, string>,
-        sort = true
+        sort = true,
     ): { value: string; label: string }[] {
         const options = Object.entries(optionsRecord).map(([value, label]) => ({
             value,
@@ -249,21 +251,21 @@ export abstract class CompendiumBrowserTab {
                     selected: false,
                 },
             }),
-            {}
+            {},
         );
     }
 
     /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
     protected sortedConfig(obj: Record<string, string>): Record<string, string> {
         return Object.fromEntries(
-            [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang))
+            [...Object.entries(obj)].sort((entryA, entryB) => entryA[1].localeCompare(entryB[1], game.i18n.lang)),
         );
     }
 
     /** Ensure all index fields are present in the index data */
     protected hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
         for (const field of indexFields) {
-            if (getProperty(data, field) === undefined) {
+            if (fu.getProperty(data, field) === undefined && !/\.(?:source|publication)/.test(field)) {
                 return false;
             }
         }
@@ -340,7 +342,7 @@ export abstract class CompendiumBrowserTab {
                 const table = game.tables.get(option.value, { strict: true });
                 await table.createEmbeddedDocuments(
                     "TableResult",
-                    this.#getRollTableResults({ initial: table.results.size, weight })
+                    this.#getRollTableResults({ initial: table.results.size, weight }),
                 );
                 table?.sheet.render(true);
             },

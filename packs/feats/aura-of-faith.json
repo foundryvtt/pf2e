@@ -1,6 +1,6 @@
 {
     "_id": "7sFhBYoz5GSBFNbY",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Aura of Faith",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You radiate an aura of pure belief that imbues your attacks and those of nearby allies with holy power.</p>\n<p>Your Strikes deal an extra 1 good damage against evil creatures. Also, each good-aligned ally within 15 feet gains this benefit on their first Strike that hits an evil creature each round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith]</p>"
+            "value": "<p>You radiate an aura of pure belief that imbues your attacks and those of nearby allies with holy power. Your Strikes deal and extra 1 spirit damage against unholy creatures. Also, each willing ally within 15 feet gains this benefit on their first Strike that hits an unholy creature each round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith]</p>"
         },
         "level": {
             "value": 12
@@ -23,18 +23,33 @@
                 }
             ]
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
-                "damageType": "good",
+                "damageType": "spirit",
                 "key": "FlatModifier",
-                "label": "Aura of Faith (Self)",
+                "predicate": [
+                    "target:trait:unholy"
+                ],
                 "selector": "strike-damage",
                 "value": 1
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 15
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

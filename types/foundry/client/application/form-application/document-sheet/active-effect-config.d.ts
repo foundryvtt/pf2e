@@ -12,15 +12,12 @@ declare global {
                 navSelector: ".tabs";
                 contentSelector: "form";
                 initial: "details";
-            }
+            },
         ];
     }
 
-    interface ActiveEffectConfigData<
-        TDocument extends ActiveEffect<
-            Actor<TokenDocument<Scene | null> | null> | Item<Actor<TokenDocument<Scene | null> | null> | null> | null
-        >
-    > extends DocumentSheetData<TDocument> {
+    interface ActiveEffectConfigData<TDocument extends ActiveEffect<Actor | Item | null>>
+        extends DocumentSheetData<TDocument> {
         effect: TDocument;
         isActorEffect: boolean;
         isItemEffect: boolean;
@@ -28,11 +25,7 @@ declare global {
         modes: Record<number, string>;
     }
 
-    class ActiveEffectConfig<
-        TDocument extends ActiveEffect<
-            Actor<TokenDocument<Scene | null> | null> | Item<Actor<TokenDocument<Scene | null> | null> | null> | null
-        >
-    > extends DocumentSheet<TDocument> {
+    class ActiveEffectConfig<TDocument extends ActiveEffect<Actor | Item | null>> extends DocumentSheet<TDocument> {
         static override get defaultOptions(): ActiveEffectConfigOptions;
 
         override getData(options?: DocumentSheetOptions): ActiveEffectConfigData<TDocument>;

@@ -3,26 +3,15 @@
     "img": "icons/containers/barrels/barrel-oak-steel-brown.webp",
     "name": "Black Powder (Keg)",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 5000,
-            "value": 5000
+        "bulk": {
+            "value": 50
         },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "other",
         "containerId": "null",
+        "damage": null,
         "description": {
             "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>Black powder is a volatile and explosive alchemical substance commonly used in the production of firearm munitions. Black powder becomes inert and useless when wet and must be kept in a sealed, water-tight container.</p>\n<p>A keg contains 5,000 doses of black powder and can be detonated in the same way as a @UUID[Compendium.pf2e.equipment-srd.Item.Black Powder (Horn)]. As long as the keg is mostly full (at least 4,000 doses remaining) this deals @Damage[3d6[fire]] damage in a @Template[type:burst|distance:20] (@Check[type:reflex|dc:20|basic:true|name:Gunpowder Detonation] save). Detonating multiple kegs can increase the area, but not the damage, of this effect; detonating a keg and any horns at the same time in an overlapping area also doesn't increase the damage.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +25,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 50
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Guns & Gears"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "uncommon",
             "value": [
@@ -61,8 +48,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "50"
+        "uses": {
+            "autoDestroy": true,
+            "max": 5000,
+            "value": 5000
         }
     },
     "type": "consumable"

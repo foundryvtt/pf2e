@@ -1,6 +1,6 @@
 {
     "_id": "d8AjCqU30z7IOpos",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Ravening's Desperation",
     "system": {
         "actionType": {
@@ -23,10 +23,45 @@
                 }
             ]
         },
-        "rules": [],
-        "source": {
-            "value": "Pathfinder #153: Life's Long Shadows"
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #153: Life's Long Shadows"
         },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": [
+                    "survival",
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            25
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "ravenings-desperation",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

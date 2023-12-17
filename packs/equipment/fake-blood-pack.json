@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/fake-blood-pack.webp",
     "name": "Fake Blood Pack",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 0,
-            "value": 0
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "other",
         "containerId": "null",
+        "damage": null,
         "description": {
             "value": "<p>Adventurers have found a number of uses for these animal blood-filled bladders, which were originally used in theatrical productions. Whenever you take slashing or piercing damage with the fake blood pack under your clothes or armor, roll a @Check[type:flat|dc:11]. On a success, the blood pack is punctured. You or an ally can puncture the hidden pack intentionally.</p>\n<p>When faking an injury, the blood pack grants a +2 item bonus to relevant Deception checks, such as to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] about being injured. Abilities that trigger when a creature deals bleed damage, determine if a creature is bleeding, or are otherwise based on bleed damage don't trigger or apply for blood from a fake blood pack, which might mean creatures with such abilities automatically realize the ruse.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,13 +25,15 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 1
             }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
         "quantity": 1,
         "rules": [
@@ -55,10 +46,6 @@
             }
         ],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Lost Omens: The Grand Bazaar"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -68,8 +55,10 @@
         "usage": {
             "value": "worn-under-armor"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

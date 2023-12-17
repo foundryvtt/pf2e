@@ -1,8 +1,8 @@
 {{#if identified}}
     {{#if item.system.traits}}
-        <div class="tags item-properties">
-            {{#if rarityLabel}}
-                <span class="tag {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+        <div class="tags item-properties" data-tooltip-class="pf2e">
+            {{#if (and rarityLabel (ne item.system.traits.rarity "common"))}}
+                <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
             {{/if}}
             {{#each chatData.traits as |trait|}}
                 <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
@@ -34,15 +34,24 @@
 
         {{#unless item.hasVariants}}
             {{#if chatData.isAttack}}
-                <span><button type="button" class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                <button type="button" class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
             {{/if}}
             {{#if chatData.hasDamage}}
-                <span><button type="button" class="spell_damage" data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.formula}}</button></span>
+                <button type="button" class="spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
+            {{/if}}
+            {{#if (and chatData.area (not chatData.isAura))}}
+                <button type="button" data-action="spellTemplate" data-visibility="owner">
+                    {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=chatData.area.label}}
+                </button>
             {{/if}}
         {{/unless}}
 
-        {{#if (and (eq item.type "consumable") item.uses.max)}}
-            <span><button type="button" class="consume" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.name}}</button></span>
+        {{#if (and (eq item.type "consumable") chatData.isUsable (not item.isAmmo))}}
+            {{#if (gt item.system.uses.value 0)}}
+                <button type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
+            {{else}}
+                <button type="button" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
+            {{/if}}
         {{/if}}
     </div>
 {{/if}}

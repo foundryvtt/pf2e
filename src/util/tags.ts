@@ -34,7 +34,7 @@ function tagify(input: HTMLInputElement, options?: TagifyOptions): Tagify<TagRec
 function tagify(input: HTMLInputElement | null, options?: TagifyOptions): Tagify<TagRecord> | null;
 function tagify(
     input: HTMLInputElement | null,
-    { whitelist, maxTags, enforceWhitelist = true }: TagifyOptions = {}
+    { whitelist, maxTags, enforceWhitelist = true }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
     if (input?.hasAttribute("name") && input.dataset.dtype !== "JSON") {
         throw ErrorPF2e("Usable only on input elements with JSON data-dtype");

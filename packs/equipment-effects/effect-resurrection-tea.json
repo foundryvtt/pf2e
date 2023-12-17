@@ -1,0 +1,43 @@
+{
+    "_id": "Wa5s0Perw2DGHGCA",
+    "img": "icons/consumables/plants/dried-herb-bundle-brown.webp",
+    "name": "Effect: Resurrection Tea",
+    "system": {
+        "description": {
+            "value": "<p>Reduce the DC of recovery checks by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 8
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "subtract",
+                "path": "system.attributes.dying.recoveryDC",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

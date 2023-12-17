@@ -1,34 +1,84 @@
-.damage-formulas {
-    margin-top: 8px;
-
-    .details-container-flex-row {
-        gap: 2px;
-        margin-top: 4px;
-    }
-
-    input[type="checkbox"] {
-        margin-left: 2px;
-    }
-
-    .traits-list {
+.tab.details.active {
+    .save-basic {
         display: flex;
-        margin-top: 2px;
+        flex-wrap: nowrap;
+        justify-content: end;
     }
 
-    .tag {
-        float: none; // remove when global rule is removed
+    .damage-formulas {
+        margin-top: 0.5rem;
+
+        .form-fields {
+            gap: 2px;
+            white-space: nowrap;
+
+            .apply-mod {
+                white-space: nowrap;
+            }
+
+            select {
+                max-width: 8em;
+            }
+
+            .materials {
+                align-self: end;
+            }
+        }
     }
-}
 
-button[data-action="damage-add"] {
-    margin-top: 4px;
-}
+    button + fieldset {
+        margin-top: 0.5rem;
+    }
 
-.variants .variant {
-    display: grid;
-    grid-template-columns: 1fr 1fr 0.2fr;
+    fieldset.heightening {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
 
-    .item-controls {
-        justify-self: end;
+        .add {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            button.only-option {
+                grid-column: span 2;
+            }
+        }
+
+        .overlay {
+            .toggle-button-list {
+                column-gap: 2px;
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                margin: 4px 0;
+
+                button {
+                    font-size: var(--font-size-12);
+                    line-height: normal;
+                    margin: 0;
+                    padding: 0.25em;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+
+    .overlay {
+        .traits {
+            align-items: center;
+            display: flex;
+            gap: 4px;
+            .tags {
+                flex: 1;
+            }
+        }
+    }
+
+    .variants .variant {
+        display: grid;
+        grid-template-columns: 1fr 1fr 0.2fr;
+
+        .item-controls {
+            justify-self: end;
+        }
     }
 }

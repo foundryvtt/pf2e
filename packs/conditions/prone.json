@@ -4,13 +4,18 @@
     "name": "Prone",
     "system": {
         "description": {
-            "value": "<p>You're lying on the ground. You are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and take a -2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are @UUID[Compendium.pf2e.actionspf2e.Item.Crawl] and @UUID[Compendium.pf2e.actionspf2e.Item.Stand]. Standing up ends the prone condition. You can @UUID[Compendium.pf2e.actionspf2e.Item.Take Cover] while prone to hunker down and gain cover against ranged attacks, even if you don't have an object to get behind, gaining a +4 circumstance bonus to AC against ranged attacks (but you remain off-guard).</p>\n<p>If you would be knocked prone while you're @UUID[Compendium.pf2e.actionspf2e.Item.Climb]{Climbing} or @UUID[Compendium.pf2e.actionspf2e.Item.Fly]{Flying}, you fall. You can't be knocked prone when @UUID[Compendium.pf2e.actionspf2e.Item.Swim]{Swimming}.</p>"
+            "value": "<p>You're lying on the ground. You are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and take a –2 circumstance penalty to attack rolls. The only move actions you can use while you're prone are @UUID[Compendium.pf2e.actionspf2e.Item.Crawl] and @UUID[Compendium.pf2e.actionspf2e.Item.Stand]. Standing up ends the prone condition. You can @UUID[Compendium.pf2e.actionspf2e.Item.Take Cover] while prone to hunker down and gain greater cover against ranged attacks, even if you don't have an object to get behind, which grants you a +4 circumstance bonus to AC against ranged attacks (but you remain off-guard).</p>\n<p>If you would be knocked prone while you're @UUID[Compendium.pf2e.actionspf2e.Item.Climb]{Climbing} or @UUID[Compendium.pf2e.actionspf2e.Item.Fly]{Flying}, you fall. You can't be knocked prone when @UUID[Compendium.pf2e.actionspf2e.Item.Swim]{Swimming}.</p>"
         },
         "duration": {
             "value": 0
         },
         "group": null,
         "overrides": [],
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -26,16 +31,11 @@
                 "value": -2
             },
             {
+                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "value": {
             "isValued": false,
             "value": null

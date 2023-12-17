@@ -1,6 +1,6 @@
 {
     "_id": "wNHUryoRzlfDCFAd",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Soaring Shape",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Wings free you from the shackles of the ground below.</p>\n<p>Add the bat and bird forms in <em>@UUID[Compendium.pf2e.spells-srd.Item.Aerial Form]</em> to your <em>wild shape</em> list.</p>\n<p>If you have @UUID[Compendium.pf2e.feats-srd.Item.Insect Shape], you also add the wasp form to your <em>wild shape</em> list. If you have @UUID[Compendium.pf2e.feats-srd.Item.Ferocious Shape], you also add the pterosaur form to your <em>wild shape</em> list.</p>\n<p>Whenever you use <em>wild shape</em> to gain a form that grants you a specific Acrobatics modifier, you gain a +1 status bonus to Acrobatics checks.</p>"
+            "value": "<p>Wings free you from the shackles of the ground below. Add the bat and bird shapes in @UUID[Compendium.pf2e.spells-srd.Item.Aerial Form] to your @UUID[Compendium.pf2e.spells-srd.Item.Untamed Form] list. If you have @UUID[Compendium.pf2e.feats-srd.Item.Insect Shape], you also add the wasp shape to your <em>untamed form</em> list. If you have @UUID[Compendium.pf2e.feats-srd.Item.Ferocious Shape], you also add the pterosaur shape to your <em>untamed form</em> list. Whenever you use <em>untamed form</em> to take a shape that grants you a specific Acrobatics modifier, you gain a +1 status bonus to Acrobatics checks.</p>"
         },
         "level": {
             "value": 8
@@ -19,9 +19,14 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Wild Shape"
+                    "value": "Untamed Form"
                 }
             ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -38,10 +43,10 @@
                 "mode": "add",
                 "path": "flags.pf2e.wildShapeForms",
                 "predicate": [
-                    "feat:wild-shape"
+                    "feat:untamed-form"
                 ],
                 "value": {
-                    "value": "Compendium.pf2e.spell-effects.Item.jvwKRHtOiPAm4uAP"
+                    "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Bat)"
                 }
             },
             {
@@ -49,10 +54,10 @@
                 "mode": "add",
                 "path": "flags.pf2e.wildShapeForms",
                 "predicate": [
-                    "feat:wild-shape"
+                    "feat:untamed-form"
                 ],
                 "value": {
-                    "value": "Compendium.pf2e.spell-effects.Item.0QVufU5o3xIxiHmP"
+                    "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Bird)"
                 }
             },
             {
@@ -60,11 +65,11 @@
                 "mode": "add",
                 "path": "flags.pf2e.wildShapeForms",
                 "predicate": [
-                    "feat:wild-shape",
+                    "feat:untamed-form",
                     "feat:insect-shape"
                 ],
                 "value": {
-                    "value": "Compendium.pf2e.spell-effects.Item.xgZxYqjDPNtsQ3Qp"
+                    "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Wasp)"
                 }
             },
             {
@@ -72,17 +77,14 @@
                 "mode": "add",
                 "path": "flags.pf2e.wildShapeForms",
                 "predicate": [
-                    "feat:wild-shape",
+                    "feat:untamed-form",
                     "feat:ferocious-shape"
                 ],
                 "value": {
-                    "value": "Compendium.pf2e.spell-effects.Item.UjoNm3lrhlg4ctAQ"
+                    "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Pterosaur)"
                 }
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

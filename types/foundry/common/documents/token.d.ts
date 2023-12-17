@@ -24,8 +24,6 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
 export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
     extends Document<TParent, TokenSchema>,
         ModelPropsFromSchema<TokenSchema> {
-    readonly _source: TokenSource;
-
     delta: BaseActorDelta<this> | null;
     light: LightData;
 }
@@ -52,6 +50,11 @@ type TokenSchema = {
     actorId: fields.ForeignDocumentField<string>;
     /** Does this Token uniquely represent a singular Actor, or is it one of many? */
     actorLink: fields.BooleanField;
+    /**
+     * The ActorDelta embedded document which stores the differences between this token and the base actor it
+     * represents.
+     */
+    delta: ActorDeltaField<BaseActorDelta<BaseToken>>;
     appendNumber: fields.BooleanField;
     prependAdjective: fields.BooleanField;
     /** The token's texture on the canvas. */
@@ -94,8 +97,8 @@ type TokenSchema = {
         /** The attribute path within the Token's Actor data which should be displayed */
         attribute: fields.StringField<string, string, true, true, true>;
     }>;
-    // /** Configuration of the light source that this Token emits */
-    // light: fields.EmbeddedDataField<LightData>;
+    /** Configuration of the light source that this Token emits */
+    light: fields.EmbeddedDataField<LightData>;
     /** Configuration of sight and vision properties for the Token */
     sight: fields.SchemaField<{
         /** Should vision computation and rendering be active for this Token? */
@@ -132,17 +135,14 @@ type TokenSchema = {
     flags: fields.ObjectField<DocumentFlags>;
 };
 
-export type TokenSource = SourceFromSchema<TokenSchema> & {
-    delta: ActorDeltaSource | null;
-    light: LightData["_source"];
-};
+export type TokenSource = SourceFromSchema<TokenSchema>;
 
-// declare class ActorDeltaField<
-//     TDocument extends BaseActorDelta<any> = BaseActorDelta<any>
-// > extends fields.EmbeddedDocumentField<TDocument> {
-//     override initialize(
-//         value: fields.MaybeSchemaProp<TDocument["schema"]["fields"], true, true, true>,
-//         model?: ConstructorOf<TDocument>,
-//         options?: object
-//     ): TDocument;
-// }
+declare class ActorDeltaField<
+    TDocument extends BaseActorDelta<BaseToken> = BaseActorDelta<BaseToken>,
+> extends fields.EmbeddedDocumentField<TDocument> {
+    override initialize(
+        value: fields.MaybeSchemaProp<TDocument["_source"], true, true, true>,
+        model?: ConstructorOf<TDocument>,
+        options?: object,
+    ): fields.MaybeSchemaProp<TDocument, true, true, true>;
+}

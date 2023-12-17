@@ -7,7 +7,7 @@ export class Migration664DeleteCUBConditions extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         const cubConditions = actorSource.items.filter(
-            (item) => item.type === "condition" && !item.system.references?.overriddenBy
+            (item) => item.type === "condition" && !item.system.references?.overriddenBy,
         );
         for (const condition of cubConditions) {
             actorSource.items.findSplice((item) => item === condition);

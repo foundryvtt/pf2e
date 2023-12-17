@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -96,7 +96,7 @@ export class Migration821InlineDamageRolls extends MigrationBase {
             this.#damagePatternSingle,
             (_, roll: string, formula: string, damage: string, tag?: string) => {
                 return this.#buildDamageFormula(roll, [{ formula, damage }], tag);
-            }
+            },
         );
 
         text = text.replace(
@@ -108,9 +108,9 @@ export class Migration821InlineDamageRolls extends MigrationBase {
                         { formula: formula1, damage: damage1 },
                         { formula: formula2, damage: damage2 },
                     ],
-                    tag
+                    tag,
                 );
-            }
+            },
         );
 
         return text;

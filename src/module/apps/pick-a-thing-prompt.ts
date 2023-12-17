@@ -126,11 +126,11 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
                 game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
                     actor: this.actor.name,
                     item: this.item.name,
-                })
+                }),
             );
         } else if (!this.selection && !this.allowNoSelection) {
             ui.notifications.warn(
-                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name })
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
             );
         }
 

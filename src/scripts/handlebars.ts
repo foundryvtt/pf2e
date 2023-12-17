@@ -1,6 +1,6 @@
-import { Coins, PartialPrice } from "@item/physical/data.ts";
+import type { Coins, PartialPrice } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { getActionGlyph, ordinal, sluggify } from "../util/index.ts";
+import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
@@ -46,7 +46,7 @@ export function registerHandlebarsHelpers(): void {
 
     Handlebars.registerHelper("ordinal", (value: unknown): string | null => {
         const numericValue = Number(value);
-        return isNaN(numericValue) ? null : ordinal(numericValue);
+        return isNaN(numericValue) ? null : ordinalString(numericValue);
     });
 
     Handlebars.registerHelper("sluggify", (text: unknown): string => {
@@ -69,7 +69,9 @@ export function registerHandlebarsHelpers(): void {
     });
 
     Handlebars.registerHelper("times", (count: unknown, options: Handlebars.HelperOptions): string =>
-        [...Array(Number(count)).keys()].map((i) => options.fn(i)).join("")
+        [...Array(Number(count) || 0).keys()]
+            .map((i) => options.fn(i, { data: options.data, blockParams: [i] }))
+            .join(""),
     );
 
     Handlebars.registerHelper("concat", (...params: unknown[]): string => {
@@ -92,6 +94,13 @@ export function registerHandlebarsHelpers(): void {
         return value === null || value === undefined;
     });
 
+    Handlebars.registerHelper("signedInteger", (value: unknown, options: Handlebars.HelperOptions): string => {
+        const number = Number(value) || 0;
+        const emptyStringZero = !!options.hash.emptyStringZero;
+        const zeroIsNegative = !!options.hash.zeroIsNegative;
+        return signedInteger(number, { emptyStringZero, zeroIsNegative });
+    });
+
     Handlebars.registerHelper("coinLabel", (value: Maybe<Coins | PartialPrice>): CoinsPF2e | null => {
         if (!value) return null;
         if ("value" in value) {
@@ -102,7 +111,13 @@ export function registerHandlebarsHelpers(): void {
     });
 
     Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
-        return Array.isArray(arr) && arr.includes(element);
+        return Array.isArray(arr)
+            ? arr.includes(element)
+            : arr instanceof Set
+              ? arr.has(element)
+              : arr && typeof arr === "object"
+                ? (typeof element === "number" || typeof element === "string") && element in arr
+                : false;
     });
 
     // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented

@@ -1,5 +1,5 @@
-import type { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers.ts";
-import { ItemType } from "@item/data/index.ts";
+import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import { ItemType, SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
@@ -8,11 +8,12 @@ import { DamageRollContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
-interface ChatMessageSourcePF2e extends foundry.documents.ChatMessageSource {
+type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
-}
+};
 
 export interface ItemOriginFlag {
+    actor?: ActorUUID;
     type: ItemType;
     uuid: string;
     castLevel?: number;
@@ -25,11 +26,10 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
         origin?: ItemOriginFlag | null;
-        casting?: { id: string; tradition: MagicTradition } | null;
-        modifierName?: string;
-        modifiers?: (BaseRawModifier | DamageDicePF2e)[];
+        casting?: { id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
+        modifiers?: RawModifier[];
+        dice?: RawDamageDice[];
         preformatted?: "flavor" | "content" | "both";
-        isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
         appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { EffectAreaSize, EffectAreaType } from "@item/spell/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";

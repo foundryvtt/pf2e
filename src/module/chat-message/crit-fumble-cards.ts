@@ -37,7 +37,7 @@ export class CriticalHitAndFumbleCards {
             .get<CompendiumCollection<RollTable>>("pf2e.rollable-tables", { strict: true })
             .getDocument(tableId)
             .then((rollTable) => {
-                rollTable!.draw({ displayChat: false }).then((draw) => {
+                rollTable?.draw({ displayChat: false }).then((draw) => {
                     const data: { roll: Roll; messageData: Partial<foundry.documents.ChatMessageSource> } = {
                         roll: draw.roll,
                         messageData: {},
@@ -45,7 +45,7 @@ export class CriticalHitAndFumbleCards {
                     if (automatic && !this.diceSoNice) {
                         data.messageData.sound = undefined;
                     }
-                    rollTable!.toMessage(draw.results, data);
+                    rollTable?.toMessage(draw.results, data);
                 });
             });
     }
@@ -56,17 +56,17 @@ export class CriticalHitAndFumbleCards {
             const type = message.flags.pf2e.context?.type ?? "";
             if (this.rollTypes.includes(type)) {
                 const critButton = $(
-                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
-                        "PF2E.CriticalHitCardButtonTitle"
-                    )}"></i></button>`
+                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-up" title="${game.i18n.localize(
+                        "PF2E.CriticalHitCardButtonTitle",
+                    )}"></i></button>`,
                 );
                 const fumbleButton = $(
-                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize(
-                        "PF2E.CriticalFumbleCardButtonTitle"
-                    )}"></i></button>`
+                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-down" title="${game.i18n.localize(
+                        "PF2E.CriticalFumbleCardButtonTitle",
+                    )}"></i></button>`,
                 );
                 const btnContainer1 = $(
-                    `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`
+                    `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
                 );
                 btnContainer1.append(critButton);
                 btnContainer1.append(fumbleButton);

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
 import type { JournalEntrySource } from "types/foundry/common/documents/journal-entry.d.ts";
 import { MigrationBase } from "../base.ts";
@@ -53,7 +53,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
             "immunities" in source.system.attributes
         ) {
             source.system.attributes.immunities = recursiveReplaceString(source.system.attributes.immunities, (s) =>
-                this.#replace(s)
+                this.#replace(s),
             );
         }
     }

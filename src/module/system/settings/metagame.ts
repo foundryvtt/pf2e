@@ -19,7 +19,8 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Hint",
         default: false,
         type: Boolean,
-        onChange: async () => {
+        onChange: async (value: unknown) => {
+            game.pf2e.settings.tokens.nameVisibility = !!value;
             await ui.combat.render();
             const renderedMessages = document.querySelectorAll<HTMLLIElement>("#chat-log > li");
             for (const rendered of Array.from(renderedMessages)) {

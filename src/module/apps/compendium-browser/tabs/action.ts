@@ -31,39 +31,40 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
             "system.category",
             "system.traits.value",
             "system.actionType.value",
-            "system.source.value",
+            "system.publication",
+            "system.source",
         ];
-        const sources: Set<string> = new Set();
+        const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("action"),
-            indexFields
+            indexFields,
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (const actionData of index) {
                 if (actionData.type === "action") {
                     if (!this.hasAllIndexFields(actionData, indexFields)) {
                         console.warn(
-                            `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`
+                            `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
                         continue;
                     }
                     // update icons for any passive actions
                     if (actionData.system.actionType.value === "passive") actionData.img = getActionIcon("passive");
 
-                    // Prepare source
-                    const source = actionData.system.source.value;
-                    const sourceSlug = sluggify(source);
-                    if (source) {
-                        sources.add(source);
-                    }
+                    // Prepare publication source
+                    const { system } = actionData;
+                    const pubSource = String(system.publication?.title ?? system.source?.value ?? "").trim();
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
                     actions.push({
                         type: actionData.type,
                         name: actionData.name,
                         img: actionData.img,
                         uuid: `Compendium.${pack.collection}.${actionData._id}`,
-                        traits: actionData.system.traits.value,
+                        traits: actionData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         actionType: actionData.system.actionType.value,
                         category: actionData.system.category,
                         source: sourceSlug,
@@ -79,9 +80,9 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
         this.filterData.checkboxes.types.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTypes);
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(
-            R.pick(CONFIG.PF2E.actionCategories, ["familiar"])
+            R.pick(CONFIG.PF2E.actionCategories, ["familiar"]),
         );
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
+        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
@@ -142,7 +143,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                 by: "name",
                 direction: "asc",
                 options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
+                    name: "Name",
                 },
             },
             search: {

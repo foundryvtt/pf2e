@@ -1,0 +1,42 @@
+> nav {
+    align-items: baseline;
+    border-bottom: 1px solid var(--secondary-background);
+    border-top: 1px solid var(--secondary-background);
+    display: flex;
+    flex: 0 0 1.75rem;
+    line-height: 1.75rem;
+
+    a {
+        flex: 1 1 auto;
+    }
+
+    a.active {
+        text-decoration: underline;
+    }
+
+    .sidebar-summary {
+        flex: 0 0 13.75rem;
+        margin: 0;
+        text-align: center;
+    }
+
+    > .tabs {
+        font-weight: 500;
+        margin: 0;
+        flex: 1;
+        align-items: baseline;
+
+        > a {
+            font-size: var(--font-size-12);
+            text-align: center;
+
+            &:last-of-type {
+                padding-right: 0.25rem;
+            }
+
+            &.active {
+                font-weight: 600;
+            }
+        }
+    }
+}

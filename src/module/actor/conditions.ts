@@ -1,23 +1,21 @@
 import { ConditionPF2e } from "@item";
 import { ConditionSlug, PersistentDamagePF2e } from "@item/condition/index.ts";
 import { ActorPF2e } from "./base.ts";
+import { DelegatedCollection } from "@util";
 
 /** A wrapper for collections of conditions on an actor, filterable by whether they're active or stored/temporary */
-class ActorConditions<TActor extends ActorPF2e> {
-    /** A delegated map of conditions by ID */
-    #idMap = new Collection<ConditionPF2e<TActor>>();
-
+class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<ConditionPF2e<TActor>> {
     /** A secondary map by condition slug */
     #slugMap = new Collection<ConditionPF2e<TActor>[]>();
 
     /** Return an array of only active conditions */
     get active(): ConditionPF2e<TActor>[] {
-        return this.#idMap.filter((c) => c.active);
+        return this.filter((c) => c.active);
     }
 
     /** Return an array of only stored conditions */
     get stored(): ConditionPF2e<TActor>[] {
-        return this.#idMap.filter((c) => !c.inMemoryOnly);
+        return this.filter((c) => !c.inMemoryOnly);
     }
 
     /** Convenience getters for active badged conditions, especially for use by @actor resolvables in rule elements */
@@ -65,22 +63,17 @@ class ActorConditions<TActor extends ActorPF2e> {
         return this.bySlug("wounded", { active: true }).shift() ?? null;
     }
 
-    /** Iterate over the values of `#idMap` */
-    [Symbol.iterator](): IterableIterator<ConditionPF2e<TActor>> {
-        return this.#idMap.values();
-    }
-
     /** Provide additional options for retrieving a condition */
-    get(
+    override get(
         key: Maybe<string>,
-        options: { strict: true; active?: boolean | null; temporary?: boolean | null }
+        options: { strict: true; active?: boolean | null; temporary?: boolean | null },
     ): ConditionPF2e<TActor>;
-    get(key: string, options?: ConditionsGetOptions): ConditionPF2e<TActor> | undefined;
-    get(
+    override get(key: string, options?: ConditionsGetOptions): ConditionPF2e<TActor> | undefined;
+    override get(
         key: string,
-        { strict = false, active = null, temporary = null }: ConditionsGetOptions = {}
+        { strict = false, active = null, temporary = null }: ConditionsGetOptions = {},
     ): ConditionPF2e<TActor> | undefined {
-        const condition = this.#idMap.get(key, { strict });
+        const condition = super.get(key, { strict });
         if (active === true && !condition?.active) return undefined;
         if (active === false && condition?.active) return undefined;
         if (temporary === true && condition?.actor.items.has(key)) return undefined;
@@ -89,12 +82,8 @@ class ActorConditions<TActor extends ActorPF2e> {
         return condition;
     }
 
-    has(id: string): boolean {
-        return this.#idMap.has(id);
-    }
-
-    set(id: string, condition: ConditionPF2e<TActor>): this {
-        this.#idMap.set(id, condition);
+    override set(id: string, condition: ConditionPF2e<TActor>): this {
+        super.set(id, condition);
         const listBySlug = this.#slugMap.get(condition.slug) ?? [];
         listBySlug.push(condition);
         this.#slugMap.set(condition.slug, listBySlug);
@@ -102,28 +91,16 @@ class ActorConditions<TActor extends ActorPF2e> {
         return this;
     }
 
-    filter(condition: (value: ConditionPF2e<TActor>) => boolean): ConditionPF2e<TActor>[] {
-        return this.#idMap.filter(condition);
-    }
-
-    some(condition: (value: ConditionPF2e<TActor>) => boolean): boolean {
-        return this.#idMap.some(condition);
-    }
-
     every(condition: (value: ConditionPF2e<TActor>) => boolean): boolean {
-        return this.#idMap.contents.every(condition);
-    }
-
-    map<T>(transformer: (value: ConditionPF2e<TActor>) => T): T[] {
-        return this.#idMap.map(transformer);
+        return this.contents.every(condition);
     }
 
     flatMap<T>(transformer: (value: ConditionPF2e<TActor>) => T | T[] | never[]): T[] {
-        return this.#idMap.contents.flatMap(transformer);
+        return this.contents.flatMap(transformer);
     }
 
     /** No deletions: a new instance is created every data preparation cycle */
-    delete(): false {
+    override delete(): false {
         return false;
     }
 
@@ -143,8 +120,8 @@ class ActorConditions<TActor extends ActorPF2e> {
                 temporary === true
                     ? !condition.actor.items.has(condition.id)
                     : temporary === false
-                    ? condition.actor.items.has(condition.id)
-                    : true;
+                      ? condition.actor.items.has(condition.id)
+                      : true;
             return activeFilterSatisfied && temporaryFilterSatisfied;
         });
     }

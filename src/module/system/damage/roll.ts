@@ -4,32 +4,20 @@ import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
-import type Peggy from "peggy";
+import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
 
 abstract class AbstractDamageRoll extends Roll {
-    /** Ensure the presence and validity of the `critRule` option for this roll */
-    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
-        options.critRule = ((): CriticalDoublingRule => {
-            if (tupleHasValue(["double-damage", "double-dice"] as const, options.critRule)) {
-                return options.critRule;
-            }
-            return game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
-        })();
-
-        super(formula, data, options);
-    }
-
     declare static parser: Peggy.Parser;
 
     /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
         formula: string,
         data: Record<string, unknown>,
-        options: { missing?: string; warn?: boolean } = {}
+        options: { missing?: string; warn?: boolean } = {},
     ): string {
         const replaced = super.replaceFormulaData(formula.trim(), data, options);
         return replaced.replace(/(?<![a-z])\((\d+)\)/gi, "$1");
@@ -49,30 +37,30 @@ abstract class AbstractDamageRoll extends Roll {
     }
 }
 
-// Vite sets globals too late in dev server mode: push this to the end of the task queue so it'll wait
-Promise.resolve().then(() => {
-    AbstractDamageRoll.parser = ROLL_PARSER;
-});
-
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
 
-    constructor(formula: string, data = {}, options: DamageRollDataPF2e = {}) {
+    constructor(formula: string, data = {}, options: DamageRollData = {}) {
         formula = formula.trim();
         const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
         super(wrapped, data, options);
 
         this.roller = game.users.get(options.rollerId ?? "") ?? null;
 
+        if (tupleHasValue(["double-damage", "double-dice"], options.critRule)) {
+            // Ensure same crit rule is present on all instances
+            for (const instance of this.instances) {
+                instance.critRule = options.critRule;
+            }
+        } else {
+            // Prune nullish `critRule` property
+            delete options.critRule;
+        }
+
         if (options.evaluatePersistent) {
             for (const instance of this.instances) {
                 instance.options.evaluatePersistent = true;
             }
-        }
-
-        // Ensure same crit rule is present on all instances
-        for (const instance of this.instances) {
-            instance.options.critRule = this.options.critRule;
         }
     }
 
@@ -144,6 +132,11 @@ class DamageRoll extends AbstractDamageRoll {
         }
     }
 
+    get pool(): InstancePool | null {
+        const firstTerm = this.terms.at(0);
+        return firstTerm instanceof InstancePool ? firstTerm : null;
+    }
+
     override get formula(): string {
         const { instances } = this;
         // Backward compatibility for pre-instanced damage rolls
@@ -161,14 +154,19 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     get instances(): DamageInstance[] {
-        const pool = this.terms[0];
-        return pool instanceof PoolTerm
-            ? pool.rolls.filter((r): r is DamageInstance => r instanceof DamageInstance)
-            : [];
+        return this.pool?.rolls.filter((r): r is DamageInstance => r instanceof DamageInstance) ?? [];
     }
 
-    get materials(): MaterialDamageEffect[] {
-        return [...new Set(this.instances.flatMap((i) => i.materials))];
+    /**
+     * Damage roll rules more-or-less also applying to healing rolls and can be both or even include components of
+     * either.
+     */
+    get kinds(): Set<"damage" | "healing"> {
+        return new Set(this.instances.flatMap((i) => Array.from(i.kinds)));
+    }
+
+    get materials(): Set<MaterialDamageEffect> {
+        return new Set(this.instances.flatMap((i) => Array.from(i.materials)));
     }
 
     /** Return an Array of the individual DiceTerm instances contained within this Roll. */
@@ -201,7 +199,7 @@ class DamageRoll extends AbstractDamageRoll {
     /** Increase total to 1 if evaluating to 0 or less */
     protected override _evaluateTotal(): number {
         const total = super._evaluateTotal();
-        if (this.instances.some((i) => !i.persistent) && total <= 0) {
+        if (this.instances.some((i) => !i.persistent || this.options.evaluatePersistent) && total <= 0) {
             this.options.increasedFrom = total;
             // Send alteration to top of call stack since the Roll is currently updating itself
             Promise.resolve().then(() => {
@@ -241,15 +239,21 @@ class DamageRoll extends AbstractDamageRoll {
 
         if (!this._evaluated) await this.evaluate({ async: true });
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
+        const total = this.total ?? NaN;
+        const damageKinds = this.kinds;
+
         const chatData = {
             formula,
             user: game.user.id,
             tooltip: isPrivate || this.dice.length === 0 ? "" : await this.getTooltip(),
             instances: isPrivate ? [] : instances,
-            total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
+            total: isPrivate ? "?" : Math.floor((total * 100) / 100),
             increasedFrom: this.options.increasedFrom,
             splashOnly: !!this.options.splashOnly,
-            allPersistent: this.instances.every((i) => i.persistent && !i.options.evaluatePersistent),
+            damageOnly: !damageKinds.has("healing"),
+            healingOnly: !damageKinds.has("damage"),
+            allPersistent: this.instances.every((i) => i.persistent),
+            persistentEvaluated: this.instances.some((i) => i.persistent && i.options.evaluatePersistent),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
@@ -277,15 +281,15 @@ class DamageRoll extends AbstractDamageRoll {
                       const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
                       const expression = ArithmeticExpression.fromData({
                           operator: "*",
-                          operands: [deepClone(multiplierTerm), rightOperand],
+                          operands: [fu.deepClone(multiplierTerm), rightOperand],
                       });
                       if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
 
-                      return DamageInstance.fromTerms([expression], deepClone(instance.options));
+                      return DamageInstance.fromTerms([expression], fu.deepClone(instance.options));
                   });
 
         if (addend !== 0) {
-            const firstInstance = instanceClones[0]!;
+            const firstInstance = instanceClones[0];
 
             const term = firstInstance.head.toJSON();
             const options = term.options ?? {};
@@ -299,7 +303,7 @@ class DamageRoll extends AbstractDamageRoll {
                 operands: [termClone, addendTerm],
                 evaluated: true,
             });
-            instanceClones[0] = DamageInstance.fromTerms([expression], deepClone(firstInstance.options));
+            instanceClones[0] = DamageInstance.fromTerms([expression], fu.deepClone(firstInstance.options));
         }
 
         return DamageRoll.fromTerms([InstancePool.fromRolls(instanceClones)]) as this;
@@ -309,15 +313,19 @@ class DamageRoll extends AbstractDamageRoll {
 interface DamageRoll extends AbstractDamageRoll {
     constructor: typeof DamageRoll;
 
-    options: DamageRollDataPF2e;
+    options: DamageRollData;
 }
 
 class DamageInstance extends AbstractDamageRoll {
+    kinds: Set<"damage" | "healing">;
+
     type: DamageType;
 
     persistent: boolean;
 
-    materials: MaterialDamageEffect[];
+    materials: Set<MaterialDamageEffect>;
+
+    critRule: CriticalDoublingRule | null = null;
 
     constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
         super(formula.trim(), data, options);
@@ -326,9 +334,23 @@ class DamageInstance extends AbstractDamageRoll {
         this.type =
             flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
-        this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
-            objectHasKey(CONFIG.PF2E.materialDamageEffects, i)
+        this.materials = new Set(
+            flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
+                objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
+            ),
         );
+
+        const canBeHealing =
+            !this.persistent && this.materials.size === 0 && ["vitality", "void", "untyped"].includes(this.type);
+        if (canBeHealing && flavorIdentifiers.includes("healing")) {
+            if (!flavorIdentifiers.includes("damage")) {
+                this.kinds = new Set(["healing"]);
+            } else {
+                this.kinds = new Set(["damage", "healing"]);
+            }
+        } else {
+            this.kinds = new Set(["damage"]);
+        }
     }
 
     static override parse(formula: string, data: Record<string, unknown>): RollTerm[] {
@@ -416,8 +438,8 @@ class DamageInstance extends AbstractDamageRoll {
             this.persistent && this.type !== "bleed"
                 ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
                 : this.type !== "untyped"
-                ? typeFlavor
-                : "";
+                  ? typeFlavor
+                  : "";
         return [this.head.expression, damageType].join(" ").trim();
     }
 
@@ -447,8 +469,8 @@ class DamageInstance extends AbstractDamageRoll {
                 `damage:type:${this.type}`,
                 typeCategory ? `damage:category:${typeCategory}` : [],
                 this.persistent ? "damage:category:persistent" : [],
-                this.materials.map((m) => `damage:material:${m}`),
-            ].flat()
+                Array.from(this.materials).map((m) => `damage:material:${m}`),
+            ].flat(),
         );
     }
 
@@ -461,10 +483,10 @@ class DamageInstance extends AbstractDamageRoll {
         return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
     }
 
-    override async render(): Promise<string> {
+    override async render({ tooltips = true }: InstanceRenderOptions = {}): Promise<string> {
         const span = document.createElement("span");
         span.classList.add(this.type, "damage", "instance", "color");
-        span.title = this.typeLabel;
+        if (tooltips) span.dataset.tooltip = this.typeLabel;
         span.append(this.#renderFormula());
 
         if (this.persistent && this.type !== "bleed") {
@@ -490,29 +512,35 @@ class DamageInstance extends AbstractDamageRoll {
         return head instanceof ArithmeticExpression
             ? head.render()
             : ["precision", "splash"].includes(head.flavor)
-            ? renderComponentDamage(head)
-            : head.expression;
+              ? renderComponentDamage(head)
+              : head.expression;
     }
 
     override get dice(): DiceTerm[] {
         return this._dice.concat(
             this.terms
                 .reduce(
-                    (dice: (DiceTerm | never[])[], t) =>
-                        t instanceof DiceTerm
-                            ? [...dice, t]
-                            : t instanceof Grouping || t instanceof ArithmeticExpression || t instanceof IntermediateDie
-                            ? [...dice, ...t.dice]
-                            : [],
-                    this._dice
+                    (dice: (DiceTerm | never[])[], term) => {
+                        if (term instanceof DiceTerm) {
+                            dice.push(term);
+                        } else if (
+                            term instanceof Grouping ||
+                            term instanceof ArithmeticExpression ||
+                            term instanceof IntermediateDie
+                        ) {
+                            dice.push(...term.dice);
+                        }
+                        return dice;
+                    },
+                    [...this._dice],
                 )
-                .flat()
+                .flat(),
         );
     }
 
     /** Get the head term of this instance */
     get head(): RollTerm {
-        return this.terms[0]!;
+        return this.terms[0];
     }
 
     get category(): DamageCategory | null {
@@ -528,22 +556,21 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Get the total of this instance without any doubling or tripling from a critical hit */
     get critImmuneTotal(): this["total"] {
-        if (!this._evaluated) return undefined;
-
+        if (this.total === undefined) return undefined;
         const { head } = this;
 
         // Get the total with all damage-doubling removed
         const undoubledTotal =
-            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
+            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal ?? 0 : this.total;
 
-        if (this.options.critRule === "double-damage") {
+        if (this.critRule === "double-damage") {
             return undoubledTotal;
         } else {
             // Dice doubling for crits is enabled: discard the second half of all doubled dice
             const secondHalf = this.dice
                 .filter((d) => /\bdoubled\b/.test(d.flavor))
                 .flatMap((d) => d.results.slice(Math.ceil(d.results.length / 2)));
-            return undoubledTotal! - secondHalf.reduce((sum, r) => sum + r.result, 0);
+            return undoubledTotal - secondHalf.reduce((sum, r) => sum + r.result, 0);
         }
     }
 
@@ -553,8 +580,8 @@ class DamageInstance extends AbstractDamageRoll {
         }
 
         return deepFindTerms(this.head, { flavor: component }).reduce(
-            (total, t) => total + (Number(t.total!) || 0) * Number(t.options.crit || 1),
-            0
+            (total, t) => total + (Number(t.total) || 0) * Number(t.options.crit || 1),
+            0,
         );
     }
 
@@ -577,18 +604,33 @@ class DamageInstance extends AbstractDamageRoll {
     }
 }
 
+// Called asynchronously due to vite adding `define` variables to `globalThis` late in serve mode
+Promise.resolve().then(() => {
+    // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
+    // function constructor.
+    // biome-ignore lint/complexity/noBannedTypes:
+    const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
+    new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
+});
+
 interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;
+}
+
+interface InstanceRenderOptions extends RollRenderOptions {
+    /** Whether to attach tooltips to the damage type icons */
+    tooltips?: boolean;
 }
 
 type CriticalDoublingRule = "double-damage" | "double-dice";
 
 interface AbstractDamageRollData extends RollOptions {
     evaluatePersistent?: boolean;
-    critRule?: CriticalDoublingRule;
 }
 
-interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
+interface DamageRollData extends RollDataPF2e, AbstractDamageRollData {
+    /** Whether to double dice or total on critical hits */
+    critRule?: Maybe<CriticalDoublingRule>;
     /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
@@ -603,4 +645,4 @@ interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
 
 type DamageInstanceData = AbstractDamageRollData;
 
-export { DamageInstance, DamageRoll, type DamageRollDataPF2e };
+export { DamageInstance, DamageRoll, type DamageRollData };

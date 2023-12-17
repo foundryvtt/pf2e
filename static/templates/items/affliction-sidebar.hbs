@@ -4,11 +4,11 @@
         {{#if data.onset}}
             {{> systems/pf2e/templates/items/partials/duration.hbs base="system.onset" duration=data.onset units=onsetUnits}}
             <div class="item-controls">
-                <a data-action="onset-delete"><i class="fas fa-fw fa-times"></i></a>
+                <a data-action="onset-delete"><i class="fa-solid fa-fw fa-times"></i></a>
             </div>
         {{else}}
             <div class="form-fields">
-                <button type="button" data-action="onset-add"><i class="fas fa-plus"></i>Add Onset</button>
+                <button type="button" data-action="onset-add"><i class="fa-solid fa-plus"></i>Add Onset</button>
             </div>
         {{/if}}
     </div>
@@ -19,20 +19,36 @@
 
     {{#if user.isGM}}
         <div class="form-group">
-            <label for="data.unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
+            <label for="{{fieldIdPrefix}}unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
             <div class="form-fields">
-                <input type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
+                <input id="{{fieldIdPrefix}}unidentified" type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
             </div>
         </div>
     {{/if}}
 
     <hr/>
 
+    {{#if item.onsetDuration}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}onsetActive">{{localize "PF2E.Item.Affliction.OnsetActive"}}</label>
+            <div class="form-fields">
+                <input id="{{fieldIdPrefix}}onsetActive" type="checkbox" name="system.onset.active" {{checked data.onset.active}} {{disabled (not item.actor)}}>
+            </div>
+        </div>
+    {{/if}}
+
     <div class="form-group">
         <label>{{localize "PF2E.Item.Affliction.StageLabel"}}</label>
-        <div class="form-fields">
-            <input type="number" name="system.stage" value="{{data.stage}}"/>
-        </div>
+        <select name="system.stage" data-dtype="Number" {{disabled (not item.actor)}}>
+            {{#select item.stage}}
+                {{#if item.onsetDuration}}
+                    <option value="0">{{localize "PF2E.Item.Affliction.OnsetLabel"}}</option>
+                {{/if}}
+                {{#times item.maxStage as |idx|}}
+                    <option value="{{add idx 1}}">{{localize "PF2E.Item.Affliction.Stage" stage=(add idx 1)}}</option>
+                {{/times}}
+            {{/select}}
+        </select>
     </div>
 
 </div>

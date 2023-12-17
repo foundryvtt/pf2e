@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseScene, BaseUser } from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
  * The data schema for a MeasuredTemplate embedded document.
@@ -9,7 +9,7 @@ import type * as fields from "../data/fields.d.ts";
  * @param data                   Initial data used to construct the data object
  * @param [document] The embedded document to which this data object belongs
  */
-export default class BaseMeasuredTemplate<TParent extends BaseScene | null> extends Document<
+export default class BaseMeasuredTemplate<TParent extends documents.BaseScene | null> extends Document<
     TParent,
     MeasuredTemplateSchema
 > {
@@ -26,16 +26,16 @@ export default class BaseMeasuredTemplate<TParent extends BaseScene | null> exte
     /* -------------------------------------------- */
 
     override testUserPermission(
-        user: BaseUser,
+        user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BaseMeasuredTemplate<TParent extends BaseScene | null>
+export default interface BaseMeasuredTemplate<TParent extends documents.BaseScene | null>
     extends Document<TParent, MeasuredTemplateSchema>,
         ModelPropsFromSchema<MeasuredTemplateSchema> {
-    readonly _source: SourceFromSchema<MeasuredTemplateSchema>;
+    get documentName(): MeasuredTemplateMetadata["name"];
 }
 
 interface MeasuredTemplateMetadata extends DocumentMetadata {
@@ -49,7 +49,7 @@ type MeasuredTemplateSchema = {
     /** The _id which uniquely identifies this BaseMeasuredTemplate embedded document */
     _id: fields.DocumentIdField;
     /** The _id of the user who created this measured template */
-    user: fields.ForeignDocumentField<BaseUser>;
+    user: fields.ForeignDocumentField<documents.BaseUser>;
     /** The value in CONST.MEASURED_TEMPLATE_TYPES which defines the geometry type of this template */
     t: fields.StringField<MeasuredTemplateType, MeasuredTemplateType, true>;
     /** The x-coordinate position of the origin of the template effect */
@@ -76,4 +76,4 @@ type MeasuredTemplateSchema = {
     flags: fields.ObjectField<DocumentFlags>;
 };
 
-type MeasuredTemplateSource = SourceFromSchema<MeasuredTemplateSchema>;
+export type MeasuredTemplateSource = SourceFromSchema<MeasuredTemplateSchema>;

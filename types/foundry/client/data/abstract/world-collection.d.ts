@@ -94,8 +94,8 @@ declare global {
         importFromCompendium(
             pack: CompendiumCollection,
             id: string,
-            updateData?: DocumentUpdateData<TDocument>,
-            options?: DocumentModificationContext<null>
+            updateData?: Record<string, unknown>,
+            options?: DocumentModificationContext<null>,
         ): Promise<TDocument | null>;
 
         /**
@@ -110,7 +110,7 @@ declare global {
          */
         fromCompendium(
             document: TDocument | TDocument["_source"],
-            options?: FromCompendiumOptions
+            options?: FromCompendiumOptions,
         ): TDocument["_source"];
 
         /* -------------------------------------------- */

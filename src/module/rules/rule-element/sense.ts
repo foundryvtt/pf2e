@@ -1,10 +1,9 @@
-import { CharacterPF2e, FamiliarPF2e } from "@actor";
+import type { CharacterPF2e, FamiliarPF2e } from "@actor";
 import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { ActorType } from "@actor/data/index.ts";
-import { RuleElementOptions } from "./base.ts";
-import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementSource } from "./data.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * @category RuleElement
@@ -28,15 +27,8 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
         };
     }
 
-    constructor(data: SenseRuleElementSource, options: RuleElementOptions) {
-        if (data.selector) {
-            data.label ??= CONFIG.PF2E.senses[data.selector];
-        }
-        super(data, options);
-    }
-
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
         const range = this.resolveValue(this.range, "");
         const newSense = new CreatureSensePF2e({
@@ -53,7 +45,7 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     }
 }
 
-interface SenseRuleElement extends RuleElementPF2e<SenseRuleSchema>, ModelPropsFromSchema<SenseRuleSchema> {
+interface SenseRuleElement extends RuleElementPF2e<SenseRuleSchema>, ModelPropsFromRESchema<SenseRuleSchema> {
     get actor(): CharacterPF2e | FamiliarPF2e;
 }
 
@@ -63,9 +55,5 @@ type SenseRuleSchema = RuleElementSchema & {
     acuity: StringField<SenseAcuity, SenseAcuity, false, false, true>;
     range: ResolvableValueField<false, false, false>;
 };
-
-interface SenseRuleElementSource extends RuleElementSource {
-    selector?: SenseType;
-}
 
 export { SenseRuleElement };

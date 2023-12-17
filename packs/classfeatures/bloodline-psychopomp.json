@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disrupt Undead]</em>; 1st:<em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Searing Light]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dimensional Anchor]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Finger of Death]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Massacre]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Sepulchral Mask]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Veil]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shepherd of Souls]</em></p>\n<p><strong>Blood Magic</strong> The border between life and death becomes blurred to you. Either you gain a +2 status bonus to Fortitude saving throws for 1 round, or a target takes 1 damage per spell level. The damage is negative if the target is living or positive if the target is undead. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Psychopomp Blood Magic (Self)]</p>"
+            "value": "<p>For good or ill, your ancestors' deeds drew the attention of psychopomps, or you might somehow count one in your family tree. The presence of these shepherds of souls and enemies of undeath has left an indelible mark on you.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vitality Lash]</em>; 1st:<em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Holy Light]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Planar Tether]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Blast]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Execute]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Song]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Massacre]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Sepulchral Mask]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spirit Veil]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shepherd of Souls]</em></p>\n<p><strong>Blood Magic</strong> The border between life and death becomes blurred to you. Either you gain a +2 status bonus to Fortitude saving throws for 1 round, or a target takes 1 damage per spell level. The damage is void if the target is living or vitality if the target is undead. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Psychopomp Blood Magic (Self)]</p>"
         },
         "level": {
             "value": 1
@@ -19,17 +19,12 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.focus.max",
-                "predicate": [
-                    "class:sorcerer"
-                ],
-                "priority": 10,
-                "value": 1
-            },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
@@ -41,78 +36,12 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.proficiencies.aliases.sorcerer",
-                "priority": 39,
-                "value": "divine"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.sorcerer.bloodline.spells",
-                "value": {
-                    "1st": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs",
-                        "slug": "heal"
-                    },
-                    "2nd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.b515AZlB0sridKSq",
-                        "slug": "calm"
-                    },
-                    "3rd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.DyiD239dNS7RIxZE",
-                        "slug": "searing-light"
-                    },
-                    "4th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN",
-                        "slug": "dimensional-anchor"
-                    },
-                    "5th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.YvXKGlHOt7mdW2jZ",
-                        "slug": "death-ward"
-                    },
-                    "6th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.PHVHBbdHeQRfjLmE",
-                        "slug": "spirit-blast"
-                    },
-                    "7th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.Z9OrRXKgAPv6Hn5l",
-                        "slug": "finger-of-death"
-                    },
-                    "8th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.Ht35SDf9PDStJfoC",
-                        "slug": "spirit-song"
-                    },
-                    "9th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.10VcmSYNBrvBphu1",
-                        "slug": "massacre"
-                    },
-                    "advanced": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.pQ3NIzZXeIIcU81C",
-                        "slug": "spirit-veil"
-                    },
-                    "cantrip": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.kcelf6IHl3L9VXXg",
-                        "slug": "disrupt-undead"
-                    },
-                    "greater": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.SzKkzq3Rr6vKIxbp",
-                        "slug": "shepherd-of-souls"
-                    },
-                    "initial": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.3mINzPzup2m9qzFU",
-                        "slug": "sepulchral-mask"
-                    }
-                }
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
+            "otherTags": [
+                "sorcerer-bloodline"
+            ],
             "rarity": "common",
             "value": [
                 "sorcerer"

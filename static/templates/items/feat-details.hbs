@@ -1,10 +1,15 @@
 {{> "systems/pf2e/templates/items/partials/ability-activation.hbs"}}
 
-{{#if isFeat}}
+{{#if item.isFeat}}
     <div class="form-group">
-        <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
-        <div class="details-container-flex-row">
-            <select{{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}} data-dtype="Number" {{disabled mandatoryTakeOnce}}>
+        <label for="{{fieldIdPrefix}}max-takable">{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
+        <div class="form-fields">
+            <select
+                {{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}}
+                id="{{fieldIdPrefix}}max-takable"
+                data-dtype="Number"
+                {{disabled mandatoryTakeOnce}}
+            >
                 {{#select data.maxTakable}}
                     <option value="1">{{localize "No"}}</option>
                     <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
@@ -17,14 +22,34 @@
             {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
         </div>
     </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
-        <input type="checkbox" name="system.onlyLevel1" {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}} />
-    </div>
+
+    {{#if (eq item.level 1)}}
+        <div class="form-group">
+            <label for="{{fieldIdPrefix}}only-level-1">{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
+            <div class="form-fields">
+                <input
+                    type="checkbox"
+                    name="system.onlyLevel1"
+                    id="{{fieldIdPrefix}}only-level-1"
+                    {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}}
+                />
+            </div>
+        </div>
+    {{/if}}
 {{/if}}
-<div class="form-group-stacked tags">
-    <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
-    <input class="pf2e-tagify" type="text" name="system.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
+
+<div class="form-group stacked">
+    <label for="{{fieldIdPrefix}}prerequisites">{{localize "PF2E.FeatPrereqLabel"}}</label>
+    <div class="form-fields">
+        <input
+            class="pf2e-tagify"
+            type="text"
+            name="system.prerequisites.value"
+            id="{{fieldIdPrefix}}prerequisites"
+            value="{{json item.system.prerequisites.value}}"
+            data-dtype="JSON"
+        />
+    </div>
 </div>
 
 {{#unless (eq item.system.actionType.value "passive")}}
@@ -32,12 +57,13 @@
 {{/unless}}
 
 {{#if canHaveKeyOptions}}
-    <div class="form-group">
-        <label>{{localize "PF2E.Item.Feat.KeyAbilityOptions.Label"}}</label>
+    <div class="form-group stacked">
+        <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Label"}}</label>
         <div class="form-fields">
             <input class="pf2e-tagify"
                 type="text"
                 name="system.subfeatures.keyOptions"
+                id="{{fieldIdPrefix}}key-options"
                 value="{{json item.system.subfeatures.keyOptions}}"
                 data-dtype="JSON"
             />
@@ -45,3 +71,5 @@
         <p class="hint">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Hint"}}</p>
     </div>
 {{/if}}
+
+{{> "systems/pf2e/templates/items/partials/other-tags.hbs"}}

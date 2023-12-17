@@ -1,7 +1,7 @@
 import { CharacterSystemSource, MartialProficiency } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, recursiveReplaceString, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -45,7 +45,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             recursiveReplaceString(r, (text) => {
                 const key = this.#defensePathPattern.test(text) ? "defenses" : "attacks";
                 return text.replace(/\bsystem\.martial\./g, `system.proficiencies.${key}.`);
-            })
+            }),
         );
     }
 }

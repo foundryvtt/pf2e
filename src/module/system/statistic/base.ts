@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { StatisticModifier, type ModifierPF2e } from "@actor/modifiers.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
+import * as R from "remeda";
 import { BaseStatisticData, BaseStatisticTraceData, StatisticData } from "./data.ts";
 
 /** Basic data forming any Pathfinder statistic */
@@ -23,7 +24,7 @@ abstract class BaseStatistic {
         this.slug = data.slug;
         this.label = game.i18n.localize(data.label).trim();
         this.data = { ...data };
-        this.domains = [...(data.domains ??= [])];
+        this.domains = R.uniq((data.domains ??= []));
         const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)].flat();
         this.modifiers = new StatisticModifier("", modifiers).modifiers.map((m) => m.clone());
 

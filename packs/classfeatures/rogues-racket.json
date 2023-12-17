@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
+            "value": "<p>You've begun to develop your techniques and approach to a job, while building your reputation in rogues' circles. Choose a rogue's racket from the list below.</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Eldritch Trickster]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Mastermind]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Ruffian]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Scoundrel]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Thief]</p>"
         },
         "level": {
             "value": 1
@@ -19,33 +19,19 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "adjustName": false,
-                "allowedDrops": {
-                    "label": "level 1 Rogue feature",
-                    "predicate": [
-                        "item:trait:rogue",
-                        "item:level:1"
+                "choices": {
+                    "filter": [
+                        "item:tag:rogue-racket"
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Eldritch Trickster"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Mastermind"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Ruffian"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Scoundrel"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Thief"
-                    }
-                ],
                 "flag": "roguesRacket",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt"
@@ -55,9 +41,6 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.roguesRacket}"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

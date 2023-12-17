@@ -1,6 +1,6 @@
 {
     "_id": "iKOcwFCbNX1a2OFT",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Ardent Armiger",
     "system": {
         "actionType": {
@@ -23,29 +23,38 @@
                 }
             ]
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: World Guide"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. social interactions  (Ardent Armiger)",
                 "predicate": [
-                    {
-                        "or": [
-                            "improve-attitude",
-                            "coerce",
-                            "demoralize",
-                            "make-an-impression",
-                            "make-a-request"
-                        ]
-                    }
+                    "inflicts:improve-attitude"
                 ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize",
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "will-dc",
+                "type": "circumstance",
+                "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder Lost Omens: World Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

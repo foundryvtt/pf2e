@@ -31,7 +31,7 @@ export interface PrimaryCanvasObjectData {
  * @param args Additional arguments passed to the base class constructor
  */
 export abstract class PrimaryCanvasDisplayObject<
-    TObject extends PlaceableObject | undefined
+    TObject extends PlaceableObject | undefined,
 > extends PIXI.DisplayObject {
     constructor(placeableObjectOrData: TObject, ...args: unknown[]);
 

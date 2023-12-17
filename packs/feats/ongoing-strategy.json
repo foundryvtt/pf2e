@@ -1,6 +1,6 @@
 {
     "_id": "CAk1NNG4aO0VuHnZ",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Ongoing Strategy",
     "system": {
         "actionType": {
@@ -23,21 +23,41 @@
                 }
             ]
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
         "rules": [
             {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
+                    "class:investigator",
                     {
-                        "or": [
-                            "agile",
-                            "finesse",
-                            "ranged",
-                            "feat:takedown-expert"
-                        ]
+                        "not": "check:substitution:devise-a-stratagem"
                     },
                     {
-                        "not": "devise-a-stratagem"
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "item:base:sap",
+                            {
+                                "and": [
+                                    "feat:takedown-expert",
+                                    "item:group:club",
+                                    "item:hands-held:1"
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "selector": "strike-damage",
@@ -70,9 +90,6 @@
                 }
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

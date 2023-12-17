@@ -23,12 +23,18 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 default: true,
                 type: Boolean,
                 requiresReload: true,
+                onChange: (value) => {
+                    game.pf2e.settings.rbv = !!value;
+                },
             },
             iwr: {
                 name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
                 default: BUILD_MODE === "development",
                 type: Boolean,
+                onChange: (value) => {
+                    game.pf2e.settings.iwr = !!value;
+                },
             },
             effectExpiration: {
                 name: CONFIG.PF2E.SETTINGS.automation.effectExpiration.name,
@@ -62,6 +68,9 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: "PF2E.SETTINGS.Automation.Encumbrance.Hint",
                 default: false,
                 type: Boolean,
+                onChange: (value) => {
+                    game.pf2e.settings.encumbrance = !!value;
+                },
             },
             lootableNPCs: {
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,

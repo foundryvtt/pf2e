@@ -1,4 +1,5 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
 /**
  * The Folder Document model.
@@ -6,50 +7,50 @@ import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
  * @param data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseFolder extends Document<null> {
+export default class BaseFolder extends Document<null, FolderSchema> {
     static override get metadata(): FolderMetadata;
 
-    name: string;
+    static override defineSchema(): FolderSchema;
+
+    static override validateJoint(data: FolderSource): void;
+
+    /** Allow folder sorting modes */
+    static SORTING_MODES: ["a", "m"];
 }
 
-export default interface BaseFolder extends Document<null> {
-    readonly _source: FolderSource;
-
-    get documentName(): (typeof BaseFolder)["metadata"]["name"];
-}
-
-/**
- * The data schema for a Folder document.
- *
- * @param data Initial data used to construct the data object
- * @param [document] The document to which this data object belongs
- *
- * @property _id           The _id which uniquely identifies this Folder document
- * @property name          The name of this Folder
- * @property type          The document type which this Folder contains, from CONST.FOLDER_DOCUMENT_TYPES
- * @property [description] An HTML description of the contents of this folder
- * @property [parent]      The _id of a parent Folder which contains this Folder
- * @property [sorting=a]   The sorting mode used to organize documents within this Folder, in ["a", "m"]
- * @property [sort]        The numeric sort value which orders this Folder relative to its siblings
- * @property [color]        A color string used for the background color of this Folder
- * @property [flags={}]    An object of optional key/value flags
- */
-interface FolderSource {
-    _id: string;
-    name: string;
-    type: FolderDocumentType;
-    description: string;
-    parent: string | null;
-    sorting: "a" | "m";
-    sort: number;
-    color: HexColorString;
-    flags: DocumentFlags;
+export default interface BaseFolder extends Document<null, FolderSchema>, ModelPropsFromSchema<FolderSchema> {
+    get documentName(): FolderMetadata["name"];
 }
 
 interface FolderMetadata extends DocumentMetadata {
     name: "Folder";
     collection: "folders";
     label: "DOCUMENT.Folder";
-    isPrimary: true;
-    types: typeof CONST.FOLDER_DOCUMENT_TYPES;
+    labelPlural: "DOCUMENT.Folders";
+    coreTypes: typeof CONST.FOLDER_DOCUMENT_TYPES;
 }
+
+type FolderSortingMode = (typeof BaseFolder.SORTING_MODES)[number];
+
+type FolderSchema = {
+    /** The _id which uniquely identifies this Folder document */
+    _id: fields.DocumentIdField;
+    /** The name of this Folder */
+    name: fields.StringField<string, string, true, false, false>;
+    /** The document type which this Folder contains, from CONST.FOLDER_DOCUMENT_TYPES */
+    type: fields.StringField<FolderDocumentType, FolderDocumentType, true, false, false>;
+    /** An HTML description of the contents of this folder */
+    description: fields.StringField<string, string, false, false, true>;
+    folder: fields.ForeignDocumentField<BaseFolder>;
+    /** The sorting mode used to organize documents within this Folder, in ["a", "m"] */
+    sorting: fields.StringField<FolderSortingMode, FolderSortingMode, true, false, true>;
+    /** The numeric sort value which orders this Folder relative to its siblings */
+    sort: fields.IntegerSortField;
+    /** A color string used for the background color of this Folder */
+    color: fields.ColorField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+    _stats: fields.DocumentStatsField;
+};
+
+type FolderSource = SourceFromSchema<FolderSchema>;

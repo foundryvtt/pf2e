@@ -1,6 +1,6 @@
 {
     "_id": "1Eceqc6zbMj2x0q9",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Seasoned",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to Craft food and drink, including potions. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
+            "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] food and drink, including elixirs if you have @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] and potions if you have @UUID[Compendium.pf2e.feats-srd.Item.Magical Crafting]. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
         },
         "level": {
             "value": 1
@@ -23,17 +23,32 @@
                 }
             ]
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Seasoned (craft food, drink & potions)",
                 "predicate": [
                     "action:craft",
                     {
                         "or": [
-                            "food",
-                            "drink",
-                            "potion"
+                            "item:tag:food",
+                            "item:tag:drink",
+                            {
+                                "and": [
+                                    "feat:magical-crafting",
+                                    "item:trait:potion"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feat:alchemical-crafting",
+                                    "item:trait:elixir"
+                                ]
+                            }
                         ]
                     }
                 ],
@@ -56,9 +71,6 @@
                 }
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "traits": {
             "rarity": "common",
             "value": [

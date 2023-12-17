@@ -1,4 +1,4 @@
-import { ItemSourcePF2e, SpellSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
 import { MigrationBase } from "../base.ts";
 

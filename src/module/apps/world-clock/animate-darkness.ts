@@ -24,15 +24,15 @@ function darknessLevelAtTime(time: DateTime) {
         (lightnessLevel > 0
             ? 1
             : lightnessLevel < -rad18degrees
-            ? 0
-            : Math.sin((((lightnessLevel + rad18degrees) / rad18degrees) * Math.PI) / 2))
+              ? 0
+              : Math.sin((((lightnessLevel + rad18degrees) / rad18degrees) * Math.PI) / 2))
     );
 }
 
 /** Calculate animateDarkness parameters from a time interval */
 function intervalToTransition(interval: Interval, compactInterval: Interval): DarknessTransition {
     const currentDarkness = canvas.darknessLevel;
-    const targetDarkness = darknessLevelAtTime(interval.end!);
+    const targetDarkness = interval.end ? darknessLevelAtTime(interval.end) : NaN;
     const darknessDiff = Math.abs((currentDarkness ?? targetDarkness) - targetDarkness);
 
     // Cap the darkness transition duration

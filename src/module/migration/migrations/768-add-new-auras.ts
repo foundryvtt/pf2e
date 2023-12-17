@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Add the new Aura rule element to the Marshal Dedication feat */
@@ -77,16 +77,16 @@ export class Migration768AddNewAuras extends MigrationBase {
 
         switch (source.system.slug) {
             case "aura-of-life":
-                source.system.rules = [deepClone(this.#auraOfLife)];
+                source.system.rules = [fu.deepClone(this.#auraOfLife)];
                 break;
             case "enlightened-presence":
-                source.system.rules = [deepClone(this.#enlightenedPresence)];
+                source.system.rules = [fu.deepClone(this.#enlightenedPresence)];
                 break;
             case "eternal-blessing":
-                source.system.rules = deepClone(this.#eternalBlessing);
+                source.system.rules = fu.deepClone(this.#eternalBlessing);
                 break;
             case "marshal-dedication":
-                source.system.rules = [deepClone(this.#marshalsAura)];
+                source.system.rules = [fu.deepClone(this.#marshalsAura)];
                 break;
         }
     }

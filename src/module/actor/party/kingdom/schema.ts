@@ -1,4 +1,6 @@
+import { RawModifier } from "@actor/modifiers.ts";
 import { ZeroToFour } from "@module/data.ts";
+import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type { ArrayField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { KingdomAbility, KingdomSettlementData, KingdomSettlementType, KingdomSkill } from "./types.ts";
@@ -9,8 +11,6 @@ import {
     KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SKILLS,
 } from "./values.ts";
-import { RawModifier } from "@actor/modifiers.ts";
-import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 
 const { fields } = foundry.data;
 
@@ -27,7 +27,7 @@ function buildKingdomCHGSchema(): {
         img: new fields.StringField({ required: true, nullable: false }),
         description: new fields.StringField({ required: true, nullable: false }),
         boosts: new fields.ArrayField(
-            new fields.StringField({ choices: [...KINGDOM_ABILITIES, "free"], nullable: false })
+            new fields.StringField({ choices: [...KINGDOM_ABILITIES, "free"], nullable: false }),
         ),
     };
 }
@@ -44,21 +44,21 @@ const KINGDOM_BUILD_SCHEMA = {
                 nullable: true,
             }),
         },
-        { nullable: true, initial: null }
+        { nullable: true, initial: null },
     ),
     heartland: new fields.SchemaField(buildKingdomCHGSchema(), { nullable: true, initial: null }),
     government: new fields.SchemaField(
         {
             ...buildKingdomCHGSchema(),
             skills: new fields.ArrayField<StringField<KingdomSkill, KingdomSkill, true, false>>(
-                new fields.StringField({ required: true, nullable: false, choices: KINGDOM_SKILLS })
+                new fields.StringField({ required: true, nullable: false, choices: KINGDOM_SKILLS }),
             ),
             feat: new fields.StringField<CompendiumUUID, CompendiumUUID, true, true>({
                 required: true,
                 nullable: true,
             }),
         },
-        { nullable: true, initial: null }
+        { nullable: true, initial: null },
     ),
     skills: new fields.SchemaField(
         R.mapToObj(KINGDOM_SKILLS, (skill) => {
@@ -73,7 +73,7 @@ const KINGDOM_BUILD_SCHEMA = {
             });
 
             return [skill, schema];
-        })
+        }),
     ),
     /** Boost selections made by the user, both during the build process and levelling */
     boosts: new fields.SchemaField(
@@ -82,11 +82,11 @@ const KINGDOM_BUILD_SCHEMA = {
                 new fields.StringField<KingdomAbility, KingdomAbility, true, false>({
                     choices: KINGDOM_ABILITIES,
                     nullable: false,
-                })
+                }),
             );
 
             return [category, schema];
-        })
+        }),
     ),
 };
 
@@ -117,7 +117,7 @@ const KINGDOM_RESOURCES_SCHEMA = {
             });
 
             return [type, schema];
-        })
+        }),
     ),
     points: new fields.NumberField<number, number, false, false, true>({
         min: 0,
@@ -146,7 +146,7 @@ const KINGDOM_RESOURCES_SCHEMA = {
             });
 
             return [type, schema];
-        })
+        }),
     ),
 };
 
@@ -191,7 +191,7 @@ const KINGDOM_SETTLEMENT_SCHEMA = {
                 initial: 0,
             });
             return [type, schema];
-        })
+        }),
     ),
 };
 
@@ -212,7 +212,7 @@ const KINGDOM_SCHEMA = {
             }),
             new StrictBooleanField({ initial: false, required: false, nullable: false }),
         ],
-        { required: false, nullable: false, initial: false }
+        { required: false, nullable: false, initial: false },
     ),
     name: new fields.StringField<string, string, true, false>({ required: true, nullable: false, initial: "" }),
     img: new fields.FilePathField<ImageFilePath, ImageFilePath, true, false>({
@@ -278,7 +278,7 @@ const KINGDOM_SCHEMA = {
             });
 
             return [ability, schema];
-        })
+        }),
     ),
     build: new fields.SchemaField(KINGDOM_BUILD_SCHEMA),
     customModifiers: new fields.ObjectField<Record<string, RawModifier[]>>({ initial: {} }),
@@ -295,12 +295,12 @@ const KINGDOM_SCHEMA = {
             });
 
             return [role, schema];
-        })
+        }),
     ),
     resources: new fields.SchemaField(KINGDOM_RESOURCES_SCHEMA),
     /** A collection of settlements controlled by this kingdom, and its related data */
     settlements: new RecordField<
-        StringField<string, string, true, false>,
+        StringField<string, string, true, false, false>,
         SchemaField<
             typeof KINGDOM_SETTLEMENT_SCHEMA,
             SourceFromSchema<typeof KINGDOM_SETTLEMENT_SCHEMA>,
@@ -311,7 +311,7 @@ const KINGDOM_SCHEMA = {
     >(
         new fields.StringField({ required: true, nullable: false, blank: false }),
         new fields.SchemaField(KINGDOM_SETTLEMENT_SCHEMA, { required: true }),
-        { required: false, nullable: false, initial: {} }
+        { required: false, nullable: false, initial: {} },
     ),
     consumption: new fields.SchemaField({
         base: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),

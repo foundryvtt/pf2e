@@ -14,7 +14,7 @@ export function longJump(options: SkillActionOptions): void {
         traits: ["move"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
+        difficultyClass: options.difficultyClass ?? { value: 15 },
         extraNotes: (selector: string) => [
             ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
             ActionMacroHelpers.note(selector, PREFIX, "failure"),

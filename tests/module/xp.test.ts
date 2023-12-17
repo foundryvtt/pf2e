@@ -1,8 +1,6 @@
 import { calculateXP } from "@scripts/macros/xp/index.ts";
 
-const dcOptions = {
-    proficiencyWithoutLevel: false,
-};
+const dcOptions = { pwol: false };
 
 describe("should calculate xp", () => {
     test("party of 4", () => {
@@ -14,7 +12,7 @@ describe("should calculate xp", () => {
                 { level: 2, isComplex: true },
                 { level: 4, isComplex: false },
             ],
-            dcOptions
+            dcOptions,
         );
 
         expect(result).toEqual({
@@ -43,7 +41,7 @@ describe("should calculate xp", () => {
                 { level: 2, isComplex: true },
                 { level: 4, isComplex: false },
             ],
-            dcOptions
+            dcOptions,
         );
 
         expect(result).toEqual({

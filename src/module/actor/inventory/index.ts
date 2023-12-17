@@ -1,15 +1,22 @@
 import { ActorPF2e } from "@actor";
-import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e, TreasurePF2e } from "@item";
+import { ItemProxyPF2e, KitPF2e, PhysicalItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Coins } from "@item/physical/data.ts";
+import { CoinsPF2e, coinCompendiumIds } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
-import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers.ts";
-import { ErrorPF2e, groupBy } from "@util";
+import { DelegatedCollection, ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
 
-class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF2e<TActor>> {
-    constructor(public readonly actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
+class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<PhysicalItemPF2e<TActor>> {
+    actor: TActor;
+    bulk: InventoryBulk;
+
+    constructor(actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
+        this.actor = actor;
+
+        // Created in the constructor so its ready for RE modification
+        this.bulk = new InventoryBulk(this.actor);
     }
 
     get coins(): CoinsPF2e {
@@ -35,14 +42,10 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
         return null;
     }
 
-    get bulk(): InventoryBulk {
-        return new InventoryBulk(this.actor);
-    }
-
     /** Find an item already owned by the actor that can stack with the given item */
     findStackableItem(item: PhysicalItemPF2e | ItemSourcePF2e): PhysicalItemPF2e<TActor> | null {
         // Prevent upstream from mutating property descriptors
-        const testItem = item instanceof PhysicalItemPF2e ? item.clone() : new ItemProxyPF2e(deepClone(item));
+        const testItem = item instanceof PhysicalItemPF2e ? item.clone() : new ItemProxyPF2e(fu.deepClone(item));
         if (!testItem.isOfType("physical")) return null;
 
         const stackCandidates = this.filter((i) => !i.isInContainer && i.isStackableWith(testItem));
@@ -70,7 +73,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
                     const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e<null>>>(
-                        (p) => p.collection === "pf2e.equipment-srd"
+                        (p) => p.collection === "pf2e.equipment-srd",
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
 
@@ -162,7 +165,7 @@ class ActorInventory<TActor extends ActorPF2e> extends Collection<PhysicalItemPF
             let quantityToRemove = coinsToRemove[denomination];
             const coinItems = coinsByDenomination.get(denomination);
             if (!!quantityToRemove && coinItems) {
-                const itemsToUpdate: EmbeddedDocumentUpdateData<TreasurePF2e>[] = [];
+                const itemsToUpdate: EmbeddedDocumentUpdateData[] = [];
                 const itemsToDelete: string[] = [];
                 for (const item of coinItems) {
                     if (quantityToRemove === 0) break;

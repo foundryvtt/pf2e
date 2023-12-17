@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
-import { FEAT_CATEGORIES } from "@item/feat/values.ts";
+import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { isObject, recursiveReplaceString, setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -23,13 +23,13 @@ export class Migration834FeatCategories extends MigrationBase {
                     traits.value.push("archetype");
                     traits.value.sort();
                 }
-            } else if (setHasElement(FEAT_CATEGORIES, category)) {
+            } else if (setHasElement(FEAT_OR_FEATURE_CATEGORIES, category)) {
                 system.category = category;
             }
         }
 
         // Ensure valid category even if no change was made
-        if (!setHasElement(FEAT_CATEGORIES, system.category)) {
+        if (!setHasElement(FEAT_OR_FEATURE_CATEGORIES, system.category)) {
             system.category = "bonus";
         }
 
@@ -53,7 +53,7 @@ export class Migration834FeatCategories extends MigrationBase {
                 Array.isArray(rule.allowedDrops.predicate)
             ) {
                 rule.allowedDrops.predicate = recursiveReplaceString(rule.allowedDrops.predicate, (s) =>
-                    s.replace(/\bfeat(?:ure)?-type\b/, "category")
+                    s.replace(/\bfeat(?:ure)?-type\b/, "category"),
                 );
             }
 

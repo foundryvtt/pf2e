@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
 import {
@@ -16,13 +15,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import {
-    Alignment,
-    CreatureInitiativeSource,
-    CreatureSpeeds,
-    CreatureTraitsSource,
-    SenseData,
-} from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, SenseData } from "@actor/creature/index.ts";
 import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import {
     ActorAttributesSource,
@@ -35,26 +28,23 @@ import {
     TraitViewData,
 } from "@actor/data/base.ts";
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
-import type { FeatPF2e, ItemPF2e, WeaponPF2e } from "@item";
+import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ItemSystemData } from "@item/data/base.ts";
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
-import { MagicTradition } from "@item/spell/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
-import type { FeatGroup } from "./feats.ts";
 import { WeaponAuxiliaryAction } from "./helpers.ts";
 import { CharacterSheetTabVisibility } from "./sheet.ts";
 
-interface CharacterSource extends BaseCreatureSource<"character", CharacterSystemSource> {
+type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & {
     flags: DeepPartial<CharacterFlags>;
-}
+};
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -76,7 +66,7 @@ type CharacterFlags = ActorFlagsPF2e & {
 };
 
 interface CharacterSystemSource extends CreatureSystemSource {
-    abilities?: Record<AttributeString, { mod: number }>;
+    abilities: Record<AttributeString, { mod: number }> | null;
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
     traits: CharacterTraitsSource;
@@ -102,6 +92,8 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
     hp: {
         value: number;
         temp: number;
+        /** Stamina points: present if Stamina variant is enabled  */
+        sp?: { value: number };
     };
     speed: {
         value: number;
@@ -111,18 +103,6 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
         }[];
     };
     initiative: CreatureInitiativeSource;
-
-    bonusLimitBulk: number;
-    bonusEncumbranceBulk: number;
-    sp: {
-        value: number;
-        max: number;
-        details: string;
-    };
-    resolve: {
-        value: number;
-        max: number;
-    };
 }
 
 interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {
@@ -130,24 +110,22 @@ interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "s
 }
 
 interface CharacterDetailsSource extends CreatureDetailsSource {
-    alignment: { value: Alignment };
     level: { value: number };
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
 
-    /** How old the character is (user-provided field). */
+    /** How old the character is */
     age: { value: string };
-    /** Character height (user-provided field). */
+    /** Character height */
     height: { value: string };
-    /** Character weight (user-provided field). */
+    /** Character weight */
     weight: { value: string };
-    /** Character gender/pronouns (user-provided field). */
+    /** Character gender/pronouns */
     gender: { value: string };
-    /** Character ethnicity (user-provided field). */
+    /** Character ethnicity */
     ethnicity: { value: string };
-    /** Character nationality (i.e, what nation they hail from; user-provided field). */
     nationality: { value: string };
-    /** User-provided biography for their character; value is HTML. */
+    /** User-provided biography for their character */
     biography: CharacterBiography;
 
     /** The amount of experience this character has. */
@@ -164,29 +142,25 @@ interface CharacterDetailsSource extends CreatureDetailsSource {
 }
 
 interface CharacterBiography {
-    /** Character appearance (user-provided field). value is HTML */
+    /** HTML value */
     appearance: string;
-    /** Character Backstory (user-provided field). value is HTML */
+    /** HTML value */
     backstory: string;
-    /** Character birthPlace (user-provided field). */
     birthPlace: string;
-    /** Character attitude (user-provided field). */
     attitude: string;
-    /** Character beliefs (user-provided field). */
     beliefs: string;
-    /** Character likes (user-provided field). */
+    edicts: string[];
+    anathema: string[];
     likes: string;
-    /** Character dislikes (user-provided field). */
     dislikes: string;
-    /** Character catchphrases (user-provided field). */
     catchphrases: string;
-    /** Campaign notes (user-provided field). value is HTML */
+    /** HTML value */
     campaignNotes: string;
-    /** Character allies (user-provided field). value is HTML */
+    /** HTML value */
     allies: string;
-    /** Character enemies (user-provided field). value is HTML */
+    /** HTML value */
     enemies: string;
-    /** Character organizations (user-provided field). value is HTML */
+    /** HTML value */
     organizations: string;
     /** Visibility (to users with limited ownership of the PC) toggle states */
     visibility: {
@@ -220,6 +194,9 @@ interface AttributeBoostsSource {
 interface CharacterResourcesSource {
     heroPoints: ValueAndMax;
     focus?: { value: number; max?: never };
+    crafting?: { infusedReagents?: { value: number } };
+    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+    resolve?: { value: number };
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -246,8 +223,8 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifie
         defenses: Record<ArmorCategory, MartialProficiency> & Record<string, MartialProficiency | undefined>;
         /** Zero or more class DCs, used for saves related to class abilities. */
         classDCs: Record<string, ClassDCData>;
-        /** Spellcasting attack modifiers and DCs for each magical tradition */
-        traditions: MagicTraditionProficiencies;
+        /** Spellcasting attack modifier and dc for all spellcasting */
+        spellcasting: CharacterProficiency;
         /** Aliased path components for use by rule element during property injection */
         aliases?: Record<string, string | undefined>;
     };
@@ -354,7 +331,6 @@ interface MartialProficiency extends CharacterProficiency {
     custom?: boolean;
 }
 
-type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiency>;
 type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiency>;
 
 type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
@@ -375,6 +351,8 @@ interface CharacterStrike extends StrikeData {
     visible: boolean;
     /** Domains/selectors from which modifiers are drawn */
     domains: string[];
+    /** Whether the character has sufficient hands available to wield this weapon or use this unarmed attack */
+    handsAvailable: boolean;
     altUsages: CharacterStrike[];
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
@@ -421,6 +399,7 @@ interface CharacterResources extends CreatureResources {
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
     crafting: { infusedReagents: ValueAndMax };
+    resolve?: ValueAndMax;
 }
 
 interface CharacterPerception extends PerceptionData {
@@ -450,9 +429,9 @@ interface CharacterDeities {
     domains: { [K in DeityDomain]?: string };
 }
 
-type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
+interface DeityDetails extends Pick<DeitySystemData, "skill"> {
     weapons: BaseWeaponType[];
-};
+}
 
 interface CharacterAttributes extends Omit<CharacterAttributesSource, AttributesSourceOmission>, CreatureAttributes {
     /** The perception statistic */
@@ -488,9 +467,6 @@ interface CharacterAttributes extends Omit<CharacterAttributesSource, Attributes
      */
     shield: HeldShieldData;
 
-    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-    resolve: { value: number; max: number };
-
     /** Whether this actor is under a polymorph effect */
     polymorphed: boolean;
 
@@ -502,36 +478,15 @@ type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 interface CharacterHitPoints extends HitPointsStatistic {
     recoveryMultiplier: number;
     recoveryAddend: number;
+    sp?: ValueAndMax;
 }
 
 interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSource, "size" | "value"> {
     senses: CreatureSensePF2e[];
 }
 
-/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
-interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    category: string;
-    group: FeatGroup<Exclude<TParent, null>, this> | null;
-    isFeat: boolean;
-    isFeature: boolean;
-    system: ItemSystemData & {
-        location: string | null;
-    };
-}
-
-interface SlottedFeat<T extends FeatLike = FeatPF2e> {
-    id: string;
-    level: number | string;
-    feat?: T;
-}
-
-interface BonusFeat<T extends FeatLike = FeatPF2e> {
-    feat: T;
-}
-
 export type {
     BaseWeaponProficiencyKey,
-    BonusFeat,
     CategoryProficiencies,
     CharacterAbilities,
     CharacterAttributes,
@@ -542,6 +497,7 @@ export type {
     CharacterFlags,
     CharacterProficiency,
     CharacterResources,
+    CharacterResourcesSource,
     CharacterSaveData,
     CharacterSaves,
     CharacterSkillData,
@@ -552,9 +508,6 @@ export type {
     CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
-    FeatLike,
-    MagicTraditionProficiencies,
     MartialProficiency,
-    SlottedFeat,
     WeaponGroupProficiencyKey,
 };

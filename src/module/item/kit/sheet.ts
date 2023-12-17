@@ -1,28 +1,27 @@
+import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical/index.ts";
 import { htmlClosest, htmlQueryAll } from "@util";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "../sheet/base.ts";
 import { KitEntryData } from "./data.ts";
 import { KitPF2e } from "./document.ts";
 
 class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
-    static override get defaultOptions(): DocumentSheetOptions {
+    static override get defaultOptions(): ItemSheetOptions {
         return {
             ...super.defaultOptions,
             dragDrop: [{ dropSelector: ".tab[data-tab=details]" }],
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<KitSheetData> {
+    override async getData(options?: Partial<ItemSheetOptions>): Promise<KitSheetData> {
         const items = Object.fromEntries(
             Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
                 key,
                 { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
-            ])
+            ]),
         );
 
         return {
             ...(await super.getData(options)),
-            hasSidebar: true,
             priceString: this.item.price.value,
             items,
         };
@@ -61,26 +60,27 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         }
         let id: string;
         do {
-            id = randomID(5);
+            id = fu.randomID(5);
         } while (items[id]);
 
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    async removeItem(event: MouseEvent): Promise<KitPF2e> {
+    async removeItem(event: MouseEvent): Promise<KitPF2e | null> {
         const target = htmlClosest(event.currentTarget ?? null, "li");
         const index = target?.dataset.index;
         if (!index) return this.item;
 
         const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
         const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
+        const update = await this.item.update({ [`system.items.${path}`]: null });
 
-        return this.item.update({ [`system.items.${path}`]: null });
+        return update ?? null;
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        const html = $html[0]!;
+        const html = $html[0];
 
         for (const link of htmlQueryAll(html, "[data-action=remove]")) {
             link.addEventListener("click", (event) => {

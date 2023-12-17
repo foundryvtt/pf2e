@@ -81,6 +81,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
             isRitual: true,
             hasCollection: true,
             sort: this.sort,
+            usesSpellProficiency: false,
             ...(await this.spells.getSpellData()),
         };
     }

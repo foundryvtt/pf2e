@@ -1,22 +1,21 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
-    <div class = "notes-section public-notes">
-        <label class= "details-label">{{localize "PF2E.NPC.PublicNotes"}}</label>
+    <div class="notes-section description">
+        <h4>{{localize "PF2E.NPC.PublicNotes"}}</h4>
         <div class="notes-text">
             {{editor enrichedContent.publicNotes target="system.details.publicNotes" button=true editable=editable}}
         </div>
     </div>
     <div class="notes-section private-notes">
-        <label class="details-label">{{localize "PF2E.NPC.PrivateNotes"}}</label>
-        <div class = "notes-text">
+        <h4>{{localize "PF2E.NPC.PrivateNotes"}}</h4>
+        <div class="notes-text">
             {{editor enrichedContent.privateNotes target="system.details.privateNotes" button=true editable=editable}}
         </div>
     </div>
-    <div class="source section-container headerless">
-        <div class="section-body flexrow">
-            <label>{{localize "PF2E.Source.Label"}}:</label>
-            <input class="source-input" name="system.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
-            <label>{{localize "PF2E.Source.AuthorLabel"}}:</label>
-            <input name="system.details.source.author" type="text" value="{{data.details.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
+
+    <div class="notes-section publication">
+        <h4>{{localize "PF2E.Publication.Label"}}</h4>
+        <div class="notes-text">
+            {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
         </div>
     </div>
 </div>

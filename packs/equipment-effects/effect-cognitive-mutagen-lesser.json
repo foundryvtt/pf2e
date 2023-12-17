@@ -1,6 +1,6 @@
 {
     "_id": "jaBMZKdoywOTrQvP",
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cognitive-mutagen.webp",
+    "img": "icons/consumables/potions/potion-vial-corked-purple.webp",
     "name": "Effect: Cognitive Mutagen (Lesser)",
     "system": {
         "description": {
@@ -14,6 +14,11 @@
         },
         "level": {
             "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
         },
         "rules": [
             {
@@ -60,19 +65,16 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "subtract",
-                "path": "system.attributes.bonusEncumbranceBulk",
+                "path": "inventory.bulk.encumberedAfterAddend",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "subtract",
-                "path": "system.attributes.bonusLimitBulk",
+                "path": "inventory.bulk.maxAddend",
                 "value": 4
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

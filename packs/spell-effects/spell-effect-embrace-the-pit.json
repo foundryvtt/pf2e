@@ -15,13 +15,18 @@
         "level": {
             "value": 3
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "key": "Resistance",
                 "type": [
-                    "evil",
                     "fire",
-                    "poison"
+                    "poison",
+                    "unholy"
                 ],
                 "value": "5 + 5*floor((@item.level -3)/2)"
             },
@@ -35,13 +40,10 @@
             },
             {
                 "key": "Weakness",
-                "type": "good",
+                "type": "holy",
                 "value": "5 + 5*floor((@item.level -3)/2)"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire, or perhaps you died and returned a bit different.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Chill Touch]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.False Life]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Undead]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloudkill]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Finger of Death]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Horrid Wilting]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wail of the Banshee]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Undeath's Blessing]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Drain Life]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Grasping Grave]</em></p>\n<p><strong>Blood Magic</strong> Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's level for 1 round, or a target takes 1 negative damage per spell level (if the spell already deals initial negative damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+            "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire, or perhaps you died and returned a bit different.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Void Warp]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.False Vitality]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Bind Undead]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Toxic Cloud]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Execute]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Desiccate]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wails of the Damned]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Undeath's Blessing]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Drain Life]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Grasping Grave]</em></p>\n<p><strong>Blood Magic</strong> Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's level for 1 round, or a target takes 1 void damage per spell level (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
         },
         "level": {
             "value": 1
@@ -19,17 +19,12 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.resources.focus.max",
-                "predicate": [
-                    "class:sorcerer"
-                ],
-                "priority": 10,
-                "value": 1
-            },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
@@ -41,78 +36,12 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.proficiencies.aliases.sorcerer",
-                "priority": 39,
-                "value": "divine"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.sorcerer.bloodline.spells",
-                "value": {
-                    "1st": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.wdA52JJnsuQWeyqz",
-                        "slug": "harm"
-                    },
-                    "2nd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.8ViwItUgwT4lOvvb",
-                        "slug": "false-life"
-                    },
-                    "3rd": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.GUeRTriJkMlMlVrk",
-                        "slug": "bind-undead"
-                    },
-                    "4th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt",
-                        "slug": "talking-corpse"
-                    },
-                    "5th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.MlpbeZ61Euhl0d60",
-                        "slug": "cloudkill"
-                    },
-                    "6th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.fd31tAHSSGXyOxW6",
-                        "slug": "vampiric-exsanguination"
-                    },
-                    "7th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.Z9OrRXKgAPv6Hn5l",
-                        "slug": "finger-of-death"
-                    },
-                    "8th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.M0jQlpQYUr0pp2Sv",
-                        "slug": "horrid-wilting"
-                    },
-                    "9th": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.FEsuyf203wTNE2et",
-                        "slug": "wail-of-the-banshee"
-                    },
-                    "advanced": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.cqdmSmQnM0q6wbWG",
-                        "slug": "drain-life"
-                    },
-                    "cantrip": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN",
-                        "slug": "chill-touch"
-                    },
-                    "greater": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.2YIr0S2Gt14PMMQp",
-                        "slug": "grasping-grave"
-                    },
-                    "initial": {
-                        "UUID": "Compendium.pf2e.spells-srd.Item.FedTjedva2rYk33r",
-                        "slug": "undeaths-blessing"
-                    }
-                }
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
+            "otherTags": [
+                "sorcerer-bloodline"
+            ],
             "rarity": "common",
             "value": [
                 "sorcerer"

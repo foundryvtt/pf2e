@@ -1,51 +1,60 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BasePlaylist, BaseUser } from "./module.d.ts";
+import type * as documents from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
 /** The PlaylistSound document model. */
-export default class BasePlaylistSound<TParent extends BasePlaylist | null> extends Document<TParent> {
+export default class BasePlaylistSound<TParent extends documents.BasePlaylist | null> extends Document<
+    TParent,
+    PlaylistSoundSchema
+> {
     static override get metadata(): PlaylistSoundMetadata;
 
+    static override defineSchema(): PlaylistSoundSchema;
+
     testUserPermission(
-        user: BaseUser,
+        user: documents.BaseUser,
         permission: DocumentOwnershipString | DocumentOwnershipLevel,
-        { exact }?: { exact?: boolean }
+        { exact }?: { exact?: boolean },
     ): boolean;
 }
 
-export default interface BasePlaylistSound<TParent extends BasePlaylist | null> extends Document<TParent> {
-    readonly _source: PlaylistSoundSource;
+export default interface BasePlaylistSound<TParent extends documents.BasePlaylist | null>
+    extends Document<TParent, PlaylistSoundSchema>,
+        ModelPropsFromSchema<PlaylistSoundSchema> {
+    getDocumentName: PlaylistSoundMetadata["name"];
 }
 
-/**
- * The data schema for a PlaylistSound embedded document.
- * @see BasePlaylistSound
- *
- * @param data       Initial data used to construct the data object
- * @param [document] The document to which this data object belongs
- *
- * @property _id               The _id which uniquely identifies this PlaylistSound document
- * @property name              The name of this sound track
- * @property path              The audio file path that is played by this sound
- * @property [playing=false]   Is this sound currently playing?
- * @property [repeat=false]    Does this sound loop?
- * @property [volume=0.5]      The audio volume of the sound, from 0 to 1
- * @property [streaming=false] Does this audio file use the "large file streaming" mode?
- * @property [flags={}]        An object of optional key/value flags
- */
-interface PlaylistSoundSource {
-    _id: string;
-    name: string;
-    path: string;
-    playing: boolean;
-    repeat: boolean;
-    volumn: number;
-    streaming: boolean;
-    flags: Record<string, unknown>;
-}
+type PlaylistSoundSource = SourceFromSchema<PlaylistSoundSchema>;
 
 interface PlaylistSoundMetadata extends DocumentMetadata {
     name: "PlaylistSound";
     collection: "sounds";
+    indexed: true;
     label: "DOCUMENT.PlaylistSound";
-    isEmbedded: true;
+    labelPlural: "DOCUMENT.PlaylistSounds";
 }
+
+type PlaylistSoundSchema = {
+    /** The _id which uniquely identifies this PlaylistSound document */
+    _id: fields.DocumentIdField;
+    /** The name of this sound */
+    name: fields.StringField<string, string, true, false, false>;
+    /** The description of this sound */
+    description: fields.StringField;
+    /** The audio file path that is played by this sound */
+    path: fields.FilePathField<AudioFilePath>;
+    /** Is this sound currently playing? */
+    playing: fields.BooleanField;
+    /** The time in seconds at which playback was paused */
+    pausedTime: fields.NumberField;
+    /** Does this sound loop? */
+    repeat: fields.BooleanField;
+    /** The audio volume of the sound, from 0 to 1 */
+    volume: fields.AlphaField;
+    /** A duration in milliseconds to fade volume transition */
+    fade: fields.NumberField;
+    /** The sort order of the PlaylistSound relative to others in the same collection */
+    sort: fields.IntegerSortField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+};

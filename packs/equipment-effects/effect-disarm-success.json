@@ -1,41 +1,56 @@
 {
     "_id": "z3ATL8DcRVrT0Uzt",
-    "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+    "img": "icons/skills/melee/sword-damaged-broken-glow-red.webp",
     "name": "Effect: Disarm (Success)",
     "system": {
         "description": {
-            "value": "<p>The target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.</p>"
+            "value": "<p>Granted by a successful @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]</p>\n<hr />\n<p>You have a weakened grasp on an item. Further attempts to Disarm the item gain a +2 circumstance bonus, and you take a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. You can end the effect by Interacting to change your grip on the item; otherwise, it lasts as long as you hold the item.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
             "value": 1
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
-                "domain": "attack-roll",
-                "key": "RollOption",
-                "label": "PF2E.Actions.Disarm.EffectLabel",
-                "option": "partially-disarmed",
-                "toggleable": true
+                "choices": {
+                    "attacks": true,
+                    "predicate": [
+                        "item:equipped",
+                        {
+                            "not": "item:category:unarmed"
+                        }
+                    ]
+                },
+                "flag": "disarmWeakenedGrasp",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.disarmWeakenedGrasp}-attack",
+                "type": "circumstance",
+                "value": -2
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "partially-disarmed"
+                    "action:disarm"
                 ],
-                "selector": "attack",
+                "selector": "reflex-dc",
                 "type": "circumstance",
                 "value": -2
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "start": {
             "initiative": null,
             "value": 0

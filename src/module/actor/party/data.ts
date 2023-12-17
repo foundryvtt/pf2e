@@ -59,6 +59,6 @@ interface PartyDetails extends Omit<PartyDetailsSource, "alliance" | "level">, A
     level: { value: number };
 }
 
-type PartyCampaignSource = { type: string } & Record<string, unknown>;
+type PartyCampaignSource = { type: string } & Record<string, JSONValue>;
 
 export type { MemberData, PartyCampaignSource, PartySource, PartySystemData };

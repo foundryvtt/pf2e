@@ -1,6 +1,6 @@
 {
     "_id": "hO4sKslTrSQMLbGx",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Mountain Quake",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance]</p>\n<hr />\n<p>You stomp, shaking the earth beneath you. Creatures on the ground within a @Template[type:emanation|distance:20] take damage equal to your Strength modifier (minimum 0), which they can resist with a @Check[type:fortitude|dc:resolve(@actor.system.proficiencies.monk.dc)|basic:true] save against your class DC. On a failure, they also fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>After you use this action, you can't use it again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Special</strong> If you have this feat, the Dexterity modifier cap to your AC while using Mountain Stance increases from +1 to +2.</p>"
+            "value": "<p><strong>Requirements</strong> You are in @UUID[Compendium.pf2e.feats-srd.Item.Mountain Stance]</p>\n<hr />\n<p>You stomp, shaking the earth beneath you. Creatures on the ground within a @Template[type:emanation|distance:20] take damage equal to your Strength modifier (minimum 0), which they can resist with a @Check[type:fortitude|dc:resolve(@actor.system.attributes.classDC.value)|basic:true] save against your class DC. On a failure, they also fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>After you use this action, you can't use it again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Special</strong> If you have this feat, the Dexterity modifier cap to your AC while using Mountain Stance increases from +1 to +2.</p>"
         },
         "level": {
             "value": 14
@@ -23,6 +23,11 @@
                 }
             ]
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "rules": [
             {
                 "key": "DexterityModifierCap",
@@ -32,9 +37,6 @@
                 "value": 2
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

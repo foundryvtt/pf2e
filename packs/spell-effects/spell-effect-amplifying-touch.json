@@ -4,7 +4,7 @@
     "name": "Spell Effect: Amplifying Touch",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> if you have @UUID[Compendium.pf2e.feats-srd.Item.Amplifying Touch].</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC, a +1 status bonus to their attack rolls and deals 1 additional good damage on all their strikes until the end of their next turn.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands]</em> if you have @UUID[Compendium.pf2e.feats-srd.Item.Amplifying Touch].</p>\n<p>If the target is one of your allies, they also gain a +2 status bonus to AC, a +1 status bonus to their attack rolls and deals 1 additional spirit damage on all their strikes until the end of their next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,6 +14,11 @@
         },
         "level": {
             "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
         },
         "rules": [
             {
@@ -29,15 +34,12 @@
                 "value": 1
             },
             {
-                "damageType": "good",
+                "damageType": "spirit",
                 "key": "FlatModifier",
                 "selector": "strike-damage",
                 "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder Advanced Player's Guide"
-        },
         "start": {
             "initiative": null,
             "value": 0

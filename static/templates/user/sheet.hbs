@@ -26,9 +26,15 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SettingsQuickRollsLabel"}}</label>
-        <input type="checkbox" name="flags.pf2e.settings.showRollDialogs" {{checked user.flags.pf2e.settings.showRollDialogs}} />
-        <p class="notes">{{localize "PF2E.SettingsQuickRollsNotes"}}</p>
+        <label>{{localize "PF2E.SettingsQuickChecksLabel"}}</label>
+        <input type="checkbox" name="flags.pf2e.settings.showCheckDialogs" {{checked user.flags.pf2e.settings.showCheckDialogs}} />
+        <p class="notes">{{localize "PF2E.SettingsQuickChecksNotes"}}</p>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SettingsQuickDamageLabel"}}</label>
+        <input type="checkbox" name="flags.pf2e.settings.showDamageDialogs" {{checked user.flags.pf2e.settings.showDamageDialogs}} />
+        <p class="notes">{{localize "PF2E.SettingsQuickDamageNotes"}}</p>
     </div>
 
     <div class="form-group">
@@ -42,7 +48,7 @@
         {{#if user.character}}
             <label>{{localize "PLAYERS.CharSelected"}}</label>
             <button type="reset" name="release">
-                <i class="fas fa-ban"></i> {{localize "PLAYERS.CharRelease"}}
+                <i class="fa-solid fa-ban"></i> {{localize "PLAYERS.CharRelease"}}
             </button>
             <ul id="characters" class="directory-list">
                 <li class="actor directory-item flexrow" data-actor-id="{{user.character.id}}">
@@ -65,6 +71,6 @@
     </div>
 
     <button type="submit">
-        <i class="fas fa-save"></i> {{localize "PLAYERS.SaveConfig"}}
+        <i class="fa-solid fa-save"></i> {{localize "PLAYERS.SaveConfig"}}
     </button>
 </form>

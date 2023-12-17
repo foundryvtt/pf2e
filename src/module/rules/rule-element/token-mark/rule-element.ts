@@ -1,10 +1,11 @@
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import { TokenDocumentPF2e } from "@scene";
 import { SlugField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource } from "../index.js";
-import { MarkTargetPrompt } from "./prompt.js";
+import { RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource } from "../data.ts";
+import { MarkTargetPrompt } from "./prompt.ts";
 
 /** Remember a token for later referencing */
 class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
@@ -30,7 +31,7 @@ class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
         const token =
             fromUuidSync(this.uuid ?? "") ??
             (game.user.targets.size === 1
-                ? Array.from(game.user.targets)[0]!.document
+                ? Array.from(game.user.targets)[0].document
                 : await new MarkTargetPrompt({ prompt: null, requirements: null }).resolveTarget());
         if (!(token instanceof TokenDocumentPF2e)) {
             // No token was targeted: abort creating item
@@ -60,13 +61,13 @@ type TokenMarkSchema = Omit<RuleElementSchema, "slug"> & {
     uuid: StringField<string, string, false, true, true>;
 };
 
-interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromSchema<TokenMarkSchema> {
+interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromRESchema<TokenMarkSchema> {
     slug: string;
 }
 
 interface MarkTokenSource extends RuleElementSource {
-    slug?: unknown;
-    uuid?: unknown;
+    slug?: JSONValue;
+    uuid?: JSONValue;
 }
 
 export { TokenMarkRuleElement };

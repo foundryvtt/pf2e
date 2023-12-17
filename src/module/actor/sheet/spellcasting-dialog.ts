@@ -2,7 +2,6 @@ import { ActorPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
-import { pick } from "@util/misc.ts";
 import * as R from "remeda";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
@@ -17,7 +16,7 @@ function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<A
                 prepared: { value: "innate" },
             },
         },
-        { actor }
+        { actor },
     ) as SpellcastingEntryPF2e<ActorPF2e>;
 }
 
@@ -28,7 +27,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     constructor(object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>, options: Partial<FormApplicationOptions>) {
         super(
             object instanceof ActorPF2e ? createEmptySpellcastingEntry(object) : object.clone({}, { keepId: true }),
-            options
+            options,
         );
         this.actor = object instanceof ActorPF2e ? object : object.actor;
     }
@@ -85,10 +84,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
         const wasInnate = this.object.isInnate;
 
         // Unflatten the form data, so that we may make some modifications
-        const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
+        const inputData: DeepPartial<SpellcastingEntrySource> = fu.expandObject(formData);
 
         // We may disable certain form data, so reinject it
-        const system = mergeObject(
+        const system = fu.mergeObject(
             inputData.system ?? {},
             {
                 prepared: {
@@ -96,7 +95,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
                 },
                 ability: { value: "cha" },
             },
-            { overwrite: false }
+            { overwrite: false },
         );
 
         inputData.system = system;
@@ -157,7 +156,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             const actualEntry = this.actor.spellcasting.get(this.object.id);
             if (!(actualEntry instanceof SpellcastingEntryPF2e)) return;
 
-            const system = pick(updateData.system, [
+            const system = R.pick(updateData.system, [
                 "prepared",
                 "tradition",
                 "ability",
@@ -184,7 +183,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
 
 export async function createSpellcastingDialog(
     event: MouseEvent,
-    object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>
+    object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>,
 ): Promise<SpellcastingCreateAndEditDialog> {
     const dialog = new SpellcastingCreateAndEditDialog(object, {
         top: event.clientY - 80,

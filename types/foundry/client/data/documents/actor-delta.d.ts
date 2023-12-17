@@ -7,7 +7,7 @@ declare global {
      * @todo Fill in
      */
 
-    class ActorDelta<TParent extends TokenDocument<Scene | null> | null> extends ClientBaseActorDelta<TParent> {
+    class ActorDelta<TParent extends TokenDocument | null> extends ClientBaseActorDelta<TParent> {
         syntheticActor?: NonNullable<NonNullable<TParent>["actor"]> | undefined;
 
         override prepareData(): void;
@@ -32,7 +32,7 @@ declare global {
             event: string,
             collection: string,
             args: [object[], ...unknown[]],
-            parent: ClientDocument | undefined
+            parent: ClientDocument | undefined,
         ): void;
     }
 }

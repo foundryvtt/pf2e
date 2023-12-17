@@ -1,6 +1,6 @@
 {
     "_id": "AmP0qu7c5dlBSath",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Toughness",
     "system": {
         "actionType": {
@@ -11,13 +11,18 @@
         },
         "category": "general",
         "description": {
-            "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+            "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
         },
         "level": {
             "value": 1
         },
         "prerequisites": {
             "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -27,14 +32,11 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "downgrade",
+                "mode": "subtract",
                 "path": "system.attributes.dying.recoveryDC",
-                "value": 9
+                "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

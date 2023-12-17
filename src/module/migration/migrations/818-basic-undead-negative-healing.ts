@@ -1,4 +1,4 @@
-import { FeatSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Add negative healing to basic undead benefits */
@@ -9,7 +9,7 @@ export class Migration818BasicUndeadNegativeHealing extends MigrationBase {
         return (
             source.system.slug === "basic-undead-benefits" &&
             !source.system.rules.some(
-                (r) => r.key === "ActiveEffectLike" && "path" in r && r.path === "system.attributes.hp.negativeHealing"
+                (r) => r.key === "ActiveEffectLike" && "path" in r && r.path === "system.attributes.hp.negativeHealing",
             )
         );
     }

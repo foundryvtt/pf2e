@@ -1,4 +1,4 @@
-import { ItemSourcePF2e, WeaponSource } from "@item/data/index.ts";
+import { ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -31,7 +31,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
                 r.key === "ChoiceSet" &&
                 "choices" in r &&
                 Array.isArray(r.choices) &&
-                r.choices.every((c) => isObject(c) && "value" in c && typeof c.value === "string")
+                r.choices.every((c) => isObject(c) && "value" in c && typeof c.value === "string"),
         );
         for (const choiceSet of choiceSets) {
             this.#updateChoiceSet(choiceSet);
@@ -56,7 +56,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 
         const material = specificData.material;
         if (material?.precious) {
-            material.precious.type &&= material.precious?.type.replace(/^coldiron$/i, "cold-iron");
+            material.precious.type &&= material.precious.type.replace(/^coldiron$/i, "cold-iron");
             delete material.base;
             material["-=base"] = null;
         } else if (typeof material?.type === "string" && typeof material.grade === "string") {
@@ -85,17 +85,17 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 }
 
 interface SpecificMagicData {
-    value: boolean;
+    value?: boolean;
     price?: unknown;
     "-=price"?: null;
     material?: {
-        precious?: { type?: string; grade?: string };
         base?: unknown;
         "-=base"?: null;
-        type?: string;
+        type?: unknown;
         "-=type"?: null;
-        grade?: string;
+        grade?: unknown;
         "-=grade"?: null;
+        precious?: { type?: string; grade?: unknown };
     };
     "-=material"?: null;
     runes?: unknown;

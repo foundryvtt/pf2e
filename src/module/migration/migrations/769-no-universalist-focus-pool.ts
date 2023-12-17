@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -10,7 +10,7 @@ export class Migration769NoUniversalistFocusPool extends MigrationBase {
         if (source.type === "feat" && source.system.slug === "arcane-school") {
             const rule = source.system.rules.find(
                 (r: RuleElementSource & { path?: unknown }) =>
-                    r.key === "ActiveEffectLike" && r.path === "system.resources.focus.max"
+                    r.key === "ActiveEffectLike" && r.path === "system.resources.focus.max",
             );
             if (rule) {
                 rule.predicate = { not: ["feature:universalist"] };

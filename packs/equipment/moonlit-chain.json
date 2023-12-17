@@ -1,20 +1,20 @@
 {
     "_id": "vHZSx5f093Wrivzn",
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/moonlit-chain.webp",
+    "img": "icons/equipment/chest/breastplate-banded-blue.webp",
     "name": "Moonlit Chain",
     "system": {
         "acBonus": 2,
         "baseItem": "chain-shirt",
+        "bulk": {
+            "value": 2
+        },
         "category": "light",
         "checkPenalty": -1,
         "containerId": null,
         "description": {
-            "value": "<p>This <em>+1 silver chain </em>shirt has a collar adorned with stitched images of the phases of the moon. You can see in moonlight as though you had low-light vision.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p><strong>Frequency</strong> one per day</p>\n<hr />\n<p><strong>Effect</strong> You touch the stitched image of the new moon on the armor's collar and suppress the dazzled condition for 1 minute.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include 33 gp of silver.</p>"
+            "value": "<p>This <em>+1 silver chain</em> shirt has a collar adorned with stitched images of the phases of the moon. You can see in moonlight as though you had low-light vision.</p>\n<p><strong>Activate—Dim Sight</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<p><strong>Frequency</strong> one per day</p>\n<hr />\n<p><strong>Effect</strong> You touch the stitched image of the new moon on the armor's collar and suppress the dazzled condition for 1 minute.</p>\n<p><strong>Craft Requirements</strong> The initial raw materials must include 33 gp of silver.</p>"
         },
         "dexCap": 3,
-        "equippedBulk": {
-            "value": "2"
-        },
         "group": "chain",
         "hardness": 0,
         "hp": {
@@ -28,39 +28,39 @@
             "grade": "low",
             "type": "silver"
         },
-        "negateBulk": {
-            "value": "0"
-        },
-        "potency": {},
-        "potencyRune": {
-            "value": 1
-        },
         "price": {
             "value": {
                 "gp": 360
             }
         },
-        "propertyRune1": {
-            "value": ""
-        },
-        "propertyRune2": {
-            "value": ""
-        },
-        "propertyRune3": {
-            "value": ""
-        },
-        "propertyRune4": {
-            "value": ""
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "resiliencyRune": {
-            "value": ""
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SkillVariant.Moonlight",
+                "option": "terrain:moonlight",
+                "toggleable": true
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "terrain:moonlight"
+                ],
+                "selector": "lowLightVision"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 0
         },
-        "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "specific": {
             "material": {
                 "grade": "low",
@@ -68,28 +68,20 @@
             },
             "runes": {
                 "potency": 1,
+                "property": [],
                 "resilient": 0
-            },
-            "value": true
+            }
         },
-        "speedPenalty": null,
-        "stackGroup": null,
+        "speedPenalty": 0,
         "strength": 1,
         "traits": {
             "rarity": "common",
             "value": [
-                "divination",
                 "flexible",
                 "invested",
                 "magical",
                 "noisy"
             ]
-        },
-        "usage": {
-            "value": "wornarmor"
-        },
-        "weight": {
-            "value": "3"
         }
     },
     "type": "armor"

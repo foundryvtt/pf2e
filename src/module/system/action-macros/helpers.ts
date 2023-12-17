@@ -1,8 +1,9 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, WeaponPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -10,7 +11,7 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
@@ -64,11 +65,11 @@ export class ActionMacroHelpers {
 
     static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>
+        data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
-            options.actor.getStatistic(data.slug) ?? (getProperty(options.actor, property) as StatisticModifier);
+            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StatisticModifier);
         if (!statistic) {
             const { actor } = options;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;
@@ -96,7 +97,7 @@ export class ActionMacroHelpers {
         selector: string,
         translationPrefix: string,
         outcome: DegreeOfSuccessString,
-        translationKey?: string
+        translationKey?: string,
     ): RollNotePF2e {
         const visible = game.settings.get("pf2e", "metagame_showResults");
         const outcomes = visible ? [outcome] : [];
@@ -118,7 +119,7 @@ export class ActionMacroHelpers {
     }
 
     static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: SimpleRollActionCheckOptions<ItemType>
+        options: SimpleRollActionCheckOptions<ItemType>,
     ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -162,23 +163,17 @@ export class ActionMacroHelpers {
                     title: options.title,
                 });
 
-                const actionTraits: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
-                const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-                const traitObjects = options.traits.map((trait) => ({
-                    description: traitDescriptions[trait],
-                    name: trait,
-                    label: actionTraits[trait] ?? trait,
-                }));
-
+                const actionTraits = (options.traits ?? []).filter(
+                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
-
                 const label = (await options.content?.(header)) ?? header;
                 const title = `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`;
 
                 if (statistic instanceof Statistic) {
                     const dc = this.#resolveCheckDC({ unresolvedDC: options.difficultyClass });
                     await statistic.roll({
-                        ...eventToRollParams(options.event),
+                        ...eventToRollParams(options.event, { type: "check" }),
                         token: selfToken,
                         label,
                         title,
@@ -187,7 +182,7 @@ export class ActionMacroHelpers {
                         extraRollOptions: combinedOptions,
                         modifiers,
                         target: targetData.actor,
-                        traits: traitObjects,
+                        traits: actionTraits,
                         createMessage: options.createMessage,
                         callback: (roll, outcome, message) => {
                             options.callback?.({ actor, message, outcome, roll });
@@ -207,7 +202,7 @@ export class ActionMacroHelpers {
 
                     const distance = ((): number | null => {
                         const reach =
-                            selfActor instanceof CreaturePF2e && weapon?.isOfType("weapon")
+                            selfActor.isOfType("creature") && weapon?.isOfType("weapon")
                                 ? selfActor.getReach({ action: "attack", weapon }) ?? null
                                 : null;
                         return selfToken?.object && targetData?.token?.object
@@ -226,7 +221,7 @@ export class ActionMacroHelpers {
                     const substitutions = extractRollSubstitutions(
                         actor.synthetics.rollSubstitutions,
                         domains,
-                        finalOptions
+                        finalOptions,
                     );
                     const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, domains);
 
@@ -244,13 +239,13 @@ export class ActionMacroHelpers {
                             notes: [...notes, ...(statistic.notes ?? [])],
                             dosAdjustments,
                             substitutions,
-                            traits: traitObjects,
+                            traits: actionTraits,
                             title,
                         },
                         options.event,
                         (roll, outcome, message) => {
                             options.callback?.({ actor, message, outcome, roll });
-                        }
+                        },
                     );
                 }
             } catch (cce) {
@@ -272,7 +267,7 @@ export class ActionMacroHelpers {
         token: TokenDocumentPF2e | null;
         actor: ActorPF2e | null;
     } {
-        const targets = Array.from(game.user.targets).filter((t) => t.actor instanceof CreaturePF2e);
+        const targets = Array.from(game.user.targets).filter((t) => t.actor?.isOfType("creature"));
         const target = targets.shift()?.document ?? null;
         const targetActor = target?.actor ?? null;
         return {

@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/equipment/consumables/ammunition/reducer-round.webp",
     "name": "Reducer Round",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 0,
+        "bulk": {
             "value": 0
         },
-        "consumableType": {
-            "value": "ammo"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "ammo",
         "containerId": null,
+        "damage": null,
         "description": {
-            "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong><span class=\"action-glyph\">1</span> Interact</p>\n<p>This bullet is fashioned from a rubbery substance and stamped with the image of a diminutive ant twitching in surprise. The bullet deals no damage on a successful hit. Instead, the target must attempt a @Check[type:fortitude|dc:19] save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target shrinks to Tiny size for [[/r 1d4 #rounds]] rounds. Its reach becomes 0 feet, and it's @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for this duration.</p>\n<p><strong>Critical Failure</strong> The target shrinks to Tiny size for 1 minute. Its reach becomes 0 feet, and it's @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for this duration</p>"
-        },
-        "equippedBulk": {
-            "value": ""
+            "value": "<p><strong>Ammunition</strong> round</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>This bullet is fashioned from a rubbery substance and stamped with the image of a diminutive ant twitching in surprise. The bullet deals no damage on a successful hit. Instead, the target must attempt a @Check[type:fortitude|dc:19] save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target shrinks to Tiny size for [[/r 1d4 #rounds]] rounds. Its reach becomes 0 feet, and it's @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for this duration.</p>\n<p><strong>Critical Failure</strong> The target shrinks to Tiny size for 1 minute. Its reach becomes 0 feet, and it's @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for this duration</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,34 +25,33 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 25
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #180: The Smoking Gun"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder #180: The Smoking Gun"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "uncommon",
             "value": [
                 "consumable",
-                "magical",
-                "transmutation"
+                "magical"
             ]
         },
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

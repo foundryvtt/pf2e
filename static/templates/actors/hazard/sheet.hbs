@@ -29,7 +29,7 @@
                         <h4>{{localize "PF2E.HazardDescriptionLabel"}}</h4>
                         <div class="controls">
                             {{#if editing}}
-                                <a data-action="edit-section"><i class="fas fa-edit"></i></a>
+                                <a data-action="edit-section"><i class="fa-solid fa-edit"></i></a>
                             {{/if}}
                         </div>
                     </div>
@@ -116,6 +116,7 @@
                                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                                             {{/if}}
                                         </div>
+                                        <div class="item-summary" hidden></div>
                                     </li>
                                 {{/each}}
                             </ol>
@@ -160,24 +161,22 @@
                                             </div>
                                         {{/if}}
                                     </div>
-                                    <div class="attack-detail sub-section expandable expanded">
-                                        <div class="attack-description">
-                                            {{{action.description}}}
-                                        </div>
+                                    <div class="item-summary">
+                                        {{{action.description}}}
                                     </div>
                                 </li>
                             {{/each}}
                         </ol>
                     {{/if}}
                 </div>
+            </div>
 
-                <div class="source section-container headerless">
-                    <div class="section-body flexrow">
-                        <label>{{localize "PF2E.Source.Label"}}:</label>
-                        <input class="source-input" name="system.details.source.value" type="text" value="{{data.details.source.value}}" placeholder="{{localize "PF2E.Source.SourcePlaceholder"}}" />
-                        <label>{{localize "PF2E.Source.AuthorLabel"}}:</label>
-                        <input name="system.details.source.author" type="text" value="{{data.details.source.author}}" placeholder="{{localize "PF2E.Source.AuthorPlaceholder"}}" />
-                    </div>
+            <div class="section-container publication">
+                <div class="section-header">
+                    <h4>{{localize "PF2E.Publication.Label"}}</h4>
+                </div>
+                <div class="section-body">
+                    {{> "systems/pf2e/templates/partials/publication-data.hbs" path="system.details.publication" data=data.details.publication}}
                 </div>
             </div>
         </section>

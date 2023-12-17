@@ -70,6 +70,7 @@ interface SpellcastingSheetData
     isPrepared?: boolean;
     isRitual?: boolean;
     isSpontaneous?: boolean;
+    usesSpellProficiency: boolean;
     showSlotlessLevels?: boolean;
 }
 

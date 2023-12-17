@@ -32,7 +32,7 @@ interface UpdateData {
 
 export class WorldClockSettings extends FormApplication {
     static override get defaultOptions(): FormApplicationOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
             template: "systems/pf2e/templates/system/settings/world-clock/index.hbs",
@@ -89,7 +89,7 @@ export class WorldClockSettings extends FormApplication {
                 isDateTime: setting.type === String && !("choices" in setting),
             };
         });
-        return mergeObject(await super.getData(), { settings });
+        return fu.mergeObject(await super.getData(), { settings });
     }
 
     /** Register World Clock settings */
@@ -109,7 +109,7 @@ export class WorldClockSettings extends FormApplication {
         const title = localize("ResetWorldTime.Name");
         $html.find("button.reset-world-time").on("click", async () => {
             const template = await renderTemplate(
-                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs"
+                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs",
             );
             Dialog.confirm({
                 title: title,
@@ -193,7 +193,7 @@ export class WorldClockSettings extends FormApplication {
                     game.settings.set(
                         "pf2e",
                         "worldClock.playersCanView",
-                        game.settings.get("pf2e", "worldClock.showClockButton")
+                        game.settings.get("pf2e", "worldClock.showClockButton"),
                     );
                 },
             },

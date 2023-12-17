@@ -1,0 +1,350 @@
+{
+    "_id": "E5rhB1dzkBVnaEDX",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "5hijiZfVSnfNTlQ6",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.h5GN6TwNPgBnppeZ"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "allOutAssault": {
+                            "id": "v7wzHu1D3duO4IS2",
+                            "onDelete": "detach"
+                        },
+                        "counterattack": {
+                            "id": "4IBaD7FuRPjVjJkV",
+                            "onDelete": "detach"
+                        },
+                        "dirtyFighting": {
+                            "id": "5B01aXaes4bLX0P0",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "uzT6OylJkqdfcjJM",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Tactical Training",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The Drelev Irregulars can use the @UUID[Compendium.pf2e.kingmaker-features.Item.All-Out Assault], @UUID[Compendium.pf2e.kingmaker-features.Item.Counterattack], and @UUID[Compendium.pf2e.kingmaker-features.Item.Dirty Fighting] tactical actions.</p>"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "flag": "allOutAssault",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.All-Out Assault"
+                    },
+                    {
+                        "flag": "counterattack",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Counterattack"
+                    },
+                    {
+                        "flag": "dirtyFighting",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Dirty Fighting"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "v7wzHu1D3duO4IS2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.Z6jMZgAxI1zRO7Sl"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5hijiZfVSnfNTlQ6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "All-Out Assault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Merciless]</p>\n<hr />\n<p>Your army attacks with frightening vigor. Attempt a melee Strike against an enemy army's AC.</p>\n<p><strong>Critical Success</strong> Your army inflicts @Damage[3|domains:melee-damage,strike-damage] points of damage to the target army. If your army's next war action this turn is an attack war action against a different target army, you gain a +1 circumstance bonus to the Strike as your fury continues to the new target.</p>\n<p><strong>Success</strong> Your army deals @Damage[2|domains:melee-damage,strike-damage] points of damage to the target army.</p>\n<p><strong>Failure</strong> Your army falters, but still deals @Damage[1|domains:melee-damage,strike-damage] point of damage to the target army.</p>\n<p><strong>Critical Failure</strong> Your army deals no damage to the target army and becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Outflanked] until the start of its next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "All-Out Assault Followup Attack (Crit Success)",
+                        "option": "all-out-assault-followup",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "All-Out Assault Followup (Crit Success)",
+                        "predicate": [
+                            "all-out-assault-followup"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "all-out-assault",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "cavalry",
+                        "infantry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "4IBaD7FuRPjVjJkV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.8wjiF3ctXUjP9oyX"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5hijiZfVSnfNTlQ6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Counterattack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<p><strong>Trigger</strong> An army you are engaged with attempts a maneuver war action.</p>\n<hr />\n<p>Your army lashes out at the foe as they attempt to perform a maneuver. Attempt a melee Strike against the triggering army's AC. Counterattack doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>\n<p><strong>Critical Success</strong> You inflict 1 point of damage on the army and increase its @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken] condition value by 1.</p>\n<p><strong>Success</strong> You inflict 1 point of damage on the army.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "counterattack",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "5B01aXaes4bLX0P0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.G2eBcOnUHb3yT7JL"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5hijiZfVSnfNTlQ6",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Dirty Fighting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Flexible Tactics]</p>\n<hr />\n<p>Your army uses trickery, deception, and unfair tactics to attempt a devastating attack against an outflanked army. Attempt a melee Strike or a ranged Strike against the AC of a target outflanked army that is not distant.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Weary]{Weary 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes weary 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your attack deals no damage to the target army, which is emboldened by your failed attempt at dirty fighting. This reduces the target army's weary value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "dirty-fighting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "lCKz8286lk4mNMfK",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.pIs4FsKSIWoBWgnd"
+                }
+            },
+            "folder": "uzT6OylJkqdfcjJM",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Unpredictable Movement",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>It’s difficult to do significant damage to the Drelev Irregulars with ranged attacks, as the mob moves about in a haphazard manner. All ranged attacks against the Drelev Irregulars suffer a –2 circumstance penalty as a result.</p>"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Drelev Irregulars",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 25
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": 1,
+        "details": {
+            "alignment": "NG",
+            "blurb": "",
+            "description": "<p>The Drelev Irregulars are composed of equal parts Tiger Lords and mercenaries who were once bandits. Their fighting style is more akin to a mob than a disciplined force; while this allows the irregulars an advantage in mobility, it decentralizes their command structure and lessens their morale.</p>",
+            "level": {
+                "value": 7
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 19,
+            "morale": 11
+        },
+        "scouting": 15,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "infantry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Swords and Axes",
+                "potency": 0
+            },
+            "ranged": null
+        }
+    },
+    "type": "army"
+}

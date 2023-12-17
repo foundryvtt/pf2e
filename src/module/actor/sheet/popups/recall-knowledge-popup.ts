@@ -37,7 +37,7 @@ export class RecallKnowledgePopup extends Application {
         return padArray(
             attempts.map((attempt) => attempt.toString()),
             6,
-            "-"
+            "-",
         );
     }
 }

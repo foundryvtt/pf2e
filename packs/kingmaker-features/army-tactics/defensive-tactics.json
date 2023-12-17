@@ -1,7 +1,7 @@
 {
     "_id": "VJ8S2h9D8ksQ5O1w",
     "folder": "e185cDQaLjU3uZ62",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Defensive Tactics",
     "system": {
         "actionType": {
@@ -13,7 +13,7 @@
         "campaign": "kingmaker",
         "category": "army-tactic",
         "description": {
-            "value": "<p>The army is especially good at enacting defensive tactics. The army gains a +1 status bonus on Maneuver checks made to Guard. This bonus increases to +2 at 9th level, and +3 at 17th level. The army can use the Defensive Stance tactical war action.</p>"
+            "value": "<p>The army is especially good at enacting defensive tactics. The army gains a +1 status bonus on Maneuver checks made to @UUID[Compendium.pf2e.kingmaker-features.Item.Guard]. This bonus increases to +2 at 9th level, and +3 at 17th level.</p>\n<p>The army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.Defensive Stance] tactical war action.</p>"
         },
         "level": {
             "value": 3
@@ -22,13 +22,53 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": ""
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
         },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.kingmaker-features.Item.Defensive Stance"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Maneuver checks made to Guard",
+                "predicate": [
+                    "action:guard"
+                ],
+                "selector": "maneuver-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 17,
+                            "value": 3
+                        }
+                    ],
+                    "field": "actor|level"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "cavalry",
+                "infantry",
+                "siege",
+                "skirmisher"
+            ]
         }
     },
     "type": "campaignFeature"

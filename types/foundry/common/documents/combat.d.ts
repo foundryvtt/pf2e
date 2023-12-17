@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata, EmbeddedCollection } from "../abstract/module.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { BaseCombatant, BaseScene } from "./module.d.ts";
+import type * as documents from "./module.d.ts";
 
 /** The Combat document model. */
 export default class BaseCombat extends Document<null, CombatSchema> {
@@ -10,11 +10,9 @@ export default class BaseCombat extends Document<null, CombatSchema> {
 }
 
 export default interface BaseCombat extends Document<null, CombatSchema>, ModelPropsFromSchema<CombatSchema> {
-    readonly _source: CombatSource;
+    readonly combatants: EmbeddedCollection<documents.BaseCombatant<this>>;
 
-    readonly combatants: EmbeddedCollection<BaseCombatant<this>>;
-
-    get documentName(): "Combat";
+    get documentName(): CombatMetadata["name"];
 }
 
 interface CombatMetadata extends DocumentMetadata {
@@ -31,9 +29,9 @@ type CombatSchema = {
     /** The _id which uniquely identifies this Combat document */
     _id: fields.DocumentIdField;
     /** The _id of a Scene within which this Combat occurs */
-    scene: fields.ForeignDocumentField<BaseScene>;
+    scene: fields.ForeignDocumentField<documents.BaseScene>;
     /** A Collection of Combatant embedded Documents */
-    combatants: fields.EmbeddedCollectionField<BaseCombatant<BaseCombat>>;
+    combatants: fields.EmbeddedCollectionField<documents.BaseCombatant<BaseCombat>>;
     /** Is the Combat encounter currently active? */
     active: fields.BooleanField;
     /** The current round of the Combat encounter */

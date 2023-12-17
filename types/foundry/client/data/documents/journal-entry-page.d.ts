@@ -50,7 +50,7 @@ declare global {
          */
         protected static _makeHeadingNode(
             heading: HTMLHeadElement,
-            options?: { includeElement?: boolean }
+            options?: { includeElement?: boolean },
         ): JournalEntryPageHeading;
 
         /* -------------------------------------------- */
@@ -62,7 +62,7 @@ declare global {
         protected override _onUpdate(
             data: DeepPartial<this["_source"]>,
             options: DocumentModificationContext<TParent>,
-            userId: string
+            userId: string,
         ): void;
     }
 

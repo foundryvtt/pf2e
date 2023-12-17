@@ -12,7 +12,7 @@ export function highJump(options: SkillActionOptions): void {
         traits: ["move"],
         event: options.event,
         callback: options.callback,
-        difficultyClass: options.difficultyClass,
+        difficultyClass: options.difficultyClass ?? { value: 30 },
         extraNotes: (selector: string) => [
             ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.HighJump", "success"),

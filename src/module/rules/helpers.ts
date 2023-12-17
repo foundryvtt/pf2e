@@ -8,12 +8,11 @@ import {
     TestableDeferredValueParams,
 } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
-import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
-import { isObject, pick } from "@util";
 import * as R from "remeda";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
@@ -22,7 +21,7 @@ import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElement
 function extractModifiers(
     synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "modifiers">,
     selectors: string[],
-    options: DeferredValueParams = {}
+    options: DeferredValueParams = {},
 ): ModifierPF2e[] {
     const { modifierAdjustments, modifiers: syntheticModifiers } = synthetics;
     const modifiers = Array.from(new Set(selectors))
@@ -38,7 +37,7 @@ function extractModifiers(
 function extractModifierAdjustments(
     adjustmentsRecord: RuleElementSynthetics["modifierAdjustments"],
     selectors: string[],
-    slug: string
+    slug: string,
 ): ModifierAdjustment[] {
     const adjustments = Array.from(new Set(selectors.flatMap((s) => adjustmentsRecord[s] ?? [])));
     return adjustments.filter((a) => [slug, null].includes(a.slug));
@@ -52,31 +51,17 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
 function extractDamageDice(
     deferredDice: DamageDiceSynthetics,
     selectors: string[],
-    options: TestableDeferredValueParams
+    options: TestableDeferredValueParams,
 ): DamageDicePF2e[] {
     return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
 }
 
-function extractDamageSynthetics(
-    actor: ActorPF2e,
+function processDamageCategoryStacking(
     base: BaseDamageData[],
-    selectors: string[],
-    options: TestableDeferredValueParams & { extraModifiers?: ModifierPF2e[] }
+    options: { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[]; test: Set<string> },
 ): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
-    for (const modifier of options.extraModifiers ?? []) {
-        modifier.adjustments = extractModifierAdjustments(
-            actor.synthetics.modifierAdjustments,
-            selectors,
-            modifier.slug
-        );
-    }
-
-    const extractedModifiers = extractModifiers(actor.synthetics, selectors, options);
-    const dice = extractDamageDice(actor.synthetics.damageDice, selectors, options);
-
-    const groupedModifiers = R.groupBy([options.extraModifiers ?? [], extractedModifiers].flat(), (m) =>
-        m.category === "persistent" ? "persistent" : "main"
-    );
+    const { dice } = options;
+    const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
 
     const modifiers = [
         ...new StatisticModifier("damage", groupedModifiers.main ?? [], options.test).modifiers,
@@ -108,7 +93,7 @@ async function extractEphemeralEffects({
         await Promise.all(
             domains
                 .flatMap((s) => effectsFrom.synthetics.ephemeralEffects[s]?.[affects] ?? [])
-                .map((d) => d({ test: fullOptions, resolvables }))
+                .map((d) => d({ test: fullOptions, resolvables })),
         )
     ).flatMap((e) => e ?? []);
 }
@@ -125,7 +110,7 @@ interface ExtractEphemeralEffectsParams {
 function extractRollTwice(
     rollTwices: Record<string, RollTwiceSynthetic[]>,
     selectors: string[],
-    options: Set<string>
+    options: Set<string>,
 ): RollTwiceOption {
     const twices = selectors.flatMap((s) => rollTwices[s] ?? []).filter((rt) => rt.predicate?.test(options) ?? true);
     if (twices.length === 0) return false;
@@ -139,27 +124,27 @@ function extractRollTwice(
 function extractRollSubstitutions(
     substitutions: Record<string, RollSubstitution[]>,
     domains: string[],
-    rollOptions: Set<string>
+    rollOptions: Set<string>,
 ): RollSubstitution[] {
     return domains
-        .flatMap((d) => deepClone(substitutions[d] ?? []))
+        .flatMap((d) => fu.deepClone(substitutions[d] ?? []))
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
 function extractDegreeOfSuccessAdjustments(
     synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
-    selectors: string[]
+    selectors: string[],
 ): DegreeOfSuccessAdjustment[] {
-    return Object.values(pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+    return Object.values(R.pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
 }
 
 function isBracketedValue(value: unknown): value is BracketedValue {
-    return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
+    return R.isObject(value) && Array.isArray(value.brackets);
 }
 
 async function processPreUpdateActorHooks(
-    changed: DocumentUpdateData<ActorPF2e>,
-    { pack }: { pack: string | null }
+    changed: Record<string, unknown>,
+    { pack }: { pack: string | null },
 ): Promise<void> {
     const actorId = String(changed._id);
     const actor = pack ? await game.packs.get(pack)?.getDocument(actorId) : game.actors.get(actorId);
@@ -177,25 +162,29 @@ async function processPreUpdateActorHooks(
         await Promise.all(
             rules.map(
                 (r): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> =>
-                    actor.items.has(r.item.id) ? r.preUpdateActor() : new Promise(() => ({ create: [], delete: [] }))
-            )
+                    actor.items.has(r.item.id) ? r.preUpdateActor() : new Promise(() => ({ create: [], delete: [] })),
+            ),
         )
     ).reduce(
-        (combined, cd) => ({
-            create: [...combined.create, ...cd.create],
-            delete: Array.from(new Set([...combined.delete, ...cd.delete])),
-        }),
-        { create: [], delete: [] }
+        (combined, cd) => {
+            combined.create.push(...cd.create);
+            combined.delete.push(...cd.delete);
+            return combined;
+        },
+        { create: [], delete: [] },
     );
-    createDeletes.delete = createDeletes.delete.filter((id) => actor.items.has(id));
+    createDeletes.delete = R.uniq(createDeletes.delete).filter((id) => actor.items.has(id));
 
-    await actor.createEmbeddedDocuments("Item", createDeletes.create, { keepId: true, render: false });
-    await actor.deleteEmbeddedDocuments("Item", createDeletes.delete, { render: false });
+    if (createDeletes.create.length > 0) {
+        await actor.createEmbeddedDocuments("Item", createDeletes.create, { keepId: true, render: false });
+    }
+    if (createDeletes.delete.length > 0) {
+        await actor.deleteEmbeddedDocuments("Item", createDeletes.delete, { render: false });
+    }
 }
 
 export {
     extractDamageDice,
-    extractDamageSynthetics,
     extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,
     extractModifierAdjustments,
@@ -204,5 +193,6 @@ export {
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,
+    processDamageCategoryStacking,
     processPreUpdateActorHooks,
 };

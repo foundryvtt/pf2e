@@ -1,0 +1,48 @@
+{
+    "_id": "aupG5cvPAfJszMfO",
+    "folder": "tavHHn3vqI7bCnl6",
+    "img": "icons/magic/movement/chevrons-down-yellow.webp",
+    "name": "Reduced Accuracy",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p><em><strong>Note</strong>: This effect does not represent an army condition itself but is instead used for automating various buffs, effects, and conditions which reduce the accuracy of an attacker, such as the @UUID[Compendium.pf2e.kingmaker-features.Item.Concealed] army condition.</em></p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "attack-roll",
+                "type": "circumstance",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -16,6 +16,9 @@ declare global {
         /** Track whether the scene is the active view */
         protected _view: boolean;
 
+        /** Determine the canvas dimensions this Scene would occupy, if rendered */
+        dimensions: SceneDimensions;
+
         /** Provide a thumbnail image path used to represent this document. */
         get thumbnail(): string;
 
@@ -34,12 +37,12 @@ declare global {
 
         override clone(
             data: DeepPartial<this["_source"]> | undefined,
-            options: { save: true; keepId?: boolean }
+            options: { save: true; keepId?: boolean },
         ): Promise<this>;
         override clone(data?: DeepPartial<this["_source"]>, options?: { save?: false; keepId?: boolean }): this;
         override clone(
             data?: DeepPartial<this["_source"]>,
-            options?: { save?: boolean; keepId?: boolean }
+            options?: { save?: boolean; keepId?: boolean },
         ): this | Promise<this>;
 
         /** Set this scene as the current view */
@@ -48,21 +51,21 @@ declare global {
         override prepareBaseData(): void;
 
         protected override _preCreate(
-            data: PreDocumentId<this["_source"]>,
+            data: this["_source"],
             options: DocumentModificationContext<null>,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
             options: DocumentModificationContext<null>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preUpdate(
-            data: DocumentUpdateData<this>,
+            data: Record<string, unknown>,
             options: SceneUpdateContext,
-            user: User
+            user: User,
         ): Promise<boolean | void>;
 
         override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void;
@@ -82,7 +85,7 @@ declare global {
             collection: "tokens",
             data: foundry.documents.TokenSource[][],
             options: DocumentModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _preUpdateDescendantDocuments(
@@ -90,7 +93,7 @@ declare global {
             collection: string,
             changes: object[],
             options: SceneEmbeddedModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         protected override _onUpdateDescendantDocuments(
@@ -99,7 +102,7 @@ declare global {
             documents: ClientDocument[],
             changes: object[],
             options: SceneEmbeddedModificationContext<this>,
-            userId: string
+            userId: string,
         ): void;
 
         /* -------------------------------------------- */
@@ -143,47 +146,47 @@ declare global {
 
         getEmbeddedCollection(embeddedName: "Token"): this["tokens"];
 
-        update(data: DocumentUpdateData<this>, options?: SceneUpdateContext): Promise<this>;
+        update(data: Record<string, unknown>, options?: SceneUpdateContext): Promise<this>;
 
         updateEmbeddedDocuments(
             embeddedName: "Token",
-            updateData: EmbeddedDocumentUpdateData<TokenDocument<this>>[],
-            options?: SceneTokenModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneTokenModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientLight",
-            updateData: EmbeddedDocumentUpdateData<AmbientLightDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["lights"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientSound",
-            updateData: EmbeddedDocumentUpdateData<AmbientSoundDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["sounds"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Drawing",
-            updateData: EmbeddedDocumentUpdateData<DrawingDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["drawings"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "MeasuredTemplate",
-            updateData: EmbeddedDocumentUpdateData<MeasuredTemplateDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Note",
-            updateData: EmbeddedDocumentUpdateData<NoteDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["notes"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",
-            updateData: EmbeddedDocumentUpdateData<TileDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tiles"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Wall",
-            updateData: EmbeddedDocumentUpdateData<WallDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+            updateData: EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["walls"]>[]>;
         updateEmbeddedDocuments(
             embeddedName:
@@ -196,15 +199,15 @@ declare global {
                 | "Tile"
                 | "Wall",
             updateData:
-                | EmbeddedDocumentUpdateData<TokenDocument<this>>[]
-                | EmbeddedDocumentUpdateData<AmbientLightDocument<this>>[]
-                | EmbeddedDocumentUpdateData<AmbientSoundDocument<this>>[]
-                | EmbeddedDocumentUpdateData<DrawingDocument<this>>[]
-                | EmbeddedDocumentUpdateData<MeasuredTemplateDocument<this>>[]
-                | EmbeddedDocumentUpdateData<NoteDocument<this>>[]
-                | EmbeddedDocumentUpdateData<TileDocument<this>>[]
-                | EmbeddedDocumentUpdateData<WallDocument<this>>[],
-            options?: SceneEmbeddedModificationContext<this>
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[]
+                | EmbeddedDocumentUpdateData[],
+            options?: SceneEmbeddedModificationContext<this>,
         ): Promise<
             | CollectionValue<this["tokens"]>[]
             | CollectionValue<this["lights"]>[]

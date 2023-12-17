@@ -3,31 +3,23 @@ import { ErrorPF2e, isObject, sluggify } from "@util";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 /**
  * Set a roll option at a specificed domain
  * @category RuleElement
  */
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
-    declare toggleable: boolean | "totm";
-
     constructor(source: RollOptionSource, options: RuleElementOptions) {
-        const sourceValue = source.value;
-
-        // This rule element behaves much like an override AE-like, so set its default priority to 50
-        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...source }, options);
-
-        this.toggleable ??= false;
-        this.value = typeof sourceValue === "string" ? sourceValue : !!(source.value ?? !this.toggleable);
+        super(source, options);
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
         }
 
         // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
-        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+        if (this.toggleable === "totm" && !game.pf2e.settings.totm) {
             this.ignored = true;
         }
 
@@ -41,9 +33,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     static override defineSchema(): RollOptionSchema {
         const { fields } = foundry.data;
 
-        return {
-            ...super.defineSchema(),
+        // This rule element behaves much like an override AE-like, so set its default priority to 50
+        const baseSchema = super.defineSchema();
+        baseSchema.priority.initial = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES.override;
 
+        return {
+            ...baseSchema,
             domain: new fields.StringField({
                 required: true,
                 nullable: false,
@@ -54,7 +49,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             phase: new fields.StringField({
                 required: false,
                 nullable: false,
-                choices: deepClone(AELikeRuleElement.PHASES),
+                choices: fu.deepClone(AELikeRuleElement.PHASES),
                 initial: "applyAEs",
             }),
             suboptions: new fields.ArrayField(
@@ -80,11 +75,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     initial: [],
                     validate: (v): boolean => Array.isArray(v) && v.length !== 1,
                     validationError: "must have zero or 2+ suboptions",
-                }
+                },
             ),
             value: new ResolvableValueField({
                 required: false,
-                initial: undefined,
+                initial: (d) => !d.toggleable,
                 validate: (v) => ["boolean", "string"].includes(typeof v),
                 validationError: "must be a boolean, string, or otherwise omitted",
             }),
@@ -96,9 +91,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         choices: ["totm"],
                         initial: undefined,
                     }),
-                    new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
+                    new StrictBooleanField({ required: false, nullable: false, initial: false }),
                 ],
-                { required: false, nullable: false, initial: undefined }
+                { required: false, nullable: false, initial: undefined },
             ),
             placement: new fields.StringField({
                 required: false,
@@ -139,6 +134,11 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (source.placement && !source.toggleable) {
             throw Error("  placement: may only be present if toggleable");
         }
+    }
+
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    override async preCreate(): Promise<void> {
+        if (this.phase === "applyAEs") this.#setRollOption();
     }
 
     override onApplyActiveEffects(): void {
@@ -188,12 +188,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const isIdDomain = /^[a-zA-Z0-9]{16}-[-a-z0-9]+[a-z0-9]$/.test(this.domain);
         if (!isStandardDomain && !isIdDomain) {
             return this.failValidation(
-                "domain must be a string consisting of only lowercase letters, numbers, and hyphens."
+                "domain must be a string consisting of only lowercase letters, numbers, and hyphens.",
             );
         }
 
         const optionSet = new Set(
-            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat()
+            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat(),
         );
         if (!this.test(optionSet)) return this.#setFlag(false);
 
@@ -203,7 +203,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (!baseOption) {
             this.failValidation(
-                'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens'
+                'The "option" property must be a string consisting of only letters, numbers, colons, and hyphens',
             );
             return;
         }
@@ -349,7 +349,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 }
 
-interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromSchema<RollOptionSchema> {
+interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
     value: boolean | string;
 }
 
@@ -372,9 +372,9 @@ type RollOptionSchema = RuleElementSchema & {
      * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
      * `true` unless also `togglable`, in which case to `false`.
      */
-    value: ResolvableValueField<false, false, false>;
+    value: ResolvableValueField<false, false, true>;
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
-    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, false>;
+    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
     /** If toggleable, the location to be found in an interface */
     placement: StringField<string, string, false, false, false>;
     /** An optional predicate to determine whether the toggle is interactable by the user */

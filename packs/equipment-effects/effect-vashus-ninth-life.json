@@ -1,0 +1,50 @@
+{
+    "_id": "05mIW5FMX2socBY9",
+    "img": "icons/weapons/swords/sword-katana.webp",
+    "name": "Effect: Vashu's Ninth Life",
+    "system": {
+        "description": {
+            "value": "<p>Vashu's Ninth Life gains the parry trait and raises itself into parrying position, granting you a +1 circumstance bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #198: No Breath to Cry"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Parry"
+            },
+            {
+                "definition": [
+                    "item:slug:vashus-ninth-life"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "parry"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,44 @@
+{
+    "_id": "emSh1VxHVtTmt925",
+    "img": "icons/skills/melee/strike-sword-blood-red.webp",
+    "name": "Effect: Methodical Debilitations (Flanking)",
+    "system": {
+        "description": {
+            "value": "<p>The target is unable to flank or provide flanking.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "value": false
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

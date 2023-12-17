@@ -12,7 +12,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
     // Handle deletion restrictions, aborting early if found in either this item's granter or any of its grants
     if (granter && parentGrant?.onDelete === "restrict" && !pendingItems.includes(granter)) {
         ui.notifications.warn(
-            game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: granter.name })
+            game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: granter.name }),
         );
         pendingItems.splice(pendingItems.indexOf(item), 1);
         return;
@@ -24,7 +24,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
 
         if (grantee.flags.pf2e.grantedBy.onDelete === "restrict" && !pendingItems.includes(grantee)) {
             ui.notifications.warn(
-                game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: grantee.name })
+                game.i18n.format("PF2E.Item.RemovalPrevented", { item: item.name, preventer: grantee.name }),
             );
             pendingItems.splice(pendingItems.indexOf(item), 1);
             return;

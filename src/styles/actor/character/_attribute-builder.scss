@@ -118,32 +118,34 @@
     }
 
     .row-heading {
-        display: grid;
-        grid-template-columns: 42px 1fr auto;
-        grid-template-areas: "img description remaining";
         align-items: center;
+        display: grid;
+        grid-template-areas: "img description remaining";
+        grid-template-columns: 42px 1fr auto;
 
         h3 {
-            grid-column: 1 / 4;
             align-self: start;
             font-size: var(--font-size-24);
+            grid-column: 1 / 4;
         }
         .hint-container {
             grid-column: 1 / 4;
         }
         img {
-            grid-area: img;
             border: 0;
+            grid-area: img;
+            height: 2rem;
+            width: 2rem;
         }
 
         div.label {
-            grid-area: description;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            grid-area: description;
             margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         div.remaining {
@@ -197,9 +199,9 @@
             width: 6em;
 
             > i.key-attribute {
+                bottom: 3px;
                 font-size: smaller;
                 left: 2px;
-                margin-top: 1px;
                 position: absolute;
             }
 
@@ -373,7 +375,8 @@
         text-transform: uppercase;
     }
 
-    div[data-tooltip-content] {
+    div[data-tooltip-content],
+    div[data-tooltip] {
         &.description,
         .description {
             text-decoration: underline dotted;

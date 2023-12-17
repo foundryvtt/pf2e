@@ -1,0 +1,195 @@
+{
+    "_id": "OlkrQOPjLclyyxCw",
+    "img": "systems/pf2e/icons/spells/mantle-of-the-unwavering-heart.webp",
+    "name": "Spell Effect: Mantle of the Unwavering Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Mantle of the Unwavering Heart]</p>\n<ul>\n<li><strong>Evergreen Vitality</strong> You gain fast healing 3 and a +2 bonus to saves against poison and disease. This effect has the healing and vitality traits.</li>\n<li><strong>Overwhelming Perfume</strong> (aura, olfactory) A cloud of potent floral scent surrounds you in a 15-foot emanation. Creatures in the aura can't benefit from the scent ability and are sickened 1 as long as they remain in the aura. The sickness is a disease effect.</li>\n<li><strong>Towering Trunk</strong> You grow to a considerable height. Increase your size to Large. You're clumsy 1. Your reach increases by 5 feet (or by 10 feet if you started out Tiny), and you gain a grasping branch unarmed attack; this attack is in the brawling weapon group and deals 2d8 bludgeoning damage plus Grab.</li>\n<li><strong>Unyielding Will</strong> Your mind becomes incredibly resilient to change. You're immune to being fascinated, and you get a +1 bonus to saves and DCs against mental effects.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "img": "icons/magic/nature/leaf-elm-sparkle-glow-green.webp",
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.EvergreenVitality",
+                        "predicate": [
+                            {
+                                "not": "mantle-unwavering-heart:evergreen-vitality"
+                            }
+                        ],
+                        "value": "evergreen-vitality"
+                    },
+                    {
+                        "img": "icons/commodities/flowers/daisy-close-white.webp",
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.OverwhelmingPerfume",
+                        "predicate": [
+                            {
+                                "not": "mantle-unwavering-heart:overwhelming-perfume"
+                            }
+                        ],
+                        "value": "overwhelming-perfume"
+                    },
+                    {
+                        "img": "icons/magic/nature/tree-animated-strike.webp",
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.ToweringTrunk",
+                        "predicate": [
+                            {
+                                "not": "mantle-unwavering-heart:towering-trunk"
+                            }
+                        ],
+                        "value": "towering-trunk"
+                    },
+                    {
+                        "img": "icons/magic/nature/tree-animated-squint.webp",
+                        "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.UnyieldingWill",
+                        "predicate": [
+                            {
+                                "not": "mantle-unwavering-heart:unyielding-will"
+                            }
+                        ],
+                        "value": "unyielding-will"
+                    }
+                ],
+                "flag": "effectMantleUnwaveringHeart",
+                "key": "ChoiceSet",
+                "rollOption": "mantle-unwavering-heart"
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "mantle-unwavering-heart:evergreen-vitality"
+                ],
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mantle-unwavering-heart:evergreen-vitality",
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "evergreen",
+                "value": 2
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "all",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Effect: Overwhelming Perfume"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "mantle-unwavering-heart:overwhelming-perfume"
+                ],
+                "radius": 15,
+                "slug": "overwhelming-perfume",
+                "traits": [
+                    "olfactory"
+                ]
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "mantle-unwavering-heart:towering-trunk"
+                ],
+                "reach": {
+                    "add": 5
+                },
+                "value": "large"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "mantle-unwavering-heart:towering-trunk"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/branch.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.MantleOfTheUnwaveringHeart.GraspingBranch",
+                "predicate": [
+                    "mantle-unwavering-heart:towering-trunk"
+                ],
+                "range": null,
+                "slug": "grasping-branch",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "mantle-unwavering-heart:towering-trunk"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "PF2E.BattleForm.Note.Grab",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "mantle-unwavering-heart:unyielding-will"
+                ],
+                "type": "fascinated"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mantle-unwavering-heart:unyielding-will",
+                    "mental"
+                ],
+                "selector": [
+                    "saving-throw",
+                    "saving-throw-dc"
+                ],
+                "slug": "unyielding",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

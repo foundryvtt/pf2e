@@ -1,0 +1,51 @@
+{
+    "_id": "ZZXIUvZqqIxkMfYa",
+    "img": "icons/skills/targeting/target-strike-triple-blue.webp",
+    "name": "Effect: Precise Debilitations",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Precise Debilitations]</p>\n<p>The target takes an additional 2d6 precision damage from your attacks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "precise-debilitations"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "2",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:mark:precise-debilitations"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

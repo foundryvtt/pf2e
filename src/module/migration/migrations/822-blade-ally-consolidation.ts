@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Rename references to retired compendiums */
@@ -27,7 +27,7 @@ export class Migration822BladeAllyConsolidation extends MigrationBase {
             .replace(/\bfeat-effects\.Rgio0hasm2epEMfh\b/g, "equipment-srd.JQdwHECogcTzdd8R")
             .replace(
                 /\bfeat-effects\.Effect: Blade Ally Disrupting Rune (Greater)\b/g,
-                "equipment-srd.Disrupting (Greater)"
+                "equipment-srd.Disrupting (Greater)",
             )
             .replace(/\bfeat-effects\.HjfIXg5btodThCTW\b/g, "equipment-srd.oVrVzML63VFvVfKk");
     }

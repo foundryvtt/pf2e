@@ -1,4 +1,5 @@
-import { ActionCost } from "@item/data/base.ts";
+import { ActionCost } from "@item/base/data/system.ts";
+import * as R from "remeda";
 import Sortable from "sortablejs";
 
 /**
@@ -23,15 +24,6 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
-/** Creates a sorting comparator that sorts by the numerical result of a mapping function */
-function sortBy<T, J>(mapping: (value: T) => J) {
-    return (a: T, b: T): number => {
-        const value1 = mapping(a);
-        const value2 = mapping(b);
-        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
-    };
-}
-
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -47,54 +39,15 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
 /** Given an object, returns a new object with the same keys, but with each value converted by a function. */
 function mapValues<K extends string | number | symbol, V, R>(
     object: Record<K, V>,
-    mapping: (value: V, key: K) => R
+    mapping: (value: V, key: K) => R,
 ): Record<K, R> {
-    return Object.entries<V>(object).reduce((result, [key, value]) => {
-        result[key as K] = mapping(value, key as K);
-        return result;
-    }, {} as Record<K, R>);
-}
-
-/**
- * Returns true if the string is null, undefined or only consists of 1..n spaces
- */
-function isBlank(text: Maybe<string>): text is null | undefined | "" {
-    return text === null || text === undefined || text.trim() === "";
-}
-
-/** Returns a formatted number string with a preceding + if non-negative */
-function addSign(number: number): string {
-    if (number < 0) {
-        return `${number}`;
-    }
-
-    return `+${number}`;
-}
-
-/**
- * No idea why this isn't built in
- */
-function sum(values: number[]): number {
-    return values.reduce((a, b) => a + b, 0);
-}
-
-/**
- * Zip to arrays together based on a given zip function
- * @param a
- * @param b
- * @param zipFunction
- */
-function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[] {
-    if (a.length > b.length) {
-        return b.map((elem, index) => zipFunction(a[index], elem));
-    } else {
-        return a.map((elem, index) => zipFunction(elem, b[index]));
-    }
-}
-
-interface Fraction {
-    numerator: number;
-    denominator: number;
+    return Object.entries<V>(object).reduce(
+        (result, [key, value]) => {
+            result[key as K] = mapping(value, key as K);
+            return result;
+        },
+        {} as Record<K, R>,
+    );
 }
 
 /**
@@ -132,30 +85,22 @@ function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is
     return set.has(value);
 }
 
-/** Returns a subset of an object with explicitly defined keys */
-function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Pick<T, K> {
-    return [...keys].reduce((result, key) => {
-        if (key in obj) {
-            result[key] = obj[key];
-        }
-        return result;
-    }, {} as Pick<T, K>);
-}
-
 let intlNumberFormat: Intl.NumberFormat;
 /**
  * Return an integer string of a number, always with sign (+/-)
  * @param value The number to convert to a string
- * @param [emptyStringZero] If the value is zero, return an empty string
+ * @param options.emptyStringZero If the value is zero, return an empty string
+ * @param options.zeroIsNegative Treat zero as a negative value
  */
-function signedInteger(value: number, { emptyStringZero = false } = {}): string {
+function signedInteger(value: number, { emptyStringZero = false, zeroIsNegative = false } = {}): string {
     if (value === 0 && emptyStringZero) return "";
-
     const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
         maximumFractionDigits: 0,
         signDisplay: "always",
     }));
-    return nf.format(value);
+    const maybeNegativeZero = zeroIsNegative && value === 0 ? -0 : value;
+
+    return nf.format(maybeNegativeZero);
 }
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
@@ -204,7 +149,7 @@ function sluggify(text: string, { camel = null }: { camel?: SlugCamel } = {}): s
                 .replace(nonWordCharacterHyphenOrSpaceRE, "")
                 .replace(/[-_]+/g, " ")
                 .replace(upperOrWordBoundariedLowerRE, (part, index) =>
-                    index === 0 ? part.toLowerCase() : part.toUpperCase()
+                    index === 0 ? part.toLowerCase() : part.toUpperCase(),
                 )
                 .replace(/\s+/g, "");
         default:
@@ -226,7 +171,7 @@ function parseHTML(unparsed: string): HTMLElement {
 
 function getActionTypeLabel(
     type: Maybe<"action" | "free" | "reaction" | "passive">,
-    cost: Maybe<number>
+    cost: Maybe<number>,
 ): string | null {
     switch (type) {
         case "action":
@@ -258,9 +203,9 @@ function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFi
 function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp"
+    fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp",
 ): ImageFilePath | null {
-    if (action === null) return actionImgMap["passive"];
+    if (action === null) return actionImgMap.passive;
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
         .toLowerCase()
@@ -271,12 +216,13 @@ function getActionIcon(
 const actionGlyphMap: Record<string, string> = {
     0: "F",
     free: "F",
-    1: "A",
-    2: "D",
-    3: "T",
-    "1 or 2": "A/D",
-    "1 to 3": "A - T",
-    "2 or 3": "D/T",
+    1: "1",
+    2: "2",
+    3: "3",
+    "1 or 2": "1/2",
+    "1 to 3": "1 - 3",
+    "2 or 3": "2/3",
+    "2 rounds": "3,3",
     reaction: "R",
 };
 
@@ -292,15 +238,15 @@ function getActionGlyph(action: string | number | null | ActionCost): string {
         .toLowerCase()
         .trim();
 
-    return actionGlyphMap[sanitized] ?? "";
+    return actionGlyphMap[sanitized]?.replace("-", "–") ?? "";
 }
 
 function ErrorPF2e(message: string): Error {
     return Error(`PF2e System | ${message}`);
 }
 
-/** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
-function ordinal(value: number): string {
+/** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc. */
+function ordinalString(value: number): string {
     const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
     const suffix = game.i18n.localize(`PF2E.OrdinalSuffixes.${pluralRules.select(value)}`);
     return game.i18n.format("PF2E.OrdinalNumber", { value, suffix });
@@ -336,7 +282,7 @@ type FontAwesomeStyle = "solid" | "regular" | "duotone";
 
 function fontAwesomeIcon(
     glyph: string,
-    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {},
 ): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
@@ -358,7 +304,7 @@ function isObject(value: unknown): boolean {
 function sortLabeledRecord<T extends Record<string, { label: string }>>(record: T): T {
     return Object.entries(record)
         .sort((a, b) => a[1].label.localeCompare(b[1].label, game.i18n.lang))
-        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+        .reduce((copy, [key, value]) => fu.mergeObject(copy, { [key]: value }), {} as T);
 }
 
 /** Localize the values of a `Record<string, string>` and sort by those values */
@@ -370,36 +316,36 @@ function sortStringRecord(record: Record<string, string>): Record<string, string
                 entry[1] = game.i18n.localize(entry[1]);
                 return entry;
             })
-            .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
+            .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang)),
     );
 }
 
 /** JSON.stringify with recursive key sorting */
 function sortObjByKey(value: unknown): unknown {
-    return isObject<Record<string | number, unknown>>(value)
-        ? Array.isArray(value)
-            ? value.map(sortObjByKey)
-            : Object.keys(value)
-                  .sort()
-                  .reduce((o: Record<string, unknown>, key) => {
-                      const v = value[key];
-                      o[key] = sortObjByKey(v);
-                      return o;
-                  }, {})
-        : value;
+    return Array.isArray(value)
+        ? value.map(sortObjByKey)
+        : R.isObject(value)
+          ? Object.keys(value)
+                .sort()
+                .reduce((o: Record<string, unknown>, key) => {
+                    const v = value[key];
+                    o[key] = sortObjByKey(v);
+                    return o;
+                }, {})
+          : value;
 }
 
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = Array.isArray(source) || isObject(source) ? deepClone(source) : source;
+    const clone = Array.isArray(source) || R.isObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
         return clone.map((e) => recursiveReplaceString(e, replace));
-    } else if (isObject<Record<string, unknown>>(clone)) {
-        for (const key of Object.keys(clone)) {
-            clone[key] = recursiveReplaceString(clone[key], replace);
+    } else if (R.isObject(clone)) {
+        for (const [key, value] of Object.entries(clone)) {
+            clone[key] = recursiveReplaceString(value, replace);
         }
     }
 
@@ -415,7 +361,7 @@ function localizer(prefix: string): (...args: Parameters<Localization["format"]>
 /** Walk a localization object and recursively map the keys as localization strings starting with a given prefix */
 function configFromLocalization<T extends Record<string, TranslationDictionaryValue>>(
     localization: T,
-    prefix: string
+    prefix: string,
 ): T {
     return Object.entries(localization).reduce((result: Record<string, unknown>, [key, value]) => {
         result[key] =
@@ -438,13 +384,18 @@ function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePat
     return isImageFilePath(path) || isVideoFilePath(path);
 }
 
-const SORTABLE_DEFAULTS: Sortable.Options = {
+const SORTABLE_BASE_OPTIONS: Sortable.Options = {
     animation: 200,
     direction: "vertical",
     dragClass: "drag-preview",
     dragoverBubble: true,
     easing: "cubic-bezier(1, 0, 0, 1)",
+    fallbackOnBody: true,
+    filter: "div.item-summary",
     ghostClass: "drag-gap",
+    group: "inventory",
+    preventOnFilter: false,
+    swapThreshold: 0.25,
 
     // These options are from the Autoscroll plugin and serve as a fallback on mobile/safari/ie/edge
     // Other browsers use the native implementation
@@ -455,8 +406,7 @@ const SORTABLE_DEFAULTS: Sortable.Options = {
 
 export {
     ErrorPF2e,
-    SORTABLE_DEFAULTS,
-    addSign,
+    SORTABLE_BASE_OPTIONS,
     applyNTimes,
     configFromLocalization,
     fontAwesomeIcon,
@@ -464,7 +414,6 @@ export {
     getActionIcon,
     getActionTypeLabel,
     groupBy,
-    isBlank,
     isImageFilePath,
     isImageOrVideoPath,
     isObject,
@@ -473,21 +422,16 @@ export {
     localizer,
     mapValues,
     objectHasKey,
-    ordinal,
+    ordinalString,
     padArray,
     parseHTML,
-    pick,
     recursiveReplaceString,
     setHasElement,
     signedInteger,
     sluggify,
-    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
-    sum,
     tupleHasValue,
-    zip,
-    type Fraction,
     type SlugCamel,
 };

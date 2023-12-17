@@ -1,0 +1,126 @@
+{
+    "_id": "zZ25N1zpXA8GNhFL",
+    "img": "systems/pf2e/icons/spells/divine-lance.webp",
+    "name": "Effect: Divine Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Divine Weapon]</p>\n<p>Until the end of your turn, the weapon deals an additional 1d4 spirit damage. If you are holy or unholy, Strikes with the weapon also gain that trait, and the additional damage increases to 2d4 against creatures of the opposing trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:equipped"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "self:trait:holy",
+                                    "target:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:trait:unholy",
+                                    "target:trait:holy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 2,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:trait:holy",
+                                    "target:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:trait:unholy",
+                                    "target:trait:holy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:holy"
+                ],
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "property": "traits",
+                "value": "unholy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -23,15 +23,15 @@
                     {{#unless member.restricted}}
                         <div class="sub-data">
                             <span>
-                                <i class="fas fa-person-running"></i> {{member.actor.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}
+                                <i class="fa-solid fa-person-running"></i> {{member.actor.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}
                             </span>
                             <span>
-                                <i class="fas fa-eye"></i> {{member.actor.perception.dc.value}}
+                                <i class="fa-solid fa-eye"></i> {{member.actor.perception.dc.value}}
                             </span>
                         </div>
                         <footer class="health-bar">
                             <div class="bar" style="width: {{percentage member.hp.value member.hp.max}}%;"></div>
-                            <span><i class="fas fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
+                            <span><i class="fa-solid fa-heart"></i> {{member.hp.value}} / {{member.hp.max}}</span>
                         </footer>
                     {{/unless}}
                 </li>
@@ -46,7 +46,8 @@
         <header class="content-header">
             <a data-action="clear-exploration">{{localize "PF2E.Actor.Party.ClearActivities.Label"}}</a>
             <div class="buttons">
-                <button type="button" data-action="rest"><i class="fa-solid fa-fw fa-bed"></i> {{localize "PF2E.Actor.Party.Rest"}}</button>
+                <button type="button" data-action="prompt" data-tooltip="PF2E.Actor.Party.CheckPrompt.TitleShort"><i class="fa-solid fa-dice-d20"></i></button>
+                <button type="button" data-action="rest" data-tooltip="PF2E.Actor.Party.Rest" ><i class="fa-solid fa-fw fa-bed"></i></button>
             </div>
         </header>
     {{/if}}

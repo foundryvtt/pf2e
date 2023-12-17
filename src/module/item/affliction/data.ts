@@ -2,13 +2,14 @@ import { SaveType } from "@actor/types.ts";
 import {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    DurationData,
     EffectAuraData,
     EffectContextData,
     EffectTraits,
     TimeUnit,
 } from "@item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
 import { ConditionSlug } from "@item/condition/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
@@ -31,7 +32,7 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
     stage: number;
     stages: Record<string, AfflictionStageData>;
     onset?: AfflictionOnset;
-    duration: AfflictionDuration;
+    duration: DurationData;
     start: {
         value: number;
         initiative: number | null;
@@ -45,6 +46,8 @@ interface AfflictionSystemData
         Omit<AbstractEffectSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {
+    /** If true, the affliction is currently in its onset phase */
+    active: boolean;
     value: number;
     unit: TimeUnit;
 }
@@ -59,12 +62,7 @@ interface AfflictionStageData {
     damage: Record<string, AfflictionDamage>;
     conditions: Record<string, AfflictionConditionData>;
     effects: AfflictionEffectData[];
-}
-
-interface AfflictionDuration {
-    value: number;
-    unit: TimeUnit | "unlimited";
-    expiry: AfflictionExpiryType | null;
+    duration: Omit<DurationData, "expiry">;
 }
 
 interface AfflictionConditionData {
@@ -81,13 +79,13 @@ interface AfflictionEffectData {
 type AfflictionExpiryType = "turn-end";
 
 export type {
-    AfflictionExpiryType,
-    AfflictionDuration,
     AfflictionConditionData,
     AfflictionDamage,
+    AfflictionExpiryType,
     AfflictionFlags,
     AfflictionOnset,
     AfflictionSource,
     AfflictionStageData,
     AfflictionSystemData,
+    AfflictionSystemSource,
 };

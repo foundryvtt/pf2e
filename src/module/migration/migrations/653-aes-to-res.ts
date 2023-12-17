@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ClassSource, ItemSourcePF2e } from "@item/data/index.ts";
+import { ClassSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { EffectChangeData } from "types/foundry/common/documents/active-effect.d.ts";
 import { MigrationBase } from "../base.ts";
 

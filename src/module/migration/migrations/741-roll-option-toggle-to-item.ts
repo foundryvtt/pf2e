@@ -18,7 +18,7 @@ export class Migration741RollOptionToggleToItem extends MigrationBase {
                     typeof r.domain === "string" &&
                     r.domain.length > 0 &&
                     typeof r.option === "string" &&
-                    r.option.length > 0
+                    r.option.length > 0,
             );
 
         const { rollOptions } = source.flags.pf2e;

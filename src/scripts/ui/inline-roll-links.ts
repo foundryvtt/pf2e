@@ -2,14 +2,12 @@ import { ActorPF2e } from "@actor";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessageFlagsPF2e, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { calculateDC } from "@module/dc.ts";
-import { MeasuredTemplateDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
-import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 
@@ -100,7 +98,8 @@ export const InlineRollLinks = {
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
                     const actors = getSelectedOrOwnActors();
-                    if (actors.length === 0 && parent && !tupleHasValue(SAVE_TYPES, pf2Check)) {
+                    const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
+                    if (parent?.isOfType("party") || (actors.length === 0 && parent && !isSave)) {
                         return [parent];
                     }
 
@@ -108,7 +107,7 @@ export const InlineRollLinks = {
                 })();
 
                 if (actors.length === 0) {
-                    ui.notifications.warn(game.i18n.localize("PF2E.UI.errorTargetToken"));
+                    ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
                     return;
                 }
 
@@ -116,7 +115,7 @@ export const InlineRollLinks = {
                     ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
                     ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
                 ];
-                const eventRollParams = eventToRollParams(event);
+                const eventRollParams = eventToRollParams(event, { type: "check" });
 
                 switch (pf2Check) {
                     case "flat": {
@@ -196,8 +195,8 @@ export const InlineRollLinks = {
                                     foundryDoc instanceof ItemPF2e
                                         ? foundryDoc
                                         : foundryDoc instanceof ChatMessagePF2e
-                                        ? foundryDoc.item
-                                        : null;
+                                          ? foundryDoc.item
+                                          : null;
 
                                 return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
                                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
@@ -222,8 +221,8 @@ export const InlineRollLinks = {
                                     pf2Check in CONFIG.PF2E.magicTraditions
                                         ? "PF2E.ActionsCheck.spell"
                                         : statistic.check.type === "attack-roll"
-                                        ? "PF2E.ActionsCheck.x-attack-roll"
-                                        : "PF2E.ActionsCheck.x";
+                                          ? "PF2E.ActionsCheck.x-attack-roll"
+                                          : "PF2E.ActionsCheck.x";
                                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                                     glyph: getActionGlyph(item.actionCost),
                                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
@@ -251,13 +250,15 @@ export const InlineRollLinks = {
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
             const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
             link.addEventListener("click", () => {
+                if (!canvas.ready) return;
+
                 if (typeof pf2EffectArea !== "string") {
                     console.warn(`PF2e System | Could not create template'`);
                     return;
                 }
 
                 const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
-                    pf2TemplateData ?? "{}"
+                    pf2TemplateData ?? "{}",
                 );
                 templateData.distance ||= Number(pf2Distance);
                 templateData.fillColor ||= game.user.color;
@@ -281,18 +282,42 @@ export const InlineRollLinks = {
                     }
                 }
 
-                if (pf2Traits) {
-                    templateData.flags = {
-                        pf2e: {
-                            origin: {
-                                traits: pf2Traits.split(","),
-                            },
-                        },
-                    };
+                const flags: { pf2e: Record<string, unknown> } = {
+                    pf2e: {},
+                };
+
+                if (
+                    objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
+                    objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
+                ) {
+                    flags.pf2e.areaType = pf2EffectArea;
                 }
 
-                const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                new MeasuredTemplatePF2e(templateDoc).drawPreview();
+                const messageId =
+                    foundryDoc instanceof ChatMessagePF2e
+                        ? foundryDoc.id
+                        : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
+                if (messageId) {
+                    flags.pf2e.messageId = messageId;
+                }
+
+                const actor = resolveActor(foundryDoc, link);
+                if (actor || pf2Traits) {
+                    const origin: Record<string, unknown> = {};
+                    if (actor) {
+                        origin.actor = actor.uuid;
+                    }
+                    if (pf2Traits) {
+                        origin.traits = pf2Traits.split(",");
+                    }
+                    flags.pf2e.origin = origin;
+                }
+
+                if (!R.isEmpty(flags.pf2e)) {
+                    templateData.flags = flags;
+                }
+
+                canvas.templates.createPreview(templateData);
             });
         }
     },
@@ -333,8 +358,8 @@ export const InlineRollLinks = {
             foundryDoc instanceof JournalEntry
                 ? { pf2e: { journalEntry: foundryDoc.uuid } }
                 : message?.flags.pf2e.origin
-                ? { pf2e: { origin: deepClone(message.flags.pf2e.origin) } }
-                : {};
+                  ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
+                  : {};
 
         ChatMessagePF2e.create({
             speaker,

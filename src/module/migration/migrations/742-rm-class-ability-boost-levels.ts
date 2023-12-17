@@ -1,5 +1,5 @@
 import { ClassSystemData } from "@item/class/data.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Remove ability boost levels data from class items */

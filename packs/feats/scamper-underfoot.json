@@ -1,6 +1,6 @@
 {
     "_id": "viFTJfZusRPx0G2q",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Scamper Underfoot",
     "system": {
         "actionType": {
@@ -19,17 +19,20 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #153: Life's Long Shadows"
+        },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
                     "action:tumble-through",
                     {
-                        "or": [
-                            "target:size:medium",
-                            "target:size:large",
-                            "target:size:huge",
-                            "target:size:gargantuan"
+                        "gte": [
+                            "target:size",
+                            2
                         ]
                     }
                 ],
@@ -38,9 +41,6 @@
                 "value": 1
             }
         ],
-        "source": {
-            "value": "Pathfinder #153: Life's Long Shadows"
-        },
         "traits": {
             "rarity": "common",
             "value": [

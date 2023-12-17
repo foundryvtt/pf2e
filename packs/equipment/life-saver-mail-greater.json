@@ -1,0 +1,109 @@
+{
+    "_id": "oRBcuFdQDRCn1pwo",
+    "img": "icons/equipment/chest/breastplate-layered-leather-studded-black.webp",
+    "name": "Life-Saver Mail (Greater)",
+    "system": {
+        "acBonus": 5,
+        "baseItem": "splint-mail",
+        "bulk": {
+            "value": 3
+        },
+        "category": "heavy",
+        "checkPenalty": -3,
+        "containerId": null,
+        "description": {
+            "value": "<p>This suit of <em>+3 greater resilient greater fortification splint mail</em> has a large, green gemstone inset in a prominent location. While wearing the armor, you feel at ease knowing the armor can protect you in even dire circumstances. The gemstone glows with life essence, casting green light as brightly as a torch. You can suppress or resume this light by using a single action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Activate—Second Chance</strong> <span class=\"action-glyph\">R</span> (concentration)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You would die</p>\n<p><strong>Effect</strong> The armor's gemstone turns gray as it shares life energy with you. The armor casts @UUID[Compendium.pf2e.spells-srd.Item.Breath of Life] on you.</p>\n<hr />\n<p><strong>Activate—Shielding Light</strong> <span class=\"action-glyph\">2</span> (concentration, manipulate)</p>\n<p><strong>Effect</strong> You tap on the gemstone, producing a protective screen of green light. You cast a 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Shield] spell. As normal with the spell, you can't cast <em>shield</em> again (using this activation or other means) for 10 minutes if you use it to Shield Block.</p>"
+        },
+        "dexCap": 1,
+        "group": "composite",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 20
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 52500
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "lit-life-saver-mail",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-life-saver-mail"
+                ],
+                "value": {
+                    "alpha": 0.45,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "flame"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#88ff88",
+                    "dim": 40,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "lit-life-saver-mail"
+                ],
+                "value": "icons/equipment/chest/breastplate-layered-leather-studded-black.webp"
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "greaterFortification"
+            ],
+            "resilient": 2
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "greaterFortification"
+                ],
+                "resilient": 2
+            }
+        },
+        "speedPenalty": -10,
+        "strength": 3,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

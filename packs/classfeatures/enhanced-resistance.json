@@ -19,6 +19,11 @@
         "prerequisites": {
             "value": []
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
         "rules": [
             {
                 "adjustName": false,
@@ -173,10 +178,12 @@
                 "key": "Resistance",
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:evil"
+                    "enhanced-resistance:otherworldly-protection"
                 ],
-                "type": "good",
+                "type": [
+                    "holy",
+                    "unholy"
+                ],
                 "value": "@actor.level"
             },
             {
@@ -184,7 +191,6 @@
                 "predicate": [
                     "armor:id:{actor|flags.pf2e.innovationId}",
                     "enhanced-resistance:otherworldly-protection",
-                    "self:trait:evil",
                     {
                         "or": [
                             "self:effect:overdrive-success",
@@ -192,85 +198,10 @@
                         ]
                     }
                 ],
-                "type": "good",
-                "value": "@actor.level + 2"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:good"
+                "type": [
+                    "holy",
+                    "unholy"
                 ],
-                "type": "evil",
-                "value": "@actor.level"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:good",
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
-                ],
-                "type": "evil",
-                "value": "@actor.level + 2"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:chaotic"
-                ],
-                "type": "lawful",
-                "value": "@actor.level"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:chaotic",
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
-                ],
-                "type": "lawful",
-                "value": "@actor.level + 2"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:lawful"
-                ],
-                "type": "chaotic",
-                "value": "@actor.level"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "armor:id:{actor|flags.pf2e.innovationId}",
-                    "enhanced-resistance:otherworldly-protection",
-                    "self:trait:lawful",
-                    {
-                        "or": [
-                            "self:effect:overdrive-success",
-                            "self:effect:overdrive-critical-success"
-                        ]
-                    }
-                ],
-                "type": "chaotic",
                 "value": "@actor.level + 2"
             },
             {
@@ -304,9 +235,6 @@
                 "value": "@actor.level + 2"
             }
         ],
-        "source": {
-            "value": "Pathfinder Guns & Gears"
-        },
         "traits": {
             "rarity": "common",
             "value": [

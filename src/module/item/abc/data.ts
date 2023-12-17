@@ -1,4 +1,4 @@
-import { ItemSystemSource } from "@item/data/base.ts";
+import { ItemSystemSource } from "@item/base/data/system.ts";
 
 interface ABCFeatureEntryData {
     uuid: string;

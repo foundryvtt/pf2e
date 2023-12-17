@@ -21,7 +21,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
                 const sizeModifier = new ModifierPF2e(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",
                     Math.clamped(2 * sizeDifference, -4, 4),
-                    "circumstance"
+                    "circumstance",
                 );
                 if (sizeModifier.modifier) {
                     modifiers.push(sizeModifier);
@@ -48,7 +48,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
                         text: `<p class="compact-text">${translated}</p>`,
                         predicate: new PredicatePF2e(),
                         outcome: [],
-                    })
+                    }),
                 );
             }
             return notes;

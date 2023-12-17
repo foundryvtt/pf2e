@@ -24,9 +24,10 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             return { type: "formula", value: this.system.persistent.formula, label: null };
         }
 
-        return this.system.value.value
+        return typeof this.system.value.value === "number"
             ? {
                   type: "counter",
+                  min: 0,
                   max: Infinity,
                   label: null,
                   value: this.system.value.value,
@@ -81,8 +82,8 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
                 this.actor?.conditions.bySlug(this.slug).map((condition) => {
                     const { appliedBy } = condition;
                     return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
-                }) ?? []
-            )
+                }) ?? [],
+            ),
         );
 
         const list = granters
@@ -111,7 +112,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
-        return options.sort();
+        return options;
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {
@@ -128,13 +129,13 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (!this.active || !actor) return;
 
         if (this.system.persistent) {
-            const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
-            roll.toMessage(
+            const roll = this.system.persistent.damage.clone();
+            await roll.toMessage(
                 {
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
-                { rollMode: "roll" }
+                { rollMode: "roll" },
             );
         }
     }
@@ -168,6 +169,11 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+        systemData.duration = fu.mergeObject(systemData.duration, {
+            value: -1,
+            unit: "unlimited",
+            expiry: null,
+        });
 
         // Append numeric badge value to condition name, set item image according to configured style
         if (typeof this.badge?.value === "number") {
@@ -198,7 +204,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         }
     }
 
-    override prepareSiblingData(): void {
+    override prepareSiblingData(this: ConditionPF2e<ActorPF2e>): void {
         if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
 
         // Inactive conditions shouldn't deactivate others
@@ -209,7 +215,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             condition.system.references.overriddenBy.push({ id: this.id, type: "condition" as const });
         };
 
-        const conditions = this.actor.itemTypes.condition;
+        const conditions = this.actor.conditions.active;
 
         // Deactivate conditions naturally overridden by this one
         if (this.system.overrides.length > 0) {
@@ -241,8 +247,6 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override prepareActorData(this: ConditionPF2e<ActorPF2e>): void {
         super.prepareActorData();
 
-        this.actor.conditions.set(this.id, this);
-
         if (this.active && this.system.persistent) {
             const { damageType } = this.system.persistent;
             this.actor.rollOptions.all[`self:condition:persistent-damage:${damageType}`] = true;
@@ -261,7 +265,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
-        user: UserPF2e
+        user: UserPF2e,
     ): Promise<boolean | void> {
         options.conditionValue = this.value;
         return super._preUpdate(changed, options, user);
@@ -270,7 +274,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ConditionModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
 

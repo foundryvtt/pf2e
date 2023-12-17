@@ -3,26 +3,15 @@
     "img": "systems/pf2e/icons/default-icons/consumable.svg",
     "name": "Artevil Suspension",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 0,
-            "value": 0
+        "bulk": {
+            "value": 0.1
         },
-        "consumableType": {
-            "value": "other"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "other",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p><strong>Activate</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison]</p>\n<hr />\n<p>This dried herb is known for its ability to draw toxins from the body, albeit violently. You can administer the suspension orally, Activating the item as part of the same activity you use to Treat Poison. If you succeed at your Medicine check to Treat Poison against an ingested poison, you can reduce the stage of the toxin by one stage, though this can't reduce the stage below stage 1 or cure the poison entirely. If you do, the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} as its body purges the toxin. An artevil suspension doesn't work unless the poison was administered through ingestion; for instance, if a poison can be administered through either ingestion or injury and was administered through injury, the suspension won't work.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +25,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 11
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Travel Guide"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Lost Omens: Travel Guide"
-        },
-        "stackGroup": null,
         "traits": {
             "otherTags": [
                 "herbal"
@@ -64,8 +51,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "L"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

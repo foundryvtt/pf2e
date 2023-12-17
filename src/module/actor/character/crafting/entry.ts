@@ -222,7 +222,7 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         const rules = this.parentItem.toObject().system.rules;
         const thisRule = rules.find(
             (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
-                r.key === "CraftingEntry" && r.selector === this.selector
+                r.key === "CraftingEntry" && r.selector === this.selector,
         );
         if (thisRule) {
             thisRule.preparedFormulas = this.preparedFormulaData;

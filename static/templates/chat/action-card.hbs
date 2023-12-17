@@ -1,24 +1,30 @@
 <div class="pf2e chat-card action-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
-        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
-        <h3>{{item.name}}</h3>
+        <img src="{{item.img}}" alt="{{item.name}}" />
+        <h3>{{item.name}}{{#if item.actionCost}} {{{actionGlyph item.actionCost}}}{{/if}}</h3>
     </header>
 
-    <div class="tags paizo-style">
-        {{#each data.traits}}
+    <div class="tags paizo-style" data-tooltip-class="pf2e">
+        {{#each data.traits as |trait|}}
             {{#unless trait.mystified}}
-                <span class="tag" data-trait="{{this.name}}" data-description="{{this.description}}">{{localize this.label}}</span>
+                <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
             {{/unless}}
         {{/each}}
     </div>
 
-    <div class="card-content">
-        {{{item.description}}}
-    </div>
+    {{#if (or data.traits item.description)}}<hr />{{/if}}
 
-    <footer class="card-footer">
-        {{#each data.properties}}
-            <span>{{localize this}}</span>
-        {{/each}}
-    </footer>
+    {{#if item.description}}
+        <div class="card-content">
+            {{{item.description}}}
+        </div>
+    {{/if}}
+
+    {{#if data.properties}}
+        <footer class="card-footer">
+            {{#each data.properties}}
+                <span>{{localize this}}</span>
+            {{/each}}
+        </footer>
+    {{/if}}
 </div>

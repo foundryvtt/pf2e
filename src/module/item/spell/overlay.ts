@@ -1,10 +1,13 @@
-import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
+import type { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
+import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import { SpellPF2e } from "./index.ts";
-import { ActorPF2e } from "@actor";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
-    constructor(public readonly spell: SpellPF2e, entries?: Record<string, SpellOverlay>) {
+    constructor(
+        public readonly spell: SpellPF2e,
+        entries?: Record<string, SpellOverlay>,
+    ) {
         super(Object.entries(entries ?? {}));
     }
 
@@ -25,9 +28,9 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
 
     async create(
         overlayType: SpellOverlayType,
-        options: { renderSheet: boolean } = { renderSheet: false }
+        options: { renderSheet: boolean } = { renderSheet: false },
     ): Promise<void> {
-        const id = randomID();
+        const id = fu.randomID();
 
         switch (overlayType) {
             case "override":
@@ -36,6 +39,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
                         _id: id,
                         sort: this.overrideVariants.length + 1,
                         overlayType: "override",
+                        system: {},
                     },
                 });
                 if (options.renderSheet) {
@@ -51,15 +55,21 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     async updateOverride(
         variantSpell: SpellPF2e<ActorPF2e>,
         data: Partial<SpellSource>,
-        options?: DocumentModificationContext<ActorPF2e>
-    ): Promise<SpellPF2e<ActorPF2e>> {
+        options?: DocumentModificationContext<ActorPF2e>,
+    ): Promise<SpellPF2e<ActorPF2e> | null> {
+        const variantId = variantSpell.variantId;
+        if (!variantId) return null;
+
         // Perform local data update of spell variant data
         variantSpell.updateSource(data, options);
 
         // Diff data and only save the difference
         const variantSource = variantSpell.toObject();
         const originSource = this.spell.toObject();
-        const difference = diffObject<DeepPartial<SpellSource> & { overlayType: string }>(originSource, variantSource);
+        const difference = fu.diffObject<DeepPartial<SpellSource> & { overlayType: string }>(
+            originSource,
+            variantSource,
+        );
 
         if (Object.keys(difference).length === 0) return variantSpell;
 
@@ -71,13 +81,13 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         // Delete old entry to ensure clean data
         await this.spell.update(
             {
-                [`system.overlays.-=${variantSpell.id}`]: null,
+                [`system.overlays.-=${variantId}`]: null,
             },
-            { render: false }
+            { render: false },
         );
         // Save new diff object
         await this.spell.update({
-            [`system.overlays.${variantSpell.id}`]: difference,
+            [`system.overlays.${variantId}`]: difference,
         });
 
         if (variantSpell.sheet.rendered) {
@@ -99,7 +109,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     protected verifyOverlayId(overlayId: string): void {
         if (!this.has(overlayId)) {
             throw ErrorPF2e(
-                `Spell ${this.spell.name} (${this.spell.uuid}) does not have an overlay with id: ${overlayId}`
+                `Spell ${this.spell.name} (${this.spell.uuid}) does not have an overlay with id: ${overlayId}`,
             );
         }
     }

@@ -1,6 +1,6 @@
 {
     "_id": "KYKK1vLqGIxXH5Tu",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Speak with Kindred",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have a connection with creatures that share your physiology. You can ask questions of, receive answers from, and use the Diplomacy skill with plants or fungi that match your leshy heritage. Generally, fungus leshies can speak to mushrooms and fungi; gourd leshies can speak to gourds, melons, and similar fruiting plants; leaf leshies can speak with deciduous trees; and vine leshies can speak with vines and climbing plants. The GM determines which plants or fungi count for this ability.</p>"
+            "value": "<p>You have a connection with creatures that share your physiology. You can ask questions of, receive answers from, and use the Diplomacy skill with plants and fungi. You gain a +2 circumstance bonus to Diplomacy checks with plants or fungi of your kind. Generally, fungus leshies get this bonus with mushrooms and fungi; gourd leshies with gourds, melons, and similar fruiting plants; leaf leshies with deciduous trees; and vine leshies with vines and climbing plants.</p>"
         },
         "level": {
             "value": 5
@@ -19,10 +19,22 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": "Pathfinder Lost Omens: Character Guide"
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "speak-with-kindred"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

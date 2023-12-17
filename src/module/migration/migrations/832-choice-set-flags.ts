@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { recursiveReplaceString, sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
@@ -10,7 +10,7 @@ export class Migration832ChoiceSetFlags extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const choiceSets = source.system.rules.filter(
             (r): r is RuleElementSource & { flag: string } =>
-                r.key === "ChoiceSet" && "flag" in r && typeof r.flag === "string"
+                r.key === "ChoiceSet" && "flag" in r && typeof r.flag === "string",
         );
 
         for (const choiceSet of choiceSets) {
@@ -22,7 +22,7 @@ export class Migration832ChoiceSetFlags extends MigrationBase {
                 source.system.rules = source.system.rules.map((r) =>
                     r.key === "ChoiceSet"
                         ? r
-                        : recursiveReplaceString(r, (s) => s.replace(pattern, `rulesSelections.${choiceSet.flag}`))
+                        : recursiveReplaceString(r, (s) => s.replace(pattern, `rulesSelections.${choiceSet.flag}`)),
                 );
             }
         }

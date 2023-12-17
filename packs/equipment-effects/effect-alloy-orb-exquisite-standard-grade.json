@@ -1,0 +1,84 @@
+{
+    "_id": "BjF0eOao5UuOOKMP",
+    "img": "icons/commodities/metal/fragments-steel-ring.webp",
+    "name": "Effect: Alloy Orb (Exquisite Standard-Grade)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Alloy Orb (Exquisite Standard-Grade)]</p>\n<p>When you activate the <em>alloy orb</em>, select adamantine, cold iron, or dawnsilver. The affixed weapon functions as the chosen material.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "lte": [
+                                "item:level",
+                                15
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "alloyOrbWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDawnsilver",
+                        "value": "dawnsilver"
+                    }
+                ],
+                "flag": "alloyOrbMaterial",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Material"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.alloyOrbWeapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.alloyOrbMaterial}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import { sluggify } from "@util";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -65,7 +65,7 @@ export class Migration857WeaponSpecializationRE extends MigrationBase {
                     selector: "strike-damage",
                     slug: "weapon-specialization",
                     value: 4,
-                } as RuleElementSource
+                } as RuleElementSource,
             );
         }
     }

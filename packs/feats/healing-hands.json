@@ -1,6 +1,6 @@
 {
     "_id": "zYhcEX4JnrZ08HfV",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Healing Hands",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your positive energy is even more vibrant and restorative. When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>, you roll d10s instead of d8s.</p>"
+            "value": "<p>Your vitality is even more vibrant and restorative. When you cast @UUID[Compendium.pf2e.spells-srd.Item.Heal], you roll d10s instead of d8s.</p>"
         },
         "level": {
             "value": 1
@@ -23,6 +23,11 @@
                 }
             ]
         },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "rules": [
             {
                 "key": "DamageDice",
@@ -32,12 +37,12 @@
                 "predicate": [
                     "item:slug:heal"
                 ],
-                "selector": "spell-damage"
+                "selector": [
+                    "spell-damage",
+                    "spell-healing"
+                ]
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "traits": {
             "rarity": "common",
             "value": [

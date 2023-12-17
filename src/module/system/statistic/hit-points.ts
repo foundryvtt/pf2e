@@ -44,7 +44,7 @@ class HitPointsStatistic extends BaseStatistic {
             baseMax +
             new StatisticModifier(
                 "",
-                this.modifiers.map((m) => m.clone())
+                this.modifiers.map((m) => m.clone()),
             ).totalModifier;
         this.value = Math.clamped(actor.system.attributes.hp.value, 0, this.max);
         this.temp = actor.system.attributes.hp.temp;

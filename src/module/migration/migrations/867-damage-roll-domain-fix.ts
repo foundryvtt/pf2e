@@ -1,4 +1,4 @@
-import type { ItemSourcePF2e } from "@item/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
 export class Migration867DamageRollDomainFix extends MigrationBase {

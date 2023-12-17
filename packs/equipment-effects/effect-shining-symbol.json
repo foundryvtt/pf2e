@@ -1,0 +1,46 @@
+{
+    "_id": "gn7kNxKGUsKwnv1L",
+    "img": "icons/commodities/treasure/broach-jewel-gold-blue.webp",
+    "name": "Effect: Shining Symbol",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol], @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Shining Symbol (Major)]</p>\n<p>Creatures in the light receive a status penalty to Deception and Stealth checks.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "deception",
+                    "stealth"
+                ],
+                "type": "status",
+                "value": "@item.origin.flags.pf2e.shiningSymbolPenalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

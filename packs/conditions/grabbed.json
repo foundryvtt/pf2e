@@ -4,13 +4,18 @@
     "name": "Grabbed",
     "system": {
         "description": {
-            "value": "<p>You're held in place by another creature, giving you the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|dc:5] check or it is lost; roll the check after spending the action, but before any effects are applied.</p>"
+            "value": "<p>You're held in place by another creature, giving you the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|showDC:all|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>"
         },
         "duration": {
             "value": 0
         },
         "group": null,
         "overrides": [],
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -19,23 +24,16 @@
         },
         "rules": [
             {
+                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
             },
             {
+                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
                 "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
             }
         ],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
         "value": {
             "isValued": false,
             "value": null

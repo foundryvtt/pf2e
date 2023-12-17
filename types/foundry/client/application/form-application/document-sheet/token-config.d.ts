@@ -1,36 +1,48 @@
 /** A Token Configuration Application */
 declare class TokenConfig<
-    TDocument extends TokenDocument<Scene | null>,
-    TOptions extends DocumentSheetOptions = DocumentSheetOptions
+    TDocument extends TokenDocument,
+    TOptions extends DocumentSheetOptions = DocumentSheetOptions,
 > extends DocumentSheet<TDocument, TOptions> {
-    constructor(object: TDocument, options?: Partial<FormApplicationOptions>);
+    constructor(object: TDocument, options?: Partial<DocumentSheetOptions>);
 
+    /** The placed Token object in the Scene */
     token: TDocument;
 
-    static override get defaultOptions(): DocumentSheetOptions;
+    /** A reference to the Actor which the token depicts */
+    actor: TDocument["actor"];
 
-    override get id(): `token-config-${string}`;
+    static override get defaultOptions(): DocumentSheetOptions;
 
     /** A convenience accessor to test whether we are configuring the prototype Token for an Actor. */
     get isPrototype(): boolean;
 
-    /** Convenience access to the Actor document that this Token represents */
-    get actor(): TDocument["actor"];
+    override get id(): string;
 
-    get title(): string;
-
-    override getData(options?: Partial<TOptions>): Promise<TokenConfigData<TDocument>>;
+    override get title(): string;
 
     override render(force?: boolean, options?: RenderOptions): Promise<this>;
 
+    protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
+
+    /** Handle preview with a token. */
+    protected _handleTokenPreview(force: boolean, options?: Record<string, unknown>): Promise<void>;
+
+    protected override _canUserView(user: User): boolean;
+
+    override getData(options?: Partial<TOptions>): Promise<TokenConfigData<TDocument>>;
+
+    protected override _renderInner(data: DocumentSheetData<TDocument>, options: RenderOptions): Promise<JQuery>;
+
     /** Get an Object of image paths and filenames to display in the Token sheet */
-    protected _getAlternateTokenImages(): Promise<Record<string, string>>;
+    protected _getAlternateTokenImages(): Promise<Record<string, ImageFilePath | VideoFilePath>>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     override activateListeners(html: JQuery): void;
+
+    override close(options?: { force?: boolean }): Promise<void>;
 
     protected override _getSubmitData(updateData?: Record<string, unknown> | null): Record<string, unknown>;
 
@@ -56,9 +68,28 @@ declare class TokenConfig<
 
     /** Handle changing the attribute bar in the drop-down selector to update the default current and max value */
     protected _onBarChange(event: Event): void;
+
+    /**
+     * Handle click events on a token configuration sheet action button
+     * @param event The originating click event
+     */
+    protected _onClickActionButton(event: PointerEvent): void;
+
+    /**
+     * Handle adding a detection mode.
+     * @param modes The existing detection modes.
+     */
+    protected _onAddDetectionMode(modes: TokenDetectionMode): void;
+
+    /**
+     * Handle removing a detection mode.
+     * @param index The index of the detection mode to remove.
+     * @param modes The existing detection modes.
+     */
+    protected _onRemoveDetectionMode(index: number, modes: TokenDetectionMode[]): void;
 }
 
-declare interface TokenConfigData<TDocument extends TokenDocument<Scene | null>> extends DocumentSheetData<TDocument> {
+declare interface TokenConfigData<TDocument extends TokenDocument> extends DocumentSheetData<TDocument> {
     cssClasses: string;
     isPrototype: boolean;
     hasAlternates: boolean;

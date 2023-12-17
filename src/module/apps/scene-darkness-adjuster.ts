@@ -35,7 +35,7 @@ export class SceneDarknessAdjuster extends Application {
         if (!game.scenes.viewed) return this;
 
         // Adjust position of this application's window
-        const controls = ui.controls.element[0]!;
+        const controls = ui.controls.element[0];
         const bounds = controls?.querySelector("li[data-tool=darkness-adjuster]")?.getBoundingClientRect();
         if (!bounds) return this;
 
@@ -110,7 +110,7 @@ export class SceneDarknessAdjuster extends Application {
                 const newValue = Number(values[1]);
                 await canvas.scene.update(
                     { darkness: newValue },
-                    { animateDarkness: Math.round(5000 * Math.abs(canvas.scene.darkness - newValue)) }
+                    { animateDarkness: Math.round(5000 * Math.abs(canvas.scene.darkness - newValue)) },
                 );
             }
         });

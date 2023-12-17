@@ -1,0 +1,68 @@
+{
+    "_id": "HOUHs5rahwIsQoBf",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Stonemason's Eye",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You understand the intricacies of stonework. You become trained in Crafting. If you're already trained in Crafting, you instead gain the @UUID[Compendium.pf2e.feats-srd.Item.Specialty Crafting] skill feat for stonemasonry.</p>\n<p>You also gain a +2 circumstance bonus to Perception checks to notice unusual stonework. This bonus applies to checks to discover mechanical traps made of stone or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] within stone.</p>\n<p>If you aren't using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action or searching, the GM automatically rolls a secret check for you to notice unusual stonework anyway. This check doesn't gain your normal circumstance bonus.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "terrain:unusual-stonework"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:cra:rank",
+                            1
+                        ]
+                    }
+                ],
+                "preselectChoices": {
+                    "specialtyCrafting": "stonemasonry"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Specialty Crafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dwarf"
+            ]
+        }
+    },
+    "type": "feat"
+}

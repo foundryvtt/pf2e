@@ -7,16 +7,15 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, objectHasKey, sluggify } from "@util";
+import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
-import { AbstractNPCSheet } from "./sheet.ts";
 import { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
@@ -33,15 +32,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     /** This NPC's attribute modifiers */
     override get abilities(): Abilities {
-        return deepClone(this.system.abilities);
+        return fu.deepClone(this.system.abilities);
     }
 
     get description(): string {
         return this.system.details.publicNotes;
-    }
-
-    override get hardness(): number {
-        return Math.abs(this.system.attributes.hardness?.value ?? 0);
     }
 
     /** Does this NPC have the Elite adjustment? */
@@ -55,8 +50,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     }
 
     get identificationDCs(): CreatureIdentificationData {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        return creatureIdentificationDCs(this, { proficiencyWithoutLevel });
+        const pwol = game.pf2e.settings.variants.pwol.enabled;
+        return creatureIdentificationDCs(this, { pwol });
     }
 
     get isLootable(): boolean {
@@ -108,23 +103,21 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
         const { level } = details;
-        level.base = level.value;
+        level.base = Math.clamped(level.value, -1, 100);
         level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.spellDC = null;
         attributes.classDC = ((): { value: number } => {
-            const proficiencyWithoutLevel =
-                game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-            const levelBasedDC = calculateDC(level.base, { proficiencyWithoutLevel, rarity: this.rarity });
+            const pwol = game.pf2e.settings.variants.pwol.enabled;
+            const levelBasedDC = calculateDC(level.base, { pwol, rarity: this.rarity });
             const adjusted = this.isElite ? levelBasedDC + 2 : this.isWeak ? levelBasedDC - 2 : levelBasedDC;
             return { value: adjusted };
         })();
         attributes.classOrSpellDC = { value: attributes.classDC.value };
-        attributes.bonusEncumbranceBulk = attributes.bonusLimitBulk = 0;
 
-        // Set default ritual attack and DC values if none are stored */
-        this.system.spellcasting = mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting ?? {});
+        this.system.spellcasting = fu.mergeObject({ rituals: { dc: 0 } }, this.system.spellcasting);
+        this.system.resources.focus = fu.mergeObject({ value: 0, max: 0, cap: 3 }, this.system.resources.focus);
     }
 
     override prepareDerivedData(): void {
@@ -148,8 +141,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
                         this.getHpAdjustment(baseLevel, "elite"),
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         } else if (this.isWeak) {
             modifierAdjustments.all.push({
@@ -162,8 +155,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
                         this.getHpAdjustment(baseLevel, "weak") * -1,
-                        "untyped"
-                    )
+                        "untyped",
+                    ),
             );
         }
         system.details.level.base = baseLevel;
@@ -185,17 +178,15 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 }),
             ].flat();
 
-            const hpData = deepClone(system.attributes.hp);
-            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
+            const hpData = fu.deepClone(system.attributes.hp);
+            const stat = fu.mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
 
             stat.base = base;
             stat.max = stat.max + stat.totalModifier;
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = [
                 game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
-                ...stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
             ].join(", ");
             system.attributes.hp = stat;
             setHitPointsRollOptions(this);
@@ -240,9 +231,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 ],
                 check: { type: "perception-check" },
             });
-            system.attributes.perception = mergeObject(
+            system.attributes.perception = fu.mergeObject(
                 system.attributes.perception,
-                this.perception.getTraceData({ value: "mod" })
+                this.perception.getTraceData({ value: "mod" }),
             );
         }
 
@@ -255,7 +246,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         // Initiative
-        this.initiative = new ActorInitiative(this);
+        const initiativeSkill = system.attributes.initiative?.statistic || "perception";
+        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
         this.system.attributes.initiative = this.initiative.getTraceData();
     }
 
@@ -290,7 +282,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
 
             saves[saveType] = stat;
-            mergeObject(this.system.saves[saveType], stat.getTraceData());
+            fu.mergeObject(this.system.saves[saveType], stat.getTraceData());
             systemData.saves[saveType].base = base;
         }
 
@@ -395,7 +387,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     selector: "all",
                     visibility: "gm",
                     text: attack.description,
-                })
+                }),
             );
         }
         const formatItemName = (item: ItemPF2e<this | null>): string => {
@@ -418,7 +410,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         for (const attackEffect of attack.attackEffects) {
             const item = this.items.find(
-                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect)
+                (i) => i.type !== "melee" && (i.slug ?? sluggify(i.name)) === sluggify(attackEffect),
             );
             if (item) {
                 // Get description from the actor item.
@@ -557,8 +549,6 @@ interface NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
     flags: NPCFlags;
     readonly _source: NPCSource;
     system: NPCSystemData;
-
-    get sheet(): AbstractNPCSheet<this>;
 }
 
 export { NPCPF2e };

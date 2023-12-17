@@ -1,5 +1,5 @@
 import { ActorPF2e, HazardPF2e } from "@actor";
-import { htmlQuery } from "@util";
+import { fontAwesomeIcon, htmlQuery } from "@util";
 import type { XPCalculation } from "./index.ts";
 
 function getHazards(actors: ActorPF2e[]): HazardPF2e[] {
@@ -143,9 +143,8 @@ const askLevelPopupTemplate = (): string => {
 };
 
 function showXP(partyLevel: number, partySize: number, npcLevels: number[], hazards: HazardPF2e[]): void {
-    const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazards, {
-        proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
-    });
+    const pwol = game.pf2e.settings.variants.pwol.enabled;
+    const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazards, { pwol });
     new Dialog({
         title: "XP",
         content: dialogTemplate(xp),
@@ -159,19 +158,19 @@ function askPartyLevelAndSize(npcLevels: number[], hazards: HazardPF2e[]): void 
         content: askLevelPopupTemplate,
         buttons: {
             no: {
-                icon: '<i class="fas fa-times"></i>',
+                icon: fontAwesomeIcon("times").outerHTML,
                 label: "Cancel",
             },
             yes: {
-                icon: '<i class="fas fa-calculator"></i>',
+                icon: fontAwesomeIcon("calculator").outerHTML,
                 label: "Calculate XP",
                 callback: ($html) => {
                     const html = $html[0];
                     const partySize = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-size]")?.value || 1))
+                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-size]")?.value || 1)),
                     );
                     const partyLevel = Math.abs(
-                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-level]")?.value || 1))
+                        Math.trunc(Number(htmlQuery<HTMLInputElement>(html, "[name=party-level]")?.value || 1)),
                     );
 
                     // persist for future uses
@@ -192,7 +191,7 @@ function xpFromEncounter(): void {
     const hazards = getHazards(actors);
     if (npcLevels.length === 0 && hazards.length === 0) {
         ui.notifications.error(
-            `You must select at least one opposition and/or hazard token and optionally all PC tokens`
+            `You must select at least one opposition and/or hazard token and optionally all PC tokens`,
         );
         return;
     }

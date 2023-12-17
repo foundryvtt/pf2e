@@ -1,0 +1,368 @@
+{
+    "_id": "EJ0a2F8Z01HfeFy9",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "OXLVr0p2vK6WnR8C",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.sdwSrVfu9yG1uwio"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Live off the Land",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is trained to be self-sufficient and sustains itself via hunting and gathering when they're in the wild. If during a Kingdom turn's Upkeep phase this army is located in a hex that doesn't include a settlement, and if the army is not garrisoned, it reduces its Consumption by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.Kingmaker.Army.Toggles.LiveOffTheLand",
+                        "option": "live-off-the-land",
+                        "priority": 1,
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.consumption",
+                        "predicate": [
+                            "live-off-the-land"
+                        ],
+                        "value": -1
+                    }
+                ],
+                "slug": "live-off-the-land",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "loV9bkQRMcG5lT8f",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.IiD3kKszFfHZ9cZ1"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughened Soldiers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is particularly hardy. Increase its maximum Hit Points by 1. You can take this tactic multiple times; each time you do, increase the army's maximum Hit Points by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.hp.max",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughened-soldiers",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "RIn3bxyfP41ZVDI7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.QRwIcmCEHpDQm9DO"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "allOutAssault": {
+                            "id": "OrIi052QUBcxEZcU",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Merciless",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>This army is difficult to escape from. The army's Mobility DC gains a +2 status bonus when other armies attempt Mobility checks against it while attempting to Disengage.</p>\n<p>This army can use the @UUID[Compendium.pf2e.kingmaker-features.Item.All-Out Assault] tactical war action.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "flag": "allOutAssault",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.All-Out Assault"
+                    }
+                ],
+                "slug": "merciless",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "OrIi052QUBcxEZcU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.Z6jMZgAxI1zRO7Sl"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "RIn3bxyfP41ZVDI7",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "All-Out Assault",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong> @UUID[Compendium.pf2e.kingmaker-features.Item.Merciless]</p>\n<hr />\n<p>Your army attacks with frightening vigor. Attempt a melee Strike against an enemy army's AC.</p>\n<p><strong>Critical Success</strong> Your army inflicts @Damage[3|domains:melee-damage,strike-damage] points of damage to the target army. If your army's next war action this turn is an attack war action against a different target army, you gain a +1 circumstance bonus to the Strike as your fury continues to the new target.</p>\n<p><strong>Success</strong> Your army deals @Damage[2|domains:melee-damage,strike-damage] points of damage to the target army.</p>\n<p><strong>Failure</strong> Your army falters, but still deals @Damage[1|domains:melee-damage,strike-damage] point of damage to the target army.</p>\n<p><strong>Critical Failure</strong> Your army deals no damage to the target army and becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Outflanked] until the start of its next turn.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "label": "All-Out Assault Followup Attack (Crit Success)",
+                        "option": "all-out-assault-followup",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "All-Out Assault Followup (Crit Success)",
+                        "predicate": [
+                            "all-out-assault-followup"
+                        ],
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": "all-out-assault",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack",
+                        "cavalry",
+                        "infantry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "tQazZSr74WnjIerz",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.XRvL4gA2lCMx4Bqf"
+                }
+            },
+            "folder": "pnkpw6p0Fx3fHK0x",
+            "img": "icons/skills/movement/arrow-upward-white.webp",
+            "name": "Home Advantage (Area GL2)",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": "<p>The Pitax Horde knows the open plains and rolling dells of of this area well, and can use the terrain to their advantage if they are attacked here. They <span style=\"font-family:var(--font-primary);font-size:var(--font-size-14)\">gain a +2 bonus to Maneuver and +3 bonus to Scouting while in area GL2. </span></p>\n<hr />\n<p><em><span style=\"font-family:var(--font-primary);font-size:var(--font-size-14)\"><strong>Note</strong>: This effect automates the above bonuses. Remove it if the Pitax Horde are found elsewhere.</span></em></p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 10
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "scouting-check",
+                        "value": 3
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "maneuver-check",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
+        }
+    ],
+    "name": "Pitax Horde",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 30
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 5
+            }
+        },
+        "consumption": null,
+        "details": {
+            "alignment": "CN",
+            "blurb": "",
+            "description": "<p>The Pitax Horde consists of human warriors from seven different minor clans in Glenebon.</p>",
+            "level": {
+                "value": 10
+            }
+        },
+        "recruitmentDC": null,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 22,
+            "morale": 16
+        },
+        "scouting": 19,
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "type": "infantry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Greater magic axes",
+                "potency": 2
+            },
+            "ranged": null
+        }
+    },
+    "type": "army"
+}

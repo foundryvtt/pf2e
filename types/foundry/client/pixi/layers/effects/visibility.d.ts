@@ -63,9 +63,9 @@ declare global {
         /*  Layer Rendering                             */
         /* -------------------------------------------- */
 
-        protected _draw(options: object): void;
+        protected _draw(options: object): Promise<void>;
 
-        protected _tearDown(options: object): Promise<void>;
+        protected override _tearDown(options: object): Promise<void>;
 
         /**
          * Update the display of the sight layer.

@@ -1,4 +1,4 @@
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { Rarity } from "./data.ts";
 
 /**
@@ -100,23 +100,18 @@ function adjustDCByRarity(dc: number, rarity: Rarity = "common"): number {
 }
 
 interface DCOptions {
-    proficiencyWithoutLevel?: boolean;
+    pwol?: boolean;
     rarity?: Rarity;
 }
 
-/**
- * Normal Level Based DCs
- * @param level
- * @param proficiencyWithoutLevel
- */
-function calculateDC(level: number, { proficiencyWithoutLevel, rarity = "common" }: DCOptions = {}): number {
-    const pwlSetting = game.settings.get("pf2e", "proficiencyVariant");
-    proficiencyWithoutLevel ??= pwlSetting === "ProficiencyWithoutLevel";
+/** Level-based DCs */
+function calculateDC(level: number, { pwol, rarity = "common" }: DCOptions = {}): number {
+    pwol ??= game.pf2e.settings.variants.pwol.enabled;
 
     // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
     // stored as a string, which we can't catch at compile time
     const dc = dcByLevel.get(level) ?? 14;
-    if (proficiencyWithoutLevel) {
+    if (pwol) {
         // -1 shouldn't be subtracted since it's just
         // a creature level and not related to PC levels
         return adjustDCByRarity(dc - Math.max(level, 0), rarity);
@@ -125,16 +120,16 @@ function calculateDC(level: number, { proficiencyWithoutLevel, rarity = "common"
     }
 }
 
-function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    if (proficiencyWithoutLevel) {
+function calculateSimpleDC(rank: ProficiencyRank, { pwol = false }: DCOptions = {}): number {
+    if (pwol) {
         return simpleDCsWithoutLevel.get(rank) ?? 10;
     } else {
         return simpleDCs.get(rank) ?? 10;
     }
 }
 
-function calculateSpellDC(spellLevel: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    return calculateDC(spellLevel * 2 - 1, { proficiencyWithoutLevel });
+function calculateSpellDC(spellLevel: number, { pwol = false }: DCOptions = {}): number {
+    return calculateDC(spellLevel * 2 - 1, { pwol });
 }
 
 /**

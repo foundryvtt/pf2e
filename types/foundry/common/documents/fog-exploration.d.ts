@@ -1,50 +1,55 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseUser } from "./module.d.ts";
+import type * as documents from "./module.d.ts";
+import type * as fields from "../data/fields.d.ts";
 
-/** The FogExploration Document model. */
-export default class BaseFogExploration extends Document<null> {
+/**
+ * The Document definition for FogExploration.
+ * Defines the DataSchema and common behaviors for FogExploration which are shared between both client and server.
+ * @memberof documents
+ *
+ * @param data    Initial data from which to construct the FogExploration
+ * @param context Construction context options
+ */
+export default class BaseFogExploration extends Document<null, FogExplorationSchema> {
     static override get metadata(): FogExplorationMetadata;
 
-    protected override _preUpdate(
-        changed: DocumentUpdateData<this>,
-        options: DocumentModificationContext<null>,
-        user: BaseUser
-    ): Promise<boolean | void>;
+    static override defineSchema(): FogExplorationSchema;
 
-    /** Test whether a User can modify a FogExploration document. */
-    protected static _canUserModify<T extends BaseFogExploration>(user: BaseUser, doc: T): boolean;
+    protected override _preUpdate(
+        changed: Record<string, unknown>,
+        options: DocumentModificationContext<null>,
+        user: documents.BaseUser,
+    ): Promise<boolean | void>;
 }
 
-export default interface BaseFogExploration extends Document<null> {
-    readonly _source: FogExplorationSource;
+export default interface BaseFogExploration
+    extends Document<null, FogExplorationSchema>,
+        ModelPropsFromSchema<FogExplorationSchema> {
+    get documentName(): FogExplorationMetadata["name"];
 }
 
 interface FogExplorationMetadata extends DocumentMetadata {
-    name: "DogExploration";
+    name: "FogExploration";
     collection: "fog";
     label: "DOCUMENT.FogExploration";
+    labelPlural: "DOCUMENT.FogExplorations";
     isPrimary: true;
-    permissions: {
-        create: "PLAYER";
-        update: (typeof BaseFogExploration)["_canUserModify"];
-        delete: (typeof BaseFogExploration)["_canUserModify"];
-    };
 }
 
-/**
- * The data schema for a FogExploration document.
- * @property _id       The _id which uniquely identifies this FogExploration document
- * @property scene     The _id of the Scene document to which this fog applies
- * @property user      The _id of the User document to which this fog applies
- * @property explored  The base64 png image of the explored fog polygon
- * @property positions The object of scene positions which have been explored at a certain vision radius
- * @property timestamp The timestamp at which this fog exploration was last updated
- */
-interface FogExplorationSource {
-    _id: string;
-    scene: string;
-    user: string;
-    explored: string;
-    position: unknown;
-    timestamp: number;
-}
+type FogExplorationSchema = {
+    /** The _id which uniquely identifies this FogExploration document */
+    _id: fields.DocumentIdField;
+    /** The _id of the Scene document to which this fog applies */
+    scene: fields.ForeignDocumentField<documents.BaseScene>;
+    /** The _id of the User document to which this fog applies */
+    user: fields.ForeignDocumentField<documents.BaseUser>;
+    /** The base64 png image of the explored fog polygon */
+    explored: fields.FilePathField<ImageFilePath, ImageFilePath, true>;
+    /** The object of scene positions which have been explored at a certain vision radius */
+    positions: fields.ObjectField<object>;
+    /** The timestamp at which this fog exploration was last updated */
+    timestamp: fields.NumberField<number, number, false, true, true>;
+    flags: fields.ObjectField<DocumentFlags>;
+};
+
+type FogExplorationSource = SourceFromSchema<FogExplorationSchema>;

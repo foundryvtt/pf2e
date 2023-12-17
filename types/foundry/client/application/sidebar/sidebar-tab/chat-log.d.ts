@@ -136,7 +136,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
         command: string,
         matches: RegExpMatchArray[],
         chatData: DeepPartial<foundry.documents.ChatMessageSource>,
-        createOptions: ChatMessageModificationContext
+        createOptions: ChatMessageModificationContext,
     ): Promise<void>;
 
     protected _contextMenu(html: JQuery): void;
@@ -146,6 +146,12 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @return The sidebar entry context options
      */
     protected override _getEntryContextOptions(): EntryContextOption[];
+
+    /** Handle keydown events in the chat entry textarea */
+    protected _onChatKeyDown(event: KeyboardEvent): void;
+
+    /** Handle clicking of dice tooltip buttons */
+    protected _onDiceRollClick(event: JQuery.ClickEvent): void;
 
     /**
      * Handle scroll events within the chat log container

@@ -1,53 +1,51 @@
-article {
-    .sheet-sidebar {
-        .required-ancestry {
-            flex-wrap: nowrap;
-            width: 100%;
-            white-space: nowrap;
-            max-width: 100%;
+section.sidebar {
+    .required-ancestry {
+        flex-wrap: nowrap;
+        width: 100%;
+        white-space: nowrap;
+        max-width: 100%;
 
-            label {
-                flex: 0;
+        label {
+            flex: 0;
+        }
+
+        .drop-zone {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+            border: 1px dotted var(--alt-dark);
+            display: flex;
+            font-weight: normal;
+            justify-content: center;
+            margin: 2px 3px 0 auto;
+            max-width: 8em;
+            padding: 3px;
+            position: relative;
+
+            span {
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            .drop-zone {
-                background-color: rgba(0, 0, 0, 0.05);
-                border-radius: 2px;
-                border: 1px dotted var(--alt-dark);
-                display: flex;
-                font-weight: normal;
-                justify-content: center;
-                margin: 2px 3px 0 auto;
-                max-width: 8em;
-                padding: 3px;
-                position: relative;
+            &.ancestry-ref-broken {
+                background-color: rgba(255, 0, 0, 0.15);
+                border-color: var(--primary);
+            }
 
-                span {
-                    display: inline-block;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                &.ancestry-ref-broken {
-                    background-color: rgba(255, 0, 0, 0.15);
-                    border-color: var(--primary);
-                }
-
-                a.remove-ancestry {
-                    display: none;
-                    position: absolute;
-                    right: -0.5em;
-                    top: -0.25em;
-
-                    &:hover {
-                        display: flex;
-                    }
-                }
+            a.remove-ancestry {
+                display: none;
+                position: absolute;
+                right: -0.5em;
+                top: -0.25em;
 
                 &:hover {
-                    a.remove-ancestry {
-                        display: flex;
-                    }
+                    display: flex;
+                }
+            }
+
+            &:hover {
+                a.remove-ancestry {
+                    display: flex;
                 }
             }
         }

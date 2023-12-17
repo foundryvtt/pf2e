@@ -1,6 +1,6 @@
 {
     "_id": "mxhGH4FVYXJwb0BC",
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
     "name": "Gnome Obsession",
     "system": {
         "actionType": {
@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You might have a flighty nature, but when a topic captures your attention, you dive into it headfirst. Pick a Lore skill. You gain the trained proficiency rank in that skill. At 2nd level, you gain expert proficiency in the chosen Lore as well as the Lore granted by your background, if any. At 7th level you gain master proficiency in these Lore skills, and at 15th level you gain legendary proficiency in them.</p>"
+            "value": "<p>You might have a flighty nature, but when a topic captures your attention, you dive into it headfirst. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat and the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] feat for the chosen Lore. As gnome obsessions can come and go quickly, you can retrain Gnome Obsession to a different Lore subcategory in 1 day of downtime.</p>"
         },
         "level": {
             "value": 1
@@ -19,10 +19,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "source": {
-            "value": "Pathfinder Core Rulebook"
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            },
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "lore"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

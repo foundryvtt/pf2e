@@ -3,26 +3,19 @@
     "img": "icons/consumables/plants/thorned-stem-vine-green.webp",
     "name": "Bleeding Spines Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": "1",
-            "value": "1"
+        "bulk": {
+            "value": 0
         },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "8d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "8d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>When a creature enters the square, spines covered in numerous jagged thorns protrude out to stab it, dealing 8d8 piercing damage and @Damage[2d8[bleed]]. The creature must attempt a @Check[type:reflex|dc:31|basic:true] saving throw. After the initial trigger, the spines retract and protrude again repeatedly for 1 minute, forcing any creature that enters the space or ends its turn in the space to attempt a Reflex save against the spines' damage.</p>"
-        },
-        "equippedBulk": {
-            "value": ""
         },
         "hardness": 0,
         "hp": {
@@ -36,21 +29,19 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 320
             }
         },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
         "quantity": 1,
         "rules": [],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
@@ -63,8 +54,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

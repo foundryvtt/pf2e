@@ -5,7 +5,6 @@ const HOMEBREW_TRAIT_KEYS = [
     "creatureTraits",
     "featTraits",
     "languages",
-    "magicSchools",
     "spellTraits",
     "weaponCategories",
     "weaponGroups",
@@ -15,12 +14,11 @@ const HOMEBREW_TRAIT_KEYS = [
 ] as const;
 
 /** Homebrew elements from some of the above records are propagated to related records */
-const SECONDARY_TRAIT_RECORDS = {
-    creatureTraits: ["ancestryItemTraits"],
+const TRAIT_PROPAGATIONS = {
+    creatureTraits: ["ancestryTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
-    magicSchools: ["spellTraits"],
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
@@ -31,8 +29,8 @@ interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
         : T extends Exclude<HomebrewTraitKey, "baseWeapons">
-        ? keyof ConfigPF2e["PF2E"][T]
-        : never;
+          ? keyof ConfigPF2e["PF2E"][T]
+          : never;
     value: string;
 }
 
@@ -40,7 +38,7 @@ type MainDamageCategories = "physical" | "energy";
 
 interface CustomDamageData {
     label: string;
-    category: MainDamageCategories;
+    category?: MainDamageCategories | null;
     icon: string | null;
 }
 
@@ -50,7 +48,7 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
     customDamageTypes: CustomDamageData[];
 }
 
-export { HOMEBREW_TRAIT_KEYS, SECONDARY_TRAIT_RECORDS };
+export { HOMEBREW_TRAIT_KEYS, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
     HomebrewElementsSheetData,

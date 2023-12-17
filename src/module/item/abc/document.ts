@@ -4,7 +4,6 @@ import type { AncestrySource, AncestrySystemData } from "@item/ancestry/data.ts"
 import type { BackgroundSource, BackgroundSystemData } from "@item/background/data.ts";
 import type { ClassSource, ClassSystemData } from "@item/class/data.ts";
 import { Rarity } from "@module/data.ts";
-import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { objectHasKey } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
@@ -28,12 +27,6 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
         if (!packEntries.length) return [];
 
         const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
-        for (const item of items) {
-            if (item instanceof ItemPF2e) {
-                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
-            }
-        }
-
         const level = options.level ?? this.parent?.level;
 
         return items.flatMap((item): FeatPF2e<null> | never[] => {

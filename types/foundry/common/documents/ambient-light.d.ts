@@ -14,9 +14,7 @@ export default class BaseAmbientLight<TParent extends BaseScene | null> extends 
 
 export default interface BaseAmbientLight<TParent extends BaseScene | null>
     extends Document<TParent, AmbientLightSchema>,
-        ModelPropsFromSchema<AmbientLightSchema> {
-    readonly _source: SourceFromSchema<AmbientLightSchema>;
-}
+        ModelPropsFromSchema<AmbientLightSchema> {}
 
 interface AmbientLightMetadata extends DocumentMetadata {
     name: "AmbientLight";

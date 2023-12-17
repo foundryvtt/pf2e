@@ -17,10 +17,18 @@ import type {
     ArrayField,
     BooleanField,
     ColorField,
+    EmbeddedDataField,
     SchemaField,
 } from "types/foundry/common/data/fields.d.ts";
-import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import {
+    ModelPropsFromRESchema,
+    ResolvableValueField,
+    RuleElementSchema,
+    RuleElementSource,
+    RuleValue,
+} from "./data.ts";
+import { ItemAlteration } from "./item-alteration/alteration.ts";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
@@ -28,7 +36,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
         super(source, options);
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
         for (const effect of this.effects) {
-            effect.includesSelf ??= effect.affects !== "enemies";
             effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         }
     }
@@ -61,7 +68,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     initial: undefined,
                     choices: ["enter", "turn-start", "turn-end"],
                 }),
-                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" }
+                { required: true, nullable: false, initial: ["enter"], label: "PF2E.RuleEditor.Aura.Effects.Events" },
             ),
             save: new fields.SchemaField(
                 {
@@ -80,7 +87,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         label: "PF2E.Check.DC.Unspecific",
                     }),
                 },
-                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" }
+                { required: true, nullable: true, initial: null, label: "PF2E.SavesHeader" },
             ),
             predicate: new PredicateField({ required: false, nullable: false }),
             removeOnExit: new StrictBooleanField({
@@ -92,9 +99,10 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             includesSelf: new StrictBooleanField({
                 required: false,
                 nullable: false,
-                initial: undefined,
+                initial: (d) => d.affects !== "enemies",
                 label: "PF2E.RuleEditor.Aura.Effects.IncludesSelf",
             }),
+            alterations: new StrictArrayField(new fields.EmbeddedDataField(ItemAlteration)),
         });
 
         const xyPairSchema = ({ integer }: { integer: boolean }): XYPairSchema => ({
@@ -131,7 +139,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             nullable: false,
                             initial: "#000000",
                             label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                        }
+                        },
                     ),
                     alpha: new fields.AlphaField({
                         required: true,
@@ -145,7 +153,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     nullable: true,
                     initial: () => ({ color: "#000000", alpha: 0.75 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Border",
-                } as const
+                } as const,
             ),
             highlight: new fields.SchemaField(
                 {
@@ -164,7 +172,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                             nullable: false,
                             initial: "user-color",
                             label: "PF2E.RuleEditor.Aura.Appearance.Color",
-                        }
+                        },
                     ),
                     alpha: new fields.AlphaField({
                         required: false,
@@ -178,7 +186,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     nullable: false,
                     initial: () => ({ color: "user-color", alpha: 0.25 }),
                     label: "PF2E.RuleEditor.Aura.Appearance.Highlight",
-                }
+                },
             ),
             texture: new fields.SchemaField(
                 {
@@ -225,7 +233,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                         hint: "PF2E.RuleEditor.Aura.Appearance.PlaybackRate.Hint",
                     }),
                 } as const,
-                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" }
+                { required: false, nullable: true, initial: null, label: "PF2E.RuleEditor.Aura.Appearance.Texture" },
             ),
         };
 
@@ -288,8 +296,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     typeof level === "number"
                         ? Math.trunc(level)
                         : this.item.isOfType("effect")
-                        ? this.item.level
-                        : null,
+                          ? this.item.level
+                          : null,
                 effects: this.#processEffects(),
                 traits: R.uniq(this.traits.filter((t) => t !== "aura")).sort(),
                 appearance: this.#processAppearanceData(),
@@ -307,10 +315,12 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 }
             }
 
+            // Check if the aura already exists to merge new data into it. Radius/Appearance is always overriden.
             const existing = this.actor.auras.get(this.slug);
             if (existing && this.mergeExisting) {
                 existing.radius = data.radius;
                 existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                existing.appearance = data.appearance;
                 for (const effect of data.effects) {
                     const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);
                     if (existingIndex !== -1) {
@@ -318,11 +328,6 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                     } else {
                         existing.effects.push(effect);
                     }
-                }
-
-                // Only merge appearance data from this aura if it has been explicitly set by the user
-                if (this._source.appearance) {
-                    existing.appearance = mergeObject(existing.appearance, data.appearance);
                 }
             } else {
                 this.actor.auras.set(this.slug, data);
@@ -340,7 +345,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 
     #processAppearanceData(): AuraAppearanceData {
-        const appearance = deepClone(this.appearance);
+        const appearance = fu.deepClone(this.appearance);
         const { border, highlight, texture } = appearance;
         const textureSrc = ((): ImageFilePath | VideoFilePath | null => {
             if (!texture) return null;
@@ -359,7 +364,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 }
 
-interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromSchema<AuraSchema> {
+interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromRESchema<AuraSchema> {
     slug: string;
     effects: AuraEffectREData[];
 }
@@ -428,9 +433,14 @@ type AuraEffectSchema = {
         true,
         true
     >;
+    /** A predicating limiting whether the effect is transmitted to an actor */
     predicate: PredicateField<false, false, true>;
+    /** Whether to remove the effect from an actor immediately after its token exits the area */
     removeOnExit: StrictBooleanField<true, false, true>;
-    includesSelf: StrictBooleanField<false, false, false>;
+    /** Whether the effect is applied to the actor emitting the aura */
+    includesSelf: StrictBooleanField<false, false, true>;
+    /** An array of alterations to apply to the effect before transmitting it */
+    alterations: StrictArrayField<EmbeddedDataField<ItemAlteration>>;
 };
 
 type AuraAppearanceSchema = {

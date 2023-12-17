@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement, RawPredicate } from "@system/predication.ts";
 import { isObject } from "@util";
@@ -13,22 +13,22 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
         const keys = Object.keys(predicate);
         if (keys.length === 0) return [];
         if (keys.length === 1 && Array.isArray(predicate.all)) {
-            return deepClone(predicate.all);
+            return fu.deepClone(predicate.all);
         }
         if (keys.length === 1 && Array.isArray(predicate.any) && predicate.any.length === 1) {
-            return deepClone(predicate.any);
+            return fu.deepClone(predicate.any);
         }
 
-        return deepClone(
+        return fu.deepClone(
             [
                 predicate.all ?? [],
                 Array.isArray(predicate.any) ? { or: predicate.any } : [],
                 Array.isArray(predicate.not)
                     ? predicate.not.length === 1
-                        ? { not: predicate.not[0]! }
+                        ? { not: predicate.not[0] }
                         : { nor: predicate.not }
                     : [],
-            ].flat()
+            ].flat(),
         );
     }
 

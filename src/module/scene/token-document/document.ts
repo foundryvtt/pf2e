@@ -8,7 +8,6 @@ import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
-import type { ActorDeltaPF2e } from "./actor-delta.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
@@ -33,7 +32,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
 
         const { actor } = this;
-        if (!actor || !game.settings.get("pf2e", "automation.rulesBasedVision")) {
+        if (!actor || !game.pf2e.settings.rbv) {
             return false;
         }
 
@@ -46,13 +45,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static override getTrackedAttributes(
         data: Record<string, unknown> = {},
-        _path: string[] = []
+        _path: string[] = [],
     ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
             for (const [type, model] of Object.entries(game.system.model.Actor)) {
                 if (!["character", "npc"].includes(type)) continue;
-                foundry.utils.mergeObject(data, model);
+                fu.mergeObject(data, model);
             }
         }
 
@@ -65,18 +64,40 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             negative: /\b(?:rank|_?modifiers|item|classdc|dexcap|familiar|\w+hp\b)|bonus/i,
         };
 
-        const prunedData = expandObject<Record<string, unknown>>(
+        const prunedData = fu.expandObject<Record<string, unknown>>(
             Object.fromEntries(
-                Object.entries(flattenObject(data)).filter(
+                Object.entries(fu.flattenObject(data)).filter(
                     ([k, v]) =>
                         patterns.positive.test(k) &&
                         !patterns.negative.test(k) &&
-                        !["boolean", "string"].includes(typeof v)
-                )
-            )
+                        !["boolean", "string"].includes(typeof v),
+                ),
+            ),
         );
 
         return super.getTrackedAttributes(prunedData, _path);
+    }
+
+    static override getTrackedAttributeChoices(
+        attributes?: TrackedAttributesDescription,
+    ): TrackedAttributesDescription {
+        attributes ??= this.getTrackedAttributes();
+        // Add stamina here because TokenDocument._getTrackedAttributesFromObject returns the first encountered
+        // { value, max } property and sp is nested within the hp property
+        if (game.pf2e.settings.variants.stamina) {
+            attributes.bar.push(["attributes", "hp", "sp"]);
+        }
+        return super.getTrackedAttributeChoices(attributes);
+    }
+
+    /** Make stamina and resolve editable despite not being present in template.json */
+    override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
+        const attribute = super.getBarAttribute(barName, options);
+        if (attribute && ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute)) {
+            attribute.editable = true;
+        }
+
+        return attribute;
     }
 
     /** This should be in Foundry core, but ... */
@@ -135,7 +156,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                 position[0],
                 position[1],
                 Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height)
+                Math.max(canvas.grid.size, bounds.height),
             );
         }
 
@@ -168,7 +189,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags = mergeObject(this.flags, { pf2e: {} });
+        this.flags = fu.mergeObject(this.flags, { pf2e: {} });
         this.auras.clear();
 
         if (!this.actor || !this.isEmbedded) return;
@@ -176,7 +197,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         TokenDocumentPF2e.assignDefaultImage(this);
 
         for (const [key, data] of this.actor.auras.entries()) {
-            this.auras.set(key, new TokenAura({ token: this, ...deepClone(data) }));
+            this.auras.set(key, new TokenAura({ token: this, ...fu.deepClone(data) }));
         }
 
         if (!this.constructed) return;
@@ -185,19 +206,22 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type);
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
-        const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
+        const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Alliance coloration, appropriating core token dispositions
         const { alliance } = this.actor.system.details;
-        this.disposition = alliance
-            ? {
-                  party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
-                  opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
-              }[alliance]
-            : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+        this.disposition =
+            this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
+                ? CONST.TOKEN_DISPOSITIONS.SECRET
+                : alliance
+                  ? {
+                        party: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+                        opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
+                    }[alliance]
+                  : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
     }
 
     /** Reset sight defaults if using rules-based vision */
@@ -300,7 +324,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
 
         // Always override token images if in Nath mode
-        if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(token.texture.src)) {
+        if (game.pf2e.settings.tokens.nathMode && defaultIcons.includes(token.texture.src)) {
             token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
@@ -339,7 +363,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             token.width = size;
             token.height = size;
 
-            if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
+            if (game.pf2e.settings.tokens.autoscale && token.flags.pf2e.autoscale !== false) {
                 const absoluteScale = actor.size === "sm" ? 0.8 : 1;
                 const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
                 token.texture.scaleX = mirrorX * absoluteScale;
@@ -389,6 +413,41 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    /**
+     * Use actor updates (real or otherwise) that propagate down to ephemeral token changes  to provoke canvas object
+     * re-rendering.
+     */
+    simulateUpdate(actorUpdates: Record<string, unknown> = {}): void {
+        // If this scene isn't in view nor in focus, skip all later checks
+        // This method is called for every scene a linked actor's token is present in
+        if (!this.scene?.isInFocus && !this.scene?.isView) return;
+
+        // Reinitialize vision if the actor's senses were updated directly
+        const initializeVision =
+            !!this.scene?.isView &&
+            this.sight.enabled &&
+            Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.traits.senses"));
+        if (initializeVision) canvas.perception.update({ initializeVision }, true);
+
+        const preUpdate = this.toObject(false);
+        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        this.reset();
+        const postUpdate = this.toObject(false);
+        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
+        const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
+
+        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
+            this.object?._onUpdate(tokenChanges, {}, game.user.id);
+        }
+
+        // Assess the full diff using `diffObject`: additions, removals, and changes
+        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
+
+        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
+            this.scene?.checkAuras?.();
+        }
+    }
+
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -397,7 +456,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onCreate(
         data: this["_source"],
         options: DocumentModificationContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         super._onCreate(data, options, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
@@ -408,10 +467,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<TParent>,
-        userId: string
+        userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         if ("displayName" in changed && tokenSetsNameVisibility && this.combatant) {
             ui.combat.render();
         }
@@ -426,34 +485,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
-        options: DocumentModificationContext<null> = {}
+        options: DocumentModificationContext<null> = {},
     ): void {
         super._onRelatedUpdate(update, options);
-
-        // Reinitialize vision if the actor's senses were updated directly
-        const initializeVision =
-            !!this.scene?.isView &&
-            this.sight.enabled &&
-            Object.keys(flattenObject(update)).some((k) => k.startsWith("system.traits.senses"));
-        if (initializeVision) canvas.perception.update({ initializeVision }, true);
-
-        const preUpdate = this.toObject(false);
-        const preUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        this.reset();
-        const postUpdate = this.toObject(false);
-        const postUpdateAuras = Array.from(this.auras.values()).map((a) => R.omit(a, ["appearance", "token"]));
-        const tokenChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-
-        if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            this.object?._onUpdate(tokenChanges, {}, game.user.id);
-        }
-
-        // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
-
-        if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
-            this.scene?.checkAuras?.();
-        }
+        this.simulateUpdate(update);
     }
 
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
@@ -479,7 +514,6 @@ interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;
     get sheet(): TokenConfigPF2e<this>;
-    delta: ActorDeltaPF2e<this> | null;
 }
 
 export { TokenDocumentPF2e };

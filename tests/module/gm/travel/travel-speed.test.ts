@@ -32,8 +32,8 @@ describe("test travel speed", () => {
                 40,
                 ExplorationActivities.NONE,
                 DetectionMode.NONE,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(40);
     });
 
@@ -43,16 +43,16 @@ describe("test travel speed", () => {
                 40,
                 ExplorationActivities.DEFEND,
                 DetectionMode.NONE,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.DEFEND,
                 DetectionMode.NONE,
-                Object.assign({}, defaultExplorationOptions, { practicedDefender: true })
-            )
+                Object.assign({}, defaultExplorationOptions, { practicedDefender: true }),
+            ),
         ).toEqual(40);
     });
 
@@ -62,24 +62,24 @@ describe("test travel speed", () => {
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
-                Object.assign({}, defaultExplorationOptions, { legendarySneak: true })
-            )
+                Object.assign({}, defaultExplorationOptions, { legendarySneak: true }),
+            ),
         ).toEqual(40);
         expect(
             calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.AVOID_NOTICE,
                 DetectionMode.NONE,
-                Object.assign({}, defaultExplorationOptions, { swiftSneak: true })
-            )
+                Object.assign({}, defaultExplorationOptions, { swiftSneak: true }),
+            ),
         ).toEqual(40);
     });
 
@@ -89,48 +89,48 @@ describe("test travel speed", () => {
                 40,
                 ExplorationActivities.SEARCH,
                 DetectionMode.NONE,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(20);
         expect(
             calculateNormalizedCharacterSpeed(
                 70,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(30);
         expect(
             calculateNormalizedCharacterSpeed(
                 120,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
-                Object.assign({}, defaultExplorationOptions, { expeditiousSearch: true })
-            )
+                Object.assign({}, defaultExplorationOptions, { expeditiousSearch: true }),
+            ),
         ).toEqual(60);
         expect(
             calculateNormalizedCharacterSpeed(
                 140,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_EVERYTHING,
-                Object.assign({}, defaultExplorationOptions, { expeditiousSearchLegendary: true })
-            )
+                Object.assign({}, defaultExplorationOptions, { expeditiousSearchLegendary: true }),
+            ),
         ).toEqual(70);
         expect(
             calculateNormalizedCharacterSpeed(
                 40,
                 ExplorationActivities.SEARCH,
                 DetectionMode.DETECT_BEFORE_WALKING_INTO_IT,
-                defaultExplorationOptions
-            )
+                defaultExplorationOptions,
+            ),
         ).toEqual(15);
     });
 

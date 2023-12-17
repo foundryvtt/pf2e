@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
@@ -47,7 +47,7 @@ export class Migration831ClericDoctrines extends MigrationBase {
         if (
             source.system.rules.some(
                 (r: MaybeAELikeSource): r is MaybeAELikeSource =>
-                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.cleric"
+                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.cleric",
             )
         ) {
             return;

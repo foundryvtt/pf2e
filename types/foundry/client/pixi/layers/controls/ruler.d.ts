@@ -10,7 +10,7 @@ declare global {
         name: string;
 
         /** The ruler color - by default the color of the active user */
-        color: Color;
+        color: foundry.utils.Color;
 
         /**
          * This Array tracks individual waypoints along the ruler's measured path.

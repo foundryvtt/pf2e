@@ -17,7 +17,7 @@ export async function storeInitialWorldVersions(): Promise<void> {
                 ? game.settings.get("pf2e", "worldSchemaVersion")
                 : Math.max(
                       Math.min(...new Set(game.actors.map((actor) => actor.schemaVersion ?? minimumVersion))),
-                      minimumVersion
+                      minimumVersion,
                   );
         await game.settings.set("pf2e", "worldSchemaVersion", currentVersion);
     }

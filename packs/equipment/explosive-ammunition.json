@@ -3,26 +3,19 @@
     "img": "systems/pf2e/icons/equipment/consumables/ammunition/explosive-ammunition.webp",
     "name": "Explosive Ammunition",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
-        "charges": {
-            "max": 0,
+        "bulk": {
             "value": 0
         },
-        "consumableType": {
-            "value": "ammo"
-        },
-        "consume": {
-            "value": "6d6"
-        },
+        "category": "ammo",
         "containerId": null,
-        "description": {
-            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing @Damage[6d6[fire]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true] save.</p>"
+        "damage": {
+            "formula": "6d6",
+            "kind": "damage",
+            "type": "fire"
         },
-        "equippedBulk": {
-            "value": ""
+        "description": {
+            "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing @Damage[6d6[fire]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true] save.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,13 +29,15 @@
             "grade": null,
             "type": null
         },
-        "negateBulk": {
-            "value": "0"
-        },
         "price": {
             "value": {
                 "gp": 130
             }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "quantity": 1,
         "rules": [
@@ -54,15 +49,10 @@
             }
         ],
         "size": "med",
-        "source": {
-            "value": "Pathfinder Core Rulebook"
-        },
-        "stackGroup": null,
         "traits": {
             "rarity": "common",
             "value": [
                 "consumable",
-                "evocation",
                 "fire",
                 "magical"
             ]
@@ -70,8 +60,10 @@
         "usage": {
             "value": "held-in-one-hand"
         },
-        "weight": {
-            "value": "-"
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

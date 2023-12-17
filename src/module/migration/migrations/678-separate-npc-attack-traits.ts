@@ -1,4 +1,4 @@
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RARITIES } from "@module/data.ts";
 import { isObject, tupleHasValue } from "@util";
 import { MigrationBase } from "../base.ts";

@@ -1,64 +1,68 @@
-/**
- * An abstract pattern for primary layers of the game canvas to implement
- */
+/** An abstract pattern for primary layers of the game canvas to implement */
 declare abstract class CanvasLayer extends PIXI.Container {
-    /**
-     * Track whether the canvas layer is currently active for interaction
-     */
-    protected _active: boolean;
+    /** Options for this layer instance. */
+    options: CanvasLayerOptions;
 
-    interactive: boolean;
-
+    /** Default interactivity */
     interactiveChildren: boolean;
 
-    constructor();
+    /* -------------------------------------------- */
+    /*  Layer Attributes                            */
+    /* -------------------------------------------- */
 
-    /**
-     * Customize behaviors of this CanvasLayer by modifying some behaviors at a class level.
-     * @property zIndex        The zIndex sorting of this layer relative to other layers
-     * @property sortActiveTop Should this layer be sorted to the top when it is active?
-     */
+    /** Customize behaviors of this CanvasLayer by modifying some behaviors at a class level. */
     static get layerOptions(): CanvasLayerOptions;
 
-    /**
-     * Return a reference to the active instance of this canvas layer
-     */
+    /** Return a reference to the active instance of this canvas layer */
     static get instance(): CanvasLayer;
 
     /**
-     * The canonical name of the CanvasLayer
+     * The canonical name of the CanvasLayer is the name of the constructor that is the immediate child of the
+     * defined baseClass for the layer type.
+     *
+     * @example
+     * canvas.lighting.name -> "LightingLayer"
+     * canvas.grid.name -> "GridLayer"
      */
-    readonly name: string;
-
-    /** Deconstruct data used in the current layer in preparation to re-draw the canvas */
-    tearDown(): void;
+    get name(): string;
 
     /**
-     * Draw the canvas layer, rendering its internal components and returning a Promise
+     * The name used by hooks to construct their hook string.
+     * Note: You should override this getter if hookName should not return the class constructor name.
+     */
+    get hookName(): string;
+
+    /* -------------------------------------------- */
+    /*  Rendering                                   */
+    /* -------------------------------------------- */
+
+    /**
+     * Draw the canvas layer, rendering its internal components and returning a Promise.
      * The Promise resolves to the drawn layer once its contents are successfully rendered.
+     * @param options Options which configure how the layer is drawn
      */
-    draw(): Promise<this>;
+    draw(options?: object): Promise<this>;
 
     /**
-     * Activate the CanvasLayer, deactivating other layers and marking this layer's children as interactive.
-     * @return The layer instance, now activated
+     * The inner _draw method which must be defined by each CanvasLayer subclass.
+     * @param options Options which configure how the layer is drawn
      */
-    activate(): this;
+    protected abstract _draw(options?: object): Promise<void>;
 
     /**
-     * Deactivate the CanvasLayer, removing interactivity from its children.
-     * @return The layer instance, now inactive
+     * Deconstruct data used in the current layer in preparation to re-draw the canvas
+     * @param options Options which configure how the layer is deconstructed
      */
-    deactivate(): this | void;
+    tearDown(options?: object): Promise<this>;
 
-    /** Get the zIndex that should be used for ordering this layer vertically relative to others in the same Container. */
-    getZIndex(): number;
+    /**
+     * The inner _tearDown method which may be customized by each CanvasLayer subclass.
+     * @param options Options which configure how the layer is deconstructed
+     */
+    protected _tearDown(options?: object): Promise<void>;
 }
 
 declare interface CanvasLayerOptions {
     name: string;
-    zIndex: number;
-    sortActiveTop: boolean;
-    controllableObjects?: boolean;
-    rotatableObjects?: boolean;
+    baseClass: string;
 }
