@@ -46,8 +46,12 @@
             {{/if}}
         {{/unless}}
 
-        {{#if (and (eq item.type "consumable") (not item.isAmmunition) item.uses.max)}}
-            <button type="button" class="consume" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
+        {{#if (and (eq item.type "consumable") data.isUsable (not item.isAmmo))}}
+            {{#if (gt item.system.uses.value 0)}}
+                <button type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
+            {{else}}
+                <button type="button" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
+            {{/if}}
         {{/if}}
     </div>
 {{/if}}

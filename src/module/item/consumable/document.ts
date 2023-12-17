@@ -44,6 +44,8 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.system.uses.max ||= 1;
+
         // Refuse to serve rule elements if this item is ammunition and has types that perform writes
         if (!this.isAmmo) return;
         for (const rule of this.system.rules) {
@@ -90,8 +92,6 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             traits,
             properties:
                 this.isIdentified && this.uses.max > 1 ? [`${this.uses.value}/${this.uses.max} ${usesLabel}`] : [],
-            usesCharges: this.uses.max > 0,
-            hasCharges: this.uses.max > 0 && this.uses.value > 0,
             category,
             isUsable: fromFormula ? false : isUsable,
         });
@@ -256,7 +256,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
         if (changed.system.uses) {
             if ("value" in changed.system.uses) {
-                changed.system.uses.value = Math.clamped(Math.floor(Number(changed.system.uses.value)) || 1, 1, 9999);
+                const minimum = this.system.uses.autoDestroy ? 1 : 0;
+                changed.system.uses.value = Math.clamped(
+                    Math.floor(Number(changed.system.uses.value)) || minimum,
+                    minimum,
+                    9999,
+                );
             }
 
             if ("max" in changed.system.uses) {
