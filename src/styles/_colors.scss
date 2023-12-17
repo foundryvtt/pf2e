@@ -9,21 +9,22 @@ $light-gray-color: #ababab;
 $dark-gray-color: #545454;
 
 /* Global */
-$primary-color: #5e0000 !default;
-$secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
-$tertiary-color: #e9d7a1 !default; /* compliments the primary color, usually used in combination */
+$primary-color: #5e0000;
+$secondary-color: #171f69; /* used for mini headers, alternate primary color */
+$tertiary-color: #e9d7a1; /* compliments the primary color, usually used in combination */
 
 $alt-color: #786452 !default; /* for all other uses */
-$alt-dark: #443730 !default;
-$background-color: #f8f4f1 !default;
+$alt-dark: #443730;
+$background-color: #f8f4f1;
 $background-dark: darken($background-color, 10);
-$sub-color: #605856 !default;
+$sub-color: #605856;
 
 /* Lighter / Darker */
-$light-color: lighten($primary-color, 10) !default;
-$dark-color: darken($primary-color, 10) !default;
-$tertiary-dark-color: darken($tertiary-color, 10) !default;
-$tertiary-light-color: lighten($tertiary-color, 10) !default;
+$light-color: lighten($primary-color, 5);
+$dark-color: darken($primary-color, 5);
+$darker-color: darken($primary-color, 10);
+$tertiary-dark-color: darken($tertiary-color, 10);
+$tertiary-light-color: lighten($tertiary-color, 10);
 
 /* Text */
 $text-dark-color: #1c1c1c !default;
@@ -33,14 +34,14 @@ $text-dark-color: #1c1c1c !default;
 /* ----------------------------------------- */
 
 /* Degrees of success */
-$degree-success-critical: rgb(0, 128, 0) !default;
-$degree-success: rgb(0, 0, 255) !default;
-$degree-failure: rgb(255, 69, 0) !default;
-$degree-failure-critical: rgb(255, 0, 0) !default;
+$degree-success-critical: rgb(0, 128, 0);
+$degree-success: rgb(0, 0, 255);
+$degree-failure: rgb(255, 69, 0);
+$degree-failure-critical: rgb(255, 0, 0);
 
 /* Value adjustments (e.g. weak/elite) */
-$adjusted-higher: #009988 !default;
-$adjusted-lower: #cc3311 !default;
+$adjusted-higher: #009988;
+$adjusted-lower: #cc3311;
 
 /* ----------------------------------------- */
 /* CSS Custom Properties                     */
@@ -73,9 +74,8 @@ $adjusted-lower: #cc3311 !default;
     --blind-roll: #f5eaf5;
 
     /* Lighter / Darker */
-    --light: #{$light-color};
     --primary-dark: #{$dark-color};
-    --primary-darker: #{darken($dark-color, 5)};
+    --primary-darker: #{$darker-color};
     --tertiary-dark: #{$tertiary-dark-color};
     --tertiary-light: #{$tertiary-light-color};
 
