@@ -1,13 +1,16 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.js";
 
-export function forceOpen(options: SkillActionOptions): void {
+const PREFIX = "PF2E.Actions.ForceOpen";
+
+function forceOpen(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:force-open"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.ForceOpen.Title",
+        title: `${PREFIX}.Title`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["attack"],
         event: options.event,
@@ -23,3 +26,20 @@ export function forceOpen(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:force-open"],
+    slug: "force-open",
+    statistic: "athletics",
+    traits: ["attack"],
+});
+
+export { forceOpen as legacy, action };
