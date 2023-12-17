@@ -61,6 +61,7 @@ p.compact-text {
 /* Styled table                              */
 /* ----------------------------------------- */
 
+table.pf2e,
 table.pf2-table {
     border-collapse: collapse;
     color: var(--text-dark);
@@ -79,21 +80,26 @@ table.pf2-table {
     tr:nth-child(odd) {
         background-color: var(--tertiary-light);
     }
+
     tr:nth-child(even) {
         background-color: var(--text-light);
-    }
-
-    th {
-        color: var(--text-light);
-        font-weight: bold;
-        background-color: var(--color-pf-primary-dark);
     }
 
     th,
     td {
         border: solid 1px var(--color-border-light-tertiary);
-        padding: 0.35em;
         text-align: center;
+    }
+
+    th {
+        background-color: var(--color-pf-primary-dark);
+        color: var(--text-light);
+        font-weight: bold;
+        padding: 0.5rem 0.25rem;
+    }
+
+    td {
+        padding: 0.25rem;
     }
 }
 
