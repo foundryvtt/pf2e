@@ -446,7 +446,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     #getDefaultProperty(property: string): unknown {
         const scaling = this.item.getHeightenLayers().reverse();
         const baseValue = (() => {
-            for (const entry of [...scaling, { system: this.item.system }]) {
+            for (const entry of [...scaling, { system: fu.deepClone(this.item._source.system) }]) {
                 if (objectHasKey(entry.system, property)) {
                     return entry.system[property];
                 }
