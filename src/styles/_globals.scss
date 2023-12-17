@@ -62,46 +62,39 @@ p.compact-text {
 /* ----------------------------------------- */
 
 table.pf2-table {
-    border: solid 1px #000000;
     border-collapse: collapse;
+    color: var(--text-dark);
     font-size: var(--font-size-13);
-    color: #191813;
     user-select: text;
 
     thead,
     tbody,
-    tr,
     th,
     td {
         box-sizing: border-box;
         user-select: text;
+        word-break: auto-phrase;
     }
 
     tr:nth-child(odd) {
-        background-color: #eee5c8;
+        background-color: var(--tertiary-light);
     }
     tr:nth-child(even) {
-        background-color: #f6f1e1;
+        background-color: var(--text-light);
     }
 
     th {
         color: var(--text-light);
         font-weight: bold;
-        background-color: #522e2c;
+        background-color: var(--color-pf-primary-dark);
     }
 
     th,
     td {
-        border: solid 1px #808080;
-        padding: 6px 15px;
+        border: solid 1px var(--color-border-light-tertiary);
+        padding: 0.35em;
         text-align: center;
     }
-}
-
-a.foundry-href {
-    color: var(--primary);
-    font-weight: 500;
-    text-decoration: underline;
 }
 
 @mixin inline-link {
