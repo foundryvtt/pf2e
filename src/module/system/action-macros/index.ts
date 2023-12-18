@@ -34,7 +34,7 @@ import { craft, repair } from "./crafting/index.ts";
 import { createADiversion } from "./deception/create-a-diversion.ts";
 import { feint } from "./deception/feint.ts";
 import { impersonate } from "./deception/impersonate.ts";
-import { lie } from "./deception/lie.ts";
+import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
 import { gatherInformation } from "./diplomacy/gather-information.ts";
 import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
@@ -107,7 +107,7 @@ export const ActionMacros = {
     createADiversion,
     feint,
     impersonate,
-    lie,
+    lie: lie.legacy,
 
     // Diplomacy
     bonMot,
@@ -171,6 +171,7 @@ export const SystemActions: Action[] = [
     highJump.action,
     interact,
     leap,
+    lie.action,
     longJump.action,
     maneuverInFlight.action,
     palmAnObject.action,
