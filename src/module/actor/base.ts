@@ -1902,7 +1902,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Remove the death overlay if present upon hit points being increased
         const currentHP = this.hitPoints?.value ?? 0;
         const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
-        if (currentHP > 0 && hpChange > 0 && this.isDead) {
+        if (currentHP > 0 && hpChange > 0 && this.isDead && this.isOwner) {
             const { combatant } = this;
             if (combatant) {
                 combatant.toggleDefeated({ to: false });
