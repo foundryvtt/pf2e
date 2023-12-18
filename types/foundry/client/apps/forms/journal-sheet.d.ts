@@ -1,4 +1,4 @@
-export {};
+import type { JournalEntryPageSource } from "../../../common/documents/journal-entry-page.d.ts";
 
 declare global {
     /**
@@ -56,7 +56,9 @@ declare global {
 
         protected override _getHeaderButtons(): ApplicationHeaderButton[];
 
-        override getData(options?: Partial<DocumentSheetOptions>): DocumentSheetData<TJournalEntry>;
+        override getData(
+            options?: Partial<DocumentSheetOptions>,
+        ): JournalSheetData<TJournalEntry> | Promise<JournalSheetData<TJournalEntry>>;
 
         override get template(): string;
 
@@ -199,7 +201,7 @@ declare global {
          * Handle opening the context menu.
          * @param target The element the context menu has been triggered for.
          */
-        _onContextMenuOpen(target: HTMLElement): void;
+        protected _onContextMenuOpen(target: HTMLElement): void;
 
         /**
          * Handle closing the context menu.
@@ -243,5 +245,20 @@ declare global {
     interface JournalSheetRenderOptions extends DocumentRenderOptions {
         pageId?: string;
         pageIndex?: number;
+    }
+
+    interface JournalSheetData<TDocument extends JournalEntry> extends DocumentSheetData<TDocument> {
+        collapseMode: {
+            label: string;
+            icon: string;
+        };
+        searchIcon: string;
+        searchTooltip: string;
+        toc: JournalSheetPageData[];
+    }
+
+    interface JournalSheetPageData extends JournalEntryPageSource {
+        number: 0;
+        ownershipCls: string;
     }
 }
