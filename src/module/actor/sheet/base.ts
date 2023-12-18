@@ -372,14 +372,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         });
 
-        // IWR
-        for (const listName of ["immunities", "weaknesses", "resistances"] as const) {
-            const editButton = htmlQuery(html, `a[data-action=edit-${listName}]`);
-            editButton?.addEventListener("click", () => {
-                new IWREditor(this.actor, { category: listName }).render(true);
-            });
-        }
-
         // Strikes
         for (const strikeElem of htmlQueryAll(html, "ol.strikes-list > li[data-strike]")) {
             // Attack
@@ -544,6 +536,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 if (element) this.itemRenderer.toggleSummary(element);
             },
         };
+
+        // IWR
+        for (const listName of ["immunities", "weaknesses", "resistances"] as const) {
+            handlers[`edit-${listName}`] = () => {
+                new IWREditor(this.actor, { category: listName }).render(true);
+            };
+        }
 
         html.addEventListener("click", (event) => {
             const actionTarget = htmlClosest(event.target, "a[data-action], button[data-action]");
