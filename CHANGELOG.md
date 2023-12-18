@@ -1,3 +1,25 @@
+## 5.11.5
+
+### Bugfixes
+
+-   (nikolaj-a) Add remaster changes to climb, force open, and swim action macros
+-   (stwlam) Fix creation of fixed-heightening damage data
+-   (stwlam) Keep rule-element-carrying ammunition linked to weapons even at zero quantity
+-   (stwlam) Remove second application of strike-damage modifier adjustments
+-   (stwlam) Set actor signatures after data model initialization
+
+### Data Updates
+
+-   (Abaddon) Fix prerequisite in reverberating spell
+-   (AFigureOfBlue) Fix land speed of Tiger Form effect
+-   (Dire Weasel) Add effect for Wish for Luck
+-   (Dire Weasel) Add Reflex defense to Whirlpool
+-   (Dire Weasel) Replace lower-resolution system icons with identical core icons
+-   (Dire Weasel) Update Pillar of Water description to text found in Rage of Elements
+-   (Dire Weasel) Update Witch's Armaments to PC1 version
+-   (DocSchlock) Add effects for Fury Cocktail
+-   (Manni) Fix "yellow" result in Rainbow Fumarole spell
+
 ## 5.11.4
 
 ### Bugfixes
