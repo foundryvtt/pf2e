@@ -1,0 +1,53 @@
+{
+    "_id": "rVkUzqS4rpZp9LS3",
+    "img": "systems/pf2e/icons/spells/bind-undead.webp",
+    "name": "Spell Effect: Bind Undead",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bind Undead]</p>\n<p>The target mindless undead creature gains the minion trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "add": [
+                    "minion"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "self:mode:undead",
+                    "self:trait:mindless",
+                    {
+                        "gte": [
+                            "{item|level}",
+                            "self:level"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
