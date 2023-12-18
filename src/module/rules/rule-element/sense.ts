@@ -28,8 +28,6 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     }
 
     override beforePrepareData(): void {
-        if (!this.test()) return;
-
         const range = this.resolveValue(this.range, "");
         const newSense = new CreatureSensePF2e({
             type: this.selector,
