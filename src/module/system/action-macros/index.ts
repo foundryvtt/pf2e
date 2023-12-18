@@ -38,7 +38,7 @@ import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
 import { gatherInformation } from "./diplomacy/gather-information.ts";
 import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
-import { request } from "./diplomacy/request.ts";
+import * as request from "./diplomacy/request.ts";
 import * as avoidNotice from "./exploration/avoid-notice.ts";
 import * as senseDirection from "./exploration/sense-direction.ts";
 import * as track from "./exploration/track.ts";
@@ -113,7 +113,7 @@ export const ActionMacros = {
     bonMot,
     gatherInformation,
     makeAnImpression,
-    request,
+    request: request.legacy,
 
     // General Skill Actions
     decipherWriting: decipherWriting.legacy,
@@ -179,6 +179,7 @@ export const SystemActions: Action[] = [
     ready,
     release,
     reposition.action,
+    request.action,
     seek.action,
     senseDirection.action,
     senseMotive.action,
