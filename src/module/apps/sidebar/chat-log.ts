@@ -329,17 +329,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
             canApplyDamage($li) && game.settings.get("pf2e", "critFumbleButtons");
 
-        const canApplyInitiative: ContextOptionCondition = ($li: JQuery) => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-
-            // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
-            // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-            const validActor =
-                message.token?.actor?.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
-            const validRollType = message.isRoll && message.isCheckRoll;
-            return validActor && validRollType;
-        };
-
         const canReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
             return message.isRerollable;
@@ -410,33 +399,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
-                },
-            },
-            {
-                name: "PF2E.ClickToSetInitiativeContext",
-                icon: fontAwesomeIcon("swords").outerHTML,
-                condition: canApplyInitiative,
-                callback: async ($li) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    const { actor, token } = message;
-                    if (!token) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                                actor: message.actor?.name ?? message.user?.name ?? "",
-                            }),
-                        );
-                        return;
-                    }
-                    if (!actor) return;
-                    const combatant = await CombatantPF2e.fromActor(actor);
-                    if (!combatant) return;
-                    const value = message.rolls.at(0)?.total ?? 0;
-
-                    await combatant.encounter.setInitiative(combatant.id, value);
-
-                    ui.notifications.info(
-                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value }),
-                    );
                 },
             },
             {
