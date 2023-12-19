@@ -32,7 +32,6 @@ const materialDamageEffects = R.pick(preciousMaterials, [
 const damageCategories = {
     ...damageCategoriesUnique,
     ...materialDamageEffects,
-    alignment: "PF2E.Alignment",
     energy: "PF2E.TraitEnergy",
     physical: "PF2E.TraitPhysical",
 };
