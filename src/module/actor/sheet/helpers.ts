@@ -1,4 +1,6 @@
 import type { ActorPF2e } from "@actor";
+import { PhysicalItemPF2e } from "@item";
+import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
 import { ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, ordinalString } from "@util";
@@ -37,4 +39,13 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
     actor.createEmbeddedDocuments("Item", [source]);
 }
 
-export { onClickCreateSpell };
+/** Create a price label like "L / 10" when appropriate. */
+function createBulkPerLabel(item: PhysicalItemPF2e): string {
+    return item.system.bulk.per === 1 || item.system.bulk.value === 0
+        ? item.system.quantity === 1
+            ? item.bulk.toString()
+            : new Bulk(item.system.bulk.value).toString()
+        : `${new Bulk(item.system.bulk.value)} / ${item.system.bulk.per}`;
+}
+
+export { createBulkPerLabel, onClickCreateSpell };

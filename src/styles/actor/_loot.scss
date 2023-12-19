@@ -6,10 +6,10 @@
     section.sidebar {
         display: flex;
         flex-direction: column;
-        width: 200px;
+        width: 12rem;
         height: 100%;
         border-right: 1px solid var(--color-text-light-7);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 
         > * {
             flex: 0;
@@ -17,10 +17,11 @@
 
         .image-container {
             display: flex;
+
             > img.actor-image {
-                flex: none;
                 border: none;
                 border-bottom: 1px solid var(--color-text-light-7);
+                flex: none;
             }
 
             [data-action="show-image"] {
@@ -65,13 +66,13 @@
 
         .bulk {
             line-height: 1.5em;
-            margin-right: 8px;
+            margin-right: 0.5rem;
         }
 
         > .editor,
         .description {
             flex-basis: auto;
-            min-height: 40px;
+            min-height: 2.5rem;
             flex: 1;
         }
 
@@ -98,7 +99,7 @@
 
         padding-top: 0.25rem;
         border-bottom: 1px solid var(--color-text-light-7);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 
         h1 {
             margin: 0;
@@ -149,10 +150,6 @@
                 }
             }
         }
-
-        .currency {
-            margin-bottom: 8px;
-        }
     }
 
     .sheet-body {
@@ -168,6 +165,10 @@
         .inventory {
             overflow: hidden;
 
+            .wealth {
+                background: var(--primary-background);
+            }
+
             .inventory-list {
                 --border-color: var(--secondary-background);
                 margin-bottom: 2px;
@@ -177,8 +178,12 @@
                     color: var(--text-light);
                 }
 
+                .bulk {
+                    flex-basis: 4rem;
+                }
+
                 .item-controls {
-                    flex: 0 0 4rem;
+                    flex-basis: 3.5rem;
 
                     a.item-toggle-equip {
                         display: none;
