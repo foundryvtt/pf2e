@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -170,6 +171,9 @@ async function migrate() {
                 if (isActorData(source)) {
                     for (const embedded of source.items) {
                         embedded.flags ??= {};
+                        if (itemIsOfType(embedded, "armor", "equipment", "shield", "weapon")) {
+                            embedded.system.subitems ??= [];
+                        }
                     }
 
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
@@ -186,12 +190,22 @@ async function migrate() {
                         if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
                             delete (updatedItem.system as { spell?: object }).spell;
                         }
+                        if (
+                            isPhysicalData(updatedItem) &&
+                            "subitems" in updatedItem.system &&
+                            updatedItem.system.subitems.length === 0
+                        ) {
+                            delete (updatedItem.system as { subitems?: unknown[] }).subitems;
+                        }
                         pruneFlags(updatedItem);
                     }
 
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
+                    if (itemIsOfType(source, "armor", "equipment", "shield", "weapon")) {
+                        source.system.subitems ??= [];
+                    }
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
                     delete (source.system as { slug?: string }).slug;
@@ -200,6 +214,10 @@ async function migrate() {
                     if (update.type === "consumable" && !update.system.spell) {
                         delete (update.system as { spell?: null }).spell;
                     }
+                    if (isPhysicalData(source) && "subitems" in source.system && source.system.subitems.length === 0) {
+                        delete (source.system as { subitems?: unknown[] }).subitems;
+                    }
+
                     pruneFlags(source);
                     pruneFlags(update);
 

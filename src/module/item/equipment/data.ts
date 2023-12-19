@@ -1,4 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import {
     BasePhysicalItemSource,
     Investable,
@@ -23,13 +24,12 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
     };
 
     usage: { value: string };
+    /** Doubly-embedded adjustments, attachments, talismans etc. */
+    subitems: PhysicalItemSource[];
 }
 
 interface EquipmentSystemData
-    extends Omit<
-            EquipmentSystemSource,
-            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
-        >,
+    extends Omit<EquipmentSystemSource, SourceOmission>,
         Omit<Investable<PhysicalSystemData>, "traits"> {
     apex?: {
         attribute: AttributeString;
@@ -37,6 +37,8 @@ interface EquipmentSystemData
     };
     stackGroup: null;
 }
+
+type SourceOmission = "bulk" | "hp" | "identification" | "items" | "material" | "price" | "temporary" | "usage";
 
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {
     otherTags: OtherEquipmentTag[];
