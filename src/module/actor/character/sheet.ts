@@ -128,7 +128,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
                     if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
                         const locKey = sluggify(key, { camel: "bactrian" });
-                        data.label = setHasElement(WEAPON_CATEGORIES, key)
+                        data.label = tupleHasValue(WEAPON_CATEGORIES, key)
                             ? `PF2E.Actor.Character.Proficiency.Attack.${locKey}`
                             : CONFIG.PF2E.weaponCategories[key];
                     } else if (Array.isArray(groupMatch)) {

@@ -1,4 +1,4 @@
-const WEAPON_CATEGORIES = new Set(["unarmed", "simple", "martial", "advanced"] as const);
+const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
 
 const MELEE_OR_RANGED_GROUPS = new Set(["dart", "knife"] as const);
 

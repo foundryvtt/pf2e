@@ -29,12 +29,13 @@ import {
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
+import { ArmorCategory, ArmorGroup } from "@item/armor/types.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONSUMABLE_CATEGORIES } from "@item/consumable/values.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { FeatOrFeatureCategory } from "@item/feat/index.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
-import { MeleeWeaponGroup, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
+import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
@@ -165,7 +166,26 @@ const conditionTypes: Record<ConditionSlug, string> = {
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
 
-const weaponCategories = {
+const armorCategories: Record<ArmorCategory, string> = {
+    unarmored: "PF2E.ArmorTypeUnarmored",
+    light: "PF2E.ArmorTypeLight",
+    medium: "PF2E.ArmorTypeMedium",
+    heavy: "PF2E.ArmorTypeHeavy",
+    "light-barding": "PF2E.Item.Armor.Category.light-barding",
+    "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
+};
+
+const armorGroups: Record<ArmorGroup, string> = {
+    composite: "PF2E.ArmorGroupComposite",
+    chain: "PF2E.ArmorGroupChain",
+    cloth: "PF2E.ArmorGroupCloth",
+    leather: "PF2E.ArmorGroupLeather",
+    plate: "PF2E.ArmorGroupPlate",
+    skeletal: "PF2E.ArmorGroupSkeletal",
+    wood: "PF2E.ArmorGroupWood",
+};
+
+const weaponCategories: Record<WeaponCategory, string> = {
     simple: "PF2E.WeaponTypeSimple",
     martial: "PF2E.WeaponTypeMartial",
     advanced: "PF2E.WeaponTypeAdvanced",
@@ -664,28 +684,9 @@ export const PF2ECONFIG = {
     },
 
     weaponReload,
-
-    armorCategories: {
-        unarmored: "PF2E.ArmorTypeUnarmored",
-        light: "PF2E.ArmorTypeLight",
-        medium: "PF2E.ArmorTypeMedium",
-        heavy: "PF2E.ArmorTypeHeavy",
-        "light-barding": "PF2E.Item.Armor.Category.light-barding",
-        "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
-    },
-
-    armorGroups: {
-        composite: "PF2E.ArmorGroupComposite",
-        chain: "PF2E.ArmorGroupChain",
-        cloth: "PF2E.ArmorGroupCloth",
-        leather: "PF2E.ArmorGroupLeather",
-        plate: "PF2E.ArmorGroupPlate",
-        skeletal: "PF2E.ArmorGroupSkeletal",
-        wood: "PF2E.ArmorGroupWood",
-    },
-
+    armorCategories,
+    armorGroups,
     consumableCategories,
-
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
     preparationType: {
