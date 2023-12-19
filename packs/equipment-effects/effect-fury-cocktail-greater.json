@@ -102,8 +102,8 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:type:spell",
-                    "fury-cocktail-greater:skeptical"
+                    "fury-cocktail-greater:skeptical",
+                    "magical"
                 ],
                 "selector": "saving-throw",
                 "slug": "fury-cocktail-greater-skeptic",
@@ -126,32 +126,13 @@
             },
             {
                 "key": "GrantItem",
-                "predicate": [
-                    "fury-cocktail-greater:titanic"
-                ],
                 "onDeleteActions": {
                     "grantee": "restrict"
                 },
-                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
-            },
-            {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "Tiny",
-                        "value": 10
-                    },
-                    {
-                        "label": "Small / Medium",
-                        "value": 5
-                    }
-                ],
-                "flag": "titanicSize",
-                "key": "ChoiceSet",
                 "predicate": [
                     "fury-cocktail-greater:titanic"
                 ],
-                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             },
             {
                 "key": "CreatureSize",
@@ -159,7 +140,7 @@
                     "fury-cocktail-greater:titanic"
                 ],
                 "reach": {
-                    "add": "{item|flags.pf2e.rulesSelections.titanicSize}"
+                    "upgrade": 10
                 },
                 "resizeEquipment": true,
                 "value": "large"
@@ -173,14 +154,14 @@
                     },
                     {
                         "label": "PF2E.Weapon.Base.jaws",
-                        "value": "jaw"
+                        "value": "jaws"
                     }
                 ],
                 "key": "ChoiceSet",
                 "predicate": [
                     "fury-cocktail-greater:animalistic"
                 ],
-                "prompt": "",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
                 "rollOption": "fury-cocktail-greater-animal"
             },
             {
@@ -198,7 +179,7 @@
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "predicate": [
-                    "fury-cocktail-greater-animal:jaw"
+                    "fury-cocktail-greater-animal:jaws"
                 ],
                 "range": null,
                 "traits": [
