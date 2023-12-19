@@ -17,25 +17,28 @@
             padding-right: 0.25rem;
         }
 
+        .price,
         .quantity,
         .bulk,
-        .item-controls,
-        .sell-value {
-            @include flex-center;
-            flex: 0 0 68px;
+        .item-controls {
+            align-items: center;
+            display: flex;
         }
 
-        .sell-value {
-            justify-content: end;
-            padding-right: 3px;
+        .price {
+            flex-basis: 4rem;
+        }
+
+        .quantity {
+            flex-basis: 4.25rem;
         }
 
         .bulk {
-            flex: 0 0 36px;
+            flex-basis: 2.5rem;
         }
 
         .item-controls {
-            flex: 0 0 90px;
+            flex-basis: 5.625rem;
             font-size: var(--font-size-12);
             gap: 1px;
             justify-content: end;
@@ -81,10 +84,6 @@
             }
         }
 
-        .item-name {
-            padding-left: 4px;
-        }
-
         .item-invested-total {
             flex: none;
             margin-right: 1em;
@@ -97,6 +96,16 @@
         .overinvested {
             color: orange;
             text-shadow: 1px 1px 0px black;
+        }
+    }
+
+    .inventory-list > header {
+        .item-name {
+            padding-left: 0.25rem;
+        }
+
+        > span {
+            justify-content: center;
         }
     }
 
@@ -189,11 +198,17 @@
                     }
                 }
 
+                .price,
                 .quantity,
                 .bulk,
-                .item-controls,
-                .sell-value {
+                .item-controls {
                     border-left: 1px solid var(--alt);
+                }
+
+                .price,
+                .bulk {
+                    justify-content: center;
+                    padding-right: 0.2em;
                 }
 
                 .quantity {

@@ -48,7 +48,7 @@ import {
     InventoryItem,
     SheetInventory,
 } from "./data-types.ts";
-import { onClickCreateSpell } from "./helpers.ts";
+import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
 import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
@@ -173,18 +173,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             { label: game.i18n.localize("PF2E.Item.Container.Plural"), types: ["backpack"], items: [] },
         ];
 
-        for (const item of this.actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
+        const actor = this.actor;
+        for (const item of actor.inventory.contents.sort((a, b) => (a.sort || 0) - (b.sort || 0))) {
             if (item.isInContainer) continue;
             sections.find((s) => s.types.includes(item.type))?.items.push(this.prepareInventoryItem(item));
         }
 
         return {
             sections,
-            bulk: this.actor.inventory.bulk,
-            showValueAlways: this.actor.isOfType("npc", "loot", "party"),
-            showIndividualPricing: this.actor.isOfType("loot"),
-            hasStowingContainers: this.actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
-            invested: this.actor.inventory.invested,
+            bulk: actor.inventory.bulk,
+            showValueAlways: actor.isOfType("npc", "loot", "party"),
+            showUnitBulkPrice: actor.isOfType("loot"),
+            hasStowingContainers: actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
+            invested: actor.inventory.invested,
         };
     }
 
@@ -195,7 +196,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             : undefined;
         heldItems?.sort((a, b) => (a.item.sort || 0) - (b.item.sort || 0));
 
-        const actorSize = new ActorSizePF2e({ value: this.actor.size });
+        const actor = this.actor;
+        const actorSize = new ActorSizePF2e({ value: actor.size });
         const itemSize = new ActorSizePF2e({ value: item.size });
         const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
@@ -203,14 +205,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         return {
             item,
-            itemSize: sizeDifference !== 0 ? itemSize : null,
-            editable,
-            isContainer: item.isOfType("backpack"),
             canBeEquipped,
+            editable,
+            hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
+            heldItems,
+            isContainer: item.isOfType("backpack"),
             isInvestable: false,
             isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
-            hasCharges: item.isOfType("consumable") && item.uses.max > 0,
-            heldItems,
+            itemSize: sizeDifference !== 0 ? itemSize : null,
+            unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
         };
     }
 

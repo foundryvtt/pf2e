@@ -23,10 +23,10 @@
             {{/if}}
         </div>
         {{#if (or @root.inventory.showValueAlways (and (eq item.type "treasure") (not item.container)))}}
-            <span class="sell-value">
+            <span class="price">
                 {{#if (or item.isIdentified @root.user.isGM)}}
                     <span data-visibility="{{#if item.isIdentified}}all{{else}}gm{{/if}}">
-                        {{#if @root.inventory.showIndividualPricing}}
+                        {{#if @root.inventory.showUnitBulkPrice}}
                             {{item.price.value}}
                             {{#if (gt item.price.per 1)}}
                                 / {{item.price.per}}
@@ -44,7 +44,7 @@
             {{#if editable}}<a class="increase" data-action="increase-quantity" title="{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.Click"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ShiftClick"}}&#013;{{localize "PF2E.Actor.Inventory.ItemQuantity.Increase.ControlClick"}}">+</a>{{/if}}
         </span>
 
-        <span class="bulk">{{item.bulk}}</span>
+        <span class="bulk">{{#if @root.inventory.showUnitBulkPrice}}{{unitBulk}}{{else}}{{item.bulk}}{{/if}}</span>
 
         {{#if editable}}
             <div class="item-controls" data-tooltip-class="pf2e">

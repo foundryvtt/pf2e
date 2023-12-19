@@ -13,6 +13,8 @@ export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e
     editable: boolean;
     isContainer: boolean;
     canBeEquipped: boolean;
+    /** Bulk for each item is shown on an individual basis from merchant sheets */
+    unitBulk: string | null;
     isInvestable: boolean;
     isSellable: boolean;
     hasCharges: boolean;
@@ -37,7 +39,7 @@ export interface SheetInventory {
     sections: SheetItemList[];
     bulk: InventoryBulk;
     showValueAlways: boolean;
-    showIndividualPricing: boolean;
+    showUnitBulkPrice: boolean;
     hasStowingContainers: boolean;
     invested?: { value: number; max: number } | null;
 }
