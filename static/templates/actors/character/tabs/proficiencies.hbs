@@ -18,9 +18,9 @@
                         >
                             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                         </select>
-                        <div class="hover-container">
-                            <h6 class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
-                        </div>
+                        <button type="button" class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers" data-tooltip="PF2E.ModifiersTitle">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
                     </div>
                     {{#with skill}}
                         {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" abpEnabled=@root.abpEnabled title=label}}
@@ -132,7 +132,7 @@
     <!-- Spellcasting -->
     {{#if hasNormalSpellcasting}}
         <header>{{localize "PF2E.Item.Spell.Plural"}}</header>
-        <ul class="proficiencies-list">
+        <ul class="proficiencies-list spellcasting">
             {{#with document.spellcasting.base as |spellcasting|}}
                 <li data-slug="spellcasting">
                     <span class="modifier" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
@@ -154,6 +154,28 @@
                     </div>
                 </li>
             {{/with}}
+        </ul>
+    {{/if}}
+
+    <!-- Class DCs -->
+    {{#if classDCs.dcs}}
+        <header>{{localize "PF2E.Actor.Character.ClassDC.Plural"}}</header>
+        <ul class="proficiencies-list">
+            {{#each classDCs.dcs as |classDC|}}
+                <li {{#unless classDC.primary}}class="secondary"{{/unless}}>
+                    <span class="modifier">{{classDC.dc}}</span>
+                    <h4 class="skill-name">{{classDC.label}}</h4>
+                    <div class="button-group">
+                        <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
+                        <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers" data-tooltip="PF2E.ModifiersTitle">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    {{#with classDC}}
+                        {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.Actor.Character.ClassDC.Label"}}
+                    {{/with}}
+                </li>
+            {{/each}}
         </ul>
     {{/if}}
 </section>
