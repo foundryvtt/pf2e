@@ -2,7 +2,7 @@ import { CharacterSystemSource, MartialProficiency } from "@actor/character/data
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, recursiveReplaceString, setHasElement } from "@util";
+import { isObject, recursiveReplaceString, tupleHasValue } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Move data in `CharacterSystemSource#martial` to `#proficiencies`. */
@@ -24,7 +24,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             }
 
             systemSource.proficiencies ??= {};
-            if (setHasElement(ARMOR_CATEGORIES, key)) {
+            if (tupleHasValue(ARMOR_CATEGORIES, key)) {
                 systemSource.proficiencies.defenses ??= {};
                 systemSource.proficiencies.defenses[key] = { rank: data.rank };
             } else {
