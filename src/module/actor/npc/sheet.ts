@@ -464,10 +464,13 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
         // Handle spellcastingEntry attack and DC updates
         const selector = [".attack-input", ".dc-input", ".key-attribute select"]
-            .map((s) => `.spellcasting-entry ${s}`)
+            .map((s) => `li[data-spellcasting-entry] ${s}`)
             .join(", ");
         for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selector)) {
-            element.addEventListener("change", (event) => this.#onChangeSpellcastingEntry(element, event));
+            element.addEventListener("change", (event) => {
+                event.preventDefault();
+                this.#onChangeSpellcastingEntry(element);
+            });
         }
     }
 
@@ -506,9 +509,9 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         return handlers;
     }
 
-    async #onChangeSpellcastingEntry(element: HTMLInputElement | HTMLSelectElement, event: Event): Promise<void> {
-        event.preventDefault();
-        const itemId = htmlClosest(element, ".spellcasting-entry")?.dataset.containerId ?? "";
+    async #onChangeSpellcastingEntry(element: HTMLInputElement | HTMLSelectElement): Promise<void> {
+        const itemId = htmlClosest(element, "li[data-spellcasting-entry]")?.dataset.itemId;
+        const spellcastingEntry = this.actor.items.get(itemId, { strict: true });
         const key = element.dataset.baseProperty?.replace(/data\.items\.\d+\./, "") ?? "";
         const value =
             element.classList.contains("focus-points") || element.classList.contains("focus-pool")
@@ -516,7 +519,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
                 : element.nodeName === "SELECT"
                   ? element.value
                   : Number(element.value) || 0;
-        await this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [key]: value }]);
+        await spellcastingEntry.update({ [key]: value });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
