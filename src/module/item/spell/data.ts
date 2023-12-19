@@ -100,6 +100,8 @@ interface SpellOverlayOverride {
 interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSystemData, "level" | "traits"> {
     damage: Record<string, SpellDamage>;
     defense: SpellDefenseData | null;
+    /** The cost in focus points to cast this spell */
+    fpCost: number;
 }
 
 interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {

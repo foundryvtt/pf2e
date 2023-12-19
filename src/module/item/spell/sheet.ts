@@ -61,7 +61,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const spell = this.item;
-        const { isCantrip, isFocusSpell, isRitual } = spell;
 
         const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
         sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
@@ -119,9 +118,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
-            isCantrip,
-            isFocusSpell,
-            isRitual,
             passiveDefense,
             variants,
             isVariant: this.item.isVariant,
@@ -494,9 +490,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 }
 
 interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    isCantrip: boolean;
-    isFocusSpell: boolean;
-    isRitual: boolean;
     passiveDefense: string | null;
     isVariant: boolean;
     variants: {
