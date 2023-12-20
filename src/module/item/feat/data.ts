@@ -65,7 +65,7 @@ interface FeatLevelData extends Required<FeatLevelSource> {}
 
 interface FeatSubfeatures {
     keyOptions: AttributeString[];
-    proficiencyIncreases: { [K in IncreasableProficiency]?: { to: OneToFour } };
+    proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute?: AttributeString | null } };
 }
 
 type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCategory | "perception" | "spellcasting";
