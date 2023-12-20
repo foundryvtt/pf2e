@@ -290,7 +290,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         if (!canvas) return;
         const token = message.token?.object;
         if (token?.isVisible && token.isOwner) {
-            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            if (token.controlled) {
+                token.release();
+            } else {
+                token.control({ releaseOthers: !event.shiftKey });
+            }
             // If a double click, also pan to the token
             if (event.type === "dblclick") {
                 const scale = Math.max(1, canvas.stage.scale.x);

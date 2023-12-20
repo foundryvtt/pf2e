@@ -113,12 +113,9 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         if (this.isAlchemical && index !== -1) {
             const formula = this.preparedFormulaData[index];
-            formula.quantity ? (formula.quantity += 1) : (formula.quantity = 2);
+            formula.quantity = Math.max((formula.quantity ?? 0) + 1, 2);
         } else {
-            this.preparedFormulaData.push({
-                itemUUID: formula.uuid,
-                quantity: 1,
-            });
+            this.preparedFormulaData.push({ itemUUID: formula.uuid, quantity: 1 });
         }
 
         return this.#updateRE();
@@ -160,8 +157,7 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     async increaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
         const formula = this.preparedFormulaData[index];
         if (!formula || formula.itemUUID !== itemUUID) return;
-
-        formula.quantity ? (formula.quantity += 1) : (formula.quantity = 2);
+        formula.quantity = Math.max((formula.quantity ?? 0) + 1, 2);
 
         return this.#updateRE();
     }
@@ -169,8 +165,7 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     async decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
         const formula = this.preparedFormulaData[index];
         if (!formula || formula.itemUUID !== itemUUID) return;
-
-        formula.quantity ? (formula.quantity -= 1) : (formula.quantity = 0);
+        formula.quantity = Math.max((formula.quantity ?? 0) - 1, 0);
 
         if (formula.quantity <= 0) {
             await this.unprepareFormula(index, itemUUID);
@@ -188,7 +183,6 @@ class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         const formula = this.preparedFormulaData[index];
         if (!formula || formula.itemUUID !== itemUUID) return;
-
         formula.quantity = quantity;
 
         return this.#updateRE();

@@ -141,7 +141,6 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
-                this.system.traits.integrated.versatile.options;
             } else if (this.system.traits.integrated) {
                 this.system.traits.integrated.versatile = null;
             }

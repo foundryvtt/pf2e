@@ -73,7 +73,7 @@ export class Migration659MultipleDamageRows extends MigrationBase {
         }
 
         if ("damageType" in data) {
-            "game" in globalThis ? (data["-=damageType"] = null) : (data.damageType = undefined);
+            data["-=damageType"] = null;
         }
     }
 }

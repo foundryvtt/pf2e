@@ -24,7 +24,7 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
                 source.system.baseItem = "power-suit";
                 break;
             case "subterfuge-suit":
-                source.system.baseItem === "subterfuge-suit";
+                source.system.baseItem = "subterfuge-suit";
                 break;
             case "clothing-explorers":
                 source.system.slug = "explorers-clothing";
