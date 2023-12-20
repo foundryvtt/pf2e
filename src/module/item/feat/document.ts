@@ -5,7 +5,7 @@ import { normalizeActionChangeData, processSanctification } from "@item/ability/
 import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { getActionTypeLabel, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, getActionTypeLabel, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
@@ -114,7 +114,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.frequency.value ??= this.system.frequency.max;
         }
 
-        this.system.subfeatures = fu.mergeObject({ keyOptions: [] }, this.system.subfeatures ?? {});
+        this.system.subfeatures = fu.mergeObject(
+            { keyOptions: [], proficiencyIncreases: {} },
+            this.system.subfeatures ?? {},
+        );
 
         this.system.selfEffect ??= null;
         // Self effects are only usable with actions
@@ -124,8 +127,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Set a self roll option for this feat(ure) */
-    override prepareActorData(this: FeatPF2e<ActorPF2e>): void {
+    override prepareActorData(): void {
         const { actor } = this;
+        if (!actor?.isOfType("character")) {
+            throw ErrorPF2e("Feats much be embedded in PC-type actors");
+        }
+
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
         actor.rollOptions.all[`${prefix}:${slug}`] = true;
@@ -139,6 +146,22 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 ...actor.system.build.attributes.keyOptions,
                 ...subfeatures.keyOptions,
             ]);
+        }
+
+        const { attributes, proficiencies, saves } = actor.system;
+        for (const [slug, increase] of Object.entries(this.system.subfeatures.proficiencyIncreases)) {
+            const statistic = ((): { rank: number } | null => {
+                if (slug === "perception") return attributes.perception;
+                if (slug === "spellcasting") return proficiencies.spellcasting;
+                if (objectHasKey(CONFIG.PF2E.saves, slug)) return saves[slug];
+                if (objectHasKey(CONFIG.PF2E.weaponCategories, slug)) return proficiencies.attacks[slug];
+                if (objectHasKey(CONFIG.PF2E.armorCategories, slug)) return proficiencies.defenses[slug];
+                if (objectHasKey(CONFIG.PF2E.classTraits, slug)) return proficiencies.classDCs[slug];
+                return null;
+            })();
+            if (statistic && increase?.to) {
+                statistic.rank = Math.max(statistic.rank, increase.to);
+            }
         }
     }
 
