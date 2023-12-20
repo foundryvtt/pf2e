@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { MigrationBase } from "@module/migration/base.ts";
@@ -9,6 +9,7 @@ import { sluggify } from "@util";
 import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
+import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
@@ -105,7 +106,7 @@ const isTableData = (docSource: CompendiumSource): docSource is foundry.document
     return "results" in docSource && Array.isArray(docSource.results);
 };
 
-function JSONstringifyOrder(obj: object): string {
+function jsonStringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
@@ -177,28 +178,10 @@ async function migrate() {
                     }
 
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (update.system as { _migrations?: object })._migrations;
-                    pruneFlags(source);
-                    pruneFlags(update);
-                    for (const item of source.items) {
-                        pruneFlags(item);
-                    }
-
                     update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
-                    for (const updatedItem of update.items) {
-                        delete (updatedItem.system as { _migrations?: object })._migrations;
-                        if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
-                            delete (updatedItem.system as { spell?: object }).spell;
-                        }
-                        if (
-                            isPhysicalData(updatedItem) &&
-                            "subitems" in updatedItem.system &&
-                            updatedItem.system.subitems.length === 0
-                        ) {
-                            delete (updatedItem.system as { subitems?: unknown[] }).subitems;
-                        }
-                        pruneFlags(updatedItem);
-                    }
+
+                    pruneDefaults(source);
+                    pruneDefaults(update);
 
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
@@ -208,37 +191,27 @@ async function migrate() {
                     }
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
-                    delete (source.system as { slug?: string }).slug;
-                    delete (update.system as { _migrations?: object })._migrations;
-                    delete (update.system as { slug?: string }).slug;
-                    if (update.type === "consumable" && !update.system.spell) {
-                        delete (update.system as { spell?: null }).spell;
-                    }
-                    if (isPhysicalData(source) && "subitems" in source.system && source.system.subitems.length === 0) {
-                        delete (source.system as { subitems?: unknown[] }).subitems;
-                    }
-
-                    pruneFlags(source);
-                    pruneFlags(update);
+                    pruneDefaults(source);
+                    pruneDefaults(update);
 
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isJournalEntryData(source)) {
                     const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
+                    pruneDefaults(source);
+                    pruneDefaults(update);
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isMacroData(source)) {
                     const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
+                    pruneDefaults(source);
+                    pruneDefaults(update);
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isTableData(source)) {
                     const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
+                    pruneDefaults(source);
+                    pruneDefaults(update);
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else {
-                    pruneFlags(source);
+                    pruneDefaults(source);
                     return source;
                 }
             } catch (error) {
@@ -247,13 +220,10 @@ async function migrate() {
             }
         })();
 
-        const origData = JSONstringifyOrder(source);
-        const outData = JSONstringifyOrder(updated);
-
-        if (outData !== origData) {
+        if (!R.equals(source, updated)) {
             console.log(`${filePath} is different. writing`);
             try {
-                await fs.writeFile(filePath, outData);
+                await fs.writeFile(filePath, jsonStringifyOrder(updated));
             } catch (error) {
                 if (error instanceof Error) {
                     throw { message: `File ${filePath} could not be parsed. Error: ${error.message}` };
@@ -263,12 +233,37 @@ async function migrate() {
     }
 }
 
-function pruneFlags(source: { flags?: Record<string, Record<string, unknown> | undefined> }): void {
+/** Prune several default properties from a document source that would otherwise bloat the compendium. */
+function pruneDefaults(
+    source: { type?: string; items?: ItemSourcePF2e[]; flags?: Record<string, Record<string, unknown> | undefined> },
+    { deleteSlug = true } = {},
+): void {
     if (source.flags && Object.keys(source.flags.pf2e ?? {}).length === 0) {
         delete source.flags.pf2e;
     }
     if (Object.keys(source.flags ?? {}).length === 0) {
-        delete (source as { flags?: object }).flags;
+        delete source.flags;
+    }
+
+    if ("system" in source && R.isObject(source.system)) {
+        if (deleteSlug) delete source.system.slug;
+        delete source.system._migrations;
+        if (source.type === "consumable" && !source.system.spell) {
+            delete source.system.spell;
+        }
+        if (
+            "subitems" in source.system &&
+            Array.isArray(source.system.subitems) &&
+            source.system.subitems.length === 0
+        ) {
+            delete source.system.subitems;
+        }
+    }
+
+    if (Array.isArray(source.items)) {
+        for (const item of source.items) {
+            pruneDefaults(item, { deleteSlug: false });
+        }
     }
 }
 
