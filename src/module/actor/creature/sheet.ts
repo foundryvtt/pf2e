@@ -212,15 +212,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         });
 
-        // Roll recovery flat check when Dying
-        $html
-            .find("[data-action=recovery-check]")
-            .tooltipster({ theme: "crb-hover" })
-            .filter(":not(.disabled)")
-            .on("click", (event) => {
-                this.actor.rollRecovery(event);
-            });
-
         // Roll skill checks
         for (const anchor of htmlQueryAll(html, ".skill-name.rollable, .skill-score.rollable")) {
             anchor.addEventListener("click", () => {
@@ -228,14 +219,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
                 const rollParams = eventToRollParams(event, { type: "check" });
                 this.actor.skills[key]?.check.roll(rollParams);
-            });
-        }
-
-        // Roll perception checks
-        for (const element of htmlQueryAll(html, "a[data-action=perception-check]")) {
-            element.addEventListener("click", (event) => {
-                const extraRollOptions = element.dataset.secret ? ["secret"] : [];
-                this.actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
             });
         }
 
@@ -319,17 +302,26 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
 
+        handlers["perception-check"] = async (event, anchor) => {
+            const extraRollOptions = anchor.dataset.secret ? ["secret"] : [];
+            await this.actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
+        };
+
+        handlers["recovery-check"] = async (event) => {
+            await this.actor.rollRecovery(event);
+        };
+
         // SPELLCASTING
 
         // Add, edit, and remove spellcasting entries
-        handlers["spellcasting-create"] = (event) => {
-            createSpellcastingDialog(event, this.actor);
+        handlers["spellcasting-create"] = async (event) => {
+            await createSpellcastingDialog(event, this.actor);
         };
-        handlers["spellcasting-edit"] = (event) => {
+        handlers["spellcasting-edit"] = async (event) => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const entry = this.actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {
-                createSpellcastingDialog(event, entry);
+                await createSpellcastingDialog(event, entry);
             }
         };
         handlers["spellcasting-remove"] = async (event) => {
@@ -340,7 +332,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             // Render confirmation modal dialog
             if (await Dialog.confirm({ title, content })) {
-                item.delete();
+                await item.delete();
             }
         };
 
