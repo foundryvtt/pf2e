@@ -65,22 +65,26 @@
                         "value": "dex"
                     }
                 ],
-                "flag": "keyAbility",
+                "flag": "attribute",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "system.proficiencies.classDCs.ranger",
+                "path": "system.proficiencies.classDCs.ranger.ability",
                 "priority": 39,
-                "value": {
-                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
-                    "label": "PF2E.TraitRanger",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "ranger": {
+                    "attribute": null,
                     "rank": 1
                 }
             }
-        ],
+        },
         "traits": {
             "rarity": "common",
             "value": [
