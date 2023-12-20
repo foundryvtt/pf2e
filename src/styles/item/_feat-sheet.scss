@@ -12,6 +12,19 @@
         margin: 0;
 
         ul.increases {
+            &.empty {
+                flex: 1;
+
+                li.add-increase {
+                    gap: 0.5rem;
+                    justify-content: end;
+
+                    a {
+                        margin-left: 0;
+                    }
+                }
+            }
+
             &:not(.empty) {
                 border: 1px solid var(--color-border-light-2);
             }
@@ -30,16 +43,20 @@
                 padding: 0.125rem;
 
                 label {
-                    flex-basis: 11rem;
+                    flex-basis: 10rem;
                     font-weight: normal;
                     padding-right: 0;
+                }
+
+                select.rank {
+                    flex-basis: 8rem;
                 }
 
                 a {
                     margin-left: auto;
                 }
 
-                &.add-increase select {
+                select.available-increases {
                     flex-basis: 10rem;
                 }
             }

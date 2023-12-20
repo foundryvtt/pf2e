@@ -75,13 +75,18 @@
 
     <section class="form-group stacked proficiency-increases" data-proficiency-increases>
         <label for="{{fieldIdPrefix}}add-increase">{{localize "PF2E.Item.Feat.Subfeatures.ProficiencyIncreases.Label"}}</label>
-        <ul class="increases{{#unless hasProficiencyIncreases}} empty{{/if}}">
+        <ul class="increases{{#unless hasProficiencyIncreases}} empty{{/unless}}">
             {{#each proficiencyIncreases as |group|~}}
                 {{#each group.options as |option|~}}
                     {{#if option.rank~}}
                         <li>
-                            <label for="">{{option.label}}</label>
-                            <select name="{{concat "system.subfeatures.proficiencyIncreases." option.slug ".to"}}" data-dtype="Number">
+                            <label for="{{@root.fieldIdPrefix}}{{option.slug}}">{{option.label}}</label>
+                            <select
+                                name="{{concat "system.subfeatures.proficiencyIncreases." option.slug ".to"}}"
+                                class="rank"
+                                id="{{@root.fieldIdPrefix}}{{option.slug}}"
+                                data-dtype="Number"
+                            >
                                 {{#select option.rank}}
                                     <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
                                     <option value="2">{{localize "PF2E.ProficiencyLevel2"}}</option>
@@ -96,7 +101,7 @@
             {{~/each}}
 
             <li class="add-increase">
-                <select id="{{fieldIdPrefix}}add-increase" data-available-increases>
+                <select id="{{fieldIdPrefix}}add-increase" class="available-increases" data-available-increases>
                     <option></option>
                     {{#each proficiencyIncreases as |group|}}
                         {{#if group.group}}
@@ -116,6 +121,13 @@
                         {{/if}}
                     {{/each}}
                 </select>
+
+                {{#if hasProficiencyIncreases}}
+                    <select class="rank" disabled>
+                        <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
+                    </select>
+                {{/if}}
+
                 <a data-action="add-proficiency-increase"><i class="fa-solid fa-plus"></i></a>
             </li>
         </ul>
