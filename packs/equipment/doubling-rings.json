@@ -34,7 +34,87 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.DoublingRings.PotencyToggleLabel",
+                "option": "doubling-rings-potency",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusTwo",
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusThree",
+                        "value": "3"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.DoublingRings.StrikingToggleLabel",
+                "option": "doubling-rings-striking",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DoublingRings.StrikingLabel",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DoublingRings.StrikingGreaterLabel",
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DoublingRings.StrikingMajorLabel",
+                        "value": "3"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "item:melee",
+                    "item:hands-held:1",
+                    "item:usage:hands:1",
+                    "doubling-rings-striking"
+                ],
+                "selector": "melee-strike-damage",
+                "value": "{item|flags.pf2e.rulesSelections.doublingRingsStriking}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee",
+                    "item:hands-held:1",
+                    "item:usage:hands:1",
+                    "doubling-rings-potency"
+                ],
+                "selector": "attack",
+                "type": "item",
+                "value": "{item|flags.pf2e.rulesSelections.doublingRingsPotency}"
+            },
+            {
+                "definition": [
+                    "item:melee",
+                    "item:hands-held:1",
+                    "item:usage:hands:1"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "doubling-rings-potency"
+                ],
+                "property": "weapon-traits",
+                "value": "magical"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
