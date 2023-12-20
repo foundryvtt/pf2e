@@ -1954,15 +1954,16 @@
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 1
                     }
                 ],
                 "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2654,12 +2655,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
                         "value": 2
                     },
@@ -2679,12 +2674,6 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
                         "value": 2
                     },
                     {
@@ -2719,6 +2708,16 @@
                     }
                 ],
                 "slug": "weapon-tricks",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
