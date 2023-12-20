@@ -1691,6 +1691,22 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
     protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 
     /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
+
+    /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
