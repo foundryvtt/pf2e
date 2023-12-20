@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import { ClassDCData } from "@actor/character/data.ts";
 import type { FeatGroup } from "@actor/character/feats.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
@@ -114,10 +115,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.system.frequency.value ??= this.system.frequency.max;
         }
 
-        this.system.subfeatures = fu.mergeObject(
-            { keyOptions: [], proficiencyIncreases: {} },
-            this.system.subfeatures ?? {},
-        );
+        this.system.subfeatures = fu.mergeObject({ keyOptions: [], proficiencies: {} }, this.system.subfeatures ?? {});
 
         this.system.selfEffect ??= null;
         // Self effects are only usable with actions
@@ -149,18 +147,23 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         const { attributes, proficiencies, saves } = actor.system;
-        for (const [slug, increase] of Object.entries(this.system.subfeatures.proficiencyIncreases)) {
-            const statistic = ((): { rank: number } | null => {
+        for (const [slug, increase] of Object.entries(this.system.subfeatures.proficiencies)) {
+            const proficiency = ((): { rank: number } | null => {
                 if (slug === "perception") return attributes.perception;
                 if (slug === "spellcasting") return proficiencies.spellcasting;
                 if (objectHasKey(CONFIG.PF2E.saves, slug)) return saves[slug];
                 if (objectHasKey(CONFIG.PF2E.weaponCategories, slug)) return proficiencies.attacks[slug];
                 if (objectHasKey(CONFIG.PF2E.armorCategories, slug)) return proficiencies.defenses[slug];
-                if (objectHasKey(CONFIG.PF2E.classTraits, slug)) return proficiencies.classDCs[slug];
+                if (objectHasKey(CONFIG.PF2E.classTraits, slug)) {
+                    type PartialClassDCData = Pick<ClassDCData, "ability" | "label" | "rank">;
+                    const classDCs: Record<string, PartialClassDCData> = proficiencies.classDCs;
+                    const attribute = increase.attribute ?? "str";
+                    return (classDCs[slug] ??= { ability: attribute, label: CONFIG.PF2E.classTraits[slug], rank: 0 });
+                }
                 return null;
             })();
-            if (statistic && increase?.to) {
-                statistic.rank = Math.max(statistic.rank, increase.to);
+            if (proficiency && increase?.rank) {
+                proficiency.rank = Math.max(proficiency.rank, increase.rank);
             }
         }
     }

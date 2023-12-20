@@ -73,16 +73,16 @@
         </div>
     {{/if}}
 
-    <section class="form-group stacked proficiency-increases" data-proficiency-increases>
-        <label for="{{fieldIdPrefix}}add-increase">{{localize "PF2E.Item.Feat.Subfeatures.ProficiencyIncreases.Label"}}</label>
-        <ul class="increases{{#unless hasProficiencyIncreases}} empty{{/unless}}">
-            {{#each proficiencyIncreases as |group|~}}
+    <section class="form-group stacked proficiencies" data-proficiencies>
+        <label for="{{fieldIdPrefix}}add-proficiency">{{localize "PF2E.Item.Feat.Subfeatures.Proficiencies.Label"}}</label>
+        <ul{{#unless hasProficiencies}} class="empty"{{/unless}}>
+            {{#each proficiencies as |group|~}}
                 {{#each group.options as |option|~}}
                     {{#if option.rank~}}
                         <li>
                             <label for="{{@root.fieldIdPrefix}}{{option.slug}}">{{option.label}}</label>
                             <select
-                                name="{{concat "system.subfeatures.proficiencyIncreases." option.slug ".to"}}"
+                                name="{{concat "system.subfeatures.proficiencies." option.slug ".rank"}}"
                                 class="rank"
                                 id="{{@root.fieldIdPrefix}}{{option.slug}}"
                                 data-dtype="Number"
@@ -94,16 +94,29 @@
                                     <option value="4">{{localize "PF2E.ProficiencyLevel4"}}</option>
                                 {{/select}}
                             </select>
-                            <a data-action="delete-proficiency-increase" data-slug="{{option.slug}}"><i class="fa-solid fa-trash"></i></a>
+
+                            {{#if (or option.attribute (eq option.attribute null))}}
+                                <select
+                                    name="{{concat "system.subfeatures.proficiencies." option.slug ".attribute"}}"
+                                    class="attribute"
+                                    data-dtype="JSON"
+                                >
+                                    <option value="null"></option>
+                                    {{~#each @root.attributes as |label slug|}}
+                                        <option value="{{json slug}}"{{#if (eq option.attribute slug)}} selected{{/if}}>{{localize label}}</option>
+                                    {{/each}}
+                                </select>
+                            {{/if}}
+                            <a data-action="delete-proficiency" data-slug="{{option.slug}}"><i class="fa-solid fa-trash"></i></a>
                         </li>
                     {{~/if}}
                 {{~/each}}
             {{~/each}}
 
             <li class="add-increase">
-                <select id="{{fieldIdPrefix}}add-increase" class="available-increases" data-available-increases>
+                <select id="{{fieldIdPrefix}}add-proficiency" class="available-increases" data-available-increases>
                     <option></option>
-                    {{#each proficiencyIncreases as |group|}}
+                    {{#each proficiencies as |group|}}
                         {{#if group.group}}
                             <optgroup label="{{group.group}}">
                                 {{#each group.options as |option|}}
@@ -122,13 +135,13 @@
                     {{/each}}
                 </select>
 
-                {{#if hasProficiencyIncreases}}
+                {{#if hasProficiencies}}
                     <select class="rank" disabled>
                         <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
                     </select>
                 {{/if}}
 
-                <a data-action="add-proficiency-increase"><i class="fa-solid fa-plus"></i></a>
+                <a data-action="add-proficiency"><i class="fa-solid fa-plus"></i></a>
             </li>
         </ul>
     </section>

@@ -36,21 +36,22 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             itemType: game.i18n.localize(feat.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTypes: CONFIG.PF2E.actionTypes,
+            attributes: CONFIG.PF2E.abilities,
             canHaveKeyOptions: featCanHaveKeyOptions(feat),
             categories: CONFIG.PF2E.featCategories,
             frequencies: CONFIG.PF2E.frequencies,
             hasLineageTrait,
-            hasProficiencyIncreases: Object.keys(feat.system.subfeatures.proficiencyIncreases).length > 0,
+            hasProficiencies: Object.keys(feat.system.subfeatures.proficiencies).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
-            proficiencyIncreases: this.#createProficiencyIncreaseOptions(),
+            proficiencies: this.#createProficiencyOptions(),
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
     }
 
-    #createProficiencyIncreaseOptions(): ProficiencyIncreasesOptions {
+    #createProficiencyOptions(): ProficiencyOptions {
         const feat = this.item;
         const localize = localizer("PF2E.Actor.Character");
-        const selectedIncreases = feat.system.subfeatures.proficiencyIncreases;
+        const selectedIncreases = feat.system.subfeatures.proficiencies;
 
         return {
             other: {
@@ -59,12 +60,12 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     {
                         slug: "perception",
                         label: game.i18n.localize("PF2E.PerceptionLabel"),
-                        rank: selectedIncreases.perception?.to ?? null,
+                        rank: selectedIncreases.perception?.rank ?? null,
                     },
                     {
                         slug: "spellcasting",
                         label: game.i18n.localize("PF2E.Actor.Creature.Spellcasting.ShortLabel"),
-                        rank: selectedIncreases.spellcasting?.to ?? null,
+                        rank: selectedIncreases.spellcasting?.rank ?? null,
                     },
                 ].sort((a, b) => a.label.localeCompare(b.label)),
             },
@@ -75,7 +76,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     .map(([slug, label]) => ({
                         slug,
                         label: game.i18n.localize(label),
-                        rank: selectedIncreases[slug]?.to ?? null,
+                        rank: selectedIncreases[slug]?.rank ?? null,
                     }))
                     .sort((a, b) => a.label.localeCompare(b.label)),
             },
@@ -90,7 +91,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                         return {
                             slug,
                             label,
-                            rank: selectedIncreases[slug]?.to ?? null,
+                            rank: selectedIncreases[slug]?.rank ?? null,
                         };
                     })
                     .sort((a, b) => a.label.localeCompare(b.label)),
@@ -106,7 +107,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                         return {
                             slug,
                             label,
-                            rank: selectedIncreases[slug]?.to ?? null,
+                            rank: selectedIncreases[slug]?.rank ?? null,
                         };
                     })
                     .sort((a, b) => a.label.localeCompare(b.label)),
@@ -118,7 +119,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     .map(([slug, label]) => ({
                         slug,
                         label: game.i18n.localize(label),
-                        rank: selectedIncreases[slug]?.to ?? null,
+                        attribute: selectedIncreases[slug]?.attribute ?? null,
+                        rank: selectedIncreases[slug]?.rank ?? null,
                     }))
                     .sort((a, b) => a.label.localeCompare(b.label)),
             },
@@ -136,8 +138,8 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 
         // Proficiency increases
         const feat = this.item;
-        const section = htmlQuery(html, "section[data-proficiency-increases]");
-        const localizeIncreases = localizer("PF2E.Item.Feat.Subfeatures.ProficiencyIncreases");
+        const section = htmlQuery(html, "section[data-proficiencies]");
+        const localizeIncreases = localizer("PF2E.Item.Feat.Subfeatures.Proficiencies");
         const availableIncreasesSelect = htmlQuery<HTMLSelectElement>(section, "select[data-available-increases]");
         availableIncreasesSelect?.addEventListener("change", (event) => {
             event.stopPropagation();
@@ -145,30 +147,31 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         section?.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "a[data-action]");
             if (!anchor) return;
-            if (anchor.dataset.action === "add-proficiency-increase") {
-                const statistic = availableIncreasesSelect?.value;
-                if (!statistic) {
+            if (anchor.dataset.action === "add-proficiency") {
+                const slug = availableIncreasesSelect?.value;
+                if (!slug) {
                     ui.notifications.error(localizeIncreases("NoOptionSelected"));
                     return;
                 }
 
-                const options = Object.values(this.#createProficiencyIncreaseOptions())
+                const options = Object.values(this.#createProficiencyOptions())
                     .map((o) => o.options)
                     .flat(2)
                     .filter((o) => !o.rank)
                     .map((o) => o.slug);
-                if (options.includes(statistic)) {
-                    feat.update({ [`system.subfeatures.proficiencyIncreases.${statistic}`]: { to: 1 } });
+                if (options.includes(slug)) {
+                    const data = slug in CONFIG.PF2E.classTraits ? { rank: 1, attribute: null } : { rank: 1 };
+                    feat.update({ [`system.subfeatures.proficiencies.${slug}`]: data });
                 }
-            } else if (anchor.dataset.action === "delete-proficiency-increase") {
+            } else if (anchor.dataset.action === "delete-proficiency") {
                 const slug = anchor.dataset.slug ?? "";
-                if (slug in feat.system.subfeatures.proficiencyIncreases) {
-                    feat.update({ [`system.subfeatures.proficiencyIncreases.-=${slug}`]: null });
+                if (slug in feat.system.subfeatures.proficiencies) {
+                    feat.update({ [`system.subfeatures.proficiencies.-=${slug}`]: null });
                 }
             }
         });
 
-        htmlQuery(html, "a[data-action=add-proficiency-increase")?.addEventListener("click", () => {});
+        htmlQuery(html, "a[data-action=add-proficiencies")?.addEventListener("click", () => {});
     }
 
     override async _onDrop(event: ElementDragEvent): Promise<void> {
@@ -187,8 +190,18 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const hasNoKeyOptions = !(keyOptionsKey in formData);
         if (hasEmptyKeyOptions || hasNoKeyOptions) {
             delete formData[keyOptionsKey];
-            if (this.item._source.system.subfeatures) {
+            if (this.item._source.system.subfeatures?.keyOptions) {
                 formData["system.subfeatures.-=keyOptions"] = null;
+            }
+        }
+
+        const pattern = /^system\.subfeatures\.proficiencies\.([a-z]+)\.to$/;
+        const proficiencies = Object.keys(formData).filter((k) => pattern.test(k));
+        for (const path of proficiencies) {
+            const slug = pattern.exec(path)?.at(1);
+            if (slug && slug in CONFIG.PF2E.classTraits && formData[path] !== 1) {
+                delete formData[`system.subfeatures.proficiencies.${slug}.attribute`];
+                formData[`system.subfeatures.proficiencies.${slug}.-=attribute`] = null;
             }
         }
 
@@ -199,17 +212,18 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
+    attributes: typeof CONFIG.PF2E.abilities;
     canHaveKeyOptions: boolean;
     categories: typeof CONFIG.PF2E.featCategories;
     frequencies: typeof CONFIG.PF2E.frequencies;
     hasLineageTrait: boolean;
-    hasProficiencyIncreases: boolean;
+    hasProficiencies: boolean;
     mandatoryTakeOnce: boolean;
-    proficiencyIncreases: ProficiencyIncreasesOptions;
+    proficiencies: ProficiencyOptions;
     selfEffect: SelfEffectReference | null;
 }
 
-type ProficiencyIncreasesOptions = {
+type ProficiencyOptions = {
     other: { group: string | null; options: { slug: string; label: string; rank: OneToFour | null }[] };
 } & Record<
     "saves" | "attacks" | "defenses" | "classes",
