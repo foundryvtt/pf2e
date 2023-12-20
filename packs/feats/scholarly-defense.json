@@ -6,6 +6,24 @@
         "actionType": {
             "value": "passive"
         },
+        "rules": [
+          {
+            "definition": [
+              "item:damage:category:physical",
+              "melee",
+              {
+                "or": [
+                  "origin:trait:aberration",
+                  "origin:trait:ooze"
+                ]
+              }
+            ],
+            "key": "Resistance",
+            "type": "custom",
+            "label": "{item|name}",
+            "value": "max(1,floor(@actor.level/3))"
+          }
+        ],
         "actions": {
             "value": null
         },
