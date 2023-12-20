@@ -68,18 +68,18 @@
         </div>
     </nav>
 
-    <!-- ITEM SHEET CONTENT -->
+    {{!-- ITEM SHEET CONTENT --}}
     <div class="sheet-content">
-        <!-- ITEM SHEET SIDEBAR -->
+        {{!-- ITEM SHEET SIDEBAR --}}
         {{#if sidebarTemplate}}
             <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
 
-        <!-- ITEM SHEET BODY -->
+        {{!-- ITEM SHEET BODY --}}
         <div class="sheet-body">
-            <!-- Item Description -->
+            {{!-- Item Description --}}
             <section class="tab description" data-tab="description">
                 {{#if user.isGM}}
                     <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
@@ -114,8 +114,8 @@
                 </fieldset>
             </section>
 
-            <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}
+                <!-- Mystification Details -->
                 {{> "systems/pf2e/templates/items/mystify-panel.hbs"}}
             {{/if}}
 

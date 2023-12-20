@@ -7,4 +7,42 @@
             margin-right: 1em;
         }
     }
+
+    .form-group.proficiency-increases {
+        margin: 0;
+
+        ul.increases {
+            &:not(.empty) {
+                border: 1px solid var(--color-border-light-2);
+            }
+
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            margin: 0.25rem 0;
+            padding: 0.25rem;
+
+            li {
+                align-items: center;
+                border: 1px solid transparent;
+                display: flex;
+                gap: 0.333rem;
+                padding: 0.125rem;
+
+                label {
+                    flex-basis: 11rem;
+                    font-weight: normal;
+                    padding-right: 0;
+                }
+
+                a {
+                    margin-left: auto;
+                }
+
+                &.add-increase select {
+                    flex-basis: 10rem;
+                }
+            }
+        }
+    }
 }

@@ -38,11 +38,17 @@ interface LabelAndDescription {
 
 function prepareReservedTerms(): ReservedTermsRecord {
     const universalReservedTerms = new Set([
-        ...Object.keys(CONFIG.PF2E.damageTypes),
+        ...Object.keys(CONFIG.PF2E.classTraits),
         ...Object.keys(CONFIG.PF2E.damageCategories),
+        ...Object.keys(CONFIG.PF2E.damageTypes),
         ...Object.keys(CONFIG.PF2E.immunityTypes),
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
+        ...Object.keys(CONFIG.PF2E.saves),
+        ...Object.keys(CONFIG.PF2E.skillList),
+        ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        "perception",
+        "spellcasting",
         "none",
         "null",
         "undefined",
