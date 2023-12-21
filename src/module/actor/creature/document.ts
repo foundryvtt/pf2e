@@ -484,7 +484,7 @@ abstract class CreaturePF2e<
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollRecovery(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
         const { dying } = this.attributes;
 
         if (!dying?.value) return null;
