@@ -679,16 +679,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         this.#activateBlastListeners(actionsPanel);
 
-        $html.find(".hover").tooltipster({
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["right", "bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
+        // Tooltipster modifier dialogs. Some properties are configurable
+        for (const hoverEl of htmlQueryAll(html, ".hover")) {
+            const allSides = ["top", "right", "bottom", "left"] as const;
+            const side = hoverEl.dataset.tooltipSide
+                ?.split(",")
+                ?.filter((t): t is (typeof allSides)[number] => tupleHasValue(allSides, t)) ?? ["right", "bottom"];
+            $(hoverEl).tooltipster({
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side,
+                theme: "crb-hover",
+                minWidth: 120,
+            });
+        }
 
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
