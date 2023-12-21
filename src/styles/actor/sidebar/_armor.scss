@@ -6,108 +6,102 @@
         / 66px 59px auto;
     grid-column-gap: 4px;
 
+    .ac,
     .shield {
         align-items: center;
         display: flex;
         flex-direction: column;
-        height: 74px;
+        height: 4.625rem;
         justify-content: start;
-        padding: 14px 10px 0 10px;
+        padding: 0.875rem 0.625rem 0 0.625rem;
         text-align: center;
 
         .data-value {
             h2,
-            input[type="number"] {
-                font-size: var(--font-size-32);
-                width: 55px;
+            input {
+                width: 3rem;
+            }
+
+            input {
+                font-size: var(--font-size-30);
+
+                &:disabled {
+                    color: var(--color-pf-tertiary);
+                }
             }
         }
+
         label {
             white-space: normal;
         }
 
-        &.ac {
-            grid-area: ac;
-            background: url("/assets/sheet/shield-blue.webp") no-repeat center center;
-        }
-
         &.hp {
-            grid-area: shield-hp;
             background: url("/assets/sheet/shield-red.webp") no-repeat top center;
-        }
-    }
+            grid-area: shield-hp;
 
-    .shield-stats {
-        grid-area: shield-data;
-        ol {
-            margin-top: 4px;
-            flex-direction: row;
-            height: 100%;
-            padding: 0 4px;
-            justify-content: space-evenly;
-            li {
-                justify-content: center;
-                font-size: 0;
+            &.disabled {
+                opacity: 0.75;
 
-                & + li {
-                    margin-left: 8px;
-                }
-                .shield-label {
-                    position: relative;
-                    svg {
-                        border: none;
-                        width: auto;
-                        height: 20px;
-                        path {
-                            fill: var(--tertiary-light);
-                        }
-                        text {
-                            fill: var(--primary-dark);
-                        }
-                    }
-                    &:after {
-                        display: inline-block;
-                        position: absolute;
-                        @include micro;
-                        color: var(--primary);
-                        top: 0;
-                        left: 1px;
-                        line-height: 1.5;
-                    }
-                    &.ac:after {
-                        content: "AC";
-                        top: 3px;
-                        left: 3px;
-                    }
-                    &.hardness:after {
-                        left: 5px;
-                        top: 3px;
-                        content: "H";
-                    }
-                    &.bt:after {
-                        top: 3px;
-                        left: 3.5px;
-                        content: "BT";
-                    }
-                }
-                .data-value {
-                    flex: 1;
-                    @include input-border;
-                    padding-left: 4px;
-                    margin-left: -8px;
-                    height: 20px;
-                    input[type="number"] {
-                        font-size: var(--font-size-14);
-                        font-weight: 400;
-                        padding-top: 2px;
-                        height: 14px;
-                    }
+                input:hover {
+                    text-shadow: none;
                 }
             }
         }
     }
 
-    .armor_footer {
+    .ac {
+        background: url("/assets/sheet/shield-blue.webp") no-repeat center center;
+        font-size: var(--font-size-26);
+        grid-area: ac;
+    }
+
+    .shield-stats {
+        grid-area: shield-data;
+
+        ul {
+            align-items: center;
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            margin: 0.5rem auto 0;
+            padding: 0 0.25rem;
+
+            li {
+                display: flex;
+                flex: 1;
+                gap: 0.5rem;
+
+                .shield-label {
+                    margin-right: -0.5rem;
+                    position: relative;
+
+                    svg {
+                        height: 1.25rem;
+
+                        path {
+                            fill: var(--tertiary-light);
+                        }
+
+                        text {
+                            fill: var(--primary-dark);
+                        }
+                    }
+                }
+
+                .data-value {
+                    @include input-border;
+                    color: var(--color-pf-tertiary);
+                    flex-basis: 3.125rem;
+                    font-size: var(--font-size-14);
+                    font-weight: normal;
+                    height: 1.25rem;
+                    margin-left: -0.5rem;
+                }
+            }
+        }
+    }
+
+    .shield-max-status {
         display: inline-flex;
         flex-direction: column;
         grid-area: shield-footer;
@@ -115,7 +109,11 @@
         justify-self: center;
         width: calc(100% - 6px);
 
-        .shield-max {
+        &.disabled {
+            opacity: 0.75;
+        }
+
+        .max {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -124,16 +122,23 @@
                 white-space: normal;
                 text-align: center;
                 width: 5em;
-                margin-bottom: 4px;
+                margin-bottom: 0.25rem;
+            }
+
+            .data-value {
+                color: var(--color-pf-tertiary);
+                text-align: center;
+                font: normal var(--font-size-26) / 1em var(--serif);
             }
         }
-        .shield-status {
+
+        .status {
             display: flex;
-            align-items: end;
+            align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 0.33rem;
             color: var(--tertiary-light);
-            margin-top: 4px;
+            margin-top: 0.25rem;
         }
     }
 }
