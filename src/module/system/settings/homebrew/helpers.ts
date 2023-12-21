@@ -47,6 +47,8 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.skillList),
         ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        "damage",
+        "healing",
         "perception",
         "spellcasting",
         "none",

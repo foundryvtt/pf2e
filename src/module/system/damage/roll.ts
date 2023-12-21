@@ -3,8 +3,8 @@ import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
-import Peggy from "peggy";
+import { ErrorPF2e, fontAwesomeIcon, isObject, tupleHasValue } from "@util";
+import type Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
@@ -327,17 +327,14 @@ class DamageInstance extends AbstractDamageRoll {
 
     critRule: CriticalDoublingRule | null = null;
 
-    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
-        super(formula.trim(), data, options);
+    constructor(formula: string, data = {}, { flavor = "damage,healing", ...options }: DamageInstanceData = {}) {
+        super(formula.trim(), data, { flavor, ...options });
 
-        const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
-        this.type =
-            flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
+        const flavorIdentifiers = flavor.replace(/[^a-z,_-]/g, "").split(",");
+        this.type = flavorIdentifiers.find((i): i is DamageType => i in CONFIG.PF2E.damageTypes) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = new Set(
-            flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
-                objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
-            ),
+            flavorIdentifiers.filter((i): i is MaterialDamageEffect => i in CONFIG.PF2E.materialDamageEffects),
         );
 
         const canBeHealing =
