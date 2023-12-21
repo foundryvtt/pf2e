@@ -401,7 +401,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -466,9 +466,9 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "1d4",
+                        "formula": "2d4",
                         "kinds": [
                             "damage"
                         ],
@@ -483,7 +483,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -503,9 +503,9 @@
                     "value": "0lGqM4cVCL7cr8Zu"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -637,7 +637,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Vitality energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
+                    "value": "<p>Life energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -650,9 +650,9 @@
                     "value": "0lGqM4cVCL7cr8Zu"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -796,9 +796,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -836,6 +836,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -856,9 +857,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -895,6 +896,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -915,9 +917,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -928,7 +930,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -955,7 +957,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -975,9 +978,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "rules": [],
@@ -1019,6 +1022,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1039,9 +1043,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1052,7 +1056,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -1078,6 +1082,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1098,9 +1103,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1135,10 +1140,11 @@
                 "containerId": "w5h4oapzd7kztfst",
                 "damage": null,
                 "description": {
-                    "value": "<p>A lit candle sheds dim light in a 10-foot radius.</p>"
+                    "value": "<p>A lit candle sheds dim light in a 10‐foot radius for 8 hours.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1153,17 +1159,49 @@
                     "type": null
                 },
                 "price": {
+                    "per": 10,
                     "value": {
                         "cp": 1
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 10,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "color": "#9b7337",
+                            "dim": 10,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitCandle",
+                        "option": "lit-candle",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-candle"
+                        ],
+                        "value": "icons/sundries/lights/candle-unlit-grey.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "candle",
                 "traits": {
@@ -1199,7 +1237,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1224,9 +1262,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1252,7 +1290,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/holly-and-mistletoe.webp",
-            "name": "Holly and Mistletoe",
+            "name": "Primal Symbol",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -1261,10 +1299,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Plants of supernatural significance provide a primal focus for primal spellcasters, such as druids, when using certain abilities and casting some spells. A bundle of holly and mistletoe must be held in one hand to use it. Other primal foci exist for druids focused on other aspects of nature.</p>"
+                    "value": "<p>Primal spellcasters, especially druids, often wear adornments of natural materials to symbolize their connection to nature, such as rings of woven plants, tokens made from animal parts, or other symbols related to a druidic order or nature philosophy.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1283,14 +1322,14 @@
                     "value": {}
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "holly-and-mistletoe",
+                "slug": "primal-symbol",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -1308,7 +1347,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
+            "img": "icons/tools/hand/sickle-steel-grey.webp",
             "name": "Sickle",
             "sort": 0,
             "system": {
@@ -1356,9 +1395,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -1411,6 +1450,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1431,9 +1471,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1502,9 +1542,9 @@
                     "value": {}
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 50,
@@ -1517,7 +1557,6 @@
                     "property": [],
                     "striking": 1
                 },
-                "selectedAmmoId": "zkJwmGGn4lbyTq42",
                 "size": "med",
                 "slug": "sling",
                 "splashDamage": {
@@ -1557,7 +1596,8 @@
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1578,9 +1618,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 10,
                 "rules": [],
@@ -1679,7 +1719,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1735,7 +1776,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2077,10 +2119,11 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2100,9 +2143,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2175,9 +2218,9 @@
                     "value": "0lGqM4cVCL7cr8Zu"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2309,7 +2352,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2329,9 +2372,9 @@
                     "value": "0lGqM4cVCL7cr8Zu"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -2379,7 +2422,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Magic empowers the target to act faster. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
+                    "value": "<p>Magic empowers the target to act faster. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Haste]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2402,9 +2445,9 @@
                     "value": "0lGqM4cVCL7cr8Zu"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -2578,7 +2621,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse vital energy in a @Template[type:emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2709,9 +2752,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -2765,12 +2808,12 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(somatic, verbal)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2812,6 +2855,7 @@
                                 "value": "2"
                             },
                             "traits": {
+                                "traditions": [],
                                 "value": [
                                     "concentrate",
                                     "druid",
@@ -2828,15 +2872,6 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
-                            "area": {
-                                "value": ""
-                            },
-                            "damage": {
-                                "0": {
-                                    "applyMod": false,
-                                    "category": null
-                                }
-                            },
                             "range": {
                                 "value": "touch"
                             },
@@ -2847,9 +2882,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -2896,7 +2931,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Glowing runes appear on the target's body. All its unarmed attacks become +1 striking unarmed attacks, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The unarmed attacks are +2 greater striking.</p>\n<p><strong>Heightened (9th)</strong> The unarmed attacks are +3 major striking.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Runic Body]</p>"
+                    "value": "<p>Glowing runes appear on the target's body. All its unarmed attacks become <em>+1 striking</em> unarmed attacks, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The unarmed attacks are <em>+2 greater striking</em>.</p>\n<p><strong>Heightened (9th)</strong> The unarmed attacks are <em>+3 major striking</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Runic Body]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3146,9 +3181,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 5,
                 "rules": [
@@ -3252,7 +3287,7 @@
                 }
             },
             "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Tools",
+            "name": "Healer's Toolkit",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -3261,10 +3296,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds. If you wear your healer's tools, you can draw and replace them as part of the action that uses them.</p>"
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3285,20 +3321,20 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "healers-tools",
+                "slug": "healers-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "other"
                 }
             },
             "type": "equipment"
