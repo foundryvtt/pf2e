@@ -8,7 +8,15 @@
         </div>
         <ol class="directory-list item-list formula-list">
             {{#each entry.formulas}}
-                <li class="item formula-item" data-item-id="{{this.uuid}}" data-is-formula="true" data-item-type="formula" data-expended-state="{{this.expended}}" data-item-index={{@key}} data-entry-selector="{{entry.selector}}">
+                <li
+                    class="item formula-item"
+                    data-item-uuid="{{this.uuid}}"
+                    data-is-formula
+                    data-item-type="formula"
+                    data-expended-state="{{this.expended}}"
+                    data-item-index={{@key}}
+                    data-entry-selector="{{entry.selector}}"
+                >
                     <div class="item-name">
                         {{#if this}}
                             <a class="item-image" data-action="item-to-chat">
@@ -25,16 +33,29 @@
                     <div class="formula-cost"></div>
                     <div class="item-quantity"></div>
 
-                    {{#if this}}
-                        {{#if @root.options.editable}}
-                            <div class="item-controls">
-                                {{#if entry.isPrepared}}
-                                    <a class="item-control" title="{{localize "PF2E.CraftItemTitle"}}" data-action="craft-item" data-item-uuid="{{this.uuid}}" data-free="true" data-prepared="true"><i class="fa-solid fa-hammer"></i></a>
-                                    <a class="item-control toggle-formula-expended" title="{{localize "PF2E.CraftingTab.ExpendFormula"}}"><i class="fa-solid fa-minus-square"></i></a>
-                                {{/if}}
-                                <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fa-solid fa-trash"></i></a>
-                            </div>
-                        {{/if}}
+                    {{#if (and this @root.editable)}}
+                        <div class="item-controls">
+                            {{#if entry.isPrepared}}
+                                <a
+                                    class="item-control"
+                                    data-action="craft-item"
+                                    data-item-uuid="{{this.uuid}}"
+                                    data-free="true"
+                                    data-prepared="true"
+                                    data-tooltip="PF2E.CraftItemTitle"
+                                ><i class="fa-solid fa-hammer"></i></a>
+                                <a
+                                    class="item-control"
+                                    data-action="toggle-formula-expended"
+                                    data-tooltip="PF2E.CraftingTab.ExpendFormula"
+                                ><i class="fa-solid fa-minus-square"></i></a>
+                            {{/if}}
+                            <a
+                                class="item-control"
+                                data-action="unprepare-formula"
+                                data-tooltip="{{localize "PF2E.UnprepareItemTitle"}}"
+                            ><i class="fa-solid fa-trash"></i></a>
+                        </div>
                     {{/if}}
                 </li>
             {{/each}}
@@ -43,6 +64,6 @@
 {{/each}}
 {{#if craftingEntries.dailyCrafting}}
     <li class="crafting-entry item-container item">
-        <button type="button" class="daily-crafting">Complete Daily Crafting</button>
+        <button type="button" data-action="perform-daily-crafting">Perform Daily Crafting</button>
     </li>
 {{/if}}
