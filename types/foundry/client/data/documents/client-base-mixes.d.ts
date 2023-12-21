@@ -10373,7 +10373,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
