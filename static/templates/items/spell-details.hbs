@@ -21,23 +21,6 @@
         <input type="text" name="system.requirements" value="{{data.requirements}}" />
     </div>
 
-    {{#if item.isRitual}}
-        <div class="form-group">
-            <label>{{localize "PF2E.Item.Spell.Ritual.PrimaryCheck"}}</label>
-            <input type="text" name="system.ritual.primary.check" value="{{data.ritual.primary.check}}" />
-        </div>
-
-        <div class="form-group">
-            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryChecks"}}</label>
-            <input type="text" name="system.ritual.secondary.checks" value="{{data.ritual.secondary.checks}}" />
-        </div>
-
-        <div class="form-group">
-            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryCasters"}}</label>
-            <input type="number" name="system.ritual.secondary.casters" required min="0" max="100" value="{{data.ritual.secondary.casters}}" />
-        </div>
-    {{/if}}
-
     <div class="form-group">
         <label>{{localize "PF2E.SpellRangeLabel"}}</label>
         <input type="text" name="system.range.value" value="{{data.range.value}}" />
@@ -76,7 +59,26 @@
     </div>
 </fieldset>
 
-{{#unless item.isRitual}}
+{{#if item.isRitual}}
+    <fieldset>
+        <legend>{{localize "PF2E.Item.Spell.Ritual.Label"}}</legend>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.PrimaryCheck"}}</label>
+            <input type="text" name="system.ritual.primary.check" value="{{data.ritual.primary.check}}" />
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryChecks"}}</label>
+            <input type="text" name="system.ritual.secondary.checks" value="{{data.ritual.secondary.checks}}" />
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryCasters"}}</label>
+            <input type="number" name="system.ritual.secondary.casters" required min="0" max="100" value="{{data.ritual.secondary.casters}}" />
+        </div>
+    </fieldset>
+{{else}}
     <fieldset class="defense">
         <legend>{{localize "PF2E.Item.Spell.Defense.Label"}}</legend>
 
@@ -175,7 +177,7 @@
             {{/each}}
         </div>
     </fieldset>
-{{/unless}}
+{{/if}}
 
 <fieldset class="heightening">
     <legend>Heightening</legend>
