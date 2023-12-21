@@ -68,9 +68,9 @@
                         {{#if (or item.isIdentified @root.user.isGM)}}
                             <li class="item" data-item-type="{{item.type}}" data-item-id="{{item.id}}">
                                 <div class="item-name">
-                                    <div class="item-image" style="background-image: url({{item.img}})">
-                                        <i class="fa-solid fa-comment-alt"></i>
-                                    </div>
+                                    <a class="item-image" data-action="item-to-chat" style="background-image: url({{item.img}})">
+                                        <i class="fa-solid fa-message"></i>
+                                    </a>
                                     <h4 class="action-name">
                                         {{item.name}}
                                     </h4>

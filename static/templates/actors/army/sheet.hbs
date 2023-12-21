@@ -137,7 +137,7 @@
                 </a>
                 {{#if document.kingdom}}
                     <a data-action="show-gear" data-gear="potions" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
-                        <i class="fa-regular fa-comment-alt"></i>
+                        <i class="fa-regular fa-message"></i>
                     </a>
                 {{/if}}
             </div>
@@ -150,7 +150,7 @@
                 </a>
                 {{#if document.kingdom}}
                     <a data-action="show-gear" data-gear="armor" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
-                        <i class="fa-regular fa-comment-alt"></i>
+                        <i class="fa-regular fa-message"></i>
                     </a>
                 {{/if}}
             </div>
@@ -166,7 +166,7 @@
                 </a>
                 {{#if document.kingdom}}
                     <a data-action="show-gear" data-gear="melee" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
-                        <i class="fa-regular fa-comment-alt"></i>
+                        <i class="fa-regular fa-message"></i>
                     </a>
                 {{/if}}
             </div>
@@ -182,7 +182,7 @@
                 </a>
                 {{#if document.kingdom}}
                     <a data-action="show-gear" data-gear="ranged" data-tooltip="{{localize "PF2E.Kingmaker.Army.Gear.GearInfo"}}">
-                        <i class="fa-regular fa-comment-alt"></i>
+                        <i class="fa-regular fa-message"></i>
                     </a>
                 {{/if}}
             </div>
@@ -271,9 +271,9 @@
             <ol class="item-list">
                 {{#each document.itemTypes.effect as |effect|}}
                     <li class="item" data-item-id="{{effect._id}}">
-                        <a class="icon item-image">
+                        <a class="icon item-image" data-action="item-to-chat">
                             <img class="item-icon" src="{{effect.img}}" alt="{{effect.name}}" />
-                            <i class="fa-solid fa-fw fa-comment-alt"></i>
+                            <i class="fa-solid fa-fw fa-message"></i>
                         </a>
                         <h4 class="item-name">
                             <a data-action="toggle-summary">{{effect.name}}</a>
@@ -312,7 +312,7 @@
                     <li class="item basic-war-action" data-slug="{{action.slug}}">
                         <a class="icon item-image" data-action="use-basic-war-action">
                             <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
-                            <i class="fa-solid fa-fw fa-comment-alt"></i>
+                            <i class="fa-solid fa-fw fa-message"></i>
                         </a>
                         <h4 class="item-name">
                             <a data-action="toggle-basic-war-action-summary">{{action.name}}</a>
@@ -367,10 +367,10 @@
 {{#*inline "actionItem"}}
     {{#if action}}
         <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
-            <div class="icon item-image">
+            <a class="icon item-image">
                 <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
-                <i class="fa-solid fa-fw fa-comment-alt"></i>
-            </div>
+                <i class="fa-solid fa-fw fa-message"></i>
+            </a>
             <h4 class="item-name">
                 <a data-action="toggle-summary">{{action.name}}</a>
             </h4>
