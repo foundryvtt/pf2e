@@ -11,7 +11,7 @@ export class Migration672RemoveNPCBaseProperties extends MigrationBase {
         property[replace] = Number(property[replace]) || 0;
         if (typeof property.base === "number") {
             property[replace] = property.base;
-            "game" in globalThis ? (property["-=base?"] = null) : delete property.base;
+            property["-=base"] = null;
         }
     }
 
@@ -39,5 +39,5 @@ interface PropertyWithBase {
     value: number;
     max?: number;
     base?: number;
-    "-=base?"?: null;
+    "-=base"?: null;
 }

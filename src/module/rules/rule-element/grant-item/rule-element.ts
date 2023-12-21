@@ -347,7 +347,6 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         const flags = { pf2e: { grantedBy: { id: this.item.id, onDelete: "cascade" } } };
-        conditionSource.flags.pf2e?.grantedBy;
         const condition = new ConditionPF2e(
             fu.mergeObject(conditionSource, {
                 _id: fu.randomID(),

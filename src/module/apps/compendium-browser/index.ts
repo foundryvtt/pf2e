@@ -509,9 +509,7 @@ class CompendiumBrowser extends Application {
                     filter.isExpanded = !filter.isExpanded;
                     const contentElement = title.nextElementSibling;
                     if (contentElement instanceof HTMLElement) {
-                        filter.isExpanded
-                            ? (contentElement.style.display = "")
-                            : (contentElement.style.display = "none");
+                        contentElement.style.display = filter.isExpanded ? "" : "none";
                     }
                 };
                 switch (filterType) {
@@ -546,9 +544,11 @@ class CompendiumBrowser extends Application {
                             const checkbox = currentTab.filterData.checkboxes[filterName];
                             const option = checkbox.options[optionName];
                             option.selected = !option.selected;
-                            option.selected
-                                ? checkbox.selected.push(optionName)
-                                : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                            if (option.selected) {
+                                checkbox.selected.push(optionName);
+                            } else {
+                                checkbox.selected = checkbox.selected.filter((name) => name !== optionName);
+                            }
                             this.#clearScrollLimit(true);
                         }
                     });

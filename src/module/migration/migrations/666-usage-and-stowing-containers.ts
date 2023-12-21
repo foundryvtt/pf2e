@@ -55,7 +55,7 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
             if (isPhysical && keepUsage && source.system.usage) {
                 source.system.usage.value = traits.usage.value;
             }
-            "game" in globalThis ? (traits["-=usage"] = null) : delete traits.usage;
+            traits["-=usage"] = null;
         }
 
         // Set usage on containers and whether they're for stowing

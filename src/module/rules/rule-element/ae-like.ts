@@ -238,7 +238,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
             typeof value === "boolean" || typeof value === "number" || typeof value === "string" || value === null;
         if (!isLoggable) return;
 
-        value;
         const level = item.isOfType("feat")
             ? Number(/-(\d+)$/.exec(item.system.location ?? "")?.[1]) || item.level
             : "level" in item && typeof item["level"] === "number"

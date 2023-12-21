@@ -77,7 +77,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     #fixOtherVariants(source: SpellSource): void {
         for (const partial of Object.values(source.system.damage).filter((p) => R.isObject(p))) {
             if (typeof partial.type === "string") {
-                partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
+                partial.type = partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
                 partial.type ||= "untyped";
             }
         }
