@@ -249,41 +249,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         this.activateClickListener(html);
 
-        // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on limited permission sheets.
+        // Inventory drag & drop. This has to happen prior to the options.editable check to allow drag & drop on
+        // limited permission sheets.
         const inventoryPanel = ((): HTMLElement | null => {
             const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
             return htmlQuery(html, selector);
         })();
         this.activateInventoryListeners(inventoryPanel);
-
-        // Item chat cards
-        const toMessageSelectors = [
-            ".item[data-item-id] .item-image",
-            ".item[data-item-id] .item-chat",
-            "li [data-action=to-message]",
-        ];
-        for (const element of htmlQueryAll(html, toMessageSelectors.join(","))) {
-            element.addEventListener("click", async (event) => {
-                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
-                const [item, fromFormula] = (() => {
-                    // Handle formula UUIDs
-                    if (UUIDUtils.isItemUUID(itemId)) {
-                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
-                            const formula = this.knownFormulas[itemId] as CraftingFormula;
-                            if (formula) {
-                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
-                            }
-                        }
-                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
-                    }
-                    return [this.actor.items.get(itemId, { strict: true }), false];
-                })();
-
-                if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(event, { create: true, data: { fromFormula } });
-                }
-            });
-        }
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -354,13 +326,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event, { type: "check" }));
             });
         }
-
-        const rollInitElem = htmlQuery(html, "a[data-action=roll-initiative]");
-        rollInitElem?.addEventListener("click", (event): void => {
-            if (!rollInitElem.classList.contains("disabled") && this.actor.initiative) {
-                this.actor.initiative.roll(eventToRollParams(event, { type: "check" }));
-            }
-        });
 
         // Set listener toggles and their suboptions
         const togglesArea = htmlQuery(html, ".actions-options");
@@ -482,18 +447,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             });
         }
 
-        // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
-            element.addEventListener("click", async (event) => {
-                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect.isOfType("effect")) {
-                    const isUnidentified = effect.system.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
-                }
-            });
-        }
-
         // Select all text in an input field on focus
         for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
             inputElem.addEventListener("focus", () => {
@@ -514,30 +467,63 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers: SheetClickActionHandlers = {
-            "use-action": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                if (item.isOfType("action", "feat")) {
-                    createSelfEffectMessage(item, eventToRollMode(event));
+            "effect-toggle-unidentified": async (event) => {
+                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const effect = this.actor.items.get(effectId, { strict: true });
+                if (effect.isOfType("effect")) {
+                    const isUnidentified = effect.system.unidentified;
+                    await effect.update({ "system.unidentified": !isUnidentified });
                 }
             },
-            "roll-check": (event, anchor) => {
+            "item-to-chat": async (event, anchor) => {
+                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId ?? "";
+                const [item, fromFormula] = (() => {
+                    // Handle formula UUIDs
+                    if (UUIDUtils.isItemUUID(itemId)) {
+                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
+                            const formula = this.knownFormulas[itemId] as CraftingFormula;
+                            if (formula) {
+                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
+                            }
+                        }
+                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
+                    }
+                    return [this.actor.items.get(itemId, { strict: true }), false];
+                })();
+
+                if (!item.isOfType("physical") || item.isIdentified) {
+                    await item.toMessage(event, { create: true, data: { fromFormula } });
+                }
+            },
+            "roll-check": async (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
                 const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }
-                statistic?.roll(args);
+                await statistic?.roll(args);
             },
-            "show-image": () => {
+            "roll-initiative": async (_, element): Promise<void> => {
+                if (!element.classList.contains("disabled") && this.actor.initiative) {
+                    await this.actor.initiative.roll(eventToRollParams(event, { type: "check" }));
+                }
+            },
+            "show-image": async () => {
                 const actor = this.actor;
                 const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-                new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+                await new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
             },
-            "toggle-summary": (_event, anchor) => {
+            "toggle-summary": (_, anchor): Promise<void> | void => {
                 const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
-                if (element) this.itemRenderer.toggleSummary(element);
+                if (element) return this.itemRenderer.toggleSummary(element);
+            },
+            "use-action": async (event) => {
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                if (item.isOfType("action", "feat")) {
+                    await createSelfEffectMessage(item, eventToRollMode(event));
+                }
             },
         };
 
@@ -548,14 +534,24 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             };
         }
 
-        html.addEventListener("click", (event) => {
+        const sheetHandler = async (event: MouseEvent): Promise<void> => {
             const actionTarget = htmlClosest(event.target, "a[data-action], button[data-action]");
             const handler = handlers[actionTarget?.dataset.action ?? ""];
             if (handler && actionTarget) {
                 event.stopImmediatePropagation();
-                handler(event, actionTarget);
+                // Temporarily remove the listener to ignore unintentional double clicks
+                html.removeEventListener("click", sheetHandler);
+                try {
+                    await handler(event, actionTarget);
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    html.addEventListener("click", sheetHandler);
+                }
             }
-        });
+        };
+
+        html.addEventListener("click", sheetHandler);
 
         return handlers;
     }

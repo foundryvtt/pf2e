@@ -997,8 +997,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const handlers = super.activateClickListener(html);
 
         // SIDEBAR
-        handlers["rest"] = (event) => {
-            game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+        handlers["rest"] = async (event) => {
+            await game.pf2e.actions.restForTheNight({ event, actors: this.actor });
         };
 
         // MAIN TAB
@@ -1009,7 +1009,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // ACTIONS
 
         // Versatile-damage toggles
-        handlers["toggle-versatile"] = (button) => {
+        handlers["toggle-versatile"] = async (button) => {
             if (!(button instanceof HTMLButtonElement)) {
                 return;
             }
@@ -1019,11 +1019,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
             const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
             if (weapon && selectionIsValid) {
-                toggleWeaponTrait({ trait: "versatile", weapon, selection });
+                await toggleWeaponTrait({ trait: "versatile", weapon, selection });
             }
         };
 
-        handlers["toggle-exploration"] = (event) => {
+        handlers["toggle-exploration"] = async (event) => {
             const actionId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             if (!actionId) return;
 
@@ -1032,58 +1032,58 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 exploration.push(actionId);
             }
 
-            this.actor.update({ "system.exploration": exploration });
+            await this.actor.update({ "system.exploration": exploration });
         };
-        handlers["clear-exploration"] = () => {
-            this.actor.update({ "system.exploration": [] });
+        handlers["clear-exploration"] = async () => {
+            await this.actor.update({ "system.exploration": [] });
         };
 
         // INVENTORY
 
-        handlers["toggle-invested"] = (event) => {
+        handlers["toggle-invested"] = async (event) => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            if (itemId) this.actor.toggleInvested(itemId);
+            if (itemId) await this.actor.toggleInvested(itemId);
         };
 
         // PROFICIENCIES
 
         handlers["add-attack-proficiency"] = (event) => {
-            ManageAttackProficiencies.add(this.actor, event);
+            return ManageAttackProficiencies.add(this.actor, event);
         };
         handlers["remove-attack-proficiency"] = (event) => {
-            ManageAttackProficiencies.remove(this.actor, event);
+            return ManageAttackProficiencies.remove(this.actor, event);
         };
 
         // FEATS
 
         handlers["browse-feats"] = (_, anchor) => {
-            this.#onClickBrowseFeats(anchor);
+            return this.#onClickBrowseFeats(anchor);
         };
 
         // BIOGRAPHY
 
         // Section visibility toggles
-        handlers["toggle-bio-visibility"] = (event) => {
+        handlers["toggle-bio-visibility"] = async (event) => {
             const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
             const section = anchor?.dataset.section;
             if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
                 const { biography } = this.actor.system.details;
                 const path = `system.details.biography.visibility.${section}`;
-                this.actor.update({ [path]: !biography.visibility[section] });
+                await this.actor.update({ [path]: !biography.visibility[section] });
             }
         };
 
         // Edicts and anathema
-        handlers["add-edict-anathema"] = (_, anchor) => {
+        handlers["add-edict-anathema"] = async (_, anchor) => {
             anchor.style.pointerEvents = "none";
             const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
             if (!tupleHasValue(["edicts", "anathema"], field)) {
                 throw ErrorPF2e("Unexpected error adding edicts or anathema");
             }
             const list = this.actor._source.system.details.biography[field];
-            this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
+            await this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
         };
-        handlers["delete-edict-anathema"] = (_, anchor) => {
+        handlers["delete-edict-anathema"] = async (_, anchor) => {
             anchor.style.pointerEvents = "none";
             const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
             const index = anchor.dataset.index ?? "";
@@ -1092,7 +1092,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const list = [...this.actor._source.system.details.biography[field]];
             list.splice(Number(index), 1);
-            this.actor.update({ [`system.details.biography.${field}`]: list });
+            await this.actor.update({ [`system.details.biography.${field}`]: list });
         };
 
         return handlers;

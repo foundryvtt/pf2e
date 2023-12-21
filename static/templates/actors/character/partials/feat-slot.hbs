@@ -1,11 +1,11 @@
 {{#if featSlot.feat}}
     <li class="item feat-item" data-item-id="{{featSlot.feat.id}}" data-slot-id="{{featSlot.id}}">
-        <div class="item-name rollable drag-handle">
+        <div class="item-name drag-handle">
             <div class="feat-slot-title">{{featSlot.label}}</div>
-            <div class="item-image framed">
+            <a class="item-image framed" data-action="item-to-chat">
                 <img class="item-icon" src="{{featSlot.feat.img}}" alt="{{featSlot.feat.name}}">
                 <i class="fa-solid fa-message"></i>
-            </div>
+            </a>
             <h4 class="name"><a data-action="toggle-summary">{{featSlot.feat.name}}</a></h4>
         </div>
         <div class="item-controls">
@@ -37,12 +37,12 @@
 
 {{#*inline "nestedSlot"}}
     <li data-item-id="{{slot.feat.id}}">
-        <div class="item-name rollable">
+        <div class="item-name">
             <div class="feat-slot-title"></div>
-            <div class="item-image framed">
+            <a class="item-image framed" data-action="item-to-chat">
                 <img class="item-icon" src="{{slot.feat.img}}" alt="{{slot.feat.name}}">
                 <i class="fa-solid fa-message"></i>
-            </div>
+            </a>
             <h4 class="name"><a data-action="toggle-summary">{{slot.feat.name}}</a></h4>
         </div>
         <div class="item-controls">

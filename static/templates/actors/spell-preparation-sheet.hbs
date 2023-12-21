@@ -82,9 +82,9 @@
                     {{#each spells as |item i|}}
                         <li class="item spell spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell" draggable="true">
                             <div class="item-name rollable">
-                                <div class="item-image">
-                                    <img class="item-icon" data-action="spell-to-chat" src="{{spell.img}}" alt="{{spell.name}}" />
-                                </div>
+                                <a class="item-image" data-action="spell-to-chat">
+                                    <img class="item-icon" src="{{spell.img}}" alt="{{spell.name}}" />
+                                </a>
                                 <h4 class="name">
                                     <a data-action="toggle-summary">{{spell.name}}</a>
                                     {{{actionGlyph spell.system.time.value}}}

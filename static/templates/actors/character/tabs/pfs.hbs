@@ -43,11 +43,11 @@
     <ol class="actions-list directory-list">
         {{#each actor.pfsBoons as |feat|}}
             <li class="item feat-item" data-item-id="{{feat.id}}">
-                <div class="item-name rollable">
-                    <div class="item-image framed" alt="{{feat.name}}">
-                        <img src="{{feat.img}}"/>
-                        <i class="fa-solid fa-comment-alt"></i>
-                    </div>
+                <div class="item-name">
+                    <a class="item-image framed" data-action="item-to-chat">
+                        <img src="{{feat.img}}" />
+                        <i class="fa-solid fa-message"></i>
+                    </a>
                     <h4>{{feat.name}}</h4>
                 </div>
                 {{#if @root.options.editable}}
