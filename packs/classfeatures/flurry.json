@@ -28,12 +28,8 @@
             {
                 "key": "MultipleAttackPenalty",
                 "predicate": [
-                    "hunted-prey",
-                    "item:type:weapon",
-                    "item:trait:agile",
-                    {
-                        "not": "item:category:unarmed"
-                    }
+                    "agile",
+                    "hunted-prey"
                 ],
                 "selector": "attack",
                 "value": -2
@@ -42,12 +38,8 @@
                 "key": "MultipleAttackPenalty",
                 "predicate": [
                     "hunted-prey",
-                    "item:type:weapon",
                     {
-                        "nor": [
-                            "item:category:unarmed",
-                            "item:trait:agile"
-                        ]
+                        "not": "agile"
                     }
                 ],
                 "selector": "attack",
