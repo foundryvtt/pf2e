@@ -173,23 +173,20 @@ aside {
             i {
                 font-size: var(--font-size-19);
                 color: var(--text-light);
-
                 transition: all 0.2s ease-in-out;
-                &:hover {
+            }
+
+            svg path {
+                fill: var(--text-light);
+            }
+
+            &:hover {
+                i {
                     transform: scale(1.25);
                 }
-            }
-
-            svg {
-                animation-play-state: paused;
-
-                path {
-                    fill: var(--text-light);
+                svg {
+                    @include die-spin;
                 }
-            }
-            &:hover svg {
-                animation-play-state: running;
-                @include rotate;
             }
 
             &.disabled {
