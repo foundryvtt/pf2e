@@ -1063,7 +1063,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             const formula = this.#knownFormulas[uuid];
             const minBatchSize = formula.minimumBatchSize;
-            const step = anchor.dataset.action === "increase-formula-quantity" ? minBatchSize : -minBatchSize;
+            const step = anchor.dataset.action === "increase-craft-quantity" ? minBatchSize : -minBatchSize;
             const currentQuantity = Number(quantityInput.value) || step;
             const newQuantity = Math.max(currentQuantity + step, 1);
             if (newQuantity === currentQuantity) return;
