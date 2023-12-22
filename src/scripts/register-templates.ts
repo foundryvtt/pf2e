@@ -16,16 +16,16 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/partials/strike.hbs",
 
         // PC Sheet Tabs
-        "systems/pf2e/templates/actors/character/tabs/general.hbs",
         "systems/pf2e/templates/actors/character/tabs/actions.hbs",
         "systems/pf2e/templates/actors/character/tabs/biography.hbs",
+        "systems/pf2e/templates/actors/character/tabs/character.hbs",
+        "systems/pf2e/templates/actors/character/tabs/crafting.hbs",
         "systems/pf2e/templates/actors/character/tabs/effects.hbs",
         "systems/pf2e/templates/actors/character/tabs/feats.hbs",
         "systems/pf2e/templates/actors/character/tabs/inventory.hbs",
         "systems/pf2e/templates/actors/character/tabs/pfs.hbs",
         "systems/pf2e/templates/actors/character/tabs/proficiencies.hbs",
         "systems/pf2e/templates/actors/character/tabs/spellcasting.hbs",
-        "systems/pf2e/templates/actors/character/tabs/crafting.hbs",
 
         // Hazard Sheets Partials
         "systems/pf2e/templates/actors/hazard/partials/header.hbs",
