@@ -1,11 +1,11 @@
 <!-- HEALTH -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
     <button
         type="button"
         class="modifiers_button hover"
         data-tooltip-content="#{{options.id}}-hp-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
-</div>
+</header>
 <div class="hitpoints">
     <div class="hp-big">
         <div class="container temp-hp">
@@ -62,9 +62,9 @@
 
 <!-- STAMINA (if enabled) -->
 {{#if hasStamina}}
-    <div class="sidebar_title">
+    <header
         <h2>{{localize "PF2E.StaminaPointsHeader"}}</h2>
-    </div>
+    </header>
     <ol class="stamina">
         <li class="sp">
             <label for="{{options.id}}-pc-stamina" class="sidebar_label">{{localize "PF2E.StaminaPointsShortLabel"}}</label>
@@ -102,13 +102,13 @@
 {{/if}}
 
 <!-- ARMOR CLASS -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
     <button
         type="button"
         class="modifiers_button hover"
         data-tooltip-content="#{{options.id}}-armor-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
-</div>
+</header>
 <div class="armor-class">
     <div class="ac">
         <div class="data-value">
@@ -198,14 +198,14 @@
 {{/with}}
 
 <!-- Perception -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
     <button
         type="button"
         class="modifiers_button hover"
         data-tooltip-content="#{{options.id}}-perception-modifiers"
     >{{localize "PF2E.ModifiersTitle"}}</button>
-</div>
+</header>
 <div class="roll-data perception-sidebar">
     <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
@@ -237,14 +237,14 @@
 {{/with}}
 
 <!-- Initiative -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
     <button
         type="button"
         class="modifiers_button hover"
         data-tooltip-content="#{{options.id}}-initiative-modifiers"
     >{{localize "PF2E.ModifiersTitle"}}</button>
-</div>
+</header>
 <div class="roll-data initiative-sidebar">
     <a
         class="roll-icon"
@@ -268,9 +268,9 @@
 {{/with}}
 
 <!-- Saves -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
-</div>
+</header>
 <ul class="sidebar-saves">
     {{#each data.saves as |save slug|}}
         <li class="roll-data" data-save="{{slug}}">
@@ -305,14 +305,14 @@
 </ul>
 
 <!-- Immunities -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-immunities">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </a>
     {{/if}}
-</div>
+</header>
 <ol class="immunities tags">
     {{#each data.attributes.immunities as |immunity|}}
         <li class="tag tag_secondary" data-immunity="{{immunity.type}}">{{immunity.label}}</li>
@@ -320,14 +320,14 @@
 </ol>
 
 <!-- Weaknesses -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-weaknesses">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
-</div>
+</header>
 <ol class="weaknesses tags">
     {{#each data.attributes.weaknesses as |weakness|}}
         <li class="tag tag_secondary" data-weakness="{{weakness.type}}">{{weakness.label}}</li>
@@ -335,14 +335,14 @@
 </ol>
 
 <!-- Resistances -->
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-resistances">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
-</div>
+</header>
 <ol class="resistances tags">
     {{#each data.attributes.resistances as |resistance|}}
         <li class="tag tag_secondary" data-resistance="{{resistance.type}}">{{resistance.label}}</li>

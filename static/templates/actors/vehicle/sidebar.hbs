@@ -1,8 +1,8 @@
-<div class="sidebar_title">
+<header>
   <h2>
       {{localize "PF2E.HitPointsHeader"}}
   </h2>
-</div>
+</header>
 <div class="hitpoints">
   <div class="hp-big">
     <div class="container temp-hp" title="{{localize "PF2E.ShieldBrokenThresholdLabel"}}">
@@ -26,9 +26,9 @@
   </div>
 </div>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-</div>
+</header>
 <div class="armor-class">
     <div class="shield ac" title="{{localize "PF2E.ArmorClassLabel"}}">
         <div class="data-value">
@@ -51,9 +51,9 @@
     </div>
 </div>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
-</div>
+</header>
 <ul class="sidebar-saves">
     <li class="roll-data" data-save="fortitude">
         <h2 class="sidebar_label">{{localize "PF2E.SavesFortitude"}}</h2>
@@ -68,42 +68,42 @@
     </li>
 </ul>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-immunities">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </a>
     {{/if}}
-</div>
+</header>
 <ol class="immunities tags">
     {{#each data.attributes.immunities as |immunity|}}
         <li class="tag tag_secondary" data-immunity="{{immunity.type}}">{{immunity.label}}</li>
     {{/each}}
 </ol>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-weaknesses">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
-</div>
+</header>
 <ol class="weaknesses tags">
     {{#each data.attributes.weaknesses as |weakness|}}
         <li class="tag tag_secondary" data-weakness="{{weakness.type}}">{{weakness.label}}</li>
     {{/each}}
 </ol>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
     {{#if editable}}
         <button type="button" class="modifiers_button" data-action="edit-resistances">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
-</div>
+</header>
 <ol class="resistances tags">
     {{#each data.attributes.resistances as |resistance|}}
         <li class="tag tag_secondary" data-resistance="{{resistance.type}}">{{resistance.label}}</li>
