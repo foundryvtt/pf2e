@@ -13,20 +13,19 @@
         }
 
         .rollable {
-            &:hover {
-                text-shadow: none;
-            }
-
             .d20-svg {
                 width: var(--font-size-14);
                 height: var(--font-size-14);
                 path {
-                    fill: black;
+                    fill: var(--color-text-dark-1);
                 }
             }
 
-            &:hover svg {
-                @include rotate;
+            &:hover {
+                text-shadow: none;
+                svg {
+                    @include die-spin;
+                }
             }
         }
 
