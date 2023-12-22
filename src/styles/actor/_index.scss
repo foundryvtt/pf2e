@@ -125,21 +125,31 @@ $header-height: 89px; /* Adjust height of the header */
             background-color: var(--color-rarity-unique);
         }
     }
+
+    button.blue {
+        align-items: center;
+        background: var(--color-pf-secondary);
+        border-radius: 2px;
+        border: var(--color-border-dark);
+        box-shadow: inset 0 0 0 1px rgba(black, 50%);
+        color: var(--text-light);
+        display: flex;
+        font-weight: 500;
+        gap: 0.25em;
+        justify-content: center;
+        line-height: 1.8em;
+        margin: 0;
+        padding: 0 0.5em;
+        width: auto;
+
+        &:hover {
+            border-color: transparent;
+            text-shadow: 0 0 0.25em var(--text-light);
+        }
+    }
 }
 
 .actor.sheet {
-    &.character {
-        @import "character/attack-popout";
-    }
-
-    &.character .crb-style {
-        @import "character";
-    }
-
-    &.vehicle .crb-style {
-        @import "vehicle";
-    }
-
     .crb-style {
         display: grid;
         grid:
@@ -209,7 +219,7 @@ $header-height: 89px; /* Adjust height of the header */
 
                 @import "spell-collection";
 
-                ol.directory-list {
+                .directory-list {
                     > h3,
                     > li > h3 {
                         font-size: 1rem;
@@ -379,6 +389,18 @@ $header-height: 89px; /* Adjust height of the header */
                 }
             }
         }
+    }
+
+    &.character {
+        @import "character/attack-popout";
+    }
+
+    &.character .crb-style {
+        @import "character";
+    }
+
+    &.vehicle .crb-style {
+        @import "vehicle";
     }
 }
 

@@ -97,11 +97,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    protected openSpellPreparationSheet(entryId: string): void {
-        const entry = this.actor.items.get(entryId);
+    #openSpellPreparation(collectionId: string, event?: MouseEvent): void {
+        const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
-            const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
-            const offset = $book.offset() ?? { left: 0, top: 0 };
+            const button = htmlClosest(event?.target, "button");
+            if (!button) return;
+            const offset = $(button).offset() ?? { left: 0, top: 0 };
             const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
             sheet.render(true);
         }
@@ -222,81 +223,11 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
         }
 
-        $html.find(".prepared-toggle").on("click", async (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            this.openSpellPreparationSheet(itemId);
-        });
-
-        // Toggle showing slotless levels
-        for (const toggle of htmlQueryAll(html, ".slotless-level-toggle")) {
-            toggle.addEventListener("click", async () => {
-                const itemId = htmlClosest(toggle, ".item-container")?.dataset.containerId ?? "";
-                const spellcastingEntry = this.actor.items.get(itemId);
-                if (!spellcastingEntry?.isOfType("spellcastingEntry")) {
-                    throw ErrorPF2e("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
-                }
-                await spellcastingEntry.update({
-                    "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessLevels,
-                });
-            });
-        }
-
-        // Casting spells and consuming slots
-        for (const button of htmlQueryAll(html, "button[data-action=cast-spell]")) {
-            button.addEventListener("click", () => {
-                const spellEl = htmlClosest(button, ".item");
-                const { itemId, slotLevel, slotId, entryId } = spellEl?.dataset ?? {};
-                const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-                const spell = collection.get(itemId, { strict: true });
-                collection.entry.cast(spell, { slot: Number(slotId ?? NaN), level: Number(slotLevel ?? NaN) });
-            });
-        }
-
-        // Regenerating spell slots and spell uses
-        $html.find(".spell-slots-increment-reset").on("click", (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
-            const actor = this.actor;
-            const item = actor.items.get(itemId);
-            if (item?.isOfType("spellcastingEntry")) {
-                const { system } = item.toObject();
-                if (!system.slots) return;
-                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : "slot0";
-                system.slots[slotLevel].value = system.slots[slotLevel].max;
-                item.update({ system });
-            } else if (item?.isOfType("spell")) {
-                const max = item.system.location.uses?.max;
-                if (!max) return;
-                item.update({ "system.location.uses.value": max });
-            }
-        });
-
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this
         $html.find(".focus-pool").on("change", (event) => {
             this.actor.update({ "system.resources.focus.max": $(event.target).val() });
         });
-
-        for (const anchor of htmlQueryAll(html, ".toggle-signature-spell")) {
-            anchor.addEventListener("click", () => {
-                const itemId = htmlClosest(anchor, ".item")?.dataset.itemId;
-                const spell = this.actor.items.get(itemId, { strict: true });
-                if (!spell?.isOfType("spell")) return;
-                spell.update({ "system.location.signature": !spell.system.location.signature });
-            });
-        }
-
-        // Action Browser
-        for (const button of htmlQueryAll(html, ".action-browse")) {
-            button.addEventListener("click", () => this.#onClickBrowseActions(button));
-        }
-
-        // Spell Browser
-        for (const button of htmlQueryAll(html, ".spell-browse")) {
-            button.addEventListener("click", () => this.#onClickBrowseSpells(button));
-        }
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
@@ -311,7 +242,74 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             await this.actor.rollRecovery(event);
         };
 
+        // ABILITIES
+
+        handlers["browse-abilities"] = (_, anchor) => {
+            this.#onClickBrowseAbilities(anchor);
+        };
+
         // SPELLCASTING
+
+        // Casting spells and consuming slots or focus points
+        handlers["cast-spell"] = (event) => {
+            const spellEl = htmlClosest(event.target, "[data-item-id]");
+            const { itemId, slotLevel, slotId, entryId } = spellEl?.dataset ?? {};
+            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const spell = collection.get(itemId, { strict: true });
+            return collection.entry.cast(spell, { slot: Number(slotId ?? NaN), level: Number(slotLevel ?? NaN) });
+        };
+
+        handlers["browse-spells"] = (_, anchor) => {
+            this.#onClickBrowseSpells(anchor);
+        };
+
+        handlers["open-spell-preparation"] = (event) => {
+            const collectionId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
+            if (!collectionId) throw ErrorPF2e("Unexpected failure looking up spell collection");
+            this.#openSpellPreparation(collectionId, event);
+        };
+
+        handlers["toggle-signature-spell"] = async (event) => {
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const spell = this.actor.items.get(itemId, { strict: true });
+            if (!spell?.isOfType("spell")) return;
+            spell.update({ "system.location.signature": !spell.system.location.signature });
+        };
+
+        // Toggle showing slotless ranks
+        handlers["toggle-show-slotless-ranks"] = async (event) => {
+            const collectionId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
+            const spellcastingEntry = this.actor.items.get(collectionId, { strict: true });
+            if (!spellcastingEntry.isOfType("spellcastingEntry")) {
+                throw ErrorPF2e("Tried to toggle visibility of slotless ranks on a non-spellcasting entry");
+            }
+            await spellcastingEntry.update({
+                "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessLevels,
+            });
+        };
+
+        // Regenerating spell slots and spell uses
+        handlers["reset-spell-slots"] = async (event) => {
+            const actor = this.actor;
+            const row = htmlClosest(event.target, "[data-item-id]");
+            const itemId = row?.dataset.itemId;
+            const item = actor.items.get(itemId, { strict: true });
+
+            if (item.isOfType("spellcastingEntry")) {
+                const { system } = item.toObject();
+                if (!system.slots) return;
+                const rank = Number(row?.dataset.level ?? NaN);
+                const propertyKey = goesToEleven(rank) ? (`slot${rank}` as const) : "slot0";
+                system.slots[propertyKey].value = system.slots[propertyKey].max;
+                await item.update({ system });
+            } else if (item.isOfType("spell")) {
+                const max = item.system.location.uses?.max;
+                if (!max) return;
+                await item.update({ "system.location.uses.value": max });
+            }
+        };
+
+        // Spellcasting entries
 
         // Add, edit, and remove spellcasting entries
         handlers["spellcasting-create"] = async (event) => {
@@ -364,7 +362,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (dropSlotType === "spellLevel") {
                 const { level } = dropItemEl.dataset;
                 const spell = await collection.addSpell(item, { slotLevel: Number(level) });
-                this.openSpellPreparationSheet(collection.id);
+                this.#openSpellPreparation(collection.id);
                 return [spell ?? []].flat();
             } else if (dropItemEl.dataset.slotId) {
                 const dropId = Number(dropItemEl.dataset.slotId);
@@ -395,7 +393,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                         return [target];
                     } else {
                         const spell = await collection.addSpell(item, { slotLevel: target.rank });
-                        this.openSpellPreparationSheet(collection.id);
+                        this.#openSpellPreparation(collection.id);
                         return [spell ?? []].flat();
                     }
                 }
@@ -442,7 +440,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
-            this.openSpellPreparationSheet(collection.id);
+            this.#openSpellPreparation(collection.id);
             return [(await collection.addSpell(item, { slotLevel: Math.max(slotLevel, item.baseRank) })) ?? []].flat();
         }
 
@@ -473,7 +471,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         new this.actorConfigClass(this.actor).render(true);
     }
 
-    #onClickBrowseActions(anchor: HTMLElement): void {
+    #onClickBrowseAbilities(anchor: HTMLElement): void {
         const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
         const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
         const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
