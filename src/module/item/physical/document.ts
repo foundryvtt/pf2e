@@ -546,7 +546,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        options: PhysicalItemUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
@@ -558,7 +558,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }
         }
 
-        handleHPChange(this, changed);
+        if (options.checkHP ?? true) handleHPChange(this, changed);
 
         // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.system.price)) {
@@ -609,6 +609,10 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
 interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
     extends DocumentConstructionContext<TParent> {
     parentItem?: PhysicalItemPF2e<TParent>;
+}
+
+interface PhysicalItemUpdateContext<TParent extends ActorPF2e | null> extends DocumentUpdateContext<TParent> {
+    checkHP?: boolean;
 }
 
 export { PhysicalItemPF2e, type PhysicalItemConstructionContext };
