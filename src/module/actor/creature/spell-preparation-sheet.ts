@@ -38,7 +38,8 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
             height: 600,
             template: "systems/pf2e/templates/actors/spell-preparation-sheet.hbs",
             scrollY: [".sheet-content"],
-            filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.directory-list" }],
+            dragDrop: [{ dragSelector: "li[data-item-id]" }],
+            filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.spell-list" }],
             sheetConfig: false,
         };
     }
