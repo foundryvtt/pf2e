@@ -7,6 +7,7 @@ import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -575,11 +576,19 @@ class CheckModifier extends StatisticModifier {
      */
     constructor(
         slug: string,
-        statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
+        statistic: { modifiers: readonly ModifierPF2e[] },
         modifiers: ModifierPF2e[] = [],
         rollOptions: string[] | Set<string> = new Set(),
     ) {
-        const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
+        const baseModifiers = statistic.modifiers
+            .filter((modifier: unknown) => {
+                if (modifier instanceof ModifierPF2e) return true;
+                if (R.isObject(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
+                    ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
+                }
+                return false;
+            })
+            .map((m) => m.clone());
         super(slug, baseModifiers.concat(modifiers), rollOptions);
     }
 }
