@@ -1976,7 +1976,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        options?: EmbeddedItemUpdateContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
@@ -2000,6 +2000,10 @@ interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends D
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
+}
+
+interface EmbeddedItemUpdateContext<TParent extends ActorPF2e> extends DocumentUpdateContext<TParent> {
+    checkHP?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
