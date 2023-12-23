@@ -1,10 +1,4 @@
 .tab.details.active {
-    .save-basic {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: end;
-    }
-
     .damage-formulas {
         margin-top: 0.5rem;
 
@@ -79,6 +73,24 @@
 
         .item-controls {
             justify-self: end;
+        }
+    }
+
+    .form-group {
+        &.save,
+        &.duration {
+            .form-fields {
+                gap: 2rem;
+
+                > * {
+                    display: flex;
+                    flex-wrap: nowrap;
+
+                    label {
+                        flex: 0 1 fit-content;
+                    }
+                }
+            }
         }
     }
 }

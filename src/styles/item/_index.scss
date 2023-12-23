@@ -248,33 +248,14 @@
                     }
 
                     &.no-sidebar .form-group label {
-                        max-width: 12em;
+                        flex: 0 0 12em;
                         white-space: wrap;
+                        padding-right: 0;
                     }
 
                     .tags .tag {
                         font-size: var(--font-size-10);
                     }
-
-                    fieldset.publication .data {
-                        @include publication-data;
-                    }
-                }
-            }
-
-            fieldset {
-                legend {
-                    font-weight: 600;
-                }
-
-                border: 1px solid var(--color-border-medium);
-                border-radius: 2px;
-                margin-bottom: 0.5rem;
-                padding: 0 0.5em 0.25em;
-
-                &.basics {
-                    border-color: transparent;
-                    padding: 0;
                 }
             }
 
@@ -290,12 +271,35 @@
             }
         }
 
-        .form-list,
-        fieldset {
+        fieldset,
+        .form-list {
             h3 {
                 font-weight: 600;
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
+            }
+        }
+
+        fieldset {
+            border: 1px solid var(--color-border-light-tertiary);
+            border-radius: 2px;
+            margin-bottom: 0.5rem;
+            padding: 0 0.5em 0.25em;
+
+            &.basics {
+                border-color: transparent;
+            }
+
+            &.publication .data {
+                @include publication-data;
+            }
+
+            legend {
+                font-weight: 600;
+            }
+
+            .form-group label:first-of-type {
+                flex-basis: 11em;
             }
         }
 
@@ -336,23 +340,24 @@
         }
 
         .two-by-two {
+            column-gap: 0.25rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 0.25rem;
+
             .item-controls {
-                margin-left: 2px;
                 gap: 0;
+                margin-left: 0.125rem;
             }
         }
 
         .form-group {
             > label {
                 &:not(.large) {
-                    max-width: 11em;
+                    flex: 0 1 11em;
                 }
 
                 &.short {
-                    max-width: 9em;
+                    flex: 0 1 9em;
                 }
             }
 
