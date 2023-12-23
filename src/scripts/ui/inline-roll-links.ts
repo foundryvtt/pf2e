@@ -271,7 +271,7 @@ export const InlineRollLinks = {
                             CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                         break;
                     case "cone":
-                        templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
+                        templateData.angle ||= CONFIG.MeasuredTemplate.defaults.angle;
                         break;
                     case "rect": {
                         const distance = templateData.distance ?? 0;
