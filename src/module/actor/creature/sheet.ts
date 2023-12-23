@@ -269,6 +269,27 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             this.#openSpellPreparation(collectionId, event);
         };
 
+        // Empty spell slot
+        handlers["unprepare-spell"] = (event) => {
+            const row = htmlClosest(event.target, "[data-item-id]");
+            const slotLevel = Number(row?.dataset.slotLevel) || 0;
+            const slotId = Number(row?.dataset.slotId) || 0;
+            const entryId = row?.dataset.entryId ?? "";
+            const collection = this.actor.spellcasting.collections.get(entryId);
+            collection?.unprepareSpell(slotLevel, slotId);
+        };
+
+        // Set Expended Status of Spell Slot
+        handlers["toggle-slot-expended"] = (event) => {
+            const row = htmlClosest(event.target, "[data-item-id]");
+            const slotLevel = Number(row?.dataset.slotLevel) || 0;
+            const slotId = Number(row?.dataset.slotId) || 0;
+            const entryId = row?.dataset.entryId ?? "";
+            const expend = row?.dataset.slotExpended === undefined;
+            const collection = this.actor.spellcasting.collections.get(entryId);
+            collection?.setSlotExpendedState(slotLevel, slotId, expend);
+        };
+
         handlers["toggle-signature-spell"] = async (event) => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const spell = this.actor.items.get(itemId, { strict: true });

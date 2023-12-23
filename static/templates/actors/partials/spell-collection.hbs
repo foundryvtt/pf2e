@@ -79,13 +79,13 @@
                     {{#with active}}
                         <li
                             class="item spell{{#if virtual}} virtual{{/if}}"
+                            data-item-type="spell"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
                             data-cast-level="{{coalesce castLevel spell.level}}"
                             data-slot-level="{{section.level}}"
                             {{#if entry.isPrepared}}data-slot-id="{{i}}"{{/if}}
-                            data-item-type="spell"
-                            data-expended-state="{{expended}}"
+                            {{#if active.expended}}data-slot-expended{{/if}}
                             data-item-summary-id="{{spell.id}}-{{section.level}}-{{i}}"
                         >
                             <div class="drag-handle item-name">
@@ -127,7 +127,7 @@
                                     {{#if entry.isPrepared}}
                                         {{#unless section.isCantrip}}
                                             <a
-                                                class="item-toggle-prepare"
+                                                data-action="toggle-slot-expended"
                                                 data-tooltip="{{#if expended}}PF2E.RestoreSpellTitle{{else}}PF2E.ExpendSpellTitle{{/if}}"
                                             ><i class="fa-solid fa-fw fa-{{#if expended}}plus{{else}}minus{{/if}}-square"></i></a>
                                         {{/unless}}
@@ -152,8 +152,17 @@
                             {{/if}}
                         </li>
                     {{else}}
-                        <li class="item" data-item-id="{{i}}" data-slot-level="{{section.level}}" data-item-type="spellSlot" data-slot-id="{{i}}" data-entry-id="{{entry.id}}" draggable="true">
-                            <div class="item-name empty"><h4>{{localize "PF2E.SpellSlotEmpty"}}</h4></div>
+                        <li class="spell"
+                            data-item-id="{{i}}"
+                            data-slot-level="{{section.level}}"
+                            data-item-type="spellSlot"
+                            data-slot-id="{{i}}"
+                            data-entry-id="{{entry.id}}"
+                        >
+                            <div class="item-name empty">
+                                <div class="item-image framed"></div>
+                                <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
+                            </div>
                         </li>
                     {{/with}}
                 {{/each}}

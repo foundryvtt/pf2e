@@ -378,31 +378,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        // Remove Spell Slot
-        for (const anchor of htmlQueryAll(html, ".item-unprepare")) {
-            anchor.addEventListener("click", () => {
-                const row = htmlClosest(anchor, ".item");
-                const slotLevel = Number(row?.dataset.slotLevel) || 0;
-                const slotId = Number(row?.dataset.slotId) || 0;
-                const entryId = row?.dataset.entryId ?? "";
-                const collection = this.actor.spellcasting.collections.get(entryId);
-                collection?.unprepareSpell(slotLevel, slotId);
-            });
-        }
-
-        // Set Expended Status of Spell Slot
-        for (const anchor of htmlQueryAll(html, ".item-toggle-prepare")) {
-            anchor.addEventListener("click", () => {
-                const row = htmlClosest(anchor, ".item");
-                const slotLevel = Number(row?.dataset.slotLevel) || 0;
-                const slotId = Number(row?.dataset.slotId) || 0;
-                const entryId = row?.dataset.entryId ?? "";
-                const expendedState = row?.dataset.expendedState !== "true";
-                const collection = this.actor.spellcasting.collections.get(entryId);
-                collection?.setSlotExpendedState(slotLevel, slotId, expendedState);
-            });
-        }
-
         // Trait Selector
         for (const link of htmlQueryAll(html, ".tag-selector")) {
             link.addEventListener("click", () => this.openTagSelector(link));
