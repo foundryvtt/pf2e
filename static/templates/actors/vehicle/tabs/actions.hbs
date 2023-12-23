@@ -11,8 +11,18 @@
                             <h3>{{section.label}}</h3>
                             {{#if @root.editable}}
                                 <div class="item-controls">
-                                    <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fa-solid fa-fw fa-plus"></i></a>
-                                    <a class="item-control action-browse" title="{{localize "PF2E.OpenActionBrowserTitle"}}" data-type="feat"><i class="fa-solid fa-fw fa-search"></i></a>
+                                    <a
+                                        class="item-control item-create"
+                                        data-tooltip="PF2E.CreateActionTitle"
+                                        data-type="action"
+                                        data-action-type="{{sid}}"
+                                    ><i class="fa-solid fa-fw fa-plus"></i></a>
+                                    <a
+                                        class="item-control"
+                                        data-action="browse-abilities"
+                                        data-tooltip="PF2E.OpenActionBrowserTitle"
+                                        data-type="feat"
+                                    ><i class="fa-solid fa-fw fa-search"></i></a>
                                 </div>
                             {{/if}}
                         </li>
