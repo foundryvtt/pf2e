@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
-import { ZeroToTen } from "@module/data.ts";
+import { coerceToSlotGroupId } from "@item/spellcasting-entry/helpers.ts";
 import { ErrorPF2e, ordinalString } from "@util";
 import * as R from "remeda";
 
@@ -11,7 +11,8 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
         throw ErrorPF2e("Unexpected missing spellcasting-entry location");
     }
 
-    const rank = Number(data.level ?? 1) as ZeroToTen;
+    const slotGroupId = coerceToSlotGroupId(data.groupId);
+    const rank = typeof slotGroupId === "number" ? slotGroupId : 1;
     const newLabel = game.i18n.localize("PF2E.NewLabel");
     const [rankLabel, spellLabel] =
         rank > 0
@@ -24,10 +25,10 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
         type: "spell",
         name: R.compact([newLabel, rankLabel, spellLabel]).join(" "),
         system: {
-            level: { value: rank || 1 },
+            level: { value: rank },
             location: { value: String(data.location) },
             traits: {
-                value: rank === 0 ? ["cantrip"] : [],
+                value: slotGroupId === "cantrips" ? ["cantrip"] : [],
             },
         },
     } satisfies DeepPartial<SpellSource>;

@@ -7,9 +7,10 @@ import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
+import { coerceToSlotGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour, goesToEleven } from "@module/data.ts";
+import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
@@ -251,12 +252,16 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         // SPELLCASTING
 
         // Casting spells and consuming slots or focus points
-        handlers["cast-spell"] = (event) => {
-            const spellEl = htmlClosest(event.target, "[data-item-id]");
-            const { itemId, slotLevel, slotId, entryId } = spellEl?.dataset ?? {};
+        handlers["cast-spell"] = async (event) => {
+            const spellRow = htmlClosest(event.target, "[data-item-id]");
+            const { itemId, entryId, slotId } = spellRow?.dataset ?? {};
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const spell = collection.get(itemId, { strict: true });
-            return collection.entry.cast(spell, { slot: Number(slotId ?? NaN), level: Number(slotLevel ?? NaN) });
+            const maybeCastRank = Number(spellRow?.dataset.castRank) || NaN;
+            if (Number.isInteger(maybeCastRank) && maybeCastRank.between(1, 10)) {
+                const rank = maybeCastRank as OneToTen;
+                return collection.entry.cast(spell, { rank, slotId: Number(slotId) });
+            }
         };
 
         handlers["browse-spells"] = (_, anchor) => {
@@ -272,22 +277,27 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         // Empty spell slot
         handlers["unprepare-spell"] = (event) => {
             const row = htmlClosest(event.target, "[data-item-id]");
-            const slotLevel = Number(row?.dataset.slotLevel) || 0;
+            const groupId = coerceToSlotGroupId(row?.dataset.groupId);
+            if (!groupId) throw ErrorPF2e("Unexpected slot group ID");
+
             const slotId = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId ?? "";
             const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.unprepareSpell(slotLevel, slotId);
+            collection?.unprepareSpell(groupId, slotId);
         };
 
         // Set Expended Status of Spell Slot
         handlers["toggle-slot-expended"] = (event) => {
             const row = htmlClosest(event.target, "[data-item-id]");
-            const slotLevel = Number(row?.dataset.slotLevel) || 0;
+            const groupId = coerceToSlotGroupId(row?.dataset.groupId);
+            if (!groupId) throw ErrorPF2e("Unexpected error toggling expended state");
+
             const slotId = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId ?? "";
             const expend = row?.dataset.slotExpended === undefined;
             const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.setSlotExpendedState(slotLevel, slotId, expend);
+
+            collection?.setSlotExpendedState(groupId, slotId, expend);
         };
 
         handlers["toggle-signature-spell"] = async (event) => {
@@ -305,7 +315,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 throw ErrorPF2e("Tried to toggle visibility of slotless ranks on a non-spellcasting entry");
             }
             await spellcastingEntry.update({
-                "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessLevels,
+                "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessRanks,
             });
         };
 
@@ -319,8 +329,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (item.isOfType("spellcastingEntry")) {
                 const { system } = item.toObject();
                 if (!system.slots) return;
-                const rank = Number(row?.dataset.level ?? NaN);
-                const propertyKey = goesToEleven(rank) ? (`slot${rank}` as const) : "slot0";
+                const groupNumber = spellSlotGroupIdToNumber(row?.dataset.groupId) || 0;
+                const propertyKey = goesToEleven(groupNumber) ? (`slot${groupNumber}` as const) : "slot0";
                 system.slots[propertyKey].value = system.slots[propertyKey].max;
                 await item.update({ system });
             } else if (item.isOfType("spell")) {
@@ -360,9 +370,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
     protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const dropItemEl = htmlClosest(event.target, ".item");
-        const dropContainerEl = htmlClosest(event.target, ".item-container");
-
+        const dropItemEl = htmlClosest(event.target, "[data-item-id]");
+        const dropContainerEl = htmlClosest(event.target, "[data-container-id]");
         const dropSlotType = dropItemEl?.dataset.itemType;
         const dropContainerType = dropContainerEl?.dataset.containerType;
 
@@ -375,18 +384,17 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (!(dropItemEl && dropContainerEl)) return [];
             const entryId = dropContainerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const groupId = coerceToSlotGroupId(dropItemEl.dataset.groupId);
 
-            if (dropSlotType === "spellLevel") {
-                const { level } = dropItemEl.dataset;
-                const spell = await collection.addSpell(item, { slotLevel: Number(level) });
+            if (dropSlotType === "spell-slot-group") {
+                const spell = await collection.addSpell(item, { groupId });
                 this.#openSpellPreparation(collection.id);
                 return [spell ?? []].flat();
             } else if (dropItemEl.dataset.slotId) {
-                const dropId = Number(dropItemEl.dataset.slotId);
-                const slotRank = Number(dropItemEl.dataset.slotLevel);
+                const slotId = Number(dropItemEl.dataset.slotId ?? NaN);
 
-                if (Number.isInteger(dropId) && Number.isInteger(slotRank)) {
-                    const allocated = await collection.prepareSpell(item, slotRank, dropId);
+                if (groupId && Number.isInteger(slotId)) {
+                    const allocated = await collection.prepareSpell(item, groupId, slotId);
                     if (allocated instanceof SpellcastingEntryPF2e) return [allocated];
                 }
             } else if (dropSlotType === "spell") {
@@ -409,7 +417,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                         await item.sortRelative({ target, siblings });
                         return [target];
                     } else {
-                        const spell = await collection.addSpell(item, { slotLevel: target.rank });
+                        const spell = await collection.addSpell(item, { groupId: target.rank });
                         this.#openSpellPreparation(collection.id);
                         return [spell ?? []].flat();
                     }
@@ -421,7 +429,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                     console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
                 }
 
-                const dropId = htmlClosest(event.target, ".item-container")?.dataset.containerId;
+                const dropId = htmlClosest(event.target, "li[data-container-id]")?.dataset.containerId;
                 const updated = dropId ? await item.update({ "system.location.value": dropId }) : null;
                 return updated ? [updated] : [];
             }
@@ -456,9 +464,10 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-            const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
             this.#openSpellPreparation(collection.id);
-            return [(await collection.addSpell(item, { slotLevel: Math.max(slotLevel, item.baseRank) })) ?? []].flat();
+            const groupId = coerceToSlotGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
+
+            return [(await collection.addSpell(item, { groupId })) ?? []].flat();
         }
 
         return super._handleDroppedItem(event, item, data);

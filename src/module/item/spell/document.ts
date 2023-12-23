@@ -5,6 +5,8 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
+import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
+import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { RangeData } from "@item/types.ts";
@@ -96,7 +98,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
      * Heightened rank of the spell if heightened, otherwise base.
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
-    get rank(): number {
+    get rank(): OneToTen {
         if (!this.actor) return this.baseRank;
 
         const isAutoHeightened = this.isCantrip || this.isFocusSpell;
@@ -106,10 +108,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ? fixedHeightenedRank || Math.ceil(this.actor.level / 2) || null
             : this.system.location.heightenedLevel || null;
 
-        return heightenedRank || this.baseRank;
+        return heightenedRank?.between(1, 10) ? (heightenedRank as OneToTen) : this.baseRank;
     }
 
-    /** Legacy getter, though not yet deprecated */
+    /**
+     * Legacy getter: only deprecated internally
+     * @deprecated
+     */
     get level(): number {
         return this.rank;
     }
@@ -208,12 +213,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Given a slot level, compute the actual level the spell will be cast at */
-    computeCastRank(slotRank?: number): number {
+    computeCastRank(slotNumber?: number): OneToTen {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) return this.rank;
 
         // Spells cannot go lower than base level
-        return Math.max(this.baseRank, slotRank ?? this.rank);
+        return Math.max(this.baseRank, slotNumber ?? this.rank) as OneToTen;
     }
 
     override getRollData(
@@ -732,15 +737,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override async getChatData(
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
-        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {},
+        rollOptions: { castRank?: number | string; groupId?: SpellSlotGroupId } = {},
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const slotRank = Number(rollOptions.slotLevel) || this.rank;
-        const castLevel = Number(rollOptions.castLevel) || this.computeCastRank(slotRank);
+        const groupNumber = spellSlotGroupIdToNumber(rollOptions.groupId) || this.rank;
+        const castRank = Number(rollOptions.castRank) || this.computeCastRank(groupNumber);
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel });
+            const variant = this.loadVariant({ castLevel: castRank });
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
@@ -753,7 +758,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             )
             .sort((a, b) => a.sort - b.sort);
 
-        const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel });
+        const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel: castRank });
         rollData.item ??= this;
 
         const systemData: SpellSystemData = this.system;
@@ -814,8 +819,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             : "PF2E.Damage.Kind.Healing.Roll.Verb";
 
         const { baseRank } = this;
-        const heightened = castLevel - baseRank;
-        const rankLabel = createSpellRankLabel(this, castLevel);
+        const heightened = castRank - baseRank;
+        const rankLabel = createSpellRankLabel(this, castRank);
 
         // Combine properties
         const area = this.area;
@@ -841,7 +846,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 label: saveLabel,
             },
             hasDamage,
-            castLevel,
+            castRank,
             rankLabel,
             damageLabel,
             formula: damage?.template.damage.roll.formula,
@@ -883,12 +888,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         event: MouseEvent | JQuery.ClickEvent,
         mapIncreases?: ZeroToTwo,
     ): Promise<Rolled<DamageRoll> | null> {
-        const element = htmlClosest(event.currentTarget, "*[data-cast-level]");
-        const castLevel = Number(element?.dataset.castLevel) || this.rank;
+        const element = htmlClosest(event.target, "[data-cast-rank]");
+        const castRank = Number(element?.dataset.castRank) || this.rank;
 
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel });
+            const variant = this.loadVariant({ castLevel: castRank });
             if (variant) return variant.rollDamage(event);
         }
 

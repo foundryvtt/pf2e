@@ -313,8 +313,8 @@ declare global {
                 dragstart?: Function;
                 drop?: Function;
             };
-            dragSelector?: string;
-            dropSelector?: string;
+            dragSelector?: Maybe<string>;
+            dropSelector?: Maybe<string>;
         }[];
         /** A default window title string (popOut only) */
         title: string;

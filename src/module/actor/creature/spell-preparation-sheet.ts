@@ -4,6 +4,7 @@ import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
 import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, htmlClosest, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";
 import * as R from "remeda";
@@ -16,6 +17,8 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer = new ItemSummaryRenderer(this);
 
+    item: SpellcastingEntryPF2e<TActor>;
+
     #searchEngine = new MiniSearch<Pick<SpellPF2e<TActor>, "id" | "name">>({
         fields: ["name"],
         idField: "id",
@@ -23,11 +26,9 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         searchOptions: { combineWith: "AND", prefix: true },
     });
 
-    constructor(
-        public item: SpellcastingEntryPF2e<TActor>,
-        options: Partial<ActorSheetOptions>,
-    ) {
+    constructor(item: SpellcastingEntryPF2e<TActor>, options: Partial<ActorSheetOptions>) {
         super(item.actor, options);
+        this.item = item;
     }
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -63,8 +64,8 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 
     override async getData(): Promise<SpellPreparationSheetData<TActor>> {
         this.#searchEngine.removeAll();
-        const entry = await this.item.getSheetData();
-        const spells = Object.values(entry.spellPrepList ?? {})
+        const entry = await this.item.getSheetData({ prepList: true });
+        const spells = Object.values(entry.prepList ?? {})
             .flat()
             .map((s) => R.pick(s.spell, ["id", "name"]));
         this.#searchEngine.addAll(spells);
@@ -72,6 +73,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
         return {
             ...(await super.getData()),
             owner: this.actor.isOwner,
+            maxRank: this.item.highestRank,
             entry,
         };
     }
@@ -181,6 +183,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 interface SpellPreparationSheetData<TActor extends CreaturePF2e> extends ActorSheetData<TActor> {
     owner: boolean;
     entry: SpellcastingSheetData;
+    maxRank: ZeroToTen;
 }
 
 export { SpellPreparationSheet };
