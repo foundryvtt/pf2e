@@ -40,7 +40,7 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
         activateActionSheetListeners(this.item, html);
     }
 
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         return handleSelfEffectDrop(this, event);
     }
 }

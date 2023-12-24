@@ -464,11 +464,11 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     /** Override to allow divvying/outward transfer of items via party member blocks in inventory members sidebar. */
     protected override async _onDropItem(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        const droppedRegion = event.target?.closest<HTMLElement>("[data-region]")?.dataset.region;
-        const targetActor = event.target?.closest<HTMLElement>("[data-actor-uuid]")?.dataset.actorUuid;
+    ): Promise<ItemPF2e[]> {
+        const droppedRegion = htmlClosest(event.target, "[data-region]")?.dataset.region;
+        const targetActor = htmlClosest(event.target, "[data-actor-uuid]")?.dataset.actorUuid;
         if (droppedRegion === "inventoryMembers" && targetActor) {
             const item = await ItemPF2e.fromDropData(data);
             if (!item) return [];
