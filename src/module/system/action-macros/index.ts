@@ -33,7 +33,7 @@ import { tamper } from "./class/inventor/tamper.ts";
 import { craft, repair } from "./crafting/index.ts";
 import { createADiversion } from "./deception/create-a-diversion.ts";
 import { feint } from "./deception/feint.ts";
-import { impersonate } from "./deception/impersonate.ts";
+import * as impersonate from "./deception/impersonate.ts";
 import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
 import { gatherInformation } from "./diplomacy/gather-information.ts";
@@ -106,7 +106,7 @@ export const ActionMacros = {
     // Deception
     createADiversion,
     feint,
-    impersonate,
+    impersonate: impersonate.legacy,
     lie: lie.legacy,
 
     // Diplomacy
@@ -169,6 +169,7 @@ export const SystemActions: Action[] = [
     forceOpen.action,
     hide.action,
     highJump.action,
+    impersonate.action,
     interact,
     leap,
     lie.action,
