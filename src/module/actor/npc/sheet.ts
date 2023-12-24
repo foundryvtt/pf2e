@@ -242,10 +242,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         return super.title;
     }
 
-    override get isLootSheet(): boolean {
-        return this.actor.isLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
-    }
-
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 

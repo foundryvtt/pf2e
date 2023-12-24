@@ -56,10 +56,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         explorationSidebar: "exploration-sidebar.hbs",
     };
 
-    override get isLootSheet(): boolean {
-        return this.actor.canUserModify(game.user, "update");
-    }
-
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         if (game.user.isGM) {

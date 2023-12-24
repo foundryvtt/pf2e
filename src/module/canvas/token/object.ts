@@ -512,9 +512,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    /** Players can view the sheets of lootable NPCs */
+    /** Players can view an actor's sheet if the actor is lootable. */
     protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
-        return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
+        return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
     /** Refresh vision and the `EffectsPanel` */

@@ -54,11 +54,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return creatureIdentificationDCs(this, { pwol });
     }
 
-    get isLootable(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.flags.pf2e.lootable);
-    }
-
     /** A user can see an unlinked NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
         return (
@@ -67,9 +62,14 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         );
     }
 
-    /** Users with limited permission can loot a dead NPC */
+    /** Non-owning users may be able to loot a dead NPC. */
     override canUserModify(user: User, action: UserAction): boolean {
-        return super.canUserModify(user, action) || (action === "update" && this.isLootable);
+        return (
+            super.canUserModify(user, action) ||
+            (action === "update" &&
+                this.isDead &&
+                (this.flags.pf2e.lootable || game.settings.get("pf2e", "automation.lootableNPCs")))
+        );
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
