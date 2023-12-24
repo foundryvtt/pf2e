@@ -76,9 +76,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 
-    /** Can non-owning users loot items from this sheet? */
+    /** Is this sheet one in which the actor is not owned by the user, but the user can still take and deposit items? */
     get isLootSheet(): boolean {
-        return false;
+        return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     override async getData(options: Partial<ActorSheetOptions> = this.options): Promise<ActorSheetDataPF2e<TActor>> {
@@ -903,6 +903,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         return this._handleDroppedItem(event, item, data);
+    }
+
+    /**
+     * Prevent a Foundry permission error from being thrown when a player moves an item from and to the sheet of the
+     * same lootable actor.
+     */
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        return this.actor.isOwner ? super._onSortItem(event, itemData) : [];
     }
 
     /**
