@@ -4,7 +4,7 @@
     "name": "Spell Effect: Sage's Curse (Failure)",
     "system": {
         "description": {
-            "value": "<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>"
+            "value": "<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>\n<p>On a critical failure, the target treats the outcomes of all checks to Recall Knowledge as one degree of success worse than the result the target rolled (a critical success becomes a success, a success becomes a failure, and a failure becomes a critical failure).</p>"
         },
         "duration": {
             "expiry": null,
@@ -43,6 +43,33 @@
                 "key": "RollTwice",
                 "removeAfterRoll": false,
                 "selector": "lore-skill-check"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "Failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "Critical Failure",
+                        "value": "criticalFailure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "sages-curse-result"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse",
+                    "success": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "sages-curse-result:criticalFailure"
+                ],
+                "selector": "skill-check"
             }
         ],
         "start": {
