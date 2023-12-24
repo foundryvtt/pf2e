@@ -13,14 +13,6 @@ import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
-import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
-import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
-import { Migration895FixVariantSpellTraits } from "@module/migration/migrations/895-fix-variant-spell-traits.ts";
-import { Migration896HealingDomains } from "@module/migration/migrations/896-healing-domains.ts";
-import { Migration897ClearLayOnHandsDamage } from "@module/migration/migrations/897-clear-lay-on-hands-damage.ts";
-import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrations/899-armor-shields-to-shield-shields.ts";
-import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
 import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 import { Migration902DuskwoodDawnsilver } from "@module/migration/migrations/902-duskwood-dawnsilver.ts";
 import { Migration903PhysicalNumericData } from "@module/migration/migrations/903-physical-numeric-data.ts";
@@ -32,6 +24,7 @@ import { Migration909RefineConsumableData } from "@module/migration/migrations/9
 import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
 import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
 import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
+import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -41,14 +34,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration890RMClassItemClassDC(),
-    new Migration891DruidicToWildsong(),
-    new Migration894NoLayOnHandsVsUndead(),
-    new Migration895FixVariantSpellTraits(),
-    new Migration896HealingDomains(),
-    new Migration897ClearLayOnHandsDamage(),
-    new Migration899ArmorShieldToShieldShield(),
-    new Migration900ClassSpellcastingProficiency(),
     new Migration901ReorganizeBulkData(),
     new Migration902DuskwoodDawnsilver(),
     new Migration903PhysicalNumericData(),
@@ -60,6 +45,7 @@ const migrations: MigrationBase[] = [
     new Migration910EdictsAnathemaArrays(),
     new Migration911CoinBulk(),
     new Migration912RmFocusTraitFocusCantrips(),
+    new Migration913SpellSustainedText(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
