@@ -901,10 +901,13 @@ class CompendiumBrowser extends Application {
     }
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
-    protected override _onDragStart(event: ElementDragEvent): void {
-        this.element.animate({ opacity: 0.125 }, 250);
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.currentTarget instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
 
-        const item = $(event.currentTarget)[0];
+        this.element.animate({ opacity: 0.125 }, 250);
+        const item = event.currentTarget;
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
@@ -928,9 +931,9 @@ class CompendiumBrowser extends Application {
         );
     }
 
-    protected override _onDragOver(event: ElementDragEvent): void {
+    protected override _onDragOver(event: DragEvent): void {
         super._onDragOver(event);
-        if (event.dataTransfer.types.includes("from-browser")) {
+        if (event.dataTransfer?.types.includes("from-browser")) {
             this.element.css({ pointerEvents: "none" });
         }
     }

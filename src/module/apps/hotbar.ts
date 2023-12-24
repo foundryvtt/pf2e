@@ -6,7 +6,7 @@ import { ErrorPF2e, htmlClosest, isObject, setHasElement } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         const li = htmlClosest(event.target, ".macro");
         const slot = Number(li?.dataset.slot) || null;
         if (!slot) return;

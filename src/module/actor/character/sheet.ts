@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -1324,10 +1323,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -1344,7 +1340,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return super._onDropItem(event, data);
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
+    protected override async _onDrop(event: DragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = ((): Record<string, unknown> | null => {
             try {
@@ -1454,12 +1450,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: DragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<CollectionValue<TActor["items"]>[]>;
-    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id!);
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        const item = this.actor.items.get(itemData._id!);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getFeatSlotData(event);
             if (featSlot) {
@@ -1473,7 +1465,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         }
 
-        return super._onSortItem(event, itemSource);
+        return super._onSortItem(event, itemData);
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

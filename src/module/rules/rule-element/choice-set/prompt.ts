@@ -137,7 +137,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     }
 
     /** Handle a dropped homebrew item */
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");

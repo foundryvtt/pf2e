@@ -26,7 +26,7 @@ declare global {
         permissions: Record<string, DocumentOwnershipLevel>;
 
         /** A set of callback functions for each action of the Drag and Drop workflow */
-        callbacks: Record<DragDropAction, (event: ElementDragEvent) => unknown>;
+        callbacks: Record<DragDropAction, (event: DragEvent) => unknown>;
 
         constructor({ dragSelector, dropSelector, permissions, callbacks }?: DragDropConfiguration);
 
@@ -41,7 +41,7 @@ declare global {
          * @param event  The drag event being handled
          * @param action The action being attempted
          */
-        callback(event: ElementDragEvent, action: DragDropAction): (event: ElementDragEvent) => unknown;
+        callback(event: DragEvent, action: DragDropAction): (event: DragEvent) => unknown;
 
         /**
          * Test whether the current user has permission to perform a step of the workflow
@@ -55,19 +55,19 @@ declare global {
          * Handle the start of a drag workflow
          * @param event The drag event being handled
          */
-        protected _handleDragStart(event: ElementDragEvent): void;
+        protected _handleDragStart(event: DragEvent): void;
 
         /**
          * Handle a dragged element over a droppable target
          * @param event The drag event being handled
          */
-        protected _handleDragOver(event: ElementDragEvent): void;
+        protected _handleDragOver(event: DragEvent): void;
 
         /**
          * Handle a dragged element dropped on a droppable target
          * @param event The drag event being handled
          */
-        protected _handleDrop(event: ElementDragEvent): unknown;
+        protected _handleDrop(event: DragEvent): unknown;
 
         static createDragImage(img: ImageFilePath, width: number, height: number): HTMLDivElement;
     }
@@ -83,7 +83,7 @@ declare global {
         permissions?: Record<string, DocumentOwnershipLevel>;
 
         /** A set of callback functions for each action of the Drag and Drop workflow */
-        callbacks?: Partial<Record<DragDropAction, (event: ElementDragEvent) => unknown>>;
+        callbacks?: Partial<Record<DragDropAction, (event: DragEvent) => unknown>>;
     }
 }
 

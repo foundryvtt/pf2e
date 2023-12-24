@@ -130,7 +130,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         }
     }
 
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         if (!this.isEditable) return;
 
         const item = await (async (): Promise<ItemPF2e | null> => {

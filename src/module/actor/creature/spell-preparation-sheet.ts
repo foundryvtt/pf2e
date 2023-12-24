@@ -12,7 +12,7 @@ import * as R from "remeda";
  * Sheet used to render the the spell list for prepared casting.
  * It overrides the actor sheet to inherit important drag/drop behavior for actor items (the spells).
  */
-class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TActor> {
+class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TActor, ItemPF2e> {
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer = new ItemSummaryRenderer(this);
 
@@ -158,11 +158,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
     }
 
     /** Allow transferring spells between open windows */
-    protected override async _onSortItem(
-        event: DragEvent,
-        itemData: ItemSourcePF2e,
-    ): Promise<CollectionValue<TActor["items"]>[]>;
-    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (itemData.type !== "spell") return [];
 
         const spell = this.actor.items.get(itemData._id!);

@@ -354,14 +354,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super._updateObject(event, formData);
     }
 
-    protected override _onDragStart(event: ElementDragEvent): void {
-        const id = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
-        event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
+    protected override _onDragStart(event: DragEvent): void {
+        const id = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
+        event.dataTransfer?.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
-        const transferString = event.dataTransfer.getData("text/plain");
+        const transferString = event.dataTransfer?.getData("text/plain");
         if (!transferString) return;
 
         const { action, data } = (JSON.parse(transferString) ?? {}) as { action?: string; data?: { sourceId: string } };
@@ -370,7 +370,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             case "sort": {
                 // Sort spell variants
                 const sourceId = data?.sourceId ?? "";
-                const targetId = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
+                const targetId = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
                 if (sourceId && targetId && sourceId !== targetId) {
                     const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
                     const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });

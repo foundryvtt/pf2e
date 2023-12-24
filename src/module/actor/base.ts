@@ -1528,6 +1528,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Can a user loot this actor? Same as update modification permission but overridable by subclasses */
     isLootableBy(user: UserPF2e): boolean {
         return this.canUserModify(user, "update");
     }

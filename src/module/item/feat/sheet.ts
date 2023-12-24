@@ -174,7 +174,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         htmlQuery(html, "a[data-action=add-proficiencies")?.addEventListener("click", () => {});
     }
 
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         return handleSelfEffectDrop(this, event);
     }
 

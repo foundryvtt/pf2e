@@ -359,18 +359,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
-    protected override async _onSortItem(
-        event: DragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<CollectionValue<TActor["items"]>[]>;
-    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const dropItemEl = htmlClosest(event.target, ".item");
         const dropContainerEl = htmlClosest(event.target, ".item-container");
 
         const dropSlotType = dropItemEl?.dataset.itemType;
         const dropContainerType = dropContainerEl?.dataset.containerType;
 
-        const item = this.actor.items.get(itemSource._id!);
+        const item = this.actor.items.get(itemData._id!);
         if (!item) return [];
 
         // if they are dragging onto another spell, it's just sorting the spells
@@ -447,7 +443,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         }
 
-        return super._onSortItem(event, itemSource);
+        return super._onSortItem(event, itemData);
     }
 
     /** Handle dragging spells onto spell slots. */

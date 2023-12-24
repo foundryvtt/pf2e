@@ -571,10 +571,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -593,11 +590,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: ElementDragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<ItemPF2e<PartyPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id!);
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        const item = this.actor.items.get(itemData._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
             const featSlot = this.#getFeatSlotData(event);
             if (!featSlot) return [];
@@ -611,11 +605,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             }
         }
 
-        return super._onSortItem(event, itemSource);
+        return super._onSortItem(event, itemData);
     }
 
     protected override async _onDropActor(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasData<"Actor", PartyPF2e>,
     ): Promise<false | void> {
         await super._onDropActor(event, data);
@@ -629,9 +623,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
-        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
-        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+    #getFeatSlotData(event: DragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = htmlClosest(event.target, "[data-group-id]")?.dataset.groupId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
         return typeof groupId === "string" ? { slotId, groupId } : null;
     }
 

@@ -81,7 +81,7 @@ interface SelfEffectSheetReference extends SelfEffectReference {
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */
-async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: ElementDragEvent): Promise<void> {
+async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: DragEvent): Promise<void> {
     if (!sheet.isEditable || sheet.item.system.actionType.value === "passive") {
         return;
     }
