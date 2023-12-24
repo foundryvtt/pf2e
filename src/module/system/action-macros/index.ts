@@ -32,7 +32,7 @@ import { takeCover } from "./basic/take-cover.ts";
 import { tamper } from "./class/inventor/tamper.ts";
 import { craft, repair } from "./crafting/index.ts";
 import { createADiversion } from "./deception/create-a-diversion.ts";
-import { feint } from "./deception/feint.ts";
+import * as feint from "./deception/feint.ts";
 import * as impersonate from "./deception/impersonate.ts";
 import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
@@ -105,7 +105,7 @@ export const ActionMacros = {
 
     // Deception
     createADiversion,
-    feint,
+    feint: feint.legacy,
     impersonate: impersonate.legacy,
     lie: lie.legacy,
 
@@ -166,6 +166,7 @@ export const SystemActions: Action[] = [
     disableDevice.action,
     dropProne,
     escape.action,
+    feint.action,
     forceOpen.action,
     hide.action,
     highJump.action,
