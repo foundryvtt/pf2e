@@ -1,16 +1,16 @@
 {
-    "_id": "DAAtzP2QYmCzSNXk",
+    "_id": "6SAUuqvptTeXtyfH",
     "img": "systems/pf2e/icons/spells/savants-curse.webp",
-    "name": "Spell Effect: Sage's Curse (Failure)",
+    "name": "Spell Effect: Sage's Curse (Success)",
     "system": {
         "description": {
             "value": "<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
             "value": 1
@@ -18,7 +18,7 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Abomination Vaults Adventure Path"
+            "title": "Abomination Vaults Adventure Path"
         },
         "rules": [
             {
@@ -43,33 +43,6 @@
                 "key": "RollTwice",
                 "removeAfterRoll": false,
                 "selector": "lore-skill-check"
-            },
-            {
-                "choices": [
-                    {
-                        "label": "Failure",
-                        "value": "failure"
-                    },
-                    {
-                        "label": "Critical Failure",
-                        "value": "criticalFailure"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "rollOption": "sages-curse-result"
-            },
-            {
-                "adjustment": {
-                    "criticalSuccess": "one-degree-worse",
-                    "failure": "one-degree-worse",
-                    "success": "one-degree-worse"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "predicate": [
-                    "action:recall-knowledge",
-                    "sages-curse-result:criticalFailure"
-                ],
-                "selector": "skill-check"
             }
         ],
         "start": {
