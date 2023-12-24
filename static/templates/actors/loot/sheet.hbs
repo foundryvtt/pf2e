@@ -13,7 +13,7 @@
                 <h1 class="charname">{{actor.name}}</h1>
             {{/if}}
             <section class="sheet-type tags">
-                {{#if user.isGM}}
+                {{#if owner}}
                     <i
                         class="fa-solid fa-info-circle"
                         data-tooltip="<div>{{localize "PF2E.loot.LootLabel"}}: {{localize "PF2E.loot.LootDescription"}}</div><div>{{localize "PF2E.loot.MerchantLabel"}}: {{localize "PF2E.loot.MerchantDescription"}}</div>"
@@ -27,7 +27,7 @@
                         {{/select}}
                     </select>
                 {{else}}
-                    <span class="trait">{{data.lootSheetType}}</span>
+                    <span class="tag">{{data.lootSheetType}}</span>
                 {{/if}}
             </section>
         </div>
