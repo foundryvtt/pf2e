@@ -50,7 +50,7 @@ import * as administerFirstAid from "./medicine/administer-first-aid.ts";
 import * as treatDisease from "./medicine/treat-disease.ts";
 import * as treatPoison from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
-import { perform } from "./performance/perform.ts";
+import * as perform from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
@@ -132,7 +132,7 @@ export const ActionMacros = {
     commandAnAnimal: commandAnAnimal.legacy,
 
     // Performance
-    perform,
+    perform: perform.legacy,
 
     // Society
     createForgery: createForgery.legacy,
@@ -177,6 +177,7 @@ export const SystemActions: Action[] = [
     longJump.action,
     maneuverInFlight.action,
     palmAnObject.action,
+    perform.action,
     pickALock.action,
     ready,
     release,
