@@ -31,7 +31,7 @@ import { stride } from "./basic/stride.ts";
 import { takeCover } from "./basic/take-cover.ts";
 import { tamper } from "./class/inventor/tamper.ts";
 import { craft, repair } from "./crafting/index.ts";
-import { createADiversion } from "./deception/create-a-diversion.ts";
+import * as createADiversion from "./deception/create-a-diversion.ts";
 import * as feint from "./deception/feint.ts";
 import * as impersonate from "./deception/impersonate.ts";
 import * as lie from "./deception/lie.ts";
@@ -104,7 +104,7 @@ export const ActionMacros = {
     repair,
 
     // Deception
-    createADiversion,
+    createADiversion: createADiversion.legacy,
     feint: feint.legacy,
     impersonate: impersonate.legacy,
     lie: lie.legacy,
@@ -159,6 +159,7 @@ export const SystemActions: Action[] = [
     commandAnAnimal.action,
     concealAnObject.action,
     crawl,
+    createADiversion.action,
     createForgery.action,
     decipherWriting.action,
     delay,
