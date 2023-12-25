@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
+import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
@@ -8,7 +8,14 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
+import {
+    AdjustedValue,
+    SheetOption,
+    SheetOptions,
+    createSheetTags,
+    getAdjustedValue,
+    getAdjustment,
+} from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -195,6 +202,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 value: trait,
                 selected: false, // selected is handled without re-render
             })),
+            armies: await this.#prepareArmies(),
             settlements: await Promise.all(
                 settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
@@ -208,6 +216,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             abilityLabels: KINGDOM_ABILITY_LABELS,
             skillLabels: KINGDOM_SKILL_LABELS,
         };
+    }
+
+    async #prepareArmies(): Promise<ArmySheetData[]> {
+        const data = this.kingdom.armies.map(async (a) => ({
+            document: a,
+            link: await TextEditor.enrichHTML(a.link, { async: true }),
+            consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
+                better: "lower",
+            }),
+        }));
+
+        const dataResolved = await Promise.all(data);
+        return dataResolved.sort((a, b) => a.document.name.localeCompare(b.document.name));
     }
 
     async #prepareSettlement(id: string, settlement: KingdomSettlementData): Promise<SettlementSheetData> {
@@ -677,12 +698,19 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOption[];
+    armies: ArmySheetData[];
     settlements: SettlementSheetData[];
     eventText: string;
 
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+}
+
+interface ArmySheetData {
+    link: string;
+    document: ArmyPF2e;
+    consumption: AdjustedValue;
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {
