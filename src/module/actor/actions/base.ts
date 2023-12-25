@@ -145,21 +145,21 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         const variants = this.variants;
         if (options?.variant && !variants.size) {
             const reason = game.i18n.format("PF2E.ActionsWarning.Variants.None", {
-                action: this.name,
+                action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
             return Promise.reject(reason);
         }
         if (!options?.variant && variants.size > 1) {
             const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
-                action: this.name,
+                action: game.i18n.localize(this.name),
             });
             return Promise.reject(reason);
         }
         const variant = variants.get(options?.variant ?? "");
         if (options?.variant && !variant) {
             const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Nonexisting", {
-                action: this.name,
+                action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
             return Promise.reject(reason);
