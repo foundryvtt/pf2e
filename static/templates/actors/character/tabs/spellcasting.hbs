@@ -1,6 +1,6 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
     <ol class="spellcastingEntry-list directory-list" data-foundry-list>
-        {{#each spellcastingEntries as |entry eid|}}
+        {{#each spellcastingEntries as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
                     {{#unless entry.isRitual}}
@@ -10,15 +10,19 @@
                     <h3 class="item-name">
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
                     </h3>
-                    {{#if @root.options.editable}}
+                    {{#if @root.editable}}
                         <div class="item-controls" data-tooltip-class="pf2e">
                             {{#if entry.isFocusPool}}
-                                <a data-action="browse-spells" data-tooltip="PF2E.OpenSpellBrowserTitle"
-                                    data-location="{{entry.id}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                                <a
+                                    data-action="browse-spells"
+                                    data-tooltip="PF2E.OpenSpellBrowserTitle"
+                                    data-location="{{entry.id}}"
+                                    data-rank="{{entry.highestRank}}"
+                                ><i class="fa-solid fa-fw fa-search"></i></a>
                             {{/if}}
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
                                 <a data-action="toggle-show-slotless-ranks" data-tooltip="PF2E.ToggleSlotlessSpellLevelsTitle">
-                                    <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
+                                    <i class="{{#if entry.showSlotlessRanks}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}

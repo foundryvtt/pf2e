@@ -169,9 +169,9 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             category: "items",
             hasCollection: false,
             sort: 0,
-            levels: [],
+            groups: [],
             usesSpellProficiency: false,
-            spellPrepList: null,
+            prepList: null,
         };
     }
 }

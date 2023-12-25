@@ -23,8 +23,8 @@
 
     <section class="sheet-content">
         <ol class="spell-list">
-            {{#unless entry.spellPrepList}}
-                {{#if @root.options.editable}}
+            {{#unless entry.prepList}}
+                {{#if @root.editable}}
                     <li class="spellbook-header spellbook-empty">
                         <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                         <a
@@ -41,8 +41,8 @@
                     </li>
                 {{/if}}
             {{/unless}}
-            {{#each entry.spellPrepList as |spells rank|}}
-                {{#if spells}}
+            {{#each entry.prepList as |spells rank|}}
+                {{#if (lte rank @root.maxRank)}}
                     <li class="header-row">
                         <div class="item-name flexrow">
                             <h3>
@@ -55,14 +55,14 @@
                         </div>
 
                         <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <div class="item-controls">
                                 <a
                                     class="control"
                                     data-action="create-spell"
                                     data-tooltip="PF2E.CreateSpellTitle"
                                     data-type="spell"
-                                    data-level="{{rank}}"
+                                    data-group-id="{{#if (eq rank "0")}}cantrips{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-plus fa-fw"></i></a>
                                 <a
@@ -70,7 +70,7 @@
                                     data-action="browse-spells"
                                     data-tooltip="PF2E.OpenSpellBrowserTitle"
                                     data-category="{{#if (eq rank "0")}}cantrip{{else}}spell{{/if}}"
-                                    data-rank="{{#if (eq rank "0")}}10{{else}}{{rank}}{{/if}}"
+                                    data-rank="{{#if (eq rank "0")}}1{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-search fa-fw"></i></a>
                             </div>

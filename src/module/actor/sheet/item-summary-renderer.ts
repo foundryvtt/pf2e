@@ -32,7 +32,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             const container = htmlQuery(element, ".item-summary");
             if (container?.hasChildNodes()) return container;
             if (!container || !(item instanceof ItemPF2e)) return null;
-            const chatData = await item.getChatData({ secrets: item.isOwner }, element.dataset);
+            const chatData = await item.getChatData({ secrets: item.isOwner }, { ...element.dataset });
             await this.renderItemSummary(container, item, chatData);
             InlineRollLinks.listen(container, item);
             return container;
