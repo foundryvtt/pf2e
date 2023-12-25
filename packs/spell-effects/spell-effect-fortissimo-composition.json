@@ -1,0 +1,117 @@
+{
+    "_id": "Vsx7g6up0cuPeIIF",
+    "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
+    "name": "Spell Effect: Fortissimo Composition",
+    "system": {
+        "description": {
+            "value": "<p>The status bonus from your composition increases to +2 on a success or +3 on a critical success.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Critical Success",
+                        "value": 3
+                    },
+                    {
+                        "label": "Success",
+                        "value": 2
+                    }
+                ],
+                "flag": "performanceResult",
+                "key": "ChoiceSet",
+                "prompt": "Select your Performance result"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "Courageous Anthem",
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Courageous Anthem"
+                    },
+                    {
+                        "label": "Rallying Anthem",
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Rallying Anthem"
+                    },
+                    {
+                        "label": "Song of Strength",
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Song of Strength"
+                    }
+                ],
+                "flag": "composition",
+                "key": "ChoiceSet",
+                "prompt": "Select a composition",
+                "rollOption": "fortissimo-composition"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.composition}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "fortissimo-composition:spell-effect-courageous-anthem"
+                ],
+                "selectors": [
+                    "attack-roll",
+                    "damage",
+                    "saving-throw"
+                ],
+                "slug": "courageous-anthem",
+                "value": "{item|flags.pf2e.rulesSelections.performanceResult}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "fortissimo-composition:spell-effect-rallying-anthem"
+                ],
+                "selectors": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "slug": "rallying-anthem",
+                "value": "{item|flags.pf2e.rulesSelections.performanceResult}"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "fortissimo-composition:spell-effect-song-of-strength"
+                ],
+                "selectors": [
+                    "athletics",
+                    "fortitude",
+                    "reflex"
+                ],
+                "slug": "song-of-strength",
+                "value": "{item|flags.pf2e.rulesSelections.performanceResult}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
