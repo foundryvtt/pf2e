@@ -7,7 +7,7 @@ import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
 import { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
-import { coerceToSlotGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
+import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
@@ -277,7 +277,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         // Empty spell slot
         handlers["unprepare-spell"] = (event) => {
             const row = htmlClosest(event.target, "[data-item-id]");
-            const groupId = coerceToSlotGroupId(row?.dataset.groupId);
+            const groupId = coerceToSpellGroupId(row?.dataset.groupId);
             if (!groupId) throw ErrorPF2e("Unexpected slot group ID");
 
             const slotId = Number(row?.dataset.slotId) || 0;
@@ -286,10 +286,10 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             collection?.unprepareSpell(groupId, slotId);
         };
 
-        // Set Expended Status of Spell Slot
+        // Set expended state of a spell slot
         handlers["toggle-slot-expended"] = (event) => {
             const row = htmlClosest(event.target, "[data-item-id]");
-            const groupId = coerceToSlotGroupId(row?.dataset.groupId);
+            const groupId = coerceToSpellGroupId(row?.dataset.groupId);
             if (!groupId) throw ErrorPF2e("Unexpected error toggling expended state");
 
             const slotId = Number(row?.dataset.slotId) || 0;
@@ -307,7 +307,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             spell.update({ "system.location.signature": !spell.system.location.signature });
         };
 
-        // Toggle showing slotless ranks
         handlers["toggle-show-slotless-ranks"] = async (event) => {
             const collectionId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
             const spellcastingEntry = this.actor.items.get(collectionId, { strict: true });
@@ -384,7 +383,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (!(dropItemEl && dropContainerEl)) return [];
             const entryId = dropContainerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-            const groupId = coerceToSlotGroupId(dropItemEl.dataset.groupId);
+            const groupId = coerceToSpellGroupId(dropItemEl.dataset.groupId);
 
             if (dropSlotType === "spell-slot-group") {
                 const spell = await collection.addSpell(item, { groupId });
@@ -465,7 +464,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             this.#openSpellPreparation(collection.id);
-            const groupId = coerceToSlotGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
+            const groupId = coerceToSpellGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
 
             return [(await collection.addSpell(item, { groupId })) ?? []].flat();
         }

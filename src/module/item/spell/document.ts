@@ -221,15 +221,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return Math.max(this.baseRank, slotNumber ?? this.rank) as OneToTen;
     }
 
-    override getRollData(
-        rollOptions: { castLevel?: number | string } = {},
-    ): NonNullable<EnrichmentOptions["rollData"]> {
-        const spellLevel = Number(rollOptions?.castLevel) || null;
-        const castLevel = Math.max(this.baseRank, spellLevel || this.rank);
+    override getRollData(rollOptions: { castRank?: number | string } = {}): NonNullable<EnrichmentOptions["rollData"]> {
+        const spellRank = Number(rollOptions?.castRank) || null;
+        const castRank = Math.max(this.baseRank, spellRank || this.rank);
 
         // If we need to heighten it, clone it and return its roll data instead
-        if (spellLevel && castLevel !== this.rank) {
-            const heightenedSpell = this.clone({ "system.location.heightenedLevel": castLevel });
+        if (spellRank && castRank !== this.rank) {
+            const heightenedSpell = this.clone({ "system.location.heightenedLevel": castRank });
             return heightenedSpell.getRollData();
         }
 
@@ -237,8 +235,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (this.actor?.isOfType("character", "npc")) {
             rollData["mod"] = this.actor.abilities[this.attribute].mod;
         }
-        rollData["castLevel"] = castLevel;
-        rollData["heighten"] = Math.max(0, castLevel - this.baseRank);
+        rollData["castRank"] = castRank;
+        rollData["heighten"] = Math.max(0, castRank - this.baseRank);
 
         return rollData;
     }
@@ -250,8 +248,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return null;
         }
 
-        const castLevel = this.rank;
-        const rollData = this.getRollData({ castLevel });
+        const castRank = this.rank;
+        const rollData = this.getRollData({ castRank });
 
         // Loop over the user defined damage fields
         const base: BaseDamageData[] = [];
@@ -267,7 +265,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {
                 const scalingFormula = heightening.damage[id];
-                const partCount = Math.floor((castLevel - this.baseRank) / heightening.interval);
+                const partCount = Math.floor((castRank - this.baseRank) / heightening.interval);
                 if (scalingFormula && partCount > 0) {
                     const scalingTerms = parseTermsFromSimpleFormula(scalingFormula, { rollData });
                     for (let i = 0; i < partCount; i++) {
@@ -402,20 +400,20 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(options: { castLevel?: number; overlayIds?: string[] } = {}): SpellPF2e<NonNullable<TParent>> | null {
+    loadVariant(options: { castRank?: number; overlayIds?: string[] } = {}): SpellPF2e<NonNullable<TParent>> | null {
         if (this.original) {
             return this.original.loadVariant(options);
         }
-        const { castLevel, overlayIds } = options;
+        const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
-        const heightenEntries = this.getHeightenLayers(castLevel);
+        const heightenEntries = this.getHeightenLayers(castRank);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const overrides = (() => {
             // If there are no overlays, only return an override if this is a simple heighten
             if (!heightenEntries.length && !overlays.length) {
-                if (castLevel !== this.rank) {
-                    return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
+                if (castRank !== this.rank) {
+                    return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castRank } } });
                 } else {
                     return null;
                 }
@@ -450,8 +448,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
             // Set the spell as heightened if necessary (either up or down)
             const currentRank = source.system.location.heightenedLevel ?? source.system.level.value;
-            if (castLevel && castLevel !== currentRank) {
-                source.system.location.heightenedLevel = castLevel;
+            if (castRank && castRank !== currentRank) {
+                source.system.location.heightenedLevel = castRank;
             }
 
             source._id = this.id;
@@ -684,7 +682,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override async toMessage(
-        event?: MouseEvent | JQuery.TriggeredEvent,
+        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
         { create = true, data, rollMode }: SpellToMessageOptions = {},
     ): Promise<ChatMessagePF2e | undefined> {
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
@@ -694,9 +692,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const castData = fu.mergeObject(data ?? {}, domData ?? {});
 
         // If this is for a higher level spell, heighten it first
-        const castLevel = Number(castData.castLevel ?? "");
-        if (castLevel && castLevel !== this.rank) {
-            return this.loadVariant({ castLevel })?.toMessage(event, { create, data, rollMode });
+        if ("castLevel" in castData && !castData.castRank) {
+            const sinceUntil = { since: "5.12.0", until: "6.0.0" };
+            fu.logCompatibilityWarning("`data.castLevel` is deprecated: use `data.castRank` instead.", sinceUntil);
+            castData.castRank = Number(castData.castLevel ?? NaN);
+        }
+        const castRank = Number(castData.castRank ?? "");
+        if (castRank && castRank !== this.rank) {
+            return this.loadVariant({ castRank })?.toMessage(event, { create, data, rollMode });
         }
 
         const message = await super.toMessage(event, { create: false, data: castData, rollMode });
@@ -745,7 +748,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel: castRank });
+            const variant = this.loadVariant({ castRank });
             if (variant) return variant.getChatData(htmlOptions, rollOptions);
         }
 
@@ -758,7 +761,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             )
             .sort((a, b) => a.sort - b.sort);
 
-        const rollData = htmlOptions.rollData ?? this.getRollData({ castLevel: castRank });
+        const rollData = htmlOptions.rollData ?? this.getRollData({ castRank });
         rollData.item ??= this;
 
         const systemData: SpellSystemData = this.system;
@@ -893,7 +896,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel: castRank });
+            const variant = this.loadVariant({ castRank });
             if (variant) return variant.rollDamage(event);
         }
 
@@ -970,7 +973,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override getOriginData(): ItemOriginFlag {
         const flag = super.getOriginData();
-        flag.castLevel = this.rank;
+        flag.castRank = this.rank;
         if (this.isVariant && this.appliedOverlays) {
             flag.variant = { overlays: [...this.appliedOverlays.values()] };
         }
@@ -1119,7 +1122,7 @@ interface SpellVariantChatData {
 interface SpellToMessageOptions {
     create?: boolean;
     rollMode?: RollMode;
-    data?: { castLevel?: number };
+    data?: { castRank?: number };
 }
 
 interface SpellDamageOptions {

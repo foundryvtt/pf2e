@@ -149,12 +149,12 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
         const { rollMode, message } = options;
-        const castLevel = spell.computeCastRank(spell.rank);
+        const castRank = spell.computeCastRank(spell.rank);
         if (message === false) return;
 
         try {
             spell.trickMagicEntry = this;
-            await spell.toMessage(undefined, { rollMode, data: { castLevel } });
+            await spell.toMessage(null, { rollMode, data: { castRank } });
         } finally {
             spell.trickMagicEntry = null;
         }

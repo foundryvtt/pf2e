@@ -10,10 +10,10 @@ function spellSlotGroupIdToNumber(groupId: Maybe<string | number>): ZeroToTen | 
 }
 
 /** Try to coerce some value (typically from user input) to a slot group ID */
-function coerceToSlotGroupId(value: unknown): SpellSlotGroupId | null {
+function coerceToSpellGroupId(value: unknown): SpellSlotGroupId | null {
     if (value === "cantrips") return value;
     const numericValue = Number(value) || NaN;
     return numericValue.between(1, 10) ? (numericValue as OneToTen) : null;
 }
 
-export { coerceToSlotGroupId, spellSlotGroupIdToNumber };
+export { coerceToSpellGroupId, spellSlotGroupIdToNumber };

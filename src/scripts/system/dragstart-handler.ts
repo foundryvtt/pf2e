@@ -21,10 +21,10 @@ export function extendDragData(): void {
             const match = name.match(/[0-9]+/);
             if (match) data.value = Number(match[0]);
 
-            // Detect spell level of containing element, if available
-            const containerElement = htmlClosest(target, "[data-cast-level]");
-            const castLevel = Number(containerElement?.dataset.castLevel);
-            if (castLevel > 0) data.level = castLevel;
+            // Detect spell rank of containing element, if available
+            const containerElement = htmlClosest(target, "[data-cast-rank]");
+            const castRank = Number(containerElement?.dataset.castRank);
+            if (castRank > 0) data.level = castRank;
 
             const messageId = htmlClosest(target, "li.chat-message")?.dataset.messageId;
             const message = game.messages.get(messageId ?? "");

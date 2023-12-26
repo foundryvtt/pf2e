@@ -120,14 +120,14 @@ class ChatCards {
                     return;
                 }
                 case "spell-variant": {
-                    const castLevel = Number(htmlQuery(html, "div.chat-card")?.dataset.castLevel) || 1;
+                    const castRank = Number(htmlQuery(html, "div.chat-card")?.dataset.castRank) || 1;
                     const overlayIds = button.dataset.overlayIds?.split(",").map((id) => id.trim());
                     if (overlayIds) {
-                        const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
+                        const variantSpell = spell?.loadVariant({ overlayIds, castRank });
                         if (variantSpell) {
-                            const variantMessage = await variantSpell.toMessage(undefined, {
+                            const variantMessage = await variantSpell.toMessage(null, {
                                 create: false,
-                                data: { castLevel },
+                                data: { castRank },
                             });
                             if (variantMessage) {
                                 const messageSource = variantMessage.toObject();
@@ -136,9 +136,9 @@ class ChatCards {
                         }
                     } else if (spell) {
                         const originalSpell = spell?.original ?? spell;
-                        const originalMessage = await originalSpell.toMessage(undefined, {
+                        const originalMessage = await originalSpell.toMessage(null, {
                             create: false,
-                            data: { castLevel },
+                            data: { castRank },
                         });
                         if (originalMessage) {
                             await message.update(originalMessage.toObject());
