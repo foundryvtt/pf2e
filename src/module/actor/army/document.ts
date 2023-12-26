@@ -55,6 +55,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ARMY_STATS.maxTactics[this.level];
     }
 
+    override prepareData(): void {
+        super.prepareData();
+        this.kingdom?.notifyUpdate();
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -432,6 +437,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         }
 
         return super._preUpdate(changed, options, user);
+    }
+
+    override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+        this.kingdom?.reset();
     }
 }
 
