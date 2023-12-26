@@ -90,8 +90,8 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED
  * @category Actor
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
-    /** Has this actor completed construction? */
-    constructed = true;
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
 
     /** A UUIDv5 hash digest of the foundry UUID */
     declare signature: string;
@@ -629,8 +629,24 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, context);
     }
 
+    /** Set module art if available */
+    protected override _initializeSource(
+        source: Record<string, unknown>,
+        options?: DocumentConstructionContext<TParent>,
+    ): this["_source"] {
+        const initialized = super._initializeSource(source, options);
+
+        if (options?.pack && initialized._id) {
+            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
+            return fu.mergeObject(initialized, art);
+        }
+
+        return initialized;
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.constructed ??= false;
+        this.initialized = false;
         this._itemTypes = null;
         this.rules = [];
         this.initiative = null;
@@ -680,27 +696,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /** Set module art if available */
-    protected override _initializeSource(
-        source: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>,
-    ): this["_source"] {
-        const initialized = super._initializeSource(source, options);
-
-        if (options?.pack && initialized._id) {
-            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
-            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
-            return fu.mergeObject(initialized, art);
-        }
-
-        return initialized;
-    }
-
-    /** Prepare token data derived from this actor, refresh Effects Panel */
+    /**
+     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
+     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     */
     override prepareData(): void {
+        if (this.initialized) return;
+
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
         this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
 
+        if (this.parent && !this.parent.initialized) return;
+        this.initialized = true;
         super.prepareData();
 
         // Split spellcasting entry into those that extend a magic tradition and those that don't.
@@ -729,7 +736,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.preparePrototypeToken();
-        if (this.constructed && canvas.ready) {
+        if (this.initialized && canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
             const thisTokenIsControlled = canvas.tokens.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this),
@@ -772,11 +779,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
-        // Perform full reset instead of upstream's double data preparation
-        // See https://github.com/foundryvtt/foundryvtt/issues/7987
-        for (const item of this.items) {
-            item.reset();
-        }
+        super.prepareEmbeddedDocuments();
 
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);

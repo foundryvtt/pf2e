@@ -13,8 +13,8 @@ import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
-    /** Has this token gone through at least one cycle of data preparation? */
-    private constructed = true;
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
 
     declare auras: Map<string, TokenAura>;
 
@@ -173,37 +173,30 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.constructed ??= false;
+        this.initialized = false;
         this.auras = new Map();
         super._initialize(options);
     }
 
     /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
     override prepareData(): void {
-        if (this.parent && !this.parent.flags?.pf2e) return;
-
-        super.prepareData();
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
     }
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
-        super.prepareBaseData();
+        const { actor, scene } = this;
+        if (!actor || !scene) return;
 
         this.flags = fu.mergeObject(this.flags, { pf2e: {} });
-        this.auras.clear();
-
-        if (!this.actor || !this.isEmbedded) return;
-
         TokenDocumentPF2e.assignDefaultImage(this);
 
-        for (const [key, data] of this.actor.auras.entries()) {
-            this.auras.set(key, new TokenAura({ token: this, ...fu.deepClone(data) }));
-        }
-
-        if (!this.constructed) return;
-
         // Dimensions and scale
-        const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type);
+        const linkDefault = SIZE_LINKABLE_ACTOR_TYPES.has(actor.type);
         const linkToActorSize = this.flags.pf2e?.linkToActorSize ?? linkDefault;
 
         const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
@@ -211,8 +204,18 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
+        // Token dimensions from actor size
+        TokenDocumentPF2e.prepareSize(this);
+
+        const tokenOverrides = actor.synthetics.tokenOverrides;
+        if (tokenOverrides.light) {
+            this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
+        }
+
+        super.prepareBaseData();
+
         // Alliance coloration, appropriating core token dispositions
-        const { alliance } = this.actor.system.details;
+        const alliance = actor.system.details.alliance;
         this.disposition =
             this.disposition === CONST.TOKEN_DISPOSITIONS.SECRET
                 ? CONST.TOKEN_DISPOSITIONS.SECRET
@@ -222,16 +225,23 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                         opposition: CONST.TOKEN_DISPOSITIONS.HOSTILE,
                     }[alliance]
                   : CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+
+        for (const [key, data] of actor.auras.entries()) {
+            this.auras.set(key, new TokenAura({ token: this, ...fu.deepClone(data) }));
+        }
     }
 
-    /** Reset sight defaults if using rules-based vision */
+    /** Set vision and detection modes based on actor data */
     protected override _prepareDetectionModes(): void {
-        if (!(this.constructed && this.actor && this.rulesBasedVision)) {
+        const scene = this.parent;
+        const actor = this.actor;
+        if (!(scene && actor && this.rulesBasedVision)) {
             return super._prepareDetectionModes();
         }
 
+        // Reset sight defaults if using rules-based vision
         this.detectionModes = [{ id: "basicSight", enabled: true, range: 0 }];
-        if (["character", "familiar"].includes(this.actor.type)) {
+        if (["character", "familiar"].includes(actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
@@ -239,14 +249,54 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
         }
+
+        const visionMode = this.hasDarkvision ? "darkvision" : "basic";
+        this.sight.visionMode = visionMode;
+        const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
+        this.sight.brightness = defaults.brightness ?? 0;
+        this.sight.saturation = defaults.saturation ?? 0;
+
+        if (visionMode === "darkvision" || scene.lightLevel > LightLevels.DARKNESS) {
+            const basicDetection = this.detectionModes.at(0);
+            if (!basicDetection) return;
+            this.sight.range = basicDetection.range = defaults.range ?? 0;
+
+            if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
+                this.sight.saturation = 1;
+            } else if (!game.user.settings.monochromeDarkvision) {
+                this.sight.saturation = 0;
+            }
+        }
+
+        const maxRadius = canvas.dimensions?.maxR ?? 0;
+        const canSeeInvisibility =
+            actor.isOfType("character", "familiar") &&
+            actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
+        if (canSeeInvisibility) {
+            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
+        }
+
+        const tremorsense = actor.isOfType("character")
+            ? actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
+            : null;
+        if (tremorsense) {
+            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+        }
+
+        if (!actor.hasCondition("deafened")) {
+            const range = scene.flags.pf2e.hearingRange ?? maxRadius;
+            this.detectionModes.push({ id: "hearing", enabled: true, range });
+        }
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!(this.constructed && this.actor && this.scene)) return;
+        const scene = this.parent;
+        const actor = this.actor;
+        if (!(scene && actor)) return;
 
         // Merge token overrides from REs into this document
-        const { tokenOverrides } = this.actor.synthetics;
+        const tokenOverrides = actor.synthetics.tokenOverrides;
         this.name = tokenOverrides.name ?? this.name;
 
         if (tokenOverrides.texture) {
@@ -260,60 +310,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         this.alpha = tokenOverrides.alpha ?? this.alpha;
-
-        if (tokenOverrides.light) {
-            this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
-        }
-
-        // Token dimensions from actor size
-        TokenDocumentPF2e.prepareSize(this);
-
-        // Set vision and detection modes
-        this.#prepareDerivedPerception();
-    }
-
-    /** Set vision and detection modes based on actor data */
-    #prepareDerivedPerception(): void {
-        if (!(this.rulesBasedVision && this.actor && this.scene && this.sight.enabled)) {
-            return;
-        }
-
-        const visionMode = this.hasDarkvision ? "darkvision" : "basic";
-        this.sight.visionMode = visionMode;
-        const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
-        this.sight.brightness = defaults.brightness ?? 0;
-        this.sight.saturation = defaults.saturation ?? 0;
-
-        if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
-            const basicDetection = this.detectionModes.at(0);
-            if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range ?? 0;
-
-            if (this.actor.isOfType("character") && this.actor.flags.pf2e.colorDarkvision) {
-                this.sight.saturation = 1;
-            } else if (!game.user.settings.monochromeDarkvision) {
-                this.sight.saturation = 0;
-            }
-        }
-
-        const canSeeInvisibility =
-            this.actor.isOfType("character", "familiar") &&
-            this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
-        if (canSeeInvisibility) {
-            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
-        }
-
-        const tremorsense = this.actor.isOfType("character")
-            ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
-            : null;
-        if (tremorsense) {
-            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
-        }
-
-        if (!this.actor.hasCondition("deafened")) {
-            const range = this.scene.flags.pf2e.hearingRange ?? canvas.dimensions?.maxR ?? Infinity;
-            this.detectionModes.push({ id: "hearing", enabled: true, range });
-        }
     }
 
     /** Synchronize the token image with the actor image if the token does not currently have an image */
