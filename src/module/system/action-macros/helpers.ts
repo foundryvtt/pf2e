@@ -168,7 +168,6 @@ export class ActionMacroHelpers {
                 );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
                 const label = (await options.content?.(header)) ?? header;
-                const title = `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`;
 
                 if (statistic instanceof Statistic) {
                     const dc = this.#resolveCheckDC({ unresolvedDC: options.difficultyClass });
@@ -176,7 +175,7 @@ export class ActionMacroHelpers {
                         ...eventToRollParams(options.event, { type: "check" }),
                         token: selfToken,
                         label,
-                        title,
+                        title: label,
                         dc,
                         extraRollNotes: notes,
                         extraRollOptions: combinedOptions,
@@ -240,7 +239,7 @@ export class ActionMacroHelpers {
                             dosAdjustments,
                             substitutions,
                             traits: actionTraits,
-                            title,
+                            title: label,
                         },
                         options.event,
                         (roll, outcome, message) => {
