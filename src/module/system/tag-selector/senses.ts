@@ -12,7 +12,8 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
             height: "auto",
             template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
             id: "sense-selector",
-            title: "PF2E.Actor.Creature.Sense.Label",
+            title: "PF2E.Actor.Creature.Sense.Plural",
+            width: 350,
         });
     }
 
@@ -28,16 +29,18 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         const senses = this.document.system.traits.senses;
         const choices = Object.entries(this.choices).reduce((accum: Record<string, SenseChoiceData>, [type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
-            const mandatoryAcuity = objectHasKey(SENSES_WITH_MANDATORY_ACUITIES, type);
-            const acuity = mandatoryAcuity ? SENSES_WITH_MANDATORY_ACUITIES[type] : sense?.acuity ?? "precise";
+            const canSetAcuity = !objectHasKey(SENSES_WITH_MANDATORY_ACUITIES, type);
+            const canSetRange = !["darkvision", "greaterDarkvision", "lowLightVision"].includes(type);
+            const acuity = canSetAcuity ? sense?.acuity ?? "imprecise" : SENSES_WITH_MANDATORY_ACUITIES[type];
             return {
                 ...accum,
                 [type]: {
                     acuity,
-                    mandatoryAcuity,
-                    disabled: !!sense?.source,
+                    canSetAcuity,
+                    canSetRange,
                     label,
                     selected: !!sense,
+                    source: sense?.source ?? null,
                     value: sense?.value ?? "",
                 },
             };
@@ -111,11 +114,12 @@ interface SenseSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TA
 
 interface SenseChoiceData {
     selected: boolean;
-    disabled: boolean;
     acuity: string;
-    mandatoryAcuity: boolean;
     label: string;
     value: string;
+    canSetAcuity: boolean;
+    canSetRange: boolean;
+    source: string | null;
 }
 
 type SenseFormData = Record<string, [boolean, string, string | null] | boolean>;

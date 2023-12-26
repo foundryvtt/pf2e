@@ -29,14 +29,26 @@
             white-space: nowrap;
         }
 
-        tbody td:first-child label {
-            vertical-align: super;
+        tr.sense {
+            td:first-child .label-checkbox-source {
+                align-items: center;
+                display: flex;
+
+                i {
+                    cursor: help;
+                    margin-left: 0.25rem;
+                }
+            }
+
+            td:nth-child(2) {
+                text-align: center;
+            }
         }
     }
 
     .trait-header {
-        flex: 0 0 32px;
-        line-height: 32px;
+        flex: 0 0 2rem;
+        line-height: 2rem;
         text-align: center;
         margin: 0;
 
@@ -52,10 +64,10 @@
     }
 
     .trait-footer {
-        flex: 0 0 32px;
-        line-height: 32px;
+        flex: 0 0 2rem;
+        line-height: 2rem;
         margin: 0;
-        margin-bottom: 5px;
+        margin-bottom: 0.25rem;
         border-top: 1px solid grey;
     }
 

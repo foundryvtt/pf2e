@@ -1,5 +1,5 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
@@ -119,10 +119,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
 
         // Add low-light vision or darkvision if the ancestry includes it
-        const { senses } = actor.system.traits;
-        const { vision } = this.system;
-        if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
-            senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
+        const senseData: SenseData[] = actor.system.traits.senses;
+        const vision = this.system.vision;
+        if (vision !== "normal" && !senseData.some((s) => s.type === vision)) {
+            senseData.push({ type: vision, value: "", source: this.name });
             const senseRollOptions = (actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }
