@@ -332,7 +332,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
-        for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;

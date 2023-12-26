@@ -7,21 +7,25 @@ section.sidebar {
         flex: 1;
     }
 
-    .item-summary {
+    .item-summary,
+    .tags-title {
         @include serif-condensed;
         flex: 0 0 1.5em;
         line-height: 1.5em;
         text-align: center;
         font-size: var(--font-size-18);
-        color: #444;
+        color: var(--color-text-dark-3);
+        margin: 0.5em 0 0;
     }
 
-    ol.item-tags {
-        padding-left: 0;
+    .item-tags,
+    ul.tags {
         flex: 0;
         list-style: none;
+        margin-top: 0;
+        padding-left: 0;
 
-        .tag {
+        li {
             align-items: center;
             justify-content: center;
             width: 100%;
@@ -30,15 +34,35 @@ section.sidebar {
 
     .inventory-details,
     .feat-details {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 0.25rem;
         overflow: hidden scroll;
         padding: 0 0.25rem 0 0;
 
         .form-group {
-            margin: 3px 0;
+            margin: 0 0.125rem;
+            flex-wrap: nowrap;
+
+            &.quantity,
+            &.price {
+                input:first-of-type {
+                    margin-left: auto;
+                    max-width: 9.5ch;
+                }
+
+                .slash {
+                    flex: 0;
+
+                    & + input {
+                        min-width: 5.25ch;
+                    }
+                }
+            }
 
             label {
                 font-weight: 500;
-                max-width: 6em;
+                flex: 0 0 5em;
                 white-space: nowrap;
             }
 
@@ -52,15 +76,9 @@ section.sidebar {
             }
 
             select {
-                max-width: 12em;
-            }
-        }
-
-        .price-fields {
-            display: flex;
-            gap: 4px;
-            input[name="system.price.per"] {
-                width: 22px;
+                font-size: var(--font-size-13);
+                margin-left: auto;
+                max-width: 10em;
             }
         }
     }

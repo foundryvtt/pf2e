@@ -9,6 +9,11 @@
         overflow: hidden;
         width: 100%;
 
+        &.locked a[data-action] {
+            color: var(--color-disabled);
+            pointer-events: none;
+        }
+
         h2,
         h3,
         h4 {
@@ -61,7 +66,7 @@
 
         .item-controls {
             display: flex;
-            margin: 0 0 0 4px;
+            margin: 0 0 0 0.25rem;
             align-items: baseline;
             gap: 2px;
         }
@@ -109,25 +114,21 @@
                 border: 1px solid var(--color-border-light-2);
             }
 
-            select {
-                font-size: var(--font-size-13);
-            }
-
             button,
             input:not([type="range"]),
             select {
                 &:hover:not(:disabled),
                 &:focus {
                     border-color: var(--color-border-dark-1);
-                    box-shadow: 0 0 5px var(--secondary);
+                    box-shadow: 0 0 0.25rem var(--color-pf-secondary);
                 }
             }
 
             input:disabled,
             select:disabled {
-                background: rgba(0, 0, 0, 0.05);
-                border: none;
                 color: var(--color-disabled);
+                opacity: 0.8;
+                pointer-events: none;
             }
 
             > section.sidebar,
@@ -234,7 +235,7 @@
 
                     &.disabled,
                     &.no-data {
-                        color: var(--color-text-dark-4);
+                        color: var(--color-disabled);
                     }
                 }
 
@@ -290,8 +291,12 @@
                 border-color: transparent;
             }
 
-            &.publication .data {
-                @include publication-data;
+            &.publication {
+                padding: 0.25rem;
+
+                .data {
+                    @include publication-data;
+                }
             }
 
             legend {
@@ -522,12 +527,10 @@
         @import "rules";
     }
 
-    a.disabled {
-        cursor: default;
-
-        &:hover {
-            text-shadow: none;
-        }
+    a.disabled,
+    a[disabled] {
+        color: var(--color-disabled);
+        pointer-events: none;
 
         &.header-button {
             color: var(--color-text-light-5);

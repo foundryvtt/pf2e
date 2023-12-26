@@ -253,28 +253,41 @@ tags.tags.paizo-style {
 
 tags.tagify.pf2e-tagify {
     --tag-bg: var(--color-text-light-3);
+    --tag-pad: 0.125rem;
+    --tag-text-color: var(--text-dark);
     --tags-border-color: var(--color-border-light-2);
-    --tags-hover-border-color: var(--color-border-light-2);
+    --tags-disabled-bg: rgba(255, 255, 255, 0.5);
+    --tags-focus-border-color: var(--color-border-dark-1);
+    --tags-hover-border-color: var(--color-border-dark-1);
     align-items: center;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 3px;
-    gap: 3px;
-    padding: 2px;
+    gap: 0.1875rem;
+    padding: 0.125rem;
+
+    &[disabled] {
+        --tag-text-color: var(--color-disabled);
+        opacity: 0.8;
+
+        &:not(.tagify--mix) > .tagify__input {
+            margin: 0;
+        }
+    }
 
     &:hover {
-        box-shadow: 0 0 10px #00005a;
+        box-shadow: 0 0 0.25rem var(--color-pf-secondary);
     }
 
     tag {
         margin: 0;
-        padding: 1px;
+        padding: var(--tag-pad);
 
         x {
             margin: 0;
         }
 
         > div {
-            padding: 2px;
+            padding: 0 0.125rem;
 
             .tagify__tag-text {
                 font-weight: normal;
