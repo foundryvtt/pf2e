@@ -1,72 +1,73 @@
 <form>
     <div class="scroll-container">
+        <h2>{{localize "PF2E.SkillsLabel"}}</h2>
         <ol class="skills-list">
-            <li class="skill header">
-                <div>{{localize "PF2E.SkillLabel"}}</div>
-                <div>{{localize "PF2E.ModifierTitle"}}</div>
-            </li>
-            {{#each trainedSkills as |skill|}}
+            {{#each skills as |skill|}}
                 {{#unless skill.isLore}}
-                    <li class="skill" data-item-id="{{skill.itemID}}">
-                        <label for="{{../actor.uuid}}-{{skill.itemID}}-modifier">{{skill.label}}</label>
-                        <input
-                            type="number"
-                            id="{{../actor.uuid}}-{{skill.itemID}}-modifier"
-                            value="{{#if skill.visible}}{{skill.base}}{{else}}0{{/if}}"
-                            placeholder="0"
-                            data-modifier
-                        />
+                    <li class="skill">
+                        <div class="form-group form-fields">
+                            <input type="checkbox" id="{{../actor.uuid}}-{{skill.key}}" name="skill.{{skill.key}}.enabled" {{checked skill.visible}} />
+                            <label class="trait-label" for="{{../actor.uuid}}-{{skill.key}}">{{skill.label}}</label>
+                        </div>
+
+                        <input type="number" name="skill.{{skill.key}}.mod" {{#if skill.visible}}value="{{skill.value}}"{{/if}} placeholder="0" {{disabled skill.disabled}} />
+
                         <div class="item-controls">
-                            <a data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-edit"></i></a>
-                            <a data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
+                            <a class="item-control" data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-plus"></i></a>
                         </div>
                     </li>
                 {{/unless}}
             {{/each}}
-
-            <li class="skill-selector">
-                <select>
-                    {{#each untrainedSkills as |skill|}}
-                        <option value="{{skill.slug}}">{{skill.label}}</option>
-                    {{/each}}
-                </select>
-                <button type="button" data-action="add-skill">
-                    <i class="fa-solid fa-plus"></i> {{localize "PF2E.NPC.AddSkill"}}
-                </button>
-            </li>
         </ol>
 
-        <ol class="skills-list">
-            <li class="skill header lore">
-                <div>{{localize "PF2E.Lore"}}</div>
-                <div>{{localize "PF2E.ModifierTitle"}}</div>
-            </li>
-
-            {{#each trainedSkills as |skill|}}
+        <h2>Lores</h2>
+        <ol class="lores-list">
+            {{#each skills as |skill|}}
                 {{#if skill.isLore}}
-                    <li class="skill" data-item-id="{{skill.itemID}}">
-                        <label class="skill-name" for="{{../actor.uuid}}-{{skill.itemID}}-modifier">{{skill.label}}</label>
-                        <input
-                            type="number"
-                            id="{{../actor.uuid}}-{{skill.itemID}}-modifier"
-                            value="{{skill.base}}"
-                            placeholder="0"
-                            data-modifier
-                        />
-                        <div class="item-controls">
-                            <a data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-edit"></i></a>
-                            <a data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-                    </li>
+                    {{> "systems/pf2e/templates/actors/npc/partials/lore.hbs"}}
                 {{/if}}
             {{/each}}
-
-            <li class="lore-skill-creator">
-                <input type="text" area-label="{{localize "Name"}}" placeholder="{{localize "PF2E.Actor.NPC.SkillsEditor.LorePlaceholder"}}" />
-                <button type="button" data-action="add-lore">
-                    <i class="fa-solid fa-plus"></i> {{localize "PF2E.NPC.AddSkill"}}
-                </button>
-            </li>
         </ol>
+
+        {{#if variants}}
+        <div>
+            {{!-- <h2>{{localize "PF2E.Variants"}}</h2> --}}
+            <h2>Situational Skill Rolls</h2>
+            <ol>
+                {{#each variants as |variant|}}
+                    <li class="variant">
+                        <select disabled>
+                            <option selected>{{variant.skillLabel}}</option>
+                        </select>
+                        <input type="text" value="{{variant.label}}"/>
+                        <input type="text" value="{{variant.mod}}" />
+                        <div class="item-controls">
+                            <a class="item-control" data-action="edit-skill" data-tooltip="{{localize "PF2E.EditItemTitle"}}">
+                                <i class="fa-solid fa-edit"></i>
+                            </a>
+                            <a class="item-control" data-action="remove-skill" data-tooltip="{{localize "PF2E.NPC.Remove"}}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                            <a data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-edit"></i></a>
+                            <a data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
+                            <a class="item-control" data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                        <div class="form-group form-fields">
+                            <label>Options</label>
+                            <input type="text" value="{{variant.options}}" placeholder="action:climb"/>
+                        </div>
+                        <div class="form-group form-fields">
+                            <label>Predicate</label>
+                            <input type="text" value="{{variant.predicate}}" placeholder="[&quot;action:climb&quot;]"/>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+        {{/if}}
+
+        <button type="submit" class="trait-footer">
+            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize "PF2E.SkillsLabel")}}
+        </button>
     </div>
 </form>

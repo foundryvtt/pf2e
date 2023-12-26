@@ -1,8 +1,7 @@
 import type { NPCPF2e } from "@actor";
 import { NPCSkillData } from "@actor/npc/data.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
-import { LoreSource } from "@item/base/data/index.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
+import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
+import { htmlQuery, htmlQueryAll, htmlClosest, sluggify } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
 export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
@@ -30,13 +29,30 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
     /** Prepare data to be sent to HTML. */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<EditorData> {
-        const allSkills = Object.values(this.actor.system.skills);
+        const allSkills = Object.entries(this.actor.system.skills).map(([key, skill]) => ({
+            ...skill,
+            key: key,
+            actor: this.actor.uuid,
+        }));
+        allSkills.sort((a, b) => a.label.localeCompare(b.label));
+
+        const variants = allSkills.flatMap((skill) =>
+            skill.variants.map((variant, key) => ({
+                skill: skill.key,
+                skillLabel: skill.label,
+                label: variant.label,
+                index: key,
+                options: variant.options,
+                mod: variant.value,
+                predicate: variant.predicate,
+            })),
+        );
 
         return {
             ...(await super.getData(options)),
             actor: this.actor,
-            trainedSkills: allSkills.filter((s) => s.visible).sort((a, b) => a.label.localeCompare(b.label)),
-            untrainedSkills: allSkills.filter((s) => !s.visible).sort((a, b) => a.label.localeCompare(b.label)),
+            skills: allSkills,
+            variants: variants,
         };
     }
 
@@ -44,55 +60,114 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
         super.activateListeners($html);
         const html = $html[0];
 
-        htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
-            const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
-            if (setHasElement(SKILL_LONG_FORMS, slug)) {
-                await this.actor.createEmbeddedDocuments("Item", [{ name: slug.titleCase(), type: "lore" }]);
+        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=number]")) {
+            input.addEventListener("input", () => {
+                const checkbox = input.closest("li")?.querySelector<HTMLInputElement>("input[type=checkbox]");
+                if (checkbox) checkbox.checked = !!Number(input.value);
+            });
+        }
+
+        const actorUuid = this.actor.uuid;
+        let loresCreated = 0;
+        async function createAdditionalLore() {
+            const loresList = html.querySelector(".lores-list");
+            if (loresList) {
+                const slug = `new-lore-${loresCreated}`;
+                const content = await renderTemplate("/systems/pf2e/templates/actors/npc/partials/lore.hbs", {
+                    actor: actorUuid,
+                    slug: slug,
+                    label: "",
+                    base: 0,
+                    visible: false,
+                });
+
+                loresList?.insertAdjacentHTML("beforeend", content);
+
+                const newCheckbox = loresList?.querySelector<HTMLInputElement>(`input[name="lore.${slug}.enabled"]`);
+                newCheckbox?.addEventListener(
+                    "input",
+                    () => {
+                        createAdditionalLore();
+                    },
+                    { once: true },
+                );
+
+                const newInput = htmlQuery<HTMLInputElement>(loresList, `input[name="lore.${slug}.mod"]`);
+                if (newInput && newCheckbox) {
+                    newInput.addEventListener("input", () => {
+                        newCheckbox.checked = !!Number(newInput.value);
+                        newCheckbox.dispatchEvent(new Event("input"));
+                    });
+                }
+
+                loresCreated += 1;
             }
-        });
+        }
+
+        createAdditionalLore();
 
         htmlQuery(html, "button[data-action=add-lore]")?.addEventListener("click", async (event) => {
-            const loreName = htmlQuery(htmlClosest(event.currentTarget, ".lore-skill-creator"), "input")?.value.trim();
+            const loreNameElement = htmlQuery(htmlClosest(event.currentTarget, ".lore-skill-creator"), "input");
+            if (loreNameElement === null) return;
+            const loreName = loreNameElement.value.trim();
             if (loreName) {
-                const data: PreCreate<LoreSource> = {
-                    name: loreName,
-                    type: "lore",
-                    system: { mod: { value: 0 } },
-                };
-                await this.actor.createEmbeddedDocuments("Item", [data]);
-            }
-        });
+                const loresList = htmlClosest(event.currentTarget, ".scroll-container")?.querySelector(".lores-list");
 
-        for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-modifier]")) {
-            input.addEventListener("change", async () => {
-                const modifier = Math.clamped(Math.trunc(Number(input.value) || 0), -999, 999);
-                if (Number.isInteger(modifier)) {
-                    const itemId = htmlClosest(input, "[data-item-id]")?.dataset.itemId;
-                    const item = this.actor.items.get(itemId, { strict: true });
-                    await item.update({ "system.mod.value": modifier });
+                const content = await renderTemplate("/systems/pf2e/templates/actors/npc/partials/lore.hbs", {
+                    actor: this.actor.uuid,
+                    slug: sluggify(loreName),
+                    label: loreName,
+                    base: 0,
+                    visible: true,
+                });
+
+                loresList?.insertAdjacentHTML("beforeend", content);
+
+                const newTextElem = loresList?.querySelector<HTMLInputElement>(
+                    `input[name="${sluggify(loreName)}"][type="number"]`,
+                );
+                if (newTextElem) {
+                    newTextElem.focus();
+                    newTextElem.select();
                 }
-            });
+            }
+            loreNameElement.value = "";
+        });
+    }
 
-            input.addEventListener("focus", () => {
-                input.select();
-            });
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const expanded = fu.expandObject(formData) as unknown as EditorFormData;
+
+        const skills: Record<string, { value: number } | null> = {};
+        for (const [skill, value] of Object.entries(expanded.skill)) {
+            const selected = !!value.enabled;
+            const mod = Math.trunc(Math.abs(value.mod ?? 0));
+            if (selected && mod) {
+                skills[skill] = {
+                    value: mod,
+                };
+            } else {
+                skills[`-=${skill}`] = null;
+            }
         }
 
-        for (const anchor of htmlQueryAll(html, "a[data-action=edit-skill]")) {
-            anchor.addEventListener("click", () => {
-                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                item.sheet.render(true);
-            });
+        const lores: Record<string, { name: string; value: number } | null> = {};
+        for (const [lore, value] of Object.entries(expanded.lore)) {
+            const selected = !!value.enabled;
+            const mod = Math.trunc(Math.abs(value.mod ?? 0));
+            const label = value.label;
+            if (selected && mod) {
+                lores[lore] = {
+                    name: label,
+                    value: mod,
+                };
+            }
         }
 
-        for (const anchor of htmlQueryAll(html, "a[data-action=remove-skill]")) {
-            anchor.addEventListener("click", async () => {
-                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                await item.delete();
-            });
-        }
+        return super._updateObject(event, {
+            "system.skills": skills,
+            "system.lores": Object.values(lores),
+        });
     }
 
     /** Crude maintaining of focus to work around Tagify on NPC sheet stealing it */
@@ -112,6 +187,11 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
 interface EditorData extends DocumentSheetData<NPCPF2e> {
     actor: NPCPF2e;
-    trainedSkills: NPCSkillData[];
-    untrainedSkills: NPCSkillData[];
+    skills: NPCSkillData[];
+    variants: any;
+}
+
+interface EditorFormData {
+    skill: Record<string, { enabled: boolean; mod: number | null }>;
+    lore: Record<string, { enabled: boolean; mod: number | null; label: string }>;
 }

@@ -18,6 +18,7 @@ import type {
     LabeledSpeed,
     SaveData,
     SenseData,
+    SkillAbbreviation,
 } from "@actor/creature/data.ts";
 import type {
     ActorAttributesSource,
@@ -40,6 +41,23 @@ type NPCFlags = ActorFlagsPF2e & {
     pf2e: { lootable: boolean };
 };
 
+type NPCSourceSkillData = {
+    value: number;
+    variants?: NPCSkillVariantSource[];
+};
+
+type NPCSkillVariantSource = {
+    label: string;
+    options: string;
+    value: number;
+    predicate: JSONValue;
+};
+
+type NPCLore = {
+    name: string;
+    value: number;
+};
+
 interface NPCSystemSource extends CreatureSystemSource {
     traits: NPCTraitsSource;
 
@@ -57,8 +75,12 @@ interface NPCSystemSource extends CreatureSystemSource {
     /** Details about this actor, such as alignment or ancestry. */
     details: NPCDetailsSource;
 
+    lores: NPCLore[];
+
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
+
+    skills: Partial<Record<SkillAbbreviation, NPCSourceSkillData>>;
 
     /** Spellcasting data: currently only used for rituals */
     spellcasting?: {
@@ -223,8 +245,7 @@ interface NPCSkillData extends AttributeBasedTraceData {
     base?: number;
     visible?: boolean;
     isLore?: boolean;
-    itemID?: string;
-    variants: { label: string; options: string }[];
+    variants: NPCSkillVariantSource[];
 }
 
 interface NPCSpeeds extends CreatureSpeeds {

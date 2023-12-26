@@ -72,6 +72,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/npc/partials/sidebar.hbs",
         "systems/pf2e/templates/actors/npc/partials/action.hbs",
         "systems/pf2e/templates/actors/npc/partials/attack.hbs",
+        "systems/pf2e/templates/actors/npc/partials/lore.hbs",
 
         // Item Sheet Partials
         "systems/pf2e/templates/items/action-details.hbs",
