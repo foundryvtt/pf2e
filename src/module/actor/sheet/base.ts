@@ -448,9 +448,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             },
             "item-to-chat": async (event, anchor) => {
-                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+                const itemEl = htmlClosest(anchor, "[data-item-id]");
+                const itemId = itemEl?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
-                if (!item.isOfType("physical") || item.isIdentified) {
+                if (item.isOfType("spell")) {
+                    const castRank = Number(itemEl?.dataset.castRank ?? NaN);
+                    await item.toMessage(event, { create: true, data: { castRank } });
+                } else if (!item.isOfType("physical") || item.isIdentified) {
                     await item.toMessage(event, { create: true });
                 }
             },

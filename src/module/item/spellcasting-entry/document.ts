@@ -258,7 +258,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         const valid = !consume || spell.isCantrip || (await this.consume(spell, rank, options.slotId));
         if (message && valid) {
             const castRank = spell.computeCastRank(rank);
-            await spell.toMessage(undefined, { rollMode: options.rollMode, data: { castLevel: castRank } });
+            await spell.toMessage(null, { rollMode: options.rollMode, data: { castRank } });
         }
     }
 
@@ -390,10 +390,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 if (active) {
                     Object.defineProperty(active, "castLevel", {
                         get(): number | undefined {
-                            fu.logCompatibilityWarning("`castLevel` is deprecated: use `castRank` instead.", {
-                                since: "5.12.0",
-                                until: "6.0.0",
-                            });
+                            fu.logCompatibilityWarning(
+                                "`castLevel` is deprecated: use `castRank` instead.",
+                                sinceUntil,
+                            );
                             return active.castRank;
                         },
                     });

@@ -178,7 +178,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: MouseEvent | JQuery.TriggeredEvent,
+        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
         options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);

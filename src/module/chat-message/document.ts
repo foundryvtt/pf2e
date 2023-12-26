@@ -125,8 +125,8 @@ class ChatMessagePF2e extends ChatMessage {
 
         if (item?.isOfType("spell")) {
             const overlayIds = this.flags.pf2e.origin?.variant?.overlays;
-            const castLevel = this.flags.pf2e.origin?.castLevel ?? item.rank;
-            const modifiedSpell = item.loadVariant({ overlayIds, castLevel });
+            const castRank = this.flags.pf2e.origin?.castRank ?? item.rank;
+            const modifiedSpell = item.loadVariant({ overlayIds, castRank });
             return modifiedSpell ?? item;
         }
 
