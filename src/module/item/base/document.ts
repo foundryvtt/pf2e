@@ -227,6 +227,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
+        this.rules = [];
         super._initialize(options);
     }
 

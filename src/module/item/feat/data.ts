@@ -1,3 +1,4 @@
+import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
@@ -66,6 +67,25 @@ interface FeatLevelData extends Required<FeatLevelSource> {}
 interface FeatSubfeatures {
     keyOptions: AttributeString[];
     proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute?: AttributeString | null } };
+    senses: { [K in SenseType]?: SenseSubfeature };
+}
+
+interface SenseSubfeature {
+    acuity?: SenseAcuity;
+    /** The radius of the sense in feet: `null` indicates no limit. */
+    range?: number | null;
+    /** "Special" clauses for darkvision */
+    special?: {
+        /** Only grant darkvision if the PC's ancestry grants low-light vision. */
+        ancestry: boolean;
+        /**
+         * Grant darkvision if the PC has low-light vision from any prior source (ancestry, earlier feats, etc.). This
+         * option is mutually exclusive with `ancestry`.
+         */
+        llv: boolean;
+        /** Grant darkvision if this feat is taken a second time. */
+        second: boolean;
+    };
 }
 
 type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCategory | "perception" | "spellcasting";
