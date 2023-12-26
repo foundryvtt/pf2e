@@ -37,7 +37,7 @@ import * as impersonate from "./deception/impersonate.ts";
 import * as lie from "./deception/lie.ts";
 import { bonMot } from "./diplomacy/bon-mot.ts";
 import { gatherInformation } from "./diplomacy/gather-information.ts";
-import { makeAnImpression } from "./diplomacy/make-an-impression.ts";
+import * as makeAnImpression from "./diplomacy/make-an-impression.ts";
 import * as request from "./diplomacy/request.ts";
 import * as avoidNotice from "./exploration/avoid-notice.ts";
 import * as senseDirection from "./exploration/sense-direction.ts";
@@ -112,7 +112,7 @@ export const ActionMacros = {
     // Diplomacy
     bonMot,
     gatherInformation,
-    makeAnImpression,
+    makeAnImpression: makeAnImpression.legacy,
     request: request.legacy,
 
     // General Skill Actions
@@ -176,6 +176,7 @@ export const SystemActions: Action[] = [
     leap,
     lie.action,
     longJump.action,
+    makeAnImpression.action,
     maneuverInFlight.action,
     palmAnObject.action,
     perform.action,
