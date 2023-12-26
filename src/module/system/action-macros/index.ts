@@ -6,7 +6,7 @@ import { arcaneSlam } from "./ancestry/automaton/arcane-slam.ts";
 import * as climb from "./athletics/climb.ts";
 import * as disarm from "./athletics/disarm.ts";
 import * as forceOpen from "./athletics/force-open.ts";
-import { grapple } from "./athletics/grapple.ts";
+import * as grapple from "./athletics/grapple.ts";
 import * as highJump from "./athletics/high-jump.ts";
 import * as longJump from "./athletics/long-jump.ts";
 import * as reposition from "./athletics/reposition.ts";
@@ -90,7 +90,7 @@ export const ActionMacros = {
     climb: climb.legacy,
     disarm: disarm.legacy,
     forceOpen: forceOpen.legacy,
-    grapple,
+    grapple: grapple.legacy,
     highJump: highJump.legacy,
     longJump: longJump.legacy,
     reposition: reposition.legacy,
@@ -171,6 +171,7 @@ export const SystemActions: Action[] = [
     feint.action,
     forceOpen.action,
     gatherInformation.action,
+    grapple.action,
     hide.action,
     highJump.action,
     impersonate.action,
