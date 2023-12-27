@@ -94,13 +94,6 @@
                     {{#each data.traits.senses as |sense slug|}}
                         {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
                     {{/each}}
-                    {{#if @root.options.editable}}
-                        <li class="tag tag_secondary edit-btn">
-                            <a class="crb-tag-selector" data-tag-selector="senses">
-                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
-                            </a>
-                        </li>
-                    {{/if}}
                 </ol>
             </div>
             <div class="pc pc_languages">
