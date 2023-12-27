@@ -54,6 +54,7 @@ import * as perform from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
 import { avertGaze } from "./specialty-basic/avert-gaze.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
+import { dismiss } from "./specialty-basic/dismiss.ts";
 import { fly } from "./specialty-basic/fly.ts";
 import { mount } from "./specialty-basic/mount.ts";
 import { sustain } from "./specialty-basic/sustain.ts";
@@ -173,6 +174,7 @@ export const SystemActions: Action[] = [
     demoralize.action,
     disableDevice.action,
     disarm.action,
+    dismiss,
     dropProne,
     escape.action,
     feint.action,
