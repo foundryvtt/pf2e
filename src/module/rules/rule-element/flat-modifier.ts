@@ -196,7 +196,7 @@ interface FlatModifierRuleElement
 
 type FlatModifierSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true>;
+    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, false>;
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
