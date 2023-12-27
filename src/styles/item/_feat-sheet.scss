@@ -1,5 +1,18 @@
 @import "self-applied-effect";
 
+.sidebar {
+    .prerequisites {
+        ul {
+            margin-top: 0;
+
+            .tag_transparent {
+                font: normal var(--font-size-12) var(--sans-serif);
+                padding: 0.25em 0;
+            }
+        }
+    }
+}
+
 .tab.details {
     .form-group {
         > label {
@@ -8,14 +21,15 @@
         }
     }
 
-    .form-group.proficiencies {
+    fieldset.subfeatures .form-group.stacked {
         margin: 0;
 
         ul {
             &.empty {
                 flex: 1;
+                padding: 0 0.25rem;
 
-                li.add-increase {
+                li.add-subfeature {
                     gap: 0.5rem;
                     justify-content: end;
 
@@ -39,20 +53,26 @@
                 align-items: center;
                 border: 1px solid transparent;
                 display: flex;
-                gap: 0.333rem;
+                gap: 0.25rem;
                 padding: 0.125rem;
 
                 label,
-                select.available-increases {
-                    flex-basis: 10rem;
+                select.unselected-options {
+                    flex-basis: 11rem;
                 }
 
                 label {
                     font-weight: normal;
                     padding-right: 0;
+
+                    a.darkvision-special i.fa-regular {
+                        color: var(--color-text-light-7);
+                    }
                 }
 
-                select.rank {
+                input.range,
+                select.rank,
+                select.acuity {
                     flex-basis: 6rem;
                 }
 

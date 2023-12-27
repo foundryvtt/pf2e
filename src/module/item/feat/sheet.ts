@@ -1,3 +1,4 @@
+import type { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
 import {
     activateActionSheetListeners,
     createSelfEffectSheetData,
@@ -9,7 +10,7 @@ import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/s
 import type { FeatPF2e } from "@item/feat/document.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { OneToFour } from "@module/data.ts";
-import { htmlClosest, htmlQuery, localizer, sluggify, tagify, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, sluggify, tagify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
@@ -30,6 +31,10 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const sheetData = await super.getData(options);
         const feat = this.item;
         const hasLineageTrait = feat.system.traits.value.includes("lineage");
+        const subfeatures = feat.system.subfeatures;
+        const showPrerequisites =
+            feat.system.prerequisites.value.length > 0 &&
+            !["ancestryfeature", "curse", "deityboon"].includes(feat.category);
 
         return {
             ...sheetData,
@@ -41,14 +46,17 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             categories: CONFIG.PF2E.featCategories,
             frequencies: CONFIG.PF2E.frequencies,
             hasLineageTrait,
-            hasProficiencies: Object.keys(feat.system.subfeatures.proficiencies).length > 0,
+            hasProficiencies: Object.keys(subfeatures.proficiencies).length > 0,
+            hasSenses: Object.keys(subfeatures.senses).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
-            proficiencies: this.#createProficiencyOptions(),
+            proficiencies: this.#getProficiencyOptions(),
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
+            senses: this.#getSenseOptions(),
+            showPrerequisites,
         };
     }
 
-    #createProficiencyOptions(): ProficiencyOptions {
+    #getProficiencyOptions(): ProficiencyOptions {
         const feat = this.item;
         const localize = localizer("PF2E.Actor.Character");
         const selectedIncreases = feat.system.subfeatures.proficiencies;
@@ -127,34 +135,62 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         };
     }
 
+    #getSenseOptions(): SenseOption[] {
+        const feat = this.item;
+        const selections = feat.system.subfeatures.senses;
+        const senses = R.keys.strict(CONFIG.PF2E.senses);
+        const visionSenses: SenseType[] = ["darkvision", "greaterDarkvision", "lowLightVision", "seeInvisibility"];
+        return senses
+            .map((slug) => {
+                const selection = selections[slug];
+                return {
+                    slug,
+                    label: game.i18n.localize(CONFIG.PF2E.senses[slug]),
+                    acuity: selection ? selection.acuity ?? "precise" : null,
+                    range: selection?.range,
+                    special: slug === "darkvision" && feat.level === 1 ? selection?.special ?? null : null,
+                    canSetAcuity: !visionSenses.includes(slug),
+                    canSetRange: !visionSenses.includes(slug),
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+    }
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
-        activateActionSheetListeners(this.item, html);
+        const feat = this.item;
+        activateActionSheetListeners(feat, html);
 
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
         tagify(getInput("system.prerequisites.value"), { maxTags: 6 });
         tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
 
-        // Proficiency increases
+        // Disable the "add subfeature" anchor unless a corresponding option is selected
+        const unselectedOptionsSelects = htmlQueryAll<HTMLSelectElement>(html, "select[data-unselected-options]");
+        for (const unselectedOptionsSelect of unselectedOptionsSelects) {
+            unselectedOptionsSelect.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const addOptionAnchor = htmlQuery(htmlClosest(unselectedOptionsSelect, "li"), "a[data-action]");
+                addOptionAnchor?.toggleAttribute("disabled", !unselectedOptionsSelect.value);
+            });
+        }
+        this.#activateProficienciesListeners(html);
+        this.#activateSensesListeners(html);
+    }
+
+    #activateProficienciesListeners(html: HTMLElement): void {
         const feat = this.item;
-        const section = htmlQuery(html, "section[data-proficiencies]");
-        const localizeIncreases = localizer("PF2E.Item.Feat.Subfeatures.Proficiencies");
-        const availableIncreasesSelect = htmlQuery<HTMLSelectElement>(section, "select[data-available-increases]");
-        availableIncreasesSelect?.addEventListener("change", (event) => {
-            event.stopPropagation();
-        });
-        section?.addEventListener("click", (event) => {
+        const formGroup = htmlQuery(html, ".form-group[data-proficiencies]");
+        const newProficiencySelect = htmlQuery<HTMLSelectElement>(formGroup, "select[data-unselected-options]");
+        formGroup?.addEventListener("click", (event) => {
             const anchor = htmlClosest(event.target, "a[data-action]");
             if (!anchor) return;
             if (anchor.dataset.action === "add-proficiency") {
-                const slug = availableIncreasesSelect?.value;
-                if (!slug) {
-                    ui.notifications.error(localizeIncreases("NoOptionSelected"));
-                    return;
-                }
+                const slug = newProficiencySelect?.value;
+                if (!slug) throw ErrorPF2e("No option selected");
 
-                const options = Object.values(this.#createProficiencyOptions())
+                const options = Object.values(this.#getProficiencyOptions())
                     .map((o) => o.options)
                     .flat(2)
                     .filter((o) => !o.rank)
@@ -170,8 +206,62 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 }
             }
         });
+    }
 
-        htmlQuery(html, "a[data-action=add-proficiencies")?.addEventListener("click", () => {});
+    #activateSensesListeners(html: HTMLElement): void {
+        const feat = this.item;
+        const formGroup = htmlQuery(html, ".form-group[data-senses]");
+        const newSenseSelect = htmlQuery<HTMLSelectElement>(formGroup, "select[data-unselected-options]");
+
+        formGroup?.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+
+            switch (anchor?.dataset.action) {
+                case "add-sense": {
+                    const slug = newSenseSelect?.value;
+                    if (!slug) throw ErrorPF2e("No option selected");
+
+                    const options = this.#getSenseOptions()
+                        .filter((o) => !o.acuity)
+                        .map((o) => o.slug);
+                    if (options.includes(slug)) {
+                        const [acuity, range] = ["lowLightVision", "darkvision", "greaterDarkvision"].includes(slug)
+                            ? [undefined, undefined]
+                            : ["imprecise", 30];
+                        feat.update({ [`system.subfeatures.senses.${slug}`]: { acuity, range } });
+                    }
+                    break;
+                }
+                case "delete-sense": {
+                    const slug = anchor.dataset.slug ?? "";
+                    if (slug in feat.system.subfeatures.senses) {
+                        feat.update({ [`system.subfeatures.senses.-=${slug}`]: null });
+                    }
+                    break;
+                }
+                case "toggle-darkvision-special": {
+                    const darkvision = feat.system.subfeatures.senses.darkvision;
+                    const special = anchor.dataset.special;
+                    if (!darkvision || !tupleHasValue(["ancestry", "llv", "second"], special)) {
+                        throw ErrorPF2e("Unexpected failure toggling darkvision special clause");
+                    }
+                    const newSpecial = {
+                        ancestry:
+                            special === "ancestry" ? !darkvision.special?.ancestry : !!darkvision.special?.ancestry,
+                        llv: special === "llv" ? !darkvision.special?.llv : !!darkvision.special?.llv,
+                        second: special === "second" ? !darkvision.special?.second : !!darkvision.special?.second,
+                    };
+                    // Ensure that only one of `ancestry` and `llv` are true
+                    if (special === "ancestry" && newSpecial.ancestry && newSpecial.llv) {
+                        newSpecial.llv = false;
+                    } else if (special === "llv" && newSpecial.llv && newSpecial.ancestry) {
+                        newSpecial.ancestry = false;
+                    }
+
+                    feat.update({ [`system.subfeatures.senses.darkvision.special`]: newSpecial });
+                }
+            }
+        });
     }
 
     override async _onDrop(event: DragEvent): Promise<void> {
@@ -218,9 +308,12 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     frequencies: typeof CONFIG.PF2E.frequencies;
     hasLineageTrait: boolean;
     hasProficiencies: boolean;
+    hasSenses: boolean;
     mandatoryTakeOnce: boolean;
     proficiencies: ProficiencyOptions;
     selfEffect: SelfEffectReference | null;
+    senses: SenseOption[];
+    showPrerequisites: boolean;
 }
 
 type ProficiencyOptions = {
@@ -232,5 +325,15 @@ type ProficiencyOptions = {
         options: { slug: string; label: string; rank: OneToFour | null }[];
     }
 >;
+
+interface SenseOption {
+    slug: string;
+    label: string;
+    acuity?: SenseAcuity | null;
+    range?: number | null;
+    special: { ancestry: boolean; second: boolean } | null;
+    canSetAcuity: boolean;
+    canSetRange: boolean;
+}
 
 export { FeatSheetPF2e };

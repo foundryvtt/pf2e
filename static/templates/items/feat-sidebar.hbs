@@ -14,12 +14,14 @@
         </select>
     </div>
 
-    {{#unless (any (eq data.category "classfeature") (eq data.category "ancestryfeature") (eq data.category "curse") (eq data.category "dietyboon") )}}
-        <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
-        <ol class="item-tags tags">
-        {{#each data.prerequisites.value as |v k|}}
-            <li class="tag tag_transparent {{k}}">{{v.value}}</li>
-        {{/each}}
-        </ol>
-    {{/unless}}
+    {{#if showPrerequisites}}
+        <div class="prerequisites">
+            <h4 class="tags-title">{{localize "PF2E.FeatPrereqLabel"}}</h4>
+            <ul class="tags">
+                {{#each data.prerequisites.value as |v k|}}
+                    <li class="tag tag_transparent {{k}}">{{v.value}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
 </div>
