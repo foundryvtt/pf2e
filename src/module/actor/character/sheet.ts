@@ -883,6 +883,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // FEATS
 
+        handlers["create-feat"] = () => {
+            this.actor.createEmbeddedDocuments("Item", [
+                {
+                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    type: "feat",
+                    system: {
+                        category: "bonus",
+                    },
+                },
+            ]);
+        };
+
         handlers["browse-feats"] = (_, anchor) => {
             return this.#onClickBrowseFeats(anchor);
         };
