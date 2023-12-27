@@ -1,0 +1,18 @@
+{{#if action.checks.length}}
+    {{#each action.checks as |check|}}
+        <button type="button" class="tag tag_secondary" {{disabled @root.disabled}} data-action-handler="use" data-action-statistic="{{check.slug}}">
+            {{localize check.label}}
+            {{#if check.modifier includeZero=true}}
+                {{numberFormat check.modifier decimals=0 sign=true}}
+            {{/if}}
+        </button>
+        {{#if (includes ../action.traits "attack")}}
+            <button type="button" class="tag tag_secondary" {{disabled @root.disabled}} data-action-handler="use" data-action-statistic="{{check.slug}}" data-action-map="1">{{localize "PF2E.MAPAbbreviationLabel" penalty=-5}}</button>
+            <button type="button" class="tag tag_secondary" {{disabled @root.disabled}} data-action-handler="use" data-action-statistic="{{check.slug}}" data-action-map="2">{{localize "PF2E.MAPAbbreviationLabel" penalty=-10}}</button>
+        {{/if}}
+    {{/each}}
+{{else}}
+    <button type="button" class="tag tag_secondary" {{disabled @root.disabled}} data-action-handler="use">
+        {{localize "PF2E.ActionBrowser.Buttons.Use.Label"}}
+    </button>
+{{/if}}

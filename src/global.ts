@@ -10,6 +10,7 @@ import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import type { ConditionSource } from "@item/condition/data.ts";
 import type { CoinsPF2e } from "@item/physical/helpers.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import type { ActionBrowser } from "@module/apps/action-browser/app.ts";
 import type {
     CompendiumBrowser,
     CompendiumBrowserSettings,
@@ -85,6 +86,7 @@ interface GamePF2e
         UserPF2e
     > {
     pf2e: {
+        actionBrowser: ActionBrowser;
         actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;

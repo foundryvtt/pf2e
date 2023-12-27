@@ -1,0 +1,129 @@
+.control-tool {
+    .action-browser:before {
+        content: "A";
+        font-family: "Pathfinder2eActions";
+        font-style: normal;
+    }
+}
+
+@mixin button-group {
+    font-size: var(--font-size-14);
+    margin-bottom: 0;
+    padding: 2px 0;
+
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+    gap: 3px;
+
+    &.multiple-attack-penalty {
+        display: grid;
+        grid-template-columns: repeat(3, min-content);
+    }
+
+    button {
+        border: none;
+        flex: 0;
+        gap: 2px;
+        height: 1.25rem;
+        line-height: unset;
+        margin: 0;
+        padding: 0 0.5em;
+        white-space: nowrap;
+        display: flex;
+        column-gap: 3px;
+        justify-content: space-between;
+
+        &:disabled {
+            opacity: 0.7;
+        }
+
+        &:not(:disabled):hover {
+            box-shadow: none;
+            text-shadow: 0 0 2px var(--text-light);
+        }
+    }
+}
+
+.action-browser {
+    @import "../packs/nav";
+
+    .action-list {
+        margin-top: 5px;
+
+        .action-list-item:not(:first-child) {
+            border-top: 1px solid rgba(120, 100, 82, 0.3);
+        }
+
+        .action-list-item {
+            padding-top: 3px;
+            padding-bottom: 3px;
+
+            &:nth-child(odd) {
+                background-color: rgba(120, 100, 82, 0.1);
+            }
+            .action {
+                --action-icon-size: 32px;
+
+                display: flex;
+                column-gap: 5px;
+                align-items: start;
+                padding: 0 4px 0 4px;
+
+                .action-icon {
+                    flex: 0 0 var(--action-icon-size);
+                    height: var(--action-icon-size);
+
+                    img {
+                        height: var(--action-icon-size);
+                        width: var(--action-icon-size);
+                    }
+                }
+
+                .action-summary {
+                    flex: 1 1 max-content;
+                    min-height: var(--action-icon-size);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .action-heading {
+                        font-weight: bold;
+                    }
+                }
+
+                .action-buttons {
+                    flex: 1 1 max-content;
+                    display: flex;
+                    align-items: center;
+                    justify-content: right;
+                    min-height: var(--action-icon-size);
+
+                    .button-group {
+                        @include button-group;
+                    }
+                }
+            }
+
+            .action-variants {
+                display: flex;
+                flex-direction: column;
+                margin: -2px 0 0 17px;
+                border-left: 3px dotted #786452;
+                padding: 0 0 3px 14px;
+
+                .action-variant {
+                    display: flex;
+                    column-gap: 5px;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 4px 4px 0 7px;
+
+                    .button-group {
+                        @include button-group;
+                    }
+                }
+            }
+        }
+    }
+}
