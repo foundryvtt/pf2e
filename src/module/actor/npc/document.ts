@@ -13,8 +13,9 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
+import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
+import * as R from "remeda";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import { VariantCloneParams } from "./types.ts";
 
@@ -85,7 +86,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         const { attributes, details } = systemData;
-        attributes.perception.ability = "wis";
         attributes.reach = {
             base: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
@@ -209,14 +209,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             details: system.attributes.ac.details,
         });
         this.armorClass = armorStatistic.dc;
-        this.system.attributes.ac = armorStatistic.getTraceData();
+        this.system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
+            attribute: armorStatistic.attribute ?? "dex",
+        });
 
         this.prepareSaves();
 
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            this.perception = new Statistic(this, {
+            this.perception = new PerceptionStatistic(this, {
                 slug: "perception",
                 label: "PF2E.PerceptionLabel",
                 attribute: "wis",
@@ -225,16 +227,17 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
-                        modifier: system.attributes.perception.value,
+                        modifier: system.perception.mod,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
                 check: { type: "perception-check" },
+                senses: this.system.perception.senses,
             });
-            system.attributes.perception = fu.mergeObject(
-                system.attributes.perception,
-                this.perception.getTraceData({ value: "mod" }),
-            );
+            system.perception = fu.mergeObject(this.perception.getTraceData(), {
+                attribute: this.perception.attribute ?? "wis",
+                mod: this.perception.mod,
+            });
         }
 
         this.skills = this.prepareSkills();
@@ -246,9 +249,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         // Initiative
-        const initiativeSkill = system.attributes.initiative?.statistic || "perception";
-        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
-        this.system.attributes.initiative = this.initiative.getTraceData();
+        this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
+        this.system.initiative = this.initiative.getTraceData();
     }
 
     private prepareSaves(): void {
@@ -304,7 +306,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 base: item?.system.mod.value,
                 isLore: !!stat.lore,
                 itemID: item?.id,
-                ability: attribute,
+                attribute,
                 visible: stat.proficient,
                 variants: Object.values(item?.system.variants ?? {}),
             };

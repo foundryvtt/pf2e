@@ -1,4 +1,3 @@
-import { SenseData } from "@actor/creature/data.ts";
 import {
     ActorAttributes,
     ActorAttributesSource,
@@ -14,6 +13,7 @@ import {
 } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
+import { PerceptionTraceData } from "@system/statistic/perception.ts";
 import { Alignment } from "./types.ts";
 import { ARMY_TYPES } from "./values.ts";
 
@@ -67,6 +67,7 @@ interface ArmyDetailsSource extends Required<ActorDetailsSource> {
 interface ArmySystemData extends Omit<ArmySystemSource, "attributes">, ActorSystemData {
     attributes: ArmyAttributes;
     traits: ArmyTraits;
+    perception: Pick<PerceptionTraceData, "senses">;
     details: ArmyDetails;
     resources: ArmyResourcesData;
     saves: ArmySystemSource["saves"] & {
@@ -75,7 +76,6 @@ interface ArmySystemData extends Omit<ArmySystemSource, "attributes">, ActorSyst
 }
 
 interface ArmyAttributesSource extends ActorAttributesSource {
-    perception?: never;
     immunities?: never;
     weaknesses?: never;
     resistances?: never;
@@ -85,7 +85,7 @@ interface ArmyAttributesSource extends ActorAttributesSource {
 }
 
 interface ArmyAttributes
-    extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">,
+    extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances">,
         ActorAttributes {
     ac: never;
     hp: ArmyHitPoints;
@@ -113,7 +113,6 @@ interface ArmyResourcesData extends ArmyResourcesSource {
 
 interface ArmyTraits extends ArmyTraitsSource, ActorTraitsData<string> {
     size: ActorSizePF2e;
-    senses: SenseData[];
 }
 
 interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}

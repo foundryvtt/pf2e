@@ -55,7 +55,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
@@ -65,7 +65,7 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
-import { ArmorStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { ArmorStatistic, PerceptionStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
 import { ErrorPF2e, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -346,8 +346,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             fu.mergeObject({ mod: 0 }, this.system.abilities?.[a] ?? {}),
         ]);
 
+        this.system.perception.rank = 0;
         type SystemDataPartial = DeepPartial<
-            Pick<CharacterSystemData, "build" | "crafting" | "proficiencies" | "saves">
+            Pick<CharacterSystemData, "build" | "crafting" | "perception" | "proficiencies" | "saves">
         > & { abilities: Abilities };
         const systemData: SystemDataPartial = this.system;
         const existingBoosts = systemData.build?.attributes?.boosts;
@@ -406,16 +407,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Attributes
         const attributes: DeepPartial<CharacterAttributes> = this.system.attributes;
-        attributes.ac = {};
         attributes.polymorphed = false;
         attributes.battleForm = false;
         attributes.classDC = null;
         attributes.spellDC = null;
         attributes.classOrSpellDC = { rank: 0, value: 0 };
-
-        const perception = (attributes.perception ??= { ability: "wis", rank: 0 });
-        perception.ability = "wis";
-        perception.rank ??= 0;
 
         // Hit points
         const hitPoints = this.system.attributes.hp;
@@ -428,8 +424,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const { skills } = this.system;
         for (const key of SKILL_ABBREVIATIONS) {
             const skill = skills[key];
-            skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
-            skill.armor = ["dex", "str"].includes(skill.ability);
+            skill.attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
+            skill.armor = ["dex", "str"].includes(skill.attribute);
         }
 
         // Familiar abilities
@@ -616,24 +612,22 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.prepareMartialProficiencies();
 
         // Perception
-        this.perception = new Statistic(this, {
+        this.perception = new PerceptionStatistic(this, {
             slug: "perception",
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
-            rank: systemData.attributes.perception.rank,
+            rank: systemData.perception.rank,
             domains: ["perception", "all"],
             check: { type: "perception-check" },
+            senses: this.system.perception.senses,
         });
-        systemData.attributes.perception = fu.mergeObject(
-            systemData.attributes.perception,
-            this.perception.getTraceData({ value: "mod" }),
-        );
+        systemData.perception = fu.mergeObject(this.perception.getTraceData(), {
+            attribute: this.perception.attribute ?? "wis",
+            rank: systemData.perception.rank,
+        });
 
         // Skills
         this.skills = this.prepareSkills();
-
-        // Senses
-        this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
         // Class DC
         this.classDC = null;
@@ -654,7 +648,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Armor Class
         const armorStatistic = this.createArmorStatistic();
         this.armorClass = armorStatistic.dc;
-        systemData.attributes.ac = armorStatistic.getTraceData();
+        systemData.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
+            attribute: armorStatistic.attribute ?? "dex",
+        });
 
         // Apply the speed penalty from this character's held shield
         const { heldShield } = this;
@@ -677,9 +673,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
 
         // Initiative
-        const initiativeSkill = systemData.attributes.initiative?.statistic || "perception";
-        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
-        this.system.attributes.initiative = this.initiative.getTraceData();
+        this.initiative = new ActorInitiative(this, R.pick(systemData.initiative, ["statistic", "tiebreakPriority"]));
+        this.system.initiative = this.initiative.getTraceData();
 
         // Resources
         const { crafting } = this.system.resources;
@@ -739,7 +734,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     protected setNumericRollOptions(): void {
         const rollOptionsAll = this.rollOptions.all;
 
-        const perceptionRank = this.system.attributes.perception.rank;
+        const perceptionRank = this.system.perception.rank;
         rollOptionsAll[`perception:rank:${perceptionRank}`] = true;
 
         for (const key of ATTRIBUTE_ABBREVIATIONS) {
@@ -822,7 +817,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         return new ArmorStatistic(this, {
             rank: proficiency.rank,
-            attribute: attributeModifier.ability!,
+            attribute: attributeModifier.ability ?? "dex",
             modifiers: [attributeModifier],
         });
     }
@@ -837,7 +832,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const save = systemData.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const modifiers: ModifierPF2e[] = [];
-            const selectors = [saveType, `${save.ability}-based`, "saving-throw", "all"];
+            const selectors = [saveType, `${save.attribute}-based`, "saving-throw", "all"];
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.system.runes.resilient && wornArmor.isInvested) {
@@ -872,7 +867,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                attribute: save.ability,
+                attribute: save.attribute,
                 rank: save.rank,
                 modifiers,
                 domains: selectors,
@@ -897,7 +892,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             const longForm = SKILL_DICTIONARY[shortForm];
             const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
 
-            const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
+            const domains = [
+                longForm,
+                `${skill.attribute}-based`,
+                "skill-check",
+                `${skill.attribute}-skill-check`,
+                "all",
+            ];
             const modifiers: ModifierPF2e[] = [];
 
             // Indicate that the strength requirement of this actor's armor is met
@@ -943,7 +944,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 slug: longForm,
                 label,
                 rank: skill.rank,
-                attribute: skill.ability,
+                attribute: skill.attribute,
                 domains,
                 modifiers,
                 lore: false,
@@ -951,7 +952,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }) as CharacterSkill;
 
             builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = fu.mergeObject(this.system.skills[shortForm], statistic.getTraceData());
+            this.system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), this.system.skills[shortForm]);
 
             return builtSkills;
         }, {} as CharacterSkills);
@@ -974,12 +975,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             skills[longForm] = statistic;
             this.system.skills[longForm as SkillAbbreviation] = {
+                ...statistic.getTraceData(),
                 armor: false,
-                ability: "int",
+                attribute: "int",
                 rank,
                 lore: true,
                 itemID: loreItem.id,
-                ...statistic.getTraceData(),
             };
         }
 
@@ -1056,8 +1057,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    prepareClassDC(slug: string, classDC: Pick<ClassDCData, "label" | "ability" | "rank" | "primary">): Statistic {
-        classDC.ability ??= "str";
+    private prepareClassDC(
+        slug: string,
+        classDC: Pick<ClassDCData, "label" | "attribute" | "rank" | "primary">,
+    ): Statistic {
+        classDC.attribute ??= "str";
         classDC.rank ??= 0;
         classDC.primary ??= false;
 
@@ -1067,7 +1071,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return new Statistic(this, {
             slug,
             label: classDC.label,
-            attribute: classDC.ability,
+            attribute: classDC.attribute,
             rank: classDC.rank,
             domains: ["class", slug, "all"],
             check: { type: "check" },

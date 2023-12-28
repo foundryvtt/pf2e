@@ -75,13 +75,14 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
     /** Prepare a character's data derived from their class */
     override prepareActorData(this: ClassPF2e<CharacterPF2e>): void {
-        if (!this.actor?.isOfType("character")) {
+        const actor = this.actor;
+        if (!actor.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
 
-        this.actor.class = this;
-        const { attributes, build, details, proficiencies, saves, skills } = this.actor.system;
+        actor.class = this;
+        const { attributes, build, details, proficiencies, saves, skills } = actor.system;
         const slug = this.slug ?? sluggify(this.name);
 
         // Add base key ability options
@@ -91,20 +92,20 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         attributes.classhp = this.hpPerLevel;
 
-        attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
-        this.logAutoChange("system.attributes.perception.rank", this.perception);
+        actor.system.perception.rank = Math.max(actor.system.perception.rank, this.perception) as ZeroToFour;
+        this.logAutoChange("system.perception.rank", this.perception);
 
         // Override the actor's key ability score if it's set
         details.keyability.value =
             (build.attributes.manual ? details.keyability.value : build.attributes.boosts.class) ?? "str";
 
         // Set class DC
-        type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
+        type PartialClassDCs = Record<string, Pick<ClassDCData, "attribute" | "label" | "primary" | "rank">>;
         const classDCs: PartialClassDCs = proficiencies.classDCs;
         classDCs[slug] = {
             label: this.name,
             rank: 1,
-            ability: details.keyability.value,
+            attribute: details.keyability.value,
             primary: true,
         };
 

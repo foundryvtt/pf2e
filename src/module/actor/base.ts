@@ -45,7 +45,12 @@ import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import type {
+    ArmorStatistic,
+    PerceptionStatistic,
+    StatisticCheck,
+    StatisticDifficultyClass,
+} from "@system/statistic/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -76,7 +81,7 @@ import {
     isReallyPC,
     migrateActorSource,
 } from "./helpers.ts";
-import { ActorInitiative } from "./initiative.ts";
+import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
 import { StatisticModifier } from "./modifiers.ts";
@@ -121,7 +126,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
 
-    declare perception?: Statistic;
+    declare perception?: PerceptionStatistic;
 
     /** Skill checks for the actor if supported by the actor type */
     declare skills?: Partial<CreatureSkills>;

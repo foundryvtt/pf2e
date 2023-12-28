@@ -1,4 +1,5 @@
-import type { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import type { SenseAcuity } from "@actor/creature/types.ts";
+import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE } from "@actor/creature/values.ts";
 import {
     activateActionSheetListeners,
     createSelfEffectSheetData,
@@ -139,18 +140,18 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const feat = this.item;
         const selections = feat.system.subfeatures.senses;
         const senses = R.keys.strict(CONFIG.PF2E.senses);
-        const visionSenses: SenseType[] = ["darkvision", "greaterDarkvision", "lowLightVision", "seeInvisibility"];
+        const sensesWithUnlimitedRange: readonly string[] = SENSES_WITH_UNLIMITED_RANGE;
         return senses
             .map((slug) => {
                 const selection = selections[slug];
                 return {
                     slug,
                     label: game.i18n.localize(CONFIG.PF2E.senses[slug]),
-                    acuity: selection ? selection.acuity ?? "precise" : null,
-                    range: selection?.range,
+                    acuity: SENSES_WITH_MANDATORY_ACUITIES[slug] ?? selection?.acuity ?? "precise",
+                    range: sensesWithUnlimitedRange.includes(slug) ? null : selection?.range ?? null,
                     special: slug === "darkvision" && feat.level === 1 ? selection?.special ?? null : null,
-                    canSetAcuity: !visionSenses.includes(slug),
-                    canSetRange: !visionSenses.includes(slug),
+                    canSetAcuity: !(slug in SENSES_WITH_MANDATORY_ACUITIES),
+                    canSetRange: !sensesWithUnlimitedRange.includes(slug),
                 };
             })
             .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));

@@ -1,4 +1,4 @@
-import { SenseAcuity, SenseType } from "./sense.ts";
+import { SenseAcuity, SenseType } from "./index.ts";
 
 const ALLIANCES = new Set(["party", "opposition", null] as const);
 
@@ -18,14 +18,43 @@ const SIZE_TO_REACH = {
     grg: 15,
 } as const;
 
+const SENSE_TYPES = new Set([
+    "darkvision",
+    "echolocation",
+    "greater-darkvision",
+    "infrared-vision",
+    "lifesense",
+    "low-light-vision",
+    "motion-sense",
+    "scent",
+    "see-invisibility",
+    "spiritsense",
+    "thoughtsense",
+    "tremorsense",
+    "truesight",
+    "wavesense",
+] as const);
+
 /** Sense types associated with a particular acuities by definition */
-const SENSES_WITH_MANDATORY_ACUITIES = {
+const SENSES_WITH_MANDATORY_ACUITIES: { [K in SenseType]?: SenseAcuity } = {
     darkvision: "precise",
-    heatsight: "precise",
-    greaterDarkvision: "precise",
-    lowLightVision: "precise",
-    seeInvisibility: "precise",
-} as const satisfies { [K in SenseType]?: SenseAcuity };
+    echolocation: "precise",
+    "greater-darkvision": "precise",
+    "infrared-vision": "precise",
+    "low-light-vision": "precise",
+    "motion-sense": "precise",
+    "see-invisibility": "precise",
+    truesight: "precise",
+};
+
+const SENSES_WITH_UNLIMITED_RANGE = [
+    "darkvision",
+    "greater-darkvision",
+    "low-light-vision",
+    "see-invisibility",
+] as const;
+
+const SENSE_ACUITIES = ["precise", "imprecise", "vague"] as const;
 
 const LANGUAGES = [
     "adlet",
@@ -143,4 +172,13 @@ const LANGUAGES = [
     "ysoki",
 ] as const;
 
-export { ALLIANCES, LANGUAGES, SAVING_THROW_DEFAULT_ATTRIBUTES, SENSES_WITH_MANDATORY_ACUITIES, SIZE_TO_REACH };
+export {
+    ALLIANCES,
+    LANGUAGES,
+    SAVING_THROW_DEFAULT_ATTRIBUTES,
+    SENSES_WITH_MANDATORY_ACUITIES,
+    SENSES_WITH_UNLIMITED_RANGE,
+    SENSE_ACUITIES,
+    SENSE_TYPES,
+    SIZE_TO_REACH,
+};

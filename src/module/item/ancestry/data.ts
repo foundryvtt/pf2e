@@ -29,7 +29,7 @@ interface AncestrySystemSource extends ABCSystemSource {
     speed: number;
     size: Size;
     reach: number;
-    vision: "normal" | "darkvision" | "lowLightVision";
+    vision: "normal" | "darkvision" | "low-light-vision";
     level?: never;
 }
 

@@ -213,13 +213,13 @@
         data-tooltip="PF2E.Check.Specific.Perception.Secret"
     ><i class="fa-solid fa-eye-slash"></i></a>
     <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
-        {{numberFormat data.attributes.perception.value decimals=0 sign=true}}
+        {{numberFormat data.perception.totalModifier decimals=0 sign=true}}
     </a>
     <div class="perception-prof button-group skill-container">
-        <span class="pf-rank" data-rank="{{data.attributes.perception.rank}}">{{lookup @root.numberToRank data.attributes.perception.rank}}</span>
+        <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
     </div>
 </div>
-{{#with data.attributes.perception}}
+{{#with data.perception}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.PerceptionHeader"}}
 {{/with}}
 
@@ -234,10 +234,10 @@
         data-tooltip="COMBAT.InitiativeRoll"
     >{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
     <a class="modifier hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
-        {{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}
+        {{numberFormat data.initiative.totalModifier decimals=0 sign=true}}
     </a>
-        <select name="system.attributes.initiative.statistic">
-            {{#select data.attributes.initiative.statistic}}
+        <select name="system.initiative.statistic">
+            {{#select data.initiative.statistic}}
                 <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
                 {{#each data.skills as |skill|}}
                     <option value="{{skill.slug}}">{{localize skill.label}}</option>
@@ -245,7 +245,7 @@
             {{/select}}
         </select>
 </section>
-{{#with data.attributes.initiative}}
+{{#with data.initiative}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
 {{/with}}
 

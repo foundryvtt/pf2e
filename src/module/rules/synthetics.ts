@@ -1,7 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { DexterityModifierCapData } from "@actor/character/types.ts";
-import { LabeledSpeed } from "@actor/creature/data.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { LabeledSpeed, SenseData } from "@actor/creature/data.ts";
 import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
 import type { TokenEffect } from "@actor/token-effect.ts";
 import { MovementType } from "@actor/types.ts";
@@ -115,7 +114,7 @@ interface RollTwiceSynthetic {
 }
 
 interface SenseSynthetic {
-    sense: CreatureSensePF2e;
+    sense: Required<SenseData>;
     predicate: PredicatePF2e;
     force: boolean;
 }

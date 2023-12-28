@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor/base.ts";
 import { DexterityModifierCapData } from "@actor/character/types.ts";
 import { Abilities } from "@actor/creature/data.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
+import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
 import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
 import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
@@ -46,7 +47,6 @@ type ActorSystemSource = {
 
 interface ActorAttributesSource {
     hp?: ActorHitPointsSource;
-    perception?: { value: number };
     immunities?: ImmunitySource[];
     weaknesses?: WeaknessSource[];
     resistances?: ResistanceSource[];
@@ -67,6 +67,10 @@ interface ActorSystemData extends ActorSystemSource {
     actions?: StrikeData[];
     attributes: ActorAttributes;
     traits?: ActorTraitsData<string>;
+
+    /** Initiative, used to determine turn order in encounters */
+    initiative?: InitiativeTraceData;
+
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
     autoChanges: Record<string, AutoChangeEntry[] | undefined>;
 }
@@ -77,7 +81,6 @@ interface ActorAttributes extends ActorAttributesSource {
     immunities: Immunity[];
     weaknesses: Weakness[];
     resistances: Resistance[];
-    initiative?: InitiativeData;
     shield?: {
         raised: boolean;
         broken: boolean;
@@ -157,12 +160,11 @@ interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrai
 
 /** Basic skill and save data (not including custom modifiers). */
 interface AttributeBasedTraceData extends StatisticTraceData {
+    attribute: AttributeString;
     /** The actual modifier for this martial type */
     value: number;
     /** Describes how the value was computed */
     breakdown: string;
-    /** The attribute off of which this save scales */
-    ability?: AttributeString;
 }
 
 /** A roll function which can be called to roll a given skill. */
@@ -180,9 +182,6 @@ interface InitiativeData extends StatisticTraceData {
      */
     tiebreakPriority: ZeroToTwo;
 }
-
-/** The full data for creature perception rolls (which behave similarly to skills). */
-type PerceptionData = AttributeBasedTraceData;
 
 /** The full data for creature or hazard AC; includes the armor check penalty. */
 interface ArmorClassData {
@@ -301,7 +300,6 @@ export type {
     GangUpCircumstance,
     HitPointsStatistic,
     InitiativeData,
-    PerceptionData,
     PrototypeTokenPF2e,
     RollFunction,
     RollOptionFlags,

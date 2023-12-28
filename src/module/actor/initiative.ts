@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { createPonderousPenalty } from "@actor/character/helpers.ts";
 import { InitiativeData } from "@actor/data/base.ts";
+import { ZeroToTwo } from "@module/data.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { Statistic, StatisticData, StatisticRollParameters, StatisticTraceData } from "@system/statistic/index.ts";
@@ -20,7 +21,30 @@ interface InitiativeRollParams extends StatisticRollParameters {
 /** A statistic wrapper used to roll initiative for actors */
 class ActorInitiative {
     actor: ActorPF2e;
+
     statistic: Statistic;
+
+    tiebreakPriority: ZeroToTwo;
+
+    constructor(actor: ActorPF2e, { statistic, tiebreakPriority }: { statistic: string; tiebreakPriority: ZeroToTwo }) {
+        this.actor = actor;
+        this.tiebreakPriority = tiebreakPriority;
+
+        const base = actor.getStatistic(statistic);
+        const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
+        const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
+
+        const data: StatisticData = {
+            slug: "initiative",
+            label: base?.label ?? "PF2E.InitiativeLabel",
+            domains: ["initiative"],
+            rollOptions: [base?.slug ?? []].flat(),
+            check: { type: "initiative", label: rollLabel },
+            modifiers: [ponderousPenalty ?? []].flat(),
+        };
+
+        this.statistic = base ? base.extend(data) : new Statistic(actor, data);
+    }
 
     get attribute(): AttributeString | null {
         return this.statistic.attribute;
@@ -37,25 +61,6 @@ class ActorInitiative {
             { since: "5.3.0", until: "6.0.0" },
         );
         return this.attribute;
-    }
-
-    constructor(actor: ActorPF2e, { statistic }: { statistic: string }) {
-        this.actor = actor;
-
-        const base = actor.getStatistic(statistic);
-        const ponderousPenalty = actor.isOfType("character") ? createPonderousPenalty(actor) : null;
-        const rollLabel = game.i18n.format("PF2E.InitiativeWithSkill", { skillName: base?.label ?? "" });
-
-        const data: StatisticData = {
-            slug: "initiative",
-            label: base?.label ?? "PF2E.InitiativeLabel",
-            domains: ["initiative"],
-            rollOptions: [base?.slug ?? []].flat(),
-            check: { type: "initiative", label: rollLabel },
-            modifiers: [ponderousPenalty ?? []].flat(),
-        };
-
-        this.statistic = base ? base.extend(data) : new Statistic(actor, data);
     }
 
     async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
@@ -85,13 +90,12 @@ class ActorInitiative {
     }
 
     getTraceData(): InitiativeTraceData {
-        const initiativeData = this.actor.attributes.initiative;
-        const tiebreakPriority = initiativeData?.tiebreakPriority ?? 0;
+        const initiativeData = this.actor.system.initiative;
 
         return {
             ...this.statistic.getTraceData(),
             statistic: initiativeData?.statistic ?? "perception",
-            tiebreakPriority,
+            tiebreakPriority: this.tiebreakPriority,
         };
     }
 }

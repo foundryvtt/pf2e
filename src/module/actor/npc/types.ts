@@ -1,13 +1,13 @@
-import { HitPointsStatistic, PerceptionData } from "@actor/data/base.ts";
-import { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
-import type { AbilityItemPF2e, ItemPF2e } from "@item";
-import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import { ZeroToFour } from "@module/data.ts";
-import { TraitTagifyEntry } from "@module/sheet/helpers.ts";
-import type { ArmorClassTraceData } from "@system/statistic/index.ts";
-import { NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
-import type { NPCPF2e, NPCStrike } from "./index.ts";
 import type { CreatureSheetData } from "@actor/creature/sheet.ts";
+import type { HitPointsStatistic } from "@actor/data/base.ts";
+import type { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
+import type { AbilityItemPF2e, ItemPF2e } from "@item";
+import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import type { ZeroToFour } from "@module/data.ts";
+import type { TraitTagifyEntry } from "@module/sheet/helpers.ts";
+import type { ArmorClassTraceData } from "@system/statistic/index.ts";
+import type { NPCAttributes, NPCPerceptionData, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
+import type { NPCPF2e, NPCStrike } from "./index.ts";
 
 interface ActionsDetails {
     label: string;
@@ -41,10 +41,10 @@ type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 
 interface NPCSystemSheetData extends NPCSystemData {
     actions: NPCStrikeSheetData[];
+    perception: NPCPerceptionData & WithAdjustments & WithRank;
     attributes: NPCAttributes & {
         ac: ArmorClassTraceData & WithAdjustments;
         hp: HitPointsStatistic & WithAdjustments;
-        perception: PerceptionData & WithAdjustments & WithRank;
     };
     details: NPCSystemData["details"] & {
         level: NPCSystemData["details"]["level"] & WithAdjustments;

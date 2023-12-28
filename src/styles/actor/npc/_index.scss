@@ -58,6 +58,26 @@ $faded-color: #7a7971;
         background: none;
     }
 
+    ul.comma-separated {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 0.25em;
+        list-style: none;
+        margin-top: 0;
+        padding: 0 0.125rem 0 0;
+        text-transform: lowercase;
+
+        li {
+            &::after {
+                content: ",";
+            }
+
+            &:last-child::after {
+                content: "";
+            }
+        }
+    }
+
     .sidebar {
         flex: 10rem 0 0;
         height: 100%;
@@ -229,7 +249,7 @@ $faded-color: #7a7971;
             }
 
             select {
-                font-size: var(--font-size-11);
+                font-size: var(--font-size-12);
                 text-transform: unset;
             }
         }
@@ -466,20 +486,9 @@ $faded-color: #7a7971;
 
         .senses {
             flex: 2;
-
-            .perception {
-                width: 100%;
-                label {
-                    flex-basis: 5em;
-                }
-                input {
-                    flex: 0 0 1.5rem;
-                    z-index: 1;
-                }
-            }
         }
 
-        .ability-scores {
+        .attribute-modifiers {
             flex: 2;
             flex-direction: column;
 
@@ -487,6 +496,7 @@ $faded-color: #7a7971;
                 display: grid;
                 padding-left: 0.75em;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
+
                 input {
                     flex: 0 0 1.5rem;
                     margin-right: 1em;
@@ -551,7 +561,6 @@ $faded-color: #7a7971;
         flex: auto 0 0;
         padding: 0.25rem;
         height: auto;
-        font-weight: 500;
 
         option {
             color: var(--text-light);
