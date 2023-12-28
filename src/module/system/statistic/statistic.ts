@@ -71,12 +71,9 @@ class Statistic extends BaseStatistic {
         if (data.attribute) domains.push(`${data.attribute}-based`);
 
         // If this is a character with a proficiency, add a proficiency modifier
-        const proficiencyModifier = !actor.isOfType("character")
-            ? null
-            : typeof data.rank === "number"
-              ? createProficiencyModifier({ actor, rank: data.rank, domains })
-              : data.rank === "untrained-level"
-                ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
+        const proficiencyModifier =
+            actor.isOfType("character") && typeof data.rank === "number"
+                ? createProficiencyModifier({ actor, rank: data.rank, domains })
                 : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
@@ -89,7 +86,7 @@ class Statistic extends BaseStatistic {
 
         this.attribute = data.attribute ?? null;
         if (typeof data.lore === "boolean") this.lore = data.lore;
-        this.rank = data.rank === "untrained-level" ? 0 : data.rank ?? null;
+        this.rank = data.rank ?? null;
         this.config = config;
 
         // Check rank and data to assign proficient, but default to true
