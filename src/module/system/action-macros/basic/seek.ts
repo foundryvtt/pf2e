@@ -33,6 +33,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.Seek.Notes.success" },
     ],
     rollOptions: ["action:seek"],
+    section: "basic",
     slug: "seek",
     statistic: "perception",
     traits: ["concentrate", "secret"],
