@@ -73,6 +73,7 @@ class GrappleAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
             ],
             rollOptions: ["action:grapple"],
+            section: "skill",
             slug: "grapple",
             statistic: "athletics",
             traits: ["attack"],

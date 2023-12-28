@@ -34,6 +34,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:gather-information"],
+    section: "skill",
     slug: "gather-information",
     statistic: "diplomacy",
     traits: ["exploration", "secret"],

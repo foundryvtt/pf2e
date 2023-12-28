@@ -38,6 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:maneuver-in-flight"],
+    section: "skill",
     slug: "maneuver-in-flight",
     statistic: "acrobatics",
     traits: ["move"],

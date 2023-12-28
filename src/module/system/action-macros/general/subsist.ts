@@ -76,6 +76,7 @@ class SubsistAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Subsist.Notes.criticalFailure" },
             ],
             rollOptions: ["action:subsist"],
+            section: "skill",
             slug: "subsist",
             statistic: "",
             traits: ["downtime"],

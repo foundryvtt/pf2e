@@ -49,6 +49,7 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.Demoralize.Notes.success" },
     ],
     rollOptions: ["action:demoralize"],
+    section: "skill",
     slug: "demoralize",
     statistic: "intimidation",
     traits: ["auditory", "concentrate", "emotion", "fear", "mental"],

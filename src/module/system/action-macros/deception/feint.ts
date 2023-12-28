@@ -38,6 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:feint"],
+    section: "skill",
     slug: "feint",
     statistic: "deception",
     traits: ["mental"],
