@@ -79,7 +79,7 @@ class Color extends Number {}
  * @param variable A provided variable
  * @return The named type of the token
  */
-export function getType(variable: unknown): string {
+function getType(variable: unknown): string {
     // Primitive types, handled with simple typeof check
     const typeOf = typeof variable;
     if (typeOf !== "object") return typeOf;
@@ -135,14 +135,13 @@ function duplicate<T>(original: T): T {
 }
 
 /** Update a source object by replacing its keys and values with those from a target object. */
-export function mergeObject<T extends object, U extends object = T>(
+function mergeObject<T extends object, U extends object = T>(
     original: T,
     other?: U,
     options?: MergeObjectOptions,
     _d?: number,
 ): T & U;
-
-export function mergeObject(
+function mergeObject(
     original: object,
     other: object = {},
     {
@@ -323,7 +322,7 @@ function diffObject(original: object, other: object, { inner = false, deletionKe
  * @param {*} value       The value to test
  * @returns {boolean}     Is the value empty-like?
  */
-export function isEmpty(value: unknown): boolean {
+function isEmpty(value: unknown): boolean {
     const t = getType(value);
     switch (t) {
         case "undefined":
@@ -342,6 +341,17 @@ export function isEmpty(value: unknown): boolean {
     }
 }
 
+/**
+ * Generate a random string ID of a given requested length.
+ * @param length The length of the random ID to generate
+ * @return Return a string containing random letters and numbers
+ */
+function randomID(length = 16): string {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const r = Array.from({ length }, () => (Math.random() * chars.length) >> 0);
+    return r.map((i) => chars[i]).join("");
+}
+
 const f = (global.foundry = {
     utils: {
         deepClone,
@@ -351,6 +361,7 @@ const f = (global.foundry = {
         isEmpty,
         getType,
         mergeObject,
+        randomID,
         setProperty,
     },
 } as typeof foundry);
