@@ -221,16 +221,8 @@
     <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
 
     <div class="perception-prof button-group skill-container">
-        <select
-            class="perception-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
-            data-property="system.attributes.perception.rank"
-            data-rank="{{data.attributes.perception.rank}}"
-            data-dtype="Number"
-        >
-            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=data.attributes.perception.rank}}
-        </select>
+        <span class="pf-rank" data-rank="{{data.attributes.perception.rank}}">{{lookup @root.numberToRank data.attributes.perception.rank}}</span>
     </div>
-
 </div>
 {{#with data.attributes.perception}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.PerceptionHeader"}}
@@ -277,14 +269,7 @@
             <h2 class="sidebar_label">{{localize save.label}}</h2>
 
             <div class="save-prof button-group skill-container">
-                <select
-                    class="save-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
-                    data-property="system.saves.{{slug}}.rank"
-                    data-rank="{{save.rank}}"
-                    data-dtype="Number"
-                >
-                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=save.rank}}
-                </select>
+                <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
             </div>
 
             <div class="save-roll">
