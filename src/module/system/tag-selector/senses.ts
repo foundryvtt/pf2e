@@ -50,7 +50,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
             ...(await super.getData(options)),
             hasExceptions: false,
             choices,
-            senseAcuity: CONFIG.PF2E.senseAcuity,
+            senseAcuities: CONFIG.PF2E.senseAcuities,
         };
     }
 
@@ -109,7 +109,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
 interface SenseSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TActor> {
     hasExceptions: boolean;
     choices: Record<string, SenseChoiceData>;
-    senseAcuity: Record<string, string>;
+    senseAcuities: typeof CONFIG.PF2E.senseAcuities;
 }
 
 interface SenseChoiceData {

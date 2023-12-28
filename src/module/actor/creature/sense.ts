@@ -30,7 +30,7 @@ export class CreatureSensePF2e implements SenseData {
         const buildLabel = (type: string, acuity?: SenseAcuity, range?: number): string => {
             const senses: Record<string, string | undefined> = CONFIG.PF2E.senses;
             const sense = game.i18n.localize(senses[type] ?? "") || type;
-            const acuityLabel = acuity ? game.i18n.localize(CONFIG.PF2E.senseAcuity[acuity]) : null;
+            const acuityLabel = acuity ? game.i18n.localize(CONFIG.PF2E.senseAcuities[acuity]) : null;
             return acuity && range
                 ? game.i18n.format("PF2E.Actor.Creature.Sense.WithAcuityAndRange", {
                       sense,

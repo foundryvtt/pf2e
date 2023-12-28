@@ -25,7 +25,7 @@
                     </td>
                     <td>
                         <select name="{{key}}" {{disabled (or choice.source (not choice.canSetAcuity))}}>
-                            {{#each ../senseAcuity as |acuity k|}}
+                            {{#each ../senseAcuities as |acuity k|}}
                                 <option value={{k}}{{#if (eq k choice.acuity)}} selected{{/if}}>{{localize acuity}}</option>
                             {{/each}}
                         </select>
