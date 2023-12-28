@@ -53,6 +53,7 @@ import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
+import { mount } from "./specialty-basic/mount.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
@@ -183,6 +184,7 @@ export const SystemActions: Action[] = [
     longJump.action,
     makeAnImpression.action,
     maneuverInFlight.action,
+    mount,
     palmAnObject.action,
     perform.action,
     pickALock.action,
