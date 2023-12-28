@@ -52,6 +52,7 @@ import * as treatPoison from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
+import { avertGaze } from "./specialty-basic/avert-gaze.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
@@ -153,6 +154,7 @@ export const ActionMacros = {
 export const SystemActions: Action[] = [
     administerFirstAid.action,
     aid,
+    avertGaze,
     avoidNotice.action,
     balance.action,
     burrow,
