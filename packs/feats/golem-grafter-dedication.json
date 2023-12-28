@@ -33,6 +33,25 @@
                 "key": "FlatModifier",
                 "selector": "hp",
                 "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.golemGrafterDedicationCount",
+                "value": 1
+            },
+            {
+                "exceptions": [
+                    {
+                        "definition": [
+                            "damage:material:adamantine"
+                        ],
+                        "label": "adamantine"
+                    }
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": "@actor.flags.pf2e.golemGrafterDedicationCount"
             }
         ],
         "traits": {
