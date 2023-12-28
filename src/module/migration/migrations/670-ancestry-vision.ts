@@ -39,7 +39,8 @@ export class Migration670AncestryVision extends MigrationBase {
             if (value?.id === this.LOWLIGHTVISION_ID) {
                 features[`-=${key}`] = null;
                 // Prefer darkvision if the ancestry item somehow has both features
-                ancestry.system.vision = ancestry.system.vision === "darkvision" ? "darkvision" : "lowLightVision";
+                const system: { vision: string } = ancestry.system;
+                system.vision = system.vision === "darkvision" ? "darkvision" : "lowLightVision";
             } else if (value?.id === this.DARKVISION_ID) {
                 features[`-=${key}`] = null;
                 ancestry.system.vision = "darkvision";
