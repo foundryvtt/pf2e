@@ -69,6 +69,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
+                { required: true, initial: undefined },
             ),
             type: new fields.StringField({
                 required: true,
@@ -195,7 +196,7 @@ interface FlatModifierRuleElement
 
 type FlatModifierSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: ArrayField<StringField<string, string, true, false, false>>;
+    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, false>;
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
