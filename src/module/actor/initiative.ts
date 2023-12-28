@@ -26,6 +26,10 @@ class ActorInitiative {
         return this.statistic.attribute;
     }
 
+    get mod(): number {
+        return this.statistic.check.mod;
+    }
+
     /** @deprecated */
     get ability(): AttributeString | null {
         fu.logCompatibilityWarning(
