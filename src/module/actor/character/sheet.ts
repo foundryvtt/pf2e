@@ -105,7 +105,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
-        const { actor } = this;
+        const actor = this.actor;
 
         // If the user only has limited permission, the main tab will be the biography
         if (this.actor.limited) {
@@ -248,11 +248,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.preparationType = CONFIG.PF2E.preparationType;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
         sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some((s) => s.usesSpellProficiency);
-
-        // preparing the name of the rank, as this is displayed on the sheet
-        sheetData.data.attributes.perception.rankName = game.i18n.format(
-            `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`,
-        );
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
@@ -1504,11 +1499,6 @@ interface CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheet
 type CharacterSheetOptions = ActorSheetOptions;
 
 type CharacterSystemSheetData = CharacterSystemData & {
-    attributes: {
-        perception: {
-            rankName: string;
-        };
-    };
     details: CharacterSystemData["details"] & {
         keyability: {
             value: keyof typeof CONFIG.PF2E.abilities;
