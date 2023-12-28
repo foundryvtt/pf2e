@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import { AttributeString, SaveType } from "@actor/types.ts";
+import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
@@ -24,7 +24,7 @@ import {
 } from "@util";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
-import { AbilityData, CreatureSystemData, SaveData, SkillAbbreviation, SkillData } from "./data.ts";
+import { AbilityData, CreatureSystemData } from "./data.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 
 /**
@@ -39,44 +39,10 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
         const { actor } = this;
 
-        // Update save labels
-        if (sheetData.data.saves) {
-            for (const key of ["fortitude", "reflex", "will"] as const) {
-                const save = sheetData.data.saves[key];
-                save.icon = this.getProficiencyIcon(save.rank);
-                save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-                save.label = CONFIG.PF2E.saves[key];
-            }
-        }
-
-        // Update proficiency label
-        if (sheetData.data.attributes !== undefined) {
-            sheetData.data.attributes.perception.icon = this.getProficiencyIcon(
-                sheetData.data.attributes.perception.rank,
-            );
-            sheetData.data.attributes.perception.hover =
-                CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.perception.rank];
-        }
-
         // Ability Scores
         if (sheetData.data.abilities) {
             for (const key of ATTRIBUTE_ABBREVIATIONS) {
                 sheetData.data.abilities[key].label = CONFIG.PF2E.abilities[key];
-            }
-        }
-
-        // Update skill labels
-        if (sheetData.data.skills) {
-            type WithSheetProperties = Record<
-                SkillAbbreviation,
-                SkillData & { icon?: string; hover?: string; rank?: ZeroToFour }
-            >;
-            const skills: WithSheetProperties = sheetData.data.skills;
-            for (const [key, skill] of Object.entries(skills)) {
-                const label = objectHasKey(CONFIG.PF2E.skills, key) ? CONFIG.PF2E.skills[key] : null;
-                skill.icon = this.getProficiencyIcon(skill.rank ?? 0);
-                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank ?? 0];
-                skill.label = skill.label ?? label ?? "";
             }
         }
 
@@ -527,16 +493,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 }
 
-type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
-
 interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
     data: CreatureSystemData & {
         abilities: Record<AttributeString, AbilityData & { label?: string }>;
-        attributes: {
-            perception: CreatureSystemData["attributes"]["perception"] & WithRank;
-        };
-        saves: Record<SaveType, SaveData & WithRank>;
-        skills: Record<string, SkillData & WithRank>;
     };
     languages: SheetOptions;
     abilities: typeof CONFIG.PF2E.abilities;
