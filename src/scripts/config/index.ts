@@ -108,8 +108,7 @@ const senses: Record<SenseType, string> = {
     wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
 };
 
-// Sense acuity
-const senseAcuity: Record<SenseAcuity, string> = {
+const senseAcuities: Record<SenseAcuity, string> = {
     imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",
     precise: "PF2E.Actor.Creature.Sense.Acuity.Precise",
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
@@ -840,7 +839,7 @@ export const PF2ECONFIG = {
 
     senses,
 
-    senseAcuity,
+    senseAcuities,
 
     conditionTypes,
 
