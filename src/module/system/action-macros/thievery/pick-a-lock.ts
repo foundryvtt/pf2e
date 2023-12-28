@@ -35,6 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: "PF2E.Actions.PickALock.Notes.criticalFailure" },
     ],
     rollOptions: ["action:pick-a-lock"],
+    section: "skill",
     slug: "pick-a-lock",
     statistic: "thievery",
     traits: ["manipulate"],

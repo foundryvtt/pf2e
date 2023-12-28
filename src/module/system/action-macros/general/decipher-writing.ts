@@ -64,6 +64,7 @@ class DecipherWritingAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.DecipherWriting.Notes.criticalFailure" },
             ],
             rollOptions: ["action:decipher-writing"],
+            section: "skill",
             slug: "decipher-writing",
             statistic: "",
             traits: ["concentrate", "exploration", "secret"],

@@ -37,6 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:force-open"],
+    section: "skill",
     slug: "force-open",
     statistic: "athletics",
     traits: ["attack"],

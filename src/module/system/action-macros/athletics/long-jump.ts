@@ -38,6 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:stride", "action:leap", "action:long-jump"],
+    section: "skill",
     slug: "long-jump",
     statistic: "athletics",
     traits: ["move"],

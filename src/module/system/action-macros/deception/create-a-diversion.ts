@@ -66,6 +66,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },
         { outcome: ["criticalFailure", "failure"], text: `${PREFIX}.Notes.failure` },
     ],
+    section: "skill",
     slug: "create-a-diversion",
     statistic: "deception",
     traits: ["mental"],

@@ -104,6 +104,7 @@ class AdministerFirstAidAction extends SingleCheckAction {
             cost: 2,
             description: `${PREFIX}.Description`,
             name: `${PREFIX}.Title`,
+            section: "skill",
             slug: "administer-first-aid",
             statistic: "medicine",
             traits: ["manipulate"],

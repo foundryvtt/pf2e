@@ -59,6 +59,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
+    section: "skill",
     slug: "perform",
     statistic: "performance",
     traits: ["concentrate"],

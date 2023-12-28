@@ -37,6 +37,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: "PF2E.Actions.Coerce.Notes.criticalFailure" },
     ],
     rollOptions: ["action:coerce"],
+    section: "skill",
     slug: "coerce",
     statistic: "intimidation",
     traits: ["auditory", "concentrate", "emotion", "exploration", "linguistic", "mental"],
