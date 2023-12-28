@@ -22,13 +22,34 @@
         font: 700 var(--font-size-14) / 1em var(--body-serif);
         margin: 0;
         padding: 0.5em 0.25em;
+        position: relative;
         width: calc(100% - 0.5em);
+
+        &.has-emblem {
+            border-radius: 0 0.75rem 0.75rem 0;
+        }
 
         span.value {
             flex-basis: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .emblem {
+            position: relative;
+            flex: 0 0 1.75rem;
+            margin-left: 0.25rem;
+            margin-right: -0.3755rem;
+            img {
+                position: absolute;
+                @include brown-border;
+                top: -0.875rem;
+                left: 0;
+                border-radius: 50%;
+                height: 1.75rem;
+                width: 1.75rem;
+            }
         }
     }
 
@@ -67,7 +88,6 @@
                 display: flex;
                 flex-wrap: wrap;
                 gap: 2px;
-
                 .details-label {
                     flex-basis: 100%;
                 }
@@ -81,15 +101,6 @@
                         min-width: 11em;
                     }
                 }
-            }
-
-            img.deity-emblem {
-                @include brown-border;
-                align-self: end;
-                border-radius: 50%;
-                height: 2rem;
-                margin-left: 0.25rem;
-                width: 2rem;
             }
         }
 

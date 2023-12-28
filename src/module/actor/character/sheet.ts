@@ -88,7 +88,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
         options.width = 750;
-        options.height = 800;
+        options.height = 750;
         options.scrollY.push(".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
         options.tabs = [
