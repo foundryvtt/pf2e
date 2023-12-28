@@ -4,6 +4,7 @@ import {
     Action,
     ActionCost,
     ActionMessageOptions,
+    ActionSection,
     ActionUseOptions,
     ActionVariant,
     ActionVariantUseOptions,
@@ -22,6 +23,7 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     description: string;
     img?: string;
     name: string;
+    section?: ActionSection;
     slug?: string | null;
     traits?: string[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
@@ -99,6 +101,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly description?: string;
     readonly img?: string;
     readonly name: string;
+    readonly section?: ActionSection;
     readonly slug: string;
     readonly traits: string[];
     readonly #variants: TAction[];
@@ -108,6 +111,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         this.description = data.description;
         this.img = data.img;
         this.name = data.name.trim();
+        this.section = data.section;
         this.slug = data.slug?.trim() || sluggify(this.name);
         this.traits = data.traits ?? [];
         this.#variants = Array.isArray(data.variants)
