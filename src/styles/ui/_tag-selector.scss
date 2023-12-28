@@ -9,7 +9,23 @@
 .app.tag-selector form {
     height: 100%;
 
-    ol.trait-list {
+    header {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+
+        input {
+            background: rgba(255, 255, 255, 0.5);
+
+            &::placeholder {
+                font-family: var(--fa6);
+                font-weight: 900;
+                padding-left: 0.25em;
+            }
+        }
+    }
+
+    ul {
         display: flex;
         flex-direction: column;
         list-style-type: none;
@@ -19,6 +35,12 @@
 
         &.has-custom {
             max-height: 78%;
+        }
+
+        li > label {
+            align-items: center;
+            display: flex;
+            gap: 0.125rem;
         }
     }
 
@@ -44,43 +66,5 @@
                 text-align: center;
             }
         }
-    }
-
-    .trait-header {
-        flex: 0 0 2rem;
-        line-height: 2rem;
-        text-align: center;
-        margin: 0;
-
-        .header-search {
-            flex: 1;
-
-            input {
-                background: rgba(255, 255, 245, 0.8);
-                width: calc(100% - 26px);
-                margin: 0 2px;
-            }
-        }
-    }
-
-    .trait-footer {
-        flex: 0 0 2rem;
-        line-height: 2rem;
-        margin: 0;
-        margin-bottom: 0.25rem;
-        border-top: 1px solid grey;
-    }
-
-    .trait-selection-label {
-        display: flex;
-        align-items: center;
-
-        .trait-label {
-            margin-left: 5px;
-        }
-    }
-
-    input:not([type="checkbox"]) {
-        flex: 1.8;
     }
 }

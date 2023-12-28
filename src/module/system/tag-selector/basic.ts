@@ -3,7 +3,6 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
-import { htmlQuery, htmlQueryAll } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
@@ -23,14 +22,14 @@ function isValuesList(value: unknown): value is ValuesList {
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
-        });
+            filters: [{ inputSelector: "input[type=search]", contentSelector: "ul" }],
+        };
     }
 
     allowCustom: boolean;
-
-    #filterTimeout: number | null = null;
 
     protected objectProperty: string;
 
@@ -93,15 +92,14 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
-        // Search filtering
-        const searchInput = htmlQuery<HTMLInputElement>(html, "input[type=search]");
-        searchInput?.addEventListener("input", () => {
-            this.#onFilterResults(searchInput);
-        });
+    protected override _onSearchFilter(_event: KeyboardEvent, _query: string, rgx: RegExp): void {
+        for (const row of this.form.querySelectorAll("li")) {
+            row.style.display = rgx.test(row.innerText) ? "" : "none";
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -120,33 +118,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         const optionsAreNumeric = Object.keys(formData).every((tag) => Number.isInteger(Number(tag)));
         const selections = Object.entries(formData)
             .flatMap(([tag, selected]) => (selected ? tag : []))
-            .filter((tag) => tag !== "custom");
-        return optionsAreNumeric ? selections.map((tag) => Number(tag)) : selections;
-    }
-
-    /**
-     * Filter the potential traits to only show ones which match a provided search string
-     * @param searchString The search string to match
-     */
-    #search(searchString: string): void {
-        const query = new RegExp(RegExp.escape(searchString), "i");
-        const html = this.element[0];
-        for (const row of htmlQueryAll(html, "li.trait-item")) {
-            const name = row.getElementsByClassName("trait-label")[0]?.textContent ?? "";
-            row.style.display = query.test(name) ? "flex" : "none";
-        }
-    }
-
-    /**
-     * Handle trait filtering through search field
-     * Toggle the visibility of indexed trait entries by name match
-     */
-    #onFilterResults(input: HTMLInputElement): void {
-        if (this.#filterTimeout) {
-            clearTimeout(this.#filterTimeout);
-            this.#filterTimeout = null;
-        }
-        this.#filterTimeout = window.setTimeout(() => this.#search(input.value), 100);
+            .filter((s) => s !== "custom");
+        return optionsAreNumeric ? selections.map((s) => Number(s)) : selections;
     }
 }
 

@@ -24,24 +24,28 @@
                         </div>
                     </td>
                     <td>
-                        <select name="{{key}}" {{disabled (or choice.source (not choice.canSetAcuity))}}>
-                            {{#each ../senseAcuities as |acuity k|}}
-                                <option value={{k}}{{#if (eq k choice.acuity)}} selected{{/if}}>{{localize acuity}}</option>
-                            {{/each}}
+                        <select name="{{key}}" {{disabled (not choice.canSetAcuity)}}>
+                            {{#select choice.acuity}}
+                                {{#each ../senseAcuities as |label acuity|}}
+                                    <option value="{{acuity}}">{{localize label}}</option>
+                                {{/each}}
+                            {{/select}}
                         </select>
                     </td>
                     <td>
-                        {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
-                            <input
-                                type="number"
-                                id="input_value_{{key}}"
-                                name="{{key}}"
-                                value="{{choice.value}}"
-                                min="0"
+                        <input
+                            type="number"
+                            id="input_value_{{key}}"
+                            name="{{key}}"
+                            value="{{choice.range}}"
+                            {{#if choice.canSetRange}}
+                                min="5"
                                 max="1000"
-                                {{disabled (or choice.source (not choice.canSetRange))}}
-                            />
-                        {{/unless}}
+                                step="5"
+                            {{else}}
+                                disabled
+                            {{/if}}
+                        />
                     </td>
                 </tr>
             {{/each}}

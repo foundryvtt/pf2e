@@ -1,28 +1,30 @@
 <form {{#if flat}}data-flat="{{flat}}"{{/if}} autocapitalize="off">
-    <header class="trait-header flexrow">
-        <div class="header-search">
-            <i class="fa-solid fa-search"></i>
-            <input type="search" value="{{searchString}}" placeholder="{{localize "FILES.Search"}}" />
-        </div>
+    <header>
+        <input type="search" value="{{searchString}}" placeholder="&#xf002;" aria-label="Filter" />
     </header>
-    <ol class="trait-list{{#if allowCustom}} has-custom{{/if}}">
+
+    <ul{{#if allowCustom}} class="has-custom"{{/if}}>
         {{#each choices as |choice key|}}
-        <li class="trait-item">
-            <label class="trait-selection-label">
+        <li>
+            <label class="option">
                 <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                <span class="trait-label">{{choice.label}}</span>
+                <span>{{choice.label}}</span>
             </label>
         </li>
         {{/each}}
-    </ol>
+    </ul>
     {{#if allowCustom}}
-    <div class="form-group stacked trait-footer">
-        <label>{{localize "PF2E.SpecialLabel"}}:</label>
-        <input type="text" name="custom" value="{{custom}}" />
-    </div>
+        <div class="form-group stacked trait-footer">
+            <label>{{localize "PF2E.SpecialLabel"}}:</label>
+            <input type="text" name="custom" value="{{custom}}" />
+        </div>
     {{/if}}
 
-    <button type="submit" class="trait-footer">
-        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
-    </button>
+    <hr />
+
+    <footer>
+        <button type="submit" class="trait-footer">
+            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+        </button>
+    </footer>
 </form>
