@@ -25,6 +25,7 @@ class StandAction extends SimpleAction {
             cost: 1,
             description: "PF2E.Actions.Stand.Description",
             name: "PF2E.Actions.Stand.Title",
+            section: "basic",
             slug: "stand",
             traits: ["move"],
         });

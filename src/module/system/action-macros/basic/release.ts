@@ -4,6 +4,7 @@ const release = new SimpleAction({
     cost: "free",
     description: "PF2E.Actions.Release.Description",
     name: "PF2E.Actions.Release.Title",
+    section: "basic",
     slug: "release",
     traits: ["manipulate"],
 });

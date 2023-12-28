@@ -4,6 +4,7 @@ const ready = new SimpleAction({
     cost: 2,
     description: "PF2E.Actions.Ready.Description",
     name: "PF2E.Actions.Ready.Title",
+    section: "basic",
     slug: "ready",
     traits: ["concentrate"],
 });
