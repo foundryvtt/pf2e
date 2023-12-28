@@ -35,18 +35,26 @@ $header-height: 89px; /* Adjust height of the header */
         position: relative;
 
         .hover-icon {
+            --shadow-color: var(--color-text-dark-1);
+
+            color: var(--color-text-light-0);
+            bottom: 0;
             display: none;
             font-size: var(--font-size-16);
+            padding: 0.125rem;
+            position: absolute;
+            right: 0;
+            text-shadow:
+                0 0 3px var(--shadow-color),
+                0 0 5px var(--shadow-color),
+                0 0 8px var(--shadow-color);
+            &:hover {
+                --shadow-color: var(--color-pf-primary);
+            }
         }
 
         &:hover .hover-icon {
-            display: block;
-        }
-
-        [data-action="show-image"] {
-            bottom: 0.25rem;
-            position: absolute;
-            right: 0.025rem;
+            display: flex; // used instead of block to avoid whitespace
         }
     }
 
