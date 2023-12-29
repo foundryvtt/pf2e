@@ -596,6 +596,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     merged.prototypeToken.actorLink = true;
                     merged.prototypeToken.sight = { enabled: true };
                     break;
+                case "hazard":
+                    merged.prototypeToken.sight = { enabled: false };
+                    break;
                 case "loot":
                     // Make loot actors linked and interactable
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
