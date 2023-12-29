@@ -6,7 +6,7 @@ const avertGaze = new SimpleAction({
     effect: "Compendium.pf2e.other-effects.ZXUOdZqUW22OX3ge", // Effect: Avert Gaze
     img: "icons/magic/perception/eye-ringed-glow-angry-small-red.webp",
     name: "PF2E.Actions.AvertGaze.Title",
-    section: "basic",
+    section: "specialty-basic",
     slug: "avert-gaze",
 });
 
