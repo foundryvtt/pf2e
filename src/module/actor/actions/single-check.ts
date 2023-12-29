@@ -28,7 +28,7 @@ interface SingleCheckActionVariantData extends BaseActionVariantData {
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
     rollOptions?: string[];
-    statistic?: string;
+    statistic?: string | string[];
 }
 
 interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantData> {
@@ -36,7 +36,7 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
     rollOptions?: string[];
-    statistic: string;
+    statistic: string | string[];
 }
 
 interface SingleCheckActionUseOptions extends ActionUseOptions {
@@ -54,7 +54,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
     readonly #modifiers?: RawModifier[];
     readonly #notes?: RollNoteSource[];
     readonly #rollOptions?: string[];
-    readonly #statistic?: string;
+    readonly #statistic?: string | string[];
 
     constructor(action: SingleCheckAction, data?: SingleCheckActionVariantData) {
         super(action, data);
@@ -84,7 +84,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
         return this.#rollOptions ?? this.#action.rollOptions;
     }
 
-    get statistic(): string {
+    get statistic(): string | string[] {
         return this.#statistic ?? this.#action.statistic;
     }
 
@@ -100,7 +100,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             .map(toRollNoteSource)
             .map((note) => new RollNotePF2e(note));
         const rollOptions = this.rollOptions.concat(options.rollOptions ?? []);
-        const slug = options.statistic?.trim() || this.statistic;
+        const slug = options.statistic?.trim() || Array.isArray(this.statistic) ? this.statistic[0] : this.statistic;
         const title = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
@@ -143,7 +143,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
     readonly modifiers: RawModifier[];
     readonly notes: RollNoteSource[];
     readonly rollOptions: string[];
-    readonly statistic: string;
+    readonly statistic: string | string[];
 
     constructor(data: SingleCheckActionData) {
         super(data);
