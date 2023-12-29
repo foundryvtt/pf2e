@@ -18,7 +18,6 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (source.type === "character" || source.type === "npc") {
             const attributes: OldAttributesSource = source.system.attributes;
             if ("initiative" in attributes) {
-                source.system.initiative ??= { statistic: "perception" };
                 attributes["-=initiative"] = null;
                 if (
                     R.isObject(attributes.initiative) &&
@@ -33,7 +32,6 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (source.type === "character") {
             this.#convertPCPerception(source);
         } else if (source.type === "npc") {
-            source.system.perception ??= { mod: 0, senses: [], details: "" };
             const attributes: OldAttributesSource = source.system.attributes;
             if ("perception" in attributes) {
                 const mod = R.isObject(attributes.perception) ? Number(attributes.perception.value) || 0 : 0;
