@@ -1,6 +1,6 @@
 import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
-import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { LANGUAGES } from "@actor/creature/values.ts";
+import { SenseAcuity } from "@actor/creature/types.ts";
+import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
 import {
@@ -92,21 +92,10 @@ const abilities: Record<AttributeString, string> = {
 };
 
 // Senses
-const senses: Record<SenseType, string> = {
-    darkvision: "PF2E.Actor.Creature.Sense.Type.Darkvision",
-    echolocation: "PF2E.Actor.Creature.Sense.Type.Echolocation",
-    greaterDarkvision: "PF2E.Actor.Creature.Sense.Type.GreaterDarkvision",
-    heatsight: "PF2E.Actor.Creature.Sense.Type.Heatsight",
-    lifesense: "PF2E.Actor.Creature.Sense.Type.Lifesense",
-    lowLightVision: "PF2E.Actor.Creature.Sense.Type.LowLightVision",
-    motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
-    scent: "PF2E.Actor.Creature.Sense.Type.Scent",
-    seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
-    spiritsense: "PF2E.Actor.Creature.Sense.Type.Spiritsense",
-    thoughtsense: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
-    tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
-    wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
-};
+const senses = R.mapToObj(Array.from(SENSE_TYPES), (t) => [
+    t,
+    `PF2E.Actor.Creature.Sense.Type.${sluggify(t, { camel: "bactrian" })}`,
+]);
 
 const senseAcuities: Record<SenseAcuity, string> = {
     imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",

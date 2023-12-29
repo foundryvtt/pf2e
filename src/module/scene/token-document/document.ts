@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { PrototypeTokenPF2e } from "@actor/data/base.ts";
+import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -111,7 +111,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     }
 
     get rulesBasedVision(): boolean {
-        return !!(this.sight.enabled && this.actor?.isOfType("character", "familiar") && this.scene?.rulesBasedVision);
+        return !!(this.sight.enabled && this.actor?.isOfType("creature") && this.scene?.rulesBasedVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
@@ -241,7 +241,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Reset sight defaults if using rules-based vision
         this.detectionModes = [{ id: "basicSight", enabled: true, range: 0 }];
-        if (["character", "familiar"].includes(actor.type)) {
+        if (["character", "npc", "familiar"].includes(actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
@@ -270,14 +270,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         const maxRadius = canvas.dimensions?.maxR ?? 0;
         const canSeeInvisibility =
-            actor.isOfType("character", "familiar") &&
-            actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
+            this.actor.isOfType("character", "familiar") && this.actor.perception.senses.has("see-invisibility");
         if (canSeeInvisibility) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
         }
 
-        const tremorsense = actor.isOfType("character")
-            ? actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
+        const tremorsense = actor.isOfType("character", "npc", "familiar")
+            ? actor.perception.senses.get("tremorsense")
             : null;
         if (tremorsense) {
             this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });

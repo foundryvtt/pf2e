@@ -85,11 +85,18 @@
             </div>
             <div class="pc pc_senses">
                 <span class="details-label">{{localize "PF2E.Senses"}}</span>
-                <ol class="tags">
-                    {{#each data.traits.senses as |sense slug|}}
-                        {{#if sense.label}}<li class="tag tag_alt" data-slug="{{slug}}">{{sense.label}}</li>{{/if}}
+                <ul class="tags">
+                    {{#each data.perception.senses as |sense|}}
+                        {{#if sense.label~}}
+                            <li
+                                class="tag tag_alt"
+                                {{#if sense.source}}data-tooltip="{{sense.source}}"{{/if}}
+                                data-tooltip-direction="UP"
+                                data-slug="{{sense.type}}"
+                            >{{sense.label}}</li>
+                        {{~/if}}
                     {{/each}}
-                </ol>
+                </ul>
             </div>
             <div class="pc pc_languages">
                 <span class="details-label">{{localize "PF2E.Languages"}}</span>

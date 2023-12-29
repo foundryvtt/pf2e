@@ -151,21 +151,21 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ]);
         }
 
-        const { attributes, proficiencies, saves, traits } = actor.system;
+        const { proficiencies, saves } = actor.system;
 
         // Proficiency-rank increases
         for (const [slug, increase] of Object.entries(this.system.subfeatures.proficiencies)) {
             const proficiency = ((): { rank: number } | null => {
-                if (slug === "perception") return attributes.perception;
+                if (slug === "perception") return actor.system.perception;
                 if (slug === "spellcasting") return proficiencies.spellcasting;
                 if (objectHasKey(CONFIG.PF2E.saves, slug)) return saves[slug];
                 if (objectHasKey(CONFIG.PF2E.weaponCategories, slug)) return proficiencies.attacks[slug];
                 if (objectHasKey(CONFIG.PF2E.armorCategories, slug)) return proficiencies.defenses[slug];
                 if (objectHasKey(CONFIG.PF2E.classTraits, slug)) {
-                    type PartialClassDCData = Pick<ClassDCData, "ability" | "label" | "rank">;
+                    type PartialClassDCData = Pick<ClassDCData, "attribute" | "label" | "rank">;
                     const classDCs: Record<string, PartialClassDCData> = proficiencies.classDCs;
                     const attribute = increase.attribute ?? "str";
-                    return (classDCs[slug] ??= { ability: attribute, label: CONFIG.PF2E.classTraits[slug], rank: 0 });
+                    return (classDCs[slug] ??= { attribute, label: CONFIG.PF2E.classTraits[slug], rank: 0 });
                 }
                 return null;
             })();
@@ -175,20 +175,20 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Senses
-        const senseData: SenseData[] = traits.senses;
+        const senseData: SenseData[] = actor.system.perception.senses;
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
         for (const [type, data] of R.toPairs.strict(subfeatures.senses)) {
-            if (actor.system.traits.senses.some((s) => s.type === type)) continue;
+            if (senseData.some((s) => s.type === type)) continue;
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {
                 if (actor.ancestry?.system.vision === "darkvision") continue;
 
                 // This feat grants darkvision but requires that the character's ancestry has low-light vision, the
                 // character to have low-light vision from any prior source, or that this feat has been taken twice.
                 const special = data.special;
-                const ancestryHasLLV = actor.ancestry?.system.vision === "lowLightVision";
+                const ancestryHasLLV = actor.ancestry?.system.vision === "low-light-vision";
                 const hasLLVRule = (rules: RuleElementSource[]) =>
                     rules.some(
-                        (r) => r.key === "Sense" && !r.ignored && "selector" in r && r.selector === "lowLightVision",
+                        (r) => r.key === "Sense" && !r.ignored && "selector" in r && r.selector === "low-light-vision",
                     );
                 const heritageHasLLV = () => hasLLVRule(actor.heritage?.system.rules ?? []);
                 const backgroundHasLLV = () => hasLLVRule(actor.background?.system.rules ?? []);
@@ -207,7 +207,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     actor.itemTypes.feat.some(
                         (f) =>
                             (f.system.level.taken ?? 1) <= levelTaken &&
-                            (f.system.subfeatures.senses.lowLightVision || hasLLVRule(f.system.rules)),
+                            (f.system.subfeatures.senses["low-light-vision"] || hasLLVRule(f.system.rules)),
                     );
 
                 const specialClauseSatisfied =
@@ -219,14 +219,14 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             const newSense: SenseData = {
                 type,
-                acuity: data.acuity,
-                value: data.range?.toString() ?? "",
+                acuity: data.acuity ?? "precise",
+                range: data.range ?? Infinity,
                 source: this.name,
             };
             const existing = senseData.find((s) => s.type === type);
             if (!existing) {
                 senseData.push(newSense);
-            } else if ((data.range ?? 0) > (Number(existing.value) || Infinity)) {
+            } else if ((data.range ?? Infinity) > (existing.range ?? Infinity)) {
                 senseData.splice(senseData.indexOf(existing), 1, newSense);
             } else if (acuityValues[data.acuity ?? "vague"] > acuityValues[existing.acuity ?? "precise"]) {
                 senseData.splice(senseData.indexOf(existing), 1, newSense);

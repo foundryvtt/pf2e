@@ -22,11 +22,7 @@ class EncounterPF2e extends Combat {
     ): number {
         const resolveTie = (): number => {
             const [priorityA, priorityB] = [a, b].map(
-                (combatant): number =>
-                    combatant.overridePriority(combatant.initiative ?? 0) ??
-                    (combatant.actor?.system.attributes.initiative
-                        ? combatant.actor.system.attributes.initiative.tiebreakPriority
-                        : 3),
+                (c): number => c.overridePriority(c.initiative ?? 0) ?? c.actor?.initiative?.tiebreakPriority ?? 3,
             );
             return priorityA === priorityB ? a.id.localeCompare(b.id) : priorityA - priorityB;
         };
@@ -210,7 +206,7 @@ class EncounterPF2e extends Combat {
                 {
                     id: combatant.id,
                     value,
-                    statistic: combatant.actor.attributes.initiative.statistic || "perception",
+                    statistic: combatant.actor.system.initiative.statistic || "perception",
                 },
             ]);
         }

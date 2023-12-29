@@ -119,10 +119,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
 
         // Add low-light vision or darkvision if the ancestry includes it
-        const senseData: SenseData[] = actor.system.traits.senses;
+        const senseData: SenseData[] = actor.system.perception.senses;
         const vision = this.system.vision;
         if (vision !== "normal" && !senseData.some((s) => s.type === vision)) {
-            senseData.push({ type: vision, value: "", source: this.name });
+            senseData.push({ type: vision, acuity: "precise", range: Infinity, source: this.name });
             const senseRollOptions = (actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }

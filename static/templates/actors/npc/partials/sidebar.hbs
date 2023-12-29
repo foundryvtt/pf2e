@@ -85,7 +85,8 @@
         <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
     </div>
 </div>
-<!-- INITIATIVE -->
+
+{{!-- INITIATIVE --}}
 <div class="initiative side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
@@ -93,13 +94,13 @@
             <h4>{{localize "PF2E.InitiativeLabel"}}</h4>
             <a class="roll-init{{#unless editable}} disabled{{/unless}}" data-action="roll-initiative">
                 <i class="fa-solid fa-dice-d20"></i>
-                <div>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</div>
+                <div>{{numberFormat data.initiative.totalModifier decimals=0 sign=true}}</div>
             </a>
         </div>
     </div>
     <div class="side-bar-section-content">
-        <select name="system.attributes.initiative.statistic">
-            {{#select data.attributes.initiative.statistic}}
+        <select name="system.initiative.statistic">
+            {{#select data.initiative.statistic}}
                 <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
                 {{#each data.sortedSkills as |skill|}}
                     <option value="{{skill.slug}}">{{skill.label}}</option>
@@ -123,11 +124,11 @@
         {{/if}}
     </div>
 
-    <div class="side-bar-section-content">
+    <ul class="comma-separated">
         {{#each data.attributes.immunities as |immunity|}}
-            <div class="tag-legacy immunity" data-immunity="{{immunity.type}}">{{immunity.label}}</div>
+            <li data-immunity="{{immunity.type}}">{{immunity.label}}</li>
         {{/each}}
-    </div>
+    </ul>
 </div>
 <div class="weaknesses side-bar-section">
     <div class="side-bar-section-header">
@@ -141,11 +142,11 @@
             </div>
         {{/if}}
     </div>
-    <div class="side-bar-section-content">
+    <ul class="comma-separated">
         {{#each data.attributes.weaknesses as |weakness|}}
-            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{weakness.label}}</div>
+            <li data-weakness="{{weakness.type}}">{{weakness.label}}</li>
         {{/each}}
-    </div>
+    </ul>
 </div>
 <div class="resistances side-bar-section">
     <div class="side-bar-section-header">
@@ -159,11 +160,11 @@
             </div>
         {{/if}}
     </div>
-    <div class="side-bar-section-content">
+    <ul class="comma-separated">
         {{#each data.attributes.resistances as |resistance|}}
-            <div class="tag-legacy resistance" data-resistance="{{resistance.type}}">{{resistance.label}}</div>
+            <li data-resistance="{{resistance.type}}">{{resistance.label}}</li>
         {{/each}}
-    </div>
+    </ul>
 </div>
 
 <div class="saves">

@@ -13,6 +13,7 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
+import * as R from "remeda";
 import { HazardSource, HazardSystemData } from "./data.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
@@ -87,9 +88,8 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         if (this.isComplex) {
             // Ensure stealth value is numeric and set baseline initiative data
             attributes.stealth.value ??= 0;
-            const partialAttributes: { initiative?: Pick<InitiativeData, "statistic" | "tiebreakPriority"> } =
-                this.system.attributes;
-            partialAttributes.initiative = {
+            const withPartialInitiative: { initiative?: Partial<InitiativeData> } = this.system;
+            withPartialInitiative.initiative = {
                 statistic: "stealth",
                 tiebreakPriority: this.hasPlayerOwner ? 2 : 1,
             };
@@ -126,9 +126,9 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         };
 
         // Initiative
-        if (system.attributes.initiative) {
-            this.initiative = new ActorInitiative(this, { statistic: "stealth" });
-            system.attributes.initiative = this.initiative.getTraceData();
+        if (system.initiative) {
+            this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
+            system.initiative = this.initiative.getTraceData();
         }
 
         // Armor Class

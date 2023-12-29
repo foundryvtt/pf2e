@@ -35,12 +35,17 @@
         </div>
         {{!-- Perception --}}
         <div class="side-bar-section senses">
-            <div class="side-bar-section-header value{{data.attributes.perception.value}}">
-                <div class="perception side-bar-label labelled-field" data-attribute="perception">
+            <div class="side-bar-section-header value{{data.perception.totalModifier}}">
+                <div class="perception side-bar-label labelled-field">
                     <a class="attribute-label rollable">{{localize "PF2E.PerceptionHeader"}}</a>
-                    {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
-                    {{/with}}
+                    <input
+                        type="text"
+                        value="{{numberFormat data.perception.mod decimals=0 sign=true}}"
+                        class="modifier"
+                        data-property="system.perception.mod"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
                 </div>
             </div>
             <div class="section-body">

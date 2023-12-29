@@ -1,4 +1,4 @@
-import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import { SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";

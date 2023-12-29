@@ -118,15 +118,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     #prepareMembers(): MemberBreakdown[] {
-        /** sanitize common cases for npc sense types (by removing acuity and range). This should be removed once npcs are refactored */
-        function sanitizeSense(label: string): string {
-            return label
-                .replace(/\((imprecise|precise)\)/gi, "")
-                .replace(/\d+/g, "")
-                .replaceAll("feet", "")
-                .trim();
-        }
-
         return this.actor.members.map((actor): MemberBreakdown => {
             const observer = actor.testUserPermission(game.user, "OBSERVER");
             const restricted = !(game.settings.get("pf2e", "metagame_showPartyStats") || observer);
@@ -173,34 +164,25 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     })),
                 ],
                 senses: (() => {
-                    const rawSenses = actor.system.traits.senses ?? [];
-                    if (!Array.isArray(rawSenses)) {
-                        return rawSenses.value
-                            .split(",")
-                            .filter((s) => !!s.trim())
-                            .map((l) => ({
-                                labelFull: l.trim(),
-                                label: sanitizeSense(l),
-                            }));
-                    }
+                    const senses = actor.perception.senses;
 
                     // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
                     // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
                     // We remove low-light vision from the result if the actor has darkvision, and darkvision if greater darkvision
-                    const senseTypes = new Set(rawSenses.map((s) => s.type));
-                    if (senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")) {
-                        senseTypes.delete("lowLightVision");
+                    const senseTypes = new Set(senses.map((s) => s.type));
+                    if (senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")) {
+                        senseTypes.delete("low-light-vision");
                     }
-                    if (senseTypes.has("greaterDarkvision")) {
+                    if (senseTypes.has("greater-darkvision")) {
                         senseTypes.delete("darkvision");
                     }
 
-                    return rawSenses
+                    return senses
                         .filter((r) => senseTypes.has(r.type))
                         .map((r) => ({
                             acuity: r.acuity,
                             labelFull: r.label ?? "",
-                            label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                            label: CONFIG.PF2E.senses[r.type],
                         }));
                 })(),
                 hp: actor.hitPoints,

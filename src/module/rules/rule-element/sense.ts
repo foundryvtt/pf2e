@@ -1,6 +1,13 @@
 import type { CharacterPF2e, FamiliarPF2e } from "@actor";
-import { CreatureSensePF2e, SENSE_ACUITIES, SENSE_TYPES, SenseAcuity, SenseType } from "@actor/creature/sense.ts";
+import type { SenseAcuity, SenseType } from "@actor/creature/types.ts";
+import {
+    SENSES_WITH_MANDATORY_ACUITIES,
+    SENSES_WITH_UNLIMITED_RANGE,
+    SENSE_ACUITIES,
+    SENSE_TYPES,
+} from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
+import { tupleHasValue } from "@util";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
@@ -28,18 +35,21 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     }
 
     override beforePrepareData(): void {
-        const range = this.resolveValue(this.range, "");
-        const newSense = new CreatureSensePF2e({
+        const range = tupleHasValue(SENSES_WITH_UNLIMITED_RANGE, this.selector)
+            ? Infinity
+            : Math.max(0, Math.trunc(Math.floor(Number(this.resolveValue(this.range, Infinity)) || 0)));
+        if (range <= 0) {
+            if (range < 0) this.failValidation("range: must resolve to a positive number");
+            return;
+        }
+
+        const sense = {
             type: this.selector,
-            acuity: this.acuity,
-            value: String(range),
+            acuity: SENSES_WITH_MANDATORY_ACUITIES[this.selector] ?? this.acuity,
+            range,
             source: this.item.name,
-        });
-        this.actor.synthetics.senses.push({
-            sense: newSense,
-            predicate: this.predicate,
-            force: this.force,
-        });
+        };
+        this.actor.synthetics.senses.push({ sense, predicate: this.predicate, force: this.force });
     }
 }
 
