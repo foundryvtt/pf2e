@@ -25,13 +25,8 @@
             </div>
 
             <div class="pc deity">
-                {{> detailItem item=deity type="deity" compendium="pf2e.deities" }}
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=true }}
             </div>
-
-            {{#if deity}}
-                <img class="deity-emblem" src="{{deity.img}}" alt="{{deity.name}}" />
-            {{/if}}
-
         </div>
     </section>
 
@@ -166,7 +161,7 @@
 
 {{#*inline "detailItem"}}
     <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
-    <h3>
+    <h3{{#if (and item showEmblem)}} class="has-emblem"{{/if}}>
         <span class="value">{{item.name}}</span>
         {{#if @root.options.editable}}
             {{#if item}}
@@ -174,6 +169,11 @@
             {{else}}
                 <a data-action="open-compendium" data-compendium={{compendium}}><i class="fa-solid fa-fw fa-search"></i></a>
             {{/if}}
+        {{/if}}
+        {{#if (and item showEmblem)}}
+            <div class="emblem">
+                <img src="{{item.img}}" alt="{{item.name}}" />
+            </div>
         {{/if}}
     </h3>
 {{/inline}}
