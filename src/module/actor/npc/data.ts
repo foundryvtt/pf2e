@@ -94,10 +94,10 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
 }
 
 interface NPCPerceptionSource {
+    details: string;
     mod: number;
     senses: SenseData[];
-    details: string;
-    hasVision?: false;
+    vision: boolean;
 }
 
 interface NPCDetailsSource extends CreatureDetailsSource {

@@ -45,25 +45,47 @@
     }
 
     table {
+        margin-top: 0;
+
         th,
         td {
             text-align: left;
             white-space: nowrap;
         }
 
-        tr.sense {
-            td:first-child .label-checkbox-source {
-                align-items: center;
-                display: flex;
+        th {
+            padding: 0.5rem;
+        }
 
-                i {
-                    cursor: help;
-                    margin-left: 0.25rem;
+        tbody > tr {
+            height: 2rem;
+
+            td.type {
+                text-align: left;
+
+                .container {
+                    align-items: center;
+                    display: flex;
+
+                    label {
+                        flex: 1;
+                    }
+
+                    i {
+                        cursor: help;
+                        margin-left: 0.25rem;
+                    }
                 }
             }
 
-            td:nth-child(2) {
+            td.acuity {
+                min-width: fit-content;
                 text-align: center;
+            }
+
+            td.range {
+                text-align: center;
+                width: 5em;
             }
         }
     }
