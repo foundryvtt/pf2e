@@ -226,6 +226,28 @@ abstract class CreaturePF2e<
         if (this.initialized) return;
         super.prepareData();
 
+        Object.defineProperties(this.system.attributes, {
+            initiative: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#attributes#initiative is deprecated. Use CreatureSystemData#initiative instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.initiative;
+                },
+                enumerable: false,
+            },
+            perception: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#attributes#perception is deprecated. Use CreatureSystemData#perception instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.perception;
+                },
+                enumerable: false,
+            },
+        });
         Object.defineProperty(this.system.traits, "senses", {
             get: () => {
                 fu.logCompatibilityWarning(
@@ -234,6 +256,7 @@ abstract class CreaturePF2e<
                 );
                 return this.system.perception.senses;
             },
+            enumerable: false,
         });
 
         for (const party of this.parties) {
