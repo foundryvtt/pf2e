@@ -50,28 +50,6 @@ aside {
         @include input-border;
     }
 
-    .modifiers_button {
-        background: rgba(white, 0.75);
-        border-radius: 2px 2px 0 0;
-        border: none;
-        box-shadow: inset 0 0 0 1px rgba(white, 0.4);
-        color: var(--primary);
-        flex: 0;
-        font: 600 var(--font-size-9) var(--sans-serif);
-        letter-spacing: 0.05em;
-        line-height: 1;
-        margin: 0;
-        padding: 2px 3px;
-        text-rendering: optimizeLegibility;
-        text-transform: uppercase;
-        white-space: nowrap;
-
-        &:hover:not(:disabled) {
-            background: white;
-            box-shadow: inset 0 0 0 1px white;
-        }
-    }
-
     .logo {
         margin: 5px -6px 0 -6px;
         border: none;
@@ -118,7 +96,29 @@ aside {
                 flex: 1;
             }
 
-            .modifiers_button,
+            button {
+                background: rgba(white, 0.75);
+                border-radius: 2px 2px 0 0;
+                border: none;
+                box-shadow: inset 0 0 0 1px rgba(white, 0.4);
+                color: var(--primary);
+                flex: 0;
+                font: 600 var(--font-size-9) var(--sans-serif);
+                letter-spacing: 0.05em;
+                line-height: 1;
+                margin: 0;
+                padding: 2px 3px;
+                text-rendering: optimizeLegibility;
+                text-transform: uppercase;
+                white-space: nowrap;
+
+                &:hover:not(:disabled) {
+                    background: white;
+                    box-shadow: inset 0 0 0 1px white;
+                }
+            }
+
+            button,
             h2 {
                 border-bottom: 1px solid var(--sidebar-title);
             }
@@ -211,6 +211,26 @@ aside {
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
+            }
+        }
+
+        .roll-data {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            justify-content: left;
+
+            .modifier,
+            h3 {
+                color: var(--color-pf-tertiary);
+                font-size: var(--font-size-18);
+                font-weight: initial;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            a.modifier.hover {
+                text-decoration: underline;
             }
         }
 
@@ -438,28 +458,17 @@ aside {
             }
         }
 
-        .roll-data {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            h3 {
-                font-size: var(--font-size-18);
-                font-weight: initial;
-                color: var(--color-pf-tertiary);
-                white-space: nowrap;
-            }
-
-            .initiative-select {
-                width: 129px;
-            }
-        }
-
         .perception-sidebar,
         .initiative-sidebar {
-            gap: 5px;
-            h3 {
-                flex-grow: 1;
+            a.modifier {
+                margin-right: 1rem;
+            }
+            select {
+                flex: 0 0 8.25rem;
+                margin-left: auto;
+            }
+            .button-group {
+                margin-left: auto;
             }
         }
 
@@ -468,12 +477,11 @@ aside {
             display: flex;
 
             .roll-data {
-                flex: 1 1 auto;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
                 align-items: center;
                 border-left: 1px solid #ffefbd30;
+                flex: 1 1 auto;
+                flex-direction: column;
+                gap: 0;
 
                 &:first-child {
                     border-left: none;
@@ -484,23 +492,17 @@ aside {
                     text-transform: capitalize;
                     font-size: var(--font-size-12);
                     border: none;
-                    margin-bottom: 2px;
+                    margin-bottom: 0.125rem;
                 }
 
                 .save-roll {
                     @include flex-center;
-                    margin: 4px 0;
+                    margin-top: 0.25rem;
 
-                    h3 {
+                    .modifier {
                         margin: 0;
-                        margin-left: 2px;
+                        margin-left: 0.125rem;
                     }
-                }
-
-                .modifiers_button {
-                    padding: 2px;
-                    border-radius: 2px;
-                    width: initial;
                 }
             }
         }
