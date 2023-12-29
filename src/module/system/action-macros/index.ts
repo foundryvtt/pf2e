@@ -57,6 +57,7 @@ import { burrow } from "./specialty-basic/burrow.ts";
 import { dismiss } from "./specialty-basic/dismiss.ts";
 import { fly } from "./specialty-basic/fly.ts";
 import { mount } from "./specialty-basic/mount.ts";
+import { pointOut } from "./specialty-basic/point-out.ts";
 import { sustain } from "./specialty-basic/sustain.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
@@ -195,6 +196,7 @@ export const SystemActions: Action[] = [
     palmAnObject.action,
     perform.action,
     pickALock.action,
+    pointOut,
     ready,
     release,
     reposition.action,
