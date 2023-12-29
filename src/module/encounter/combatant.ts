@@ -8,6 +8,9 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     get encounter(): TParent {
         return this.parent;
     }
@@ -153,6 +156,20 @@ class CombatantPF2e<
 
         await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
         Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    override prepareData(): void {
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
     }
 
     override prepareBaseData(): void {
