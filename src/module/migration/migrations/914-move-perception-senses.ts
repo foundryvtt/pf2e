@@ -46,6 +46,12 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 traits["-=senses"] = null;
             }
         }
+
+        // Remove some stray cruft
+        if (R.isObject(source.system.traits) && "attitude" in source.system.traits) {
+            const traits: object & { "-=attitude"?: null } = source.system.traits;
+            traits["-=attitude"] = null;
+        }
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
