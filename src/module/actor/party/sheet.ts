@@ -4,6 +4,7 @@ import { Language } from "@actor/creature/index.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
+import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
@@ -164,26 +165,11 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     })),
                 ],
                 senses: (() => {
-                    const senses = actor.perception.senses;
-
-                    // An actor sometimes has darkvision *and* low-light vision (elf aasimar) instead of just darkvision (fetchling).
-                    // This is inconsistent, but normal for pf2e. However, its redundant for this sheet.
-                    // We remove low-light vision from the result if the actor has darkvision, and darkvision if greater darkvision
-                    const senseTypes = new Set(senses.map((s) => s.type));
-                    if (senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")) {
-                        senseTypes.delete("low-light-vision");
-                    }
-                    if (senseTypes.has("greater-darkvision")) {
-                        senseTypes.delete("darkvision");
-                    }
-
-                    return senses
-                        .filter((r) => senseTypes.has(r.type))
-                        .map((r) => ({
-                            acuity: r.acuity,
-                            labelFull: r.label ?? "",
-                            label: CONFIG.PF2E.senses[r.type],
-                        }));
+                    return condenseSenses(actor.perception.senses.contents).map((r) => ({
+                        acuity: r.acuity,
+                        labelFull: r.label ?? "",
+                        label: CONFIG.PF2E.senses[r.type] ?? r.type,
+                    }));
                 })(),
                 hp: actor.hitPoints,
                 activities: activities.map((action) => ({
