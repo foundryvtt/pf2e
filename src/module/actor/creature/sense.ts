@@ -65,6 +65,9 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
             case "see-invisibility":
                 // Low-light vision, darkvision, and see invisibility are always precise with no range limit
                 return buildLabel(this.type);
+            case "echolocation":
+                // Echolocation is always precise
+                return buildLabel(this.type, null, this.range);
             case "lifesense":
                 // Lifesense's acuity is omitted if precise
                 return buildLabel(this.type, this.acuity === "precise" ? null : this.acuity, range);
@@ -72,7 +75,7 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
                 // Truesight has an assumed and omitted range of 60 feet
                 return buildLabel(this.type);
             case "scent":
-                // Vague scent is assumed and ommitted
+                // Vague scent is assumed and omitted
                 return this.acuity === "vague" ? null : buildLabel(this.type, this.acuity, range);
             default:
                 return buildLabel(this.type, this.acuity, range);

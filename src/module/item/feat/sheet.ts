@@ -152,6 +152,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     special: slug === "darkvision" && feat.level === 1 ? selection?.special ?? null : null,
                     canSetAcuity: !(slug in SENSES_WITH_MANDATORY_ACUITIES),
                     canSetRange: !sensesWithUnlimitedRange.includes(slug),
+                    selected: !!selection,
                 };
             })
             .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
@@ -223,7 +224,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     if (!slug) throw ErrorPF2e("No option selected");
 
                     const options = this.#getSenseOptions()
-                        .filter((o) => !o.acuity)
+                        .filter((o) => !o.selected)
                         .map((o) => o.slug);
                     if (options.includes(slug)) {
                         const [acuity, range] = ["lowLightVision", "darkvision", "greaterDarkvision"].includes(slug)
@@ -328,13 +329,14 @@ type ProficiencyOptions = {
 >;
 
 interface SenseOption {
-    slug: string;
-    label: string;
     acuity?: SenseAcuity | null;
-    range?: number | null;
-    special: { ancestry: boolean; second: boolean } | null;
     canSetAcuity: boolean;
     canSetRange: boolean;
+    label: string;
+    range?: number | null;
+    selected: boolean;
+    slug: string;
+    special: { ancestry: boolean; second: boolean } | null;
 }
 
 export { FeatSheetPF2e };
