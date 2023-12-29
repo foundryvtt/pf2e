@@ -1,9 +1,9 @@
-<!-- HEALTH -->
+{{!-- HEALTH --}}
 <header>
     <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
     <button
         type="button"
-        class="modifiers_button hover"
+        class="hover"
         data-tooltip-content="#{{options.id}}-hp-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
 </header>
 <div class="hitpoints">
@@ -60,7 +60,7 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.HitPointsHeader"}}
 {{/with}}
 
-<!-- STAMINA (if enabled) -->
+{{!-- STAMINA (if enabled) --}}
 {{#if hasStamina}}
     <header
         <h2>{{localize "PF2E.StaminaPointsHeader"}}</h2>
@@ -101,12 +101,12 @@
     </ol>
 {{/if}}
 
-<!-- ARMOR CLASS -->
+{{!-- ARMOR CLASS --}}
 <header>
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
     <button
         type="button"
-        class="modifiers_button hover"
+        class="hover"
         data-tooltip-content="#{{options.id}}-armor-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
 </header>
 <div class="armor-class">
@@ -197,20 +197,14 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.ArmorClassLabel"}}
 {{/with}}
 
-<!-- Perception -->
+{{!-- Perception --}}
 <header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
-    <button
-        type="button"
-        class="modifiers_button hover"
-        data-tooltip-content="#{{options.id}}-perception-modifiers"
-    >{{localize "PF2E.ModifiersTitle"}}</button>
 </header>
 <div class="roll-data perception-sidebar">
     <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
     </a>
-
     <a
         class="roll-icon"
         data-action="roll-check"
@@ -218,8 +212,9 @@
         data-secret
         data-tooltip="PF2E.Check.Specific.Perception.Secret"
     ><i class="fa-solid fa-eye-slash"></i></a>
-    <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
-
+    <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
+        {{numberFormat data.attributes.perception.value decimals=0 sign=true}}
+    </a>
     <div class="perception-prof button-group skill-container">
         <span class="pf-rank" data-rank="{{data.attributes.perception.rank}}">{{lookup @root.numberToRank data.attributes.perception.rank}}</span>
     </div>
@@ -228,23 +223,19 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.PerceptionHeader"}}
 {{/with}}
 
-<!-- Initiative -->
+{{!-- Initiative --}}
 <header>
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
-    <button
-        type="button"
-        class="modifiers_button hover"
-        data-tooltip-content="#{{options.id}}-initiative-modifiers"
-    >{{localize "PF2E.ModifiersTitle"}}</button>
 </header>
-<div class="roll-data initiative-sidebar">
+<section class="roll-data initiative-sidebar">
     <a
         class="roll-icon"
         data-action="roll-initiative"
         data-tooltip="COMBAT.InitiativeRoll"
     >{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
-    <h3>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</h3>
-    <h4 class="initiative-select">
+    <a class="modifier hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
+        {{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}
+    </a>
         <select name="system.attributes.initiative.statistic">
             {{#select data.attributes.initiative.statistic}}
                 <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
@@ -253,13 +244,12 @@
                 {{/each}}
             {{/select}}
         </select>
-    </h4>
-</div>
+</section>
 {{#with data.attributes.initiative}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
 {{/with}}
 
-<!-- Saves -->
+{{!-- Saves --}}
 <header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
 </header>
@@ -276,12 +266,8 @@
                 <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">
                     {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                 </a>
-                <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
+                <a class="modifier hover" data-tooltip-content="#{{@root.options.id}}-{{save.slug}}-modifiers">{{numberFormat save.totalModifier decimals=0 sign=true}}</a>
             </div>
-            <button
-                type="button"
-                class="modifiers_button hover"
-                data-tooltip-content="#{{@root.options.id}}-{{save.slug}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
             {{#with save}}
                 {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
             {{/with}}
@@ -289,11 +275,11 @@
     {{/each}}
 </ul>
 
-<!-- Immunities -->
+{{!-- Immunities --}}
 <header>
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
     {{#if editable}}
-        <button type="button" class="modifiers_button" data-action="edit-immunities">
+        <button type="button" data-action="edit-immunities">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </a>
     {{/if}}
@@ -304,11 +290,11 @@
     {{/each}}
 </ol>
 
-<!-- Weaknesses -->
+{{!-- Weaknesses --}}
 <header>
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
     {{#if editable}}
-        <button type="button" class="modifiers_button" data-action="edit-weaknesses">
+        <button type="button" data-action="edit-weaknesses">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
@@ -319,11 +305,11 @@
     {{/each}}
 </ol>
 
-<!-- Resistances -->
+{{!-- Resistances --}}
 <header>
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
     {{#if editable}}
-        <button type="button" class="modifiers_button" data-action="edit-resistances">
+        <button type="button" data-action="edit-resistances">
             <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
         </button>
     {{/if}}
