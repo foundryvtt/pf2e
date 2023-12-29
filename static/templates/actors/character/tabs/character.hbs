@@ -23,7 +23,6 @@
             <div class="pc class">
                 {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
-
             <div class="pc deity">
                 {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=true }}
             </div>
@@ -83,36 +82,6 @@
                     {{/if}}
                 </ol>
             </div>
-            <div class="pc pc_senses">
-                <span class="details-label">{{localize "PF2E.Senses"}}</span>
-                <ul class="tags">
-                    {{#each data.perception.senses as |sense|}}
-                        {{#if sense.label~}}
-                            <li
-                                class="tag tag_alt"
-                                {{#if sense.source}}data-tooltip="{{sense.source}}"{{/if}}
-                                data-tooltip-direction="UP"
-                                data-slug="{{sense.type}}"
-                            >{{sense.label}}</li>
-                        {{~/if}}
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="pc pc_languages">
-                <span class="details-label">{{localize "PF2E.Languages"}}</span>
-                <ul class="tags">
-                    {{#each languages as |language slug|}}
-                        <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
-                    {{/each}}
-                    {{#if @root.options.editable}}
-                        <li class="tag tag_secondary edit-btn">
-                            <a class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
-                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
-                            </a>
-                        </li>
-                    {{/if}}
-                </ul>
-            </div>
 
             <div class="pc pc_traits">
                 <span class="details-label">{{localize "PF2E.Traits"}}</span>
@@ -123,6 +92,22 @@
                     {{#if @root.options.editable}}
                         <li class="tag tag_secondary edit-btn">
                             <a class="crb-tag-selector" data-tag-selector="basic" data-config-types="creatureTraits" data-property="system.traits">
+                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
+                            </a>
+                        </li>
+                    {{/if}}
+                </ul>
+            </div>
+
+            <div class="pc pc_languages">
+                <span class="details-label">{{localize "PF2E.Languages"}}</span>
+                <ul class="tags">
+                    {{#each languages as |language slug|}}
+                        <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
+                    {{/each}}
+                    {{#if @root.options.editable}}
+                        <li class="tag tag_secondary edit-btn">
+                            <a class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
                                 {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
                             </a>
                         </li>

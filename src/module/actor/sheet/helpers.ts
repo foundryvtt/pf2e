@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import { Sense } from "@actor/creature/sense.ts";
 import { PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
@@ -49,4 +50,17 @@ function createBulkPerLabel(item: PhysicalItemPF2e): string {
         : `${new Bulk(item.system.bulk.value)} / ${item.system.bulk.per}`;
 }
 
-export { createBulkPerLabel, onClickCreateSpell };
+/** Returns a sense list with all redundant senses removed (such as low light vision on actors with darkvision) */
+function condenseSenses(senses: Sense[]): Sense[] {
+    const senseTypes = new Set(senses.map((s) => s.type));
+    if (senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")) {
+        senseTypes.delete("low-light-vision");
+    }
+    if (senseTypes.has("greater-darkvision")) {
+        senseTypes.delete("darkvision");
+    }
+
+    return senses.filter((r) => senseTypes.has(r.type));
+}
+
+export { condenseSenses, createBulkPerLabel, onClickCreateSpell };

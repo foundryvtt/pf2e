@@ -201,24 +201,35 @@
 <header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
 </header>
-<div class="roll-data perception-sidebar">
-    <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
-        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
-    </a>
-    <a
-        class="roll-icon"
-        data-action="roll-check"
-        data-statistic="perception"
-        data-secret
-        data-tooltip="PF2E.Check.Specific.Perception.Secret"
-    ><i class="fa-solid fa-eye-slash"></i></a>
-    <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
-        {{numberFormat data.perception.totalModifier decimals=0 sign=true}}
-    </a>
-    <div class="perception-prof button-group skill-container">
-        <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
+<section class="perception-sidebar">
+    <div class="roll-data">
+        <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
+            {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+        </a>
+        <a
+            class="roll-icon"
+            data-action="roll-check"
+            data-statistic="perception"
+            data-secret
+            data-tooltip="PF2E.Check.Specific.Perception.Secret"
+        ><i class="fa-solid fa-eye-slash"></i></a>
+        <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
+            {{numberFormat data.perception.value decimals=0 sign=true}}
+        </a>
+        <div class="perception-prof button-group skill-container">
+            <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
+        </div>
     </div>
-</div>
+    {{#if senses.length}}
+        <ol class="tags senses">
+            {{#each senses as |sense slug|}}
+                {{#if sense.label}}
+                    <li class="tag tag_secondary" data-slug="{{slug}}">{{sense.label}}</li>
+                {{/if}}
+            {{/each}}
+        </ol>
+    {{/if}}
+</section>
 {{#with data.perception}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.PerceptionHeader"}}
 {{/with}}
@@ -236,14 +247,14 @@
     <a class="modifier hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
         {{numberFormat data.initiative.totalModifier decimals=0 sign=true}}
     </a>
-        <select name="system.initiative.statistic">
-            {{#select data.initiative.statistic}}
-                <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
-                {{#each data.skills as |skill|}}
-                    <option value="{{skill.slug}}">{{localize skill.label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
+    <select name="system.initiative.statistic">
+        {{#select data.initiative.statistic}}
+            <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
+            {{#each data.skills as |skill|}}
+                <option value="{{skill.slug}}">{{localize skill.label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
 </section>
 {{#with data.initiative}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
