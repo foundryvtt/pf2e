@@ -481,8 +481,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
                 if (element) return this.itemRenderer.toggleSummary(element);
             },
-            "use-action": async (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            "use-action": async (event, anchor) => {
+                const actionSlug = htmlClosest(anchor, "[data-action-slug]")?.dataset.actionSlug;
+                if (actionSlug) {
+                    const action = game.pf2e.actions[actionSlug ?? ""];
+                    if (!action) {
+                        throw ErrorPF2e(`Unexpecteed error retrieving action ${actionSlug}`);
+                    }
+                    return action({ event });
+                }
+
+                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
                     await createSelfEffectMessage(item, eventToRollMode(event));

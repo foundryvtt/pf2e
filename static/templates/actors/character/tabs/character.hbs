@@ -10,20 +10,33 @@
             <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
 
-         <div class="abcd">
-            <div class="pc ancestry">
+        <div class="abcd">
+            <ul class="tags traits paizo-style">
+                {{#if ancestry}}
+                    <li class="tag size">{{localize (lookup actorSizes data.traits.size.value)}}</li>
+                {{/if}}
+                {{#each traits as |trait slug|}}
+                    <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
+                {{/each}}
+            </ul>
+
+            <div class="detail ancestry">
                 {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
             </div>
-            <div class="pc heritage">
+
+            <div class="detail heritage">
                 {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
             </div>
-            <div class="pc background">
+
+            <div class="detail background">
                 {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
             </div>
-            <div class="pc class">
+
+            <div class="detail class">
                 {{> detailItem item=class type="class" compendium="pf2e.classes" }}
             </div>
-            <div class="pc deity">
+
+            <div class="detail deity">
                 {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=true }}
             </div>
         </div>
@@ -49,72 +62,47 @@
         </label>
     </section>
 
-    <hr />
-    <section class="character-traits">
-        <div class="pc pc_land-speed">
-            <span class="details-label">{{localize "PF2E.Speed"}}</span>
-            <span>
-                <h3 data-tooltip="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize "PF2E.TravelSpeed.FeetAcronym"}}</h3>
-            </span>
-        </div>
-        <div class="pc pc_size">
-            <span class="details-label">{{localize "PF2E.Size"}}</span>
-            <span>
-            <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
-            </span>
-        </div>
+    <header>
+        {{localize "PF2E.Languages"}}
+        {{#if @root.options.editable}}
+            <button type="button" class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
+                <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+            </button>
+        {{/if}}
+    </header>
+    <section class="character-languages tags">
+        {{#each languages as |language slug|}}
+            <span class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</span>
+        {{/each}}
+    </section>
 
-        <div class="break-column"></div>
-
-        <div class="character-traits">
-            <div class="pc pc_speed-types">
-                <span class="details-label">{{localize "PF2E.SpeedTypes"}}</span>
-                <ol class="tags">
-                    {{#each data.attributes.speed.otherSpeeds as |speed|}}
-                        <li class="tag tag_alt" data-slug="{{speed.type}}" data-tooltip="{{speed.breakdown}}">{{speed.label}} ({{speed.total}})</li>
-                    {{/each}}
-                    {{#if @root.options.editable}}
-                        <li class="tag tag_secondary edit-btn">
-                            <a class="crb-tag-selector" data-tag-selector="speed-types">
-                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
-                            </a>
-                        </li>
-                    {{/if}}
-                </ol>
+    <header>
+        {{localize "PF2E.Speed"}}
+        {{#if @root.options.editable}}
+            <button type="button" class="crb-tag-selector" data-tag-selector="speed-types">
+                <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+            </button>
+        {{/if}}
+    </header>
+    <section class="character-speeds">
+        {{#each speeds as |speed|}}
+            <div class="speed">
+                <div class="label">
+                    {{localize speed.label}}
+                </div>
+                {{#if speed.value}}
+                    <div class="value" data-tooltip="{{speed.breakdown}}">
+                        {{{icon}}}
+                        <span class="number">{{speed.value}}</span>
+                        <span class="unit">{{localize "PF2E.TravelSpeed.FeetAcronym"}}</span>
+                    </div>
+                {{else if speed.action}}
+                    <a class="value rollable" data-action="use-action" data-action-slug="{{speed.action}}">{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
+                {{else}}
+                    <div class="value empty">&mdash;</div>
+                {{/if}}
             </div>
-
-            <div class="pc pc_traits">
-                <span class="details-label">{{localize "PF2E.Traits"}}</span>
-                <ul class="tags">
-                    {{#each traits as |trait slug|}}
-                        <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
-                    {{/each}}
-                    {{#if @root.options.editable}}
-                        <li class="tag tag_secondary edit-btn">
-                            <a class="crb-tag-selector" data-tag-selector="basic" data-config-types="creatureTraits" data-property="system.traits">
-                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
-                            </a>
-                        </li>
-                    {{/if}}
-                </ul>
-            </div>
-
-            <div class="pc pc_languages">
-                <span class="details-label">{{localize "PF2E.Languages"}}</span>
-                <ul class="tags">
-                    {{#each languages as |language slug|}}
-                        <li class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</li>
-                    {{/each}}
-                    {{#if @root.options.editable}}
-                        <li class="tag tag_secondary edit-btn">
-                            <a class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
-                                {{> "systems/pf2e/templates/actors/character/icons/plus.hbs"}}
-                            </a>
-                        </li>
-                    {{/if}}
-                </ul>
-            </div>
-        </div>
+        {{/each}}
     </section>
 
     <!-- Attributes -->

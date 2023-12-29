@@ -337,6 +337,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             sheetData.elementalBlasts = [];
         }
 
+        // Speed
+        const speedIcons = {
+            land: "person-running",
+            swim: "person-swimming",
+            climb: "mountain",
+            fly: "feather-pointed",
+            burrow: "water-ladder",
+        };
+        sheetData.speeds = R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
+            const speed = this.actor.system.attributes.speed;
+            const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
+            return {
+                slug,
+                icon: fontAwesomeIcon(speedIcons[slug]).outerHTML,
+                action: ["swim", "climb"].includes(slug) && !data?.total ? slug : null,
+                label: slug === "land" ? "PF2E.SpeedTypesLand" : CONFIG.PF2E.speedTypes[slug],
+                value: data?.total ?? null,
+                breakdown: slug === "land" ? speed.breakdown : null,
+            };
+        });
+
         // Return data for rendering
         return sheetData;
     }
@@ -1588,6 +1609,16 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     feats: FeatGroup[];
     elementalBlasts: ElementalBlastSheetConfig[];
     senses: Sense[];
+    speeds: SpeedSheetData[];
+}
+
+interface SpeedSheetData {
+    slug: string;
+    icon: string;
+    action: string | null;
+    label: string;
+    value: number | null;
+    breakdown: string | null;
 }
 
 interface ActionSheetData {
