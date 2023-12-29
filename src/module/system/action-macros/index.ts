@@ -55,6 +55,7 @@ import * as createForgery from "./society/create-forgery.ts";
 import { avertGaze } from "./specialty-basic/avert-gaze.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
 import { mount } from "./specialty-basic/mount.ts";
+import { sustain } from "./specialty-basic/sustain.ts";
 import * as concealAnObject from "./stealth/conceal-an-object.ts";
 import * as hide from "./stealth/hide.ts";
 import * as sneak from "./stealth/sneak.ts";
@@ -205,6 +206,7 @@ export const SystemActions: Action[] = [
     step,
     stride,
     subsist.action,
+    sustain,
     swim.action,
     takeCover,
     track.action,
