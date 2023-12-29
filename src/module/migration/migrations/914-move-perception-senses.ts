@@ -35,7 +35,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             const attributes: OldAttributesSource = source.system.attributes;
             if ("perception" in attributes) {
                 const mod = R.isObject(attributes.perception) ? Number(attributes.perception.value) || 0 : 0;
-                source.system.perception = { mod, senses: [], details: "" };
+                source.system.perception.mod = mod;
                 attributes["-=perception"] = null;
             }
             const traits: OldTraitsSource = source.system.traits;
@@ -171,7 +171,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
 
             for (const text of senseStrings) {
                 if (text === "no vision") {
-                    system.perception.hasVision = false;
+                    system.perception.vision = false;
                     continue;
                 } else if (text.includes("blood scent")) {
                     system.perception.details = R.compact([system.perception.details, "blood scent"]).join(", ");

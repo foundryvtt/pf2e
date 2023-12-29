@@ -15,13 +15,13 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     protected objectProperty = "system.perception.senses";
 
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             height: "auto",
             template: "systems/pf2e/templates/system/tag-selector/senses.hbs",
             id: "sense-selector",
             title: "PF2E.Actor.Creature.Sense.Plural",
-            width: 350,
-        });
+        };
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
@@ -29,11 +29,12 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     }
 
     override async getData(options?: Partial<TagSelectorOptions>): Promise<SenseSelectorData<TActor>> {
-        if (!this.document.isOfType("npc")) {
+        const actor = this.document;
+        if (!actor.isOfType("npc")) {
             throw ErrorPF2e("The Sense selector is usable only with NPCs");
         }
 
-        const senses = this.document.system.perception.senses;
+        const senses = actor.system.perception.senses;
         const choices = R.mapValues(this.choices, (label, type): SenseChoiceData => {
             const sense = senses.find((s) => s.type === type);
             const canSetAcuity = !(sense?.source || SENSES_WITH_MANDATORY_ACUITIES[type]);
@@ -55,6 +56,11 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
             hasExceptions: false,
             choices,
             senseAcuities: CONFIG.PF2E.senseAcuities,
+            vision: {
+                value: actor.system.perception.vision,
+                editable: actor._source.system.perception.vision === actor.system.perception.vision,
+                source: actor.system.autoChanges["system.perception.vision"]?.at(-1)?.source ?? null,
+            },
         };
     }
 
@@ -88,6 +94,7 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
     }
 
     protected override async _updateObject(event: Event, formData: SenseFormData): Promise<void> {
+        const hasVision = formData["system.perception.vision"];
         const update = Object.entries(formData)
             .filter(
                 (e): e is [SenseType, [true, SenseAcuity, number | null]] =>
@@ -108,7 +115,10 @@ class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
                 }
             });
 
-        return super._updateObject(event, { [this.objectProperty]: update });
+        return super._updateObject(event, {
+            [this.objectProperty]: update,
+            "system.perception.vision": hasVision,
+        });
     }
 }
 
@@ -120,6 +130,7 @@ interface SenseSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TA
     hasExceptions: boolean;
     choices: Record<string, SenseChoiceData>;
     senseAcuities: typeof CONFIG.PF2E.senseAcuities;
+    vision: { value: boolean; editable: boolean; source: string | null };
 }
 
 interface SenseChoiceData {
@@ -132,6 +143,6 @@ interface SenseChoiceData {
     source: string | null;
 }
 
-type SenseFormData = Record<string, [boolean, string, number | null]>;
+type SenseFormData = { "system.perception.vision"?: boolean } & Record<string, [boolean, string, number | null]>;
 
 export { SenseSelector };

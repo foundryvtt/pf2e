@@ -8,10 +8,35 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td class="type">
+                    <div class="container">
+                        <input
+                            type="checkbox"
+                            id="{{@root.options.id}}-vision"
+                            name="system.perception.vision"
+                            {{checked vision.value}}
+                            {{disabled (not vision.editable)}}
+                        />
+                        <label for="{{@root.options.id}}-vision">{{localize "PF2E.Actor.Creature.Sense.Type.Vision"}}</label>
+                        {{#if vision.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{vision.source}}"></i>{{/if}}
+                    </div>
+                </td>
+                <td class="acuity">
+                    <select disabled>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Precise"}}</option>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Imprecise"}}</option>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Vague"}}</option>
+                    </select>
+                </td>
+                <td class="range">
+                    <input type="number" disabled />
+                </td>
+            </tr>
             {{#each choices as |choice key|}}
-                <tr class="sense">
-                    <td>
-                        <div class="label-checkbox-source">
+                <tr>
+                    <td class="type">
+                        <div class="container">
                             <input
                                 type="checkbox"
                                 id="{{@root.options.id}}-{{key}}"
@@ -23,7 +48,7 @@
                             {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}"></i>{{/if}}
                         </div>
                     </td>
-                    <td>
+                    <td class="acuity">
                         <select name="{{key}}" {{disabled (not choice.canSetAcuity)}}>
                             {{#select choice.acuity}}
                                 {{#each ../senseAcuities as |label acuity|}}
@@ -32,7 +57,7 @@
                             {{/select}}
                         </select>
                     </td>
-                    <td>
+                    <td class="range">
                         <input
                             type="number"
                             id="input_value_{{key}}"

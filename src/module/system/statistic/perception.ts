@@ -18,7 +18,7 @@ class PerceptionStatistic extends Statistic {
     constructor(actor: ActorPF2e, data: PerceptionStatisticData, config: RollOptionConfig = {}) {
         super(actor, data, config);
         this.senses = new Collection(this.#prepareSenses(data.senses).map((s) => [s.type, s]));
-        this.hasVision = data.hasVision ?? true;
+        this.hasVision = data.vision ?? true;
         if (typeof data.details === "string") {
             this.details = data.details;
         }
@@ -50,7 +50,7 @@ class PerceptionStatistic extends Statistic {
         return {
             ...super.getTraceData({ value: "mod" }),
             senses: this.senses.map((s) => s.toObject(false)),
-            hasVision: this.hasVision,
+            vision: this.hasVision,
             details: this.details ?? "",
         };
     }
@@ -58,7 +58,7 @@ class PerceptionStatistic extends Statistic {
 
 interface PerceptionStatisticData extends StatisticData {
     senses: SenseData[];
-    hasVision?: boolean;
+    vision?: boolean;
     details?: string;
 }
 
@@ -67,9 +67,11 @@ type LabeledSenseData = Required<SenseData> & {
 };
 
 interface PerceptionTraceData extends StatisticTraceData {
-    senses: LabeledSenseData[];
-    hasVision: boolean;
+    /** Unusual senses or other perception-related notes */
     details: string;
+    senses: LabeledSenseData[];
+    /** Whether the creature has standard vision */
+    vision: boolean;
 }
 
 export { PerceptionStatistic, type PerceptionTraceData };

@@ -233,6 +233,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 ],
                 check: { type: "perception-check" },
                 senses: this.system.perception.senses,
+                vision: this.system.perception.vision,
             });
             system.perception = fu.mergeObject(this.perception.getTraceData(), {
                 attribute: this.perception.attribute ?? "wis",
