@@ -145,41 +145,44 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         return new Collection(variants);
     }
 
-    protected async getDefaultVariant(options?: { variant?: string }): Promise<TAction> {
+    protected getDefaultVariant(options?: { variant?: string }): TAction {
         const variants = this.variants;
         if (options?.variant && !variants.size) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.None", {
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.None", {
                 action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
-            return Promise.reject(reason);
         }
         if (!options?.variant && variants.size > 1) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
                 action: game.i18n.localize(this.name),
             });
-            return Promise.reject(reason);
         }
         const variant = variants.get(options?.variant ?? "");
         if (options?.variant && !variant) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Nonexisting", {
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.Nonexistent", {
                 action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
-            return Promise.reject(reason);
         }
         return variant ?? this.toActionVariant();
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
         // use the data from the action to construct the message if no variant is specified
-        const variant = options?.variant ? await this.getDefaultVariant(options) : undefined;
-        return (variant ?? this.toActionVariant()).toMessage(options);
+        const variant = options?.variant
+            ? new Promise((resolve: (variant: TAction) => void) => resolve(this.getDefaultVariant(options)))
+            : Promise.resolve(undefined);
+        return variant
+            .then((variant) => variant ?? this.toActionVariant())
+            .catch((reason) => Promise.reject(reason))
+            .then((variant) => variant.toMessage(options));
     }
 
     async use(options?: Partial<ActionUseOptions>): Promise<unknown> {
-        const variant = await this.getDefaultVariant(options);
-        return (variant ?? this.toActionVariant()).use(options);
+        return new Promise((resolve: (variant: TAction) => void) => resolve(this.getDefaultVariant(options)))
+            .catch((reason) => Promise.reject(reason))
+            .then((variant) => variant.use(options));
     }
 
     protected abstract toActionVariant(data?: TData): TAction;
