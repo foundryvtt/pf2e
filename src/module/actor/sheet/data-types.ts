@@ -50,7 +50,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     inventory: SheetInventory;
     isLootSheet: boolean;
     isTargetFlatFooted: boolean;
-    toggles: RollOptionToggle[];
+    toggles: Record<string, RollOptionToggle[]>;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
     totalWealth: Coins;

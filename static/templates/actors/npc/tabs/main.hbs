@@ -1,7 +1,7 @@
 <section class="tab main" data-group="primary" data-tab="main">
-    <!-- TOGGLES -->
+    {{!-- TOGGLES --}}
     <div class="toggles section-container headerless">
-        {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
+        {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">
@@ -24,7 +24,7 @@
             <div class="section-header">
                 <h4>{{localize "PF2E.Actor.Creature.AttributeModifiers"}}</h4>
             </div>
-            <!-- ATTRIBUTE MODIFIERS -->
+            {{!-- ATTRIBUTE MODIFIERS --}}
             <div class="section-body">
                 <div class="list">
                     {{#each data.abilities as |ability id|}}
@@ -36,7 +36,8 @@
                 </div>
             </div>
         </div>
-        <!-- SENSES -->
+
+        {{!-- SENSES --}}
         <div class="senses section-container">
             <div class="section-header">
                 <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
@@ -76,7 +77,8 @@
             </div>
         </div>
     </div>
-    <!-- LANGUAGES -->
+
+    {{!-- LANGUAGES --}}
     <div class="languages section-container">
         <div class="section-header" data-attribute="languages" for="data.traits.languages">
             <h4>{{localize "PF2E.Languages"}}</h4>
@@ -93,7 +95,8 @@
             {{#if languageDetails}}<div class="tag-legacy language">{{localize languageDetails}}</div>{{/if}}
         </div>
     </div>
-    <!-- SKILLS -->
+
+    {{!-- SKILLS --}}
     <div class="skills section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.SkillsLabel"}}</h4>
@@ -120,7 +123,8 @@
             </div>
         </div>
     </div>
-    <!-- ATTACKS -->
+
+    {{!-- ATTACKS --}}
     <div class="attacks section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.NPC.Attacks"}}</h4>
@@ -139,7 +143,8 @@
             </ol>
         </div>
     </div>
-    <!-- ACTIONS -->
+
+    {{!-- ACTIONS --}}
     <div class="actions section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
@@ -157,7 +162,8 @@
             </ol>
         </div>
     </div>
-    <!-- PASSIVES -->
+
+    {{!-- PASSIVES --}}
     <div class="passives section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.NPC.PassivesLabel"}}</h4>
