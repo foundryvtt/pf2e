@@ -56,6 +56,7 @@ import { avertGaze } from "./specialty-basic/avert-gaze.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
 import { dismiss } from "./specialty-basic/dismiss.ts";
 import { fly } from "./specialty-basic/fly.ts";
+import { grabAnEdge } from "./specialty-basic/grab-an-edge.ts";
 import { mount } from "./specialty-basic/mount.ts";
 import { pointOut } from "./specialty-basic/point-out.ts";
 import { sustain } from "./specialty-basic/sustain.ts";
@@ -182,6 +183,7 @@ export const SystemActions: Action[] = [
     fly,
     forceOpen.action,
     gatherInformation.action,
+    grabAnEdge,
     grapple.action,
     hide.action,
     highJump.action,
