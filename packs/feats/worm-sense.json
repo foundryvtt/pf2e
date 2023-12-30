@@ -30,16 +30,17 @@
         },
         "rules": [
             {
-                "key": "Sense",
-                "selector": "darkvision"
-            },
-            {
                 "acuity": "imprecise",
                 "key": "Sense",
                 "range": "ternary(gte(@actor.level,12), 15, ternary(gte(@actor.level,8), 10, 5))",
                 "selector": "tremorsense"
             }
         ],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {}
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
