@@ -10,7 +10,6 @@ import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasti
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
     ErrorPF2e,
@@ -24,6 +23,7 @@ import {
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { AbilityData, CreatureSystemData } from "./data.ts";
+import { Language } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 
 /**
@@ -45,14 +45,21 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         }
 
+        // Languages for PCs are handled in the PC sheet subclass
+        const languages = actor.isOfType("character")
+            ? []
+            : actor.system.traits.languages.value
+                  .filter((l) => l in CONFIG.PF2E.languages)
+                  .map((slug) => ({ slug, label: game.i18n.localize(CONFIG.PF2E.languages[slug] ?? slug) }))
+                  .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
+
         return {
             ...sheetData,
-            languages: createSheetTags(CONFIG.PF2E.languages, actor.system.traits.languages),
+            languages,
             abilities: CONFIG.PF2E.abilities,
             actorSizes: CONFIG.PF2E.actorSizes,
             rarity: CONFIG.PF2E.rarityTraits,
             frequencies: CONFIG.PF2E.frequencies,
-            attitude: CONFIG.PF2E.attitude,
             pfsFactions: CONFIG.PF2E.pfsFactions,
             dying: {
                 maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
@@ -483,13 +490,12 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     data: CreatureSystemData & {
         abilities: Record<AttributeString, AbilityData & { label?: string }>;
     };
-    languages: SheetOptions;
     abilities: typeof CONFIG.PF2E.abilities;
     actorSizes: typeof CONFIG.PF2E.actorSizes;
     rarity: typeof CONFIG.PF2E.rarityTraits;
     frequencies: typeof CONFIG.PF2E.frequencies;
-    attitude: typeof CONFIG.PF2E.attitude;
     pfsFactions: typeof CONFIG.PF2E.pfsFactions;
+    languages: { slug: Language | null; label: string }[];
     dying: {
         maxed: boolean;
         remainingDying: number;

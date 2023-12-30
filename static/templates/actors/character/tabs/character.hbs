@@ -65,16 +65,27 @@
     <header>
         {{localize "PF2E.Languages"}}
         {{#if @root.options.editable}}
-            <button type="button" class="crb-tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages">
+            <button
+                type="button"
+                class="crb-tag-selector{{#if (lt data.build.languages.value data.build.languages.max)}} has-unallocated{{/if}}"
+                data-tag-selector="basic"
+                data-title="PF2E.Languages"
+                data-config-types="languages"
+                data-property="system.traits.languages"
+            >
                 <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
             </button>
         {{/if}}
     </header>
-    <section class="character-languages tags">
-        {{#each languages as |language slug|}}
-            <span class="tag tag_alt" data-slug="{{slug}}">{{language.label}}</span>
+    <ul class="languages tags light">
+        {{#each languages as |language|}}
+            <li
+                class="tag{{#if language.overLimit}} over-limit{{/if}}{{#unless language.slug}} unallocated{{/unless}}"
+                {{#if language.tooltip}}data-tooltip="{{language.tooltip}}"{{/if}}
+                {{#if language.slug}}data-slug="{{language.slug}}"{{/if}}
+            >{{language.label}}</li>
         {{/each}}
-    </section>
+    </ul>
 
     <header>
         {{localize "PF2E.Actor.Speed.Plural"}}

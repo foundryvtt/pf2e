@@ -23,8 +23,6 @@ $sub-color: #605856;
 $light-color: lighten($primary-color, 5);
 $dark-color: darken($primary-color, 5);
 $darker-color: darken($primary-color, 10);
-$tertiary-dark-color: darken($tertiary-color, 10);
-$tertiary-light-color: lighten($tertiary-color, 10);
 
 /* Text */
 $text-dark-color: #1c1c1c !default;
@@ -50,14 +48,18 @@ $adjusted-lower: #cc3311;
 :root {
     /* Global */
     --color-pf-primary: #{$primary-color};
-    --color-pf-primary-light: #{$light-color};
     --color-pf-primary-dark: #{$dark-color};
+    --color-pf-primary-darker: #{$darker-color};
+    --color-pf-primary-light: #{$light-color};
     --color-pf-alternate: #{$alt-color};
     --color-pf-alternate-dark: #{$alt-dark};
     --color-pf-secondary: #{$secondary-color};
-    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
     --color-pf-secondary-dark: #{darken($secondary-color, 10)};
+    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
     --color-pf-tertiary: #{$tertiary-color};
+    --color-pf-tertiary-dark: #{darken($tertiary-color, 10)};
+    --color-pf-tertiary-darker: #{darken($tertiary-color, 20)};
+    --color-pf-tertiary-light: #{lighten($tertiary-color, 10)};
     --primary: var(--color-pf-primary);
     --secondary: var(--color-pf-secondary);
     --tertiary: var(--color-pf-tertiary);
@@ -77,10 +79,10 @@ $adjusted-lower: #cc3311;
     --blind-roll: #f5eaf5;
 
     /* Lighter / Darker */
-    --primary-dark: #{$dark-color};
-    --primary-darker: #{$darker-color};
-    --tertiary-dark: #{$tertiary-dark-color};
-    --tertiary-light: #{$tertiary-light-color};
+    --primary-dark: var(--color-pf-primary-dark);
+    --primary-darker: var(--color-pf-primary-darker);
+    --tertiary-dark: var(--color-pf-tertiary-dark);
+    --tertiary-light: var(--color-pf-tertiary-light);
 
     /* Text */
     --text-dark: var(--color-text-dark-primary);

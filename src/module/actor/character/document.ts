@@ -374,6 +374,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 apex: isABP ? systemData.build?.attributes?.apex ?? null : null,
             },
+            languages: { value: 0, max: 0, free: [] },
         };
 
         // Base saves structure
@@ -493,6 +494,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             attribute.mod = Math.trunc(attribute.mod) || 0;
         }
 
+        const build = this.system.build;
+        build.languages.value = this._source.system.traits.languages.value.length;
+        build.languages.max += Math.max(this.system.abilities.int.mod, 0);
+        this.system.traits.languages.value = R.uniq([
+            ...this.system.traits.languages.value,
+            ...build.languages.free.map((l) => l.slug),
+        ]);
+
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
 
@@ -510,7 +519,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
      */
     override prepareDataFromItems(): void {
         super.prepareDataFromItems();
-        this.setAttributeModifiers();
+        this.prepareBuildData();
     }
 
     override prepareDerivedData(): void {
@@ -687,7 +696,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
     }
 
-    private setAttributeModifiers(): void {
+    private prepareBuildData(): void {
         const { build } = this.system;
 
         if (!build.attributes.manual) {
@@ -722,11 +731,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Enforce a minimum of -5 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
-        for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.clamped(ability.mod, -5, 10);
+        for (const attribute of Object.values(this.system.abilities)) {
+            attribute.mod = Math.clamped(attribute.mod, -5, 10);
             // Record base (integer) modifier: same as stored modifier if in manual mode, and prior to RE
             // modifications otherwise. The final prepared modifier is truncated after application of AE-likes.
-            ability.base = Math.trunc(ability.mod);
+            attribute.base = Math.trunc(attribute.mod);
         }
     }
 

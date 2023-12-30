@@ -89,8 +89,8 @@
             {{/if}}
         </div>
         <div class="section-body">
-            {{#each languages as |language slug|}}
-                <div class="tag-legacy language" data-slug="{{slug}}">{{localize language.label}}</div>
+            {{#each languages as |language|}}
+                <div class="tag-legacy language" data-slug="{{language.slug}}">{{language.label}}</div>
             {{/each}}
             {{#if languageDetails}}<div class="tag-legacy language">{{localize languageDetails}}</div>{{/if}}
         </div>

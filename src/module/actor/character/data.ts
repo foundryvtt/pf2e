@@ -16,7 +16,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource } from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
@@ -270,6 +270,18 @@ interface CharacterAbilityData extends AbilityData {
 
 interface CharacterBuildData {
     attributes: AttributeBoosts;
+    languages: LanguageBuildData;
+}
+
+interface LanguageBuildData extends ValueAndMax {
+    /** Free specific languages that do not count against the character's maximum */
+    free: FreeLanguage[];
+}
+
+/** A language added by some freature (typically ancestry) that doesn't count against the character's maximum */
+interface FreeLanguage {
+    slug: Language;
+    source: string;
 }
 
 /**
