@@ -143,13 +143,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!actor) return;
         const { value, max } = this.uses;
 
-        if (this.category === "scroll" && this.system.spell && actor.itemTypes.feat.some((feat) => feat.slug === "scroll-thaumaturgy")) {
-            this.castEmbeddedSpell();
-        } else if (["scroll", "wand"].includes(this.category) && this.system.spell) {
+        if (["scroll", "wand"].includes(this.category) && this.system.spell) {
             if (actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
+            } else if (this.category === "scroll" && actor.itemTypes.feat.some((feat) => feat.slug === "scroll-thaumaturgy")) {
+                this.castEmbeddedSpell();
             } else {
                 const formatParams = { actor: actor.name, spell: this.name };
                 const message = game.i18n.format("PF2E.LackCastConsumableCapability", formatParams);
