@@ -95,11 +95,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 ],
                 { required: false, nullable: false, initial: undefined },
             ),
-            placement: new fields.StringField({
-                required: false,
-                nullable: false,
-                initial: undefined,
-            }),
+            placement: new fields.StringField({ required: false, nullable: false, initial: undefined }),
             disabledIf: new PredicateField({ required: false, initial: undefined }),
             disabledValue: new fields.BooleanField({ required: false, initial: undefined }),
             alwaysActive: new fields.BooleanField({ required: false, initial: undefined }),
@@ -248,7 +244,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 const toggle: RollOptionToggle = {
                     itemId: this.item.id,
                     label: this.getReducedLabel(),
-                    placement: this.placement ?? "actions-tab",
+                    placement: this.placement ?? "actions",
                     domain: this.domain,
                     option: baseOption,
                     suboptions,

@@ -139,7 +139,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             options,
             owner: this.actor.isOwner,
             title: this.title,
-            toggles: this.actor.synthetics.toggles,
+            toggles: R.groupBy(this.actor.synthetics.toggles, (t) => t.placement),
             totalCoinage,
             totalCoinageGold,
             totalWealth,
@@ -326,17 +326,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Set listener toggles and their suboptions
-        const togglesArea = htmlQuery(html, ".actions-options");
-        togglesArea?.addEventListener("change", (event) => {
-            const toggleRow = htmlClosest(event.target, "[data-item-id][data-domain][data-option]");
-            const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
-            const suboptionsSelect = htmlQuery<HTMLSelectElement>(toggleRow, "select[data-action=set-suboption");
-            const { domain, option, itemId } = toggleRow?.dataset ?? {};
-            const suboption = suboptionsSelect?.value ?? null;
-            if (checkbox && domain && option) {
-                this.actor.toggleRollOption(domain, option, itemId ?? null, checkbox.checked, suboption);
-            }
-        });
+        for (const togglesSection of htmlQueryAll(html, "ul[data-option-toggles]")) {
+            togglesSection.addEventListener("change", (event) => {
+                const toggleRow = htmlClosest(event.target, "[data-item-id][data-domain][data-option]");
+                const checkbox = htmlQuery<HTMLInputElement>(toggleRow, "input[data-action=toggle-roll-option]");
+                const suboptionsSelect = htmlQuery<HTMLSelectElement>(toggleRow, "select[data-action=set-suboption");
+                const { domain, option, itemId } = toggleRow?.dataset ?? {};
+                const suboption = suboptionsSelect?.value ?? null;
+                if (checkbox && domain && option) {
+                    this.actor.toggleRollOption(domain, option, itemId ?? null, checkbox.checked, suboption);
+                }
+            });
+        }
 
         // Strikes
         for (const strikeElem of htmlQueryAll(html, "ol.strikes-list > li[data-strike]")) {

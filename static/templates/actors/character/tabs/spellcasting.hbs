@@ -1,4 +1,6 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
+    {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
+
     <ol class="spellcastingEntry-list directory-list" data-foundry-list>
         {{#each spellcastingEntries as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>

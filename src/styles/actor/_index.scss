@@ -227,6 +227,39 @@ $header-height: 89px; /* Adjust height of the header */
 
                 @import "spell-collection";
 
+                ul.option-toggles {
+                    @include frame-elegant;
+                    display: flex;
+                    flex-flow: column wrap;
+                    list-style: none;
+                    margin-bottom: 0.5rem;
+                    padding: 0.5rem 1rem;
+
+                    > li {
+                        align-items: center;
+                        display: flex;
+                        width: 100%;
+
+                        label {
+                            align-items: center;
+                            display: flex;
+                            gap: 0.33rem;
+
+                            input {
+                                @include p-reset;
+                            }
+
+                            .unchecked-disabled {
+                                color: var(--color-text-dark-inactive);
+                            }
+
+                            select {
+                                margin-left: 0.25em;
+                            }
+                        }
+                    }
+                }
+
                 .directory-list {
                     > h3,
                     > li > h3 {

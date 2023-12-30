@@ -202,10 +202,10 @@
             {{editor data.details.description target="system.details.description" button=true owner=owner editable=editable}}
         </fieldset>
 
-        <!-- TOGGLES -->
-        {{#if toggles}}
+        {{!-- TOGGLES --}}
+        {{#if toggles.actions}}
             <section class="toggles">
-                {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}
+                {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}
             </section>
         {{/if}}
 
