@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor/base.ts";
+import type { ActorPF2e, ActorType } from "@actor";
 import { DexterityModifierCapData } from "@actor/character/types.ts";
 import { Abilities } from "@actor/creature/data.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
@@ -13,7 +13,6 @@ import { AttackRollParams, DamageRollParams, RollParameters } from "@module/syst
 import type { CheckRoll } from "@system/check/roll.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import { StatisticTraceData } from "@system/statistic/data.ts";
-import { ActorType } from "./index.ts";
 import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, WeaknessSource } from "./iwr.ts";
 
 /** Base interface for all actor data */

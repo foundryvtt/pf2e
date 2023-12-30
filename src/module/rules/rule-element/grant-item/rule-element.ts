@@ -1,5 +1,4 @@
-import type { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType } from "@actor";
 import { ConditionPF2e, ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ItemGrantDeleteAction } from "@item/base/data/system.ts";

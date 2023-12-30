@@ -1,6 +1,5 @@
-import type { CreaturePF2e } from "@actor";
+import type { ActorType, CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { ActorType } from "@actor/data/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";

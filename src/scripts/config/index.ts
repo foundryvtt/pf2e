@@ -1,8 +1,7 @@
 import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
 import { SenseAcuity } from "@actor/creature/types.ts";
 import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
-import { ActorType } from "@actor/data/index.ts";
-import { AttributeString } from "@actor/types.ts";
+import { ActorType, AttributeString } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import {
     AbilityItemPF2e,

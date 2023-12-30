@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ConditionPF2e } from "@item";
 import { ConditionSource } from "@item/condition/data.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 
 /** A helper class to manage PF2e Conditions */
 export class ConditionManager {
@@ -69,7 +69,7 @@ export class ConditionManager {
         actorOrToken: ActorPF2e | TokenPF2e,
         value: number,
     ): Promise<void> {
-        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
+        const actor = "prototypeToken" in actorOrToken ? actorOrToken : actorOrToken.actor;
         const condition = actor?.items.get(itemId);
 
         if (condition?.isOfType("condition")) {

@@ -1,4 +1,4 @@
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { StrikingSynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";

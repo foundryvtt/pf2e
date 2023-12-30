@@ -1,21 +1,22 @@
 import type * as ActorInstance from "@actor";
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
-import { EffectTrait } from "@item/abstract-effect/index.ts";
-import { ItemInstances } from "@item/types.ts";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/index.ts";
+import type { ItemInstances } from "@item/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
-import { CheckRollContextFlag } from "@module/chat-message/index.ts";
+import type { CheckRollContextFlag } from "@module/chat-message/index.ts";
 import type { ItemAlteration } from "@module/rules/rule-element/item-alteration/alteration.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
+import type { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { StatisticCheck } from "@system/statistic/index.ts";
-import { StrikeData } from "./data/base.ts";
+import type { StrikeData } from "./data/base.ts";
 import type { ModifierPF2e } from "./modifiers.ts";
 import type {
+    ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
     DC_SLUGS,
     MOVEMENT_TYPES,
@@ -24,6 +25,8 @@ import type {
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
 } from "./values.ts";
+
+type ActorType = (typeof ACTOR_TYPES)[number];
 
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
@@ -209,6 +212,7 @@ export type {
     ActorAlliance,
     ActorDimensions,
     ActorInstances,
+    ActorType,
     ApplyDamageParams,
     AttributeString,
     AuraAppearanceData,

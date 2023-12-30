@@ -12,9 +12,9 @@ async function repair(options: RepairActionOptions): Promise<void> {
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
     // ensure specified item is a valid crafting target
-    if (item && !(item instanceof PhysicalItemPF2e)) {
+    if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" }),
+            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }),
         );
         return;
     }

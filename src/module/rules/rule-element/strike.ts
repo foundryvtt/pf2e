@@ -1,5 +1,4 @@
-import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
 import { NPCAttackTrait } from "@item/melee/data.ts";

@@ -67,7 +67,7 @@ import {
     RollOptionFlags,
     StrikeData,
 } from "./data/base.ts";
-import { ActorSourcePF2e, ActorType } from "./data/index.ts";
+import { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
@@ -88,6 +88,7 @@ import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
+import { ActorType } from "./types.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
