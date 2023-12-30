@@ -813,6 +813,14 @@ export const PF2ECONFIG = {
         "PF2E.ProficiencyLevel4", // legendary
     ] as const,
 
+    proficiencyRanks: {
+        untrained: "PF2E.ProficiencyLevel0",
+        trained: "PF2E.ProficiencyLevel1",
+        expert: "PF2E.ProficiencyLevel2",
+        master: "PF2E.ProficiencyLevel3",
+        legendary: "PF2E.ProficiencyLevel4",
+    } as const,
+
     actorSizes: sizeTypes,
 
     actorTypes,

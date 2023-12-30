@@ -34,6 +34,13 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:gather-information"],
+    sampleTasks: {
+        untrained: `${PREFIX}.SampleTasks.Untrained`,
+        trained: `${PREFIX}.SampleTasks.Trained`,
+        expert: `${PREFIX}.SampleTasks.Expert`,
+        master: `${PREFIX}.SampleTasks.Master`,
+        legendary: `${PREFIX}.SampleTasks.Legendary`,
+    },
     section: "skill",
     slug: "gather-information",
     statistic: "diplomacy",
