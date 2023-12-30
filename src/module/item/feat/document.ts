@@ -205,7 +205,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     heritageHasLLV() ||
                     backgroundHasLLV() ||
                     actor.itemTypes.feat.some(
-                        (f) =>
+                        (f: FeatPF2e) =>
+                            f !== this &&
                             (f.system.level.taken ?? 1) <= levelTaken &&
                             (f.system.subfeatures.senses["low-light-vision"] || hasLLVRule(f.system.rules)),
                     );
