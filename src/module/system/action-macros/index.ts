@@ -52,6 +52,7 @@ import * as treatPoison from "./medicine/treat-poison.ts";
 import * as commandAnAnimal from "./nature/command-an-animal.ts";
 import * as perform from "./performance/perform.ts";
 import * as createForgery from "./society/create-forgery.ts";
+import { arrestAFall } from "./specialty-basic/arrest-a-fall.ts";
 import { avertGaze } from "./specialty-basic/avert-gaze.ts";
 import { burrow } from "./specialty-basic/burrow.ts";
 import { dismiss } from "./specialty-basic/dismiss.ts";
@@ -159,6 +160,7 @@ export const ActionMacros = {
 export const SystemActions: Action[] = [
     administerFirstAid.action,
     aid,
+    arrestAFall,
     avertGaze,
     avoidNotice.action,
     balance.action,
