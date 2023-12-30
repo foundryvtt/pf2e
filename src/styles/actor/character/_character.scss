@@ -160,11 +160,20 @@
         }
     }
 
-    .character-languages {
+    ul.languages {
         display: flex;
         flex-wrap: wrap;
         gap: 0.25rem;
         margin-bottom: 0.5rem;
+
+        > li.over-limit {
+            --tag-color: var(--color-pf-primary-dark);
+        }
+
+        > li.unallocated {
+            --tag-color: var(--color-pf-alternate);
+            font-style: italic;
+        }
     }
 
     .character-speeds {

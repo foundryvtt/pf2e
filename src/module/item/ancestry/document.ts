@@ -111,10 +111,12 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
 
         // Add languages
-        const innateLanguages = this.system.languages.value;
-        for (const language of innateLanguages) {
-            if (language in CONFIG.PF2E.languages && !actor.system.traits.languages.value.includes(language)) {
-                actor.system.traits.languages.value.push(language);
+        build.languages.max += this.system.additionalLanguages.count;
+        const freeLanguages = this.system.languages.value;
+        for (const language of freeLanguages) {
+            const alreadyHasLanguage = build.languages.free.some((l) => l.slug === language);
+            if (language in CONFIG.PF2E.languages && !alreadyHasLanguage) {
+                build.languages.free.push({ slug: language, source: this.name });
             }
         }
 

@@ -1,5 +1,5 @@
 import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { CreatureSheetData } from "@actor/creature/index.ts";
+import { CreatureSheetData, Language } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
@@ -296,6 +296,30 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }, {});
 
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
+
+        sheetData.languages = ((): LanguageSheetData[] => {
+            const languagesBuild = actor.system.build.languages;
+            const sourceLanguages = actor._source.system.traits.languages.value;
+            const languages: LanguageSheetData[] = actor.system.traits.languages.value
+                .map((language) => {
+                    const label = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
+                    const sourceIndex = sourceLanguages.indexOf(language);
+                    const overLimit = sourceIndex + 1 > languagesBuild.max;
+                    const tooltip =
+                        languagesBuild.free.find((l) => l.slug === language)?.source ??
+                        (overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null);
+                    return { slug: language, label, tooltip, overLimit };
+                })
+                .sort((a, b) => a.label.localeCompare(b.label));
+            const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
+            const unallocatedTooltip = "PF2E.Actor.Character.Language.Unallocated.Tooltip";
+            const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
+                () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
+            );
+            languages.push(...unallocatedLanguages);
+
+            return languages;
+        })();
 
         // Sort skills by localized label
         sheetData.data.skills = Object.fromEntries(
@@ -1590,6 +1614,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
+    languages: LanguageSheetData[];
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;
     options: CharacterSheetOptions;
@@ -1611,6 +1636,13 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     senses: Sense[];
     speeds: SpeedSheetData[];
 }
+
+type LanguageSheetData = {
+    slug: Language | null;
+    label: string;
+    tooltip: string | null;
+    overLimit: boolean;
+};
 
 interface SpeedSheetData {
     slug: string;

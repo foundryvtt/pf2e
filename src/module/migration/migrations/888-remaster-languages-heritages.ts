@@ -1,5 +1,5 @@
-import { Language } from "@actor/creature/data.ts";
 import { CreatureTrait } from "@actor/creature/index.ts";
+import { Language } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isObject, recursiveReplaceString } from "@util";

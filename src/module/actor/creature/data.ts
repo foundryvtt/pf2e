@@ -22,8 +22,7 @@ import type {
 import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData, Statistic } from "@system/statistic/index.ts";
 import { PerceptionTraceData } from "@system/statistic/perception.ts";
-import type { CreatureActorType, CreatureTrait, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
-import type { LANGUAGES } from "./values.ts";
+import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
 
 type BaseCreatureSource<
     TType extends CreatureActorType,
@@ -112,12 +111,8 @@ interface AbilityData {
 
 type Abilities = Record<AttributeString, AbilityData>;
 
-/** A type representing the possible ability strings. */
-type Language = (typeof LANGUAGES)[number];
-type Attitude = keyof typeof CONFIG.PF2E.attitude;
-
 interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
-    /** Languages which this actor knows and can speak. */
+    /** Languages this actor knows and (probably) can speak. */
     languages: ValuesList<Language>;
 }
 
@@ -230,7 +225,6 @@ export { VisionLevels };
 export type {
     Abilities,
     AbilityData,
-    Attitude,
     BaseCreatureSource,
     CreatureActorType,
     CreatureAttributes,
@@ -249,7 +243,6 @@ export type {
     CreatureTraitsSource,
     HeldShieldData,
     LabeledSpeed,
-    Language,
     SaveData,
     SenseData,
     SkillAbbreviation,
