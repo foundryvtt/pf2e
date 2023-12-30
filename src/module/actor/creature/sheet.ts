@@ -63,13 +63,13 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    #openSpellPreparation(collectionId: string, event?: MouseEvent): void {
+    #openSpellPreparation(collectionId: string, event?: DragEvent | MouseEvent): void {
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
-            const button = htmlClosest(event?.target, "button");
-            if (!button) return;
-            const offset = $(button).offset() ?? { left: 0, top: 0 };
-            const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
+            const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");
+            const offset = referenceEl ? $(referenceEl).offset() ?? { left: 0, top: 0 } : null;
+            const options = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
+            const sheet = new SpellPreparationSheet(entry, options);
             sheet.render(true);
         }
     }
@@ -418,11 +418,11 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
+        const containerEl = htmlClosest(event.target, "[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-            this.#openSpellPreparation(collection.id);
+            this.#openSpellPreparation(collection.id, event);
             const groupId = coerceToSpellGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
 
             return [(await collection.addSpell(item, { groupId })) ?? []].flat();
