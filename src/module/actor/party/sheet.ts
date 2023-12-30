@@ -158,11 +158,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 observer,
                 limited: observer || actor.limited,
                 speeds: [
-                    { label: "PF2E.Speed", value: actor.attributes.speed.value },
-                    ...actor.attributes.speed.otherSpeeds.map((s) => ({
-                        label: s.label,
-                        value: s.value,
-                    })),
+                    { label: "PF2E.Actor.Speed.Label", value: actor.attributes.speed.value },
+                    ...actor.attributes.speed.otherSpeeds.map((s) => R.pick(s, ["label", "value"])),
                 ],
                 senses: (() => {
                     return condenseSenses(actor.perception.senses.contents).map((r) => ({

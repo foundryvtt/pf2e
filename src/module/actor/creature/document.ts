@@ -580,8 +580,8 @@ abstract class CreaturePF2e<
                 landSpeed,
                 { overwrite: false },
             );
-            const typeLabel = game.i18n.localize("PF2E.SpeedTypesLand");
-            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: typeLabel });
+            const typeLabel = game.i18n.localize(CONFIG.PF2E.speedTypes.land);
+            const statLabel = game.i18n.format("PF2E.Actor.Speed.Type.Label", { type: typeLabel });
             const otherData = {
                 type: "land",
                 label: statLabel,
@@ -598,7 +598,7 @@ abstract class CreaturePF2e<
                 breakdown: {
                     get(): string {
                         return [
-                            `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${stat.value}`,
+                            `${game.i18n.format("PF2E.Actor.Speed.BaseLabel", { type: typeLabel })} ${stat.value}`,
                             ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
                         ].join(", ");
                     },

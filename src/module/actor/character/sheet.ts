@@ -352,7 +352,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 slug,
                 icon: fontAwesomeIcon(speedIcons[slug]).outerHTML,
                 action: ["swim", "climb"].includes(slug) && !data?.total ? slug : null,
-                label: slug === "land" ? "PF2E.SpeedTypesLand" : CONFIG.PF2E.speedTypes[slug],
+                label: CONFIG.PF2E.speedTypes[slug],
                 value: data?.total ?? null,
                 breakdown: slug === "land" ? speed.breakdown : null,
             };
