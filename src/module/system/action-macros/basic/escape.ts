@@ -144,7 +144,7 @@ class EscapeAction extends SingleCheckAction {
             rollOptions: ["action:escape"],
             section: "basic",
             slug: "escape",
-            statistic: "unarmed",
+            statistic: ["unarmed", "acrobatics", "athletics"],
             traits: ["attack"],
         });
     }
