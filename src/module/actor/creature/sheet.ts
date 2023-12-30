@@ -4,8 +4,7 @@ import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
-import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
-import { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
@@ -207,12 +206,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         handlers["recovery-check"] = async (event) => {
             await this.actor.rollRecovery(event);
-        };
-
-        // ABILITIES
-
-        handlers["browse-abilities"] = (_, anchor) => {
-            this.#onClickBrowseAbilities(anchor);
         };
 
         // SPELLCASTING
@@ -460,13 +453,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     #onConfigureActor(): void {
         if (!this.actorConfigClass) return;
         new this.actorConfigClass(this.actor).render(true);
-    }
-
-    #onClickBrowseAbilities(anchor: HTMLElement): void {
-        const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
-        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
-        const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
-        game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
 
     #onClickBrowseSpells(anchor: HTMLElement): void {

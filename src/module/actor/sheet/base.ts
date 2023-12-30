@@ -2,7 +2,8 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
+import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
+import { ItemSourcePF2e, isPhysicalData, type ActionType } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
@@ -439,6 +440,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers: SheetClickActionHandlers = {
+            "browse-abilities": (_, anchor) => {
+                this.#onClickBrowseAbilities(anchor);
+            },
             "effect-toggle-unidentified": async (event) => {
                 const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
@@ -767,6 +771,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${item.name}"` })}</p>`,
             }));
         if (result) await item.delete();
+    }
+
+    #onClickBrowseAbilities(anchor: HTMLElement): void {
+        const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
+        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
+        game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
 
     async #onClickBrowseEquipment(element: HTMLElement): Promise<void> {
