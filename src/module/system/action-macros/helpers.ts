@@ -17,7 +17,7 @@ import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 import {
     CheckContext,
@@ -128,7 +128,7 @@ export class ActionMacroHelpers {
         } else if (options.actors) {
             rollers.push(options.actors);
         } else {
-            rollers.push(...getSelectedOrOwnActors());
+            rollers.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
 
         if (rollers.length === 0) {
