@@ -29,7 +29,37 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:soc:rank",
+                            3
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "predicate": [
+                    "skill:soc:rank:4"
+                ],
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
