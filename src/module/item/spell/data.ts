@@ -1,6 +1,6 @@
 import type { SaveType } from "@actor/types.ts";
 import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
-import type { OneToTen, ValueAndMax } from "@module/data.ts";
+import type { OneToTen, ValueAndMax, ZeroToThree } from "@module/data.ts";
 import type { DamageCategoryUnique, DamageKind, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import type { EffectAreaSize, EffectAreaType, MagicTradition, SpellTrait } from "./types.ts";
 
@@ -98,10 +98,14 @@ interface SpellOverlayOverride {
 }
 
 interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSystemData, "level" | "traits"> {
+    /** Time and resources consumed in the casting of this spell */
+    cast: SpellCastData;
     damage: Record<string, SpellDamage>;
     defense: SpellDefenseData | null;
-    /** The cost in focus points to cast this spell */
-    fpCost: number;
+}
+
+interface SpellCastData {
+    focusPoints: ZeroToThree;
 }
 
 interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {

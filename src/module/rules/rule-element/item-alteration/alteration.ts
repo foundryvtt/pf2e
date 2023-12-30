@@ -1,9 +1,10 @@
 import type { ActorPF2e } from "@actor";
-import type { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
+import { ZeroToThree } from "@module/data.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -22,6 +23,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "category",
         "check-penalty",
         "dex-cap",
+        "focus-point-cost",
         "hardness",
         "hp-max",
         "material-type",
@@ -159,6 +161,18 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.alteration.value,
                 );
                 data.item.system.dexCap = Math.max(newValue, 0);
+                return;
+            }
+            case "focus-point-cost": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!(data.item instanceof ItemPF2e) || data.item.isRitual) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.cast.focusPoints,
+                    data.alteration.value,
+                );
+                data.item.system.cast.focusPoints = (Math.clamped(newValue, 0, 3) || 0) as ZeroToThree;
                 return;
             }
             case "hardness": {

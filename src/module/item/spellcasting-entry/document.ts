@@ -255,7 +255,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const rank = options.rank ?? spell.rank;
-        const valid = !consume || spell.isCantrip || (await this.consume(spell, rank, options.slotId));
+        const valid = !consume || spell.atWill || (await this.consume(spell, rank, options.slotId));
         if (message && valid) {
             const castRank = spell.computeCastRank(rank);
             await spell.toMessage(null, { rollMode: options.rollMode, data: { castRank } });
@@ -267,12 +267,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         if (!actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
-        if (this.isRitual || (spell.isCantrip && spell.system.fpCost === 0)) return true;
+        const fpCost = spell.system.cast.focusPoints;
+        if (this.isRitual || (spell.isCantrip && fpCost === 0)) return true;
         spell = spell.original ? spell.original : spell;
 
-        if (this.isFocusPool && actor.isOfType("character", "npc")) {
+        if (actor.isOfType("character", "npc") && fpCost > 0) {
             const currentPoints = actor.system.resources.focus?.value ?? 0;
-            if (currentPoints > 0) {
+            if (currentPoints >= fpCost) {
                 await actor.update({ "system.resources.focus.value": currentPoints - 1 });
                 return true;
             } else {
