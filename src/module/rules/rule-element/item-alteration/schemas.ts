@@ -137,6 +137,22 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    "check-penalty": new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            choices: ["armor"],
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+        }),
+        value: new StrictNumberField({
+            required: true,
+            nullable: false,
+            integer: true,
+            initial: undefined,
+        } as const),
+    }),
     "dex-cap": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
@@ -153,21 +169,13 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
-    "check-penalty": new ItemAlterationValidator({
-        itemType: new fields.StringField({
-            required: true,
-            choices: ["armor"],
-        }),
+    "focus-point-cost": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["spell"] } as const),
         mode: new fields.StringField({
             required: true,
-            choices: ["add", "downgrade", "override", "remove", "subtract", "upgrade"] as const,
+            choices: ["add", "override", "upgrade"],
         }),
-        value: new StrictNumberField({
-            required: true,
-            nullable: false,
-            integer: true,
-            initial: undefined,
-        } as const),
+        value: new StrictNumberField({ required: true, nullable: false, integer: true, initial: undefined } as const),
     }),
     hardness: new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),

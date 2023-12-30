@@ -254,7 +254,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                     const active = spells.map((spell) => ({
                         spell,
                         expended: this.entry.isInnate && !spell.system.location.uses?.value,
-                        uses: this.entry.isInnate && !spell.unlimited ? spell.system.location.uses : undefined,
+                        uses: this.entry.isInnate && !spell.atWill ? spell.system.location.uses : undefined,
                     }));
 
                     // These entries hide if there are no active spells at that level, or if there are no spell slots
