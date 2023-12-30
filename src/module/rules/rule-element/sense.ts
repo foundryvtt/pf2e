@@ -1,4 +1,4 @@
-import type { CharacterPF2e, FamiliarPF2e } from "@actor";
+import type { ActorType, CharacterPF2e, FamiliarPF2e } from "@actor";
 import type { SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import {
     SENSES_WITH_MANDATORY_ACUITIES,
@@ -6,7 +6,6 @@ import {
     SENSE_ACUITIES,
     SENSE_TYPES,
 } from "@actor/creature/values.ts";
-import { ActorType } from "@actor/data/index.ts";
 import { tupleHasValue } from "@util";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";

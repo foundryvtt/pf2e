@@ -1,5 +1,4 @@
-import type { ActorPF2e } from "@actor";
-import type { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType } from "@actor";
 import * as R from "remeda";
 
 /**

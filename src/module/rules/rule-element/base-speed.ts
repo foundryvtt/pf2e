@@ -1,5 +1,4 @@
-import type { CreaturePF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CreaturePF2e } from "@actor";
 import { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
