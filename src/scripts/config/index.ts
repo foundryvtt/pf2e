@@ -3,6 +3,7 @@ import { SenseAcuity } from "@actor/creature/types.ts";
 import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorType } from "@actor/data/index.ts";
 import { AttributeString } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import {
     AbilityItemPF2e,
     AfflictionPF2e,
@@ -231,6 +232,11 @@ const sizeTypes: Record<Size, string> = {
     huge: "PF2E.ActorSizeHuge",
     grg: "PF2E.ActorSizeGargantuan",
 };
+
+const speedTypes = R.mapToObj(MOVEMENT_TYPES, (t) => [
+    t,
+    `PF2E.Actor.Speed.Type.${sluggify(t, { camel: "bactrian" })}`,
+]);
 
 const featCategories: Record<FeatOrFeatureCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
@@ -811,12 +817,7 @@ export const PF2ECONFIG = {
 
     actorTypes,
 
-    speedTypes: {
-        swim: "PF2E.SpeedTypesSwim",
-        climb: "PF2E.SpeedTypesClimb",
-        fly: "PF2E.SpeedTypesFly",
-        burrow: "PF2E.SpeedTypesBurrow",
-    },
+    speedTypes,
 
     prerequisitePlaceholders: {
         prerequisite1: "PF2E.Prerequisite1",

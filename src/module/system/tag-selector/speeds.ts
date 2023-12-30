@@ -10,7 +10,7 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         return fu.mergeObject(super.defaultOptions, {
             id: "speed-selector",
             template: "systems/pf2e/templates/system/tag-selector/speeds.hbs",
-            title: "PF2E.SpeedTypes",
+            title: "PF2E.Actor.Speed.Plural",
         });
     }
 

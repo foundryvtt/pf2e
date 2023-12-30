@@ -93,7 +93,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         };
         systemData.attributes.speed = {
             value: 25,
-            label: game.i18n.localize("PF2E.SpeedTypesLand"),
+            label: CONFIG.PF2E.speedTypes.land,
             otherSpeeds: [],
         };
 
