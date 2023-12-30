@@ -16,8 +16,8 @@ interface BookSystemSource extends PhysicalSystemSource {
     contents: ItemUUID[];
 }
 
-interface BookSystemData extends Omit<BookSystemSource, SourceOmission>, PhysicalSystemData {}
+interface BookSystemData extends Omit<BookSystemSource, SourceOmission>, Omit<PhysicalSystemData, "traits"> {}
 
-type SourceOmission = "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "traits" | "usage";
+type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 export type { BookSource, BookSystemData };

@@ -1,5 +1,5 @@
-import { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
-import { PhysicalItemTraits, PartialPrice } from "@item/physical/data.ts";
+import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/base/data/system.ts";
+import { PartialPrice, PhysicalItemTraits } from "@item/physical/data.ts";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
 
@@ -19,6 +19,6 @@ interface KitSystemSource extends ItemSystemSource {
     level?: never;
 }
 
-type KitSystemData = KitSystemSource;
+interface KitSystemData extends Omit<KitSystemSource, "description" | "traits">, Omit<ItemSystemData, "level"> {}
 
 export type { KitEntryData, KitSource, KitSystemData, KitSystemSource };

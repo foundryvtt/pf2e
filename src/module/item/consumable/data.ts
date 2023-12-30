@@ -39,13 +39,11 @@ type ConsumableDamageHealing = {
 };
 
 interface ConsumableSystemData
-    extends Omit<
-            ConsumableSystemSource,
-            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
-        >,
+    extends Omit<ConsumableSystemSource, SourceOmission>,
         Omit<PhysicalSystemData, "traits"> {
     stackGroup: AmmoStackGroup | null;
 }
+type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 export type {
     ConsumableDamageHealing,

@@ -7,6 +7,7 @@ import {
     BaseItemSourcePF2e,
     Frequency,
     FrequencySource,
+    ItemSystemData,
     ItemSystemSource,
     ItemTraits,
 } from "@item/base/data/system.ts";
@@ -51,7 +52,7 @@ interface FeatLevelSource {
     taken?: number | null;
 }
 
-interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
+interface FeatSystemData extends Omit<FeatSystemSource, "description" | "maxTaken">, Omit<ItemSystemData, "traits"> {
     level: FeatLevelData;
 
     /** `null` is set to `Infinity` during data preparation */
