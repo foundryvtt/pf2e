@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { htmlQueryAll } from "@util";
-import { SelectableTagField } from "./index.ts";
+import type { SelectableTagField } from "./index.ts";
 
 interface TagSelectorOptions extends DocumentSheetOptions {
     /* Show the custom input field (defaults to true) */
@@ -17,12 +17,13 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
     TagSelectorOptions
 > {
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             id: "tag-selector",
             classes: ["pf2e", "tag-selector"],
             sheetConfig: false,
             width: "auto",
-        });
+        };
     }
 
     choices: Record<string, string>;
