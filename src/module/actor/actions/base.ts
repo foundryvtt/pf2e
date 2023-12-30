@@ -9,6 +9,8 @@ import {
     ActionVariant,
     ActionVariantUseOptions,
 } from "./types.ts";
+import type { ProficiencyRank } from "@item/base/data/index.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 
 interface BaseActionVariantData {
     cost?: ActionCost;
@@ -23,10 +25,21 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     description: string;
     img?: string;
     name: string;
+    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     section?: ActionSection;
     slug?: string | null;
     traits?: string[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
+}
+
+function labelSampleTasks(sampleTasks: Partial<Record<ProficiencyRank, string>>): { label: string; text: string }[] {
+    const unlabeled: { rank: ProficiencyRank; text: string }[] = [];
+    let rank: keyof typeof sampleTasks;
+    for (rank in sampleTasks) {
+        unlabeled.push({ rank, text: sampleTasks[rank]! });
+    }
+    unlabeled.sort((t1, t2) => PROFICIENCY_RANKS.indexOf(t1.rank) - PROFICIENCY_RANKS.indexOf(t2.rank));
+    return unlabeled.map((task) => ({ label: CONFIG.PF2E.proficiencyRanks[task.rank], text: task.text }));
 }
 
 abstract class BaseActionVariant implements ActionVariant {
@@ -73,6 +86,7 @@ abstract class BaseActionVariant implements ActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
+        const sampleTasks = this.#action.sampleTasks ? labelSampleTasks(this.#action.sampleTasks) : undefined;
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         const traits = this.traits.map((trait) => ({
@@ -84,6 +98,7 @@ abstract class BaseActionVariant implements ActionVariant {
             description,
             glyph: this.glyph,
             name,
+            sampleTasks,
             traits,
         });
         return ChatMessagePF2e.create({
@@ -101,6 +116,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly description?: string;
     readonly img?: string;
     readonly name: string;
+    readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     readonly section?: ActionSection;
     readonly slug: string;
     readonly traits: string[];
@@ -111,6 +127,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         this.description = data.description;
         this.img = data.img;
         this.name = data.name.trim();
+        this.sampleTasks = data.sampleTasks;
         this.section = data.section;
         this.slug = data.slug?.trim() || sluggify(this.name);
         this.traits = data.traits ?? [];
