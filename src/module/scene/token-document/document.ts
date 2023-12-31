@@ -207,12 +207,26 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this);
 
+        super.prepareBaseData();
+
+        // Merge token overrides from REs into this document
         const tokenOverrides = actor.synthetics.tokenOverrides;
+        this.name = tokenOverrides.name ?? this.name;
+        this.alpha = tokenOverrides.alpha ?? this.alpha;
+
+        if (tokenOverrides.texture) {
+            this.texture.src = tokenOverrides.texture.src;
+            if ("scaleX" in tokenOverrides.texture) {
+                this.texture.scaleX = tokenOverrides.texture.scaleX;
+                this.texture.scaleY = tokenOverrides.texture.scaleY;
+                this.flags.pf2e.autoscale = false;
+            }
+            this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
+        }
+
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
         }
-
-        super.prepareBaseData();
 
         // Alliance coloration, appropriating core token dispositions
         const alliance = actor.system.details.alliance;
@@ -286,29 +300,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             const range = scene.flags.pf2e.hearingRange ?? maxRadius;
             this.detectionModes.push({ id: "hearing", enabled: true, range });
         }
-    }
-
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
-        const scene = this.parent;
-        const actor = this.actor;
-        if (!(scene && actor)) return;
-
-        // Merge token overrides from REs into this document
-        const tokenOverrides = actor.synthetics.tokenOverrides;
-        this.name = tokenOverrides.name ?? this.name;
-
-        if (tokenOverrides.texture) {
-            this.texture.src = tokenOverrides.texture.src;
-            if ("scaleX" in tokenOverrides.texture) {
-                this.texture.scaleX = tokenOverrides.texture.scaleX;
-                this.texture.scaleY = tokenOverrides.texture.scaleY;
-                this.flags.pf2e.autoscale = false;
-            }
-            this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
-        }
-
-        this.alpha = tokenOverrides.alpha ?? this.alpha;
     }
 
     /** Synchronize the token image with the actor image if the token does not currently have an image */
