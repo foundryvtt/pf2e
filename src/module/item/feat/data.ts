@@ -1,4 +1,4 @@
-import { SenseAcuity, SenseType } from "@actor/creature/types.ts";
+import { Language, SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
@@ -66,8 +66,16 @@ interface FeatLevelData extends Required<FeatLevelSource> {}
 
 interface FeatSubfeatures {
     keyOptions: AttributeString[];
+    languages: LanguagesSubfeature;
     proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute?: AttributeString | null } };
     senses: { [K in SenseType]?: SenseSubfeature };
+}
+
+interface LanguagesSubfeature {
+    /** A number of open slots fillable with any language */
+    slots: number;
+    /** Additional specific languages the character knows */
+    granted: Language[];
 }
 
 interface SenseSubfeature {
@@ -92,4 +100,4 @@ type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCate
 
 type FeatTraits = ItemTraits<FeatTrait>;
 
-export type { FeatSource, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };
+export type { FeatSource, FeatSubfeatures, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };

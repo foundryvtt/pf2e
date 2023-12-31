@@ -1,4 +1,4 @@
-import type { SenseAcuity } from "@actor/creature/types.ts";
+import type { Language, SenseAcuity } from "@actor/creature/types.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE } from "@actor/creature/values.ts";
 import {
     activateActionSheetListeners,
@@ -11,7 +11,17 @@ import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/s
 import type { FeatPF2e } from "@item/feat/document.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { OneToFour } from "@module/data.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, sluggify, tagify, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    htmlClosest,
+    htmlQuery,
+    htmlQueryAll,
+    localizer,
+    objectHasKey,
+    sluggify,
+    tagify,
+    tupleHasValue,
+} from "@util";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 
@@ -46,14 +56,32 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             canHaveKeyOptions: featCanHaveKeyOptions(feat),
             categories: CONFIG.PF2E.featCategories,
             frequencies: CONFIG.PF2E.frequencies,
+            hasLanguages: subfeatures.languages.slots > 0 || subfeatures.languages.granted.length > 0,
             hasLineageTrait,
             hasProficiencies: Object.keys(subfeatures.proficiencies).length > 0,
             hasSenses: Object.keys(subfeatures.senses).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
+            languages: this.#getLanguageOptions(),
             proficiencies: this.#getProficiencyOptions(),
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
             senses: this.#getSenseOptions(),
             showPrerequisites,
+        };
+    }
+
+    #getLanguageOptions(): LanguageOptions {
+        const subfeatures = this.item.system.subfeatures;
+        const languages = R.keys
+            .strict(CONFIG.PF2E.languages)
+            .map((slug) => ({ slug, label: game.i18n.localize(CONFIG.PF2E.languages[slug]) }))
+            .sort((a, b) => a.label.localeCompare(b.label));
+
+        return {
+            slots: subfeatures.languages.slots,
+            granted: {
+                available: languages.filter((l) => !subfeatures.languages.granted.includes(l.slug)),
+                selected: languages.filter((l) => subfeatures.languages.granted.includes(l.slug)),
+            },
         };
     }
 
@@ -158,6 +186,10 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -177,8 +209,40 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 addOptionAnchor?.toggleAttribute("disabled", !unselectedOptionsSelect.value);
             });
         }
+
+        this.#activateLanguagesListeners(html);
         this.#activateProficienciesListeners(html);
         this.#activateSensesListeners(html);
+    }
+
+    #activateLanguagesListeners(html: HTMLElement): void {
+        const feat = this.item;
+        const formGroup = htmlQuery(html, ".form-group[data-languages]");
+        const newLanguageSelect = htmlQuery<HTMLSelectElement>(formGroup, "select[data-unselected-options]");
+        formGroup?.addEventListener("click", (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+            if (!anchor) return;
+
+            const currentGranted = feat._source.system.subfeatures?.languages?.granted ?? [];
+            if (anchor.dataset.action === "add-language") {
+                const slug = newLanguageSelect?.value;
+                if (!slug) throw ErrorPF2e("No option selected");
+
+                if (slug === "slots") {
+                    feat.update({ "system.subfeatures.languages.slots": 1 });
+                } else if (objectHasKey(CONFIG.PF2E.languages, slug)) {
+                    const options = this.#getLanguageOptions().granted.available;
+                    if (options.some((o) => o.slug === slug)) {
+                        feat.update({ [`system.subfeatures.languages.granted`]: R.uniq([...currentGranted, slug]) });
+                    }
+                }
+            } else if (anchor.dataset.action === "delete-language") {
+                const slug = anchor.dataset.slug ?? "";
+                feat.update({ "system.subfeatures.languages.granted": currentGranted.filter((l) => l !== slug) });
+            } else if (anchor.dataset.action === "delete-slots") {
+                feat.update({ "system.subfeatures.languages.-=slots": null });
+            }
+        });
     }
 
     #activateProficienciesListeners(html: HTMLElement): void {
@@ -287,6 +351,12 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             }
         }
 
+        const languageSlotsKey = "system.subfeatures.languages.slots";
+        if (languageSlotsKey in formData && !(Number(formData[languageSlotsKey]) > 0)) {
+            delete formData[languageSlotsKey];
+            formData["system.subfeatures.languages.-=slots"] = null;
+        }
+
         const pattern = /^system\.subfeatures\.proficiencies\.([a-z]+)\.to$/;
         const proficiencies = Object.keys(formData).filter((k) => pattern.test(k));
         for (const path of proficiencies) {
@@ -308,9 +378,11 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     canHaveKeyOptions: boolean;
     categories: typeof CONFIG.PF2E.featCategories;
     frequencies: typeof CONFIG.PF2E.frequencies;
+    hasLanguages: boolean;
     hasLineageTrait: boolean;
     hasProficiencies: boolean;
     hasSenses: boolean;
+    languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
     proficiencies: ProficiencyOptions;
     selfEffect: SelfEffectReference | null;
@@ -318,15 +390,26 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     showPrerequisites: boolean;
 }
 
-type ProficiencyOptions = {
-    other: { group: string | null; options: { slug: string; label: string; rank: OneToFour | null }[] };
-} & Record<
-    "saves" | "attacks" | "defenses" | "classes",
-    {
-        group: string;
-        options: { slug: string; label: string; rank: OneToFour | null }[];
-    }
->;
+interface LanguageOptions {
+    slots: number;
+    granted: {
+        available: { slug: Language; label: string }[];
+        selected: { slug: Language; label: string }[];
+    };
+}
+
+interface ProficiencyOptions {
+    other: ProficiencyOptionGroup<null>;
+    saves: ProficiencyOptionGroup;
+    attacks: ProficiencyOptionGroup;
+    defenses: ProficiencyOptionGroup;
+    classes: ProficiencyOptionGroup;
+}
+
+interface ProficiencyOptionGroup<TGroup extends string | null = string> {
+    group: TGroup;
+    options: { slug: string; label: string; rank: OneToFour | null }[];
+}
 
 interface SenseOption {
     acuity?: SenseAcuity | null;

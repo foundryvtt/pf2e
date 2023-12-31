@@ -10,7 +10,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
-import { FeatSource, FeatSystemData } from "./data.ts";
+import { FeatSource, FeatSubfeatures, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 import { FEATURE_CATEGORIES, FEAT_CATEGORIES } from "./values.ts";
@@ -118,7 +118,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         this.system.subfeatures = fu.mergeObject(
-            { keyOptions: [], proficiencies: {}, senses: {} },
+            {
+                keyOptions: [],
+                languages: { granted: [], slots: 0 },
+                proficiencies: {},
+                senses: {},
+            } satisfies FeatSubfeatures,
             this.system.subfeatures ?? {},
         );
 
@@ -129,32 +134,37 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
-    /** Set a self roll option for this feat(ure) */
     override prepareActorData(): void {
         const actor = this.actor;
         if (!actor?.isOfType("character")) {
             throw ErrorPF2e("Feats much be embedded in PC-type actors");
         }
 
+        // Set a self roll option for this feat(ure)
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
         actor.rollOptions.all[`${prefix}:${slug}`] = true;
 
-        const { subfeatures } = this.system;
+        // Process subfeatures
+        const subfeatures = this.system.subfeatures;
         if (!featCanHaveKeyOptions(this)) subfeatures.keyOptions = [];
 
-        // Add key ability options to parent's list
-        if (actor.isOfType("character") && subfeatures.keyOptions.length > 0) {
+        // Key attribute options
+        if (subfeatures.keyOptions.length > 0) {
             actor.system.build.attributes.keyOptions = R.uniq([
                 ...actor.system.build.attributes.keyOptions,
                 ...subfeatures.keyOptions,
             ]);
         }
 
-        const { proficiencies, saves } = actor.system;
+        const { build, proficiencies, saves } = actor.system;
+
+        // Languages
+        build.languages.max += subfeatures.languages.slots;
+        build.languages.granted.push(...subfeatures.languages.granted.map((slug) => ({ slug, source: this.name })));
 
         // Proficiency-rank increases
-        for (const [slug, increase] of Object.entries(this.system.subfeatures.proficiencies)) {
+        for (const [slug, increase] of Object.entries(subfeatures.proficiencies)) {
             const proficiency = ((): { rank: number } | null => {
                 if (slug === "perception") return actor.system.perception;
                 if (slug === "spellcasting") return proficiencies.spellcasting;

@@ -274,12 +274,12 @@ interface CharacterBuildData {
 }
 
 interface LanguageBuildData extends ValueAndMax {
-    /** Free specific languages that do not count against the character's maximum */
-    free: FreeLanguage[];
+    /** Specific languages granted by ancestry, feats, etc., that do not count against the character's maximum */
+    granted: GrantedLanguage[];
 }
 
 /** A language added by some freature (typically ancestry) that doesn't count against the character's maximum */
-interface FreeLanguage {
+interface GrantedLanguage {
     slug: Language;
     source: string;
 }

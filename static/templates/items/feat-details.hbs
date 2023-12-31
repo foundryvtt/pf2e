@@ -73,6 +73,44 @@
         </div>
     {{/if}}
 
+    <div class="form-group stacked" data-languages>
+        <label for="{{fieldIdPrefix}}add-language">{{localize "PF2E.Item.Feat.Subfeatures.Languages.Label"}}</label>
+        <ul{{#unless hasLanguages}} class="empty"{{/unless}}>
+            {{#if (gt languages.slots 0)}}
+                <li>
+                    <label for="{{fieldIdPrefix}}slots">[{{localize "PF2E.Item.Feat.Subfeatures.Languages.OpenSlots"}}]</label>
+                    <input
+                        type="number"
+                        name="system.subfeatures.languages.slots"
+                        id="{{fieldIdPrefix}}slots"
+                        value="{{data.subfeatures.languages.slots}}"
+                    />
+                    <a data-action="delete-slots" data-slug="{{language.slug}}"><i class="fa-solid fa-trash"></i></a>
+                </li>
+            {{/if}}
+            {{#each languages.granted.selected as |language|}}
+                <li>
+                    <label>{{language.label}}</label>
+                    <a data-action="delete-language" data-slug="{{language.slug}}"><i class="fa-solid fa-trash"></i></a>
+                </li>
+            {{/each}}
+            <li class="add-subfeature">
+                <select id="{{fieldIdPrefix}}add-language" class="unselected-options" data-unselected-options>
+                    <option></option>
+                    {{#if (eq languages.slots 0)~}}
+                        <option value="slots">[{{localize "PF2E.Item.Feat.Subfeatures.Languages.OpenSlots"}}]</option>
+                    {{~/if}}
+                    {{#each languages.granted.available as |language|}}
+                        {{#unless language.selected~}}
+                            <option value="{{language.slug}}">{{language.label}}</option>
+                        {{~/unless}}
+                    {{/each}}
+                </select>
+                <a data-action="add-language" disabled><i class="fa-solid fa-plus"></i></a>
+            </li>
+        </ul>
+    </div>
+
     <div class="form-group stacked proficiencies" data-proficiencies>
         <label for="{{fieldIdPrefix}}add-proficiency">{{localize "PF2E.Item.Feat.Subfeatures.Proficiencies.Label"}}</label>
         <ul{{#unless hasProficiencies}} class="empty"{{/unless}}>
