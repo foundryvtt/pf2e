@@ -9,6 +9,7 @@ import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-f
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
+import { isBracketedValue } from "../helpers.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 /**
@@ -325,11 +326,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     protected isBracketedValue(value: unknown): value is BracketedValue {
-        return (
-            isObject<BracketedValue>(value) &&
-            Array.isArray(value.brackets) &&
-            (typeof value.field === "string" || !("fields" in value))
-        );
+        return isBracketedValue(value);
     }
 
     #resolveBracketedValue(
