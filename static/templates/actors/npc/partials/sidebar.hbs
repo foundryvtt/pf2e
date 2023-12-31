@@ -10,7 +10,7 @@
 
 <div class="side-bar-section armor-section">
     {{#with data.attributes.ac as |ac|}}
-        <div class="side-bar-section-header" title="{{ac.breakdown}}">
+        <div class="side-bar-section-header" data-tooltip="{{ac.breakdown}}">
             <div class="side-bar-label armor-label">
                 <i class="fa-solid fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
@@ -37,7 +37,7 @@
     </div>
 </div>
 {{#if hasShield}}
-    <div class="side-bar-section shield-section{{#if data.attributes.shield.broken}} broken" title="{{localize "PF2E.Item.Physical.Broken"}}{{/if}}">
+    <div class="side-bar-section shield-section{{#if data.attributes.shield.broken}} broken" data-tooltip="PF2E.Item.Physical.Broken{{/if}}">
         <div class="side-bar-section-header">
             <div class="side-bar-label shield-label">
                 <i class="fa-solid fa-fw fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
@@ -45,24 +45,24 @@
                 <div class="hit-points">
                     <input type="number" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" class="current" placeholder="0" />
                     <span class="slash">/</span>
-                    <label class="max" title="{{localize "PF2E.ShieldMaxTitle"}}">{{data.attributes.shield.hp.max}}</label>
+                    <label class="max" data-tooltip="PF2E.ShieldMaxTitle">{{data.attributes.shield.hp.max}}</label>
                 </div>
             </div>
         </div>
         <div class="side-bar-section-content">
             <div class="shield-details">
-                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.ACBonus"}}">{{localize "PF2E.ArmorClassShortLabel"}}</label>
+                <label class="label" data-tooltip="PF2E.Actor.Creature.Shield.ACBonus">{{localize "PF2E.ArmorClassShortLabel"}}</label>
                 <label class="value">{{data.attributes.shield.ac}}</label>
-                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.Hardness.Hint"}}">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</label>
+                <label class="label" data-tooltip="PF2E.Actor.Creature.Shield.Hardness.Hint">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</label>
                 <label class="value">{{data.attributes.shield.hardness}}</label>
-                <label class="label" title="{{localize "PF2E.Actor.Creature.Shield.BrokenThreshold"}}">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</label>
+                <label class="label" data-tooltip="PF2E.Actor.Creature.Shield.BrokenThreshold">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</label>
                 <label class="value">{{data.attributes.shield.brokenThreshold}}</label>
             </div>
         </div>
     </div>
 {{/if}}
 <div class="health-section side-bar-section">
-    <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
+    <div class="side-bar-section-header" data-tooltip="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
             <i class="fa-solid fa-fw fa-heart"></i>
             <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
@@ -70,7 +70,14 @@
                 {{#with data.attributes.hp as |hp|}}
                     <input type="number" name="system.attributes.hp.value" value="{{hp.value}}" class="current" placeholder="0" />
                     <span class="slash">/</span>
-                    <input type="text" class="max adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.hp.max" value="{{hp.max}}" data-dtype="Number" placeholder="0"/>
+                    <input
+                        type="text"
+                        class="max adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}"
+                        data-property="system.attributes.hp.max"
+                        value="{{hp.max}}"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
                 {{/with}}
             </div>
         </div>
@@ -78,11 +85,17 @@
     <div class="side-bar-section-content">
         <div class="hp-temp labelled-field">
             <label>{{localize "PF2E.RuleElement.TempHPShortLabel"}}</label>
-            <input class="hp-temp-value" type="number" name="system.attributes.hp.temp" value="{{data.attributes.hp.temp}}" data-dtype="Number" placeholder="0"/>
+            <input class="hp-temp-value" type="number" name="system.attributes.hp.temp" value="{{data.attributes.hp.temp}}" placeholder="0"/>
         </div>
     </div>
     <div class="side-bar-section-content">
-        <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
+        <input
+            class="hp-details"
+            type="text"
+            name="system.attributes.hp.details"
+            value="{{data.attributes.hp.details}}"
+            placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"
+        />
     </div>
 </div>
 
@@ -119,7 +132,7 @@
         </div>
         {{#if editable}}
             <div class="immunities-controls controls">
-                <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
+                <a data-action="edit-immunities" data-tooltip="PF2E.NPC.EditImmunities"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
@@ -138,7 +151,7 @@
         </div>
         {{#if editable}}
             <div class="weaknesses-controls controls">
-                <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
+                <a data-action="edit-weaknesses" data-tooltip="PF2E.NPC.EditWeaknesses"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
@@ -156,7 +169,7 @@
         </div>
         {{#if editable}}
             <div class="resistances-controls controls">
-                <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
+                <a data-action="edit-resistances" data-tooltip="PF2E.NPC.EditResistances"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
@@ -170,14 +183,21 @@
 <div class="saves">
     {{#each data.saves as |save saveType|}}
         <div class="container" data-save="{{saveType}}">
-            <a class="attribute-label rollable" title="{{save.breakdown}}">{{localize save.labelShort}}</a>
-            <input type="text" value="{{numberFormat save.value decimals=0 sign=true}}" class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}" data-property="system.saves.{{saveType}}.value" data-dtype="Number" placeholder="0" />
+            <a class="attribute-label rollable" data-tooltip="{{save.breakdown}}">{{localize save.labelShort}}</a>
+            <input
+                type="text"
+                value="{{numberFormat save.value decimals=0 sign=true}}"
+                class="modifier adjustable{{#if save.adjustedHigher}} adjusted-higher{{else if save.adjustedLower}} adjusted-lower{{/if}}"
+                data-property="system.saves.{{saveType}}.value"
+                data-dtype="Number"
+                placeholder="0"
+            />
         </div>
     {{/each}}
 </div>
 <div class="save-details side-bar-section">
     <div class="side-bar-section-content">
-        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}" />
+        <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}" />
     </div>
 </div>
 
@@ -190,7 +210,13 @@
         </div>
         {{#if editable}}
             <div class="speed-controls controls">
-                <a class="tag-selector edit" data-tag-selector="speed-types" data-options="speedTypes" data-has-values="true" title="{{localize 'PF2E.NPC.EditSpeed'}}"><i class="fa-solid fa-edit"></i></a>
+                <a
+                    class="tag-selector edit"
+                    data-tag-selector="speed-types"
+                    data-options="speedTypes"
+                    data-has-values="true"
+                    data-tooltip="PF2E.NPC.EditSpeed"
+                ><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
@@ -201,7 +227,13 @@
                 data-property="system.attributes.speed.value"
                 value="{{speeds.land.value}}"
                 placeholder="0" />
-            <input type="text" class="speed-details" name="system.attributes.speed.details" value="{{speeds.land.details}}" placeholder="{{localize "PF2E.NPC.SpeedExtraInfoLabelPlaceholder"}}" />
+            <input
+                type="text"
+                class="speed-details"
+                name="system.attributes.speed.details"
+                value="{{speeds.land.details}}"
+                placeholder="{{localize "PF2E.NPC.SpeedExtraInfoLabelPlaceholder"}}"
+            />
         </div>
         <div class="other-speeds">
             {{#each speeds as |speed type|}}
