@@ -1,0 +1,69 @@
+{
+    "_id": "geBkMbRM8D6vYy47",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/shark-tooth-charm.webp",
+    "name": "Effect: Shark Tooth Charm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Shark Tooth Charm]</p>\n<p>When you activate the bracelet, attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] using Acrobatics with a +1 item bonus to the check. If you roll a success, you get a critical success instead (if you roll a critical failure, you get a failure instead). If you fail the Acrobatics check against a grabbing creature, the creature must either release you as a free action or take @Damage[2d8[piercing]] damage as shark's teeth momentarily emerge from your skin.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "acrobatics-check",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "acrobatics-check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "action:escape"
+                ],
+                "selector": "acrobatics-check",
+                "text": "The creature must either release you as a free action or take @Damage[2d8[piercing]] damage as shark's teeth momentarily emerge from your skin.",
+                "title": "Shark Tooth Charm"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

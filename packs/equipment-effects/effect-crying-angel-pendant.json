@@ -1,0 +1,70 @@
+{
+    "_id": "nA2ahr4NOdYgCICx",
+    "img": "icons/commodities/treasure/trinket-wing-white.webp",
+    "name": "Effect: Crying Angel Pendant",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Crying Angel Pendant]</p>\n<p>When you activate this alabaster pendant, attempt to Administer First Aid using Medicine with a +1 item bonus to the check. If you succeed, and you were trying to stabilize, the target regains 1 Hit Point, losing the dying condition and becoming conscious as normal. If you succeed, and you were trying to stop bleeding, the bleeding ends.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:administer-first-aid"
+                ],
+                "selector": "medicine-check",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:administer-first-aid:stabilize"
+                ],
+                "selector": "medicine-check",
+                "text": "If you succeed, and you were trying to stabilize, the target regains [[/r 1[healing]]]{1 Hit Point}, losing the dying condition and becoming conscious as normal.",
+                "title": "Crying Angel Pendant"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "action:administer-first-aid:stop-bleeding"
+                ],
+                "selector": "medicine-check",
+                "text": "If you succeed, and you were trying to stop bleeding, the bleeding ends.",
+                "title": "Crying Angel Pendant"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

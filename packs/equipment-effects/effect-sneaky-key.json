@@ -1,0 +1,46 @@
+{
+    "_id": "4CgatGNYaAc94RCP",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/sneaky-key.webp",
+    "name": "Effect: Sneaky Key",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sneaky Key]</p>\n<p>When you turn the key to activate it, you gain a +1 status bonus to Thievery checks to Pick a Lock for 1 minute. The first time you get a success or critical success on an attempt to Pick a Lock, you achieve one additional success toward opening a complex lock.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:pick-a-lock"
+                ],
+                "selector": "thievery-check",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

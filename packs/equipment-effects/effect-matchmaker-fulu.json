@@ -1,0 +1,56 @@
+{
+    "_id": "t4S7n2XtGJOPfzqo",
+    "img": "systems/pf2e/icons/equipment/consumables/fulus/fulu-modest.webp",
+    "name": "Effect: Matchmaker Fulu",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Matchmaker Fulu]</p>\n<p>You get a +2 status bonus to the Diplomacy check, and if you roll a critical failure on the check, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy-check",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

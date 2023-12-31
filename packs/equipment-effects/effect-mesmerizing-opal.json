@@ -1,0 +1,48 @@
+{
+    "_id": "KMwonjg6tDbR5CJf",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/mesmerizing-opal.webp",
+    "name": "Effect: Mesmerizing Opal",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Mesmerizing Opal]</p>\n<p>This silver-bound opal pendant is afire with iridescence. When you activate it, attempt a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Feint]. If the outcome is a success, you get a critical success instead. If the outcome is a critical failure, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "deception-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

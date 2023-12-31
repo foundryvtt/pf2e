@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Bronze Bull Pendant]</p>\n<p>When you activate the pendant, attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] with a +1 item bonus to check. Increase the distance you Shove your target to 10 feet on a success or 20 feet on a critical success.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,9 +16,9 @@
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "rules": [
             {
@@ -29,6 +29,19 @@
                 "selector": "athletics",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics-check",
+                "text": "Increase the distance you Shove your target to 10 feet on a success or 20 feet on a critical success.",
+                "title": "Bronze Bull Pendant"
             }
         ],
         "start": {

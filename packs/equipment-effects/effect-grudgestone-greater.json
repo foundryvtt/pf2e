@@ -1,0 +1,61 @@
+{
+    "_id": "2y9LasPtfwjJKdNB",
+    "img": "systems/pf2e/icons/default-icons/consumable.svg",
+    "name": "Effect: Grudgestone (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grudgestone (Greater)]</p>\n<p>When you Activate the grudgestone, your Strikes with the affixed weapon against the triggering creature gain a +5 status bonus to damage rolls for 1 minute or until the target dies, whichever comes first.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "grudgestoneWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:greater-grudgestone"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.grudgestoneWeapon}-damage",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "TokenMark",
+                "slug": "greater-grudgestone"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

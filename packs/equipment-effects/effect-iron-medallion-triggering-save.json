@@ -1,0 +1,57 @@
+{
+    "_id": "lkVCRoIXotfVeVWv",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/iron-medallion.webp",
+    "name": "Effect: Iron Medallion (Triggering Save)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Iron Medallion]</p>\n<p>When you activate it, you gain a +2 status bonus to the triggering save and other saves against fear for 1 minute. On the triggering save, if the outcome of your roll is a failure, you get a success instead. If the outcome is a critical failure, you get a failure instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "failure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "will"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
