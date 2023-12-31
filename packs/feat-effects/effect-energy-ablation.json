@@ -1,0 +1,129 @@
+{
+    "_id": "WEP9Oe1D9WsWSOU8",
+    "img": "icons/magic/symbols/circled-gem-pink.webp",
+    "name": "Effect: Energy Ablation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Energy Ablation]</p>\n<p>You gain resistance to an energy damage type of your choice equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "energyAblationType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "value": 10
+                    }
+                ],
+                "flag": "energyAblationRank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energyAblationType}",
+                "value": "{item|flags.pf2e.rulesSelections.energyAblationRank}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
