@@ -1,5 +1,5 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { PotencySynthetic } from "../synthetics.ts";
 import { RuleElementPF2e } from "./base.ts";
@@ -31,7 +31,6 @@ class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> 
         const value = this.resolveValue(potencyValue);
         if (selector && typeof value === "number") {
             const bonusType = ABP.isEnabled(this.actor) ? "potency" : "item";
-
             const label = this.getReducedLabel();
             const potency: PotencySynthetic = { label, bonus: value, type: bonusType, predicate: this.predicate };
             const synthetics = (weaponPotency[selector] ??= []);

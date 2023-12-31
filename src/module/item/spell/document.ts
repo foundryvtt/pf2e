@@ -12,7 +12,7 @@ import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
-import { OneToTen, Rarity, ZeroToTwo } from "@module/data.ts";
+import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageDice,
@@ -175,9 +175,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     /** Whether this spell has unlimited uses */
-    get unlimited(): boolean {
+    get atWill(): boolean {
         // In the future handle at will and constant
-        return this.isCantrip;
+        return this.system.cast.focusPoints === 0 && (this.isCantrip || this.isRitual);
     }
 
     get isVariant(): boolean {
@@ -276,7 +276,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
             // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
             if (terms.length > 0 && !base.length && this.actor.isOfType("npc") && this.actor.attributes.adjustment) {
-                const value = this.unlimited ? 2 : 4;
+                const value = this.atWill ? 2 : 4;
                 terms.push({ dice: null, modifier: this.actor.isElite ? value : -value });
             }
 
@@ -565,7 +565,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 save: this.system.defense?.save ?? null,
             });
         }
-        this.system.fpCost = Number(!this.isCantrip && this.isFocusSpell);
+
+        this.system.cast = {
+            focusPoints: Number(this.isFocusSpell && !this.isCantrip) as ZeroToThree,
+        };
 
         const castTime = (this.system.time.value = this.system.time.value.trim());
         // Special case for Horizon Thunder Sphere until glyph generation refactor
@@ -624,6 +627,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void {
+        this.system.cast.focusPoints = Math.clamped(this.system.cast.focusPoints, 0, 3) as ZeroToThree;
         processSanctification(this);
     }
 
@@ -644,7 +648,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(`${prefix}:duration:0`);
         }
 
-        if (!this.unlimited) {
+        if (!this.atWill) {
             spellOptions.add(`${prefix}:frequency:limited`);
         }
 

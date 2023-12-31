@@ -1,7 +1,7 @@
-<form class="{{cssClass}} crb-style{{#if isProficiencyLocked}} proficiency-lock{{/if}}" autocomplete="off">
+<form class="{{cssClass}} crb-style{{#if isProficiencyLocked}} proficiency-lock{{/if}}" data-tooltip-class="pf2e" autocomplete="off">
     <aside>
         <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" height="56" alt="" srcset="" />
-        <div class="sidebar" data-tab="sidebar" data-tooltip-class="pf2e">
+        <div class="sidebar" data-tab="sidebar">
             {{> "systems/pf2e/templates/actors/character/partials/sidebar.hbs"}}
         </div>
     </aside>
@@ -10,7 +10,7 @@
     {{> "systems/pf2e/templates/actors/character/partials/header.hbs"}}
 
     {{!-- SHEET NAVIGATION --}}
-    <nav class="sheet-navigation" data-group="primary" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+    <nav class="sheet-navigation" data-group="primary" data-tooltip-direction="UP">
         <span class="panel-title">{{localize "PF2E.TabCharacterLabel"}}</span>
 
         {{!-- Character --}}

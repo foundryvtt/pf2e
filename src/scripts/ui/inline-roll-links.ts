@@ -8,7 +8,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -97,7 +97,7 @@ export const InlineRollLinks = {
                     }
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                    const actors = getSelectedOrOwnActors();
+                    const actors = getSelectedActors({ exclude: ["loot"], assignedFallback: true });
                     const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
                     if (parent?.isOfType("party") || (actors.length === 0 && parent && !isSave)) {
                         return [parent];

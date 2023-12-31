@@ -1,16 +1,16 @@
-<form class="npc-sheet simple" autocomplete="off">
+<form class="npc-sheet simple" autocomplete="off" data-tooltip-class="pf2e">
     {{!--         --}}
     {{!-- Sidebar --}}
     {{!--         --}}
     <div class="sidebar">
         {{!-- Image --}}
         <div class="image-container">
-            <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
+            <img class="actor-image" src="{{actor.img}}" data-edit="img" height="auto" width="100%" style="margin: 0 auto" />
             <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
         {{!-- HP --}}
         <div class="health-section side-bar-section">
-            <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
+            <div class="side-bar-section-header" data-tooltip="{{data.attributes.hp.breakdown}}">
                 <div class="side-bar-label">
                     <i class="fa-solid fa-fw fa-heart"></i>
                     <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
@@ -28,7 +28,7 @@
         <div class="side-bar-section will">
             <div class="side-bar-section-header value{{data.saves.will.value}}">
                 <div class="side-bar-label labelled-field" data-save="will">
-                    <a class="attribute-label rollable" title="{{data.saves.will.breakdown}}">{{localize "PF2E.SavesWill"}}</a>
+                    <a class="attribute-label rollable" data-tooltip="{{data.saves.will.breakdown}}">{{localize "PF2E.SavesWill"}}</a>
                     <input type="text" value="{{numberFormat data.saves.will.value decimals=0 sign=true}}" class="modifier" data-property="system.saves.will.value" data-dtype="Number" placeholder="0" />
                 </div>
             </div>
@@ -50,7 +50,7 @@
             </div>
             <div class="section-body">
                 {{# if options.editable}}
-                    <input name="system.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="" />
+                    <input name="system.traits.senses.value" type="text" value="{{data.traits.senses.value}}" data-tooltip="{{data.traits.senses.value}}" placeholder="" />
                 {{else}}
                     <span>{{data.traits.senses.value}}</span>
                 {{/if}}
@@ -63,7 +63,7 @@
                     <label class="attribute-label">{{localize "PF2E.SkillsLabel"}}</label>
                     {{#if options.editable}}
                         <div class="skills-controls controls" for="data.skills">
-                            <a class="skills-edit edit" data-options="skill" title="{{localize "PF2E.NPC.EditSkills"}}"><i class="fa-solid fa-edit"></i></a>
+                            <a class="skills-edit edit" data-options="skill" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
                         </div>
                     {{/if}}
                 </div>

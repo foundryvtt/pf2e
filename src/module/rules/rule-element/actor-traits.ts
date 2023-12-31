@@ -1,4 +1,4 @@
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import { ErrorPF2e } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ModelPropsFromRESchema } from "./data.ts";

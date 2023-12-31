@@ -1,6 +1,6 @@
 {{#if identified}}
     {{#if item.system.traits}}
-        <div class="tags item-properties" data-tooltip-class="pf2e">
+        <div class="tags item-properties">
             {{#if (and rarityLabel (ne item.system.traits.rarity "common"))}}
                 <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
             {{/if}}
@@ -21,7 +21,7 @@
     {{/if}}
 {{/if}}
 
-<div class="item-description">
+<div class="item-description" data-tooltip-class="">
     {{{description}}}
     {{#if selfEffect}}<p>{{{selfEffect}}}</p>{{/if}}
 </div>

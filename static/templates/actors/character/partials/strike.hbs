@@ -12,7 +12,6 @@
                         <i
                             class="fa-solid fa-info-circle"
                             data-tooltip="PF2E.TemporaryItemToolTip"
-                            data-tooltip-class="pf2e"
                             data-tooltip-direction="RIGHT"
                         ></i>
                     {{/if}}
@@ -30,7 +29,7 @@
 
     {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
         {{#each action.altUsages as |usage|}}
-            <div class="alt-usage" data-tooltip-class="pf2e" data-tooltip-direction="LEFT">
+            <div class="alt-usage" data-tooltip-direction="LEFT">
                 {{#if usage.item.isThrown}}
                     <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
                 {{else}}
@@ -93,7 +92,7 @@
                 <dd>{{{localize action.success}}}</dd>
             </dl>
         </div>
-        <div class="item-properties tags" data-tooltip-class="pf2e">
+        <div class="item-properties tags">
             {{#each action.traits as |trait|}}
                 <span class="tag {{trait.cssClass}}"{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</span>
             {{/each}}
@@ -113,7 +112,7 @@
 </li>
 
 {{#*inline "attackDamage"}}
-    <div class="button-group tags" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+    <div class="button-group tags" data-tooltip-direction="UP">
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}

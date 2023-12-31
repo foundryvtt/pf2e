@@ -24,7 +24,39 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:bludgeoning",
+                            "damage:type:piercing",
+                            "damage:type:slashing"
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "origin:trait:unholy",
+                                    "self:trait:holy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "origin:trait:holy",
+                                    "self:trait:unholy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -16,7 +16,7 @@ import {
     objectHasKey,
     setHasElement,
 } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
@@ -808,7 +808,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #takePhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
+        const actors = getSelectedActors({ include: ["character", "loot", "npc", "party"], assignedFallback: true });
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
@@ -833,25 +833,29 @@ class CompendiumBrowser extends Application {
     }
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
+        const actors = getSelectedActors({ include: ["character", "loot", "npc"], assignedFallback: true });
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
-            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
-            return;
+            if (game.user.character?.isOfType("character")) {
+                actors.push(game.user.character);
+            } else {
+                ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+                return;
+            }
         }
 
-        let purchasesSucceeded = 0;
+        let purchaseSuccesses = 0;
 
         for (const actor of actors) {
             if (await actor.inventory.removeCoins(item.price.value)) {
-                purchasesSucceeded = purchasesSucceeded + 1;
+                purchaseSuccesses = purchaseSuccesses + 1;
                 await actor.inventory.add(item, { stack: true });
             }
         }
 
         if (actors.length === 1) {
-            if (purchasesSucceeded === 1) {
+            if (purchaseSuccesses === 1) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
@@ -867,7 +871,7 @@ class CompendiumBrowser extends Application {
                 );
             }
         } else {
-            if (purchasesSucceeded === actors.length) {
+            if (purchaseSuccesses === actors.length) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
                         item: item.name,

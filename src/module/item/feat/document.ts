@@ -8,7 +8,7 @@ import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts
 import { Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { ErrorPF2e, getActionTypeLabel, objectHasKey, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { FeatSource, FeatSystemData } from "./data.ts";
 import { featCanHaveKeyOptions } from "./helpers.ts";
@@ -253,11 +253,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this: FeatPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
-        const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
-        const actionTypeLabel = getActionTypeLabel(this.actionCost?.type, this.actionCost?.value);
-        const properties = actionTypeLabel ? [levelLabel, actionTypeLabel] : [levelLabel];
+        const properties = [game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level })];
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-
         return this.processChatData(htmlOptions, { ...this.system, properties, traits });
     }
 

@@ -1,5 +1,4 @@
-import type { CharacterPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CharacterPF2e } from "@actor";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import type {

@@ -1,5 +1,4 @@
-import type { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType } from "@actor";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -10,6 +9,7 @@ import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-f
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
+import { isBracketedValue } from "../helpers.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 /**
@@ -326,11 +326,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     protected isBracketedValue(value: unknown): value is BracketedValue {
-        return (
-            isObject<BracketedValue>(value) &&
-            Array.isArray(value.brackets) &&
-            (typeof value.field === "string" || !("fields" in value))
-        );
+        return isBracketedValue(value);
     }
 
     #resolveBracketedValue(
