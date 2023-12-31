@@ -8,7 +8,7 @@
             <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
             <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
-        <div class="section-body" data-tooltip-class="pf2e">
+        <div class="section-body">
             {{#if identificationDCs.standard}}
                 <div class="tag-legacy identification-skills" data-tooltip="PF2E.Actor.NPC.Identification.Skills.Tooltip">
                     {{identificationDCs.standard}}
@@ -43,7 +43,7 @@
                 <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
                 {{#if editable}}
                     <div class="controls">
-                        <a class="tag-selector" data-tag-selector="senses"><i class="fa-solid fa-edit"></i></a>
+                        <a class="tag-selector" data-tag-selector="senses" data-tooltip="PF2E.NPC.EditSenses"><i class="fa-solid fa-edit"></i></a>
                     </div>
                 {{/if}}
             </div>
@@ -84,7 +84,13 @@
             <h4>{{localize "PF2E.Languages"}}</h4>
             {{# if editable}}
                 <div class="languages-controls controls">
-                    <a class="tag-selector edit" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a
+                        class="tag-selector edit"
+                        data-tag-selector="basic"
+                        data-title="PF2E.Languages"
+                        data-config-types="languages"
+                        data-property="system.traits.languages"
+                        data-tooltip="PF2E.NPC.EditLanguages"><i class="fa-solid fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
@@ -102,7 +108,7 @@
             <h4>{{localize "PF2E.SkillsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="skills-controls controls" for="data.skills">
-                    <a class="skills-edit edit" data-options="skill" title="{{localize "PF2E.NPC.EditSkills"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a class="skills-edit edit" data-options="skill" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
@@ -150,7 +156,12 @@
             <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{localize "PF2E.NPC.AddAction"}}" data-type="action" data-action-type="action"><i class="fa-solid fa-plus"></i></a>
+                    <a
+                        class="action-add item-create"
+                        data-tooltip="PF2E.NPC.AddAction"
+                        data-type="action"
+                        data-action-type="action"
+                    ><i class="fa-solid fa-plus"></i></a>
                 </div>
             {{/if}}
         </div>
@@ -169,7 +180,12 @@
             <h4>{{localize "PF2E.NPC.PassivesLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{localize "PF2E.NPC.AddPassive"}}" data-type="action" data-action-type="passive"><i class="fa-solid fa-plus"></i></a>
+                    <a
+                        class="action-add item-create"
+                        data-tooltip="PF2E.NPC.AddPassive"
+                        data-type="action"
+                        data-action-type="passive"
+                    ><i class="fa-solid fa-plus"></i></a>
                 </div>
             {{/if}}
         </div>

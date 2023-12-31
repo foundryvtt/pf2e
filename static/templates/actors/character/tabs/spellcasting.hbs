@@ -13,7 +13,7 @@
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
                     </h3>
                     {{#if @root.editable}}
-                        <div class="item-controls" data-tooltip-class="pf2e">
+                        <div class="item-controls">
                             {{#if entry.isFocusPool}}
                                 <a
                                     data-action="browse-spells"
@@ -36,7 +36,7 @@
                 </div>
 
                 {{#unless entry.isRitual}}
-                    <div class="spell-ability-data" data-tooltip-class="pf2e">
+                    <div class="spell-ability-data">
                         <div class="statistic-values">
                             <section class="skill-data" data-tooltip="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
