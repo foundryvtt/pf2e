@@ -3,7 +3,8 @@ import { SenseAcuity } from "@actor/creature/index.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { NPCPerceptionSource } from "@actor/npc/data.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { AncestrySource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HeritageSource } from "@item/heritage/data.ts";
 import { recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -30,7 +31,14 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         }
 
         if (source.type === "character") {
-            this.#convertPCPerception(source);
+            const attributes: OldAttributesSource = source.system.attributes;
+            if ("perception" in attributes) attributes["-=perception"] = null;
+
+            const traits: unknown = source.system.traits;
+            if (R.isObject(traits) && "senses" in traits) {
+                traits["-=senses"] = null;
+            }
+            this.#createCustomChangesFeat(source);
         } else if (source.type === "npc") {
             const attributes: OldAttributesSource = source.system.attributes;
             if ("perception" in attributes) {
@@ -75,12 +83,9 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         }
     }
 
-    #convertPCPerception(source: CharacterSource): void {
-        const attributes: OldAttributesSource = source.system.attributes;
-        if ("perception" in attributes) attributes["-=perception"] = null;
-
-        const traits: OldTraitsSource = source.system.traits;
-        if ("senses" in traits) traits["-=senses"] = null;
+    /** Gather direct changes to several PC system-data properties and add them to a "Custom Changes" feat. */
+    #createCustomChangesFeat(source: CharacterSource): void {
+        if (!("game" in globalThis)) return;
 
         // Create a feat containing the user's custom changes to their character
         const customChangesFeat: Partial<FeatSource> = {
@@ -110,6 +115,22 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             },
         };
 
+        // Saves
+        const saves: unknown = source.system.saves;
+        if (saves instanceof Object && R.isObject<Record<SaveType, unknown>>(saves)) {
+            for (const saveType of SAVE_TYPES) {
+                const save = saves[saveType];
+                if (R.isObject(save) && typeof save.rank === "number" && save.rank > 0) {
+                    customChangesFeat.system = fu.mergeObject(
+                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamped(save.rank, 1, 4) } } } },
+                        customChangesFeat.system,
+                    );
+                }
+            }
+        }
+
+        // Perception
+        const attributes: OldAttributesSource = source.system.attributes;
         if (
             R.isObject(attributes.perception) &&
             "rank" in attributes.perception &&
@@ -122,34 +143,47 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             );
         }
 
-        if (Array.isArray(traits.senses)) {
-            for (const sense of traits.senses) {
-                if (R.isObject(sense) && typeof sense.type === "string") {
-                    const type = sluggify(sense.type);
-                    if (["lowLightVision", "darkvision"].includes(sense.type)) {
-                        const ancestry = source.items.find((i): i is AncestrySource => i.type === "ancestry");
-                        const heritage = source.items.find((i): i is HeritageSource => i.type === "heritage");
-                        if (
-                            ancestry?.system.vision === sense.type ||
-                            heritage?.system.rules.some(
-                                (r) => r.key === "Sense" && "selector" in r && r.selector === "lowLightVision",
-                            )
-                        ) {
-                            continue;
+        const traits: unknown = source.system.traits;
+        if (R.isObject(traits)) {
+            // Traits
+            if (Array.isArray(traits.value) && traits.value.length > 0) {
+                const rule = {
+                    key: "ActorTraits",
+                    add: traits.value.filter((t) => t in CONFIG.PF2E.creatureTraits),
+                };
+                customChangesFeat.system?.rules.push(rule);
+            }
+
+            // Senses
+            if (Array.isArray(traits.senses)) {
+                for (const sense of traits.senses) {
+                    if (R.isObject(sense) && typeof sense.type === "string") {
+                        const type = sluggify(sense.type);
+                        if (["lowLightVision", "darkvision"].includes(sense.type)) {
+                            const ancestry = source.items.find((i): i is AncestrySource => i.type === "ancestry");
+                            const heritage = source.items.find((i): i is HeritageSource => i.type === "heritage");
+                            if (
+                                ancestry?.system.vision === sense.type ||
+                                heritage?.system.rules.some(
+                                    (r) => r.key === "Sense" && "selector" in r && r.selector === "lowLightVision",
+                                )
+                            ) {
+                                continue;
+                            }
                         }
-                    }
-                    const acuity = String(sense.acuity);
-                    const range = Number(sense.number) || null;
-                    const subfeature = tupleHasValue(SENSES_WITH_UNLIMITED_RANGE, type)
-                        ? {}
-                        : tupleHasValue(["precise", "imprecise", "vague"], acuity) && Number.isInteger(range)
-                          ? { acuity, range }
-                          : null;
-                    if (subfeature) {
-                        customChangesFeat.system = fu.mergeObject(
-                            { subfeatures: { senses: { [type]: subfeature } } },
-                            customChangesFeat.system,
-                        );
+                        const acuity = String(sense.acuity);
+                        const range = Number(sense.number) || null;
+                        const subfeature = tupleHasValue(SENSES_WITH_UNLIMITED_RANGE, type)
+                            ? {}
+                            : tupleHasValue(["precise", "imprecise", "vague"], acuity) && Number.isInteger(range)
+                              ? { acuity, range }
+                              : null;
+                        if (subfeature) {
+                            customChangesFeat.system = fu.mergeObject(
+                                { subfeatures: { senses: { [type]: subfeature } } },
+                                customChangesFeat.system,
+                            );
+                        }
                     }
                 }
             }
@@ -160,7 +194,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         }
     }
 
-    #convertNPCSenses(system: { perception: NPCPerceptionSource; traits: { senses: unknown } }): void {
+    #convertNPCSenses(system: { perception: NPCPerceptionSource; traits: OldTraitsSource }): void {
         if (R.isObject(system.traits.senses) && typeof system.traits.senses.value === "string") {
             const senseStrings = R.compact(
                 system.traits.senses.value.split(",").map((s) => s.toLocaleLowerCase("en").trim()),
