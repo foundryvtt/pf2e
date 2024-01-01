@@ -149,7 +149,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             if (Array.isArray(traits.value) && traits.value.length > 0) {
                 const rule = {
                     key: "ActorTraits",
-                    add: traits.value.filter((t) => t in CONFIG.PF2E.creatureTraits),
+                    add: traits.value.filter((t) => t && typeof t === "string").map((t) => sluggify(t)),
                 };
                 customChangesFeat.system?.rules.push(rule);
             }
