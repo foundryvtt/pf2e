@@ -306,7 +306,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const sourceIndex = sourceLanguages.indexOf(language);
                     const overLimit = sourceIndex + 1 > languagesBuild.max;
                     const tooltip =
-                        languagesBuild.free.find((l) => l.slug === language)?.source ??
+                        languagesBuild.granted.find((l) => l.slug === language)?.source ??
                         (overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null);
                     return { slug: language, label, tooltip, overLimit };
                 })

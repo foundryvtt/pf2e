@@ -374,7 +374,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 apex: isABP ? systemData.build?.attributes?.apex ?? null : null,
             },
-            languages: { value: 0, max: 0, free: [] },
+            languages: { value: 0, max: 0, granted: [] },
         };
 
         // Base saves structure
@@ -499,7 +499,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         build.languages.max += Math.max(this.system.abilities.int.mod, 0);
         this.system.traits.languages.value = R.uniq([
             ...this.system.traits.languages.value,
-            ...build.languages.free.map((l) => l.slug),
+            ...build.languages.granted.map((l) => l.slug),
         ]);
 
         this.setNumericRollOptions();

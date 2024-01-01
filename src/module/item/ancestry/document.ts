@@ -114,9 +114,9 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         build.languages.max += this.system.additionalLanguages.count;
         const freeLanguages = this.system.languages.value;
         for (const language of freeLanguages) {
-            const alreadyHasLanguage = build.languages.free.some((l) => l.slug === language);
+            const alreadyHasLanguage = build.languages.granted.some((l) => l.slug === language);
             if (language in CONFIG.PF2E.languages && !alreadyHasLanguage) {
-                build.languages.free.push({ slug: language, source: this.name });
+                build.languages.granted.push({ slug: language, source: this.name });
             }
         }
 
