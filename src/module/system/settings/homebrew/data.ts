@@ -1,5 +1,9 @@
-import { BaseWeaponType } from "@item/weapon/types.ts";
-import { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
+import type { Language } from "@actor/creature/index.ts";
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
+import type { BaseWeaponType } from "@item/weapon/types.ts";
+import * as R from "remeda";
+import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 
 const HOMEBREW_TRAIT_KEYS = [
     "creatureTraits",
@@ -48,7 +52,69 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
     customDamageTypes: CustomDamageData[];
 }
 
-export { HOMEBREW_TRAIT_KEYS, TRAIT_PROPAGATIONS };
+type LanguageNotCommon = Exclude<Language, "common">;
+
+class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRaritiesSchema> {
+    static override defineSchema(): LanguageRaritiesSchema {
+        const fields = foundry.data.fields;
+
+        const languageSetField = (initial: LanguageNotCommon[]): LanguageSetField =>
+            new fields.SetField(
+                new fields.StringField<LanguageNotCommon, LanguageNotCommon, true, false, false>({
+                    required: true,
+                    nullable: false,
+                    choices: () => R.omit(CONFIG.PF2E.languages, ["common"]),
+                    initial: undefined,
+                }),
+                {
+                    required: true,
+                    nullable: false,
+                    initial,
+                },
+            );
+
+        return {
+            common: new fields.StringField({
+                required: true,
+                nullable: false,
+                choices: () => R.omit(CONFIG.PF2E.languages, ["common"]),
+                initial: "taldane",
+            }),
+            uncommon: languageSetField([...LANGUAGES_BY_RARITY.uncommon]),
+            rare: languageSetField([...LANGUAGES_BY_RARITY.rare]),
+            secret: languageSetField([...LANGUAGES_BY_RARITY.secret]),
+            hidden: languageSetField([]),
+        };
+    }
+}
+
+interface LanguageRaritiesData
+    extends foundry.abstract.DataModel<null, LanguageRaritiesSchema>,
+        ModelPropsFromSchema<LanguageRaritiesSchema> {}
+
+type LanguageRaritiesSchema = {
+    /** The "common" tongue of the region, rather than languages of common rarity */
+    common: StringField<LanguageNotCommon, LanguageNotCommon, true, false, true>;
+    /** Languages of uncommon rarity */
+    uncommon: LanguageSetField;
+    /** Languages of rare rarity */
+    rare: LanguageSetField;
+    /** "Secret" languages (Wildsong) */
+    secret: LanguageSetField;
+    /** Languages hidden from player view in the language selector */
+    hidden: LanguageSetField;
+};
+
+type LanguageSetField = SetField<
+    StringField<LanguageNotCommon, LanguageNotCommon, true, false, false>,
+    LanguageNotCommon[],
+    Set<LanguageNotCommon>,
+    true,
+    false,
+    true
+>;
+
+export { HOMEBREW_TRAIT_KEYS, LanguageRaritiesData, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
     HomebrewElementsSheetData,

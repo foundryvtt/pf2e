@@ -37,10 +37,26 @@
             max-height: 78%;
         }
 
-        li > label {
+        > li {
             align-items: center;
             display: flex;
-            gap: 0.125rem;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            padding-right: 0.5em;
+
+            label {
+                align-items: center;
+                display: flex;
+                gap: 0.125rem;
+            }
+        }
+
+        &.has-rarity > li {
+            height: 2rem;
+
+            &:nth-child(even) {
+                background: rgba(black, 0.05);
+            }
         }
     }
 

@@ -58,7 +58,12 @@ import type { CheckPF2e } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
-import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
+import type {
+    CustomDamageData,
+    HomebrewTag,
+    HomebrewTraitSettingsKey,
+    LanguageRaritiesData,
+} from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
@@ -276,6 +281,7 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
+        get(module: "pf2e", setting: "homebrew_languageRarities"): LanguageRaritiesData;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;

@@ -63,15 +63,12 @@
     </section>
 
     <header>
-        {{localize "PF2E.Languages"}}
+        {{localize "PF2E.Actor.Creature.Language.Plural"}}
         {{#if @root.options.editable}}
             <button
                 type="button"
                 class="crb-tag-selector{{#if (lt data.build.languages.value data.build.languages.max)}} has-unallocated{{/if}}"
-                data-tag-selector="basic"
-                data-title="PF2E.Languages"
-                data-config-types="languages"
-                data-property="system.traits.languages"
+                data-tag-selector="languages"
             >
                 <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
             </button>
