@@ -754,6 +754,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 game.pf2e.effectPanel.refresh();
             }
         }
+
+        this.conditions.finalize();
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
@@ -1763,7 +1765,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param slugs Slug(s) of the queried condition(s)
      */
     hasCondition(...slugs: ConditionSlug[]): boolean {
-        return slugs.some((s) => this.conditions.bySlug(s, { active: true }).length > 0);
+        return slugs.some((s) => this.conditions.hasType(s));
     }
 
     /** Decrease the value of condition or remove it entirely */

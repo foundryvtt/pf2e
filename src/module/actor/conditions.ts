@@ -1,12 +1,18 @@
-import { ConditionPF2e } from "@item";
-import { ConditionSlug, PersistentDamagePF2e } from "@item/condition/index.ts";
-import { ActorPF2e } from "./base.ts";
+import type { ConditionPF2e } from "@item";
+import type { ConditionSlug, PersistentDamagePF2e } from "@item/condition/index.ts";
 import { DelegatedCollection } from "@util";
+import type { ActorPF2e } from "./base.ts";
 
 /** A wrapper for collections of conditions on an actor, filterable by whether they're active or stored/temporary */
 class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<ConditionPF2e<TActor>> {
     /** A secondary map by condition slug */
     #slugMap = new Collection<ConditionPF2e<TActor>[]>();
+
+    /** Whether this collection is finalized following actor data preparation */
+    #finalized = false;
+
+    /** Fast lookup for `hasType` */
+    #conditionsHad: Set<ConditionSlug> = new Set();
 
     /** Return an array of only active conditions */
     get active(): ConditionPF2e<TActor>[] {
@@ -61,6 +67,17 @@ class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<Cond
 
     get wounded(): ConditionPF2e<TActor> | null {
         return this.bySlug("wounded", { active: true }).shift() ?? null;
+    }
+
+    /** Whether the actor has a condition of a certain type */
+    hasType(slug: ConditionSlug): boolean {
+        return this.#finalized ? this.#conditionsHad.has(slug) : this.bySlug(slug, { active: true }).length > 0;
+    }
+
+    /** Finalize the conditions this actor has, populating #conditionsHad */
+    finalize(): void {
+        this.#conditionsHad = new Set(this.active.map((c) => c.slug));
+        this.#finalized = true;
     }
 
     /** Provide additional options for retrieving a condition */
