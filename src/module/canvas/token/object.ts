@@ -93,8 +93,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Short-circuit calculation for long sight ranges */
     override get sightRange(): number {
-        if (!canvas.dimensions) return 0;
-        return this.document.sight.range >= canvas.dimensions.maxR ? canvas.dimensions!.maxR : super.sightRange;
+        if (!canvas.ready) return 0;
+        const dimensions = canvas.dimensions;
+        return this.document.sight.range >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -241,10 +242,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
-        if (!canvas.dimensions) return;
+        if (!canvas.ready) return;
 
         const actor = this.document.actor;
-
         if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
@@ -427,7 +427,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * any two of the squares.
      */
     distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
-        if (!canvas.dimensions) return NaN;
+        if (!canvas.ready) return NaN;
 
         if (this === target) return 0;
 

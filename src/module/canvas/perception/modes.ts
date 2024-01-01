@@ -114,7 +114,7 @@ class HearingDetectionMode extends DetectionMode {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
+        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
     }
 }
 
