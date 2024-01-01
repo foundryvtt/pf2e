@@ -267,8 +267,7 @@ export const InlineRollLinks = {
                 switch (templateData.t) {
                     case "ray":
                         templateData.width =
-                            Number(pf2Width) ||
-                            CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
+                            Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * canvas.dimensions.distance;
                         break;
                     case "cone":
                         templateData.angle ||= CONFIG.MeasuredTemplate.defaults.angle;

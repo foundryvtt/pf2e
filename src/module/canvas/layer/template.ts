@@ -34,7 +34,7 @@ export class TemplateLayerPF2e<
     /* -------------------------------------------- */
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void {
-        if (!canvas.scene || !canvas.dimensions || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+        if (!canvas.ready || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
             return super._onDragLeftMove(event);
         }
 
@@ -43,7 +43,7 @@ export class TemplateLayerPF2e<
         if (!template || template.destroyed || dragState === 0) return;
 
         this.snapFor(template.areaType);
-        const { dimensions } = canvas;
+        const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
         const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, this.gridPrecision);

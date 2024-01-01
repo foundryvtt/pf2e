@@ -482,6 +482,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
+        if (!canvas.ready) throw ErrorPF2e("No canvas");
         const templateConversion = {
             burst: "circle",
             cone: "cone",
@@ -492,13 +493,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             square: "rect",
         } as const;
 
-        const { area } = this.system;
+        const area = this.system.area;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
         const templateType = templateConversion[area.type];
 
         const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
             t: templateType,
-            distance: (Number(area.value) / 5) * (canvas.dimensions?.distance ?? 0),
+            distance: (Number(area.value) / 5) * canvas.dimensions.distance,
             fillColor: game.user.color,
             flags: {
                 pf2e: {

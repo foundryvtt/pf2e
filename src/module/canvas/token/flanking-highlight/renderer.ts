@@ -1,4 +1,4 @@
-import { TokenPF2e } from "../index.ts";
+import type { TokenPF2e } from "../index.ts";
 
 /** Visual rendering of lines from token to flanking buddies token on highlight */
 class FlankingHighlightRenderer {
@@ -131,9 +131,8 @@ class FlankingHighlightRenderer {
 
         // Styling
         const style = CONFIG.canvasTextStyle.clone();
-        style.fontSize = 24;
-        if (canvas.dimensions?.size && canvas.dimensions.size >= 200) style.fontSize = 28;
-        else if (canvas.dimensions?.size && canvas.dimensions.size < 50) style.fontSize = 20;
+        const dimensions = canvas.dimensions;
+        style.fontSize = dimensions.size >= 200 ? 28 : dimensions.size < 50 ? 20 : 24;
         style.fill = this.lineColor;
         style.stroke = 0x000000;
 
