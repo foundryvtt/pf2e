@@ -1,6 +1,6 @@
 <form {{#if flat}}data-flat="{{flat}}"{{/if}} autocomplete="off" autocapitalize="off">
     <header>
-        <input type="search" value="{{searchString}}" placeholder="&#xf002;" aria-label="Filter" />
+        <input type="search" id="{{options.id}}-search" placeholder="&#xf002;" aria-label="Filter" />
     </header>
 
     <ul class="{{#if allowCustom}}has-custom{{/if}} {{#if hasRarity}}has-rarity{{/if}}">
@@ -20,8 +20,8 @@
     </ul>
     {{#if allowCustom}}
         <div class="form-group stacked trait-footer">
-            <label>{{localize "PF2E.SpecialLabel"}}:</label>
-            <input type="text" name="custom" value="{{custom}}" />
+            <label for="{{options.id}}-details">{{localize "PF2E.SpecialLabel"}}:</label>
+            <input type="text" id="{{options.id}}-details" name="custom" value="{{custom}}" />
         </div>
     {{/if}}
 

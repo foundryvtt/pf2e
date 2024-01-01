@@ -18,7 +18,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         return {
             ...super.defaultOptions,
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
-            filters: [{ inputSelector: "input[type=search]", contentSelector: "ul" }],
+            filters: [{ inputSelector: "input[type=search]", contentSelector: "ul", delay: 150 }],
         };
     }
 
@@ -91,7 +91,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
 
     protected override _onSearchFilter(_event: KeyboardEvent, _query: string, rgx: RegExp): void {
         for (const row of this.form.querySelectorAll("li")) {
-            row.style.display = rgx.test(row.innerText) ? "" : "none";
+            row.style.display = rgx.test(row.querySelector("label")?.innerText ?? "") ? "" : "none";
         }
     }
 
