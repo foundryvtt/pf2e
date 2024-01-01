@@ -2,7 +2,7 @@ import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
@@ -11,15 +11,7 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import {
-    ErrorPF2e,
-    fontAwesomeIcon,
-    htmlClosest,
-    htmlQueryAll,
-    objectHasKey,
-    setHasElement,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { AbilityData, CreatureSystemData } from "./data.ts";
@@ -185,16 +177,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 }
             }
         });
-
-        // Roll skill checks
-        for (const anchor of htmlQueryAll(html, ".skill-name.rollable, .skill-score.rollable")) {
-            anchor.addEventListener("click", () => {
-                const skill = anchor.closest<HTMLElement>("[data-skill]")?.dataset.skill ?? "";
-                const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-                const rollParams = eventToRollParams(event, { type: "check" });
-                this.actor.skills[key]?.check.roll(rollParams);
-            });
-        }
 
         // We can't use form submission for these updates since duplicates force array updates.
         // We'll have to move focus points to the top of the sheet to remove this

@@ -2,7 +2,7 @@
     <!-- HEADER -->
     <header class="familiar-sheet-header">
         <div class="image-container">
-            <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+            <img class="actor-image" src="{{actor.img}}" data-edit="img" />
             <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
 
@@ -18,9 +18,9 @@
             <div class="sub-header">
                 <div class="traits">
                     {{#each traits as |trait|}}
-                        <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
+                        <span data-trait="{{trait.value}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
                     {{/each}}
-                    <span title="{{localize "PF2E.Size"}}">{{localize size}}</span>
+                    <span>{{localize size}}</span>
                 </div>
                 <div>
                     <label for="{{actor._id}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
@@ -45,7 +45,7 @@
                             name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
                             data-dtype="Number" />
                         <div>/ </div>
-                        <div class="total-hp" title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
+                        <div class="total-hp" data-tooltip="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
                         <div class="temp-hp">
                             (+<input name="system.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />)
                         </div>
@@ -56,11 +56,11 @@
                     </div>
                     <div class="value dying-section">
                         {{#if data.attributes.dying.value}}
-                            <a class="rollable roll-icon" data-action="recovery-check" title="{{localize "PF2E.Check.Specific.Recovery"}}">
+                            <a class="rollable roll-icon" data-action="recovery-check" data-tooltip="PF2E.Check.Specific.Recovery">
                                 <i class="fa-solid fa-dice-d20"></i>
                             </a>
                         {{/if}}
-                        <a class="dots dying" title="{{localize "PF2E.condition.dying.summary"}}">
+                        <a class="dots dying" data-tooltip="PF2E.condition.dying.summary">
                             <span class="pips">{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</span>
                         </a>
                     </div>
@@ -68,12 +68,12 @@
                 <div class="defenses-section">
                     {{#if data.master.id}}
                         <div class="defenses-list">
-                            <div class="ac" title="{{data.attributes.ac.breakdown}}">
+                            <div class="ac" data-tooltip="{{data.attributes.ac.breakdown}}">
                                 <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
                                 <div class="value"><i class="fa-solid fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
                             </div>
                             {{#each data.saves as |save|}}
-                                <a class="saves save-name rollable" title="{{save.breakdown}}" data-save="{{save.slug}}">
+                                <a class="save" data-action="roll-check" data-statistic="{{save.slug}}" data-tooltip="{{save.breakdown}}">
                                     <div class="name">{{localize save.label}}</div>
                                     <div class="value">{{numberFormat save.value decimals=0 sign=true}}</div>
                                 </a>
@@ -96,20 +96,20 @@
                     <div class="skills-content">
                         {{#if data.master.id}}
                             <div class="skills-list">
-                                <div class="skill-name rollable perception" title="{{data.perception.breakdown}}" data-action="perception-check">
+                                <div class="skill-name rollable perception" data-tooltip="{{data.perception.breakdown}}" data-action="perception-check">
                                     <div class="score">{{numberFormat data.perception.totalModifier decimals=0 sign=true}}</div>
                                     <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
                                 </div>
                             </div>
                             <div class="skills-list">
                                 {{#each skills as |skill|}}
-                                    <div class="skill-name rollable" title="{{skill.breakdown}}" data-skill="{{skill.slug}}">
+                                    <div class="skill-name rollable" data-tooltip="{{skill.breakdown}}" data-skill="{{skill.slug}}">
                                         <div class="score">{{numberFormat skill.value decimals=0 sign=true}}</div>
                                         <div class="name">{{skill.label}}</div>
                                     </div>
                                 {{/each}}
                             </div>
-                            <div class="rollable skills-attack" title="{{data.attack.breakdown}}" data-attack-roll="">
+                            <div class="rollable skills-attack" data-action="familiar-attack-roll" data-tooltip="{{data.attack.breakdown}}">
                                 <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
                                 <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
                             </div>
@@ -166,11 +166,11 @@
                                     <div class="detail-label">{{localize "PF2E.Actor.Speed.Plural"}}</div>
                                     <ol class="tags speeds">
                                         {{#with data.attributes.speed as |landSpeed|}}
-                                            <li class="tag tag_alt" title="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
+                                            <li class="tag tag_alt" data-tooltip="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
                                                 ({{landSpeed.total}})</li>
                                         {{/with}}
                                         {{#each data.attributes.speed.otherSpeeds as |speed k|}}
-                                            <li class="tag tag_alt {{k}}" title="{{speed.breakdown}}">
+                                            <li class="tag tag_alt {{k}}" data-tooltip="{{speed.breakdown}}">
                                                 {{localize speed.label}} ({{speed.total}})
                                             </li>
                                         {{/each}}

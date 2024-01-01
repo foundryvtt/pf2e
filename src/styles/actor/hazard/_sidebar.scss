@@ -25,14 +25,21 @@
     }
 
     .valued-icon {
-        display: flex;
         align-items: baseline;
+        display: flex;
+
         i {
             margin-right: 4px;
         }
+
         i + input {
             // simulate similar appearance for spans and inputs (that have a border)
             margin-left: -1px;
+        }
+
+        &.hardness,
+        &.armor-class {
+            gap: 0.25rem;
         }
     }
 
@@ -47,7 +54,7 @@
     }
 
     .armor-class input {
-        width: 25px;
+        width: 1.5rem;
         text-align: right;
     }
 
@@ -106,7 +113,6 @@
     }
 
     .rollable {
-        cursor: pointer;
         &:hover {
             text-shadow: 0 0 8px var(--color-shadow-primary);
             i {

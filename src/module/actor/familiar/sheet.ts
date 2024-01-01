@@ -1,10 +1,10 @@
 import type { CharacterPF2e } from "@actor";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
+import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import type { AbilityItemPF2e } from "@item";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
-import { htmlQuery } from "@util";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 
@@ -70,17 +70,13 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
-        htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
-            this.actor.perception.roll(eventToRollParams(event, { type: "check" }));
-        });
-
-        htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+        handlers["familiar-attack-roll"] = (event) => {
             this.actor.attackStatistic.roll(eventToRollParams(event, { type: "check" }));
-        });
+        };
+
+        return handlers;
     }
 }
 
