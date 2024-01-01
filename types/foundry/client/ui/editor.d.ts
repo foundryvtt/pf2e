@@ -167,7 +167,7 @@ declare global {
          * Begin a Drag+Drop workflow for a dynamic content link
          * @param event The originating drag event
          */
-        protected static _onDragContentLink(event: ElementDragEvent): void;
+        protected static _onDragContentLink(event: DragEvent): void;
 
         /**
          * Handle dropping of transferred data onto the active rich text editor

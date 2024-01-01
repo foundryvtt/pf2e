@@ -20,7 +20,7 @@ declare global {
         initializing: Promise<void> | null;
 
         /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
-        dimensions: CanvasDimensions;
+        dimensions: SceneDimensions;
 
         /** A set of blur filter instances which are modified by the zoom level and the "soft shadows" setting */
         blurFilters: Set<PIXI.Filter>;
@@ -377,12 +377,6 @@ declare global {
          * @param event The originating mouse movement event
          */
         _onDragCanvasPan(event: MouseEvent): void;
-    }
-
-    interface CanvasDimensions extends SceneDimensions {
-        maxR: number;
-        rect: PIXI.Rectangle;
-        sceneRect: PIXI.Rectangle;
     }
 
     type DrawnCanvas<T extends Canvas = Canvas> = {
