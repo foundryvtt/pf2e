@@ -32,6 +32,7 @@ import {
     HomebrewTag,
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
+    LanguageRaritiesData,
     TRAIT_PROPAGATIONS,
 } from "./data.ts";
 import {
@@ -42,6 +43,7 @@ import {
     prepareReservedTerms,
 } from "./helpers.ts";
 
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import "@yaireo/tagify/src/tagify.scss";
 
@@ -64,6 +66,24 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override get defaultOptions(): FormApplicationOptions {
         return fu.mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/settings/homebrew.hbs",
+        });
+    }
+
+    static override registerSettings(): void {
+        super.registerSettings();
+
+        game.settings.register("pf2e", "homebrew_languageRarities", {
+            name: "",
+            hint: "",
+            scope: "world",
+            config: false,
+            type: LanguageRaritiesData,
+            default: {
+                common: "taldane",
+                uncommon: [...LANGUAGES_BY_RARITY.uncommon],
+                rare: [...LANGUAGES_BY_RARITY.rare],
+                secret: [...LANGUAGES_BY_RARITY.secret],
+            },
         });
     }
 

@@ -3,16 +3,9 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
+import { sortStringRecord } from "@util";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
-
-/* Basic trait selector options */
-export interface BasicSelectorOptions extends TagSelectorOptions {
-    /* The base property to update e.g. 'data.traits.languages' */
-    objectProperty: string;
-    /* An array of keys from CONFIG.PF2E */
-    configTypes: SelectableTagField[];
-}
 
 export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
@@ -40,7 +33,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
             fu.mergeObject(this.choices, options.customChoices);
-            this.choices = this.sortChoices(this.choices);
+            this.choices = sortStringRecord(this.choices);
         }
     }
 
@@ -127,6 +120,13 @@ interface TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseT
     options: BasicSelectorOptions;
 }
 
+/* Basic tag selector options */
+interface BasicSelectorOptions extends TagSelectorOptions {
+    objectProperty: string;
+    /* An array of keys from CONFIG.PF2E */
+    configTypes: SelectableTagField[];
+}
+
 interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends TagSelectorData<TDocument> {
     choices: Record<string, { label: string; selected: boolean; disabled: boolean }>;
     allowCustom: boolean;
@@ -135,3 +135,4 @@ interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends T
 }
 
 export { TagSelectorBasic };
+export type { BasicSelectorOptions, TagSelectorBasicData };

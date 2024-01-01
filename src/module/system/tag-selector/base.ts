@@ -1,9 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { htmlQueryAll } from "@util";
+import { htmlQueryAll, sortStringRecord } from "@util";
 import type { SelectableTagField } from "./index.ts";
 
 interface TagSelectorOptions extends DocumentSheetOptions {
+    /* The base property to update e.g. 'data.traits.languages' */
+    objectProperty?: string;
     /* Show the custom input field (defaults to true) */
     allowCustom?: boolean;
     /** Is the target data property a flat array rather than a values object? */
@@ -76,18 +78,7 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
             (types: Record<string, string>, key) => fu.mergeObject(types, CONFIG.PF2E[key]),
             {},
         );
-        return this.sortChoices(choices);
-    }
-
-    /** Localize and sort choices */
-    protected sortChoices(choices: Record<string, string>): Record<string, string> {
-        return Object.entries(choices)
-            .map(([key, value]) => [key, game.i18n.localize(value)])
-            .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
-            .reduce(
-                (accumulated: Record<string, string>, [key, value]) => fu.mergeObject(accumulated, { [key]: value }),
-                {},
-            );
+        return sortStringRecord(choices);
     }
 }
 

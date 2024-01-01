@@ -15,6 +15,8 @@ import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
+    BasicSelectorOptions,
+    LanguageSelector,
     SELECTABLE_TAG_FIELDS,
     SelectableTagField,
     SenseSelector,
@@ -380,7 +382,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         }
 
-        // Trait Selector
+        // Tag selector
         for (const link of htmlQueryAll(html, ".tag-selector")) {
             link.addEventListener("click", () => this.openTagSelector(link));
         }
@@ -1237,12 +1239,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         selectorType: TagSelectorType,
         options?: Partial<TagSelectorOptions> | BasicConstructorOptions,
     ): void {
-        if (selectorType === "basic" && options && "objectProperty" in options) {
-            new TagSelectorBasic(this.object, options).render(true);
+        if (selectorType === "basic" && options?.objectProperty) {
+            new TagSelectorBasic(this.object, options as BasicSelectorOptions).render(true);
         } else if (selectorType === "basic") {
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");
         } else {
             const TagSelector = {
+                languages: LanguageSelector,
                 senses: SenseSelector,
                 "speed-types": SpeedSelector,
             }[selectorType];

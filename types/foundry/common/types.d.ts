@@ -1,4 +1,4 @@
-import type { Document } from "./abstract/module.d.ts";
+import type { DataModel, Document } from "./abstract/module.d.ts";
 
 declare global {
     interface DocumentConstructionContext<TParent extends Document | null>
@@ -81,7 +81,8 @@ declare global {
             | BooleanConstructor
             | ObjectConstructor
             | ArrayConstructor
-            | FunctionConstructor;
+            | ConstructorOf<DataModel>
+            | Function;
         /** For string Types, defines the allowable values */
         choices?: TChoices;
         /** For numeric Types, defines the allowable range */
