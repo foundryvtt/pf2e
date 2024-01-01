@@ -141,7 +141,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     get isOversized(): boolean {
         return (
             this.category !== "unarmed" &&
-            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+            !!this.parent?.system.traits?.size?.isSmallerThan(this.size, { smallIsMedium: true })
         );
     }
 

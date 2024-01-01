@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor/base.ts";
-import {
+import type {
     Abilities,
     BaseCreatureSource,
     CreatureAttributes,
@@ -19,7 +19,7 @@ import {
     SaveData,
     SenseData,
 } from "@actor/creature/data.ts";
-import {
+import type {
     ActorAttributesSource,
     ActorFlagsPF2e,
     AttributeBasedTraceData,
@@ -27,11 +27,11 @@ import {
     StrikeData,
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
-import { InitiativeTraceData } from "@actor/initiative.ts";
+import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
+import type { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
-import { PublicationData, Rarity, Size } from "@module/data.ts";
+import type { PublicationData, Rarity } from "@module/data.ts";
 
 type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
@@ -116,12 +116,7 @@ interface NPCDetailsSource extends CreatureDetailsSource {
 
 type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
 
-interface NPCTraitsSource extends CreatureTraitsSource {
-    /** A description of special senses this NPC has */
-    senses: { value: string };
-    rarity: Rarity;
-    size: { value: Size };
-}
+interface NPCTraitsSource extends Required<CreatureTraitsSource> {}
 
 /** The raw information contained within the actor data object for NPCs. */
 interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception">, CreatureSystemData {
