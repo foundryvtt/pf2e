@@ -1,8 +1,8 @@
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
+import { measureDistanceCuboid, type CanvasPF2e, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
@@ -111,21 +111,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             return false;
         }
 
-        // Can actor flank and is flankee flankable (if we care about flankable)
+        // Can the actor flank, and is the flankee flankable?
+        const actor = this.actor;
         const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
-        if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
+        if (!(actor?.attributes.flanking.canFlank && flankable)) return false;
 
-        // Only PCs and NPCs can flank
-        if (!this.actor.isOfType("character", "npc")) return false;
-        // Only creatures can be flanked
-        if (!flankee.actor?.isOfType("creature")) return false;
+        // Only creatures can flank or be flanked
+        if (!(actor.isOfType("creature") && flankee.actor?.isOfType("creature"))) {
+            return false;
+        }
 
         // Allies don't flank each other
-        if (this.actor.isAllyOf(flankee.actor)) return false;
+        if (actor.isAllyOf(flankee.actor)) return false;
 
-        const reach = context.reach ?? this.actor.getReach({ action: "attack" });
+        const reach = context.reach ?? actor.getReach({ action: "attack" });
 
-        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+        return actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
     /**
@@ -153,12 +154,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     isFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
-        if (!(this.actor && this.canFlank(flankee, context))) return false;
+        const thisActor = this.actor;
+        if (!(thisActor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
-        const { flanking } = this.actor.attributes;
+        const flanking = thisActor.attributes.flanking;
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
+            (t) => t.actor?.isAllyOf(thisActor) && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
         );
         if (flankingBuddies.length === 0) return false;
 
@@ -193,7 +195,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
-        if (!this.actor || !this.canFlank(flankee, context)) return [];
+        if (!this.canFlank(flankee, context)) return [];
 
         return canvas.tokens.placeables
             .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
