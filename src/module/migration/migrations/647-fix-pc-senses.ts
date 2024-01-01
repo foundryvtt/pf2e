@@ -9,7 +9,8 @@ export class Migration647FixPCSenses extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
 
-        const notTraits: { value: string[]; senses?: object[] } = source.system.traits;
+        const notTraits: unknown = source.system.traits;
+        if (!R.isObject(notTraits)) return;
         if (Array.isArray(notTraits.senses)) {
             notTraits.senses = R.compact(notTraits.senses);
         } else {
