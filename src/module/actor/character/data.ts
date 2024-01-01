@@ -10,7 +10,6 @@ import {
     CreatureResources,
     CreatureSystemData,
     CreatureSystemSource,
-    CreatureTraitsData,
     HeldShieldData,
     SaveData,
     SkillAbbreviation,
@@ -37,8 +36,8 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { WeaponAuxiliaryAction } from "./helpers.ts";
-import { CharacterSheetTabVisibility } from "./sheet.ts";
+import type { WeaponAuxiliaryAction } from "./helpers.ts";
+import type { CharacterSheetTabVisibility } from "./sheet.ts";
 
 type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & {
     flags: DeepPartial<CharacterFlags>;
@@ -66,11 +65,9 @@ type CharacterFlags = ActorFlagsPF2e & {
 interface CharacterSystemSource extends CreatureSystemSource {
     abilities: Record<AttributeString, { mod: number }> | null;
     attributes: CharacterAttributesSource;
-    readonly perception?: never;
     details: CharacterDetailsSource;
     traits: CharacterTraitsSource;
     build?: CharacterBuildSource;
-    saves?: Record<SaveType, { rank: number } | undefined>;
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
         defenses?: Record<string, MartialProficiencySource | undefined>;
@@ -81,6 +78,9 @@ interface CharacterSystemSource extends CreatureSystemSource {
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
+
+    perception?: never;
+    saves?: never;
 }
 
 interface MartialProficiencySource {
@@ -233,8 +233,6 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     /** Player skills, used for various skill checks. */
     skills: Record<SkillAbbreviation, CharacterSkillData>;
 
-    traits: CharacterTraitsData;
-
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
 
@@ -249,7 +247,7 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     exploration: string[];
 }
 
-type SourceOmission = "customModifiers" | "perception" | "resources";
+type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" | "traits";
 
 interface CharacterSkillData extends SkillData {
     attribute: AttributeString;
@@ -490,8 +488,6 @@ interface CharacterHitPoints extends HitPointsStatistic {
     sp?: ValueAndMax;
 }
 
-interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSource, "size" | "value"> {}
-
 export type {
     BaseWeaponProficiencyKey,
     CategoryProficiencies,
@@ -512,7 +508,6 @@ export type {
     CharacterStrike,
     CharacterSystemData,
     CharacterSystemSource,
-    CharacterTraitsData,
     CharacterTraitsSource,
     ClassDCData,
     MartialProficiency,

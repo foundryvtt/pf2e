@@ -11,7 +11,6 @@ import {
     BaseActorSourcePF2e,
     BaseHitPointsSource,
 } from "@actor/data/base.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
 import { PerceptionTraceData } from "@system/statistic/perception.ts";
 import { Alignment } from "./types.ts";
@@ -111,9 +110,7 @@ interface ArmyResourcesData extends ArmyResourcesSource {
     potions: ValueAndMax;
 }
 
-interface ArmyTraits extends ArmyTraitsSource, ActorTraitsData<string> {
-    size: ActorSizePF2e;
-}
+interface ArmyTraits extends Omit<ArmyTraitsSource, "size">, Required<ActorTraitsData<string>> {}
 
 interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}
 

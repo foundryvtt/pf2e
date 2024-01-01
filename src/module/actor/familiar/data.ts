@@ -38,8 +38,9 @@ interface FamiliarDetailsSource extends CreatureDetailsSource {
     creature: {
         value: string;
     };
-    readonly alliance?: never;
-    readonly level?: never;
+    alliance?: never;
+    languages?: never;
+    level?: never;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */

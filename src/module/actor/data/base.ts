@@ -1,19 +1,19 @@
 import type { ActorPF2e, ActorType } from "@actor";
-import { DexterityModifierCapData } from "@actor/character/types.ts";
-import { Abilities } from "@actor/creature/data.ts";
-import type { ActorSizePF2e } from "@actor/data/size.ts";
-import { InitiativeTraceData } from "@actor/initiative.ts";
+import type { DexterityModifierCapData } from "@actor/character/types.ts";
+import type { Abilities } from "@actor/creature/data.ts";
+import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
-import { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
+import type { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
 import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
-import { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
-import { AttackRollParams, DamageRollParams, RollParameters } from "@module/system/rolls.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
+import type { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
+import type { AttackRollParams, DamageRollParams, RollParameters } from "@module/system/rolls.ts";
 import type { CheckRoll } from "@system/check/roll.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
-import { StatisticTraceData } from "@system/statistic/data.ts";
+import type { StatisticTraceData } from "@system/statistic/data.ts";
 import type { Immunity, ImmunitySource, Resistance, ResistanceSource, Weakness, WeaknessSource } from "./iwr.ts";
+import type { ActorSizePF2e } from "./size.ts";
 
 /** Base interface for all actor data */
 type BaseActorSourcePF2e<
@@ -56,7 +56,9 @@ interface ActorHitPointsSource extends ValueAndMaybeMax {
 }
 
 interface ActorDetailsSource {
+    /** The level of this actor */
     level?: { value: number };
+    /** The alliance this NPC belongs to: relevant to mechanics like flanking */
     alliance?: ActorAlliance;
 }
 
@@ -146,15 +148,14 @@ type HitPointsStatistic = StatisticModifier & ActorHitPoints;
 interface ActorTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
     value: TTrait[];
-    /** The rarity of the actor (common, uncommon, etc.) */
+    /** The rarity of the actor */
     rarity?: Rarity;
-    /** The actor size (such as 'med'). */
+    /** The actor's size category */
     size?: { value: Size };
 }
 
 interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrait> {
-    rarity: Rarity;
-    size: ActorSizePF2e;
+    size?: ActorSizePF2e;
 }
 
 /** Basic skill and save data (not including custom modifiers). */

@@ -4,12 +4,12 @@ import type {
     ActorHitPoints,
     ActorSystemData,
     ActorSystemSource,
-    ActorTraitsData,
     ActorTraitsSource,
     AttributeBasedTraceData,
     BaseActorSourcePF2e,
     StrikeData,
 } from "@actor/data/base.ts";
+import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type {
     ActorAlliance,
@@ -19,9 +19,9 @@ import type {
     SkillAbbreviation,
     SkillLongForm,
 } from "@actor/types.ts";
-import { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
+import type { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData, Statistic } from "@system/statistic/index.ts";
-import { PerceptionTraceData } from "@system/statistic/perception.ts";
+import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
 
 type BaseCreatureSource<
@@ -111,7 +111,8 @@ interface AbilityData {
 
 type Abilities = Record<AttributeString, AbilityData>;
 
-interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
+interface CreatureTraitsData extends Required<CreatureTraitsSource> {
+    size: ActorSizePF2e;
     /** Languages this actor knows and (probably) can speak. */
     languages: ValuesList<Language>;
 }

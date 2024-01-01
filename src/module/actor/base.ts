@@ -228,7 +228,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get size(): Size {
-        return this.system.traits?.size.value ?? "med";
+        return this.system.traits?.size?.value ?? "med";
     }
 
     /**

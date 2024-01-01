@@ -122,6 +122,7 @@ interface TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseT
 
 /* Basic tag selector options */
 interface BasicSelectorOptions extends TagSelectorOptions {
+    /* The actor value object to update; e.g., "system.traits" */
     objectProperty: string;
     /* An array of keys from CONFIG.PF2E */
     configTypes: SelectableTagField[];
