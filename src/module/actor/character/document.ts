@@ -1,7 +1,7 @@
 import { ActorPF2e, CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
-import { ALLIANCES, SAVING_THROW_DEFAULT_ATTRIBUTES } from "@actor/creature/values.ts";
+import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
@@ -339,7 +339,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             {} as Record<(typeof boostLevels)[number], number>,
         );
 
-        // Base ability scores
+        // Base attributes data
         const manualAttributes = Object.keys(this.system.abilities ?? {}).length > 0;
         this.system.abilities = R.mapToObj(Array.from(ATTRIBUTE_ABBREVIATIONS), (a) => [
             a,
@@ -350,11 +350,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         type SystemDataPartial = DeepPartial<
             Pick<CharacterSystemData, "build" | "crafting" | "perception" | "proficiencies" | "saves">
         > & { abilities: Abilities };
-        const systemData: SystemDataPartial = this.system;
-        const existingBoosts = systemData.build?.attributes?.boosts;
+        const system: SystemDataPartial = this.system;
+        const existingBoosts = system.build?.attributes?.boosts;
         const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
 
-        systemData.build = {
+        system.build = {
             attributes: {
                 manual: manualAttributes,
                 keyOptions: [],
@@ -369,19 +369,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     20: existingBoosts?.[20]?.slice(0, allowedBoosts[20]) ?? [],
                 },
                 allowedBoosts,
-                flaws: {
-                    ancestry: [],
-                },
-                apex: isABP ? systemData.build?.attributes?.apex ?? null : null,
+                flaws: { ancestry: [] },
+                apex: isABP ? system.build?.attributes?.apex ?? null : null,
             },
             languages: { value: 0, max: 0, granted: [] },
         };
 
         // Base saves structure
-        systemData.saves = fu.mergeObject(
-            R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, ability: SAVING_THROW_DEFAULT_ATTRIBUTES[t] }]),
-            systemData.saves ?? {},
-        );
+        system.saves = R.mapToObj(SAVE_TYPES, (t) => [t, { rank: 0, attribute: SAVING_THROW_ATTRIBUTES[t] }]);
 
         // Actor document and data properties from items
         const { details } = this.system;
@@ -433,11 +428,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.familiarAbilities = { value: 0 };
 
         // Spellcasting-tradition proficiencies
-        systemData.proficiencies = {
-            ...systemData.proficiencies,
+        system.proficiencies = {
+            ...system.proficiencies,
             classDCs: {},
         };
-        systemData.proficiencies.spellcasting ??= { rank: 0 };
+        system.proficiencies.spellcasting ??= { rank: 0 };
 
         // Resources
         const { resources } = this.system;
@@ -458,7 +453,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Attack and defense proficiencies
         type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
-        const attacks: PartialMartialProficiency = (systemData.proficiencies.attacks ??= {});
+        const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
         for (const category of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
@@ -467,7 +462,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             };
         }
 
-        const defenses: PartialMartialProficiency = (systemData.proficiencies.defenses ??= {});
+        const defenses: PartialMartialProficiency = (system.proficiencies.defenses ??= {});
         for (const category of ARMOR_CATEGORIES) {
             defenses[category] = {
                 rank: defenses[category]?.rank ?? 0,
@@ -477,7 +472,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
-        systemData.crafting = fu.mergeObject({ formulas: [], entries: {} }, systemData.crafting ?? {});
+        system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
         for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }

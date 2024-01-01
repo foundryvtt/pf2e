@@ -2,7 +2,7 @@ import { Language, SenseAcuity, SenseType } from "./index.ts";
 
 const ALLIANCES = new Set(["party", "opposition", null] as const);
 
-const SAVING_THROW_DEFAULT_ATTRIBUTES = {
+const SAVING_THROW_ATTRIBUTES = {
     fortitude: "con",
     reflex: "dex",
     will: "wis",
@@ -190,7 +190,7 @@ export {
     ALLIANCES,
     LANGUAGES,
     LANGUAGES_BY_RARITY,
-    SAVING_THROW_DEFAULT_ATTRIBUTES,
+    SAVING_THROW_ATTRIBUTES,
     SENSES_WITH_MANDATORY_ACUITIES,
     SENSES_WITH_UNLIMITED_RANGE,
     SENSE_ACUITIES,
