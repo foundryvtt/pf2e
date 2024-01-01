@@ -249,31 +249,29 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     protected override _prepareDetectionModes(): void {
         const scene = this.parent;
         const actor = this.actor;
-        if (!(scene && actor && this.rulesBasedVision)) {
+        if (!(scene && actor?.isOfType("creature") && this.rulesBasedVision)) {
             return super._prepareDetectionModes();
         }
 
         // Reset sight defaults if using rules-based vision
-        this.detectionModes = [{ id: "basicSight", enabled: true, range: 0 }];
-        if (["character", "npc", "familiar"].includes(actor.type)) {
-            this.sight.attenuation = 0.1;
-            this.sight.brightness = 0;
-            this.sight.contrast = 0;
-            this.sight.range = 0;
-            this.sight.saturation = 0;
-            this.sight.visionMode = "basic";
-        }
+        this.detectionModes = [{ id: "basicSight", enabled: !!actor.perception?.hasVision, range: 0 }];
+        this.sight.attenuation = 0.1;
+        this.sight.brightness = 0;
+        this.sight.contrast = 0;
+        this.sight.range = 0;
+        this.sight.saturation = 0;
+        this.sight.visionMode = "basic";
 
         const visionMode = this.hasDarkvision ? "darkvision" : "basic";
         this.sight.visionMode = visionMode;
-        const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
-        this.sight.brightness = defaults.brightness ?? 0;
-        this.sight.saturation = defaults.saturation ?? 0;
+        const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
+        this.sight.brightness = visionModeDefaults.brightness ?? 0;
+        this.sight.saturation = visionModeDefaults.saturation ?? 0;
 
         if (visionMode === "darkvision" || scene.lightLevel > LightLevels.DARKNESS) {
             const basicDetection = this.detectionModes.at(0);
             if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range ?? 0;
+            this.sight.range = basicDetection.range = visionModeDefaults.range ?? 0;
 
             if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
                 this.sight.saturation = 1;
@@ -282,16 +280,12 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             }
         }
 
-        const maxRadius = canvas.dimensions?.maxR ?? 0;
-        const canSeeInvisibility =
-            this.actor.isOfType("character", "familiar") && this.actor.perception.senses.has("see-invisibility");
-        if (canSeeInvisibility) {
+        const maxRadius = scene.dimensions.maxR;
+        if (actor.perception.senses.has("see-invisibility")) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
         }
 
-        const tremorsense = actor.isOfType("character", "npc", "familiar")
-            ? actor.perception.senses.get("tremorsense")
-            : null;
+        const tremorsense = actor.perception.senses.get("tremorsense");
         if (tremorsense) {
             this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
         }
