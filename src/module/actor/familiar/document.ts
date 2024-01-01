@@ -67,6 +67,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         systemData.traits = {
             value: ["minion"],
             size: new ActorSizePF2e({ value: "tiny" }),
+            languages: { value: [] },
         };
 
         super.prepareBaseData();
@@ -104,15 +105,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             reflex: {},
             will: {},
         };
-
-        // Fields that need to exist for sheet compatibility so that they can exist pleasantly while doing nothing.
-        // They should be automated via specific familiar item types, or added to template.json and manually edited.
-        // This requires dev investment and interest aimed at what amounts to feat expensive set dressing (familiars).
-        systemData.traits = fu.mergeObject(systemData.traits, {
-            dv: [],
-            di: [],
-            dr: [],
-        });
 
         const { master } = this;
         systemData.details.level.value = master?.level ?? 0;
