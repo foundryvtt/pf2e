@@ -318,7 +318,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             const trimmed = resolvedFromBracket.trim();
             return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
-                ? saferEval(Roll.replaceFormulaData(trimmed, { actor: this.actor, item: this.item, ...resolvables }))
+                ? saferEval(
+                      Roll.replaceFormulaData(trimmed, {
+                          ...this.actor.getRollData(),
+                          item: this.item,
+                          ...resolvables,
+                      }),
+                  )
                 : trimmed;
         }
 
