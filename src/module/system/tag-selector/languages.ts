@@ -100,6 +100,17 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             });
         }
     }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        await super._updateObject(event, formData);
+        const languages =
+            "system.details.languages.value" in formData
+                ? formData["system.details.languages.value"]
+                : formData["system.languages.value"];
+        if (Array.isArray(languages)) {
+            languages.sort();
+        }
+    }
 }
 
 interface LanguageSelectorData extends TagSelectorBasicData<ActorPF2e | ItemPF2e> {

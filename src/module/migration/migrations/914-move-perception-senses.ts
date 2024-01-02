@@ -82,6 +82,20 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (source.type === "ancestry") {
             const vision: string = (source.system.vision ??= "normal");
             if (vision === "lowLightVision") source.system.vision = "low-light-vision";
+        } else if (source.type === "feat" && source.system.slug === "multilingual") {
+            const rule = {
+                key: "ActiveEffectLike",
+                mode: "add",
+                path: "system.build.languages.max",
+                value: "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1), 0)",
+            };
+            source.system.rules = [rule];
+            source.system.subfeatures = {
+                languages: {
+                    granted: [],
+                    slots: 2,
+                },
+            };
         }
     }
 
