@@ -1,5 +1,10 @@
 import { CharacterPF2e, NPCPF2e, type ActorPF2e } from "@actor";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import {
+    ActionCheckPreview,
+    SingleCheckAction,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
@@ -126,6 +131,36 @@ class EscapeActionVariant extends SingleCheckActionVariant {
         data: CheckContextData<ItemType>,
     ): CheckContext<ItemType> | undefined {
         return escapeCheckContext(opts, data);
+    }
+
+    protected override toActionCheckPreview(options: {
+        actor?: ActorPF2e;
+        rollOptions: string[];
+        slug: string;
+    }): ActionCheckPreview | null {
+        return this.#unarmedCheckPreview(options) ?? super.toActionCheckPreview(options);
+    }
+
+    #unarmedCheckPreview(args: { actor?: ActorPF2e; rollOptions: string[]; slug: string }): ActionCheckPreview | null {
+        if (args.slug === "unarmed") {
+            if (args.actor) {
+                const options = { actor: args.actor, buildContext: () => ({ rollOptions: args.rollOptions }) };
+                const data = { rollOptions: args.rollOptions, slug: args.slug };
+                const statistic = unarmedStrikeWithHighestModifier(options, data)?.statistic;
+                if (statistic) {
+                    return {
+                        label: game.i18n.localize("PF2E.TraitUnarmed"),
+                        modifier: statistic.totalModifier,
+                        slug: args.slug,
+                    };
+                }
+            }
+            return {
+                label: game.i18n.localize("PF2E.TraitUnarmed"),
+                slug: args.slug,
+            };
+        }
+        return null;
     }
 }
 
