@@ -237,6 +237,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
             system.perception = fu.mergeObject(this.perception.getTraceData(), {
                 attribute: this.perception.attribute ?? "wis",
+                details: system.perception.details,
                 mod: this.perception.mod,
             });
         }
