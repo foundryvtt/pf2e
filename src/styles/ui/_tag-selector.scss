@@ -7,16 +7,21 @@
 }
 
 .app.tag-selector form {
+    font-family: var(--sans-serif);
     height: 100%;
 
-    header {
+    input[type="search"],
+    input[type="text"] {
+        background: rgba(255, 255, 255, 0.5);
+        color: var(--text-dark);
+    }
+
+    > header {
         align-items: center;
         display: flex;
         gap: 0.5rem;
 
-        input {
-            background: rgba(255, 255, 255, 0.5);
-
+        input[type="search"] {
             &::placeholder {
                 font-family: var(--fa6);
                 font-weight: 900;
@@ -25,7 +30,7 @@
         }
     }
 
-    ul {
+    > ul {
         display: flex;
         flex-direction: column;
         list-style-type: none;
@@ -48,6 +53,11 @@
                 align-items: center;
                 display: flex;
                 gap: 0.125rem;
+
+                i.fa-info-circle {
+                    cursor: help;
+                    margin-left: 0.125rem;
+                }
             }
         }
 
@@ -102,6 +112,25 @@
             td.range {
                 text-align: center;
                 width: 5em;
+            }
+        }
+    }
+
+    > hr {
+        margin-top: 0;
+    }
+
+    > footer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .form-group.details {
+            margin-top: 0;
+
+            label {
+                font-weight: 500;
+                flex: 0;
             }
         }
     }

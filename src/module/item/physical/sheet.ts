@@ -172,7 +172,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 actionCost: { value: 1, type: "action" },
                 components: { command: false, envision: false, interact: false, cast: false },
                 description: { value: "" },
-                traits: { value: [], custom: "" },
+                traits: { value: [] },
             };
             this.item.update({ [`system.activations.${id}`]: action });
         });

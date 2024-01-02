@@ -280,3 +280,4 @@ export { Migration911CoinBulk } from "./911-coin-bulk.ts";
 export { Migration912RmFocusTraitFocusCantrips } from "./912-rm-focus-trait-focus-cantrips.ts";
 export { Migration913SpellSustainedText } from "./913-spell-sustained-text.ts";
 export { Migration914MovePerceptionSenses } from "./914-move-perception-senses.ts";
+export { Migration915MoveLanguages } from "./915-move-languages.ts";

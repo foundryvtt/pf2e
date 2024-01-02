@@ -184,7 +184,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const members = this.actor.members;
         if (!members.length) return null;
 
-        const allLanguages = new Set(members.flatMap((m) => m.system.traits.languages?.value ?? []));
+        const allLanguages = new Set(members.flatMap((m) => m.system.details.languages?.value ?? []));
         const baseKnowledgeSkills = [
             "arcana",
             "nature",
@@ -235,7 +235,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     #getActorsThatUnderstand(slug: Language) {
-        return this.actor.members.filter((m): m is CreaturePF2e => !!m?.system.traits.languages?.value.includes(slug));
+        return this.actor.members.filter((m): m is CreaturePF2e => !!m?.system.details.languages?.value.includes(slug));
     }
 
     protected setSummaryView(view: string): void {

@@ -3,17 +3,6 @@ import type { ItemPF2e } from "@item";
 import { htmlQueryAll, sortStringRecord } from "@util";
 import type { SelectableTagField } from "./index.ts";
 
-interface TagSelectorOptions extends DocumentSheetOptions {
-    /* The base property to update e.g. 'data.traits.languages' */
-    objectProperty?: string;
-    /* Show the custom input field (defaults to true) */
-    allowCustom?: boolean;
-    /** Is the target data property a flat array rather than a values object? */
-    flat?: boolean;
-    /* Custom choices to add to the list of choices */
-    customChoices?: Record<string, string>;
-}
-
 abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheet<
     TDocument,
     TagSelectorOptions
@@ -80,6 +69,15 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
         );
         return sortStringRecord(choices);
     }
+}
+
+interface TagSelectorOptions extends DocumentSheetOptions {
+    /* The value object to update; e.g., "system.traits" */
+    objectProperty?: string;
+    /** Is the target data property a flat array rather than a `value` object? */
+    flat?: boolean;
+    /* Custom choices to add to the choices pulled from `CONFIG` */
+    customChoices?: Record<string, string>;
 }
 
 interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheetData<TDocument> {

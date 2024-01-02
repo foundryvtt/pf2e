@@ -6,13 +6,13 @@ import type {
     CreatureDetails,
     CreatureDetailsSource,
     CreatureInitiativeSource,
+    CreatureLanguagesData,
     CreaturePerceptionData,
     CreatureResources,
     CreatureResourcesSource,
     CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
-    CreatureTraitsData,
     CreatureTraitsSource,
     HeldShieldData,
     LabeledSpeed,
@@ -26,12 +26,11 @@ import type {
     HitPointsStatistic,
     StrikeData,
 } from "@actor/data/base.ts";
-import type { ActorSizePF2e } from "@actor/data/size.ts";
-import type { InitiativeTraceData } from "@actor/initiative.ts";
+import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
-import type { PublicationData, Rarity } from "@module/data.ts";
+import type { PublicationData } from "@module/data.ts";
 
 type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
@@ -104,6 +103,7 @@ interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
+    languages: CreatureLanguagesData;
     /** A very brief description */
     blurb: string;
     /** The in-depth description and any other public notes */
@@ -119,7 +119,7 @@ type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
 interface NPCTraitsSource extends Required<CreatureTraitsSource> {}
 
 /** The raw information contained within the actor data object for NPCs. */
-interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception">, CreatureSystemData {
+interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception" | "traits">, CreatureSystemData {
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -142,8 +142,6 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception
     /** Special strikes which the creature can take. */
     actions: NPCStrike[];
 
-    traits: NPCTraitsData;
-
     resources: CreatureResources;
 
     spellcasting: {
@@ -151,11 +149,6 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception
     };
 
     customModifiers: Record<string, ModifierPF2e[]>;
-}
-
-interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSource {
-    rarity: Rarity;
-    size: ActorSizePF2e;
 }
 
 interface NPCPerceptionData extends CreaturePerceptionData {
@@ -251,6 +244,5 @@ export type {
     NPCStrike,
     NPCSystemData,
     NPCSystemSource,
-    NPCTraitsData,
     NPCTraitsSource,
 };

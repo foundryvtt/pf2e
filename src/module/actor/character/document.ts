@@ -300,10 +300,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // If there are no parties, clear the exploration activities list
-        if (!this.parties.size) {
-            this.system.exploration = [];
-        }
+        // Traits
+        this.system.traits = {
+            value: [],
+            rarity: "unique", // 🦋
+            size: new ActorSizePF2e({ value: "med" }),
+        };
 
         // Flags
         const { flags } = this;
@@ -479,6 +481,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
+
+        // If there are no parties, clear the exploration activities list
+        if (!this.parties.size) {
+            this.system.exploration = [];
+        }
     }
 
     /** After AE-likes have been applied, set numeric roll options */
@@ -490,10 +497,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         const build = this.system.build;
-        build.languages.value = this._source.system.traits.languages.value.length;
+        build.languages.value = this._source.system.details.languages.value.length;
         build.languages.max += Math.max(this.system.abilities.int.mod, 0);
-        this.system.traits.languages.value = R.uniq([
-            ...this.system.traits.languages.value,
+        this.system.details.languages.value = R.uniq([
+            ...this.system.details.languages.value,
             ...build.languages.granted.map((l) => l.slug),
         ]);
 

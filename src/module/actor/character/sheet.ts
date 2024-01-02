@@ -299,15 +299,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
-            const sourceLanguages = actor._source.system.traits.languages.value;
-            const languages: LanguageSheetData[] = actor.system.traits.languages.value
+            const sourceLanguages = actor._source.system.details.languages.value;
+            const languages: LanguageSheetData[] = actor.system.details.languages.value
                 .map((language) => {
                     const label = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
                     const sourceIndex = sourceLanguages.indexOf(language);
                     const overLimit = sourceIndex + 1 > languagesBuild.max;
-                    const tooltip =
-                        languagesBuild.granted.find((l) => l.slug === language)?.source ??
-                        (overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null);
+                    const tooltip = overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null;
                     return { slug: language, label, tooltip, overLimit };
                 })
                 .sort((a, b) => a.label.localeCompare(b.label));
@@ -598,7 +596,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
 
             for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
-                link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
+                link.addEventListener("click", () => this.openTagSelector(link));
             }
         }
 

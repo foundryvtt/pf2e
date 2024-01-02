@@ -86,7 +86,6 @@ interface NPCSheetData<TActor extends NPCPF2e = NPCPF2e> extends CreatureSheetDa
     hasHardness?: boolean;
     configLootableNpc?: boolean;
     traitTagifyData: TraitTagifyEntry[];
-    languageDetails?: string;
     speeds: Record<"land", NPCSpeedSheetData & { details: string }> &
         Record<Exclude<MovementType, "land">, NPCSpeedSheetData | null>;
 }

@@ -6,6 +6,7 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureLanguagesData,
     CreaturePerceptionData,
     CreatureResources,
     CreatureSystemData,
@@ -15,7 +16,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, Language } from "@actor/creature/index.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
@@ -66,7 +67,6 @@ interface CharacterSystemSource extends CreatureSystemSource {
     abilities: Record<AttributeString, { mod: number }> | null;
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
-    traits: CharacterTraitsSource;
     build?: CharacterBuildSource;
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
@@ -81,6 +81,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
 
     perception?: never;
     saves?: never;
+    traits?: never;
 }
 
 interface MartialProficiencySource {
@@ -104,10 +105,9 @@ interface CharacterAttributesSource extends ActorAttributesSource {
     };
 }
 
-interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {}
-
 interface CharacterDetailsSource extends CreatureDetailsSource {
     level: { value: number };
+    languages: CreatureLanguagesData;
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
 
@@ -508,7 +508,6 @@ export type {
     CharacterStrike,
     CharacterSystemData,
     CharacterSystemSource,
-    CharacterTraitsSource,
     ClassDCData,
     MartialProficiency,
     WeaponGroupProficiencyKey,
