@@ -1,16 +1,16 @@
 {
-    "_id": "rH6RHxy6sNTLusKX",
+    "_id": "vlTiBE0h2kyw5J9o",
     "img": "systems/pf2e/icons/equipment/other/emerald-fulcrum-lenses.webp",
-    "name": "Effect: Emerald Fulcrum Lens (Saving Throw)",
+    "name": "Effect: Emerald Fulcrum Lens",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Emerald Fulcrum Lens]</p>\n<p>You gain a +2 item bonus to saving throws against magic.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Emerald Fulcrum Lens]</p>\n<p>You gain void healing and <em>harm</em> spells gain a +4 status bonus to the Hit Points they restore to you.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "rounds",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
             "value": 10
@@ -22,21 +22,19 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "magical",
-                            "arcane",
-                            "primal",
-                            "occult",
-                            "divine"
-                        ]
-                    }
+                    "item:slug:harm"
                 ],
-                "selector": "saving-throw",
-                "type": "item",
-                "value": 2
+                "selector": "healing-received",
+                "type": "status",
+                "value": 4
             }
         ],
         "start": {
@@ -47,7 +45,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
