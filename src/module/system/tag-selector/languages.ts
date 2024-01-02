@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import type { Language } from "@actor/creature/types.ts";
 import type { ItemPF2e } from "@item";
-import { ErrorPF2e, htmlQueryAll } from "@util";
+import { ErrorPF2e, htmlQueryAll, localizer } from "@util";
 import * as R from "remeda";
 import { TagSelectorBasicData } from "./basic.ts";
 import { TagSelectorBasic, type SelectableTagField, type TagSelectorOptions } from "./index.ts";
@@ -65,10 +65,9 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
                 };
 
                 const rarity = ((): { slug: string; label: string } => {
-                    /** @todo once this is configurable in homebrew settings, show which language is "Common". */
                     if (language === "common") {
-                        // const localize = localizer("PF2E.Actor.Creature.Language");
-                        // data.label = localize("CommonTongue", { language: localize(rarities.common) });
+                        const localize = localizer("PF2E.Actor.Creature.Language");
+                        data.label = localize("CommonLanguage", { language: localize(rarities.commonLanguage) });
                         return tags.common;
                     }
                     if (rarities.uncommon.has(language)) return tags.uncommon;

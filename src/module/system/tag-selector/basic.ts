@@ -20,6 +20,7 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
             ...super.defaultOptions,
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
             filters: [{ inputSelector: "input[type=search]", contentSelector: "ul", delay: 150 }],
+            scrollY: ["ul"],
         };
     }
 
