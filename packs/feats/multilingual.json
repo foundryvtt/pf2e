@@ -34,28 +34,12 @@
                 "key": "ActiveEffectLike",
                 "mode": "add",
                 "path": "system.build.languages.max",
-                "predicate": [
-                    {
-                        "gte": [
-                            "skill:soc:rank",
-                            3
-                        ]
-                    }
-                ],
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.build.languages.max",
-                "predicate": [
-                    "skill:soc:rank:4"
-                ],
-                "value": 1
+                "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1), 0)"
             }
         ],
         "subfeatures": {
             "languages": {
+                "granted": [],
                 "slots": 2
             }
         },
