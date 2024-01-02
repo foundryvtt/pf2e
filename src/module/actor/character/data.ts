@@ -327,8 +327,6 @@ interface CharacterProficiency {
     breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
-    /** Can this proficiency be edited or deleted? */
-    immutable?: boolean;
 }
 
 /** A proficiency with a rank that depends on another proficiency */

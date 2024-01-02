@@ -460,17 +460,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
                 custom: !!attacks[category]?.custom,
-                immutable: !!attacks[category]?.custom,
             };
         }
 
         const defenses: PartialMartialProficiency = (system.proficiencies.defenses ??= {});
         for (const category of ARMOR_CATEGORIES) {
-            defenses[category] = {
-                rank: defenses[category]?.rank ?? 0,
-                // Barding will only be trained under unusual circumstances: make sure they never get stored
-                immutable: ["light-barding", "heavy-barding"].includes(category),
-            };
+            defenses[category] = { rank: defenses[category]?.rank ?? 0 };
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
@@ -1217,7 +1212,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
         const syntheticRanks = R.compact(Object.values(proficiencies.attacks))
-            .filter((p) => p.immutable && (p.definition?.test(weaponProficiencyOptions) ?? true))
+            .filter((p) => !!p.definition?.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;

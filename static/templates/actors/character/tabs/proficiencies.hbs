@@ -71,13 +71,11 @@
     <!-- Attacks -->
     <header class="attacks-defenses">
         {{localize "PF2E.Actor.Character.Proficiency.Attack.Title"}}
-        {{#if editable}}
-            <div class="controls">
-                <button type="button" class="item-control" data-action="add-attack-proficiency" data-tooltip="PF2E.AddCombatProficiency.Title">
-                    <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
-                </button>
-            </div>
-        {{/if}}
+        <div class="controls">
+            <button type="button" data-action="add-attack-proficiency" data-tooltip="PF2E.AddCombatProficiency.Title">
+                <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
+            </button>
+        </div>
     </header>
 
     <ul class="proficiencies-list combat-list">
@@ -90,7 +88,7 @@
                 <span class="name">{{localize proficiency.label}}</span>
                 <div class="button-group">
                     <select
-                        class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
+                        class="skill-proficiency pf-rank{{#unless proficiency.custom}} readonly{{/unless}}"
                         data-property="system.proficiencies.attacks.{{key}}.rank"
                         data-rank="{{proficiency.rank}}"
                         data-dtype="Number"
