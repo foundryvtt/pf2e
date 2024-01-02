@@ -158,12 +158,8 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         const castRank = spell.computeCastRank(spell.rank);
         if (message === false) return;
 
-        try {
-            spell.trickMagicEntry = this;
-            await spell.toMessage(null, { rollMode, data: { castRank } });
-        } finally {
-            spell.trickMagicEntry = null;
-        }
+        spell = spell.loadVariant({ entryId: this.id }) ?? spell;
+        await spell.toMessage(null, { rollMode, data: { castRank } });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {

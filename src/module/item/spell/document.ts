@@ -7,7 +7,6 @@ import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
-import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
@@ -68,9 +67,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     declare original?: SpellPF2e<NonNullable<TParent>>;
     /** The overlays that were applied to create this variant */
     declare appliedOverlays?: Map<SpellOverlayType, string>;
-
-    /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
-    trickMagicEntry: TrickMagicItemEntry<NonNullable<TParent>> | null = null;
 
     declare overlays: SpellOverlayCollection;
 
@@ -138,7 +134,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
         const spellcastingId = this.system.location.value;
-        if (this.trickMagicEntry) return this.trickMagicEntry;
         return (this.actor?.spellcasting.get(spellcastingId ?? "") ?? null) as BaseSpellcastingEntry<
             NonNullable<TParent>
         > | null;
@@ -400,9 +395,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(options: { castRank?: number; overlayIds?: string[] } = {}): SpellPF2e<NonNullable<TParent>> | null {
+    loadVariant(options: SpellVariantOptions = {}): SpellPF2e<NonNullable<TParent>> | null {
         if (this.original) {
-            return this.original.loadVariant(options);
+            return this.original.loadVariant({
+                entryId: this.system.location.value,
+                ...options,
+            });
         }
         const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
@@ -410,11 +408,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const overrides = (() => {
-            // If there are no overlays, only return an override if this is a simple heighten
-            if (!heightenEntries.length && !overlays.length) {
-                if (castRank !== this.rank) {
+            // If there are no overlays, return an override if this is a simple heighten or if its a different entry id
+            if (!overlays.length) {
+                if (!heightenEntries.length && castRank !== this.rank) {
                     return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castRank } } });
-                } else {
+                } else if (!options.entryId || options.entryId === this.system.location.value) {
                     return null;
                 }
             }
@@ -455,7 +453,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             source._id = this.id;
             return source;
         })();
+
         if (!overrides) return null;
+
+        // Set spellcasting entry to use if supplied
+        if (options.entryId) {
+            overrides.system.location.value = options.entryId;
+        }
 
         const variant = new SpellPF2e(overrides, {
             parent: this.actor,
@@ -463,7 +467,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }) as SpellPF2e<NonNullable<TParent>>;
         variant.original = this as SpellPF2e<NonNullable<TParent>>;
         variant.appliedOverlays = appliedOverlays;
-        variant.trickMagicEntry = this.trickMagicEntry;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(variant.traits);
         processSanctification(variant);
@@ -1134,6 +1137,12 @@ interface SpellDamageOptions {
     rollMode?: RollMode | "roll";
     skipDialog?: boolean;
     target?: Maybe<TokenDocumentPF2e>;
+}
+
+interface SpellVariantOptions {
+    castRank?: number;
+    overlayIds?: string[];
+    entryId?: string | null;
 }
 
 export { SpellPF2e, type SpellToMessageOptions };
