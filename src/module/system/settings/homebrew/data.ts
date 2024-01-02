@@ -55,6 +55,22 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
 type LanguageNotCommon = Exclude<Language, "common">;
 
 class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRaritiesSchema> {
+    /** Common-rarity languages: those not classified among the subsequent rarities */
+    declare common: Set<LanguageNotCommon>;
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        super._initialize(options);
+
+        this.common = new Set(
+            R.keys
+                .strict(CONFIG.PF2E.languages)
+                .filter(
+                    (l): l is LanguageNotCommon =>
+                        l !== "common" && !this.uncommon.has(l) && !this.rare.has(l) && !this.secret.has(l),
+                ),
+        );
+    }
+
     static override defineSchema(): LanguageRaritiesSchema {
         const fields = foundry.data.fields;
 
@@ -74,7 +90,7 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
             );
 
         return {
-            common: new fields.StringField({
+            commonLanguage: new fields.StringField({
                 required: true,
                 nullable: false,
                 choices: () => R.omit(CONFIG.PF2E.languages, ["common"]),
@@ -94,7 +110,7 @@ interface LanguageRaritiesData
 
 type LanguageRaritiesSchema = {
     /** The "common" tongue of the region, rather than languages of common rarity */
-    common: StringField<LanguageNotCommon, LanguageNotCommon, true, false, true>;
+    commonLanguage: StringField<LanguageNotCommon, LanguageNotCommon, true, false, true>;
     /** Languages of uncommon rarity */
     uncommon: LanguageSetField;
     /** Languages of rare rarity */
@@ -122,4 +138,5 @@ export type {
     HomebrewTag,
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
+    LanguageNotCommon,
 };
