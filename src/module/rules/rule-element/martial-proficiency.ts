@@ -52,7 +52,6 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
         const key = this.kind === "attack" ? "attacks" : "defenses";
         this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),
-            immutable: true,
             label: this.label,
             sameAs: this.sameAs,
             rank,

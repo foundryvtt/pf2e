@@ -123,6 +123,15 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
 
         // Attacks and defenses
+        // Prune untrained martial proficiencies
+        for (const section of ["attacks", "defenses"] as const) {
+            for (const key of R.keys.strict(sheetData.data.proficiencies[section])) {
+                const proficiency = sheetData.data.proficiencies[section][key];
+                if (proficiency?.rank === 0 && !proficiency.custom) {
+                    delete sheetData.data.proficiencies[section][key];
+                }
+            }
+        }
         sheetData.martialProficiencies = {
             attacks: sortLabeledRecord(
                 R.mapValues(sheetData.data.proficiencies.attacks as Record<string, MartialProficiency>, (data, key) => {
@@ -165,13 +174,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ),
             ),
         };
-
-        // These are only relevant for companion compendium "PCs": don't clutter the list.
-        for (const key of ["light-barding", "heavy-barding"]) {
-            if (sheetData.martialProficiencies.defenses[key]?.rank === 0) {
-                delete sheetData.martialProficiencies.defenses[key];
-            }
-        }
 
         // A(H)BCD
         sheetData.ancestry = actor.ancestry;
