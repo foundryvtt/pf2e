@@ -58,16 +58,17 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
     /** Set base emphemeral data for later updating by derived-data preparation */
     override prepareBaseData(): void {
-        type PartialSystemData = DeepPartial<FamiliarSystemData> & {
-            attributes: { speed: RawSpeed; flanking: {} };
-            details: {};
+        this.system.details = {
+            alliance: null,
+            creature: this.system.details.creature,
+            languages: { value: [], details: "" },
+            level: { value: 0 },
         };
-        const systemData: PartialSystemData = this.system;
-        systemData.details.level = { value: 0 };
-        systemData.traits = {
+
+        this.system.traits = {
             value: ["minion"],
+            rarity: "common",
             size: new ActorSizePF2e({ value: "tiny" }),
-            languages: { value: [] },
         };
 
         super.prepareBaseData();
@@ -80,10 +81,15 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             suppress: true,
         });
 
+        type PartialSystemData = DeepPartial<FamiliarSystemData> & {
+            attributes: { speed: RawSpeed; flanking: {} };
+            details: {};
+        };
         type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
 
-        systemData.attributes.flanking.canFlank = false;
-        systemData.perception = {
+        const system: PartialSystemData = this.system;
+        system.attributes.flanking.canFlank = false;
+        system.perception = {
             senses: [
                 {
                     type: "low-light-vision",
@@ -92,24 +98,24 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 },
             ],
         };
-        systemData.attributes.speed = {
+        system.attributes.speed = {
             value: 25,
             label: CONFIG.PF2E.speedTypes.land,
             otherSpeeds: [],
         };
 
-        systemData.skills = {};
+        system.skills = {};
 
-        systemData.saves = {
+        system.saves = {
             fortitude: {},
             reflex: {},
             will: {},
         };
 
         const { master } = this;
-        systemData.details.level.value = master?.level ?? 0;
+        this.system.details.level.value = master?.level ?? 0;
         this.rollOptions.all[`self:level:${this.level}`] = true;
-        systemData.details.alliance = master?.alliance ?? "party";
+        system.details.alliance = master?.alliance ?? "party";
 
         // Set encounter roll options from the master's perspective
         if (master) {

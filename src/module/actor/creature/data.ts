@@ -11,15 +11,8 @@ import type {
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import type {
-    ActorAlliance,
-    AttributeString,
-    MovementType,
-    SaveType,
-    SkillAbbreviation,
-    SkillLongForm,
-} from "@actor/types.ts";
-import type { LabeledNumber, ValueAndMax, ValuesList, ZeroToThree } from "@module/data.ts";
+import type { AttributeString, MovementType, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types.ts";
+import type { LabeledNumber, ValueAndMax, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData, Statistic } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
@@ -47,19 +40,17 @@ interface CreatureSystemSource extends ActorSystemSource {
     resources?: CreatureResourcesSource;
 }
 
-type CreatureDetailsSource = ActorDetailsSource;
-
-type CreatureDetails = {
-    /** The alliance this NPC belongs to: relevant to mechanics like flanking */
-    alliance: ActorAlliance;
-    /** The creature level for this actor */
-    level: { value: number };
-};
-
-interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {
-    /** Languages which this actor knows and can speak. */
-    languages: ValuesList<Language>;
+interface CreatureDetailsSource extends ActorDetailsSource {
+    /** Languages this creature knows and (probably) can speak */
+    languages?: CreatureLanguagesData;
 }
+
+interface CreatureLanguagesData {
+    value: Language[];
+    details: string;
+}
+
+interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {}
 
 interface CreatureResourcesSource {
     focus?: {
@@ -113,9 +104,8 @@ type Abilities = Record<AttributeString, AbilityData>;
 
 interface CreatureTraitsData extends Required<CreatureTraitsSource> {
     size: ActorSizePF2e;
-    /** Languages this actor knows and (probably) can speak. */
-    languages: ValuesList<Language>;
 }
+interface CreatureDetails extends Required<CreatureDetailsSource> {}
 
 type SkillData = AttributeBasedTraceData;
 
@@ -232,6 +222,7 @@ export type {
     CreatureDetails,
     CreatureDetailsSource,
     CreatureInitiativeSource,
+    CreatureLanguagesData,
     CreaturePerceptionData,
     CreatureResources,
     CreatureResourcesSource,

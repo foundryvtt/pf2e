@@ -8,7 +8,6 @@ const SELECTABLE_TAG_FIELDS = [
     "attackEffects",
     "creatureTraits",
     "damageCategories",
-    "languages",
     "levels",
     "materialDamageEffects",
     "otherArmorTags",
@@ -21,7 +20,7 @@ const SELECTABLE_TAG_FIELDS = [
     "weaponTraits",
 ] as const;
 
-type SelectableTagField = (typeof SELECTABLE_TAG_FIELDS)[number];
+type SelectableTagField = (typeof SELECTABLE_TAG_FIELDS)[number] | "languages";
 
 export type { TagSelectorOptions } from "./base.ts";
 export { TagSelectorBasic } from "./basic.ts";

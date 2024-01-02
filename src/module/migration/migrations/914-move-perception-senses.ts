@@ -5,8 +5,10 @@ import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { NPCPerceptionSource } from "@actor/npc/data.ts";
 import { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { AncestrySource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HeritageSource } from "@item/heritage/data.ts";
+import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -120,12 +122,37 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         if (saves instanceof Object && R.isObject<Record<SaveType, unknown>>(saves)) {
             for (const saveType of SAVE_TYPES) {
                 const save = saves[saveType];
-                if (R.isObject(save) && typeof save.rank === "number" && save.rank > 0) {
+                if (R.isObject(save) && typeof save.rank === "number" && save.rank > 1) {
                     customChangesFeat.system = fu.mergeObject(
-                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamped(save.rank, 1, 4) } } } },
+                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamped(save.rank, 2, 4) } } } },
                         customChangesFeat.system,
                     );
                 }
+            }
+        }
+
+        // Attacks and defense proficiencies
+        const proficiencies: Record<string, Record<string, unknown> | null> = source.system.proficiencies ?? {};
+        for (const key of ["attacks", "defenses"]) {
+            const categories = key === "attacks" ? WEAPON_CATEGORIES : ARMOR_CATEGORIES;
+            const section: Record<string, unknown> = proficiencies[key] ?? {};
+            for (const category of categories) {
+                const proficiency = section[category];
+                if (R.isObject(proficiency) && typeof proficiency.rank === "number" && proficiency.rank > 0) {
+                    const rank = Math.clamped(proficiency.rank, 1, 4);
+                    customChangesFeat.system = fu.mergeObject(
+                        {
+                            subfeatures: {
+                                proficiencies: { [category]: { rank } },
+                            },
+                        },
+                        customChangesFeat.system,
+                    );
+                    section[`-=${category}`] = null;
+                }
+            }
+            if (key in proficiencies && Object.keys(proficiencies).length === 0) {
+                proficiencies[`-=${key}`] = null;
             }
         }
 

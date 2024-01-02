@@ -64,17 +64,24 @@ $faded-color: #7a7971;
         column-gap: 0.25em;
         list-style: none;
         margin-top: 0;
-        padding: 0 0.125rem 0 0;
-        text-transform: lowercase;
+        padding: 0 0.125rem;
 
         li {
             &::after {
                 content: ",";
             }
 
+            &.details-follow::after {
+                content: ";";
+            }
+
             &:last-child::after {
                 content: "";
             }
+        }
+
+        &.senses {
+            text-transform: lowercase;
         }
     }
 

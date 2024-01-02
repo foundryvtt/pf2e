@@ -78,11 +78,14 @@
         {{#each languages as |language|}}
             <li
                 class="tag{{#if language.overLimit}} over-limit{{/if}}{{#unless language.slug}} unallocated{{/unless}}"
+                data-slug="{{language.slug}}"
                 {{#if language.tooltip}}data-tooltip="{{language.tooltip}}"{{/if}}
-                {{#if language.slug}}data-slug="{{language.slug}}"{{/if}}
             >{{language.label}}</li>
         {{/each}}
     </ul>
+    {{#if data.details.languages.details~}}
+        <div class="language-details">{{data.details.languages.details}}</div>
+    {{~/if}}
 
     <header>
         {{localize "PF2E.Actor.Speed.Plural"}}

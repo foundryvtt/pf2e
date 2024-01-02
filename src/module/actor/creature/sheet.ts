@@ -48,7 +48,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         // Languages for PCs are handled in the PC sheet subclass
         const languages = actor.isOfType("character")
             ? []
-            : actor.system.traits.languages.value
+            : actor.system.details.languages.value
                   .filter((l) => l in CONFIG.PF2E.languages)
                   .map((slug) => ({ slug, label: game.i18n.localize(CONFIG.PF2E.languages[slug] ?? slug) }))
                   .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));

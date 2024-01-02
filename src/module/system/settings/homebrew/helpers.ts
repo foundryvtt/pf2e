@@ -84,13 +84,14 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
             switch (listKey) {
                 case "creatureTraits": {
                     const traits = source.system.traits;
+                    if (!traits) break;
                     traits.value = traits.value.filter(
                         (t) => HomebrewElements.reservedTerms.creatureTraits.has(t) || !deletions.includes(t),
                     );
                     break;
                 }
                 case "languages": {
-                    const languages = source.system.traits.languages;
+                    const languages = source.system.details.languages;
                     languages.value = languages.value.filter(
                         (l) => HomebrewElements.reservedTerms.languages.has(l) || !deletions.includes(l),
                     );

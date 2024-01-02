@@ -345,7 +345,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
         sheetData.hasHardness = this.actor.traits.has("construct") || (Number(hardness?.value) || 0) > 0;
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
-        sheetData.languageDetails = this.actor.system.traits.languages.custom.trim();
 
         return sheetData as NPCSheetData;
     }

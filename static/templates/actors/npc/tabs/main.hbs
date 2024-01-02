@@ -59,9 +59,9 @@
                         placeholder="0"
                     />
                 </div>
-                <ul class="comma-separated">
+                <ul class="senses comma-separated">
                     {{~#each data.perception.senses as |sense|}}
-                        <li>
+                        <li data-slug="{{sense.type}}">
                             {{~#if sense.emphasizeLabel}}<em>{{sense.label}}</em>{{else}}{{sense.label}}{{/if~}}
                         </li>
                     {{/each~}}
@@ -92,10 +92,15 @@
             {{/if}}
         </div>
         <div class="section-body">
-            {{#each languages as |language|}}
-                <div class="tag-legacy language" data-slug="{{language.slug}}">{{language.label}}</div>
-            {{/each}}
-            {{#if languageDetails}}<div class="tag-legacy language">{{localize languageDetails}}</div>{{/if}}
+            <ul class="comma-separated">
+                {{#each languages as |language|}}
+                    <li
+                        {{#if (and @last @root.data.details.languages.details)}}class="details-follow"{{/if}}
+                        data-slug="{{language.slug}}"
+                    >{{language.label}}</li>
+                {{/each}}
+                {{#if data.details.languages.details}}<li>{{data.details.languages.details}}</li>{{/if}}
+            </ul>
         </div>
     </div>
 

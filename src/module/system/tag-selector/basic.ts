@@ -3,14 +3,15 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
-import { sortStringRecord } from "@util";
+import { htmlQuery, sortStringRecord } from "@util";
+import * as R from "remeda";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
 export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
-function isValuesList(value: unknown): value is ValuesList {
-    return !!(value && typeof value === "object" && "value" in value);
+function isValuesList(obj: unknown): obj is ValuesList {
+    return R.isObject(obj) && Array.isArray(obj.value) && obj.value.every((v) => typeof v === "string");
 }
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
@@ -22,15 +23,12 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         };
     }
 
-    allowCustom: boolean;
-
     protected objectProperty: string;
 
     constructor(document: TDocument, options: BasicConstructorOptions) {
         super(document, options);
 
         this.objectProperty = options.objectProperty;
-        this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
             fu.mergeObject(this.choices, options.customChoices);
             this.choices = sortStringRecord(this.choices);
@@ -42,25 +40,26 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     }
 
     override async getData(options?: Partial<TagSelectorOptions>): Promise<TagSelectorBasicData<TDocument>> {
-        const { chosen, custom, flat, disabled } = (() => {
+        const { chosen, flat, disabled } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.document;
             // Compare source and prepared properties to determine which tags were automatically selected
             const sourceProperty: unknown = fu.getProperty(document.toObject(), this.objectProperty);
             const preparedProperty: unknown = fu.getProperty(document, this.objectProperty);
 
             if (Array.isArray(preparedProperty)) {
-                const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];
-                const automaticallyChosen = preparedProperty.filter((tag) => !manuallyChosen.includes(tag));
+                const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((v) => String(v)) : [];
+                const automaticallyChosen = preparedProperty.filter((v): v is string => !manuallyChosen.includes(v));
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
-                return { chosen, custom: null, flat: true, disabled: automaticallyChosen };
+                return { chosen, flat: true, disabled: automaticallyChosen };
             } else if (isValuesList(preparedProperty) && isValuesList(sourceProperty)) {
-                const manuallyChosen: string[] = sourceProperty.value.map((prop) => prop.toString());
-                const custom = this.allowCustom ? sourceProperty.custom : null;
-                const automaticallyChosen = preparedProperty.value.filter((tag) => !manuallyChosen.includes(tag));
+                const manuallyChosen: string[] = sourceProperty.value.map((v) => v.toString());
+                const automaticallyChosen = preparedProperty.value.filter(
+                    (v): v is string => !manuallyChosen.includes(v),
+                );
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
-                return { chosen, custom, flat: false, disabled: automaticallyChosen };
+                return { chosen, flat: false, disabled: automaticallyChosen };
             } else {
-                return { chosen: [], custom: null, flat: this.flat, disabled: [] };
+                return { chosen: [], flat: this.flat, disabled: [] };
             }
         })();
 
@@ -79,9 +78,9 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         return {
             ...(await super.getData(options)),
             choices,
-            allowCustom: this.allowCustom && !flat,
-            custom,
+            details: null,
             flat,
+            hasCustomChoices: !!options?.customChoices,
         };
     }
 
@@ -98,12 +97,19 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const flat = event.target instanceof HTMLElement ? event.target.dataset.flat : false;
         const value = this.#getUpdateData(formData);
-        if (this.allowCustom && typeof formData["custom"] === "string") {
-            return super._updateObject(event, { [this.objectProperty]: { value, custom: formData["custom"] } });
-        } else if (flat) {
+        if (flat) {
             return super._updateObject(event, { [this.objectProperty]: value });
         } else {
-            return super._updateObject(event, { [`${this.objectProperty}.value`]: value });
+            const data = ((): Record<string, string | string[] | number[]> => {
+                const detailsEl = htmlQuery<HTMLInputElement>(event.target, "input[data-details]");
+                return detailsEl?.dataset.path
+                    ? {
+                          [`${this.objectProperty}.value`]: value,
+                          [detailsEl.dataset.path]: detailsEl.value.trim(),
+                      }
+                    : { [`${this.objectProperty}.value`]: value };
+            })();
+            return super._updateObject(event, data);
         }
     }
 
@@ -130,8 +136,8 @@ interface BasicSelectorOptions extends TagSelectorOptions {
 
 interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends TagSelectorData<TDocument> {
     choices: Record<string, { label: string; selected: boolean; disabled: boolean }>;
-    allowCustom: boolean;
-    custom: string | null;
+    hasCustomChoices: boolean;
+    details: { path: string; placeholder: string; value: string } | null;
     flat: boolean;
 }
 

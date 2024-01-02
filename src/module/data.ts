@@ -13,7 +13,6 @@ type Rarity = (typeof RARITIES)[number];
 
 interface ValuesList<T extends string = string> {
     value: T[];
-    custom: string;
 }
 
 /** Generic { value, label, type } type used in various places in actor/items types. */
