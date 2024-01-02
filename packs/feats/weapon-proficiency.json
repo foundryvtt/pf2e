@@ -30,7 +30,15 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.attacks.martial.rank",
-                "value": "ternary(gte(@actor.level,11),2,1)"
+                "predicate": [
+                    {
+                        "gte": [
+                            "actor:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
             }
         ],
         "subfeatures": {
