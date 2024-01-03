@@ -1,4 +1,6 @@
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
+import { WeaponTrait } from "@item/weapon/types.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
@@ -10,6 +12,7 @@ import {
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
 } from "@system/damage/values.ts";
+import { LanguageSelector } from "@system/tag-selector/languages.ts";
 import {
     ErrorPF2e,
     htmlClosest,
@@ -22,6 +25,7 @@ import {
     tupleHasValue,
 } from "@util";
 import Tagify from "@yaireo/tagify";
+import "@yaireo/tagify/src/tagify.scss";
 import * as R from "remeda";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
@@ -43,10 +47,6 @@ import {
     prepareReservedTerms,
 } from "./helpers.ts";
 
-import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
-import "@yaireo/tagify/src/tagify.scss";
-
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
 
@@ -66,24 +66,6 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override get defaultOptions(): FormApplicationOptions {
         return fu.mergeObject(super.defaultOptions, {
             template: "systems/pf2e/templates/system/settings/homebrew.hbs",
-        });
-    }
-
-    static override registerSettings(): void {
-        super.registerSettings();
-
-        game.settings.register("pf2e", "homebrew.languageRarities", {
-            name: "",
-            hint: "",
-            scope: "world",
-            config: false,
-            type: LanguageRaritiesData,
-            default: {
-                common: "taldane",
-                uncommon: [...LANGUAGES_BY_RARITY.uncommon],
-                rare: [...LANGUAGES_BY_RARITY.rare],
-                secret: [...LANGUAGES_BY_RARITY.secret],
-            },
         });
     }
 
@@ -112,6 +94,20 @@ class HomebrewElements extends SettingsMenuPF2e {
                 type: Object,
                 onChange: () => {
                     new DamageTypeManager().updateSettings();
+                },
+            },
+            languageRarities: {
+                name: "PF2E.Settings.Homebrew.Languages.Rarities.Name",
+                type: LanguageRaritiesData,
+                default: {
+                    common: "taldane",
+                    uncommon: [...LANGUAGES_BY_RARITY.uncommon],
+                    rare: [...LANGUAGES_BY_RARITY.rare],
+                    secret: [...LANGUAGES_BY_RARITY.secret],
+                },
+                onChange: () => {
+                    const languageSelector = Object.values(ui.windows).find((a) => a instanceof LanguageSelector);
+                    languageSelector?.render();
                 },
             },
         };
