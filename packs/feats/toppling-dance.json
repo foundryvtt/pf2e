@@ -28,7 +28,26 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "toppling-dance",
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "toppling-dance"
+                ],
+                "property": "weapon-traits",
+                "value": "trip"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
