@@ -26,15 +26,17 @@ const TRAIT_PROPAGATIONS = {
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
-type HomebrewKey = HomebrewTraitKey | "damageTypes";
+type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities";
 type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 
 interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
-        : T extends Exclude<HomebrewTraitKey, "baseWeapons">
-          ? keyof ConfigPF2e["PF2E"][T]
-          : never;
+        : T extends "languages"
+          ? LanguageNotCommon
+          : T extends Exclude<HomebrewTraitKey, "baseWeapons" | "languages">
+            ? keyof (typeof CONFIG.PF2E)[T]
+            : never;
     value: string;
 }
 
