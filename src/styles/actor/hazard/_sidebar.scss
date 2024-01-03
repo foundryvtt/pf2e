@@ -21,6 +21,7 @@
         margin-bottom: 4px;
         h2 {
             font-size: var(--font-size-15);
+            font-weight: 500;
         }
     }
 
@@ -36,43 +37,37 @@
             // simulate similar appearance for spans and inputs (that have a border)
             margin-left: -1px;
         }
-
-        &.hardness,
-        &.armor-class {
-            gap: 0.25rem;
-        }
-    }
-
-    .health {
-        input {
-            width: 34px;
-
-            &.current {
-                text-align: end;
-            }
-        }
-    }
-
-    .armor-class input {
-        width: 1.5rem;
-        text-align: right;
     }
 
     .health-line {
         display: flex;
         flex-direction: row;
         font-size: var(--font-size-16);
-        gap: 3px;
+        gap: 2px;
         justify-content: center;
+
+        .health {
+            input {
+                width: 2rem;
+
+                &.current {
+                    text-align: end;
+                }
+            }
+        }
+
+        .armor-class,
+        .hardness {
+            input {
+                width: 1.375rem;
+                text-align: right;
+                margin-right: 1px;
+            }
+        }
     }
 
     .hp-details {
         width: 100%;
-    }
-
-    h2 {
-        font-weight: 500;
-        font-size: var(--font-size-16);
     }
 
     i.fa-info-circle {
