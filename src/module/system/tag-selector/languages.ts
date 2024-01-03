@@ -1,7 +1,8 @@
 import { ActorPF2e } from "@actor";
 import type { Language } from "@actor/creature/types.ts";
+import { LANGUAGE_RARITIES } from "@actor/creature/values.ts";
 import type { ItemPF2e } from "@item";
-import { ErrorPF2e, htmlQueryAll, localizer } from "@util";
+import { ErrorPF2e, htmlQueryAll } from "@util";
 import * as R from "remeda";
 import { TagSelectorBasicData } from "./basic.ts";
 import { TagSelectorBasic, type SelectableTagField, type TagSelectorOptions } from "./index.ts";
@@ -54,29 +55,29 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             hasRarity: true,
             details,
             choices: R.mapValues(sheetData.choices, (data, key): ChoiceData => {
-                const language = key as Language;
+                const slug = key as Language;
                 const rarities = game.settings.get("pf2e", "homebrew.languageRarities");
-
-                const tags = {
-                    common: { slug: "common", label: game.i18n.localize(CONFIG.PF2E.rarityTraits.common) },
-                    uncommon: { slug: "uncommon", label: game.i18n.localize(CONFIG.PF2E.rarityTraits.uncommon) },
-                    rare: { slug: "rare", label: game.i18n.localize(CONFIG.PF2E.rarityTraits.rare) },
-                    secret: { slug: "secret", label: game.i18n.localize(CONFIG.PF2E.actionTraits.secret) },
-                };
+                const rarityLocKeys = { ...CONFIG.PF2E.rarityTraits, secret: "PF2E.TraitSecret" };
+                const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [
+                    r,
+                    { slug: r, label: game.i18n.localize(rarityLocKeys[r]) },
+                ]);
 
                 const rarity = ((): { slug: string; label: string } => {
-                    if (language === "common") {
-                        const localize = localizer("PF2E.Actor.Creature.Language");
-                        data.label = localize("CommonLanguage", { language: localize(rarities.commonLanguage) });
+                    if (slug === "common") {
+                        if (rarities.commonLanguage) {
+                            const commonLanguage = game.i18n.localize(CONFIG.PF2E.languages[rarities.commonLanguage]);
+                            const locKey = "PF2E.Actor.Creature.Language.CommonLanguage";
+                            data.label = game.i18n.format(locKey, { language: commonLanguage });
+                        }
                         return tags.common;
                     }
-                    if (rarities.uncommon.has(language)) return tags.uncommon;
-                    if (rarities.rare.has(language)) return tags.rare;
-                    if (rarities.secret.has(language)) return tags.secret;
+                    if (rarities.uncommon.has(slug)) return tags.uncommon;
+                    if (rarities.rare.has(slug)) return tags.rare;
+                    if (rarities.secret.has(slug)) return tags.secret;
                     return tags.common;
                 })();
-
-                const source = grantedLanguageSources[language] ?? null;
+                const source = grantedLanguageSources[slug] ?? null;
 
                 return { ...data, rarity, source };
             }),
@@ -113,7 +114,7 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
 }
 
 interface LanguageSelectorData extends TagSelectorBasicData<ActorPF2e | ItemPF2e> {
-    choices: Record<string, ChoiceData>;
+    choices: Record<Language, ChoiceData>;
     hasRarity: true;
 }
 
