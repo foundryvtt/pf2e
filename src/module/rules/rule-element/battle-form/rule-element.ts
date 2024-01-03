@@ -59,7 +59,14 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
-                        new fields.StringField({ required: true, blank: false, choices: () => CONFIG.PF2E.senses }),
+                        new fields.StringField({
+                            required: true,
+                            blank: false,
+                            choices: () => ({
+                                ...CONFIG.PF2E.senses,
+                                ...R.mapKeys(CONFIG.PF2E.senses, (k) => sluggify(k, { camel: "dromedary" })),
+                            }),
+                        }),
                         new fields.SchemaField({
                             acuity: new fields.StringField({
                                 choices: () => CONFIG.PF2E.senseAcuities,
@@ -295,7 +302,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     /** Add new senses the character doesn't already have */
     #prepareSenses(): void {
         for (const senseType of SENSE_TYPES) {
-            const newSense = this.overrides.senses?.[senseType];
+            const newSense = this.overrides.senses?.[senseType ?? sluggify(senseType, { camel: "dromedary" })];
             if (!newSense) continue;
             newSense.acuity ??= "precise";
             const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
