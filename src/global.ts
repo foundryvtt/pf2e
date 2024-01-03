@@ -278,10 +278,11 @@ declare global {
         get(module: "pf2e", setting: "activePartyFolderState"): boolean;
         get(module: "pf2e", setting: "createdFirstParty"): boolean;
 
+        get(module: "pf2e", setting: "homebrew.languages"): HomebrewTag<"languages">[];
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
-        get(module: "pf2e", setting: "homebrew_languageRarities"): LanguageRaritiesData;
+        get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageRaritiesData;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;
