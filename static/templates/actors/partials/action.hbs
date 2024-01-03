@@ -34,11 +34,11 @@
     {{/if}}
 
     <div class="item-controls" data-tooltip-direction="UP">
-        {{#if @root.options.editable}}
-            <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-            {{#unless action.feat}}
-                <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
-            {{/unless}}
+        {{#if @root.editable}}
+            <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+            {{#unless action.feat~}}
+                <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+            {{~/unless}}
         {{/if}}
     </div>
 

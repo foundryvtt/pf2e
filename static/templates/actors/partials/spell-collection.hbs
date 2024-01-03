@@ -70,11 +70,11 @@
                     </div>
 
                     <div class="range-uses">
-                        {{#if entry.isInnate}}
+                        {{~#if entry.isInnate~}}
                             {{localize "PF2E.SpellUsesLabel"}}
-                        {{else}}
+                        {{~else~}}
                             {{localize "PF2E.SpellRangeLabel"}}
-                        {{/if}}
+                        {{~/if~}}
                     </div>
 
                     <div class="cast-spell"></div>
@@ -82,7 +82,7 @@
                         <div class="item-controls">
                             {{#unless entry.isPrepared}}
                                 <a
-                                    class="item-create"
+                                    data-action="create-item"
                                     data-tooltip="PF2E.CreateSpellTitle"
                                     data-type="spell"
                                     data-group-id="{{group.id}}"
@@ -181,8 +181,8 @@
                                             ><i class="fa-{{#if slot.signature}}solid{{else}}regular{{/if}} fa-fw fa-star"></i></a>
                                         {{/if}}
                                         {{#unless slot.virtual}}
-                                            <a class="item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                            <a class="item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                            <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                            <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                         {{/unless}}
                                     {{/if}}
                                 </div>

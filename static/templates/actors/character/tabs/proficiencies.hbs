@@ -1,7 +1,7 @@
 <section class="tab proficiencies major" data-group="primary" data-tab="proficiencies">
     <header>{{localize "PF2E.CoreSkillsHeader"}}</header>
     <ul class="proficiencies-list">
-        <!-- Core Skills -->
+        {{!-- Core Skills --}}
         {{#each data.skills as |skill key|}}
             {{#unless skill.lore}}
                 <li data-statistic="{{skill.slug}}">
@@ -33,18 +33,18 @@
         {{/each}}
     </ul>
 
-    <!-- Lore Header -->
+    {{!-- Lore Header --}}
     <header>
         {{localize "PF2E.LoreSkillsHeader"}}
         <div class="controls">
-            <button type="button" class="item-control item-create" data-tooltip="PF2E.CreateSkillTitle" data-type="lore">
+            <button type="button" data-action="create-item" data-tooltip="PF2E.CreateSkillTitle" data-type="lore">
                 <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.AddShortLabel"}}
             </button>
         </div>
     </header>
 
     <ul class="proficiencies-list lores-list">
-        <!-- Lore Skills -->
+        {{!-- Lore Skills --}}
         {{#each data.skills as |skill idx|}}
             {{#if skill.lore}}
                 <li class="item" data-item-id="{{skill.itemID}}" data-item-type="lore" data-statistic="{{skill.slug}}">
@@ -59,7 +59,7 @@
                         </select>
                         {{#if ../editable}}
                             <div class="item-controls">
-                                <a class="item-control item-delete skill-armor" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                             </div>
                         {{/if}}
                     </div>
@@ -68,7 +68,7 @@
         {{/each}}
     </ul>
 
-    <!-- Attacks -->
+    {{!-- Attacks --}}
     <header class="attacks-defenses">
         {{localize "PF2E.Actor.Character.Proficiency.Attack.Title"}}
         <div class="controls">
@@ -100,7 +100,7 @@
         {{/each}}
     </ul>
 
-    <!-- Defenses -->
+    {{!-- Defenses --}}
     <header class="attacks-defenses">
         {{localize "PF2E.Actor.Character.Proficiency.Defense.Title"}}
     </header>
@@ -126,7 +126,7 @@
         {{/each}}
     </ul>
 
-    <!-- Spellcasting -->
+    {{!-- Spellcasting --}}
     {{#if hasNormalSpellcasting}}
         <header>{{localize "PF2E.Item.Spell.Plural"}}</header>
         <ul class="proficiencies-list spellcasting">
@@ -154,7 +154,7 @@
         </ul>
     {{/if}}
 
-    <!-- Class DCs -->
+    {{!-- Class DCs --}}
     {{#if classDCs.dcs}}
         <header>{{localize "PF2E.Actor.Character.ClassDC.Plural"}}</header>
         <ul class="proficiencies-list">

@@ -1,6 +1,5 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { SAVE_TYPES } from "@actor/values.ts";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, isPhysicalData, type ActionType } from "@item/base/data/index.ts";
@@ -297,36 +296,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             });
         }
 
-        // Delete Item
-        for (const link of htmlQueryAll(html, ".item-delete")) {
-            link.addEventListener("click", (event) => {
-                const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                this.deleteItem(item, event);
-            });
-        }
-
-        // Equipment Browser
-        for (const link of htmlQueryAll(html, ".inventory-browse")) {
-            link.addEventListener("click", () => this.#onClickBrowseEquipment(link));
-        }
-
-        /* -------------------------------------------- */
-        /*  Attributes, Skills, Saves and Traits        */
-        /* -------------------------------------------- */
-
-        // Roll saving throws
-        for (const link of htmlQueryAll(html, ".save-name")) {
-            link.addEventListener("click", (event) => {
-                const saveType = htmlClosest(link, "[data-save]")?.dataset.save;
-                if (!tupleHasValue(SAVE_TYPES, saveType)) {
-                    throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-                }
-
-                this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event, { type: "check" }));
-            });
-        }
-
         // Set listener toggles and their suboptions
         for (const togglesSection of htmlQueryAll(html, "ul[data-option-toggles]")) {
             togglesSection.addEventListener("change", (event) => {
@@ -387,20 +356,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             link.addEventListener("click", () => this.openTagSelector(link));
         }
 
-        // Create a custom item
-        for (const link of htmlQueryAll(html, ".item-create, .item-control.spell-create")) {
-            link.addEventListener("click", () => this.#onClickCreateItem(link));
-        }
-
-        // Update an embedded item
-        for (const anchor of htmlQueryAll(html, ".item-edit")) {
-            anchor.addEventListener("click", () => {
-                const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId ?? "");
-                item?.sheet.render(true, { focus: true });
-            });
-        }
-
         // Decrease effect value
         for (const effectDecrement of htmlQueryAll(html, ".effects-list .decrement")) {
             effectDecrement.addEventListener("click", (event) => {
@@ -446,13 +401,29 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "browse-abilities": (_, anchor) => {
                 this.#onClickBrowseAbilities(anchor);
             },
+            "browse-equipment": (_, anchor) => {
+                this.#onClickBrowseEquipment(anchor);
+            },
+            "create-item": (_, anchor) => {
+                this.#onClickCreateItem(anchor);
+            },
+            "edit-item": (event) => {
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                item.sheet.render(true, { focus: true });
+            },
             "effect-toggle-unidentified": async (event) => {
-                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const effectId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
                 if (effect.isOfType("effect")) {
                     const isUnidentified = effect.system.unidentified;
                     await effect.update({ "system.unidentified": !isUnidentified });
                 }
+            },
+            "delete-item": (event) => {
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.items.get(itemId, { strict: true });
+                this.deleteItem(item, event);
             },
             "item-to-chat": async (event, anchor) => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");

@@ -71,13 +71,11 @@
                                     <a class="item-image" data-action="item-to-chat" style="background-image: url({{item.img}})">
                                         <i class="fa-solid fa-message"></i>
                                     </a>
-                                    <h4 class="action-name">
-                                        {{item.name}}
-                                    </h4>
+                                    <h4 class="action-name">{{item.name}}</h4>
                                 </div>
                                 <div class="item-controls">
                                     {{#if (and @root.options.editable (not item.temporary))}}
-                                        <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                        <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                     {{/if}}
                                 </div>
                             </li>

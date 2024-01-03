@@ -22,7 +22,7 @@
                 <h3 class="item-name hide-container-toggle title">{{localize "PF2E.FormulaKnownTitle"}}</h3>
             </div>
             <ol class="directory-list item-list formula-list">
-                <!-- Add section for each formula level -->
+                {{!-- Add section for each formula level --}}
                 {{#each crafting.knownFormulas as |section lvl|}}
                     <li class="formula-level-header formula-header" data-item-type="formulaLevel" data-level="{{lvl}}">
                         <div class="level-name flexrow">
@@ -35,11 +35,11 @@
 
                         {{#if @root.options.editable}}
                             <div class="item-controls">
-                                <a class="inventory-browse" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{lvl}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                                <a data-action="browse-equipment" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{lvl}}"><i class="fa-solid fa-fw fa-search"></i></a>
                             </div>
                         {{/if}}
                     </li>
-                    <!-- Add formula items for each formula level -->
+                    {{!-- Add formula items for each formula level --}}
                     {{#each section as |craftedItem i|}}
                         <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-uuid="{{craftedItem.uuid}}" data-is-formula>
                             <div class="item-name">
@@ -62,24 +62,21 @@
                                 <div class="item-controls">
                                     {{#if (or @root.crafting.entries.alchemical.entries.length @root.crafting.entries.other.length)}}
                                         <a
-                                            class="item-control"
-                                            data-tooltip="PF2E.CraftingTab.QuickAddTitle"
                                             data-action="quick-add-formula"
+                                            data-tooltip="PF2E.CraftingTab.QuickAddTitle"
                                         ><i class="fa-solid fa-fw fa-plus"></i></a>
                                     {{/if}}
                                     <a
-                                        class="item-control"
-                                        data-tooltip="PF2E.CraftItemTitle"
                                         data-action="craft-item"
+                                        data-tooltip="PF2E.CraftItemTitle"
                                     ><i class="fa-solid fa-fw fa-hammer"></i></a>
                                     {{#if craftedItem.deletable}}
                                         <a
-                                            class="item-control"
                                             data-action="delete-formula"
                                             data-tooltip="PF2E.DeleteItemTitle"
                                         ><i class="fa-solid fa-fw fa-trash"></i></a>
                                     {{else}}
-                                        <span class="item-control disabled" data-tooltip="PF2E.CraftingTab.UndeletableTooltip"><i class="fa-solid fa-fw fa-trash"></i></span>
+                                        <span class="disabled" data-tooltip="PF2E.CraftingTab.UndeletableTooltip"><i class="fa-solid fa-fw fa-trash"></i></span>
                                     {{/if}}
                                 </div>
                             {{/if}}
@@ -91,7 +88,7 @@
                     {{#if @root.editable}}
                         <li class="formula-header empty">
                             <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            <a class="blue inventory-browse" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{lvl}}">
+                            <button type="button" class="blue" data-action="browse-equipment" data-level="{{lvl}}">
                                 <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
                             </a>
                         </li>
