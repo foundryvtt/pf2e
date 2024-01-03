@@ -55,7 +55,7 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             details,
             choices: R.mapValues(sheetData.choices, (data, key): ChoiceData => {
                 const language = key as Language;
-                const rarities = game.settings.get("pf2e", "homebrew_languageRarities");
+                const rarities = game.settings.get("pf2e", "homebrew.languageRarities");
 
                 const tags = {
                     common: { slug: "common", label: game.i18n.localize(CONFIG.PF2E.rarityTraits.common) },

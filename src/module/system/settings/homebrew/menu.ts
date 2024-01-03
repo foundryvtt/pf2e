@@ -72,7 +72,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     static override registerSettings(): void {
         super.registerSettings();
 
-        game.settings.register("pf2e", "homebrew_languageRarities", {
+        game.settings.register("pf2e", "homebrew.languageRarities", {
             name: "",
             hint: "",
             scope: "world",
