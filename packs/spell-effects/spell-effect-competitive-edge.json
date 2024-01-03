@@ -30,11 +30,6 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "not": "competitive-edge"
-                    }
-                ],
                 "selector": [
                     "attack",
                     "skill-check"
@@ -56,29 +51,17 @@
                 }
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
                     "competitive-edge"
                 ],
-                "selector": [
-                    "attack",
+                "selectors": [
+                    "attack-roll",
                     "skill-check"
                 ],
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": 3
-                        },
-                        {
-                            "start": 7,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "slug": "competitive-edge",
+                "value": "ternary(gte(@actor.level,7),4,3)"
             }
         ],
         "start": {
