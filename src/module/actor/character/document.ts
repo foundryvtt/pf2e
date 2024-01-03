@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e, type FamiliarPF2e } from "@actor";
+import { CreaturePF2e, type ActorPF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
