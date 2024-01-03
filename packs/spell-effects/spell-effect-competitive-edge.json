@@ -16,9 +16,9 @@
             "value": 4
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -30,13 +30,15 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Competitive Edge (Attack)",
                 "predicate": [
                     {
                         "not": "competitive-edge"
                     }
                 ],
-                "selector": "attack",
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": {
                     "brackets": [
@@ -55,59 +57,13 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Competitive Edge (Skill)",
-                "predicate": [
-                    {
-                        "not": "competitive-edge"
-                    }
-                ],
-                "selector": "skill-check",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": 1
-                        },
-                        {
-                            "start": 7,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Competitive Edge (Enhanced Attack)",
                 "predicate": [
                     "competitive-edge"
                 ],
-                "selector": "attack",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 4,
-                            "value": 3
-                        },
-                        {
-                            "start": 7,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Competitive Edge (Enhanced Skill)",
-                "predicate": [
-                    "competitive-edge"
+                "selector": [
+                    "attack",
+                    "skill-check"
                 ],
-                "selector": "skill-check",
                 "type": "status",
                 "value": {
                     "brackets": [
