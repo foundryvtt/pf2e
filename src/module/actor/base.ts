@@ -21,7 +21,7 @@ import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } fro
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { isCycle } from "@item/container/helpers.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -1650,7 +1650,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 "system.equipped.handsHeld": 0,
                 "system.equipped.inSlot": false,
             });
-        } else if (!isCycle(item, container)) {
+        } else if (!isContainerCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "system.containerId": container.id,

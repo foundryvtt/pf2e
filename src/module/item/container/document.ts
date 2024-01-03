@@ -51,6 +51,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         super.prepareSiblingData();
 
+        if (this.system.containerId === this.id) this.system.containerId = null;
         this.contents = new Collection(
             this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item]),
         );

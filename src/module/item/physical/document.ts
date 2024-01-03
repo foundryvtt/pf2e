@@ -2,7 +2,7 @@ import { type ActorPF2e } from "@actor";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
 import { ItemSourcePF2e, ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { isCycle } from "@item/container/helpers.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject } from "@util";
@@ -400,7 +400,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const containerResolved = toContainer ?? relativeTo?.container;
         const mainContainerUpdate = (() => {
             // Move into a container
-            if (containerResolved && !isCycle(this, containerResolved)) {
+            if (containerResolved && !isContainerCycle(this, containerResolved)) {
                 const carryType = containerResolved.stowsItems ? "stowed" : "worn";
                 const equipped = { carryType, handsHeld: 0, inSlot: false };
                 return { system: { containerId: containerResolved?.id, equipped } };
