@@ -4,16 +4,16 @@ import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
 import { SpellPF2e } from "./index.ts";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
-    constructor(
-        public readonly spell: SpellPF2e,
-        entries?: Record<string, SpellOverlay>,
-    ) {
+    readonly spell: SpellPF2e;
+
+    constructor(spell: SpellPF2e, entries?: Record<string, SpellOverlay>) {
         super(Object.entries(entries ?? {}));
+        this.spell = spell;
     }
 
     /** Returns all variants based on override overlays */
-    get overrideVariants(): SpellPF2e<ActorPF2e>[] {
-        return [...this.entries()].reduce((result: SpellPF2e<ActorPF2e>[], [overlayId, data]) => {
+    get overrideVariants(): SpellPF2e[] {
+        return [...this.entries()].reduce((result: SpellPF2e[], [overlayId, data]) => {
             if (data.overlayType === "override") {
                 const spell = this.spell.loadVariant({ overlayIds: [overlayId] });
                 if (spell) return [...result, spell];
@@ -52,11 +52,11 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         }
     }
 
-    async updateOverride(
-        variantSpell: SpellPF2e<ActorPF2e>,
+    async updateOverride<TSpell extends SpellPF2e>(
+        variantSpell: TSpell,
         data: Partial<SpellSource>,
         options?: DocumentModificationContext<ActorPF2e>,
-    ): Promise<SpellPF2e<ActorPF2e> | null> {
+    ): Promise<TSpell | null> {
         const variantId = variantSpell.variantId;
         if (!variantId) return null;
 

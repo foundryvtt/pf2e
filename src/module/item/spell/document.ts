@@ -64,7 +64,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     readonly isFromConsumable: boolean;
 
     /** The original spell. Only exists if this is a variant */
-    declare original?: SpellPF2e<NonNullable<TParent>>;
+    declare original?: SpellPF2e<TParent>;
+
     /** The overlays that were applied to create this variant */
     declare appliedOverlays?: Map<SpellOverlayType, string>;
 
@@ -395,12 +396,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
      * This handles heightening as well as alternative cast modes of spells.
      * If there's nothing to apply, returns null.
      */
-    loadVariant(options: SpellVariantOptions = {}): SpellPF2e<NonNullable<TParent>> | null {
+    loadVariant(options?: SpellVariantOptions): this | null;
+    loadVariant(options: SpellVariantOptions = {}): SpellPF2e | null {
         if (this.original) {
-            return this.original.loadVariant({
-                entryId: this.system.location.value,
-                ...options,
-            });
+            const entryId = this.system.location.value;
+            return this.original.loadVariant({ entryId, ...options });
         }
         const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
@@ -461,11 +461,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             overrides.system.location.value = options.entryId;
         }
 
-        const variant = new SpellPF2e(overrides, {
-            parent: this.actor,
-            fromConsumable: this.isFromConsumable,
-        }) as SpellPF2e<NonNullable<TParent>>;
-        variant.original = this as SpellPF2e<NonNullable<TParent>>;
+        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable: this.isFromConsumable });
+        variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(variant.traits);
