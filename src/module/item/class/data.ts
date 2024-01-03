@@ -1,5 +1,5 @@
 import { AttributeString, SaveType } from "@actor/types.ts";
-import { ABCSystemSource } from "@item/abc/data.ts";
+import { ABCSystemData, ABCSystemSource } from "@item/abc/data.ts";
 import { BaseItemSourcePF2e, RarityTraitAndOtherTags } from "@item/base/data/system.ts";
 import { ZeroToFour } from "@module/data.ts";
 
@@ -27,7 +27,7 @@ interface ClassSystemSource extends ABCSystemSource {
     level?: never;
 }
 
-type ClassSystemData = ClassSystemSource;
+interface ClassSystemData extends Omit<ClassSystemSource, "description">, Omit<ABCSystemData, "level" | "traits"> {}
 
 interface ClassAttackProficiencies {
     simple: ZeroToFour;
@@ -44,4 +44,4 @@ interface ClassDefenseProficiencies {
     heavy: ZeroToFour;
 }
 
-export type { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData };
+export type { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData, ClassSystemSource };

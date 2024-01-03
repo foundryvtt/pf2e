@@ -38,7 +38,7 @@ interface EquipmentSystemData
     stackGroup: null;
 }
 
-type SourceOmission = "bulk" | "hp" | "identification" | "items" | "material" | "price" | "temporary" | "usage";
+type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {
     otherTags: OtherEquipmentTag[];

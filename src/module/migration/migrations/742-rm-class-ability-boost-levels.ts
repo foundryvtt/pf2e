@@ -1,5 +1,5 @@
-import { ClassSystemData } from "@item/class/data.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ClassSystemSource } from "@item/class/data.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Remove ability boost levels data from class items */
@@ -17,7 +17,7 @@ export class Migration742RMAbilityBoostLevels extends MigrationBase {
     }
 }
 
-interface MaybeWithAbilityBoostLevels extends ClassSystemData {
+interface MaybeWithAbilityBoostLevels extends ClassSystemSource {
     abilityBoostLevels?: unknown;
     "-=abilityBoostLevels"?: null;
 }

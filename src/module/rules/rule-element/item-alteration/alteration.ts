@@ -22,6 +22,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "bulk",
         "category",
         "check-penalty",
+        "description",
         "dex-cap",
         "focus-point-cost",
         "hardness",
@@ -150,6 +151,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.alteration.value,
                 );
                 data.item.system.checkPenalty = Math.min(newValue, 0);
+                return;
+            }
+            case "description": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!(data.item instanceof ItemPF2e)) return;
+                data.item.system.description.addenda.push(data.alteration.value);
                 return;
             }
             case "dex-cap": {

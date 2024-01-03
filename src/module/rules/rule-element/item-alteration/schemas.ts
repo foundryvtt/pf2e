@@ -153,6 +153,20 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    description: new ItemAlterationValidator({
+        itemType: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            initial: undefined,
+        }),
+        mode: new fields.StringField({
+            required: true,
+            choices: ["add"],
+        }),
+        value: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined } as const),
+    }),
+
     "dex-cap": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
