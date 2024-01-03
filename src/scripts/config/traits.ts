@@ -839,6 +839,7 @@ const shieldTraits = {
     "integrated-1d6-p": "PF2E.TraitIntegrated1d6P",
     "integrated-1d6-s": "PF2E.TraitIntegrated1d6S",
     "integrated-1d6-s-versatile-p": "PF2E.TraitIntegrated1d6SVersatileP",
+    invested: "PF2E.TraitInvested",
     "launching-dart": "PF2E.TraitLaunching",
     magical: "PF2E.TraitMagical",
     "shield-throw-20": "PF2E.TraitShieldThrow20",

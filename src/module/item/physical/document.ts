@@ -123,7 +123,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.isEquipped && this.isIdentified && this.system.equipped.invested === true;
+        return (
+            (this.isEquipped || this.system.usage.type !== "worn") &&
+            !this.isStowed &&
+            this.isIdentified &&
+            this.system.equipped.invested === true
+        );
     }
 
     get isCursed(): boolean {
