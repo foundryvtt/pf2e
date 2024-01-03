@@ -121,10 +121,6 @@ class HomebrewElements extends SettingsMenuPF2e {
         super.activateListeners($html);
         const html = $html[0];
 
-        htmlQuery(html, "button[type=reset]")?.addEventListener("click", () => {
-            this.render();
-        });
-
         // Handle all changes for traits
         for (const key of HOMEBREW_TRAIT_KEYS) {
             const reservedTerms = HomebrewElements.reservedTerms[key];
@@ -464,7 +460,7 @@ class DamageTypeManager {
 
 type HomebrewSubmitData = {
     damageTypes: CustomDamageData[];
-} & Record<string, unknown>;
+} & Record<string, unknown> & { clear(): void };
 
 interface HomebrewElements extends SettingsMenuPF2e {
     constructor: typeof HomebrewElements;

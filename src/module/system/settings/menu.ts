@@ -2,13 +2,25 @@ import { htmlClosest, htmlQuery } from "@util";
 
 abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
-    cache: Record<string, unknown> = {};
+
+    protected cache: Record<string, unknown> & { clear(): void } = (() => {
+        const data: Record<string, unknown> & { clear(): void } = {
+            clear(): void {
+                for (const key of Object.keys(this)) {
+                    delete this[key];
+                }
+            },
+        };
+        Object.defineProperty(data, "clear", { enumerable: false });
+        return data;
+    })();
 
     static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
-        return fu.mergeObject(options, {
+        return {
+            ...options,
             title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
             id: `${this.namespace}-settings`,
             template: `systems/pf2e/templates/system/settings/menu.hbs`,
@@ -17,7 +29,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: "form" }],
             closeOnSubmit: false,
             submitOnChange: true,
-        });
+        };
     }
 
     static get prefix(): string {
@@ -59,6 +71,11 @@ abstract class SettingsMenuPF2e extends FormApplication {
         });
     }
 
+    override close(options?: { force?: boolean }): Promise<void> {
+        this.cache.clear();
+        return super.close(options);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -66,6 +83,11 @@ abstract class SettingsMenuPF2e extends FormApplication {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
+
+        htmlQuery(html, "button[type=reset]")?.addEventListener("click", () => {
+            this.cache.clear();
+            this.render();
+        });
 
         const { highlightSetting } = this.options;
         if (highlightSetting) {
@@ -75,7 +97,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
     }
 
     protected override async _updateObject(event: Event, data: Record<string, unknown>): Promise<void> {
-        for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
+        for (const key of this.constructor.SETTINGS) {
             const settingKey = `${this.prefix}${key}`;
             const value = data[key];
             this.cache[key] = value;
@@ -96,9 +118,10 @@ abstract class SettingsMenuPF2e extends FormApplication {
         super._injectHTML($html);
 
         // Initialize cache
-        for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
+        for (const key of this.constructor.SETTINGS) {
             const settingKey = `${this.prefix}${key}`;
-            this.cache[key] = game.settings.get("pf2e", settingKey);
+            const value = game.settings.get("pf2e", settingKey);
+            this.cache[key] = value instanceof foundry.abstract.DataModel ? value.clone() : value;
         }
     }
 }
