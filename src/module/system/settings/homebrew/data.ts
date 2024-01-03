@@ -50,8 +50,17 @@ interface CustomDamageData {
 
 interface HomebrewElementsSheetData extends MenuTemplateData {
     traitSettings: Record<string, SettingsTemplateData>;
+    languageRarities: LanguageRaritiesSheetData;
     damageCategories: Record<MainDamageCategories, string>;
     customDamageTypes: CustomDamageData[];
+}
+
+interface LanguageRaritiesSheetData {
+    commonLanguage: LanguageNotCommon | null;
+    common: { slug: LanguageNotCommon; label: string }[];
+    uncommon: { slug: LanguageNotCommon; label: string }[];
+    rare: { slug: LanguageNotCommon; label: string }[];
+    secret: { slug: LanguageNotCommon; label: string }[];
 }
 
 type LanguageNotCommon = Exclude<Language, "common">;
@@ -160,4 +169,5 @@ export type {
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
     LanguageNotCommon,
+    LanguageRaritiesSheetData,
 };
