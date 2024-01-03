@@ -42,7 +42,7 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
 }
 
 interface AfflictionSystemData
-    extends Omit<AfflictionSystemSource, "fromSpell">,
+    extends Omit<AfflictionSystemSource, "description" | "fromSpell">,
         Omit<AbstractEffectSystemData, "level" | "traits"> {}
 
 interface AfflictionOnset {

@@ -65,7 +65,9 @@ interface SpellCollectionTypeSource {
     validItems?: "scroll" | "" | null;
 }
 
-interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "level" | "traits"> {
+interface SpellcastingEntrySystemData
+    extends Omit<SpellcastingEntrySystemSource, "description">,
+        Omit<ItemSystemData, "level" | "traits"> {
     prepared: SpellCollectionTypeData;
 }
 

@@ -51,7 +51,7 @@ interface ItemMaterialSource {
     type: PreciousMaterialType | null;
 }
 
-interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
+interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, Omit<ItemSystemData, "level"> {
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
