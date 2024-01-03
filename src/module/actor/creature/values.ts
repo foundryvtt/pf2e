@@ -1,4 +1,4 @@
-import { Language, SenseAcuity, SenseType } from "./index.ts";
+import type { Language, SenseAcuity, SenseType } from "./types.ts";
 
 const ALLIANCES = new Set(["party", "opposition", null] as const);
 
@@ -186,10 +186,13 @@ const LANGUAGES_BY_RARITY = {
 const LANGUAGES: Language[] = ["common", ...COMMON_LANGUAGES, ...UNCOMMON_LANGUAGES, ...RARE_LANGUAGES, "wildsong"];
 LANGUAGES.sort();
 
+const LANGUAGE_RARITIES = ["common", "uncommon", "rare", "secret"] as const;
+
 export {
     ALLIANCES,
     LANGUAGES,
     LANGUAGES_BY_RARITY,
+    LANGUAGE_RARITIES,
     SAVING_THROW_ATTRIBUTES,
     SENSES_WITH_MANDATORY_ACUITIES,
     SENSES_WITH_UNLIMITED_RANGE,
