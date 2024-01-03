@@ -88,7 +88,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        const rarity = item.system.traits?.rarity;
         const isEffect = item instanceof AbstractEffectPF2e;
         const selfEffect =
             item.isOfType("action", "feat") && item.system.selfEffect
@@ -101,7 +100,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             item,
             description,
             identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
-            rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
             isCreature: item.actor?.isOfType("creature"),
             chatData,
             selfEffect,

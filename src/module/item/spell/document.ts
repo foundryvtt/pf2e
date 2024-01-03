@@ -844,6 +844,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             CONFIG.PF2E.spellTraits,
             R.uniq(R.compact([...this.traits, spellcasting.tradition])),
         );
+        const rarity = {
+            slug: this.rarity,
+            label: CONFIG.PF2E.rarityTraits[this.rarity],
+            description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+        };
 
         return {
             ...systemData,
@@ -863,6 +868,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             formula: damage?.template.damage.roll.formula,
             properties,
             traits: spellTraits,
+            rarity,
             area,
             variants,
             isAura: this.traits.has("aura"),

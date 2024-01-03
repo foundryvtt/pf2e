@@ -263,9 +263,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this: FeatPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
-        const properties = [game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level })];
+        const properties = this.isFeat ? [game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level })] : [];
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...this.system, properties, traits });
+        const rarity = {
+            slug: this.rarity,
+            label: CONFIG.PF2E.rarityTraits[this.rarity],
+            description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+        };
+
+        return this.processChatData(htmlOptions, { ...this.system, properties, traits, rarity });
     }
 
     /** Generate a list of strings for use in predication */
