@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { ErrorPF2e } from "@util";
-import { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
-import { SpellPF2e } from "./index.ts";
+import * as R from "remeda";
+import type { SpellOverlay, SpellOverlayType, SpellSource } from "./data.ts";
+import type { SpellPF2e } from "./document.ts";
 
 class SpellOverlayCollection extends Collection<SpellOverlay> {
     readonly spell: SpellPF2e;
@@ -64,8 +65,8 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         variantSpell.updateSource(data, options);
 
         // Diff data and only save the difference
-        const variantSource = variantSpell.toObject();
-        const originSource = this.spell.toObject();
+        const variantSource = R.omit(variantSpell.toObject(), ["_stats"]);
+        const originSource = R.omit(this.spell.toObject(), ["_stats"]);
         const difference = fu.diffObject<DeepPartial<SpellSource> & { overlayType: string }>(
             originSource,
             variantSource,
