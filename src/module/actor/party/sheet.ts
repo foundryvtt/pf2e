@@ -91,8 +91,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         return {
             ...base,
-            playerRestricted: !game.settings.get("pf2e", "metagame_showPartyStats"),
-            restricted: !(game.user.isGM || game.settings.get("pf2e", "metagame_showPartyStats")),
+            playerRestricted: !game.pf2e.settings.metagame.partyStats,
+            restricted: !(game.user.isGM || game.pf2e.settings.metagame.partyStats),
             members: this.#prepareMembers(),
             overviewSummary: this.#prepareOverviewSummary(),
             inventorySummary: {
@@ -121,7 +121,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     #prepareMembers(): MemberBreakdown[] {
         return this.actor.members.map((actor): MemberBreakdown => {
             const observer = actor.testUserPermission(game.user, "OBSERVER");
-            const restricted = !(game.settings.get("pf2e", "metagame_showPartyStats") || observer);
+            const restricted = !(game.pf2e.settings.metagame.partyStats || observer);
             const genderPronouns = actor.isOfType("character")
                 ? actor.system.details.gender.value.trim() || null
                 : null;

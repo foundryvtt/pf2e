@@ -813,7 +813,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 type: game.i18n.localize(CONFIG.PF2E.saves[saveType]),
             });
             const tempElement = createHTMLElement("div", { innerHTML: localized });
-            const visibility = game.settings.get("pf2e", "metagame_showDC") ? "all" : "owner";
+            const visibility = game.pf2e.settings.metagame.dcs ? "all" : "owner";
             TextEditorPF2e.convertXMLNode(tempElement, "dc", { visibility, whose: null });
             return tempElement.innerHTML;
         })();

@@ -130,6 +130,12 @@ interface GamePF2e
             encumbrance: boolean;
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
+            metagame: {
+                dcs: boolean;
+                partyStats: boolean;
+                partyVision: boolean;
+                results: boolean;
+            };
             /** Rules-based vision */
             rbv: boolean;
             tokens: {
@@ -257,8 +263,8 @@ declare global {
         get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
         get(module: "pf2e", setting: "metagame_showDC"): boolean;
-        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
+        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;

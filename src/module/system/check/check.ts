@@ -632,7 +632,7 @@ class CheckPF2e {
                     ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : dc.value ?? null;
 
-            const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
+            const visible = targetActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = game.i18n.localize(
@@ -688,7 +688,7 @@ class CheckPF2e {
                 unadjusted,
                 offset: offset.value,
             });
-            const visible = game.settings.get("pf2e", "metagame_showResults");
+            const visible = game.pf2e.settings.metagame.results;
 
             return { markup, visible };
         })();

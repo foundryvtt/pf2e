@@ -7,12 +7,18 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.ShowDC.Hint",
         default: false,
         type: Boolean,
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.dcs = !!value;
+        },
     },
     showResults: {
         name: "PF2E.SETTINGS.Metagame.ShowResults.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
         default: true,
         type: Boolean,
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.results = !!value;
+        },
     },
     tokenSetsNameVisibility: {
         name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
@@ -47,7 +53,8 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
         default: true,
         type: Boolean,
-        onChange: () => {
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.partyStats = !!value;
             resetActors(game.actors.filter((a) => a.isOfType("party")));
         },
     },
@@ -56,7 +63,8 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
         default: false,
         type: Boolean,
-        onChange: () => {
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.partyVision = !!value;
             if (canvas.ready && canvas.scene) {
                 canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
             }
