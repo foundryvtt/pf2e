@@ -4,7 +4,7 @@
     "name": "Effect: Ebon Fulcrum Lens (2 Action)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]</p>\n<p>For 1 minute you gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ebon Fulcrum Lens]</p>\n<p>You're quickened for 1 minute and gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,11 @@
             "title": "Pathfinder #165: Eyes of Empty Death"
         },
         "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            },
             {
                 "key": "FlatModifier",
                 "selector": [
