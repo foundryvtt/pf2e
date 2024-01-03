@@ -53,7 +53,16 @@ interface ShieldSystemData
     stackGroup: null;
 }
 
-type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
+type SourceOmission =
+    | "apex"
+    | "bulk"
+    | "description"
+    | "hp"
+    | "identification"
+    | "material"
+    | "price"
+    | "temporary"
+    | "usage";
 
 interface IntegratedWeaponData extends IntegratedWeaponSource {
     damageType: DamageType;

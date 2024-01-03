@@ -164,6 +164,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareActorData(this: ShieldPF2e<ActorPF2e>): void {
+        super.prepareActorData();
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         setActorShieldData(this);
