@@ -106,21 +106,11 @@
     </header>
     <ul class="proficiencies-list combat-list">
         {{#each martialProficiencies.defenses as |proficiency key|}}
-            <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
-                {{#if (and proficiency.custom @root.editable)}}
-                    <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
-                {{/if}}
+            <li{{#if (and @first @last)}} class="all-by-myself"{{/if}} data-slug="{{key}}">
                 <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                 <span class="name">{{localize proficiency.label}}</span>
                 <div class="button-group">
-                    <select
-                        class="skill-proficiency pf-rank{{#if proficiency.immutable}} readonly{{/if}}"
-                        data-property="system.proficiencies.defenses.{{key}}.rank"
-                        data-rank="{{proficiency.rank}}"
-                        data-dtype="Number"
-                    >
-                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
-                    </select>
+                    <span class="pf-rank" data-rank="{{proficiency.rank}}">{{lookup @root.numberToRank proficiency.rank}}</span>
                 </div>
             </li>
         {{/each}}
@@ -129,9 +119,9 @@
     {{!-- Spellcasting --}}
     {{#if hasNormalSpellcasting}}
         <header>{{localize "PF2E.Item.Spell.Plural"}}</header>
-        <ul class="proficiencies-list spellcasting">
+        <ul class="proficiencies-list">
             {{#with document.spellcasting.base as |spellcasting|}}
-                <li data-slug="spellcasting">
+                <li class="all-by-myself" data-slug="spellcasting">
                     <span class="modifier" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
                     <span class="name">{{localize spellcasting.label}}</span>
                     <div class="skill-prof button-group skill-container">
@@ -159,7 +149,7 @@
         <header>{{localize "PF2E.Actor.Character.ClassDC.Plural"}}</header>
         <ul class="proficiencies-list">
             {{#each classDCs.dcs as |classDC|}}
-                <li {{#unless classDC.primary}}class="secondary"{{/unless}}>
+                <li{{#if (and @first @last)}} class="all-by-myself"{{else if (not classDC.primary)}} class="secondary"{{/if}}>
                     <span class="dc" data-tooltip="{{classDC.breakdown}}">{{classDC.dc}}</span>
                     <span class="name">{{classDC.label}}</span>
                     <div class="button-group stacked">
