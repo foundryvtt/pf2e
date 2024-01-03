@@ -4,6 +4,7 @@ import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
 import { ItemSourcePF2e, isPhysicalData, type ActionType } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -674,9 +675,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const openContainer: PhysicalItemPF2e<ActorPF2e> | undefined = this.actor.inventory.get(openContainerId);
             const targetItemRow = htmlClosest(event.related, "li[data-item-id]");
             const targetItem = this.actor.inventory.get(targetItemRow?.dataset.itemId ?? "");
-            if (targetItemRow && targetItem?.isOfType("backpack") && !openContainer) {
-                htmlQuery(targetItemRow, ":scope > .data")?.classList.add("drop-highlight");
-                return false;
+            if (targetItem?.isOfType("backpack")) {
+                if (isContainerCycle(sourceItem, targetItem)) return false;
+                if (targetItemRow && !openContainer) {
+                    htmlQuery(targetItemRow, ":scope > .data")?.classList.add("drop-highlight");
+                    return false;
+                }
             }
 
             return !!targetItem;
@@ -716,6 +720,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const container = targetItem?.isOfType("backpack") ? targetItem : inventory.get(containerId);
         if (container && !container.isOfType("backpack")) {
             throw ErrorPF2e("Unexpected non-container retrieved while sorting items");
+        }
+
+        if (container && isContainerCycle(sourceItem, container)) {
+            this.render();
+            return;
         }
 
         // Perform necessary re-sorting
