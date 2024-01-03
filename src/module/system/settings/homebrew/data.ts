@@ -1,5 +1,5 @@
 import type { Language } from "@actor/creature/index.ts";
-import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
+import { LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
 import * as R from "remeda";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -79,21 +79,17 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
                 new fields.StringField<LanguageNotCommon, LanguageNotCommon, true, false, false>({
                     required: true,
                     nullable: false,
-                    choices: () => R.omit(CONFIG.PF2E.languages, ["common"]),
+                    blank: false,
                     initial: undefined,
                 }),
-                {
-                    required: true,
-                    nullable: false,
-                    initial,
-                },
+                { required: true, nullable: false, initial },
             );
 
         return {
             commonLanguage: new fields.StringField({
                 required: true,
-                nullable: false,
-                choices: () => R.omit(CONFIG.PF2E.languages, ["common"]),
+                nullable: true,
+                blank: false,
                 initial: "taldane",
             }),
             uncommon: languageSetField([...LANGUAGES_BY_RARITY.uncommon]),
@@ -101,6 +97,25 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
             secret: languageSetField([...LANGUAGES_BY_RARITY.secret]),
             hidden: languageSetField([]),
         };
+    }
+
+    /** Include common languages in the non-source raw object. */
+    override toObject(source?: true): this["_source"];
+    override toObject(source: false): RawLanguageRarities<this>;
+    override toObject(source?: boolean): this["_source"] | RawLanguageRarities<this>;
+    override toObject(source?: boolean): this["_source"] | RawLanguageRarities {
+        const obj = super.toObject(source);
+        return source ? obj : { ...obj, common: Array.from(this.common) };
+    }
+
+    /** Schema-restricting choices removes homebrew languages before they're registered: prune in ready hook instead. */
+    onReady(): void {
+        const source = this._source;
+        for (const rarity of LANGUAGE_RARITIES) {
+            if (rarity === "common") continue;
+            source[rarity] = source[rarity].filter((l) => l in CONFIG.PF2E.languages);
+        }
+        this.reset();
     }
 }
 
@@ -110,7 +125,7 @@ interface LanguageRaritiesData
 
 type LanguageRaritiesSchema = {
     /** The "common" tongue of the region, rather than languages of common rarity */
-    commonLanguage: StringField<LanguageNotCommon, LanguageNotCommon, true, false, true>;
+    commonLanguage: StringField<LanguageNotCommon, LanguageNotCommon, true, true, true>;
     /** Languages of uncommon rarity */
     uncommon: LanguageSetField;
     /** Languages of rare rarity */
@@ -129,6 +144,10 @@ type LanguageSetField = SetField<
     false,
     true
 >;
+
+type RawLanguageRarities<TModel extends LanguageRaritiesData = LanguageRaritiesData> = RawObject<TModel> & {
+    common: LanguageNotCommon[];
+};
 
 export { HOMEBREW_TRAIT_KEYS, LanguageRaritiesData, TRAIT_PROPAGATIONS };
 export type {

@@ -79,6 +79,8 @@ export const Ready = {
                 }
             });
 
+            game.settings.get("pf2e", "homebrew.languageRarities").onReady();
+
             // Update chat messages to add set-as-initiative buttons to skill checks
             for (const li of htmlQueryAll(document.body, "#chat-log > li.message")) {
                 SetAsInitiative.listen(li);
