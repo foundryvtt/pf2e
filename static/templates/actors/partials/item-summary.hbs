@@ -1,8 +1,11 @@
 {{#if identified}}
     {{#if item.system.traits}}
         <div class="tags item-properties">
-            {{#if (and rarityLabel (ne item.system.traits.rarity "common"))}}
-                <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+            {{#if (and chatData.rarity.label (ne chatData.rarity.slug "common"))}}
+                <span
+                    class="tag rarity {{chatData.rarity.slug}}"
+                    data-tooltip="{{chatData.rarity.description}}"
+                >{{localize chatData.rarity.label}}</span>
             {{/if}}
             {{#each chatData.traits as |trait|}}
                 <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>

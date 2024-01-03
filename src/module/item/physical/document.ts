@@ -481,7 +481,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         return {
             rarity: {
-                name: this.rarity,
+                slug: this.rarity,
                 label: CONFIG.PF2E.rarityTraits[this.rarity],
                 description: CONFIG.PF2E.traitsDescriptions[this.rarity],
             },

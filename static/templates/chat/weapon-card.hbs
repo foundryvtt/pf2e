@@ -7,8 +7,8 @@
     <div class="tags" data-tooltip-class="pf2e">
         {{#if (and item.isIdentified (ne item.rarity "common"))}}
             <span
-                class="tag rarity {{item.rarity}}"
-                data-trait="{{item.rarity}}"
+                class="tag rarity {{data.rarity.slug}}"
+                data-trait="{{data.rarity-slug}}"
                 data-tooltip="{{data.rarity.description}}"
             >{{localize data.rarity.label}}</span>
         {{/if}}
