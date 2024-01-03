@@ -933,7 +933,7 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Homebrew.FeatTraits.Hint",
             },
             languages: {
-                name: "PF2E.SETTINGS.Homebrew.Languages.Name",
+                name: "PF2E.Actor.Creature.Language.Plural",
                 hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
             },
             spellTraits: {
