@@ -1,3 +1,4 @@
+import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorTrait } from "@item/armor/types.ts";
 import { ConsumableTrait } from "@item/consumable/data.ts";
@@ -38,6 +39,15 @@ interface PhysicalSystemSource extends ItemSystemSource {
     usage?: { value: string };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
+
+    /**
+     * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
+     * selected
+     */
+    apex?: {
+        attribute: AttributeString;
+        selected?: boolean;
+    };
 }
 
 interface IdentificationSource {
@@ -52,6 +62,10 @@ interface ItemMaterialSource {
 }
 
 interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, Omit<ItemSystemData, "level"> {
+    apex?: {
+        attribute: AttributeString;
+        selected: boolean;
+    };
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;

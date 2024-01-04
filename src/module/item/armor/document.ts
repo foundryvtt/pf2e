@@ -109,6 +109,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     override prepareActorData(this: ArmorPF2e<ActorPF2e>): void {
+        super.prepareActorData();
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         if (!this.isEquipped) return;

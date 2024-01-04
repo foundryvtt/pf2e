@@ -827,6 +827,7 @@ const shieldTraits = {
     ...sanctificationTraits,
     ...elementTraits,
     ...magicTraditions,
+    apex: "PF2E.TraitApex",
     "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
     "deflecting-physical-ranged": "PF2E.TraitDeflectingPhysicalRanged",
     "deflecting-piercing": "PF2E.TraitDeflectingPiercing",

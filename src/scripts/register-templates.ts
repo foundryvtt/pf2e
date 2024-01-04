@@ -113,6 +113,7 @@ export function registerTemplates(): void {
 
         // Item Sheet Partials (sub-partials)
         "systems/pf2e/templates/items/partials/ability-activation.hbs",
+        "systems/pf2e/templates/items/partials/apex.hbs",
         "systems/pf2e/templates/items/partials/duration.hbs",
         "systems/pf2e/templates/items/partials/other-tags.hbs",
         "systems/pf2e/templates/items/partials/self-applied-effect.hbs",

@@ -33,7 +33,17 @@ interface ContainerSystemData
     bulk: ContainerBulkData;
     stackGroup: null;
 }
-type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
+
+type SourceOmission =
+    | "apex"
+    | "bulk"
+    | "description"
+    | "hp"
+    | "identification"
+    | "material"
+    | "price"
+    | "temporary"
+    | "usage";
 
 interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 

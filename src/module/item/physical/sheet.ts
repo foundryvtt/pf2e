@@ -2,7 +2,7 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
-import { localizer } from "@util";
+import { localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import {
     BasePhysicalItemSource,
@@ -101,12 +101,14 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             basePrice,
             priceAdjustment,
             adjustedPriceHint,
+            attributes: CONFIG.PF2E.abilities,
             actionTypes: CONFIG.PF2E.actionTypes,
             bulks,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: R.omit(CONFIG.PF2E.actorSizes, ["sm"]),
             usages: CONFIG.PF2E.usages,
+            isApex: tupleHasValue(item._source.system.traits.value, "apex"),
             isPhysical: true,
             activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
@@ -250,6 +252,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     sidebarTemplate: string;
+    isApex: boolean;
     isPhysical: true;
     bulkAdjustment: string | null;
     adjustedBulkHint?: string | null;
@@ -257,6 +260,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     basePrice: CoinsPF2e;
     priceAdjustment: string | null;
     adjustedPriceHint: string | null;
+    attributes: typeof CONFIG.PF2E.abilities;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     bulks: { value: number; label: string }[];

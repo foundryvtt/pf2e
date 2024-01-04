@@ -241,7 +241,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
         sheetData.apexAttributeOptions = abpEnabled
             ? []
-            : this.actor.itemTypes.equipment.flatMap((e) =>
+            : this.actor.inventory.contents.flatMap((e) =>
                   e.system.apex?.selected === false &&
                   e.isInvested &&
                   e.system.apex.attribute !== actor.system.build.attributes.apex
@@ -864,7 +864,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const attribute = htmlClosest(event.target, "[data-attribute]")?.dataset.attribute;
             if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
-                const apexItems = this.actor.itemTypes.equipment.filter((e) => e.system.apex);
+                const apexItems = this.actor.inventory.filter((e) => e.system.apex);
                 const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
                 this.actor.updateEmbeddedDocuments(
                     "Item",

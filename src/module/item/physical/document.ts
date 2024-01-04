@@ -5,7 +5,7 @@ import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { ErrorPF2e, isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
@@ -286,6 +286,15 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                           new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
                   )
                 : [];
+
+        // Normalize apex data
+        if (this.system.apex) {
+            if (!this.traits.has("apex")) {
+                delete this.system.apex;
+            } else if (!this.isInvested) {
+                this.system.apex.selected = false;
+            }
+        }
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
@@ -335,11 +344,36 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this._container && !this.actor.items.has(this._container.id)) {
             this._container = this.system.containerId = null;
         }
+
+        // Ensure that there is only one selected apex item, and all others are set to false
+        if (this.system.apex) {
+            const otherApexData = this.actor.inventory.contents.flatMap((e) => (e === this ? [] : e.system.apex ?? []));
+            if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
+                this.system.apex.selected = true;
+                for (const data of otherApexData) {
+                    data.selected = false;
+                }
+            }
+        }
     }
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
         this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+    }
+
+    override prepareActorData(): void {
+        const { actor } = this;
+        if (!actor?.isOfType("character")) return;
+
+        // Apply this item's apex attribute upgrade if applicable
+        if (this.system.apex?.selected) {
+            if (actor.system.build.attributes.apex) {
+                this.system.apex.selected = false;
+            } else {
+                actor.system.build.attributes.apex = this.system.apex.attribute;
+            }
+        }
     }
 
     /** Can the provided item stack with this item? */
@@ -540,6 +574,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        // Clear the apex selection in case this is an apex item being copied from a previous owner
+        delete this._source.system.apex?.selected;
+
         this._source.system.equipped = { carryType: "worn" };
         const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
         if (isSlottedItem && this.actor?.isOfType("character")) {
@@ -600,6 +637,17 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = isSlotted;
         } else if ("inSlot" in this._source.system.equipped) {
             equipped["-=inSlot"] = null;
+        }
+
+        // Remove apex data if apex trait is no longer present
+        const changedTraits = changed.system?.traits?.value;
+        const hasApexTrait =
+            tupleHasValue(this._source.system.traits.value, "apex") &&
+            (!Array.isArray(changedTraits) || tupleHasValue(changedTraits, "apex"));
+        if (!hasApexTrait && this._source.system.apex) {
+            delete changed.system?.apex;
+            (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
+            changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
         }
 
         return super._preUpdate(changed, options, user);

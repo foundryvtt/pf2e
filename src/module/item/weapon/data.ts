@@ -163,7 +163,7 @@ interface WeaponSystemData
     stackGroup: null;
 }
 
-type SourceOmission = "bulk" | "description" | "hp" | "identification" | "price" | "temporary";
+type SourceOmission = "apex" | "bulk" | "description" | "hp" | "identification" | "price" | "temporary";
 
 type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 

@@ -53,7 +53,16 @@ interface ArmorSystemData
     stackGroup: null;
 }
 
-type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
+type SourceOmission =
+    | "apex"
+    | "bulk"
+    | "description"
+    | "hp"
+    | "identification"
+    | "material"
+    | "price"
+    | "temporary"
+    | "usage";
 
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
     otherTags: OtherArmorTag[];
