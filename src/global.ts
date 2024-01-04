@@ -135,6 +135,7 @@ interface GamePF2e
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
             metagame: {
+                breakdowns: boolean;
                 dcs: boolean;
                 partyStats: boolean;
                 partyVision: boolean;
@@ -266,6 +267,7 @@ declare global {
         get(module: "pf2e", setting: "metagame_partyVision"): boolean;
         get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame_showBreakdowns"): boolean;
         get(module: "pf2e", setting: "metagame_showDC"): boolean;
         get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
         get(module: "pf2e", setting: "metagame_showResults"): boolean;

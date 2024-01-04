@@ -1,7 +1,7 @@
 <section class="dice-roll damage-roll" data-tooltip-class="pf2e">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     <div class="dice-result">
-        <div class="dice-formula">{{{formula}}}</div>
+        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{{formula}}}</div>
         {{{tooltip}}}
         {{#unless (and allPersistent (not persistentEvaluated))}}
             <h4 class="dice-total">
@@ -10,7 +10,7 @@
                         <span class="increased-from">*</span>
                     {{~/if~}}
                 </span>
-                {{#if (gt instances.length 1)}}
+                {{#if showTotalInstances}}
                     <div class="instances">
                         (
                         {{~#each instances as |instance|~}}
