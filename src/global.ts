@@ -126,6 +126,10 @@ interface GamePF2e
                 enabled: boolean;
                 sections: FeatGroupOptions[];
             };
+            critFumble: {
+                buttons: boolean;
+                cards: boolean;
+            };
             /** Encumbrance automation */
             encumbrance: boolean;
             /** Immunities, weaknesses, and resistances */

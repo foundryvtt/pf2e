@@ -254,7 +254,7 @@ class DamageRoll extends AbstractDamageRoll {
             healingOnly: !damageKinds.has("damage"),
             allPersistent: this.instances.every((i) => i.persistent),
             persistentEvaluated: this.instances.some((i) => i.persistent && i.options.evaluatePersistent),
-            showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
+            showTripleDamage: game.pf2e.settings.critFumble.buttons,
         };
 
         return renderTemplate(template, chatData);
