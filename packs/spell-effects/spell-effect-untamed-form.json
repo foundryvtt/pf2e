@@ -53,6 +53,47 @@
                 "selector": "attack",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    }
+                ],
+                "flag": "dragonShapeResistance",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:dragon-shape",
+                    {
+                        "not": "self:effect:dragon-form"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feat:dragon-shape"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.dragonShapeResistance}",
+                "value": 5
             }
         ],
         "start": {
