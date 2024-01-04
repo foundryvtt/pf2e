@@ -331,7 +331,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         };
 
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
-            canApplyDamage($li) && game.settings.get("pf2e", "critFumbleButtons");
+            canApplyDamage($li) && game.pf2e.settings.critFumble.buttons;
 
         const canReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });

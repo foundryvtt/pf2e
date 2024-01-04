@@ -123,7 +123,9 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        requiresReload: true,
+        onChange: (value) => {
+            game.pf2e.settings.critFumble.cards = !!value;
+        },
     });
 
     const iconChoices = {

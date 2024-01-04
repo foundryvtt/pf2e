@@ -107,6 +107,10 @@ export const SetGamePF2e = {
                 enabled: game.settings.get("pf2e", "campaignFeats"),
                 sections: game.settings.get("pf2e", "campaignFeatSections"),
             },
+            critFumble: {
+                buttons: game.settings.get("pf2e", "critFumbleButtons"),
+                cards: game.settings.get("pf2e", "drawCritFumble"),
+            },
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
             metagame: {
