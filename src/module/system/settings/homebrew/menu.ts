@@ -317,7 +317,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
 
         for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
+            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
             if (!R.isObject(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
@@ -440,7 +440,7 @@ class DamageTypeManager {
         // Read module damage types
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
+            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
             if (!R.isObject(homebrew) || !homebrew.damageTypes) continue;
 
             const elements = homebrew.damageTypes;
