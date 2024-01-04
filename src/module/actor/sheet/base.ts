@@ -467,7 +467,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     if (!action) {
                         throw ErrorPF2e(`Unexpecteed error retrieving action ${actionSlug}`);
                     }
-                    return action({ event });
+                    return action({ event, actors: [this.actor] });
                 }
 
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
