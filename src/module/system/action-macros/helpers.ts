@@ -11,7 +11,7 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
@@ -99,7 +99,7 @@ export class ActionMacroHelpers {
         outcome: DegreeOfSuccessString,
         translationKey?: string,
     ): RollNotePF2e {
-        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const visible = game.pf2e.settings.metagame.results;
         const outcomes = visible ? [outcome] : [];
         return new RollNotePF2e({
             selector,
@@ -109,7 +109,7 @@ export class ActionMacroHelpers {
     }
 
     static outcomesNote(selector: string, translationKey: string, outcomes: DegreeOfSuccessString[]): RollNotePF2e {
-        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const visible = game.pf2e.settings.metagame.results;
         const visibleOutcomes = visible ? outcomes : [];
         return new RollNotePF2e({
             selector: selector,
