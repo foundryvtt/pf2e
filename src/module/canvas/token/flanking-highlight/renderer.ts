@@ -30,27 +30,23 @@ class FlankingHighlightRenderer {
      * Canvas must be ready with a scene in focus, the user must own or have selected this token,
      * and the token must not be a preview or animating.
      */
-    get shouldRender(): boolean {
-        return canvas.ready && !!canvas.scene?.isInFocus && this.tokenIsSelectedOrOwn && this.tokenIsReady;
+    get #shouldRender(): boolean {
+        return canvas.ready && !!canvas.scene && this.#tokenIsEligible;
     }
 
-    /** To be valid, token must be selected by owner or be user's character */
-    get tokenIsSelectedOrOwn(): boolean {
-        return (
-            (this.token.controlled && this.token.isOwner) ||
-            (!!this.token.actor && this.token.actor?.id === game.user.character?.id)
+    /** The token must be controlled or the user's assigned character, and it must not be a preview or animating. */
+    get #tokenIsEligible(): boolean {
+        return !!(
+            ((this.token.controlled && this.token.isOwner) ||
+                (this.token.actor && this.token.actor?.id === game.user.character?.id)) &&
+            !(this.token.isPreview || this.token.isAnimating)
         );
-    }
-
-    /** To be valid, this token must not be preview or be animating */
-    get tokenIsReady(): boolean {
-        return !this.token.isPreview && !this.token.isAnimating;
     }
 
     /** Draw flanking highlight if conditions are met */
     draw(): void {
         this.clear();
-        if (canvas.tokens.highlightObjects && game.user.targets.size && this.shouldRender) {
+        if (canvas.tokens.highlightObjects && game.user.targets.size && this.#shouldRender) {
             for (const target of game.user.targets) {
                 this.drawForTarget(target);
             }
