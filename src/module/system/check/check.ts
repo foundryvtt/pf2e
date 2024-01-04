@@ -442,7 +442,7 @@ class CheckPF2e {
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
-        let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
+        let [oldRollClass, newRollClass] = ["reroll-discard", ""];
 
         // Check if we should keep the old roll instead.
         if (
@@ -485,7 +485,7 @@ class CheckPF2e {
         };
 
         const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
-        rerollIcon.classList.add("pf2e-reroll-indicator");
+        rerollIcon.classList.add("reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
         const oldFlavor = message.flavor ?? "";
@@ -531,7 +531,7 @@ class CheckPF2e {
         await message.delete({ render: false });
         await keptRoll.toMessage(
             {
-                content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
+                content: `<div class="${oldRollClass}">${renders.old}</div><div class="reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
                 speaker: message.speaker,
                 flags: {
