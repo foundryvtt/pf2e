@@ -4,7 +4,7 @@
     "name": "Spell Effect: Healer's Blessing",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Healer's Blessing]</em></p>\n<p>When the target regains Hit Points from a healing spell, it regains 2 additional Hit Points. The target regains additional Hit Points from healer's blessing only the first time it regains HP from a given healing spell, so a spell that heals the creature repeatedly over a duration would restore additional Hit Points only once.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Healer's Blessing]</p>\n<p>When the target regains Hit Points from a healing vitality spell, it regains 2 additional Hit Points. The target regains additional Hit Points from healer's blessing only the first time it regains HP from a given healing spell, so a spell that heals the creature repeatedly over a duration would restore additional Hit Points only once.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,16 +16,17 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
                     "item:type:spell",
-                    "item:trait:healing"
+                    "item:trait:healing",
+                    "vitality"
                 ],
                 "selector": "healing-received",
                 "value": "2 * @item.level"
