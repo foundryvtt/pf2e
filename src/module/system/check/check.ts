@@ -268,7 +268,7 @@ class CheckPF2e {
             };
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
-            const { rollMode } = contextFlag;
+            const rollMode = contextFlag.rollMode;
             const create = context.createMessage;
 
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
@@ -322,7 +322,7 @@ class CheckPF2e {
                 .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                 .map((t) => toTagElement(t)) ?? [];
 
-        const { item } = context;
+        const item = context.item;
         const itemTraits =
             item?.isOfType("weapon", "melee") && context.type !== "saving-throw"
                 ? Array.from(item.traits)
@@ -455,11 +455,11 @@ class CheckPF2e {
         }
 
         const degree = ((): DegreeOfSuccess | null => {
-            const { dc } = context;
+            const dc = context.dc;
             if (!dc) return null;
             if (dc.slug === "armor") {
                 const targetActor = ((): ActorPF2e | null => {
-                    const { target } = context;
+                    const target = context.target;
                     if (!target?.actor) return null;
 
                     const maybeActor = fromUuidSync(target.actor);
@@ -522,7 +522,7 @@ class CheckPF2e {
             : oldFlavor;
 
         // If this was an initiative roll, apply the result to the current encounter
-        const { initiativeRoll } = message.flags.core;
+        const initiativeRoll = message.flags.core.initiativeRoll;
         if (initiativeRoll) {
             const combatant = message.token?.combatant;
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
@@ -568,7 +568,7 @@ class CheckPF2e {
     static async #createResultFlavor({ degree, target }: CreateResultFlavorParams): Promise<HTMLElement | null> {
         if (!degree) return null;
 
-        const { dc } = degree;
+        const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
         const customLabel =
             needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : dc.label ?? null;
@@ -609,7 +609,7 @@ class CheckPF2e {
             };
         })();
 
-        const { checkDCs } = CONFIG.PF2E;
+        const checkDCs = CONFIG.PF2E.checkDCs;
 
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): ResultFlavorTemplateData["dc"] => {
@@ -700,14 +700,14 @@ class CheckPF2e {
         });
 
         const html = parseHTML(rendered);
-        const { convertXMLNode } = TextEditorPF2e;
+        const convertXMLNode = TextEditorPF2e.convertXMLNode;
 
         if (targetData) {
             convertXMLNode(html, "target", { visible: targetData.visible, whose: "target" });
         }
         convertXMLNode(html, "dc", { visible: dcData.visible, whose: "target" });
-        if (dcData.adjustment) {
-            const { adjustment } = dcData;
+        const adjustment = dcData.adjustment;
+        if (adjustment) {
             convertXMLNode(html, "preadjusted", { classes: ["unadjusted"] });
 
             // Add circumstance bonuses/penalties for tooltip content
