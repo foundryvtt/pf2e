@@ -64,7 +64,7 @@ $faded-color: #7a7971;
         column-gap: 0.25em;
         list-style: none;
         margin-top: 0;
-        padding: 0 0.125rem;
+        padding: 0 var(--space-size-2);
 
         li {
             &::after {
@@ -380,6 +380,11 @@ $faded-color: #7a7971;
         text-transform: uppercase;
     }
 
+    ul.option-toggles > li label {
+        display: flex;
+        align-items: center;
+    }
+
     .effects-list {
         display: flex;
         flex-flow: row wrap;
@@ -388,7 +393,7 @@ $faded-color: #7a7971;
 
         .separator {
             border-left: 2px solid var(--color-rarity-common);
-            flex: 0 0 1px;
+            flex: 0 0 var(--space-size-1);
             height: 2rem;
             margin-right: 0.25rem;
         }
@@ -447,7 +452,6 @@ $faded-color: #7a7971;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
-        padding: 0.1rem 0.25rem;
 
         .action {
             width: 100%;
@@ -469,7 +473,7 @@ $faded-color: #7a7971;
         input[type="number"] {
             flex: 0;
             font-weight: normal;
-            margin: 1px 0.25rem;
+            margin: var(--space-size-1) var(--space-size-4);
             margin-left: auto;
             min-width: 2.5em;
             padding-right: 1px;
@@ -520,10 +524,6 @@ $faded-color: #7a7971;
             padding: 0.25rem;
         }
 
-        &.headerless .section-body {
-            border-radius: 3px;
-        }
-
         &.skills > .section-body {
             .list {
                 display: flex;
@@ -536,24 +536,20 @@ $faded-color: #7a7971;
                 align-items: center;
 
                 .breakdown {
-                    background: var(--secondary);
-                    border-radius: 3px;
+                    background: var(--color-pf-secondary);
                     border: none;
                     box-shadow:
-                        inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-                        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                        inset 0 0 0 1px rgba(black, 0.3),
+                        inset 0 0 0 2px rgba(white, 0.2);
                     color: var(--text-light);
-                    cursor: pointer;
-                    font-family: var(--sans-serif);
-                    font-size: var(--font-size-9);
-                    line-height: var(--font-size-15);
-                    padding: 2px 0.25rem 0;
+                    font: var(--font-size-9) / var(--font-size-15) var(--sans-serif);
+                    padding: var(--space-size-2) var(--space-size-4) 0;
                     text-transform: uppercase;
                     width: auto;
 
                     &:hover {
                         box-shadow: none;
-                        text-shadow: 0 0 2px white;
+                        text-shadow: 0 0 2px var(--color-text-light-0);
                     }
                 }
             }
