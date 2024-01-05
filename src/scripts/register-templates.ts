@@ -150,6 +150,9 @@ export function registerTemplates(): void {
 
         // Partials for multiple document types
         "systems/pf2e/templates/partials/publication-data.hbs",
+
+        // misc partials
+        "systems/pf2e/templates/system/settings/basic-setting.hbs",
     ];
 
     loadTemplates(templatePaths);
