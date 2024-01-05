@@ -196,8 +196,7 @@ export class DamagePF2e {
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options),
         );
-        const notesList = RollNotePF2e.notesToHTML(notes);
-        flavor += notesList.outerHTML;
+        flavor += RollNotePF2e.notesToHTML(notes)?.outerHTML ?? "";
 
         const { self, target } = context;
         const item = self?.item ?? null;
