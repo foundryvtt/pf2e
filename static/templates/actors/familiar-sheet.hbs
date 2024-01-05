@@ -1,6 +1,6 @@
-<form class="{{cssClass}}" autocomplete="off" spellcheck="false">
-    <!-- HEADER -->
-    <header class="familiar-sheet-header">
+<form class="{{cssClass}}" autocomplete="off" spellcheck="false" data-tooltip-class="pf2e">
+    {{!-- HEADER --}}
+    <header>
         <div class="image-container">
             <img class="actor-image" src="{{actor.img}}" data-edit="img" />
             <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
@@ -23,8 +23,8 @@
                     <span>{{localize size}}</span>
                 </div>
                 <div>
-                    <label for="{{actor._id}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
-                    <select id="{{actor._id}}-master" name="system.master.id">
+                    <label for="{{document.uuid}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
+                    <select id="{{document.uuid}}-master" name="system.master.id">
                         {{#select master.id}}
                             <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
                             {{#each masters as |eligible idx|}}
@@ -96,53 +96,53 @@
                     <div class="skills-content">
                         {{#if data.master.id}}
                             <div class="skills-list">
-                                <div class="skill-name rollable perception" data-tooltip="{{data.perception.breakdown}}" data-action="perception-check">
-                                    <div class="score">{{numberFormat data.perception.totalModifier decimals=0 sign=true}}</div>
+                                <a data-action="roll-check" data-statistic="perception" data-tooltip="{{data.perception.breakdown}}">
+                                    <div class="mod">{{numberFormat data.perception.totalModifier sign=true}}</div>
                                     <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
-                                </div>
+                                </a>
                             </div>
                             <div class="skills-list">
                                 {{#each skills as |skill|}}
-                                    <div class="skill-name rollable" data-tooltip="{{skill.breakdown}}" data-skill="{{skill.slug}}">
-                                        <div class="score">{{numberFormat skill.value decimals=0 sign=true}}</div>
+                                    <a data-action="roll-check" data-statistic="{{skill.slug}}" data-tooltip="{{skill.breakdown}}">
+                                        <div class="mod">{{numberFormat skill.value sign=true}}</div>
                                         <div class="name">{{skill.label}}</div>
-                                    </div>
+                                    </a>
                                 {{/each}}
                             </div>
-                            <div class="rollable skills-attack" data-action="familiar-attack-roll" data-tooltip="{{data.attack.breakdown}}">
+                            <a class="rollable skills-attack" data-action="familiar-attack-roll" data-tooltip="{{data.attack.breakdown}}">
                                 <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
-                                <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
-                            </div>
+                                <span>{{numberFormat data.attack.value sign=true}}</span>
+                            </a>
                         {{/if}}
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-container">
-            <!-- FAMILIAR -->
             <div class="familiar-section section-container">
                 <div class="section-header">
                     <h4>{{localize "PF2E.Familiar.Familiar"}}</h4>
                 </div>
                 <div class="section-body">
                     <div class="familiar-content">
-                        <!-- Species Name -->
+                        {{!-- Textual "creature type" --}}
                         <div class="familiar-species">
                             <div class="detail">
-                                <div class="detail-label" for="{{actor._id}}-species">{{localize "PF2E.Familiar.CreatureType"}}</div>
-                                <input id="{{actor._id}}-species" type="text" name="system.details.creature.value"
+                                <label for="{{document.uuid}}-creature">{{localize "PF2E.Familiar.CreatureType"}}</label>
+                                <input id="{{document.uuid}}-creature" type="text" name="system.details.creature.value"
                                     value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc." />
                             </div>
                         </div>
-                        <!-- Master Ability Modifier -->
+
+                        {{!-- Master Attribute --}}
                         {{#if data.master.id}}
                             <div class="familiar-modifier">
                                 <div class="detail">
-                                    <div class="detail-label">{{localize "PF2E.Familiar.MasterSpellcastingAbility"}}</div>
-                                    <select id="{{actor._id}}-spellcasting-ability" name="system.master.ability">
+                                    <label for="{{document.uuid}}-attribute">{{localize "PF2E.Familiar.MasterSpellcastingAbility"}}</label>
+                                    <select id="{{document.uuid}}-attribute" name="system.master.ability">
                                         {{#select data.master.ability}}
-                                            {{#each abilities as |ability abbr|}}
-                                                <option value="{{abbr}}">{{localize ability}}</option>
+                                            {{#each attributes as |label slug|}}
+                                                <option value="{{slug}}">{{localize label}}</option>
                                             {{/each}}
                                         {{/select}}
                                     </select>
@@ -153,7 +153,7 @@
                     {{#if data.master.id}}
                         <div class="familiar-content">
                             <div class="detail">
-                                <div class="detail-label">{{localize "PF2E.Familiar.TotalNumberFamiliarAbilities"}}</div>
+                                <label>{{localize "PF2E.Familiar.TotalNumberFamiliarAbilities"}}</label>
                                 <div>
                                     <h4>{{numberFormat familiarAbilities.value decimals=0}}</h4>
                                 </div>
@@ -163,7 +163,7 @@
                             {{!-- Speed --}}
                             <div class="familiar-senses">
                                 <div class="detail">
-                                    <div class="detail-label">{{localize "PF2E.Actor.Speed.Plural"}}</div>
+                                    <label>{{localize "PF2E.Actor.Speed.Plural"}}</label>
                                     <ol class="tags speeds">
                                         {{#with data.attributes.speed as |landSpeed|}}
                                             <li class="tag tag_alt" data-tooltip="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
@@ -181,12 +181,10 @@
                             {{!-- Senses --}}
                             <div class="familiar-senses">
                                 <div class="detail">
-                                    <div class="detail-label">{{localize "PF2E.Senses"}}</div>
+                                    <label>{{localize "PF2E.Senses"}}</label>
                                     <ol class="tags senses">
-                                        {{#each data.traits.senses as |sense k|}}
-                                            <li class="tag tag_alt {{k}}">
-                                                {{localize sense.label}}
-                                            </li>
+                                        {{#each data.perception.senses as |sense|}}
+                                            <li class="tag tag_alt {{sense.slug}}">{{localize sense.label}}</li>
                                         {{/each}}
                                     </ol>
                                 </div>
@@ -196,12 +194,12 @@
                 </div>
             </div>
 
-            <!-- ABILITIES -->
+            {{!-- ABILITIES --}}
             <div class="section-container">
                 <div class="section-header">
                     <h4>{{localize "PF2E.Familiar.AbilitiesLabel"}}</h4>
                     <div class="controls">
-                        <a class="action-browse" data-action-category="familiar"><i class="fa-solid fa-search"></i> {{localize "PF2E.BrowseLabel"}}</a>
+                        <a data-action="browse-abilities" data-action-category="familiar"><i class="fa-solid fa-search"></i> {{localize "PF2E.BrowseLabel"}}</a>
                     </div>
                 </div>
                 <div class="section-body">
@@ -213,7 +211,7 @@
                 </div>
             </div>
 
-            <!-- CONDITIONS -->
+            {{!-- CONDITIONS --}}
             {{#if document.itemTypes.condition}}
                 <div class="section-container">
                     <div class="section-header">
@@ -226,7 +224,7 @@
                     </div>
                 </div>
             {{/if}}
-            <!-- EFFECTS -->
+            {{!-- EFFECTS --}}
             {{#if document.itemTypes.effect}}
                 <div class="section-container">
                     <div class="section-header">
