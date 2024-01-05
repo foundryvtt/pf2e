@@ -228,8 +228,7 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return [header, result ?? [], tags, notesList]
-                .flat()
+            return R.compact([header, result ?? [], tags, notesList].flat())
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
         })();

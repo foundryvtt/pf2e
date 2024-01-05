@@ -1,6 +1,6 @@
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { RawPredicate, PredicatePF2e } from "@system/predication.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { createHTMLElement } from "@util";
 import type { RuleElementPF2e } from "./rules/index.ts";
 
@@ -30,7 +30,9 @@ class RollNotePF2e {
         this.rule = params.rule ?? null;
     }
 
-    static notesToHTML(notes: RollNotePF2e[]): HTMLUListElement {
+    /** Convert an array of notes to a UL element, or null if the array is empty. */
+    static notesToHTML(notes: RollNotePF2e[]): HTMLUListElement | null {
+        if (notes.length === 0) return null;
         return createHTMLElement("ul", {
             classes: ["notes"],
             children: notes.flatMap((n) => ["\n", n.toHTML()]).slice(1),
