@@ -114,6 +114,7 @@ export const SetGamePF2e = {
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
             metagame: {
+                breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
                 dcs: game.settings.get("pf2e", "metagame_showDC"),
                 partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
                 partyVision: game.settings.get("pf2e", "metagame_partyVision"),

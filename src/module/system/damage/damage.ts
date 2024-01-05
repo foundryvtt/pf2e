@@ -135,11 +135,21 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
+        const showBreakdown = game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner;
         const breakdown = Array.isArray(data.damage.breakdown)
             ? data.damage.breakdown
             : data.damage.breakdown[outcome ?? "success"];
-        const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
-        flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
+        const breakdownTags = breakdown.map((b) =>
+            createHTMLElement("span", {
+                classes: ["tag", "tag_transparent"],
+                dataset: { visibility: showBreakdown ? null : "gm" },
+                children: [b],
+            }),
+        );
+        flavor +=
+            breakdownTags.length > 0
+                ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: breakdownTags }).outerHTML
+                : "";
 
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
@@ -169,6 +179,7 @@ export class DamagePF2e {
                 degreeOfSuccess,
                 critRule,
                 ignoredResistances: damage.ignoredResistances,
+                showBreakdown,
             };
 
             return new DamageRoll(formula, {}, options).evaluate({ async: true });

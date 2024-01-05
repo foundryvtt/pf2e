@@ -4,6 +4,18 @@
     @import "action", "check", "damage", "reroll";
 
     .message-header .flavor-text {
+        .modifiers .tag[data-visibility="gm"] {
+            border-radius: 4px;
+            box-shadow: none;
+        }
+
+        .modifiers:has(.tag[data-visibility="gm"]) {
+            // Enlarge gap and bottom margin by a pixel due to `[data-visibility]` elements having outlines instead of
+            // borders
+            gap: var(--space-size-3);
+            margin-bottom: var(--space-size-3);
+        }
+
         ul.notes {
             display: block;
             line-height: 1.5em;
@@ -20,5 +32,16 @@
 
     > .message-content {
         @import "conditions";
+
+        .dice-roll {
+            .dice-result > [data-visibility="gm"] {
+                background: var(--visibility-gm-bg);
+                border: 1px dotted rgba(75, 74, 68, 0.5);
+            }
+
+            .dice-tooltip[data-visibility="gm"] {
+                padding: var(--space-size-2) var(--space-size-2) 0;
+            }
+        }
     }
 }

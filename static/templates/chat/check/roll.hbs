@@ -5,7 +5,7 @@
         </div>
     {{~/if}}
     <div class="dice-result">
-        <div class="dice-formula">{{formula}}</div>
+        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{formula}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">{{total}}</h4>
     </div>

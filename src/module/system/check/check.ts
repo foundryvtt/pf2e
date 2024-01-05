@@ -147,11 +147,12 @@ class CheckPF2e {
             type: context.type,
             identifier: context.identifier,
             action: context.action ? sluggify(context.action) || null : null,
-            rollerId: game.userId,
+            domains: context.domains,
             isReroll,
             totalModifier: check.totalModifier,
             damaging: !!context.damaging,
-            domains: context.domains,
+            rollerId: game.userId,
+            showBreakdown: game.pf2e.settings.metagame.breakdowns || !!context.actor?.hasPlayerOwner,
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
@@ -363,18 +364,22 @@ class CheckPF2e {
             traitsAndProperties.append(...[traits, verticalBar, itemTraits, properties].flat());
         }
 
+        const showBreakdown = game.pf2e.settings.metagame.breakdowns || !!context.actor?.hasPlayerOwner;
         const modifiers = check.modifiers
             .filter((m) => m.enabled)
             .map((modifier) => {
                 const sign = modifier.modifier < 0 ? "" : "+";
                 const label = `${modifier.label} ${sign}${modifier.modifier}`;
-                return toTagElement({ name: modifier.slug, label }, "transparent");
+                const tag = toTagElement({ name: modifier.slug, label }, "transparent");
+                if (!showBreakdown) tag.dataset.visibility = "gm";
+                return tag;
             });
         const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
-        const modifiersAndExtras = createHTMLElement("div", {
-            classes: ["tags", "modifiers"],
-            children: [...modifiers, ...tagsFromOptions],
-        });
+        const rollTags = [...modifiers, ...tagsFromOptions];
+        const modifiersAndExtras =
+            rollTags.length > 0
+                ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: rollTags })
+                : null;
 
         return R.compact([
             traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
@@ -486,7 +491,7 @@ class CheckPF2e {
 
         const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
         rerollIcon.classList.add("reroll-indicator");
-        rerollIcon.setAttribute("title", rerollFlavor);
+        rerollIcon.dataset.tooltip = rerollFlavor;
 
         const oldFlavor = message.flavor ?? "";
         context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
