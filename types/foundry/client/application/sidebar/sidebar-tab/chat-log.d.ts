@@ -84,7 +84,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
      * @param message The message to match
      * @return The identified command and regex match
      */
-    static parse(message: string): string[];
+    static parse(message: string): [string, RegExpMatchArray];
 
     /**
      * Post a single chat message to the log
@@ -138,6 +138,14 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
         chatData: DeepPartial<foundry.documents.ChatMessageSource>,
         createOptions: ChatMessageModificationContext,
     ): Promise<void>;
+
+    /**
+     * Process messages which execute a macro.
+     * @param {string} command  The chat command typed.
+     * @param {RegExpMatchArray} match  The RegExp matches.
+     * @private
+     */
+    protected _processMacroCommand(command: string, match: RegExpMatchArray): unknown;
 
     protected _contextMenu(html: JQuery): void;
 
