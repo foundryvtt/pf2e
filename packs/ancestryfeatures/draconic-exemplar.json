@@ -30,49 +30,85 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Black",
-                        "value": "black"
+                        "value": {
+                            "damageType": "acid",
+                            "dragon": "black"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Blue",
-                        "value": "blue"
+                        "value": {
+                            "damageType": "electricity",
+                            "dragon": "blue"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Green",
-                        "value": "green"
+                        "value": {
+                            "damageType": "poison",
+                            "dragon": "green"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Red",
-                        "value": "red"
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "red"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.White",
-                        "value": "white"
+                        "value": {
+                            "damageType": "cold",
+                            "dragon": "white"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Brass",
-                        "value": "brass"
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "brass"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Bronze",
-                        "value": "bronze"
+                        "value": {
+                            "damageType": "electricity",
+                            "dragon": "bronze"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Copper",
-                        "value": "copper"
+                        "value": {
+                            "damageType": "acid",
+                            "dragon": "copper"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Gold",
-                        "value": "gold"
+                        "value": {
+                            "damageType": "fire",
+                            "dragon": "gold"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.DragonDisciple.DragonChoice.Silver",
-                        "value": "silver"
+                        "value": {
+                            "damageType": "cold",
+                            "dragon": "silver"
+                        }
                     }
                 ],
                 "flag": "draconicExemplar",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.DragonDisciple.Prompt",
                 "rollOption": "self:feature:draconic-exemplar"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.draconicExemplar.damageType",
+                "value": "{item|flags.pf2e.rulesSelections.draconicExemplar.damageType}"
             }
         ],
         "traits": {
