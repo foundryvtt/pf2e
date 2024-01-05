@@ -152,7 +152,10 @@ class CheckPF2e {
             totalModifier: check.totalModifier,
             damaging: !!context.damaging,
             rollerId: game.userId,
-            showBreakdown: game.pf2e.settings.metagame.breakdowns || !!context.actor?.hasPlayerOwner,
+            showBreakdown:
+                context.type === "flat-check" ||
+                game.pf2e.settings.metagame.breakdowns ||
+                !!context.actor?.hasPlayerOwner,
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
