@@ -39,7 +39,6 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         );
 
         // list of abilities that can be selected as spellcasting ability
-        const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
         const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
@@ -58,15 +57,15 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
         return {
             ...sheetData,
-            master: this.actor.master,
-            masters,
-            abilities,
-            size,
-            skills,
+            attributes: CONFIG.PF2E.abilities,
             familiarAbilities: {
                 value: familiarAbilities?.value ?? 0,
                 items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
             },
+            master: this.actor.master,
+            masters,
+            size,
+            skills,
         };
     }
 
@@ -81,13 +80,13 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 }
 
 interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetData<TActor> {
-    master: CharacterPF2e | null;
-    masters: CharacterPF2e[];
-    abilities: ConfigPF2e["PF2E"]["abilities"];
-    size: string;
-    skills: StatisticTraceData[];
+    attributes: typeof CONFIG.PF2E.abilities;
     familiarAbilities: {
         value: number;
         items: AbilityItemPF2e[];
     };
+    master: CharacterPF2e | null;
+    masters: CharacterPF2e[];
+    size: string;
+    skills: StatisticTraceData[];
 }
