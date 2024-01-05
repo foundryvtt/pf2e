@@ -1,4 +1,5 @@
 import { LANGUAGES, LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
+import { resetActors } from "@actor/helpers.ts";
 import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { MigrationBase } from "@module/migration/base.ts";
@@ -78,10 +79,35 @@ class HomebrewElements extends SettingsMenuPF2e {
         };
     }
 
+    protected static campaignSettings = {
+        campaignFeats: {
+            name: "PF2E.SETTINGS.CampaignFeats.Name",
+            hint: "PF2E.SETTINGS.CampaignFeats.Hint",
+            default: false,
+            type: Boolean,
+            onChange: (value) => {
+                game.pf2e.settings.campaign.enabled = !!value;
+                resetActors(game.actors.filter((a) => a.isOfType("character")));
+            },
+        },
+        campaignType: {
+            name: "PF2E.SETTINGS.CampaignType.Name",
+            hint: "PF2E.SETTINGS.CampaignType.Hint",
+            default: "none",
+            choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
+            type: String,
+            onChange: async () => {
+                await resetActors(game.actors.filter((a) => a.isOfType("party")));
+                ui.sidebar.render();
+            },
+        },
+    } satisfies Record<string, PartialSettingsData>;
+
     protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData> {
         return HOMEBREW_TRAIT_KEYS.reduce(
             (result, key) => {
                 result[key] = {
+                    prefix: "homebrew.",
                     name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
                     hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
                     default: [],
@@ -96,8 +122,10 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     protected static override get settings(): Record<HomebrewKey, PartialSettingsData> {
         return {
+            ...this.campaignSettings,
             ...this.traitSettings,
             damageTypes: {
+                prefix: "homebrew.",
                 name: "PF2E.SETTINGS.Homebrew.DamageTypes.Name",
                 default: [],
                 type: Object,
@@ -106,6 +134,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                 },
             },
             languageRarities: {
+                prefix: "homebrew.",
                 name: "PF2E.Settings.Homebrew.Languages.Rarities.Name",
                 type: LanguageRaritiesData,
                 default: {
@@ -182,13 +211,13 @@ class HomebrewElements extends SettingsMenuPF2e {
         const data = await super.getData();
         this.languagesManager ??= new LanguagesManager(this);
 
-        const traitSettings = settingsToSheetData(this.constructor.traitSettings, this.cache, this.prefix);
         const damageCategories = R.pick(CONFIG.PF2E.damageCategories, ["physical", "energy"]);
         const languageRarities = this.languagesManager.getSheetData();
 
         return {
             ...data,
-            traitSettings,
+            campaignSettings: settingsToSheetData(this.constructor.campaignSettings, this.cache),
+            traitSettings: settingsToSheetData(this.constructor.traitSettings, this.cache),
             languageRarities,
             damageCategories,
             customDamageTypes: (this.cache.damageTypes ?? []).map((customType) => ({

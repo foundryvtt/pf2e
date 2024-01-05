@@ -1,8 +1,9 @@
 import { resetActors } from "@actor/helpers.ts";
-import { SettingsMenuPF2e } from "./menu.ts";
+import { PartialSettingsData, SettingsMenuPF2e } from "./menu.ts";
 
 const MetagameSettingsConfig = {
     showDC: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.ShowDC.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowDC.Hint",
         default: false,
@@ -12,6 +13,7 @@ const MetagameSettingsConfig = {
         },
     },
     showResults: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.ShowResults.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
         default: true,
@@ -21,6 +23,7 @@ const MetagameSettingsConfig = {
         },
     },
     showBreakdowns: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.ShowBreakdowns.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowBreakdowns.Hint",
         default: false,
@@ -30,18 +33,21 @@ const MetagameSettingsConfig = {
         },
     },
     secretDamage: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.SecretDamage.Name",
         hint: "PF2E.SETTINGS.Metagame.SecretDamage.Hint",
         default: false,
         type: Boolean,
     },
     secretCondition: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.SecretCondition.Name",
         hint: "PF2E.SETTINGS.Metagame.SecretCondition.Hint",
         default: false,
         type: Boolean,
     },
     partyVision: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.PartyVision.Name",
         hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
         default: false,
@@ -54,6 +60,7 @@ const MetagameSettingsConfig = {
         },
     },
     showPartyStats: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.ShowPartyStats.Name",
         hint: "PF2E.SETTINGS.Metagame.ShowPartyStats.Hint",
         default: true,
@@ -64,6 +71,7 @@ const MetagameSettingsConfig = {
         },
     },
     tokenSetsNameVisibility: {
+        prefix: "metagame_",
         name: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Name",
         hint: "PF2E.SETTINGS.Metagame.TokenSetsNameVisibility.Hint",
         default: false,
@@ -79,7 +87,7 @@ const MetagameSettingsConfig = {
             }
         },
     },
-};
+} satisfies Record<string, PartialSettingsData>;
 
 class MetagameSettings extends SettingsMenuPF2e {
     static override namespace = "metagame";
@@ -90,10 +98,6 @@ class MetagameSettings extends SettingsMenuPF2e {
 
     static override get SETTINGS(): string[] {
         return Object.keys(this.settings);
-    }
-
-    static override get prefix(): string {
-        return `${this.namespace}_`;
     }
 }
 

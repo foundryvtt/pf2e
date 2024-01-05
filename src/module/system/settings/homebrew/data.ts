@@ -49,6 +49,7 @@ interface CustomDamageData {
 }
 
 interface HomebrewElementsSheetData extends MenuTemplateData {
+    campaignSettings: Record<string, SettingsTemplateData>;
     traitSettings: Record<string, SettingsTemplateData>;
     languageRarities: LanguageRaritiesSheetData;
     damageCategories: Record<MainDamageCategories, string>;
