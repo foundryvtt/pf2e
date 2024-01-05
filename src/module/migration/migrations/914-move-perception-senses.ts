@@ -87,7 +87,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 key: "ActiveEffectLike",
                 mode: "add",
                 path: "system.build.languages.max",
-                value: "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1), 0)",
+                value: "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))",
             };
             source.system.rules = [rule];
             source.system.subfeatures = {
