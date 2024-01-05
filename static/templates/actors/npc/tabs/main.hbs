@@ -6,7 +6,7 @@
     <div class="recall-knowledge section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
-            <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
+            <button type="button" class="breakdown" data-action="open-recall-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
         <div class="section-body">
             {{#if identificationDCs.standard}}
@@ -27,17 +27,24 @@
             {{!-- ATTRIBUTE MODIFIERS --}}
             <div class="section-body">
                 <div class="list">
-                    {{#each data.abilities as |ability id|}}
-                        <div class="labelled-field" data-attribute="{{id}}">
-                            <a class="rollable">{{ability.localizedCode}}</a>
-                            <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
+                    {{#each data.abilities as |attribute slug|}}
+                        <div class="labeled-field" data-attribute="{{slug}}">
+                            <a data-action="roll-attribute">{{localize attribute.shortLabel}}</a>
+                            <input
+                                class="modifier"
+                                type="text"
+                                data-property="system.abilities.{{slug}}.mod"
+                                value="{{numberFormat attribute.mod decimals=0 sign=true}}"
+                                data-dtype="Number"
+                                placeholder="0"
+                            />
                         </div>
                     {{/each}}
                 </div>
             </div>
         </div>
 
-        {{!-- SENSES --}}
+        {{!-- PERCEPTION & SENSES --}}
         <div class="senses section-container">
             <div class="section-header">
                 <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
@@ -48,8 +55,13 @@
                 {{/if}}
             </div>
             <div class="section-body">
-                <div class="perception labelled-field" data-attribute="perception">
-                    <a class="attribute-label rollable">{{localize "PF2E.PerceptionLabel"}}</a>
+                <div class="perception labeled-field">
+                    <a
+                        class="attribute-label roll"
+                        data-action="roll-check"
+                        data-statistic="perception"
+                        data-tooltip="{{data.perception.breakdown}}"
+                    >{{localize "PF2E.PerceptionLabel"}}</a>
                     <input
                         type="text"
                         value="{{numberFormat data.perception.mod decimals=0 sign=true}}"
@@ -110,19 +122,23 @@
             <h4>{{localize "PF2E.SkillsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="skills-controls controls" for="data.skills">
-                    <a class="skills-edit edit" data-options="skill" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
+                    <a data-action="edit-skills" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
         <div class="section-body">
             <div class="list">
-                {{#each data.sortedSkills as |skill id|}}
+                {{#each data.sortedSkills as |skill slug|}}
                     {{#if skill.visible}}
-                        <div class="skill-entry tag-legacy" data-skill="{{id}}">
-                            <a class="rollable">{{skill.label}} <span class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}">{{numberFormat skill.value decimals=0 sign=true}}</span></a>
+                        <div class="skill-entry tag-legacy" data-statistic="{{skill.slug}}">
+                            <a class="roll" data-action="roll-check" data-tooltip="{{skill.breakdown}}">{{skill.label}}
+                                <span
+                                    class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}"
+                                >{{numberFormat skill.value sign=true}}</span>
+                            </a>
                             {{#if skill.variants}}
                                 {{#each skill.variants as |variant variantId|}}
-                                    <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{variant.label}})</a>
+                                    <a class="roll" data-action="roll-check" data-options="{{variant.options}}">({{variant.label}})</a>
                                 {{/each}}
                             {{/if}}
                         </div>

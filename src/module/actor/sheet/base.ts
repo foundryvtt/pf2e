@@ -440,7 +440,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "roll-check": async (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
-                const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
+                // Currently only used on NPC sheets for skill variants
+                const extraRollOptions = R.compact(anchor.dataset.options?.split(",").map((o) => o.trim()) ?? []);
+                const args: StatisticRollParameters = {
+                    ...eventToRollParams(event, { type: "check" }),
+                    extraRollOptions,
+                };
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }

@@ -1,15 +1,14 @@
 import type { NPCPF2e } from "@actor";
-import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data.ts";
+import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
-import { AttributeString, MovementType } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values.ts";
+import { MovementType } from "@actor/types.ts";
+import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/values.ts";
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import {
     getActionGlyph,
     getActionIcon,
@@ -17,7 +16,6 @@ import {
     htmlQuery,
     htmlQueryAll,
     localizeList,
-    objectHasKey,
     setHasElement,
     tagify,
 } from "@util";
@@ -40,9 +38,10 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        options.classes.push("pf2e", "npc");
+
         return {
             ...options,
-            classes: [...options.classes, "pf2e", "npc", "simple"],
             scrollY: [".sidebar", ".inventory-list"],
         };
     }
@@ -52,7 +51,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
      * @param sheetData Data from the actor associated to this sheet.
      */
     override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
-        this.#prepareAbilities(sheetData.data.abilities);
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
     }
@@ -77,22 +75,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         });
 
         return sheetData as NPCSheetData<TActor>;
-    }
-
-    #prepareAbilities(attributes: Abilities): void {
-        for (const key of ATTRIBUTE_ABBREVIATIONS) {
-            interface SheetAttributeData extends AbilityData {
-                localizedCode?: string;
-                localizedName?: string;
-            }
-            const data: SheetAttributeData = attributes[key];
-            const localizedCode = game.i18n.localize(`PF2E.AbilityId.${key}`);
-            const nameKey = CONFIG.PF2E.abilities[key];
-            const localizedName = game.i18n.localize(nameKey);
-
-            data.localizedCode = localizedCode;
-            data.localizedName = localizedName;
-        }
     }
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
@@ -147,59 +129,6 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         // Tagify the traits selection
         const traitsEl = htmlQuery<HTMLInputElement>(html, 'input[name="system.traits.value"]');
         tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
-
-        // Subscribe to roll events
-        const rollables = ["a.rollable", ".item-icon.rollable"].join(", ");
-        for (const rollable of htmlQueryAll(html, rollables)) {
-            rollable.addEventListener("click", (event) => {
-                this.#onClickRollable(rollable, event);
-            });
-        }
-
-        if (this.isEditable) {
-            htmlQuery(html, ".skills-edit")?.addEventListener("click", () => {
-                new NPCSkillsEditor(this.actor).render(true);
-            });
-        }
-    }
-
-    async #onClickRollable(link: HTMLElement, event: MouseEvent): Promise<void> {
-        const { attribute, save, skill } = link?.parentElement?.dataset ?? {};
-        const rollParams = eventToRollParams(event, { type: "check" });
-
-        if (attribute) {
-            if (attribute === "perception") {
-                await this.actor.perception.roll(eventToRollParams(event, { type: "check" }));
-            } else if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
-                this.#rollAbility(event, attribute);
-            }
-        } else if (skill) {
-            const extraRollOptions = link.dataset.options
-                ?.split(",")
-                .map((o) => o.trim())
-                .filter((o) => !!o);
-
-            const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-            await this.actor.skills[key]?.check.roll({ ...rollParams, extraRollOptions });
-        } else if (objectHasKey(this.actor.saves, save)) {
-            await this.actor.saves[save].check.roll(rollParams);
-        }
-    }
-
-    async #rollAbility(event: MouseEvent, abilityId: AttributeString): Promise<void> {
-        const bonus = this.actor.system.abilities[abilityId].mod;
-        const parts = ["@bonus"];
-        const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
-        const data = { bonus };
-        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
-
-        await DicePF2e.d20Roll({
-            event,
-            parts,
-            data,
-            title,
-            speaker,
-        });
     }
 }
 
@@ -436,16 +365,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
-
-        // Add events for recall knowledge. Does not exist for limited and loot sheets
-        const mainPanel = htmlQuery(html, ".tab[data-tab=main]");
-        if (mainPanel) {
-            // Creature identification
-            htmlQuery(mainPanel, ".recall-knowledge button.breakdown")?.addEventListener("click", () => {
-                new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
-            });
-        }
-
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.isEditable) return;
 
@@ -474,35 +393,60 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
-        handlers["generate-attack"] = async (event) => {
-            const { actor } = this;
-            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId ?? "";
-            const item = actor.items.get(itemId, { strict: true });
-            if (!item.isOfType("weapon")) return;
 
-            // Get confirmation from the user before replacing existing generated attacks
-            const existing = actor.itemTypes.melee.filter((m) => m.flags.pf2e.linkedWeapon === itemId).map((m) => m.id);
-            if (existing.length > 0) {
-                const proceed = await Dialog.confirm({
-                    title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
-                    content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
-                    defaultYes: false,
-                });
-                if (proceed) {
-                    await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
-                } else {
-                    return;
-                }
-            }
-
-            const attacks = item.toNPCAttacks().map((a) => a.toObject());
-            await actor.createEmbeddedDocuments("Item", attacks);
-            ui.notifications.info(
-                game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
-                    attack: attacks.at(0)?.name ?? "",
-                }),
-            );
+        handlers["open-recall-breakdown"] = () => {
+            new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
         };
+
+        handlers["roll-attribute"] = async (event, anchor) => {
+            const attribute = anchor?.parentElement?.dataset.attribute;
+            if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) return;
+            const modifier = this.actor.system.abilities[attribute].mod;
+            const parts = ["@modifier"];
+            const title = game.i18n.localize(`PF2E.AbilityCheck.${attribute}`);
+            const data = { modifier };
+            const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
+
+            await DicePF2e.d20Roll({ event, parts, data, title, speaker });
+        };
+
+        if (this.isEditable) {
+            handlers["edit-skills"] = () => {
+                new NPCSkillsEditor(this.actor).render(true);
+            };
+
+            handlers["generate-attack"] = async (event) => {
+                const { actor } = this;
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId ?? "";
+                const item = actor.items.get(itemId, { strict: true });
+                if (!item.isOfType("weapon")) return;
+
+                // Get confirmation from the user before replacing existing generated attacks
+                const existing = actor.itemTypes.melee
+                    .filter((m) => m.flags.pf2e.linkedWeapon === itemId)
+                    .map((m) => m.id);
+                if (existing.length > 0) {
+                    const proceed = await Dialog.confirm({
+                        title: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Title"),
+                        content: game.i18n.localize("PF2E.Actor.NPC.GenerateAttack.Confirm.Content"),
+                        defaultYes: false,
+                    });
+                    if (proceed) {
+                        await actor.deleteEmbeddedDocuments("Item", existing, { render: false });
+                    } else {
+                        return;
+                    }
+                }
+
+                const attacks = item.toNPCAttacks().map((a) => a.toObject());
+                await actor.createEmbeddedDocuments("Item", attacks);
+                ui.notifications.info(
+                    game.i18n.format("PF2E.Actor.NPC.GenerateAttack.Notification", {
+                        attack: attacks.at(0)?.name ?? "",
+                    }),
+                );
+            };
+        }
 
         return handlers;
     }
@@ -544,6 +488,8 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 class SimpleNPCSheet extends AbstractNPCSheet<NPCPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        options.classes.push("simple");
+
         return {
             ...options,
             width: 650,
