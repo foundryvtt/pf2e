@@ -201,7 +201,7 @@
 <header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
 </header>
-<section class="perception-sidebar">
+<section class="perception">
     <div class="roll-data">
         <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
             {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
@@ -216,9 +216,7 @@
         <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
             {{numberFormat data.perception.value decimals=0 sign=true}}
         </a>
-        <div class="perception-prof button-group skill-container">
-            <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
-        </div>
+        <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
     </div>
     {{#if senses.length}}
         <ol class="tags senses">
@@ -238,7 +236,7 @@
 <header>
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
 </header>
-<section class="roll-data initiative-sidebar">
+<section class="roll-data initiative">
     <a
         class="roll-icon"
         data-action="roll-initiative"
@@ -264,14 +262,11 @@
 <header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
 </header>
-<ul class="sidebar-saves">
+<ul class="saves">
     {{#each data.saves as |save slug|}}
         <li class="roll-data" data-save="{{slug}}">
             <h2 class="sidebar_label">{{localize save.label}}</h2>
-
-            <div class="save-prof button-group skill-container">
-                <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
-            </div>
+            <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
 
             <div class="save-roll">
                 <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">

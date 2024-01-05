@@ -459,30 +459,39 @@ aside {
             }
         }
 
-        .perception-sidebar,
-        .initiative-sidebar {
+        .perception,
+        .initiative {
             a.modifier {
                 margin-right: 1rem;
             }
+
             select {
                 flex: 0 0 8.25rem;
                 margin-left: auto;
             }
+
             .button-group {
                 margin-left: auto;
             }
+
             .tags {
-                margin-top: 0.375rem;
+                margin-top: var(--space-size-6);
             }
         }
 
-        ul.sidebar-saves {
+        .perception {
+            .pf-rank {
+                margin-left: auto;
+            }
+        }
+
+        ul.saves {
             @include p-reset;
             display: flex;
 
-            .roll-data {
+            li {
                 align-items: center;
-                border-left: 1px solid #ffefbd30;
+                border-left: 1px solid rgba(255, 239, 189, 0.18);
                 flex: 1 1 auto;
                 flex-direction: column;
                 gap: 0;
