@@ -23,6 +23,10 @@ function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
     return data as RollNoteSource;
 }
 
+function isValidDifficultyClass(dc: unknown): dc is CheckDC | DCSlug {
+    return setHasElement(DC_SLUGS, dc) || (isObject<{ value: unknown }>(dc) && typeof dc.value === "number");
+}
+
 interface SingleCheckActionVariantData extends BaseActionVariantData {
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
@@ -40,7 +44,7 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
 }
 
 interface SingleCheckActionUseOptions extends ActionUseOptions {
-    difficultyClass: CheckDC | string;
+    difficultyClass: CheckDC | DCSlug | number;
     modifiers: ModifierPF2e[];
     multipleAttackPenalty: number;
     notes: SingleCheckActionRollNoteData[];
@@ -104,12 +108,12 @@ class SingleCheckActionVariant extends BaseActionVariant {
         const title = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
+        const difficultyClass = Number.isNumeric(options.difficultyClass)
+            ? { value: Number(options.difficultyClass) }
+            : isValidDifficultyClass(options.difficultyClass)
+              ? options.difficultyClass
+              : this.difficultyClass;
         const results: CheckResultCallback[] = [];
-        const difficultyClass =
-            setHasElement(DC_SLUGS, options.difficultyClass) ||
-            (isObject<{ value: unknown }>(options.difficultyClass) && typeof options.difficultyClass.value === "number")
-                ? options.difficultyClass
-                : this.difficultyClass;
 
         await ActionMacroHelpers.simpleRollActionCheck({
             actors: options.actors,
