@@ -841,11 +841,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             CONFIG.PF2E.spellTraits,
             R.uniq(R.compact([...this.traits, spellcasting.tradition])),
         );
-        const rarity = {
-            slug: this.rarity,
-            label: CONFIG.PF2E.rarityTraits[this.rarity],
-            description: CONFIG.PF2E.traitsDescriptions[this.rarity],
-        };
+        const rarity =
+            this.rarity === "common"
+                ? null
+                : {
+                      slug: this.rarity,
+                      label: CONFIG.PF2E.rarityTraits[this.rarity],
+                      description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+                  };
 
         return {
             ...systemData,

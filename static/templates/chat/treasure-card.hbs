@@ -3,16 +3,15 @@
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3>{{item.name}}</h3>
     </header>
-    {{#if item.description}}
-        <hr />
-        <div class="card-content">
-            {{{item.description}}}
-        </div>
-    {{/if}}
-    <footer class="card-footer">
-        {{#if (and item.isIdentified (ne item.system.stackGroup "coins"))}}
+
+    <div class="card-content">
+        {{{item.description}}}
+    </div>
+
+    {{#unless (eq item.system.stackGroup "coins")}}
+        <footer{{#unless item.isIdentified}} data-visibility="gm"{{/unless}}>
             <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
             <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
-        {{/if}}
-    </footer>
+        </footer>
+    {{/unless}}
 </div>
