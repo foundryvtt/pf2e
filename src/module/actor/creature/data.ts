@@ -98,6 +98,10 @@ interface CreaturePerceptionData extends PerceptionTraceData {
 interface AbilityData {
     /** The modifier for this ability */
     mod: number;
+    /** A label like "Strength", "Dexterity", etc. */
+    label: string;
+    /** A label like "Str", "Dex", etc. */
+    shortLabel: string;
 }
 
 type Abilities = Record<AttributeString, AbilityData>;

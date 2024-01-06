@@ -125,16 +125,16 @@
     </header>
     <section class="character-attributes" data-tooltip-direction="UP">
         <ol class="attributes">
-            {{#each data.abilities as |attribute abbrev|}}
-                <li class="attribute {{#if (eq ../actor.keyAttribute abbrev)}}key{{/if}}" data-attribute="{{abbrev}}">
+            {{#each data.abilities as |attribute slug|}}
+                <li class="attribute {{#if (eq ../actor.keyAttribute slug)}}key{{/if}}" data-attribute="{{slug}}">
                     <h2 class="abbreviation">
-                        {{#if (eq ../data.details.keyability.value abbrev)}}
+                        {{#if (eq ../data.details.keyability.value slug)}}
                             <i class="key fa-solid fa-key" data-tooltip="PF2E.Actor.Character.Attribute.Key"></i>
                         {{/if}}
-                        <span>{{localize (concat "PF2E.AbilityId." abbrev)}}</span>
-                        {{#if (eq ../data.build.attributes.apex abbrev)}}
+                        <span>{{localize attribute.shortLabel}}</span>
+                        {{#if (eq ../data.build.attributes.apex slug)}}
                             <i class="apex fa-solid fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
-                        {{else if (and ../editable (includes ../apexAttributeOptions abbrev))}}
+                        {{else if (and ../editable (includes ../apexAttributeOptions slug))}}
                             <a data-action="select-apex-attribute">
                                 <i class="apex unselected fa-regular fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
                             </a>

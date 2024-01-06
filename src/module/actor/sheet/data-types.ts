@@ -45,6 +45,7 @@ export interface SheetInventory {
 }
 
 export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TActor> {
+    data: TActor["system"];
     canDistributeCoins?: { enabled: boolean } | null;
     enrichedContent: Record<string, string>;
     inventory: SheetInventory;

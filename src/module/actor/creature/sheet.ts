@@ -1,8 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import { AttributeString } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
@@ -14,7 +12,6 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
-import { AbilityData, CreatureSystemData } from "./data.ts";
 import { Language } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
 
@@ -28,14 +25,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<CreatureSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
-        const { actor } = this;
-
-        // Ability Scores
-        if (sheetData.data.abilities) {
-            for (const key of ATTRIBUTE_ABBREVIATIONS) {
-                sheetData.data.abilities[key].label = CONFIG.PF2E.abilities[key];
-            }
-        }
+        const actor = this.actor;
 
         // Languages for PCs are handled in the PC sheet subclass
         const languages = actor.isOfType("character")
@@ -48,7 +38,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         return {
             ...sheetData,
             languages,
-            abilities: CONFIG.PF2E.abilities,
             actorSizes: CONFIG.PF2E.actorSizes,
             rarity: CONFIG.PF2E.rarityTraits,
             frequencies: CONFIG.PF2E.frequencies,
@@ -469,10 +458,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 }
 
 interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
-    data: CreatureSystemData & {
-        abilities: Record<AttributeString, AbilityData & { label?: string }>;
-    };
-    abilities: typeof CONFIG.PF2E.abilities;
     actorSizes: typeof CONFIG.PF2E.actorSizes;
     rarity: typeof CONFIG.PF2E.rarityTraits;
     frequencies: typeof CONFIG.PF2E.frequencies;

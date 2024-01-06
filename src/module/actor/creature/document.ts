@@ -346,13 +346,19 @@ abstract class CreaturePF2e<
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        // Set labels for attributes
+        if (this.system.abilities) {
+            for (const [shortForm, data] of R.toPairs.strict(this.system.abilities)) {
+                data.label = CONFIG.PF2E.abilities[shortForm];
+                data.shortLabel = `PF2E.AbilityId.${shortForm}`;
+            }
+        }
+
         // Set minimum reach according to creature size
-        const { attributes } = this;
+        const { attributes, rollOptions } = this;
         const reachFromSize = SIZE_TO_REACH[this.size];
         attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
         attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
-
-        const { rollOptions } = this;
 
         // Add creature-specific self: roll options
         if (this.isSpellcaster) {
