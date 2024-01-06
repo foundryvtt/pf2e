@@ -48,7 +48,7 @@ function remove(actor: CharacterPF2e, event: MouseEvent): void {
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
     const baseShields: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
-    const key = htmlClosest(event.currentTarget, "li.skill.custom")?.dataset.slug ?? "";
+    const key = htmlClosest(event.target, "[data-slug]")?.dataset.slug ?? "";
     const translationKey = key?.replace(/^weapon-(?:base|group)-/, "") ?? "";
     const name = objectHasKey(weaponGroups, translationKey)
         ? game.i18n.localize(weaponGroups[translationKey])

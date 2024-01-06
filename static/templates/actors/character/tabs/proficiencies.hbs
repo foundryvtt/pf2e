@@ -82,7 +82,7 @@
         {{#each martialProficiencies.attacks as |proficiency key|}}
             <li{{#if proficiency.custom}} class="custom"{{/if}} data-slug="{{key}}">
                 {{#if (and proficiency.custom @root.editable)}}
-                    <a class="delete" data-action="remove-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
+                    <a class="delete" data-action="delete-attack-proficiency"><i class="fa-solid fa-fw fa-trash"></i></a>
                 {{/if}}
                 <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                 <span class="name">{{localize proficiency.label}}</span>
