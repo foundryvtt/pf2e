@@ -325,7 +325,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
     async #getRitualData(): Promise<SpellCollectionData> {
         const groupedByRank = R.groupBy.strict(Array.from(this.values()), (s) => s.rank);
-        const ranks = R.toPairs
+        const groups = R.toPairs
             .strict(groupedByRank)
             .sort(([a], [b]) => a - b)
             .map(
@@ -337,7 +337,18 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
                 }),
             );
 
-        return { groups: ranks, prepList: null };
+        const data = { groups, prepList: null };
+        Object.defineProperty(data, "levels", {
+            get: () => {
+                fu.logCompatibilityWarning("`levels` is deprecated: use `groups` instead.", {
+                    since: "5.12.0",
+                    until: "6.0.0",
+                });
+                return groups;
+            },
+        });
+
+        return data;
     }
 
     protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<ZeroToTen, SpellPrepEntry[]> {
