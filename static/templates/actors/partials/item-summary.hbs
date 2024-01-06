@@ -1,7 +1,7 @@
 {{#if identified}}
-    {{#if item.system.traits}}
-        <div class="tags item-properties">
-            {{#if (and chatData.rarity.label (ne chatData.rarity.slug "common"))}}
+    {{#if (or chatData.rarity chatData.traits chatData.properties)}}
+        <div class="tags paizo-style{{#if chatData.properties}} has-properties{{/if}}">
+            {{#if chatData.rarity}}
                 <span
                     class="tag rarity {{chatData.rarity.slug}}"
                     data-tooltip="{{chatData.rarity.description}}"
@@ -11,10 +11,11 @@
                 <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
             {{/each}}
             {{#each chatData.properties as |property|}}
-                <span class="tag tag_secondary">{{localize property}}</span>
+                <span class="tag light property">{{localize property}}</span>
             {{/each}}
         </div>
     {{/if}}
+    {{#if chatData.levelLabel}}<div class="level">{{chatData.levelLabel}}</div>{{/if}}
 
     {{#if item.price}}
         <section>
@@ -30,20 +31,20 @@
 </div>
 
 {{#if (and identified isCreature)}}
-    <div class="item-buttons">
-        {{#if chatData.save}}
+    <div class="button-group">
+        {{#if chatData.save.label}}
             <span>{{{chatData.save.label}}}</span>
         {{/if}}
 
         {{#unless item.hasVariants}}
             {{#if chatData.isAttack}}
-                <button type="button" class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
+                <button type="button" class="blue spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
             {{/if}}
             {{#if chatData.hasDamage}}
-                <button type="button" class="spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
+                <button type="button" class="blue spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
             {{/if}}
             {{#if (and chatData.area (not chatData.isAura))}}
-                <button type="button" data-action="spellTemplate" data-visibility="owner">
+                <button type="button" class="blue" data-action="spellTemplate" data-visibility="owner">
                     {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=chatData.area.label}}
                 </button>
             {{/if}}

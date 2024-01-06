@@ -263,15 +263,34 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         this: FeatPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<ItemSummaryData> {
-        const properties = this.isFeat ? [game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level })] : [];
-        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        const rarity = {
-            slug: this.rarity,
-            label: CONFIG.PF2E.rarityTraits[this.rarity],
-            description: CONFIG.PF2E.traitsDescriptions[this.rarity],
-        };
+        const actor = this.actor;
+        const classSlug = actor.isOfType("character") && actor.class?.slug;
+        // Exclude non-matching class traits
+        const traitSlugs =
+            ["class", "classfeature"].includes(this.category) &&
+            actor.isOfType("character") &&
+            classSlug &&
+            this.system.traits.value.includes(classSlug)
+                ? this.system.traits.value.filter((t) => t === classSlug || !(t in CONFIG.PF2E.classTraits))
+                : this.system.traits.value;
+        const traits = this.traitChatData(CONFIG.PF2E.featTraits, traitSlugs);
+        const levelLabel =
+            this.isFeat && this.level > 0 ? game.i18n.format("PF2E.Item.Feat.LevelN", { level: this.level }) : null;
+        const rarity =
+            this.rarity === "common"
+                ? null
+                : {
+                      slug: this.rarity,
+                      label: CONFIG.PF2E.rarityTraits[this.rarity],
+                      description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+                  };
 
-        return this.processChatData(htmlOptions, { ...this.system, properties, traits, rarity });
+        return this.processChatData(htmlOptions, {
+            ...this.system,
+            levelLabel,
+            traits,
+            rarity,
+        });
     }
 
     /** Generate a list of strings for use in predication */

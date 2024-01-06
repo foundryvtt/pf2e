@@ -517,13 +517,17 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                       grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
                   })
                 : null;
+        const rarity =
+            this.rarity === "common"
+                ? null
+                : {
+                      slug: this.rarity,
+                      label: CONFIG.PF2E.rarityTraits[this.rarity],
+                      description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+                  };
 
         return {
-            rarity: {
-                slug: this.rarity,
-                label: CONFIG.PF2E.rarityTraits[this.rarity],
-                description: CONFIG.PF2E.traitsDescriptions[this.rarity],
-            },
+            rarity,
             description: { value: this.description },
             material,
         };
