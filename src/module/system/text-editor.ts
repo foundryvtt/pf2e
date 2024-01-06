@@ -779,7 +779,7 @@ async function augmentInlineDamageRoll(
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
 
-            const extractOptions = { resolvables: rollData ?? {}, test: options };
+            const extractOptions = { test: options };
             return processDamageCategoryStacking(base, {
                 modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
                 dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),

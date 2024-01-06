@@ -292,7 +292,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             const saferEval = (formula: string): number => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
-                    const unresolveds = formula.match(/@[a-z.]+/gi) ?? [];
+                    const unresolveds = formula.match(/@[a-z0-9.]+/gi) ?? [];
                     // Allow failure of "@target" and "@actor.conditions" with no warning
                     if (unresolveds.length > 0) {
                         const shouldWarn =
