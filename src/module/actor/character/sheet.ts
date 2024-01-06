@@ -921,7 +921,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         handlers["add-attack-proficiency"] = (event) => {
             return ManageAttackProficiencies.add(this.actor, event);
         };
-        handlers["remove-attack-proficiency"] = (event) => {
+        handlers["delete-attack-proficiency"] = (event) => {
             return ManageAttackProficiencies.remove(this.actor, event);
         };
 
