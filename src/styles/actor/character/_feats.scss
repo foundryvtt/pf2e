@@ -26,8 +26,9 @@
             align-items: center;
             display: flex;
             flex: 1;
+            gap: var(--space-size-8);
             grid-area: name;
-            height: calc(1.5rem + 2px);
+            height: var(--font-size-25);
             width: 100%;
 
             .feat-slot-title {
@@ -55,11 +56,6 @@
                     text-shadow: 0 0 3px var(--tertiary);
                 }
             }
-
-            .item-image {
-                margin-left: var(--space-size-8);
-                margin-right: var(--space-size-8);
-            }
         }
 
         .item-controls {
@@ -80,12 +76,11 @@
 
         .item-summary {
             grid-area: content;
-            margin: var(--space-size-4) 0 0 var(--space-size-4);
-            padding: 0 var(--space-size-8) var(--space-size-8);
-            z-index: 1;
+            margin: 0 0 0 var(--space-size-2);
+            padding: var(--space-size-4);
 
             .tags {
-                padding: var(--space-size-4) 0 0;
+                padding: var(--space-size-2) 0 0;
             }
 
             .level {
@@ -93,38 +88,31 @@
                 right: 3rem;
                 top: var(--space-size-2);
                 font: 600 var(--font-size-14) var(--serif);
-                z-index: 2;
             }
         }
 
         ol.nested-items {
-            grid-column: span 2;
             border-left: 3px dotted var(--pf-color-alternate);
             display: flex;
-            margin: var(--space-size-1) 0 0 2.75rem;
-            padding: 0;
             flex-basis: 100%;
             flex-direction: column;
+            grid-column: span 2;
+            margin: 0;
+            padding: 0;
 
             li {
                 align-items: center;
                 display: flex;
                 flex-wrap: wrap;
                 gap: var(--space-size-2);
-                margin: var(--space-size-2) 0;
-                padding-bottom: var(--space-size-1);
-
-                &:last-child {
-                    padding-bottom: 0;
-                }
+                margin: var(--space-size-2) 0 0;
+                position: relative;
 
                 .item-name {
-                    .feat-slot-title {
-                        width: 0;
-                    }
+                    margin: 0 0 0 3.875rem;
 
-                    img {
-                        margin-left: 0;
+                    .feat-slot-title {
+                        display: none;
                     }
                 }
 
@@ -132,8 +120,14 @@
                     flex: 0;
                 }
 
-                ol.nested-items {
-                    margin-left: 1.5rem;
+                .item-summary {
+                    .level {
+                        top: 0;
+                    }
+                }
+
+                ol.nested-items .item-name {
+                    margin-left: 90px;
                 }
             }
         }
