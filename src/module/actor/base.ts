@@ -324,7 +324,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => new TokenEffect(e));
 
-        return [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat();
+        return R.uniqBy(
+            [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
+            (e) => e.icon,
+        );
     }
 
     /** A means of checking this actor's type without risk of circular import references */
