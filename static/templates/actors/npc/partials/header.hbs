@@ -41,12 +41,12 @@
                 {{/select}}
             </select>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="adjustments">
-                <a class="adjustment elite trait {{#if isElite}}active{{/if}}" data-adjustment="elite">
+                <a class="adjustment elite trait{{#if isElite}} active{{/if}}" data-action="adjust-elite-weak" data-adjustment="elite">
                     {{localize "PF2E.NPC.Adjustment.EliteLabel"}}
                 </a>
-                <a class="adjustment weak trait {{#if isWeak}}active{{/if}}" data-adjustment="weak">
+                <a class="adjustment weak trait{{#if isWeak}} active{{/if}}" data-action="adjust-elite-weak" data-adjustment="weak">
                     {{localize "PF2E.NPC.Adjustment.WeakLabel"}}
                 </a>
             </div>
