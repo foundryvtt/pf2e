@@ -60,13 +60,13 @@
                     {{#if ../options.editable}}
                         <div class="item-controls">
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
-                                <a class="skill-name slotless-level-toggle" title="{{localize "PF2E.ToggleSlotlessSpellLevelsTitle"}}">
+                                <a data-action="toggle-show-slotless-ranks" data-tooltip="PF2E.ToggleSlotlessSpellLevelsTitle">
                                     <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}
-                                <a data-action="spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                <a data-action="spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                <a data-action="spellcasting-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                <a data-action="spellcasting-remove" data-tooltip="PF2E.RemoveSpellcastingEntryTitle" data-type="{{eid}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                             {{/unless}}
                         </div>
                     {{/if}}

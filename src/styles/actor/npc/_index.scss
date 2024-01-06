@@ -175,11 +175,6 @@ $faded-color: #7a7971;
         text-transform: uppercase;
     }
 
-    ul.option-toggles > li label {
-        display: flex;
-        align-items: center;
-    }
-
     .effects-list {
         display: flex;
         flex-flow: row wrap;
@@ -216,18 +211,19 @@ $faded-color: #7a7971;
         }
     }
 
-    .actions-options {
-        .actions-option {
-            display: flex;
-            align-items: center;
+    .section-container.toggles ul.option-toggles {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-size-4);
+        list-style: none;
+
+        > li {
             width: 100%;
 
             label {
-                width: 100%;
-
-                * {
-                    vertical-align: middle;
-                }
+                display: flex;
+                align-items: center;
+                gap: var(--space-size-4);
 
                 input {
                     margin: 0;
