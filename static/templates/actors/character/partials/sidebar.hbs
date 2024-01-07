@@ -62,13 +62,13 @@
 
 {{!-- STAMINA (if enabled) --}}
 {{#if hasStamina}}
-    <header
+    <header>
         <h2>{{localize "PF2E.StaminaPointsHeader"}}</h2>
     </header>
     <ol class="stamina">
         <li class="sp">
             <label for="{{options.id}}-pc-stamina" class="sidebar_label">{{localize "PF2E.StaminaPointsShortLabel"}}</label>
-            <span class="hp-current stamina-group">
+            <div class="hp-current stamina-group">
                 <input
                     id="{{options.id}}-pc-stamina"
                     class="left"
@@ -80,11 +80,11 @@
                 />
                 <span class="divider">&sol;</span>
                 <input class="right" type="number" value="{{data.attributes.hp.sp.max}}" disabled="disabled" />
-            </span>
+            </div>
         </li>
         <li class="resolve">
             <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.ResolvePointsShortLabel"}}</label>
-            <span class="hp-max stamina-group">
+            <div class="hp-max stamina-group">
                 <input
                     id="{{options.id}}-pc-resolve"
                     class="left"
@@ -96,7 +96,7 @@
                 />
                 <span class="divider">&sol;</span>
                 <input class="right" type="number" value="{{data.resources.resolve.max}}" disabled="disabled" />
-            </span>
+            </div>
         </li>
     </ol>
 {{/if}}
