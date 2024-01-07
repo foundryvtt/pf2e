@@ -63,6 +63,16 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
                     { slug: r, label: game.i18n.localize(rarityLocKeys[r]) },
                 ]);
 
+                // Disable checkboxes for manually-added languages granted by items so that they'll be cleared on save
+                if (
+                    data.selected &&
+                    !data.disabled &&
+                    actor?.isOfType("character") &&
+                    actor.system.build.languages.granted.some((g) => g.slug === key)
+                ) {
+                    data.disabled = true;
+                }
+
                 const rarity = ((): { slug: string; label: string } => {
                     if (slug === "common") {
                         if (rarities.commonLanguage) {
