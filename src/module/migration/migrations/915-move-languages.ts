@@ -1,6 +1,6 @@
 import { LANGUAGES } from "@actor/creature/values.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSchema, AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import * as R from "remeda";
 import { Migration914MovePerceptionSenses } from "./914-move-perception-senses.ts";
@@ -64,10 +64,11 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
     }
 
     #deduplicateWildsong(source: CharacterSource): void {
-        const wildsongFeature = source.items.find((i) =>
-            ["wildsong", "druidic-language"].includes(i.system.slug ?? ""),
+        const wildsongSlugs = ["druid-dedication", "druidic-language", "wildsong"];
+        const wildsongFeature = source.items.find(
+            (i): i is FeatSource => i.type === "feat" && wildsongSlugs.includes(i.system.slug ?? ""),
         );
-        if (wildsongFeature?.type === "feat") {
+        if (wildsongFeature) {
             wildsongFeature.system.subfeatures = { languages: { granted: ["wildsong"], slots: 0 } };
             const languages = source.system.details.languages.value;
             if (languages.includes("wildsong")) {
