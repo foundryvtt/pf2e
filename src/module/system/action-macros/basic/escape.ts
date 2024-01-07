@@ -9,6 +9,7 @@ import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
@@ -56,15 +57,15 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     const candidates = data.slug ? [data.slug] : ["acrobatics", "athletics"];
     const alternatives = candidates
         .filter((slug) => slug !== "unarmed")
-        .map((slug) => {
-            const actionRollOptions = ["action:escape", `action:escape:${slug}`];
-            const { property } = ActionMacroHelpers.resolveStat(slug);
-            const { rollOptions } = opts.buildContext({
+        .map((slug) => opts.actor.getStatistic(slug))
+        .filter((statistic): statistic is Statistic => !!statistic)
+        .map((statistic) => {
+            const actionRollOptions = ["action:escape", `action:escape:${statistic.slug}`];
+            const rollOptions = opts.buildContext({
                 actor: opts.actor,
                 rollOptions: actionRollOptions,
                 target: opts.target,
-            });
-            const statistic = fu.getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
+            }).rollOptions;
             return {
                 actor: opts.actor,
                 rollOptions,
