@@ -72,7 +72,8 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {
-        return {
+        const collectionData = await this.spells.getSpellData();
+        return fu.mergeObject(collectionData, {
             id: this.id,
             name: this.name,
             statistic: null,
@@ -82,7 +83,6 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
             hasCollection: true,
             sort: this.sort,
             usesSpellProficiency: false,
-            ...(await this.spells.getSpellData()),
-        };
+        });
     }
 }

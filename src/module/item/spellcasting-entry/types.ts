@@ -5,7 +5,7 @@ import { SpellPF2e } from "@item/spell/document.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { OneToTen } from "@module/data.ts";
 import { Statistic, StatisticChatData } from "@system/statistic/index.ts";
-import { SpellCollection, SpellSlotGroupId } from "./collection.ts";
+import { SpellCollection, SpellCollectionData, SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySystemData } from "./data.ts";
 
 interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | null> {
@@ -58,12 +58,10 @@ type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepare
 
 /** Spell list render data for a `BaseSpellcastingEntry` */
 interface SpellcastingSheetData
-    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties> {
+    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties>,
+        SpellCollectionData {
     statistic: StatisticChatData | null;
     hasCollection: boolean;
-    flexibleAvailable?: { value: number; max: number } | null;
-    groups: SpellcastingSlotGroup[];
-    prepList: Record<number, SpellPrepEntry[]> | null;
     isFlexible?: boolean;
     isFocusPool?: boolean;
     isInnate?: boolean;
