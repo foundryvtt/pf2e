@@ -14,6 +14,7 @@ export class Migration912RmFocusTraitFocusCantrips extends MigrationBase {
         const magicTraditions: Set<string> = MAGIC_TRADITIONS;
         const traits = source.system.traits;
         const misplacedMagicTraditions = traits.value.filter((t): t is MagicTradition => magicTraditions.has(t));
+        traits.traditions ??= [];
         traits.traditions.push(...misplacedMagicTraditions);
         traits.value = traits.value.filter((t) => !magicTraditions.has(t));
 
