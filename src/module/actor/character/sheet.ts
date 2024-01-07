@@ -301,12 +301,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
-            const sourceLanguages = actor._source.system.details.languages.value;
+            const sourceLanguages = actor._source.system.details.languages.value.filter(
+                (l) => l in CONFIG.PF2E.languages,
+            );
+            const isOverMax = languagesBuild.value > languagesBuild.max;
             const languages: LanguageSheetData[] = actor.system.details.languages.value
                 .map((language) => {
                     const label = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
-                    const sourceIndex = sourceLanguages.indexOf(language);
-                    const overLimit = sourceIndex + 1 > languagesBuild.max;
+                    const overLimit = isOverMax && sourceLanguages.indexOf(language) + 1 > languagesBuild.max;
                     const tooltip = overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null;
                     return { slug: language, label, tooltip, overLimit };
                 })
