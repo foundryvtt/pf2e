@@ -39,6 +39,8 @@ import { AttributeString, AuraEffectData, DamageRollContextParams } from "./type
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
  * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
  * @param [options] Render options for actor sheets and tokens
+ * @param [options.sheets=true] Render actor sheets
+ * @param [options.tokens=false] Redraw tokens
  */
 async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRenderOptions = {}): Promise<void> {
     actors ??= [
@@ -46,6 +48,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
     actors = R.uniq(Array.from(actors));
+    options.sheets ??= true;
 
     for (const actor of actors) {
         actor.reset();
