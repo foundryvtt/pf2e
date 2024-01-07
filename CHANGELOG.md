@@ -1,3 +1,16 @@
+## 5.12.1
+
+### Bugfixes
+
+-   (stwlam) Fix erroneous PC language slot calculation when a language is both manually and automatically added
+-   (stwlam) Catch out-of-date scroll/wand data from adventure modules when migrating
+-   (stwlam) Fix opening AC modifiers on PC sheet
+-   (Supe) Restore display of stamina on character sheet
+
+### Data Updates
+
+-   (Intervención) Have Druid Dedication feat grant Wildsong language
+
 ## 5.12.0
 
 ### System Improvements
