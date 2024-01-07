@@ -34,9 +34,7 @@
 
             .feat-slot-title {
                 display: flex;
-                font-family: var(--serif);
-                font-size: 1.1em;
-                font-weight: 600;
+                font: 600 var(--font-size-15) var(--serif);
                 color: var(--color-pf-secondary);
                 justify-content: center;
                 width: 1.25rem;
@@ -49,12 +47,19 @@
             }
 
             h4 {
-                cursor: pointer;
-                font-family: var(--serif);
+                display: inline-flex;
+                max-width: 20rem;
 
                 &:hover {
                     color: var(--color-pf-primary);
                     text-shadow: 0 0 3px var(--color-pf-tertiary);
+                }
+
+                a {
+                    font-size: var(--font-size-13);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
             }
         }
