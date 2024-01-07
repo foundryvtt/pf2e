@@ -15,7 +15,6 @@ import {
     SpellcastingEntry,
     SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
-    SpellcastingSlotGroup,
 } from "./types.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
@@ -366,51 +365,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const collectionData = (await this.spells?.getSpellData({ prepList })) ?? {
-            groups: [],
-            prepList: null,
-        };
-        for (const group of collectionData.groups) {
-            const sinceUntil = { since: "5.12.0", until: "6.0.0" };
-            Object.defineProperties(group, {
-                level: {
-                    get(): number | undefined {
-                        fu.logCompatibilityWarning("`level` is deprecated: use `id` instead.", sinceUntil);
-                        return group.number;
-                    },
-                },
-                isCantrip: {
-                    get(): boolean {
-                        fu.logCompatibilityWarning("`isCantrip` is deprecated: check `id` instead.", sinceUntil);
-                        return group.id === "cantrips";
-                    },
-                },
-            });
-
-            for (const active of group.active) {
-                if (active) {
-                    Object.defineProperty(active, "castLevel", {
-                        get(): number | undefined {
-                            fu.logCompatibilityWarning(
-                                "`castLevel` is deprecated: use `castRank` instead.",
-                                sinceUntil,
-                            );
-                            return active.castRank;
-                        },
-                    });
-                }
-            }
-        }
-
-        Object.defineProperty(collectionData, "levels", {
-            get(): SpellcastingSlotGroup[] {
-                fu.logCompatibilityWarning("`levels` is deprecated: use `groups` instead.", {
-                    since: "5.12.0",
-                    until: "6.0.0",
-                });
-                return collectionData.groups;
-            },
-        });
+        const collectionData = (await this.spells?.getSpellData({ prepList })) ?? { groups: [], prepList: null };
 
         return fu.mergeObject(collectionData, {
             id: this.id,
