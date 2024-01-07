@@ -492,7 +492,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         const build = this.system.build;
-        const sourceLanguages = this._source.system.details.languages.value;
+        // Remove any unrecognized languages
+        const sourceLanguages = this._source.system.details.languages.value.filter((l) => l in CONFIG.PF2E.languages);
+        build.languages.granted = build.languages.granted.filter((l) => l.slug in CONFIG.PF2E.languages);
         const grantedLanguages = build.languages.granted.map((g) => g.slug);
         build.languages.value = sourceLanguages.filter((l) => !grantedLanguages.includes(l)).length;
         build.languages.max += Math.max(this.system.abilities.int.mod, 0);
