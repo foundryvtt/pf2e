@@ -3,15 +3,16 @@
         padding-bottom: 1em;
     }
 
-    .feat-item {
+    li.feat-item {
         align-items: center;
         display: grid;
         grid:
             "name ctrl" min-content
             "content content" min-content
             / 1fr min-content;
-        padding: var(--space-2) 0;
+        padding: var(--space-5) 0 var(--space-4);
         position: relative;
+        row-gap: var(--space-3);
 
         &:nth-child(odd) {
             background-color: rgba($alt-color, 0.1);
@@ -36,14 +37,14 @@
                 font-family: var(--serif);
                 font-size: 1.1em;
                 font-weight: 600;
-                color: var(--secondary);
+                color: var(--color-pf-secondary);
                 justify-content: center;
-                width: 20px;
+                width: 1.25rem;
                 margin-left: var(--space-6);
             }
 
             .item-placeholder {
-                margin-left: 40px;
+                margin-left: 2.5rem;
                 margin-right: var(--space-4);
             }
 
@@ -52,8 +53,8 @@
                 font-family: var(--serif);
 
                 &:hover {
-                    color: var(--primary);
-                    text-shadow: 0 0 3px var(--tertiary);
+                    color: var(--color-pf-primary);
+                    text-shadow: 0 0 3px var(--color-pf-tertiary);
                 }
             }
         }
@@ -77,7 +78,7 @@
         .item-summary {
             grid-area: content;
             margin: 0 0 0 var(--space-2);
-            padding: var(--space-4);
+            padding: 0 var(--space-4);
 
             .tags {
                 padding: var(--space-2) 0 0;
@@ -86,30 +87,35 @@
             .level {
                 position: absolute;
                 right: 3rem;
-                top: var(--space-2);
+                top: var(--space-5);
                 font: 600 var(--font-size-14) var(--serif);
             }
         }
 
+        > .item-summary {
+            margin-left: 1.75rem;
+        }
+
         ol.nested-items {
-            border-left: 3px dotted var(--pf-color-alternate);
+            border-left: var(--space-3) dotted var(--color-pf-alternate);
             display: flex;
             flex-basis: 100%;
             flex-direction: column;
             grid-column: span 2;
-            margin: 0;
+            margin: 0 0 0 2.85rem;
             padding: 0;
 
             li {
                 align-items: center;
                 display: flex;
                 flex-wrap: wrap;
-                gap: var(--space-2);
-                margin: var(--space-2) 0 0;
+                margin: 0;
+                padding-left: 0.875rem;
                 position: relative;
+                row-gap: var(--space-3);
 
                 .item-name {
-                    margin: 0 0 0 3.875rem;
+                    margin: 0;
 
                     .feat-slot-title {
                         display: none;
@@ -121,13 +127,16 @@
                 }
 
                 .item-summary {
+                    margin-left: 0;
+                    padding-left: 0;
+
                     .level {
                         top: 0;
                     }
                 }
 
-                ol.nested-items .item-name {
-                    margin-left: 90px;
+                ol.nested-items {
+                    margin-left: calc(0.75rem - var(--space-1));
                 }
             }
         }
