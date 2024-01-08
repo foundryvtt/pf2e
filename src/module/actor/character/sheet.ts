@@ -806,7 +806,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         });
 
-        const $formulas = $craftingTab.find(".craftingEntry-list");
+        const $formulas = $craftingTab.find(".crafting-entry-list");
         $formulas.find(".infused-reagents").on("change", (event) => {
             const change = Number($(event.target).val());
             const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
@@ -1420,14 +1420,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     if (!craftingEntry) return;
 
                     const craftingFormulas = await this.actor.getCraftingFormulas();
-                    const uuid = dropData.pf2e.itemUuid;
+                    const uuid = dropData.uuid;
                     const formula = craftingFormulas.find((f) => f.uuid === uuid);
 
                     if (formula) craftingEntry.prepareFormula(formula);
                     return;
                 }
             }
-            const uuid = dropData.pf2e.itemUuid;
+            const uuid = dropData.uuid;
             if (typeof uuid === "string") {
                 const formula = this.#knownFormulas[uuid];
                 // Sort existing formulas

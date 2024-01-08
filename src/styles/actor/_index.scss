@@ -177,8 +177,8 @@ $header-height: 89px; /* Adjust height of the header */
         height: 100%;
 
         .d20-svg {
-            width: 19px;
-            height: 19px;
+            width: var(--font-size-19);
+            height: var(--font-size-19);
         }
 
         @import "header";
@@ -190,7 +190,7 @@ $header-height: 89px; /* Adjust height of the header */
 
         .sheet-navigation {
             grid-area: nav;
-            margin-left: -2px;
+            margin-left: calc(-1 * var(--space-2));
         }
 
         .sheet-body {
@@ -269,12 +269,12 @@ $header-height: 89px; /* Adjust height of the header */
                         line-height: 1;
                         color: var(--text-light);
                         @include p-reset;
-                        margin-left: 8px;
+                        margin-left: var(--space-8);
                     }
 
                     .action-header {
                         align-items: center;
-                        background: var(--primary);
+                        background: var(--color-pf-primary);
                         border: none;
                         border-radius: 0.25em;
                         box-shadow:
@@ -283,10 +283,10 @@ $header-height: 89px; /* Adjust height of the header */
                         display: flex;
                         flex-basis: 100%;
                         flex-wrap: nowrap;
-                        height: 32px;
+                        height: 1.75rem;
                         justify-content: space-between;
                         margin-left: 0;
-                        margin-top: 8px;
+                        margin-top: var(--space-8);
                         padding: 0 0.5em;
                         position: relative;
                         width: 100%;
@@ -321,7 +321,8 @@ $header-height: 89px; /* Adjust height of the header */
                             font-size: var(--font-size-12);
                         }
 
-                        h3 {
+                        h3,
+                        h4 {
                             color: var(--text-light);
                             flex: 1 1 100%;
                             margin-bottom: 0;
@@ -337,6 +338,10 @@ $header-height: 89px; /* Adjust height of the header */
                                 }
                             }
                         }
+
+                        h4 {
+                            font-size: var(--font-size-14);
+                        }
                     }
                 }
 
@@ -346,7 +351,7 @@ $header-height: 89px; /* Adjust height of the header */
 
                 footer {
                     @include micro;
-                    color: var(--primary);
+                    color: var(--color-pf-primary);
                     text-align: right;
                     line-height: 1.4;
                     margin: 1em 1em 0;
@@ -359,10 +364,10 @@ $header-height: 89px; /* Adjust height of the header */
 
         section.major > header {
             border-bottom: 1px solid var(--color-border-divider);
-            color: var(--primary);
+            color: var(--color-pf-primary);
             font: 600 var(--font-size-16) / 1 var(--serif);
             position: relative;
-            margin: 0.75rem 0 0.5rem 0;
+            margin: 0.25rem 0 0.5rem 0;
 
             a {
                 color: var(--color-text-dark-primary);
@@ -384,7 +389,7 @@ $header-height: 89px; /* Adjust height of the header */
                 background: transparent;
                 border-radius: 2px 2px 0 0;
                 border: 1px solid var(--color-border-divider);
-                color: var(--primary);
+                color: var(--color-pf-primary);
                 cursor: pointer;
                 font: 500 var(--font-size-12) / 1 var(--sans-serif);
                 height: 20px;
@@ -425,7 +430,7 @@ $header-height: 89px; /* Adjust height of the header */
             a {
                 display: inline-flex;
                 svg {
-                    height: 9px;
+                    height: var(--space-9);
                     width: auto;
                 }
             }

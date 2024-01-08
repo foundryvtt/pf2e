@@ -15,12 +15,10 @@
         </div>
         {{/if}}
     </div>
-    <ol class="craftingEntry-list directory-list item-list">
+    <ol class="directory-list item-list crafting-entry-list">
         {{> "systems/pf2e/templates/actors/crafting-entry-list.hbs" craftingEntries=crafting.entries}}
         <li class="known-formulas item-container" data-container-type="knownFormulas">
-            <div class="action-header">
-                <h3 class="item-name hide-container-toggle title">{{localize "PF2E.FormulaKnownTitle"}}</h3>
-            </div>
+            <div class="action-header">{{localize "PF2E.FormulaKnownTitle"}}</div>
             <ol class="directory-list item-list formula-list">
                 {{!-- Add section for each formula level --}}
                 {{#each crafting.knownFormulas as |section lvl|}}
