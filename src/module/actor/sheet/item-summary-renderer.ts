@@ -68,11 +68,11 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     /** Retrieves the item from the element that the current toggleable summary is for */
     protected async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
         const actor = this.sheet.actor;
-        const { itemId, itemType, actionIndex } = element.dataset;
-        const isFormula = !!element.dataset.isFormula;
+        const { itemId, itemUuid, itemType, actionIndex } = element.dataset;
+        const isFormula = !!itemUuid && element.dataset.isFormula !== undefined;
 
         return isFormula
-            ? await fromUuid(itemId ?? "")
+            ? fromUuid(itemUuid)
             : itemType === "condition"
               ? actor.conditions.get(itemId, { strict: true })
               : actionIndex
