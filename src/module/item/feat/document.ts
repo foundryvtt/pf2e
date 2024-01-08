@@ -187,15 +187,31 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Senses
         const senseData: SenseData[] = actor.system.perception.senses;
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
+        const ancestry = actor.ancestry;
+
         for (const [type, data] of R.toPairs.strict(subfeatures.senses)) {
             if (senseData.some((s) => s.type === type)) continue;
+
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {
-                if (actor.ancestry?.system.vision === "darkvision") continue;
+                if (ancestry?.system.vision === "darkvision") continue;
 
                 // This feat grants darkvision but requires that the character's ancestry has low-light vision, the
                 // character to have low-light vision from any prior source, or that this feat has been taken twice.
                 const special = data.special;
-                const ancestryHasLLV = actor.ancestry?.system.vision === "low-light-vision";
+                const ancestryFeatures = (): FeatPF2e[] => {
+                    const ancestryGrantedSourceIds =
+                        Object.values(ancestry?.system.items ?? {}).map((i) => i.uuid) ?? [];
+                    return ancestry
+                        ? actor.itemTypes.feat.filter(
+                              (f) =>
+                                  f.category === "ancestryfeature" &&
+                                  f.system.subfeatures.senses["low-light-vision"] &&
+                                  (ancestryGrantedSourceIds.includes(f.sourceId ?? "") ||
+                                      f.flags.pf2e.grantedBy?.id === ancestry.id),
+                          )
+                        : [];
+                };
+                const ancestryHasLLV = ancestry?.system.vision === "low-light-vision" || ancestryFeatures().length > 0;
                 const hasLLVRule = (rules: RuleElementSource[]) =>
                     rules.some(
                         (r) => r.key === "Sense" && !r.ignored && "selector" in r && r.selector === "low-light-vision",
