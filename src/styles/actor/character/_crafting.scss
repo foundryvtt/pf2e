@@ -110,6 +110,10 @@
                     background-color: rgba($alt-color, 0.1);
                 }
 
+                &:nth-child(even) .item-summary {
+                    background: none;
+                }
+
                 &:last-child {
                     border-bottom: 1px solid var(--sub);
                 }
@@ -184,7 +188,7 @@
 
                     h4 {
                         @include p-reset;
-                        margin-left: 8px;
+                        margin-left: var(--space-8);
                         line-height: 1;
                         letter-spacing: -0.075em;
                         &:hover {
@@ -209,11 +213,12 @@
                     padding: var(--space-8);
                     border-bottom: 1px solid var(--sub);
                     border-top: 1px solid lighten($sub-color, 30);
-                    background-color: var(--bg);
+                    background-color: rgba($light-background-color, 0.5);
 
                     p {
                         margin-top: 0;
                     }
+
                     .item-buttons button {
                         display: none;
                     }
@@ -222,7 +227,7 @@
                 .quantity {
                     align-items: center;
                     display: flex;
-                    gap: 3px;
+                    gap: var(--space-3);
                     justify-content: center;
 
                     .adjust {
