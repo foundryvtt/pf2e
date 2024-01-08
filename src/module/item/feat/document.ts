@@ -187,27 +187,25 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         // Senses
         const senseData: SenseData[] = actor.system.perception.senses;
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
-        const ancestry = actor.ancestry;
 
         for (const [type, data] of R.toPairs.strict(subfeatures.senses)) {
             if (senseData.some((s) => s.type === type)) continue;
 
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {
+                const ancestry = actor.ancestry;
                 if (ancestry?.system.vision === "darkvision") continue;
 
                 // This feat grants darkvision but requires that the character's ancestry has low-light vision, the
                 // character to have low-light vision from any prior source, or that this feat has been taken twice.
                 const special = data.special;
+                const llvFeats = actor.itemTypes.feat.filter((f) => f.system.subfeatures.senses["low-light-vision"]);
                 const ancestryFeatures = (): FeatPF2e[] => {
-                    const ancestryGrantedSourceIds =
-                        Object.values(ancestry?.system.items ?? {}).map((i) => i.uuid) ?? [];
                     return ancestry
-                        ? actor.itemTypes.feat.filter(
+                        ? llvFeats.filter(
                               (f) =>
                                   f.category === "ancestryfeature" &&
                                   f.system.subfeatures.senses["low-light-vision"] &&
-                                  (ancestryGrantedSourceIds.includes(f.sourceId ?? "") ||
-                                      f.flags.pf2e.grantedBy?.id === ancestry.id),
+                                  f.flags.pf2e.grantedBy?.id === ancestry.id,
                           )
                         : [];
                 };
@@ -230,7 +228,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ancestryHasLLV ||
                     heritageHasLLV() ||
                     backgroundHasLLV() ||
-                    actor.itemTypes.feat.some(
+                    llvFeats.some(
                         (f: FeatPF2e) =>
                             f !== this &&
                             (f.system.level.taken ?? 1) <= levelTaken &&
