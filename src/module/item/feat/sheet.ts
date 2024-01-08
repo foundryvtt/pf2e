@@ -177,7 +177,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                     label: game.i18n.localize(CONFIG.PF2E.senses[slug]),
                     acuity: SENSES_WITH_MANDATORY_ACUITIES[slug] ?? selection?.acuity ?? "precise",
                     range: sensesWithUnlimitedRange.includes(slug) ? null : selection?.range ?? null,
-                    special: slug === "darkvision" && feat.level === 1 ? selection?.special ?? null : null,
+                    special: slug === "darkvision" ? selection?.special ?? null : null,
                     canSetAcuity: !(slug in SENSES_WITH_MANDATORY_ACUITIES),
                     canSetRange: !sensesWithUnlimitedRange.includes(slug),
                     selected: !!selection,
@@ -291,7 +291,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                         .filter((o) => !o.selected)
                         .map((o) => o.slug);
                     if (options.includes(slug)) {
-                        const [acuity, range] = ["lowLightVision", "darkvision", "greaterDarkvision"].includes(slug)
+                        const [acuity, range] = ["low-light-vision", "darkvision", "greater-darkvision"].includes(slug)
                             ? [undefined, undefined]
                             : ["imprecise", 30];
                         feat.update({ [`system.subfeatures.senses.${slug}`]: { acuity, range } });
