@@ -1,31 +1,25 @@
 .actor.simple.npc.sheet form {
-    min-height: 500px;
+    .sidebar .subsection {
+        flex: 0;
 
-    .sidebar {
-        .subsection {
-            flex: 0;
+        header {
+            padding-right: 0;
 
-            header {
-                input {
-                    font-size: var(--font-size-13);
-                    margin-left: auto;
-                    width: 2.5em;
-                }
+            input {
+                font-size: var(--font-size-13);
+                margin-left: auto;
+                width: 2.5em;
             }
+        }
 
-            &.perception .section-body input[type="text"] {
-                height: fit-content;
-                width: 100%;
-            }
+        &.perception .section-body input[type="text"] {
+            height: fit-content;
+            width: 100%;
         }
     }
 
-    .npc-body {
-        height: calc(100% - 8em);
-
-        .sheet-body {
-            gap: var(--space-4);
-            padding: 0;
-        }
+    .sheet-body {
+        gap: var(--space-4);
+        padding: 0;
     }
 }
