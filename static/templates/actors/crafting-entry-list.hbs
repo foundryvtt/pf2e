@@ -7,19 +7,19 @@
             <h3 class="item-name hide-container-toggle title">{{entry.name}}</h3>
         </div>
         <ol class="directory-list item-list formula-list">
-            {{#each entry.formulas}}
+            {{#each entry.formulas as |formula|}}
                 <li
                     class="item formula-item"
-                    data-item-uuid="{{this.uuid}}"
+                    data-item-uuid="{{formula.uuid}}"
                     data-is-formula
                     data-item-type="formula"
-                    data-expended-state="{{this.expended}}"
+                    data-expended-state="{{formula.expended}}"
                     data-item-index={{@key}}
-                    data-entry-selector="{{entry.selector}}"
+                    data-entry-selector="{{../entry.selector}}"
                 >
                     <div class="item-name">
-                        {{#if this}}
-                            <a class="item-image" data-action="item-to-chat">
+                        {{#if formula}}
+                            <a class="item-image" data-action="formula-to-chat">
                                 <img class="item-icon" src="{{this.img}}" />
                                 <i class="fa-solid fa-message"></i>
                             </a>
@@ -33,12 +33,11 @@
                     <div class="formula-cost"></div>
                     <div class="item-quantity"></div>
 
-                    {{#if (and this @root.editable)}}
+                    {{#if (and formula @root.editable)}}
                         <div class="item-controls">
                             {{#if entry.isPrepared}}
                                 <a
                                     data-action="craft-item"
-                                    data-item-uuid="{{this.uuid}}"
                                     data-free="true"
                                     data-prepared="true"
                                     data-tooltip="PF2E.CraftItemTitle"
