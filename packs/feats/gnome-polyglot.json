@@ -24,7 +24,27 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.multlingualTaken",
+                "priority": 19,
+                "value": 0
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.build.languages.max",
+                "priority": 21,
+                "value": "@actor.flags.pf2e.multlingualTaken"
+            }
+        ],
+        "subfeatures": {
+            "languages": {
+                "slots": 3
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
