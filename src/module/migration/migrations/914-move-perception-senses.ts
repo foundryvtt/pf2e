@@ -66,6 +66,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         for (const rule of source.system.rules) {
             if (rule.key === "Sense" && "selector" in rule && typeof rule.selector === "string") {
                 rule.selector = sluggify(rule.selector);
+                if (rule.selector === "motionsense") rule.selector = "motion-sense";
             }
         }
 
