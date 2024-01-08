@@ -42,7 +42,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
 
         return {
             ...options,
-            scrollY: [".sidebar", ".inventory-list"],
+            scrollY: [".sidebar"],
         };
     }
 
@@ -130,18 +130,28 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
         const traitsEl = htmlQuery<HTMLInputElement>(html, 'input[name="system.traits.value"]');
         tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
     }
+
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+
+        handlers["edit-skills"] = () => {
+            new NPCSkillsEditor(this.actor).render(true);
+        };
+
+        return handlers;
+    }
 }
 
 class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
+        options.scrollY.push(".inventory-list", ".tab:not(.inventory)");
 
         return {
             ...options,
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
-            scrollY: [...options.scrollY, ".tab.main", ".tab.inventory", ".tab.spells", ".tab.effects", ".tab.notes"],
         };
     }
 
@@ -408,10 +418,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         };
 
         if (this.isEditable) {
-            handlers["edit-skills"] = () => {
-                new NPCSkillsEditor(this.actor).render(true);
-            };
-
             handlers["generate-attack"] = async (event) => {
                 const { actor } = this;
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId ?? "";
