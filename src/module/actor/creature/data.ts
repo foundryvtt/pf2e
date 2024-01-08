@@ -1,7 +1,9 @@
 import type {
     ActorAttributes,
+    ActorAttributesSource,
     ActorDetailsSource,
     ActorHitPoints,
+    ActorHitPointsSource,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsSource,
@@ -26,6 +28,8 @@ type BaseCreatureSource<
 type CreatureSkills = Record<SkillLongForm, Statistic> & Partial<Record<string, Statistic>>;
 
 interface CreatureSystemSource extends ActorSystemSource {
+    attributes: CreatureAttributesSource;
+
     details?: CreatureDetailsSource;
 
     /** Traits, languages, and other information. */
@@ -38,6 +42,14 @@ interface CreatureSystemSource extends ActorSystemSource {
     saves?: Record<SaveType, object | undefined>;
 
     resources?: CreatureResourcesSource;
+}
+
+interface CreatureAttributesSource extends ActorAttributesSource {
+    hp: CreatureHitPointsSource;
+}
+
+interface CreatureHitPointsSource extends ActorHitPointsSource {
+    temp: number;
 }
 
 interface CreatureDetailsSource extends ActorDetailsSource {
@@ -225,6 +237,7 @@ export type {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureHitPointsSource,
     CreatureInitiativeSource,
     CreatureLanguagesData,
     CreaturePerceptionData,

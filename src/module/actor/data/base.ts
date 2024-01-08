@@ -288,6 +288,7 @@ export type {
     ActorDetailsSource,
     ActorFlagsPF2e,
     ActorHitPoints,
+    ActorHitPointsSource,
     ActorSystemData,
     ActorSystemSource,
     ActorTraitsData,
