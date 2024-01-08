@@ -1,3 +1,28 @@
+## 5.12.2
+
+### Bugfixes
+
+-   (jfn4th) Fix outdated low-light-vision value in ancestry sheet
+-   (jfn4th) Prevent tall images from overlapping in compendium browser
+-   (jfn4th) Fix styling error when PC sheet character has ancestries/heritages/backgrounds/classes with long names
+-   (stwlam) Fix dropping formulas in PC sheet crafting tab
+-   (stwlam) Fix issue causing error to be thrown when new spells or effects are created
+-   (stwlam) Restore level data to template.json spell defaults
+-   (stwlam) Run extractPacks all
+-   (Supe) Fix spells with fixed heightening
+
+### Data Updates
+
+-   (Dharkus) Add effect for Forgive Foe
+-   (Dharkus) Add effect for Defaced Nyad Queen's forgiveness
+-   (Dharkus) Correct Phomandala's Focus Gaze DC
+-   (Dire Weasel) Fix several errors in Tiger Form effect
+-   (Dire Weasel) Fix Ghostly Weapon to apply only to selected weapon
+-   (ditzer252) Fix typo in Critical Fumble Deck #51
+-   (stwlam) Track how many times Multilingual has been taken, use with Gnome Polyglot/Nomadic Halfling
+-   (stwlam) Update rule elements in Burn It! feat to match text in Player Core
+-   (Tikael) Fix setting Champion class DC on Champion Dedication
+
 ## 5.12.1
 
 ### Bugfixes
@@ -111,7 +136,7 @@
 -   (InfamousSky) Add many wand and weapon icons
 -   (Intervención) Fix predicate of Constant Levitation feat
 -   (Intervención) Update Nudge Fate to reflect stat block in Player Core
--   (jfn4th ) Fix level of Ranger's Perception Legend feature
+-   (jfn4th) Fix level of Ranger's Perception Legend feature
 -   (xdy) Automate the Sprite ancestry feature Magical Strikes
 -   (LebombJames) Add self-applied effect to Take Cover ability item
 -   (rectulo) Fix errors in descriptions of Commune spell, Magic Sense feat, and Spiritual Guardian
@@ -279,8 +304,8 @@
 -   (LebombJames) Limit Ash Mystery benefit to Oracle class only
 -   (pedrogrullada) Remove erroneous attack traits from some spells
 -   (rectulo) Add Arcane tradition to Noise Blast spell
--   (sirrus233 ) Update Puff of Poison with Remaster errata
 -   (Robert Beilich) Update traits of specific weapons
+-   (sirrus233 ) Update Puff of Poison with Remaster errata
 -   (Tikael) Add automation to Ancestral Longevity and similar feats.
 -   (Tikael) Brush up automation of Paladin oath feats
 -   (Tikael) Clean up darkvision elixir effects
