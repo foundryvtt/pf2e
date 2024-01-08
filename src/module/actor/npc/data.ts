@@ -5,6 +5,7 @@ import type {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureHitPointsSource,
     CreatureInitiativeSource,
     CreatureLanguagesData,
     CreaturePerceptionData,
@@ -76,12 +77,7 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
         details: string;
     };
     adjustment: "elite" | "weak" | null;
-    hp: {
-        value: number;
-        max: number;
-        temp: number;
-        details: string;
-    };
+    hp: NPCHitPointsSource;
     speed: {
         value: number;
         otherSpeeds: LabeledSpeed[];
@@ -90,6 +86,10 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
     allSaves: {
         value: string;
     };
+}
+
+interface NPCHitPointsSource extends Required<CreatureHitPointsSource> {
+    details: string;
 }
 
 interface NPCPerceptionSource {

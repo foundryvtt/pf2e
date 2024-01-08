@@ -717,6 +717,10 @@ abstract class CreaturePF2e<
                 ? Math.max(0, changedHP.value)
                 : Math.clamped(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
         }
+        if (changed.system.attributes?.hp?.temp !== undefined) {
+            const inputValue = changed.system.attributes.hp.temp;
+            changed.system.attributes.hp.temp = Math.floor(Math.clamped(Number(inputValue) || 0, 0, 999));
+        }
 
         // Clamp focus points
         const focusUpdate = changed.system.resources?.focus;
