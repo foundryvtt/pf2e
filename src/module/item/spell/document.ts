@@ -405,13 +405,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
         const { castRank, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
-        const heightenEntries = this.getHeightenLayers(castRank);
+        const heightenOverlays = this.getHeightenLayers(castRank);
         const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const overrides = (() => {
             // If there are no overlays, return an override if this is a simple heighten or if its a different entry id
-            if (!overlays.length) {
-                if (!heightenEntries.length && castRank !== this.rank) {
+            if (!overlays.length && !heightenOverlays.length) {
+                if (castRank !== this.rank) {
                     return fu.mergeObject(this.toObject(), { system: { location: { heightenedLevel: castRank } } });
                 } else if (!options.entryId || options.entryId === this.system.location.value) {
                     return null;
@@ -441,7 +441,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 appliedOverlays.set(data.overlayType, id);
             }
 
-            for (const overlay of heightenEntries) {
+            for (const overlay of heightenOverlays) {
                 fu.mergeObject(source.system, overlay.system);
             }
 
