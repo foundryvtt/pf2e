@@ -1072,12 +1072,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         };
 
-        handlers["unprepare-formula"] = async (event, anchor) => {
-            const uuid = htmlClosest(event.target, "li")?.dataset.itemUuid;
-            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
-            const index = anchor.dataset.itemIndex;
-            const entrySelector = anchor.dataset.entrySelector;
-            if (!uuid || !index || !entrySelector) return;
+        handlers["unprepare-formula"] = async (event) => {
+            const itemEl = htmlClosest(event.target, "li");
+            const uuid = itemEl?.dataset.itemUuid;
+            if (!itemEl || !UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+            const index = itemEl.dataset.itemIndex;
+            const entrySelector = itemEl.dataset.entrySelector;
+            if (!index || !entrySelector) return;
 
             const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
             if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
