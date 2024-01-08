@@ -378,7 +378,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const { formula, breakdown } = createDamageFormula(formulaData);
-        const roll = new DamageRoll(formula);
+        const showBreakdown = game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner;
+        const roll = new DamageRoll(formula, {}, { showBreakdown });
 
         const template: SpellDamageTemplate = {
             name: this.name,

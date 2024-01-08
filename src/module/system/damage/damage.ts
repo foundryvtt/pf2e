@@ -135,7 +135,9 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
-        const showBreakdown = game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner;
+        const showBreakdown =
+            data.damage.roll?.options.showBreakdown ??
+            (game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner);
         const breakdown = Array.isArray(data.damage.breakdown)
             ? data.damage.breakdown
             : data.damage.breakdown[outcome ?? "success"];
@@ -154,7 +156,7 @@ export class DamagePF2e {
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            if ("roll" in damage) {
+            if (damage.roll) {
                 return damage.roll.evaluate({ async: true });
             }
 
