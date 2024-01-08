@@ -70,7 +70,6 @@ interface CharacterSystemSource extends CreatureSystemSource {
     build?: CharacterBuildSource;
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
-        defenses?: Record<string, MartialProficiencySource | undefined>;
     };
     resources: CharacterResourcesSource;
     initiative: CreatureInitiativeSource;
