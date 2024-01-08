@@ -201,6 +201,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         this.#setRollOptions();
         this.#prepareSenses();
+        if (this.ignored) return;
 
         for (const trait of this.overrides.traits) {
             const currentTraits = actor.system.traits;
@@ -301,11 +302,13 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     /** Add new senses the character doesn't already have */
     #prepareSenses(): void {
-        for (const senseType of SENSE_TYPES) {
-            const newSense = this.overrides.senses?.[senseType ?? sluggify(senseType, { camel: "dromedary" })];
-            if (!newSense) continue;
-            newSense.acuity ??= "precise";
-            const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
+        for (const [key, data] of Object.entries(this.overrides.senses ?? {})) {
+            const slug = sluggify(key);
+            if (!setHasElement(SENSE_TYPES, slug)) {
+                this.failValidation(`senses: ${slug} is not a valid choice`);
+                return;
+            }
+            const ruleData = { key: "Sense", selector: slug, force: true, ...data };
             new SenseRuleElement(ruleData, { parent: this.item }).beforePrepareData();
         }
     }
