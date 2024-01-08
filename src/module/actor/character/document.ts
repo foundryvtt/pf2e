@@ -66,7 +66,7 @@ import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
-import { ErrorPF2e, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
@@ -1055,6 +1055,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         slug: string,
         classDC: Pick<ClassDCData, "label" | "attribute" | "rank" | "primary">,
     ): Statistic {
+        /** @todo migrate to attribute */
+        if ("ability" in classDC && setHasElement(ATTRIBUTE_ABBREVIATIONS, classDC.ability)) {
+            classDC.attribute = classDC.ability;
+        }
         classDC.attribute ??= "str";
         classDC.rank ??= 0;
         classDC.primary ??= false;

@@ -24,9 +24,10 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             }
 
             systemSource.proficiencies ??= {};
+            const proficiencies: MaybeWithStoredDefense = systemSource.proficiencies;
             if (tupleHasValue(ARMOR_CATEGORIES, key)) {
-                systemSource.proficiencies.defenses ??= {};
-                systemSource.proficiencies.defenses[key] = { rank: data.rank };
+                proficiencies.defenses ??= {};
+                proficiencies.defenses[key] = { rank: data.rank };
             } else {
                 systemSource.proficiencies.attacks ??= {};
                 systemSource.proficiencies.attacks[key] = { custom: data.custom, rank: data.rank };
@@ -54,3 +55,7 @@ interface MaybeWithOldMartialData extends CharacterSystemSource {
     martial?: Record<string, Partial<MartialProficiency>>;
     "-=martial"?: null;
 }
+
+type MaybeWithStoredDefense = NonNullable<CharacterSystemSource["proficiencies"]> & {
+    defenses?: NonNullable<CharacterSystemSource["proficiencies"]>["attacks"];
+};
