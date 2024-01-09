@@ -26,17 +26,6 @@
         },
         "rules": [
             {
-                "key": "Sense",
-                "selector": "low-light-vision"
-            },
-            {
-                "key": "Sense",
-                "predicate": [
-                    "self:low-light-vision:from-ancestry"
-                ],
-                "selector": "darkvision"
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.hp.negativeHealing",
@@ -67,6 +56,16 @@
                     "necril"
                 ],
                 "slots": 0
+            },
+            "senses": {
+                "darkvision": {
+                    "special": {
+                        "ancestry": true,
+                        "llv": false,
+                        "second": false
+                    }
+                },
+                "low-light-vision": {}
             }
         },
         "traits": {
