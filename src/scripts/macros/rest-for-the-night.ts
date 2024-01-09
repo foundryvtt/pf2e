@@ -204,6 +204,8 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         );
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 
+        // Call a hook for modules to do anything extra
+        Hooks.callAll("pf2e.restForTheNight", actor);
         messages.push({ user: game.user.id, content, speaker: ChatMessagePF2e.getSpeaker({ actor }) });
     }
 

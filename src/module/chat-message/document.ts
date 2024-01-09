@@ -274,12 +274,8 @@ class ChatMessagePF2e extends ChatMessage {
             CriticalHitAndFumbleCards.handleDraw(this);
         }
 
-        // If this is a rest notification, re-render sheet for anyone currently viewing it and call system hook
-        if (options.restForTheNight) {
-            const actor = this.actor;
-            actor?.render();
-            Hooks.callAll("pf2e.restForTheNight", actor);
-        }
+        // If this is a rest notification, re-render sheet for anyone currently viewing it
+        if (options.restForTheNight) this.actor?.render();
     }
 }
 
