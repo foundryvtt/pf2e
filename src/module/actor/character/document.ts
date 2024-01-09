@@ -1813,13 +1813,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
-
-        // Clamp infused reagents
-        if (typeof changed.system.resources?.crafting?.infusedReagents?.value === "number") {
-            changed.system.resources.crafting.infusedReagents.value =
-                Math.max(0, Math.floor(changed.system.resources.crafting.infusedReagents.value)) || 0;
+        // Allow only one free crafting and quick alchemy to be enabled
+        if (changed.flags?.pf2e?.freeCrafting) {
+            changed.flags.pf2e.quickAlchemy = false;
+        } else if (changed.flags?.pf2e?.quickAlchemy) {
+            changed.flags.pf2e.freeCrafting = false;
         }
+
+        if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
         if (changed.system.details?.level || changed.system.build?.attributes) {
@@ -1840,6 +1841,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 );
                 changed.system = fu.mergeObject(changed.system, { attributes: { hp: { value: newHP } } });
             }
+        }
+
+        // Clamp infused reagents
+        if (changed.system.resources?.crafting?.infusedReagents?.value !== undefined) {
+            const infusedReagents = changed.system.resources.crafting.infusedReagents;
+            const max = Math.max(0, this.system.resources.crafting.infusedReagents.max || 0);
+            infusedReagents.value = Math.clamped(Math.floor(infusedReagents.value) || 0, 0, max);
         }
 
         // Clamp Stamina and Resolve
