@@ -792,28 +792,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             });
         }
 
-        const $craftingTab = craftingTab ? $(craftingTab) : $html.find(".tab[data-tab=crafting]");
-        const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
-        $craftingOptions.on("click", async (event) => {
-            const flags: string[] = [];
-            $craftingOptions.each((_index, element) => {
-                if (element !== event.target) {
-                    flags.push($(element).attr("flag") as string);
-                }
-            });
-            flags.forEach(async (flag) => {
-                await this.actor.setFlag("pf2e", flag, false);
-            });
-        });
-
-        const $formulas = $craftingTab.find(".crafting-entry-list");
-        $formulas.find(".infused-reagents").on("change", (event) => {
-            const change = Number($(event.target).val());
-            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
-            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
-        });
-
         for (const spellcastingCollectionEl of htmlQueryAll(castingPanel, ".spellcasting-entry[data-item-id]")) {
             const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
             htmlQuery(spellcastingCollectionEl, "[data-action=spell-attack]")?.addEventListener("click", (event) => {

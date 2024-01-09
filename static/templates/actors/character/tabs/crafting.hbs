@@ -2,17 +2,17 @@
     <div class="crafting-options item-list">
         <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
             <label>
-                <input type="checkbox" name="flags.pf2e.freeCrafting" flag="freeCrafting" {{checked actor.flags.pf2e.freeCrafting}}>
+                <input type="checkbox" name="flags.pf2e.freeCrafting" {{checked actor.flags.pf2e.freeCrafting}} />
                 <span>{{localize "PF2E.CraftingTab.ToggleFreeCrafting"}}</span>
             </label>
         </div>
         {{#if crafting.hasQuickAlchemy}}
-        <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
-            <label>
-                <input type="checkbox" name="flags.pf2e.quickAlchemy" flag="quickAlchemy" {{checked actor.flags.pf2e.quickAlchemy}}>
-                <span>{{localize "PF2E.CraftingTab.ToggleQuickAlchemy"}}</span>
-            </label>
-        </div>
+            <div class="crafting-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+                <label>
+                    <input type="checkbox" name="flags.pf2e.quickAlchemy" {{checked actor.flags.pf2e.quickAlchemy}} />
+                    <span>{{localize "PF2E.CraftingTab.ToggleQuickAlchemy"}}</span>
+                </label>
+            </div>
         {{/if}}
     </div>
     <ol class="directory-list item-list crafting-entry-list">
