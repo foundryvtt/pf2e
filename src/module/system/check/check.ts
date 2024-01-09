@@ -16,7 +16,6 @@ import {
     createHTMLElement,
     fontAwesomeIcon,
     htmlQuery,
-    htmlQueryAll,
     objectHasKey,
     parseHTML,
     signedInteger,
@@ -507,24 +506,21 @@ class CheckPF2e {
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
                   }
-                  for (const element of htmlQueryAll(parsedFlavor, ".roll-note")) {
-                      element.remove();
-                  }
-                  const notes = context.notes?.map((n) => new RollNotePF2e(n)) ?? [];
-                  const notesText =
-                      notes
-                          .filter((note) => {
-                              if (!context.dc || note.outcome.length === 0) {
-                                  // Always show the note if the check has no DC or no outcome is specified.
-                                  return true;
-                              }
-                              const outcome = context.outcome ?? context.unadjustedOutcome;
-                              return !!(outcome && note.outcome.includes(outcome));
-                          })
-                          .map((n) => n.text)
-                          .join("\n") ?? "";
+                  htmlQuery(parsedFlavor, "ul.notes")?.remove();
+                  const newNotes = context.notes?.map((n) => new RollNotePF2e(n)) ?? [];
+                  const notesEl = RollNotePF2e.notesToHTML(
+                      newNotes.filter((note) => {
+                          if (!context.dc || note.outcome.length === 0) {
+                              // Always show the note if the check has no DC or no outcome is specified.
+                              return true;
+                          }
+                          const outcome = context.outcome ?? context.unadjustedOutcome;
+                          return !!(outcome && note.outcome.includes(outcome));
+                      }),
+                  );
+                  if (notesEl) parsedFlavor.append(notesEl);
 
-                  return parsedFlavor.innerHTML + notesText;
+                  return parsedFlavor.innerHTML;
               })()
             : oldFlavor;
 
