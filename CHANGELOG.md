@@ -1,3 +1,21 @@
+## 5.12.3
+
+### Bugfixes
+
+-   (stwlam) Add Versatile Mental as weapon trait
+-   (stwlam) Fix display of free-action and reaction glyphs on spell-sheet header
+-   (stwlam) Fix rendering of notes in rerolled check messages
+-   (stwlam) Fix sidebar scrolling and skills editing on simple NPC sheet
+-   (stwlam) Fix Unprepare Formula listener on PC sheet
+-   (stwlam) Re-render PC sheet for all users viewing it upon resting for the night
+
+### Data Updates
+
+-   (CitySim) Fix transposed Dimension spells in remaster journal
+-   (Dire Weasel) Limit display of roll notes from Death Warden Dwarf heritage to certain outcomes
+-   (Dire Weasel) Add spell effect for Precious Metals
+-   (Rigo) Update Death Warden Dwarf's note to remaster text
+
 ## 5.12.2
 
 ### Bugfixes
