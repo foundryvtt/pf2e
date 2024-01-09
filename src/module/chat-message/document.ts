@@ -266,16 +266,19 @@ class ChatMessagePF2e extends ChatMessage {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void {
+    protected override _onCreate(data: this["_source"], options: MessageModificationContextPF2e, userId: string): void {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
         if (this.isRoll && game.pf2e.settings.critFumble.cards) {
             CriticalHitAndFumbleCards.handleDraw(this);
+        }
+
+        // If this is a rest notification, re-render sheet for anyone currently viewing it and call system hook
+        if (options.restForTheNight) {
+            const actor = this.actor;
+            actor?.render();
+            Hooks.callAll("pf2e.restForTheNight", actor);
         }
     }
 }
@@ -288,7 +291,18 @@ interface ChatMessagePF2e extends ChatMessage {
 }
 
 declare namespace ChatMessagePF2e {
+    function createDocuments<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        context?: MessageModificationContextPF2e,
+    ): Promise<TDocument[]>;
+
     function getSpeakerActor(speaker: foundry.documents.ChatSpeakerData): ActorPF2e | null;
+}
+
+interface MessageModificationContextPF2e extends ChatMessageModificationContext {
+    /** Whether this is a Rest for the Night message */
+    restForTheNight?: boolean;
 }
 
 export { ChatMessagePF2e };
