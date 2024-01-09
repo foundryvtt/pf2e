@@ -116,40 +116,27 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
-        $html.find(selectors).on("change", (event) => {
-            const $target = $(event.target);
+        for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selectors)) {
+            element.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const { itemId, itemProperty } = element.dataset;
+                if (!itemId || !itemProperty) return;
 
-            const { itemId, itemProperty } = event.target.dataset;
-            if (!itemId || !itemProperty) return;
+                const value = (() => {
+                    const value =
+                        element instanceof HTMLInputElement && element.type === "checbox"
+                            ? element.checked
+                            : element.value;
+                    if (typeof value === "boolean") return value;
+                    const dataType =
+                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
 
-            const value = (() => {
-                const value = $(event.target).val();
-                if (typeof value === "undefined" || value === null) {
-                    return value;
-                }
+                    return dataType === "Number" ? Number(value) || 0 : value.trim();
+                })();
 
-                const dataType =
-                    $target.attr("data-dtype") ??
-                    ($target.attr("type") === "checkbox"
-                        ? "Boolean"
-                        : ["number", "range"].includes($target.attr("type") ?? "")
-                          ? "Number"
-                          : "String");
-
-                switch (dataType) {
-                    case "Boolean":
-                        return typeof value === "boolean" ? value : value === "true";
-                    case "Number":
-                        return Number(value);
-                    case "String":
-                        return String(value);
-                    default:
-                        return value;
-                }
-            })();
-
-            this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
-        });
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
+            });
+        }
 
         // Toggle Dying or Wounded
         $html.find(".dots.dying, .dots.wounded").on("click contextmenu", (event) => {
