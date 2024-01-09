@@ -84,13 +84,15 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             const vision: string = (source.system.vision ??= "normal");
             if (vision === "lowLightVision") source.system.vision = "low-light-vision";
         } else if (source.type === "feat" && source.system.slug === "multilingual") {
-            const rule = {
-                key: "ActiveEffectLike",
-                mode: "add",
-                path: "system.build.languages.max",
-                value: "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))",
-            };
-            source.system.rules = [rule];
+            const ternary =
+                "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))";
+            const flagPath = "flags.pf2e.multilingualTaken";
+            const rules = [
+                { key: "ActiveEffectLike", mode: "add", path: "system.build.languages.max", value: ternary },
+                { key: "ActiveEffectLike", mode: "override", path: flagPath, priority: 19, value: 0 },
+                { key: "ActiveEffectLike", mode: "add", path: flagPath, value: 1 },
+            ];
+            source.system.rules = rules;
             source.system.subfeatures = {
                 languages: {
                     granted: [],
