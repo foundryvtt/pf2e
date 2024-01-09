@@ -14,7 +14,11 @@
                 aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
             />
 
-            {{#if (or item.actionCost item.actionGlyph)}}{{{actionGlyph (coalesce item.actionCost item.actionGlyph)}}}{{/if}}
+            {{#if item.actionCost~}}
+                {{{actionGlyph item.actionCost}}}
+            {{~else if item.actionGlyph~}}
+                <span class="action-glyph">{{item.actionGlyph}}</span>
+            {{~/if}}
 
             {{#if itemType}}
                 <span class="level">
