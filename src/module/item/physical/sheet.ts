@@ -163,49 +163,6 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
-        $html.find("[data-action=activation-add]").on("click", (event) => {
-            event.preventDefault();
-            const id = fu.randomID(16);
-            const action: ItemActivation = {
-                id,
-                actionCost: { value: 1, type: "action" },
-                components: { command: false, envision: false, interact: false, cast: false },
-                description: { value: "" },
-                traits: { value: [] },
-            };
-            this.item.update({ [`system.activations.${id}`]: action });
-        });
-
-        $html.find("[data-action=activation-delete]").on("click", (event) => {
-            event.preventDefault();
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            const isLast = Object.values(this.item.system.activations ?? []).length === 1;
-            if (isLast && id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ "system.-=activations": null });
-            } else {
-                this.item.update({ [`system.activations.-=${id}`]: null });
-            }
-        });
-
-        $html.find("[data-action=activation-frequency-add]").on("click", (event) => {
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.system.activations ?? {})) {
-                const per = CONFIG.PF2E.frequencies.day;
-                this.item.update({ [`system.activations.${id}.frequency`]: { value: 1, max: 1, per } });
-            }
-        });
-
-        $html.find("[data-action=activation-frequency-delete]").on("click", (event) => {
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ [`system.activations.${id}.-=frequency`]: null });
-            }
-        });
-    }
-
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         if (formData["system.quantity"] === null) {
             formData["system.quantity"] = 0;
