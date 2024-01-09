@@ -21,7 +21,7 @@
                         >
                             {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                         </select>
-                        <button class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
+                        <button type="button" class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
                             {{localize "PF2E.ModifiersTitle"}}
                         </button>
                     </div>
@@ -154,7 +154,7 @@
                     <span class="name">{{classDC.label}}</span>
                     <div class="button-group stacked">
                         <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
-                        <button class="hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers">
+                        <button type="button" class="hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers">
                             {{localize "PF2E.ModifiersTitle"}}
                         </button>
                     </div>
