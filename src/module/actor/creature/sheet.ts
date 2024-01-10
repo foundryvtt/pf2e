@@ -164,19 +164,17 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
 
-        handlers["perception-check"] = async (event, anchor) => {
+        handlers["perception-check"] = (event, anchor) => {
             const extraRollOptions = anchor.dataset.secret ? ["secret"] : [];
-            await this.actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
+            return this.actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
         };
 
-        handlers["recovery-check"] = async (event) => {
-            await this.actor.rollRecovery(event);
-        };
+        handlers["recovery-check"] = (event) => this.actor.rollRecovery(event);
 
         // SPELLCASTING
 
         // Casting spells and consuming slots or focus points
-        handlers["cast-spell"] = async (event) => {
+        handlers["cast-spell"] = (event): Promise<void> | void => {
             const spellRow = htmlClosest(event.target, "[data-item-id]");
             const { itemId, entryId, slotId } = spellRow?.dataset ?? {};
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
@@ -207,7 +205,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const slotId = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId ?? "";
             const collection = this.actor.spellcasting.collections.get(entryId);
-            collection?.unprepareSpell(groupId, slotId);
+            return collection?.unprepareSpell(groupId, slotId);
         };
 
         // Set expended state of a spell slot
@@ -221,29 +219,29 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const expend = row?.dataset.slotExpended === undefined;
             const collection = this.actor.spellcasting.collections.get(entryId);
 
-            collection?.setSlotExpendedState(groupId, slotId, expend);
+            return collection?.setSlotExpendedState(groupId, slotId, expend);
         };
 
-        handlers["toggle-signature-spell"] = async (event) => {
+        handlers["toggle-signature-spell"] = (event) => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const spell = this.actor.items.get(itemId, { strict: true });
             if (!spell?.isOfType("spell")) return;
-            spell.update({ "system.location.signature": !spell.system.location.signature });
+            return spell.update({ "system.location.signature": !spell.system.location.signature });
         };
 
-        handlers["toggle-show-slotless-ranks"] = async (event) => {
+        handlers["toggle-show-slotless-ranks"] = (event) => {
             const collectionId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
             const spellcastingEntry = this.actor.items.get(collectionId, { strict: true });
             if (!spellcastingEntry.isOfType("spellcastingEntry")) {
                 throw ErrorPF2e("Tried to toggle visibility of slotless ranks on a non-spellcasting entry");
             }
-            await spellcastingEntry.update({
+            return spellcastingEntry.update({
                 "system.showSlotlessLevels.value": !spellcastingEntry.showSlotlessRanks,
             });
         };
 
         // Regenerating spell slots and spell uses
-        handlers["reset-spell-slots"] = async (event) => {
+        handlers["reset-spell-slots"] = (event): Promise<unknown> | void => {
             const actor = this.actor;
             const row = htmlClosest(event.target, "[data-item-id]");
             const itemId = row?.dataset.itemId;
@@ -255,28 +253,28 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 const groupNumber = spellSlotGroupIdToNumber(row?.dataset.groupId) || 0;
                 const propertyKey = goesToEleven(groupNumber) ? (`slot${groupNumber}` as const) : "slot0";
                 system.slots[propertyKey].value = system.slots[propertyKey].max;
-                await item.update({ system });
+                return item.update({ system });
             } else if (item.isOfType("spell")) {
                 const max = item.system.location.uses?.max;
                 if (!max) return;
-                await item.update({ "system.location.uses.value": max });
+                return item.update({ "system.location.uses.value": max });
             }
         };
 
         // Spellcasting entries
 
         // Add, edit, and remove spellcasting entries
-        handlers["spellcasting-create"] = async (event) => {
-            await createSpellcastingDialog(event, this.actor);
+        handlers["spellcasting-create"] = (event) => {
+            return createSpellcastingDialog(event, this.actor);
         };
-        handlers["spellcasting-edit"] = async (event) => {
+        handlers["spellcasting-edit"] = (event): ReturnType<typeof createSpellcastingDialog> | void => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const entry = this.actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {
-                await createSpellcastingDialog(event, entry);
+                return createSpellcastingDialog(event, entry);
             }
         };
-        handlers["spellcasting-remove"] = async (event) => {
+        handlers["spellcasting-remove"] = async (event): Promise<ItemPF2e<TActor> | void> => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const item = this.actor.items.get(itemId, { strict: true });
             const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
@@ -284,7 +282,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             // Render confirmation modal dialog
             if (await Dialog.confirm({ title, content })) {
-                await item.delete();
+                return item.delete();
             }
         };
 

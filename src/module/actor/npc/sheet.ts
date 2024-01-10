@@ -393,19 +393,19 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
 
-        handlers["adjust-elite-weak"] = (event) => {
+        handlers["adjust-elite-weak"] = (event): Promise<unknown> | void => {
             const adjustment = htmlClosest(event.target, "[data-adjustment]")?.dataset.adjustment;
             if (adjustment === "elite" || adjustment === "weak") {
                 const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
-                this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
+                return this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
             }
         };
 
         handlers["open-recall-breakdown"] = () => {
-            new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
+            return new RecallKnowledgePopup({}, this.actor.identificationDCs).render(true);
         };
 
-        handlers["roll-attribute"] = async (event, anchor) => {
+        handlers["roll-attribute"] = (event, anchor) => {
             const attribute = anchor?.parentElement?.dataset.attribute;
             if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) return;
             const modifier = this.actor.system.abilities[attribute].mod;
@@ -414,7 +414,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
             const data = { modifier };
             const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
-            await DicePF2e.d20Roll({ event, parts, data, title, speaker });
+            return DicePF2e.d20Roll({ event, parts, data, title, speaker });
         };
 
         if (this.isEditable) {

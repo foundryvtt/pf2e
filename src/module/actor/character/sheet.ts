@@ -1122,27 +1122,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // BIOGRAPHY
 
         // Section visibility toggles
-        handlers["toggle-bio-visibility"] = async (event) => {
+        handlers["toggle-bio-visibility"] = (event): Promise<unknown> | void => {
             const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
             const section = anchor?.dataset.section;
             if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
                 const { biography } = this.actor.system.details;
                 const path = `system.details.biography.visibility.${section}`;
-                await this.actor.update({ [path]: !biography.visibility[section] });
+                return this.actor.update({ [path]: !biography.visibility[section] });
             }
         };
 
         // Edicts and anathema
-        handlers["add-edict-anathema"] = async (_, anchor) => {
+        handlers["add-edict-anathema"] = (_, anchor) => {
             anchor.style.pointerEvents = "none";
             const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
             if (!tupleHasValue(["edicts", "anathema"], field)) {
                 throw ErrorPF2e("Unexpected error adding edicts or anathema");
             }
             const list = this.actor._source.system.details.biography[field];
-            await this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
+            return this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
         };
-        handlers["delete-edict-anathema"] = async (_, anchor) => {
+        handlers["delete-edict-anathema"] = (_, anchor) => {
             anchor.style.pointerEvents = "none";
             const field = htmlClosest(anchor, "[data-field]")?.dataset.field;
             const index = anchor.dataset.index ?? "";
@@ -1151,7 +1151,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const list = [...this.actor._source.system.details.biography[field]];
             list.splice(Number(index), 1);
-            await this.actor.update({ [`system.details.biography.${field}`]: list });
+            return this.actor.update({ [`system.details.biography.${field}`]: list });
         };
 
         return handlers;

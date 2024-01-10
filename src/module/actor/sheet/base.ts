@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
-import type { EffectPF2e, PhysicalItemPF2e } from "@item";
+import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
 import { isPhysicalData } from "@item/base/data/helpers.ts";
@@ -12,7 +12,6 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
@@ -428,7 +427,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const item = this.actor.items.get(itemId, { strict: true });
                 return item.sheet.render(true);
             },
-            "effect-toggle-unidentified": (event): Promise<EffectPF2e<TActor> | undefined> | void => {
+            "effect-toggle-unidentified": (event): Promise<unknown> | void => {
                 const effectId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
                 if (effect.isOfType("effect")) {
@@ -441,7 +440,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const item = this.actor.items.get(itemId, { strict: true });
                 return this.deleteItem(item, event);
             },
-            "item-to-chat": (event, anchor): Promise<ChatMessagePF2e | undefined> | void => {
+            "item-to-chat": (event, anchor): Promise<unknown> | void => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const itemId = itemEl?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
