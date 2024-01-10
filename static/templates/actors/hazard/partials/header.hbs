@@ -2,10 +2,14 @@
 <header>
     <div class="frame-container">
         <div class="frame image-container">
-            <img class="actor-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+            <img class="actor-image" alt="{{actor.name}}" src="{{actor.img}}" data-edit="img" />
             <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
             {{#if editable}}
-                <div class="edit-mode-button" title="{{localize "PF2E.EditHazardLabel"}}"><i class="fa-solid fa-lock{{#if editing}}-open{{/if}}"></i></div>
+                <a
+                    class="edit-mode-button"
+                    data-action="toggle-edit-mode"
+                    data-tooltip="PF2E.EditHazardLabel"
+                ><i class="fa-solid fa-lock{{#if editing}}-open{{/if}}"></i></a>
             {{/if}}
         </div>
     </div>
