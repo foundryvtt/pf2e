@@ -206,7 +206,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     animation: "fade",
                     trigger: "click",
                     arrow: false,
-                    content: $(messageEl).find("div.hover-content"),
+                    content: htmlQuery(messageEl, "div.hover-content"),
                     contentAsHTML: true,
                     contentCloning: true,
                     debug: BUILD_MODE === "development",
