@@ -21,7 +21,7 @@
         height: 100%;
 
         .tagify > span {
-            min-width: 20px;
+            min-width: 1.25rem;
         }
 
         .tagify--hasMaxTags > span {
@@ -47,24 +47,22 @@
     }
 
     .container {
+        background: linear-gradient(rgba(white, 0), rgba(white, 0));
         display: flex;
-        background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
         height: 100%;
         overflow: hidden;
     }
 
     .content {
         flex: 1;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding: 0 5px 20px 5px;
         overflow: hidden scroll;
+        padding: 0 var(--space-5) 1.25rem;
     }
 
     @import "header", "sidebar";
 
     .section-container {
-        padding: 4px 6px 0;
+        padding: var(--space-4) var(--space-6) 0;
 
         .editor {
             width: 100%;
@@ -75,31 +73,31 @@
         }
 
         > .section-body {
-            padding: 4px;
+            padding: var(--space-4);
         }
 
         &.skills > .section-body {
             .list {
                 display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
+                flex-flow: row wrap;
             }
         }
 
         .actions-list,
         .attacks-list {
             border-bottom: 1px solid var(--alt);
+
             &:last-child {
                 border-bottom: none;
             }
 
             .action {
-                padding: 4px 0;
+                padding: var(--space-4) 0;
             }
         }
 
         &.publication {
-            margin-top: 0.5rem;
+            margin-top: var(--space-8);
 
             .section-header {
                 background: none;
@@ -109,7 +107,7 @@
             .section-body {
                 @include publication-data;
                 border-top: none;
-                padding: 0.25rem 0.5rem;
+                padding: var(--space-4) var(--space-8);
 
                 input[type="text"] {
                     background: rgba(black, 0.05);
@@ -121,7 +119,7 @@
     // When the editor is open, fill more space so the user has something to work with
     .tox.tox-tinymce {
         // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-        height: 200px !important;
+        height: 12.5rem !important;
     }
 
     // Hide editor button for those controlled by section controls
