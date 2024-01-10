@@ -1,8 +1,10 @@
-<div><h4><img src="{{itemImg}}" height="24" width="24" /> {{itemName}}</h4></div>
+<div>
+    <h4><img src="{{unidentified.img}}" height="24" width="24" /> {{unidentified.name}}</h4>
+</div>
 <div data-visibility="gm">{{identifiedName}}</div>
+
 <p>{{localize "PF2E.identification.PostSkillsToChatText"}}</p>
-{{#each skills as |skill|}}
-    <p>
-        <span data-pf2-check="{{skill.slug}}" data-pf2-traits="{{../rollOptions}}" data-pf2-dc="{{skill.dc}}">{{skill.name}}</span>
-    </p>
+
+{{#each skills as |dc slug|}}
+    <p>@Check[{{slug}}|traits:{{../rollOptions}}|dc:{{dc}}]</p>
 {{/each}}
