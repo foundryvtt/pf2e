@@ -4,7 +4,7 @@
     "name": "Spell Effect: Silence",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em></p>\n<p>The target makes no sound.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Silence]</em></p>\n<p>The target makes no sound, preventing creatures from noticing it using hearing alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells due to the magical words involved in casting, with the exception of subtle spells.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell creates an aura in a 10-foot emanation around the touched creature, silencing all sound in or passing through it. While within the aura, creatures are subject to the same effects as the target.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -27,6 +27,28 @@
                 "path": "system.attributes.emitsSound",
                 "phase": "beforeDerived",
                 "value": false
+            },
+            {
+                "effects": [
+                    {
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Silence"
+                    }
+                ],
+                "key": "Aura",
+                "level": 2,
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|level}",
+                            4
+                        ]
+                    }
+                ],
+                "radius": 10,
+                "traits": [
+                    "illusion"
+                ]
             }
         ],
         "start": {
