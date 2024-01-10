@@ -3,15 +3,15 @@ ol.spell-list {
     display: flex;
     flex-basis: 100%;
     flex-flow: column nowrap;
-    gap: 1px;
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
 
     > li {
         align-items: center;
         display: grid;
-        gap: 0.5rem;
-        grid-template-columns: 55% auto 2.5rem 3rem;
+        gap: var(--space-8);
+        grid-template-columns: 52.5% auto fit-content(5rem) 3rem;
         margin: 0;
 
         > * {
@@ -74,9 +74,13 @@ ol.spell-list {
                 padding-left: 0.2em;
 
                 h3 {
-                    margin: 0 0.5rem 0 0;
+                    margin: 0 var(--space-8) 0 0;
                     font-weight: 700;
                 }
+            }
+
+            .range-uses {
+                grid-column: span 2;
             }
 
             .item-controls {
@@ -106,26 +110,26 @@ ol.spell-list {
             }
 
             .spell-slots-increment-reset {
-                padding-left: 5px;
                 font-size: var(--font-size-10);
+                padding-left: var(--space-5);
             }
         }
 
         &.spell {
             border: none;
             font-size: var(--font-size-13);
-            padding: 0.1875rem 0.25rem;
+            padding: var(--space-3) var(--space-4);
 
             // The lighter background gives an illusion of larger padding: tweak slightly
             &:nth-child(even) {
-                padding: 0.125rem 0.25rem;
+                padding: var(--space-2) var(--space-4);
             }
         }
 
         .level-prepared-toggle {
             flex: 0;
-            font-size: 0.75rem;
-            color: var(--secondary);
+            font-size: var(--space-12);
+            color: var(--color-pf-secondary);
         }
 
         .item-name {
@@ -143,7 +147,7 @@ ol.spell-list {
             }
 
             + span {
-                font-size: 0.75rem;
+                font-size: var(--font-size-12);
             }
 
             .item-image {
@@ -155,45 +159,45 @@ ol.spell-list {
                 align-items: center;
                 display: flex;
                 flex-wrap: nowrap;
-            }
-
-            .slash {
-                font-size: 0.75rem;
+                gap: var(--space-3);
             }
 
             .spell-slots,
             .spell-max {
-                padding-top: 3px;
-                font-size: 0.75rem;
+                padding-top: var(--space-3);
+                font-size: var(--font-size-12);
 
                 &.infinity {
                     position: relative;
-                    top: -2px;
+                    top: calc(-1 * var(--space-2));
                 }
             }
 
             h4 {
                 @include p-reset;
-                font-size: var(--font-size-14);
-                letter-spacing: -0.075em;
-                line-height: 1;
-                margin-left: 0.5rem;
+                font: 500 var(--font-size-14) / 1 var(--body-serif);
+                letter-spacing: -0.025em;
+                margin-left: 0.5em;
 
                 > a:hover {
-                    color: var(--secondary);
+                    color: var(--color-pf-secondary);
                     text-shadow: none;
                 }
             }
 
             .action-glyph {
-                margin-left: 0.25rem;
+                margin-left: 0.25em;
                 font-size: small;
             }
         }
 
         button.cast-spell {
             font: 500 var(--font-size-10) / 1.8em var(--sans-serif);
+            justify-self: end;
+            min-width: 2.5rem;
+            padding: 0 0.25em;
             text-transform: uppercase;
+            width: fit-content;
         }
 
         .item-controls {
@@ -206,7 +210,7 @@ ol.spell-list {
             border-top: 1px solid lighten($sub-color, 30);
             display: block;
             grid-column: span 4;
-            padding: 0.25rem 0 0.5rem;
+            padding: var(--space-4) 0 var(--space-8);
         }
     }
 
@@ -233,9 +237,9 @@ ol.spell-list {
         font-size: 0.75rem;
         color: var(--text-light);
         margin: 0;
-        padding: 4px;
+        padding: var(--space-4);
         text-align: center;
-        background: var(--secondary);
+        background: var(--color-pf-secondary);
         position: relative;
     }
 }
