@@ -34,7 +34,14 @@
             <div>
                 <div class="initiative">
                     <div class="valued-icon">
-                        <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                        <input
+                            type="text"
+                            value="{{numberFormat data.attributes.stealth.value sign=true}}"
+                            data-property="system.attributes.stealth.value"
+                            data-modifier
+                            data-dtype="Number"
+                            placeholder="N/A"
+                        />
                     </div>
                     <a class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
                         <i class="fa-solid fa-dice-d20"></i>
@@ -63,7 +70,15 @@
                             <div>{{save.label}}</div>
                         {{~/if}}
                         <span class="valued-icon">
-                            <input type="text" value="{{#if save.mod includeZero=true}}{{numberFormat save.mod decimals=0 sign=true}}{{/if}}" data-property="system.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
+                            <input
+                                type="text"
+                                value="{{#if save.mod includeZero=true}}{{numberFormat save.mod sign=true}}{{/if}}"
+                                data-property="system.saves.{{save.type}}.value"
+                                data-modifier
+                                data-nullable
+                                data-dtype="Number"
+                                placeholder="N/A"
+                            />
                         </span>
                     </div>
                 {{/each}}

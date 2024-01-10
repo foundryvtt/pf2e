@@ -1,7 +1,7 @@
 import { StrikeData } from "@actor/data/base.ts";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { tagify, traitSlugToObject } from "@util";
+import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
 import { HazardSystemData } from "./data.ts";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
@@ -145,46 +145,22 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
         }
+    }
 
-        // Toggle Edit mode
-        $html.find(".edit-mode-button").on("click", () => {
-            this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
-        });
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
 
-        // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(fu.getProperty(this.actor._source, propertyPath));
-            $input.val(baseValue).attr({ name: propertyPath });
-        });
+        handlers["toggle-edit-mode"] = () => {
+            return this.actor.update({ "flags.pf2e.editHazard.value": !this.editing });
+        };
 
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
-            const $input = $(event.target);
-            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
-            const propertyPath = $input.attr("data-property") ?? "";
-            const valueAttr = $input.attr("data-value");
-            if (valueAttr) {
-                $input.val(valueAttr);
-            } else {
-                const preparedValue = Number(fu.getProperty(this.actor, propertyPath));
-                $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
-            }
-        });
+        handlers["edit-section"] = (event) => {
+            const container = htmlClosest(event.target, ".section-container");
+            const name = htmlQuery(container, "[data-edit]")?.dataset.edit;
+            return name ? this.activateEditor(name) : null;
+        };
 
-        $html.find("[data-action=edit-section]").on("click", (event) => {
-            const $parent = $(event.target).closest(".section-container");
-            const name = $parent.find("[data-edit]").attr("data-edit");
-            if (name) {
-                this.activateEditor(name);
-            }
-        });
-
-        if (!this.options.editable) return;
-
-        $html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
-            this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
-        });
+        return handlers;
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

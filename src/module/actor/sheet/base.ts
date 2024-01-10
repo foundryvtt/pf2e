@@ -270,12 +270,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "select[data-property],input[data-property]",
         );
         for (const input of manualPropertyInputs) {
+            // Whether the value is a modifier and to be displayed with a sign
+            const isModifier = input.classList.contains("modifier") || input.dataset.modifier !== undefined;
+            // Whether the value is nullable: if so, allow the value to be cleared instead of coercing to a number
+            const isNullable = input.dataset.nullable !== undefined;
+
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
                 input.name = propertyPath;
                 if (input instanceof HTMLInputElement) {
-                    const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
-                    input.value = baseValue.toString();
+                    const savedValue = fu.getProperty(this.actor._source, propertyPath);
+                    const baseValue = isNullable && savedValue === null ? null : Math.trunc(Number(savedValue) || 0);
+                    input.value = (baseValue ?? "").toString();
                     if (input.type === "text" && input.dataset.dtype === "Number") {
                         input.type = "number";
                     }
@@ -285,17 +291,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             input.addEventListener("blur", () => {
                 input.removeAttribute("name");
                 const propertyPath = input.dataset.property ?? "";
-                const preparedValue = Number(fu.getProperty(this.actor, propertyPath)) || 0;
+                const preparedValue = fu.getProperty(this.actor, propertyPath);
+                const currentValue = preparedValue === null && isNullable ? preparedValue : Number(preparedValue) || 0;
                 const baseValue = Math.trunc(Number(fu.getProperty(this.actor._source, propertyPath)) || 0);
-                const newValue = Math.trunc(Number(input.value));
+                const newValue = isNullable && input.value === "" ? null : Math.trunc(Number(input.value));
                 if (input instanceof HTMLInputElement) {
                     if (input.type === "number" && input.dataset.dtype === "Number") {
                         input.type = "text";
                     }
+
                     if (baseValue === newValue) {
-                        input.value = input.classList.contains("modifier")
-                            ? signedInteger(preparedValue)
-                            : String(preparedValue);
+                        input.value =
+                            newValue === null
+                                ? ""
+                                : isModifier
+                                  ? signedInteger(currentValue || 0)
+                                  : String(currentValue || 0);
                     }
                 }
             });
