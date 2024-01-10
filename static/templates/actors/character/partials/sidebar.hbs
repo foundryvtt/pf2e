@@ -40,11 +40,11 @@
         >
             {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
         </a>
-        <a class="dots dying">
+        <a class="condition-pips" data-action="adjust-condition-value" data-condition="dying">
             <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
             {{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}
         </a>
-        <a class="dots wounded">
+        <a class="condition-pips" data-action="adjust-condition-value" data-condition="wounded">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
             <span class="pips">
                 {{#times data.attributes.wounded.value}}<i class="fa-solid fa-dot-circle"></i>{{/times}}

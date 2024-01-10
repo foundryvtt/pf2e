@@ -138,27 +138,17 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             });
         }
 
-        // Toggle Dying or Wounded
-        $html.find(".dots.dying, .dots.wounded").on("click contextmenu", (event) => {
-            type ConditionName = "dying" | "wounded";
-            const condition = Array.from(event.delegateTarget.classList).find((className): className is ConditionName =>
-                ["dying", "wounded"].includes(className),
-            );
-            if (condition) {
-                const currentMax = this.actor.system.attributes[condition]?.max;
-                if (event.type === "click" && currentMax) {
-                    this.actor.increaseCondition(condition, { max: currentMax });
-                } else if (event.type === "contextmenu") {
-                    this.actor.decreaseCondition(condition);
-                }
-            }
-        });
-
-        // We can't use form submission for these updates since duplicates force array updates.
-        // We'll have to move focus points to the top of the sheet to remove this
-        $html.find(".focus-pool").on("change", (event) => {
-            this.actor.update({ "system.resources.focus.max": $(event.target).val() });
-        });
+        // Increase/decrease Dying/Wounded value
+        for (const pips of htmlQueryAll(html, "a[data-action=adjust-condition-value]")) {
+            const slug = pips.dataset.condition === "dying" ? "dying" : "wounded";
+            pips.addEventListener("click", () => {
+                const currentMax = this.actor.system.attributes[slug]?.max;
+                return this.actor.increaseCondition(slug, { max: currentMax });
+            });
+            pips.addEventListener("contextmenu", () => {
+                return this.actor.decreaseCondition(slug);
+            });
+        }
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
@@ -267,7 +257,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         handlers["spellcasting-create"] = (event) => {
             return createSpellcastingDialog(event, this.actor);
         };
-        handlers["spellcasting-edit"] = (event): ReturnType<typeof createSpellcastingDialog> | void => {
+        handlers["spellcasting-edit"] = (event): Promise<unknown> | void => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const entry = this.actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {

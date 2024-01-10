@@ -60,9 +60,12 @@
                                 <i class="fa-solid fa-dice-d20"></i>
                             </a>
                         {{/if}}
-                        <a class="dots dying" data-tooltip="PF2E.condition.dying.summary">
-                            <span class="pips">{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</span>
-                        </a>
+                        <a
+                            class="pips"
+                            data-action="adjust-condition-value"
+                            data-condition="dying"
+                            data-tooltip="PF2E.condition.dying.summary"
+                        >{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</a>
                     </div>
                 </div>
                 <div class="defenses-section">
