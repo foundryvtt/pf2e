@@ -1,14 +1,18 @@
 import type { ActorPF2e } from "@actor";
-import { StrikeData } from "@actor/data/base.ts";
-import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import type { StrikeData } from "@actor/data/base.ts";
+import type { InitiativeRollResult } from "@actor/initiative.ts";
+import type { EffectPF2e, PhysicalItemPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
-import { ItemSourcePF2e, isPhysicalData, type ActionType } from "@item/base/data/index.ts";
+import { isPhysicalData } from "@item/base/data/helpers.ts";
+import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
@@ -403,7 +407,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 this.#onClickBrowseAbilities(anchor);
             },
             "browse-equipment": (_, anchor) => {
-                this.#onClickBrowseEquipment(anchor);
+                return this.#onClickBrowseEquipment(anchor);
             },
             "create-item": (_, anchor) => {
                 this.#onClickCreateItem(anchor);
@@ -411,33 +415,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "edit-item": (event) => {
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
-                item.sheet.render(true, { focus: true });
+                return item.sheet.render(true);
             },
-            "effect-toggle-unidentified": async (event) => {
+            "effect-toggle-unidentified": (event): Promise<EffectPF2e<TActor> | undefined> | void => {
                 const effectId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
                 if (effect.isOfType("effect")) {
                     const isUnidentified = effect.system.unidentified;
-                    await effect.update({ "system.unidentified": !isUnidentified });
+                    return effect.update({ "system.unidentified": !isUnidentified });
                 }
             },
             "delete-item": (event) => {
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
-                this.deleteItem(item, event);
+                return this.deleteItem(item, event);
             },
-            "item-to-chat": async (event, anchor) => {
+            "item-to-chat": (event, anchor): Promise<ChatMessagePF2e | undefined> | void => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const itemId = itemEl?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("spell")) {
                     const castRank = Number(itemEl?.dataset.castRank ?? NaN);
-                    await item.toMessage(event, { create: true, data: { castRank } });
+                    return item.toMessage(event, { create: true, data: { castRank } });
                 } else if (!item.isOfType("physical") || item.isIdentified) {
-                    await item.toMessage(event, { create: true });
+                    return item.toMessage(event, { create: true });
                 }
             },
-            "roll-check": async (event, anchor) => {
+            "roll-check": (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
                 // Currently only used on NPC sheets for skill variants
@@ -449,23 +453,23 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }
-                await statistic?.roll(args);
+                return statistic?.roll(args);
             },
-            "roll-initiative": async (_, element): Promise<void> => {
+            "roll-initiative": (_, element): Promise<InitiativeRollResult | null> | void => {
                 if (!element.classList.contains("disabled") && this.actor.initiative) {
-                    await this.actor.initiative.roll(eventToRollParams(event, { type: "check" }));
+                    return this.actor.initiative.roll(eventToRollParams(event, { type: "check" }));
                 }
             },
-            "show-image": async () => {
+            "show-image": () => {
                 const actor = this.actor;
                 const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-                await new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+                return new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
             },
             "toggle-summary": (_, anchor): Promise<void> | void => {
                 const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
                 if (element) return this.itemRenderer.toggleSummary(element);
             },
-            "use-action": async (event, anchor) => {
+            "use-action": (event, anchor) => {
                 const actionSlug = htmlClosest(anchor, "[data-action-slug]")?.dataset.actionSlug;
                 if (actionSlug) {
                     const action = game.pf2e.actions[actionSlug ?? ""];
@@ -478,7 +482,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
-                    await createSelfEffectMessage(item, eventToRollMode(event));
+                    return createSelfEffectMessage(item, eventToRollMode(event));
                 }
             },
         };
@@ -486,7 +490,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // IWR
         for (const listName of ["immunities", "weaknesses", "resistances"] as const) {
             handlers[`edit-${listName}`] = () => {
-                new IWREditor(this.actor, { category: listName }).render(true);
+                return new IWREditor(this.actor, { category: listName }).render(true);
             };
         }
 
@@ -1296,7 +1300,7 @@ interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, It
 
 type SheetClickActionHandlers = Record<
     string,
-    ((event: MouseEvent, actionTarget: HTMLElement) => void | Promise<void>) | undefined
+    ((event: MouseEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined
 >;
 
 export { ActorSheetPF2e, type SheetClickActionHandlers };
