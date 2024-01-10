@@ -3,8 +3,6 @@
     overflow: hidden;
 }
 
-$header-height: 89px; /* Adjust height of the header */
-
 @import "character/attribute-builder";
 @import "iwr-editor";
 
@@ -41,7 +39,7 @@ $header-height: 89px; /* Adjust height of the header */
             bottom: 0;
             display: none;
             font-size: var(--font-size-16);
-            padding: 0.125rem;
+            padding: var(--space-2);
             position: absolute;
             right: 0;
             text-shadow:
@@ -169,17 +167,17 @@ $header-height: 89px; /* Adjust height of the header */
     .crb-style {
         display: grid;
         grid:
-            "sidebar header" 75px
+            "sidebar header" 4.625rem
             "sidebar nav" minmax(min-content, max-content)
             "sidebar content" 1fr
-            / 230px 1fr;
+            / 14.375rem 1fr;
 
         font-family: var(--body-serif);
 
         background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size:
-            auto $header-height,
+            auto 5.625rem,
             cover;
         background-attachment: local;
         height: 100%;
@@ -204,7 +202,6 @@ $header-height: 89px; /* Adjust height of the header */
         .sheet-body {
             grid-area: content;
             position: relative;
-            z-index: 0;
 
             ol {
                 list-style: none;
@@ -240,8 +237,8 @@ $header-height: 89px; /* Adjust height of the header */
                     display: flex;
                     flex-flow: column wrap;
                     list-style: none;
-                    margin-bottom: 0.5rem;
-                    padding: 0.5rem 1rem;
+                    margin-bottom: var(--space-8);
+                    padding: var(--space-8) 1rem;
 
                     > li {
                         align-items: center;
@@ -251,7 +248,7 @@ $header-height: 89px; /* Adjust height of the header */
                         label {
                             align-items: center;
                             display: flex;
-                            gap: 0.33rem;
+                            gap: var(--space-4);
 
                             input {
                                 @include p-reset;
@@ -271,12 +268,9 @@ $header-height: 89px; /* Adjust height of the header */
                 .directory-list {
                     > h3,
                     > li > h3 {
-                        font-size: 1rem;
-                        font-weight: 500;
-                        font-family: var(--serif);
-                        line-height: 1;
-                        color: var(--text-light);
                         @include p-reset;
+                        color: var(--text-light);
+                        font: 500 var(--font-size-16) / 1 var(--serif);
                         margin-left: var(--space-8);
                     }
 
@@ -296,9 +290,7 @@ $header-height: 89px; /* Adjust height of the header */
                         margin-left: 0;
                         margin-top: var(--space-8);
                         padding: 0 0.5em;
-                        position: relative;
                         width: 100%;
-                        z-index: 2;
 
                         &:first-child {
                             margin-top: 0;
@@ -375,7 +367,7 @@ $header-height: 89px; /* Adjust height of the header */
             color: var(--color-pf-primary);
             font: 600 var(--font-size-16) / 1 var(--serif);
             position: relative;
-            margin: 0.25rem 0 0.5rem 0;
+            margin: var(--space-4) 0 var(--space-8) 0;
 
             a {
                 color: var(--color-text-dark-primary);
@@ -385,7 +377,7 @@ $header-height: 89px; /* Adjust height of the header */
             & > button,
             & > .controls {
                 position: absolute;
-                bottom: -1px;
+                bottom: calc(-1 * var(--space-1));
                 right: 0;
             }
 
@@ -400,7 +392,7 @@ $header-height: 89px; /* Adjust height of the header */
                 color: var(--color-pf-primary);
                 cursor: pointer;
                 font: 500 var(--font-size-12) / 1 var(--sans-serif);
-                height: 20px;
+                height: 1.25rem;
                 margin: 0;
                 outline: none;
                 text-transform: uppercase;
@@ -417,16 +409,14 @@ $header-height: 89px; /* Adjust height of the header */
             @import "limited";
         }
 
-        input {
-            &.adjusted:not(:focus) {
-                font-weight: 700;
-                color: $adjusted-higher;
-            }
+        input.adjusted:not(:focus) {
+            font-weight: 700;
+            color: $adjusted-higher;
         }
 
         button.tag:disabled {
-            cursor: not-allowed;
             background-color: var(--color-text-dark-inactive);
+            cursor: not-allowed;
         }
 
         .tags .tag.edit-btn {
@@ -437,6 +427,7 @@ $header-height: 89px; /* Adjust height of the header */
 
             a {
                 display: inline-flex;
+
                 svg {
                     height: var(--space-9);
                     width: auto;
