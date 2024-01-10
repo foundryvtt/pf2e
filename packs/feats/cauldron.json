@@ -24,7 +24,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "craftableItems": [
+                    {
+                        "or": [
+                            "item:trait:oil",
+                            "item:trait:potion"
+                        ]
+                    }
+                ],
+                "isDailyPrep": true,
+                "key": "CraftingEntry",
+                "label": "PF2E.SpecificRule.Witch.Cauldron.CraftingEntry",
+                "maxSlots": 1,
+                "selector": "cauldron"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.cauldron.maxSlots",
+                "phase": "beforeDerived",
+                "value": "ternary(eq(@actor.system.proficiencies.spellcasting.rank,4),3,ternary(eq(@actor.system.proficiencies.spellcasting.rank,3),2,1))"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
