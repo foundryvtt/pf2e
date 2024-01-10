@@ -2,7 +2,7 @@ import { SkillLongForm } from "@actor/types.ts";
 import { Rarity } from "@module/data.ts";
 import { setHasElement } from "@util";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
-import { PhysicalItemPF2e } from "./physical/index.ts";
+import type { PhysicalItemPF2e } from "./physical/index.ts";
 import { MagicTradition } from "./spell/types.ts";
 import { MAGIC_TRADITIONS } from "./spell/values.ts";
 
@@ -30,15 +30,9 @@ function getDcRarity(item: PhysicalItemPF2e): Rarity {
     return item.traits.has("cursed") ? "unique" : item.rarity;
 }
 
-export type IdentifyMagicDCs = Record<MagicSkill, number>;
-
-export interface IdentifyAlchemyDCs {
-    crafting: number;
-}
-
-export interface GenericIdentifyDCs {
-    dc: number;
-}
+type IdentifyMagicDCs = Record<MagicSkill, number>;
+type IdentifyAlchemyDCs = { crafting: number };
+type GenericIdentifyDCs = { dc: number };
 
 function getIdentifyMagicDCs(
     item: PhysicalItemPF2e,
@@ -62,16 +56,11 @@ function getIdentifyMagicDCs(
     return { arcana: result.arcane, nature: result.primal, religion: result.divine, occultism: result.occult };
 }
 
-export function isMagical(item: PhysicalItemPF2e): boolean {
-    const { traits } = item;
-    return (["magical", ...Array.from(MAGIC_TRADITIONS)] as const).some((t) => traits.has(t));
-}
-
 interface IdentifyItemOptions extends DCOptions {
     notMatchingTraditionModifier: number;
 }
 
-export function getItemIdentificationDCs(
+function getItemIdentificationDCs(
     item: PhysicalItemPF2e,
     { pwol = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
@@ -87,7 +76,7 @@ export function getItemIdentificationDCs(
     }
 }
 
-export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string {
+function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string {
     const iconName = ((): string => {
         if (item.isOfType("weapon")) {
             const { traits } = item;
@@ -144,3 +133,6 @@ export function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string 
 
     return `systems/pf2e/icons/unidentified_item_icons/${iconName}.webp`;
 }
+
+export { getItemIdentificationDCs, getUnidentifiedPlaceholderImage };
+export type { GenericIdentifyDCs, IdentifyAlchemyDCs, IdentifyMagicDCs };
