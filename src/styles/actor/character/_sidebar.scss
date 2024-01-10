@@ -34,7 +34,7 @@ aside {
         }
         &:read-only {
             pointer-events: none;
-            color: var(--tertiary-light);
+            color: var(--color-pf-tertiary-light);
         }
         &:hover {
             @include input-glow;
@@ -42,24 +42,23 @@ aside {
     }
 
     select {
-        font-size: var(--font-size-15);
-        background-color: var(--primary);
-        padding: 2px 6px;
-        width: 100%;
-        max-width: 100%;
         @include input-border;
+        background-color: var(--color-pf-primary);
+        font-size: var(--font-size-15);
+        max-width: 100%;
+        padding: var(--space-2) var(--space-6);
+        width: 100%;
     }
 
     .logo {
-        margin: 5px -6px 0 -6px;
         border: none;
-        z-index: 10;
-        max-width: unset;
         flex-shrink: 0;
+        margin: var(--space-5) calc(-1 * var(--space-6)) 0 calc(-1 * var(--space-6));
+        max-width: unset;
     }
 
     .sidebar {
-        padding: 0 2px 2px 8px;
+        padding: 0 var(--space-2) var(--space-2) var(--space-8);
         margin-bottom: 2.625rem;
         overflow: hidden scroll;
 
@@ -83,7 +82,7 @@ aside {
 
             &:first-of-type {
                 margin-top: 0.5em;
-                margin-bottom: -1px;
+                margin-bottom: calc(-1 * var(--space-1));
             }
 
             h2 {
@@ -101,20 +100,20 @@ aside {
                 border-radius: 2px 2px 0 0;
                 border: none;
                 box-shadow: inset 0 0 0 1px rgba(white, 0.4);
-                color: var(--primary);
+                color: var(--color-pf-primary);
                 flex: 0;
                 font: 600 var(--font-size-9) var(--sans-serif);
                 letter-spacing: 0.05em;
                 line-height: 1;
                 margin: 0;
-                padding: 2px 3px;
+                padding: var(--space-2) var(--space-3);
                 text-rendering: optimizeLegibility;
                 text-transform: uppercase;
                 white-space: nowrap;
 
                 &:hover:not(:disabled) {
-                    background: white;
-                    box-shadow: inset 0 0 0 1px white;
+                    background: var(--color-text-light-0);
+                    box-shadow: inset 0 0 0 1px var(--color-text-light-0);
                 }
             }
 
@@ -125,8 +124,8 @@ aside {
         }
 
         .sidebar_label {
-            color: var(--sidebar-label);
             @include micro;
+            color: var(--sidebar-label);
             white-space: nowrap;
         }
 
@@ -147,30 +146,27 @@ aside {
         }
 
         .data-value {
-            display: flex;
-            justify-content: center;
             align-items: center;
+            display: flex;
             font-size: 0; /* Removes whitespace for inputs */
+            justify-content: center;
 
             h2 {
-                color: var(--color-pf-tertiary);
-                text-align: center;
-                font-size: var(--font-size-28);
-                line-height: 1;
-                font-weight: initial;
-                font-family: var(--serif);
                 border: none;
+                color: var(--color-pf-tertiary);
+                font: 400 var(--font-size-28) / 1 var(--serif);
+                text-align: center;
             }
         }
 
         a.roll-icon {
-            display: inline-flex;
             align-items: center;
+            display: inline-flex;
             padding-bottom: var(--space-2);
 
             i {
-                font-size: var(--font-size-19);
                 color: var(--text-light);
+                font-size: var(--font-size-19);
                 transition: all 0.2s ease-in-out;
             }
 
@@ -192,6 +188,7 @@ aside {
                 filter: brightness(0.75);
                 opacity: 0.75;
                 text-shadow: none;
+
                 &:hover svg {
                     animation-play-state: paused;
                 }
@@ -204,10 +201,11 @@ aside {
             list-style: none;
             margin: 0;
             padding: 0;
+
             li {
+                align-items: center;
                 display: flex;
                 flex-direction: row;
-                align-items: center;
                 justify-content: space-between;
             }
         }
@@ -215,7 +213,7 @@ aside {
         .roll-data {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: var(--space-4);
             justify-content: left;
 
             .modifier,
@@ -249,21 +247,21 @@ aside {
                             lighten($primary-color, 8) 50%,
                             darken($primary-color, 5) 100%
                         );
-                        background-color: var(--primary);
+                        background-color: var(--color-pf-primary);
                         border-radius: 0 0 4px 4px;
                         border: 1px solid var(--sidebar-title);
                         display: flex;
                         flex-direction: column;
-                        padding: 0.625rem 0.25rem 0;
+                        padding: var(--space-10) var(--space-4) 0;
                         position: relative;
                         width: min-content;
-                        z-index: 0;
 
                         .data-value {
-                            margin-top: 3px;
+                            margin-top: var(--space-3);
+
                             input[type="number"] {
                                 font-size: var(--font-size-32);
-                                letter-spacing: -1px;
+                                letter-spacing: calc(-1 * var(--space-1));
                                 height: 2rem;
                             }
                         }
@@ -271,20 +269,20 @@ aside {
 
                     &.max-hp,
                     &.temp-hp {
-                        margin-top: 0.75rem;
+                        margin-top: var(--space-12);
                     }
 
                     &.temp-hp {
-                        margin-right: 0.5rem;
+                        margin-right: var(--space-8);
                         text-align: center;
 
                         input {
-                            margin-top: 0.125rem;
+                            margin-top: var(--space-4);
                         }
                     }
 
                     &.max-hp {
-                        margin-left: 0.5rem;
+                        margin-left: var(--space-8);
                         text-align: center;
 
                         .unrecoverable {
@@ -297,7 +295,7 @@ aside {
                 display: flex;
                 gap: 0.125rem;
                 justify-content: space-evenly;
-                margin: 0.5rem 0.125rem 0 0.125rem;
+                margin: var(--space-8) 0.125rem 0 0.125rem;
                 text-align: center;
 
                 h4,
@@ -319,25 +317,29 @@ aside {
                 flex-direction: column;
 
                 input {
-                    padding: 0;
                     font-size: var(--font-size-24);
+                    padding: 0;
                     text-align: left;
                 }
+
                 input.left {
                     color: var(--text-light);
                     text-align: right;
                 }
+
                 input.right {
-                    color: var(--tertiary-light);
+                    color: var(--color-pf-tertiary-light);
                 }
+
                 .divider {
                     font-size: var(--font-size-16);
                     line-height: 1;
                 }
+
                 .stamina-group {
-                    display: flex;
                     align-items: center;
-                    gap: 4px;
+                    display: flex;
+                    gap: var(--space-4);
                 }
             }
         }
@@ -345,10 +347,10 @@ aside {
         .armor-class {
             display: grid;
             grid:
-                "ac shield-hp shield-footer" 74px
+                "ac shield-hp shield-footer" 4.625rem
                 "shield-data shield-data shield-data" auto
-                / 66px 59px auto;
-            grid-column-gap: 4px;
+                / 4.125rem 3.75rem auto;
+            grid-column-gap: var(--space-4);
 
             .ac,
             .shield {
@@ -357,7 +359,7 @@ aside {
                 flex-direction: column;
                 height: 4.625rem;
                 justify-content: start;
-                padding: 0.875rem 0.625rem 0 0.625rem;
+                padding: var(--space-14) var(--space-10) 0 var(--space-10);
                 text-align: center;
 
                 .data-value {
@@ -367,7 +369,7 @@ aside {
                     }
 
                     input {
-                        font-size: var(--font-size-30);
+                        font-size: var(--font-size-28);
 
                         &:disabled {
                             color: var(--color-pf-tertiary);
@@ -405,25 +407,25 @@ aside {
                 ul {
                     align-items: center;
                     display: grid;
-                    gap: 0.5rem;
+                    gap: var(--space-8);
                     grid-template-columns: repeat(3, 1fr);
-                    margin: 0.5rem auto 0;
-                    padding: 0 0.25rem;
+                    margin: var(--space-8) auto 0;
+                    padding: 0 var(--space-4);
 
                     li {
                         display: flex;
                         flex: 1;
-                        gap: 0.5rem;
+                        gap: var(--space-8);
 
                         .shield-label {
-                            margin-right: -0.5rem;
+                            margin-right: -var(--space-8);
                             position: relative;
 
                             svg {
                                 height: 1.25rem;
 
                                 path {
-                                    fill: var(--tertiary-light);
+                                    fill: var(--color-pf-tertiary-light);
                                 }
 
                                 text {
@@ -439,7 +441,7 @@ aside {
                             font-size: var(--font-size-14);
                             font-weight: normal;
                             height: 1.25rem;
-                            margin-left: -0.5rem;
+                            margin-left: -var(--space-8);
                         }
                     }
                 }
@@ -466,7 +468,7 @@ aside {
                         white-space: normal;
                         text-align: center;
                         width: 5em;
-                        margin-bottom: 0.25rem;
+                        margin-bottom: var(--space-4);
                     }
 
                     .data-value {
@@ -477,12 +479,12 @@ aside {
                 }
 
                 .status {
-                    display: flex;
                     align-items: center;
+                    color: var(--color-pf-tertiary-light);
+                    display: flex;
+                    gap: var(--space-5);
                     justify-content: center;
-                    gap: 0.33rem;
-                    color: var(--tertiary-light);
-                    margin-top: 0.25rem;
+                    margin-top: var(--space-4);
                 }
             }
         }
@@ -529,20 +531,19 @@ aside {
                 }
 
                 .sidebar_label {
-                    font-weight: initial;
-                    text-transform: capitalize;
-                    font-size: var(--font-size-12);
                     border: none;
-                    margin-bottom: 0.125rem;
+                    font-size: var(--font-size-12);
+                    font-weight: initial;
+                    margin-bottom: var(--space-2);
+                    text-transform: capitalize;
                 }
 
                 .save-roll {
                     @include flex-center;
-                    margin-top: 0.25rem;
+                    margin-top: var(--space-4);
 
                     .modifier {
-                        margin: 0;
-                        margin-left: 0.125rem;
+                        margin: 0 0 var(--space-2);
                     }
                 }
             }
@@ -550,6 +551,7 @@ aside {
 
         ol.tags {
             flex-direction: row;
+
             li {
                 box-shadow: inset 0 0 0 1px rgba(white, 0.5);
             }
