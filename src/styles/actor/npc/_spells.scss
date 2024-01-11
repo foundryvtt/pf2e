@@ -16,14 +16,14 @@
 
         .header {
             align-items: baseline;
-            background-color: var(--primary);
+            background-color: var(--color-pf-primary);
             border-radius: 3px 3px 0 0;
             color: var(--text-light);
             display: flex;
             flex-flow: row wrap;
             gap: 0.5em;
             justify-content: space-between;
-            padding: 4px 0.5em;
+            padding: var(--space-4) 0.5em;
 
             .drag-handle {
                 cursor: move;
@@ -31,15 +31,15 @@
 
             h4.name {
                 flex: 1;
-                margin: 0 4px 0 0;
-                padding-right: 6px;
+                margin: 0 var(--space-4) 0 0;
+                padding-right: var(--space-6);
                 width: max-content;
 
                 input {
-                    color: var(--text-light);
-                    max-width: 100%;
-                    font-weight: 500;
                     border: none;
+                    color: var(--text-light);
+                    font-weight: 500;
+                    max-width: 100%;
 
                     &:focus,
                     &:hover {
@@ -53,28 +53,27 @@
             }
 
             .inline-field {
-                flex: 0;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                justify-content: flex-start;
                 align-items: baseline;
+                display: flex;
+                flex-flow: row nowrap;
+                flex: 0;
+                justify-content: start;
 
                 label {
-                    margin-left: 2px;
+                    margin-left: var(--space-2);
                     flex: 1;
                 }
 
                 input {
-                    margin-left: 0.25rem;
+                    margin-left: var(--space-4);
                 }
 
                 .attack-input,
                 .dc-input {
-                    flex: 1 0 2rem;
-                    text-align: center;
                     background-color: var(--text-light);
+                    flex: 1 0 2rem;
                     font-weight: bold;
+                    text-align: center;
                     width: 2rem;
                 }
             }
@@ -84,7 +83,7 @@
                     background: rgba(white, 0.5);
                     font-size: var(--font-size-10);
                     max-width: 5.5em;
-                    padding: 2px;
+                    padding: var(--space-2);
                     text-transform: uppercase;
                 }
             }
@@ -94,7 +93,7 @@
                 justify-content: space-between;
 
                 a {
-                    padding: 2px;
+                    padding: var(--space-2);
                 }
             }
         }
@@ -105,9 +104,14 @@
             color: var(--text-dark);
             flex: 1 0 2rem;
             font-weight: 700;
-            height: 18px;
+            height: 1.125rem;
             text-align: center;
             width: 2rem;
+        }
+
+        ol.spell-list li.spell h4.name {
+            font: 500 var(--font-size-13) var(--sans-serif);
+            letter-spacing: normal;
         }
     }
 }
@@ -116,22 +120,10 @@
     display: flex;
     flex: 1;
     justify-content: center;
-    margin-top: 12px;
+    margin-top: var(--space-12);
 
     button.spellcasting-create {
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        gap: 0.25rem;
-        margin: 0 0.5rem;
-        min-height: 1rem;
-        box-shadow:
-            inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-            inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-        background: var(--primary);
-        color: var(--text-light);
-        white-space: nowrap;
-        border-radius: 3px;
-        border: none;
+        flex-basis: 100%;
+        margin: 0 var(--space-12);
     }
 }
