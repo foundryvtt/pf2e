@@ -62,8 +62,18 @@ form > header {
         flex: 1;
         margin: var(--space-4) 0;
 
-        tags.tags.paizo-style .tagify__input::before {
-            color: var(--color-text-light-7);
+        tags.paizo-style {
+            select {
+                border-radius: 0;
+            }
+
+            tag {
+                height: 1.5rem;
+
+                .tagify__input::before {
+                    color: var(--color-text-trait);
+                }
+            }
         }
     }
 
