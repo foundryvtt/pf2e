@@ -198,7 +198,9 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 // This feat grants darkvision but requires that the character's ancestry has low-light vision, the
                 // character to have low-light vision from any prior source, or that this feat has been taken twice.
                 const special = data.special;
-                const llvFeats = actor.itemTypes.feat.filter((f) => f.system.subfeatures.senses["low-light-vision"]);
+                const llvFeats = actor.itemTypes.feat.filter(
+                    (f: FeatPF2e) => f !== this && f.system.subfeatures.senses["low-light-vision"],
+                );
                 const ancestryFeatures = (): FeatPF2e[] => {
                     return ancestry
                         ? llvFeats.filter(
@@ -230,7 +232,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     backgroundHasLLV() ||
                     llvFeats.some(
                         (f: FeatPF2e) =>
-                            f !== this &&
                             (f.system.level.taken ?? 1) <= levelTaken &&
                             (f.system.subfeatures.senses["low-light-vision"] || hasLLVRule(f.system.rules)),
                     );
