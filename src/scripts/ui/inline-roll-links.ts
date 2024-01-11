@@ -215,8 +215,10 @@ export const InlineRollLinks = {
                             };
 
                             // Use a special header for checks against defenses
-                            const itemIsEncounterAction = !!(item?.isOfType("action", "feat") && item.actionCost);
-                            if (itemIsEncounterAction && pf2Defense) {
+                            const itemIsEncounterAction =
+                                !!(item?.isOfType("action", "feat") && item.actionCost) &&
+                                !["flat-check", "saving-throw"].includes(statistic.check.type);
+                            if (itemIsEncounterAction) {
                                 const subtitleLocKey =
                                     pf2Check in CONFIG.PF2E.magicTraditions
                                         ? "PF2E.ActionsCheck.spell"
