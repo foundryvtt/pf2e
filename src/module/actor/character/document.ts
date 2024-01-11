@@ -349,9 +349,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         ]);
 
         this.system.perception.rank = 0;
+
+        type PartialSkills = Record<SkillAbbreviation, { rank: number; attribute?: AttributeString; armor?: boolean }>;
         type SystemDataPartial = DeepPartial<
             Pick<CharacterSystemData, "build" | "crafting" | "perception" | "proficiencies" | "saves">
-        > & { abilities: Abilities };
+        > & { abilities: Abilities; skills: PartialSkills };
         const system: SystemDataPartial = this.system;
         const existingBoosts = system.build?.attributes?.boosts;
         const isABP = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this);
@@ -419,12 +421,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        const skills = this.system.skills;
-        for (const key of SKILL_ABBREVIATIONS) {
-            const skill = skills[key];
-            skill.attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
-            skill.armor = ["dex", "str"].includes(skill.attribute);
-        }
+        system.skills = R.mapToObj(SKILL_ABBREVIATIONS, (key) => {
+            const rank = Math.clamped(system.skills[key].rank || 0, 0, 4);
+            const attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
+            return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
+        });
 
         // Familiar abilities
         attributes.familiarAbilities = { value: 0 };
