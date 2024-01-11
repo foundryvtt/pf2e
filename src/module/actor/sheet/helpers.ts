@@ -16,12 +16,12 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
     const rank = typeof groupId === "number" ? groupId : 1;
     const newLabel = game.i18n.localize("PF2E.NewLabel");
     const [rankLabel, spellLabel] =
-        rank > 0
-            ? [
+        groupId === "cantrips"
+            ? [null, game.i18n.localize("PF2E.TraitCantrip")]
+            : [
                   game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
                   game.i18n.localize(data.location === "rituals" ? "PF2E.Item.Spell.Ritual.Label" : "TYPES.Item.spell"),
-              ]
-            : [null, game.i18n.localize("PF2E.TraitCantrip")];
+              ];
     const source = {
         type: "spell",
         name: R.compact([newLabel, rankLabel, spellLabel]).join(" "),
