@@ -18,7 +18,7 @@ const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<Resistance
 
 const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
-const SKILL_ABBREVIATIONS = new Set([
+const SKILL_ABBREVIATIONS = [
     "acr",
     "arc",
     "ath",
@@ -35,7 +35,7 @@ const SKILL_ABBREVIATIONS = new Set([
     "ste",
     "sur",
     "thi",
-] as const);
+] as const;
 
 const SKILL_DICTIONARY = {
     acr: "acrobatics",

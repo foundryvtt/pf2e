@@ -52,7 +52,7 @@ interface ActorDimensions {
     height: number;
 }
 
-type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
+type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
 type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
 
 type ActorAlliance = "party" | "opposition" | null;
