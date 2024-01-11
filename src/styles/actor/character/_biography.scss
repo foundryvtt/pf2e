@@ -244,32 +244,40 @@
                         }
 
                         .tox-tbtn {
-                            border-radius: 1px;
-                            color: var(--text-light);
-                            cursor: pointer;
+                            &:not(&--disabled) {
+                                border-radius: 1px;
+                                color: var(--text-light);
+                                cursor: pointer;
 
-                            &:hover {
-                                background: var(--color-pf-secondary);
+                                &:hover {
+                                    background: var(--color-pf-secondary);
+
+                                    svg {
+                                        fill: var(--text-light);
+                                    }
+                                }
+
+                                span {
+                                    cursor: pointer;
+                                }
 
                                 svg {
                                     fill: var(--text-light);
                                 }
                             }
 
-                            span {
-                                cursor: pointer;
+                            &--disabled {
+                                svg {
+                                    fill: var(--text-light-disabled);
+                                }
                             }
 
-                            svg {
-                                fill: var(--text-light);
-                            }
-                        }
+                            &--select {
+                                background: var(--color-pf-alternate);
 
-                        .tox-tbtn--select {
-                            background: var(--color-pf-alternate);
-
-                            .tox-tbtn__select-label {
-                                width: 5em;
+                                .tox-tbtn__select-label {
+                                    width: 5em;
+                                }
                             }
                         }
                     }
