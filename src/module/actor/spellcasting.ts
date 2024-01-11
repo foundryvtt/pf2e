@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import type { ConsumablePF2e, SpellPF2e } from "@item";
+import { SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
@@ -38,6 +39,11 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     get ritual(): RitualSpellcasting<TActor> | null {
         const ritualCasting = this.collections.get("rituals")?.entry;
         return ritualCasting instanceof RitualSpellcasting ? ritualCasting : null;
+    }
+
+    /** Spells not belonging to any collection */
+    get orphanedSpells(): SpellPF2e<TActor>[] {
+        return this.actor.itemTypes.spell.filter((s) => !s.spellcasting);
     }
 
     /**

@@ -73,7 +73,6 @@ interface NPCSheetData<TActor extends NPCPF2e = NPCPF2e> extends CreatureSheetDa
     data: NPCSystemSheetData;
     items: NPCSheetItemData<ItemPF2e<TActor>>[];
     spellcastingEntries: SpellcastingSheetData[];
-    orphanedSpells: boolean;
     identificationDCs: NPCIdentificationSheetData;
     isNotCommon?: boolean;
     actorSize?: string;
