@@ -349,7 +349,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     #prepareSkills(): void {
         for (const [skillShort, newSkill] of Object.entries(this.overrides.skills ?? {})) {
-            if (!setHasElement(SKILL_ABBREVIATIONS, skillShort)) {
+            if (!tupleHasValue(SKILL_ABBREVIATIONS, skillShort)) {
                 return this.failValidation(`Unrecognized skill abbreviation: ${skillShort}`);
             }
             newSkill.ownIfHigher ??= true;

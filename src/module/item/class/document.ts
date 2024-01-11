@@ -8,7 +8,7 @@ import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { setHasElement, sluggify } from "@util";
+import { sluggify } from "@util";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
 import { ClassTrait } from "./types.ts";
 
@@ -133,7 +133,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {
-            if (setHasElement(SKILL_ABBREVIATIONS, trainedSkill)) {
+            if (SKILL_ABBREVIATIONS.includes(trainedSkill)) {
                 skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
             }
         }
