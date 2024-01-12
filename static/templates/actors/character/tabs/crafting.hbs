@@ -31,7 +31,7 @@
                         <div class="formula-cost-header">{{localize "PF2E.Actor.Character.Crafting.Cost"}}</div>
                         <div class="formula-quantity-header">{{localize "PF2E.CraftingTab.CraftQuantityTitle"}}</div>
 
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <div class="item-controls">
                                 <a data-action="browse-equipment" data-tooltip="PF2E.OpenInventoryBrowser" data-level="{{lvl}}"><i class="fa-solid fa-fw fa-search"></i></a>
                             </div>
@@ -62,7 +62,7 @@
                                         <a
                                             data-action="quick-add-formula"
                                             data-tooltip="PF2E.CraftingTab.QuickAddTitle"
-                                        ><i class="fa-solid fa-fw fa-plus"></i></a>
+                                        ><i class="fa-solid fa-fw fa-arrow-up-from-bracket"></i></a>
                                     {{/if}}
                                     <a
                                         data-action="craft-item"
@@ -79,7 +79,7 @@
                                 </div>
                             {{/if}}
 
-                            <div class="item-summary" hidden="hidden"></div>
+                            <div class="item-summary" hidden></div>
                         </li>
                     {{/each}}
                 {{else}}

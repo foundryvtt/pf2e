@@ -940,10 +940,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const row = htmlClosest(anchor, "li");
             const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
             const uuid = row?.dataset.itemUuid;
-            if (!row || !quantityInput || !uuid) return;
+            if (!row || !uuid) return;
             if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
 
-            const quantity = Number(quantityInput.value) || 1;
+            const quantity = Number(quantityInput?.value) || 1;
             const formula = this.#knownFormulas[uuid];
             if (!formula) return;
             const prepared = anchor.dataset.prepared;
@@ -957,10 +957,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.FormulaExpended"));
                     return;
                 }
-                const index = anchor.dataset.itemIndex;
+                const index = row.dataset.itemIndex;
                 const entrySelector = row.dataset.entrySelector;
                 const craftingEntry = await this.actor.getCraftingEntry(entrySelector ?? "");
-                if (!uuid || !index) return;
+                if (!index) return;
                 if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
                 return craftingEntry.toggleFormulaExpended(Number(index), uuid);
             }
@@ -1043,11 +1043,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 name,
             })}</p>`;
             const title = game.i18n.localize("PF2E.CraftingTab.RemoveFormulaDialogTitle");
-            if (await Dialog.confirm({ title, content })) {
+            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
                 const actorFormulas = this.actor.toObject().system.crafting?.formulas ?? [];
                 actorFormulas.findSplice((f) => f.uuid === uuid);
-                await this.actor.update({ "system.crafting.formulas": actorFormulas });
+                return this.actor.update({ "system.crafting.formulas": actorFormulas });
             }
+            return;
         };
 
         handlers["unprepare-formula"] = async (event) => {
@@ -1066,8 +1067,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const question = game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
             const content = `<p class="hint">${question}</p>`;
             const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
-            if (await Dialog.confirm({ title, content })) {
-                await craftingEntry.unprepareFormula(Number(index), uuid);
+            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
+                return craftingEntry.unprepareFormula(Number(index), uuid);
             }
         };
 
@@ -1098,20 +1099,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (!row || !quantityInput || !uuid) return;
 
             const formula = this.#knownFormulas[uuid];
-            const minBatchSize = formula.minimumBatchSize;
-            const step = anchor.dataset.action === "increase-craft-quantity" ? minBatchSize : -minBatchSize;
-            const currentQuantity = Number(quantityInput.value) || step;
-            const newQuantity = Math.max(currentQuantity + step, 1);
-            if (newQuantity === currentQuantity) return;
-
             const index = row.dataset.itemIndex;
             const entrySelector = row.dataset.entrySelector;
+            const currentQuantity = Number(quantityInput.value) || 0;
+
             if (index && entrySelector) {
                 const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
                 if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-                return craftingEntry.setFormulaQuantity(Number(index), uuid ?? "", newQuantity);
+                const direction = anchor.dataset.action === "increase-craft-quantity" ? "increase" : "decrease";
+                return craftingEntry.setFormulaQuantity(Number(index), uuid ?? "", direction);
             }
 
+            const minBatchSize = formula.minimumBatchSize;
+            const step = anchor.dataset.action === "increase-craft-quantity" ? minBatchSize : -minBatchSize;
+            const newQuantity = Math.max(currentQuantity + step, 1);
+            if (newQuantity === currentQuantity) return;
             this.#formulaQuantities[formula.uuid] = Math.max(newQuantity, minBatchSize);
             this.render();
         };

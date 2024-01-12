@@ -39,10 +39,10 @@
                         </div>
                     </li>
 
-                    {{#each entry.formulas}}
+                    {{#each entry.formulas as |formula|}}
                         <li
                             class="item formula-item"
-                            data-item-uuid="{{this.uuid}}"
+                            data-item-uuid="{{formula.uuid}}"
                             data-item-type="formula"
                             data-item-index={{@key}}
                             data-entry-selector="{{entry.selector}}"
@@ -50,39 +50,39 @@
                         >
                             <div class="item-name">
                                 <a class="item-image framed" data-action="formula-to-chat">
-                                    <img class="item-icon" src="{{this.img}}" />
+                                    <img class="item-icon" src="{{formula.img}}" />
                                     <i class="fa-solid fa-message"></i>
                                  </a>
-                                <h4>{{this.name}}</h4>
+                                <h4 class="name"><a data-action="toggle-summary">{{formula.name}}</a></h4>
                             </div>
                             <div class="dc"></div>
                             <div class="cost"></div>
                             <div class="quantity">
                                 <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
-                                <input type="number" class="formula-number" data-craft-quantity value="{{this.quantity}}" />
+                                <input type="number" class="formula-number" data-craft-quantity value="{{formula.quantity}}" />
                                 <a class="adjust increase" data-action="increase-craft-quantity">+</a>
                             </div>
 
-                            {{#if @root.options.editable}}
+                            {{#if @root.editable}}
                                 <div class="item-controls">
                                     <a
                                         data-action="toggle-signature-item"
                                         data-tooltip="PF2E.CraftingTab.Alchemical.ToggleSignatureItem"
-                                    >{{#if this.isSignatureItem}}<i class="fa-solid fa-star"></i>{{else}}<i class="fa-regular fa-star"></i>{{/if}}</a>
+                                    ><i class="fa-{{#if formula.isSignatureItem}}solid{{else}}regular{{/if}} fa-star"></i></a>
                                     <a
                                         data-action="unprepare-formula"
                                         data-tooltip="PF2E.UnprepareItemTitle"
                                     ><i class="fa-solid fa-trash"></i></a>
                                 </div>
                             {{/if}}
+
+                            <div class="item-summary" hidden></div>
                         </li>
                     {{/each}}
                     {{#unless entry.formulas}}
-                        {{#if @root.owner}}
-                            <li class="formula-header knownFormulas-empty">
-                                <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            </li>
-                        {{/if}}
+                        <li class="formula-header knownFormulas-empty">
+                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                        </li>
                     {{/unless}}
                 </ol>
             </li>
