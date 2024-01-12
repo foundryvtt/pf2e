@@ -40,8 +40,10 @@ section.sidebar {
         padding: var(--space-8) var(--space-4) 0 0;
 
         .form-group {
-            margin: 0 0.125rem;
+            column-gap: var(--space-4);
             flex-wrap: nowrap;
+            margin: 0;
+            padding: 0 var(--space-2) 0 0;
 
             &.quantity,
             &.price {
@@ -60,23 +62,22 @@ section.sidebar {
             }
 
             label {
-                font-weight: 500;
                 flex: 0 0 5em;
+                font-weight: 500;
                 white-space: nowrap;
             }
 
             input {
                 text-align: right;
 
-                &.left-of-select {
-                    min-width: 4ch;
-                    padding-right: 0.25em;
+                &[type="checkbox"] {
+                    margin-right: 0;
                 }
             }
 
             select {
                 font-size: var(--font-size-13);
-                margin-left: auto;
+                margin: 0 0 0 auto;
                 max-width: 10em;
             }
         }
