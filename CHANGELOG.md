@@ -1,3 +1,22 @@
+## 5.12.5
+
+### Bugfixes
+
+-   (stwlam) Prevent long IWR lists on NPC sheets from overlapping
+-   (stwlam) Fix restoring display value of hazard stealth DC after editing
+-   (stwlam) Fix some types of ancestry features incorrectly giving darkvision
+-   (stwlam) Fix quantities crafted using daily crafting abilities with variable batch sizes
+
+### Data Updates
+
+-   (Dire Weasel) Add links to effects from Vitrifying Blast and some Kingmaker NPC abilities
+-   (Dire Weasel) Brush up Ghosts in the Storm, Polished Demon Horn
+-   (DocSchlock) Add effect for Darkened Sight and unify effects for Traveler's Transit
+-   (j-bs) Update Counteract page in GM Screen journal
+-   (rectulo) Fix formatting in descriptions of Command an Animal and Maneuver in Flight actions
+-   (Rigo) Add effect for Familiar of Keen Senses
+-   (Rigo) Cap item level of Cauldron's crafting entry to character level
+
 ## 5.12.4
 
 ### System Improvements
