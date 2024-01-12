@@ -58,10 +58,10 @@
         <div class="form-fields">
         <input id="{{fieldIdPrefix}}duration" type="text" name="system.duration.value" value="{{data.duration.value}}" />
             {{#unless item.isRitual}}
-                <div>
-                    <label class="sustained" for="{{fieldIdPrefix}}sustained">{{localize "PF2E.Item.Spell.Sustained.Label"}}</label>
+                <label class="sustained">
+                    {{localize "PF2E.Item.Spell.Sustained.Label"}}
                     <input id="{{fieldIdPrefix}}sustained" type="checkbox" name="system.duration.sustained" {{checked data.duration.sustained}} />
-                </div>
+                </label>
             {{/unless}}
         </div>
     </div>
@@ -108,11 +108,8 @@
                         <option value="will">{{localize "PF2E.SavesWill"}}</option>
                     {{/select}}
                 </select>
-                <div>
-                    <label
-                        for="{{fieldIdPrefix}}save-basic"
-                        {{#unless data.defense.save.statistic}}class="disabled"{{/unless}}
-                    >{{localize "PF2E.Item.Spell.Defense.BasicSave"}}</label>
+                <label {{#unless data.defense.save.statistic}}class="disabled"{{/unless}}>
+                    {{localize "PF2E.Item.Spell.Defense.BasicSave"}}
                     <input
                         type="checkbox"
                         name="system.defense.save.basic"
@@ -120,7 +117,7 @@
                         {{checked data.defense.save.basic}}
                         {{disabled (not data.defense.save.statistic)}}
                     />
-                </div>
+                </label>
             </div>
         </div>
     </fieldset>
