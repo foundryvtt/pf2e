@@ -1,10 +1,10 @@
 {
     "_id": "Qf7ksK6sjC4x7SWw",
-    "img": "icons/equipment/back/cloak-collared-teal.webp",
+    "img": "icons/equipment/back/mantle-collared-blue.webp",
     "name": "Effect: Cloak of Swiftness",
     "system": {
         "description": {
-            "value": "<p>Granted by activating @UUID[Compendium.pf2e.equipment-srd.Item.Cloak of Swiftness].</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cloak of Swiftness]</p>\n<p>You gain a fly Speed of 30 feet and become concealed.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -25,6 +25,11 @@
                 "key": "BaseSpeed",
                 "selector": "fly",
                 "value": 30
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
             }
         ],
         "start": {
