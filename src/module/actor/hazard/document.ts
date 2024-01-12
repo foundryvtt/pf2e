@@ -122,7 +122,14 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 check: { type: "skill-check" },
             }),
         };
-        system.attributes.stealth.value = this.skills.stealth.dc.value;
+        const stealthSource = this._source.system.attributes.stealth;
+        this.system.attributes.stealth = fu.mergeObject(this.skills.stealth.getTraceData({ value: "dc" }), {
+            details: stealthSource.details.trim(),
+        });
+        if (stealthSource.value === null) {
+            const traceData = this.system.attributes.stealth;
+            traceData.value = traceData.dc = traceData.totalModifier = null;
+        }
 
         // Initiative
         if (system.initiative) {

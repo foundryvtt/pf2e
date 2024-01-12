@@ -10,7 +10,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const options = super.defaultOptions;
         fu.mergeObject(options, {
             classes: [...options.classes, "hazard"],
-            scrollY: [".container > section"],
+            scrollY: ["section.content"],
             width: 700,
             height: 680,
         });
@@ -45,8 +45,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const hasResistances = system.attributes.resistances.length > 0;
         const hasWeaknesses = system.attributes.weaknesses.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
-        const stealthDC = system.attributes.stealth.value;
-        const hasStealthDescription = !!system.attributes.stealth.details;
 
         // Enrich content
         const rollData = this.actor.getRollData();
@@ -83,7 +81,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: system.attributes.hp.brokenThreshold,
-            stealthDC,
             saves: this.#prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
@@ -91,8 +88,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             hasHPDetails: !!system.attributes.hp.details,
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasIWR,
-            hasStealth: stealthDC !== null || hasStealthDescription,
-            hasStealthDescription,
+            hasStealth: system.attributes.stealth.dc !== null || !!system.attributes.stealth.details,
             hasDescription: !!system.details.description?.trim(),
             hasDisable: !!system.details.disable?.trim(),
             hasRoutineDetails: !!system.details.routine?.trim(),
