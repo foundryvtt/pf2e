@@ -9,7 +9,13 @@
                     <div class="section-header">
                         <h4>
                             {{localize "PF2E.Check.DC.Specific.stealth"}}
-                            <input type="text" value="{{stealthDC}}" data-value="{{stealthDC}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                            <input
+                                type="number"
+                                value="{{stealthDC}}"
+                                data-property="system.attributes.stealth.value"
+                                data-nullable
+                                placeholder="N/A"
+                            />
                         </h4>
                         <div class="controls">
                             {{#if editing}}
