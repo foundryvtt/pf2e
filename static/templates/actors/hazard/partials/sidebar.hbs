@@ -36,14 +36,15 @@
                     <div class="valued-icon">
                         <input
                             type="text"
-                            value="{{numberFormat data.attributes.stealth.value sign=true}}"
+                            value="{{#if hasStealth}}{{numberFormat data.attributes.stealth.totalModifier sign=true}}{{/if}}"
                             data-property="system.attributes.stealth.value"
                             data-modifier
+                            data-nullable
                             data-dtype="Number"
                             placeholder="N/A"
                         />
                     </div>
-                    <a class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
+                    <a class="roll-init {{#if (and hasStealth editable)}}rollable{{else}}disabled{{/if}}" data-action="roll-initiative">
                         <i class="fa-solid fa-dice-d20"></i>
                         {{localize "PF2E.StealthLabel"}}
                     </a>

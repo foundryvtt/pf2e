@@ -88,7 +88,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             hasHPDetails: !!system.attributes.hp.details,
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasIWR,
-            hasStealth: system.attributes.stealth.dc !== null || !!system.attributes.stealth.details,
+            hasStealth: system.attributes.stealth.dc !== null,
             hasDescription: !!system.details.description?.trim(),
             hasDisable: !!system.details.disable?.trim(),
             hasRoutineDetails: !!system.details.routine?.trim(),
