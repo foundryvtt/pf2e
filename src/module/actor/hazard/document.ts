@@ -101,13 +101,11 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const { system } = this;
-
         this.prepareSynthetics();
-
         setHitPointsRollOptions(this);
 
         // Stealth, which is the only skill hazards have
+        const system = this.system;
         this.skills = {
             stealth: new Statistic(this, {
                 slug: "stealth",
@@ -124,6 +122,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 check: { type: "skill-check" },
             }),
         };
+        system.attributes.stealth.value = this.skills.stealth.dc.value;
 
         // Initiative
         if (system.initiative) {
