@@ -44,6 +44,7 @@ import * as senseDirection from "./exploration/sense-direction.ts";
 import * as track from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
 import { identifyMagic } from "./general/identify-magic.ts";
+import { learnASpell } from "./general/learn-a-spell.ts";
 import * as subsist from "./general/subsist.ts";
 import * as coerce from "./intimidation/coerce.ts";
 import * as demoralize from "./intimidation/demoralize.ts";
@@ -194,6 +195,7 @@ export const SystemActions: Action[] = [
     impersonate.action,
     interact,
     leap,
+    learnASpell,
     lie.action,
     longJump.action,
     makeAnImpression.action,
