@@ -15,7 +15,7 @@
     }
 
     .sidebar-title {
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid var(--color-shadow-dark);
         display: flex;
         justify-content: space-between;
         margin-bottom: var(--space-4);
@@ -108,11 +108,16 @@
         }
     }
 
-    .rollable:hover {
-        text-shadow: 0 0 8px var(--color-shadow-primary);
+    a.rollable {
+        color: var(--color-pf-primary-darker);
 
-        i {
-            @include die-spin;
+        &:hover {
+            color: var(--color-pf-primary-light);
+            text-shadow: none;
+
+            i {
+                @include die-spin;
+            }
         }
     }
 }
