@@ -15,15 +15,15 @@
                     data-item-type="formula"
                     data-expended-state="{{formula.expended}}"
                     data-item-index={{@key}}
-                    data-entry-selector="{{../entry.selector}}"
+                    data-entry-selector="{{entry.selector}}"
                 >
-                    <div class="item-name">
+                    <div class="item-name{{#unless formula}} empty{{/unless}}">
                         {{#if formula}}
                             <a class="item-image" data-action="formula-to-chat">
                                 <img class="item-icon" src="{{this.img}}" />
                                 <i class="fa-solid fa-message"></i>
                             </a>
-                            <h4>{{this.name}}</h4>
+                            <h4 class="name"><a data-action="toggle-summary">{{this.name}}</a></h4>
                         {{else}}
                             <h4>Empty Slot (drag formula here)</h4>
                         {{/if}}
@@ -53,6 +53,8 @@
                             ><i class="fa-solid fa-trash"></i></a>
                         </div>
                     {{/if}}
+
+                    <div class="item-summary" hidden></div>
                 </li>
             {{/each}}
         </ol>
@@ -60,6 +62,10 @@
 {{/each}}
 {{#if craftingEntries.dailyCrafting}}
     <li class="crafting-entry item-container item">
-        <button type="button" data-action="perform-daily-crafting">Perform Daily Crafting</button>
+        <button
+            type="button"
+            class="perform-daily blue"
+            data-action="perform-daily-crafting"
+        >{{localize "PF2E.Actor.Character.Crafting.Daily.Perform"}}</button>
     </li>
 {{/if}}

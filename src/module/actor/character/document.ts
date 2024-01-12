@@ -43,6 +43,7 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
@@ -215,7 +216,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        const { formulas } = this.system.crafting;
+        const formulas = this.system.crafting.formulas;
         formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
@@ -232,14 +233,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
         return Object.values(this.system.crafting.entries)
             .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
-            .map((entry) => new CraftingEntry(this, craftingFormulas, entry));
+            .map((entry) => new CraftingEntry(craftingFormulas, entry));
     }
 
     async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
         const craftingFormulas = await this.getCraftingFormulas();
         const craftingEntryData = this.system.crafting.entries[selector];
         if (CraftingEntry.isValid(craftingEntryData)) {
-            return new CraftingEntry(this, craftingFormulas, craftingEntryData);
+            return new CraftingEntry(craftingFormulas, craftingEntryData);
         }
 
         return null;
@@ -255,6 +256,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             return;
         } else {
             await this.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
+            const key = reagentCost === 0 ? "ZeroConsumed" : reagentCost === 1 ? "OneConsumed" : "NConsumed";
+            ui.notifications.info(
+                game.i18n.format(`PF2E.Actor.Character.Crafting.Daily.Complete.${key}`, { quantity: reagentCost }),
+            );
         }
 
         // Remove infused/temp items
@@ -269,12 +274,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 itemSource.system.temporary = true;
                 itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
 
-                if (
-                    entry.isAlchemical &&
-                    (itemSource.type === "consumable" ||
-                        itemSource.type === "weapon" ||
-                        itemSource.type === "equipment")
-                ) {
+                if (entry.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
                     itemSource.system.traits.value.push("infused");
                 }
                 await this.addToInventory(itemSource);
