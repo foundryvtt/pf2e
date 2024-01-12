@@ -2,7 +2,6 @@ import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
-import { HazardSystemData } from "./data.ts";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
@@ -38,17 +37,16 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const sheetData = await super.getData(options);
 
         sheetData.actor.flags.editHazard ??= { value: false };
-        const systemData: HazardSystemData = sheetData.data;
+        const system = sheetData.data;
         const actor = this.actor;
 
-        const { hasDefenses } = actor;
-        const hasImmunities = systemData.attributes.immunities.length > 0;
-        const hasResistances = systemData.attributes.resistances.length > 0;
-        const hasWeaknesses = systemData.attributes.weaknesses.length > 0;
+        const hasDefenses = actor.hasDefenses;
+        const hasImmunities = system.attributes.immunities.length > 0;
+        const hasResistances = system.attributes.resistances.length > 0;
+        const hasWeaknesses = system.attributes.weaknesses.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
-        const stealthMod = actor.system.attributes.stealth.value;
-        const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
-        const hasStealthDescription = !!systemData.attributes.stealth?.details;
+        const stealthDC = system.attributes.stealth.value;
+        const hasStealthDescription = !!system.attributes.stealth.details;
 
         // Enrich content
         const rollData = this.actor.getRollData();
@@ -57,14 +55,14 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
 
         sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
-            stealthDetails: await enrich(systemData.attributes.stealth.details),
-            description: await enrich(systemData.details.description),
-            disable: await enrich(systemData.details.disable),
-            routine: await enrich(systemData.details.routine),
-            reset: await enrich(systemData.details.reset),
+            stealthDetails: await enrich(system.attributes.stealth.details),
+            description: await enrich(system.details.description),
+            disable: await enrich(system.details.disable),
+            routine: await enrich(system.details.routine),
+            reset: await enrich(system.details.reset),
         });
 
-        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = systemData.actions;
+        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = system.actions;
         const actorRollData = actor.getRollData();
         for (const attack of strikesWithDescriptions) {
             const itemRollData = attack.item.getRollData();
@@ -81,24 +79,24 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             ...sheetData,
             actions: this.#prepareActions(),
             editing: this.editing,
-            actorTraits: systemData.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
+            actorTraits: system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
-            brokenThreshold: systemData.attributes.hp.brokenThreshold,
+            brokenThreshold: system.attributes.hp.brokenThreshold,
             stealthDC,
             saves: this.#prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
             hasDefenses,
-            hasHPDetails: !!systemData.attributes.hp.details.trim(),
+            hasHPDetails: !!system.attributes.hp.details,
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasIWR,
             hasStealth: stealthDC !== null || hasStealthDescription,
             hasStealthDescription,
-            hasDescription: !!systemData.details.description?.trim(),
-            hasDisable: !!systemData.details.disable?.trim(),
-            hasRoutineDetails: !!systemData.details.routine?.trim(),
-            hasResetDetails: !!systemData.details.reset?.trim(),
+            hasDescription: !!system.details.description?.trim(),
+            hasDisable: !!system.details.disable?.trim(),
+            hasRoutineDetails: !!system.details.routine?.trim(),
+            hasResetDetails: !!system.details.reset?.trim(),
         };
     }
 
