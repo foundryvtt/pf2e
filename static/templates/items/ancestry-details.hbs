@@ -1,93 +1,110 @@
-{{#each data.boosts as |boost idx|}}
+<fieldset class="basics">
+    {{#each data.boosts as |boost idx|}}
+        <div class="form-group form-group-trait">
+            <label>
+                {{localize "PF2E.AbilityBoost"}}
+                <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="system.boosts.{{idx}}" data-no-custom="true"><i class="fa-solid fa-edit"></i></a>
+            </label>
+
+            <ul class="abc-traits-list">
+                {{#each (lookup ../selectedBoosts idx) as |v k|}}
+                    <span class="tag-legacy {{k}}">{{localize v}}</span>
+                {{/each}}
+            </ul>
+        </div>
+    {{/each}}
+
+    {{#each data.flaws as |flaw idx|}}
+        <div class="form-group form-group-trait">
+            <label>
+                {{localize "PF2E.AbilityFlaw"}}
+                <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="system.flaws.{{idx}}" data-no-custom="true"><i class="fa-solid fa-edit"></i></a>
+            </label>
+
+            {{lookup selectedFlaws @idx}}
+            <ul class="abc-traits-list">
+                {{#each (lookup ../selectedFlaws idx) as |v k|}}
+                    <span class="tag-legacy {{k}}">{{localize v}}</span>
+                {{/each}}
+            </ul>
+        </div>
+    {{/each}}
+
     <div class="form-group form-group-trait">
-        <label class="pf-title">
-            {{localize "PF2E.AbilityBoost"}}
-            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="system.boosts.{{idx}}" data-no-custom="true"><i class="fa-solid fa-edit"></i></a>
+        <label>
+            {{localize "PF2E.Actor.Creature.Language.Plural"}}
+            <a class="tag-selector" data-tag-selector="languages" data-property="system.languages"><i class="fa-solid fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
-            {{#each (lookup ../selectedBoosts idx) as |v k|}}
-                <span class="tag-legacy {{k}}">{{localize v}}</span>
+            {{#each languages}}
+                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
             {{/each}}
         </ul>
     </div>
-{{/each}}
 
-{{#each data.flaws as |flaw idx|}}
-    <div class="form-group form-group-trait">
-        <label class="pf-title">
-            {{localize "PF2E.AbilityFlaw"}}
-            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="system.flaws.{{idx}}" data-no-custom="true"><i class="fa-solid fa-edit"></i></a>
+    <div class="form-group additional-language">
+        <label for="{{fieldIdPrefix}}additional-languages">
+            {{localize "PF2E.LanguagesAdditional"}}
+            <a
+                class="tag-selector"
+                data-tag-selector="languages"
+                data-title="PF2E.LanguagesAdditional"
+                data-config-types="languages"
+                data-property="system.additionalLanguages"
+            ><i class="fa-solid fa-edit"></i></a>
         </label>
 
-        {{lookup selectedFlaws @idx}}
+        <input
+            type="number"
+            name="system.additionalLanguages.count"
+            id="{{fieldIdPrefix}}additional-languages"
+            value="{{data.additionalLanguages.count}}"
+        />
+        <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
+    </div>
+
+    <div class="form-group form-group-trait">
         <ul class="abc-traits-list">
-            {{#each (lookup ../selectedFlaws idx) as |v k|}}
-                <span class="tag-legacy {{k}}">{{localize v}}</span>
+            {{#each additionalLanguages}}
+                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
             {{/each}}
         </ul>
     </div>
-{{/each}}
+</fieldset>
 
-<div class="form-group form-group-trait">
-    <label class="pf-title">
-        {{localize "PF2E.Actor.Creature.Language.Plural"}}
-        <a class="tag-selector" data-tag-selector="languages" data-property="system.languages"><i class="fa-solid fa-edit"></i></a>
-    </label>
+<fieldset class="features">
+    <legend>{{localize "PF2E.Item.ABC.Features"}}</legend>
 
-    <ul class="abc-traits-list">
-        {{#each languages}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">
-                    {{localize this.label}}
-                </span>
-            {{/if}}
-        {{/each}}
-    </ul>
-</div>
-
-<div class="form-group additional-language">
-    <label class="pf-title">
-        {{localize "PF2E.LanguagesAdditional"}}
-        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="system.additionalLanguages"><i class="fa-solid fa-edit"></i></a>
-    </label>
-
-    <input type="number" name="system.additionalLanguages.count" value="{{data.additionalLanguages.count}}" />
-    <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
-</div>
-<div class="form-group form-group-trait">
-    <label class="pf-title" for="data.additionalLanguages">&nbsp;</label>
-    <ul class="abc-traits-list">
-        {{#each additionalLanguages}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">
-                    {{localize this.label}}
-                </span>
-            {{/if}}
-        {{/each}}
-    </ul>
-</div>
+    <div class="form-group stacked item-ref-group" data-valid-drops="ancestryfeature">
+        {{#> abcItems data}}data.{{/abcItems}}
+    </div>
+</fieldset>
 
 {{~#*inline "abcItems"~}}
-<ul class="item-refs">
+<ul class="item-refs{{#unless @root.features}} empty{{/unless}}">
     {{~#each items as |item i|}}
-    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
-        <img src="{{item.img}}">
-        <a class="name">{{item.name}}{{#unless item.pack}}<i class="fa-solid fa-globe" data-tooltip="PF2E.AncestryFeatures"></i>{{/unless}}</a>
-        <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
-        <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-        <a class="remove" data-action="remove"><i class="fa-solid fa-times"></i></a>
-        {{#if item.items~}}
-            {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
-        {{~/if}}
-    </li>
+        <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
+            <img src="{{item.img}}">
+            <a class="name">{{item.name}}</a>
+            <span>{{~#unless (includes item.uuid "Compendium.")}}<i class="fa-solid fa-globe" data-tooltip="PF2E.Item.WorldItemWarning"></i>{{/unless~}}</span>
+            <a class="remove" data-action="remove"><i class="fa-solid fa-times"></i></a>
+            <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
+            <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
+
+            {{#if item.items~}}
+                {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
+            {{~/if}}
+        </li>
     {{/each~}}
+    {{#unless @root.features}}
+        <li>
+            <div class="image-placeholder"></div>
+            <span class="name-warning">
+                {{localize "PF2E.Item.Ancestry.DropFeatures"}}
+            </span>
+        </li>
+    {{/unless}}
 </ul>
 {{~/inline~}}
 
-<div class="form-group stacked item-ref-group" data-valid-drops="ancestryfeature">
-    <label for="data.traits">
-        {{localize "PF2E.AncestryFeatures"}}
-    </label>
-    {{#> abcItems data}}data.{{/abcItems}}
-</div>
