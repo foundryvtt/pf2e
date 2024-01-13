@@ -28,16 +28,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Returns all boosts enforced by this ancestry normally */
     get lockedBoosts(): AttributeString[] {
         return Object.values(this.system.boosts)
-            .filter((boost) => boost.value.length === 1)
-            .map((boost) => boost.selected)
-            .filter((boost): boost is AttributeString => !!boost);
+            .filter((b) => b.value.length === 1)
+            .flatMap((b) => b.selected ?? []);
     }
 
     /** Returns all flaws enforced by this ancestry normally */
     get lockedFlaws(): AttributeString[] {
-        return Object.values(this.system.flaws)
-            .map((flaw) => flaw.selected)
-            .filter((flaw): flaw is AttributeString => !!flaw);
+        return Object.values(this.system.flaws).flatMap((f) => f.selected ?? []);
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
