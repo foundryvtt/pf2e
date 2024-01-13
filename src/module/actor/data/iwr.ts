@@ -55,6 +55,7 @@ abstract class IWR<TType extends IWRType> {
             case "air":
             case "earth":
             case "metal":
+            case "olfactory":
             case "radiation":
             case "visual":
             case "water":
