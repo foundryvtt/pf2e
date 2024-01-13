@@ -111,12 +111,12 @@ class CraftingEntry implements CraftingEntryData {
     async prepareFormula(formula: CraftingFormula): Promise<void> {
         this.checkEntryRequirements(formula);
 
-        const batchSize = this.#batchSizeFor(formula);
+        const quantity = this.#batchSizeFor(formula);
         const existing = this.preparedFormulaData.find((f) => f.itemUUID === formula.uuid);
         if (existing && this.isAlchemical) {
-            existing.quantity = batchSize;
+            existing.quantity = quantity;
         } else {
-            this.preparedFormulaData.push({ itemUUID: formula.uuid, quantity: batchSize });
+            this.preparedFormulaData.push({ itemUUID: formula.uuid, quantity });
         }
 
         return this.#updateRuleElement();

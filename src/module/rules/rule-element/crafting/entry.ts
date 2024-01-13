@@ -20,13 +20,13 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
 
     static override defineSchema(): CraftingEntryRuleSchema {
         const fields = foundry.data.fields;
-        const quantityField = (initial?: (data: Record<string, unknown>) => number): QuantityField =>
+        const quantityField = (): QuantityField =>
             new fields.NumberField({
                 required: true,
                 nullable: false,
                 positive: true,
                 integer: true,
-                initial: initial || 2,
+                initial: 2,
                 min: 1,
                 max: 99,
             });
@@ -37,12 +37,15 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             isAlchemical: new fields.BooleanField(),
             isDailyPrep: new fields.BooleanField(),
             isPrepared: new fields.BooleanField(),
-            batchSizes: new fields.SchemaField({
-                default: quantityField((data: { isAlchemical?: boolean }) => (data.isAlchemical ? 2 : 1)),
-                other: new fields.ArrayField(
-                    new fields.SchemaField({ quantity: quantityField(), definition: new PredicateField() }),
-                ),
-            }),
+            batchSizes: new fields.SchemaField(
+                {
+                    default: quantityField(),
+                    other: new fields.ArrayField(
+                        new fields.SchemaField({ quantity: quantityField(), definition: new PredicateField() }),
+                    ),
+                },
+                { initial: (d) => ({ default: d.isAlchemical ? 2 : 1, other: [] }) },
+            ),
             maxItemLevel: new ResolvableValueField({ required: false, nullable: false, initial: 1 }),
             maxSlots: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             craftableItems: new PredicateField(),
