@@ -94,33 +94,36 @@ class TextEditorPF2e extends TextEditor {
     ): Promise<HTMLAnchorElement | null> {
         const anchor = await superCreateInlineRoll.apply(this, [match, rollData, options]);
         const formula = anchor?.dataset.formula;
-        if (formula) {
-            const roll = ((): DamageRoll | null => {
-                try {
-                    return new DamageRoll(formula);
-                } catch {
-                    return null;
-                }
-            })();
-            // Consider any roll formula with d20s or coins to definitely not be a damage roll
-            if (!roll || !looksLikeDamageRoll(roll)) {
-                return anchor;
+        const rollModes = ["roll", ...Object.values(CONST.DICE_ROLL_MODES)];
+        if (!formula || !rollModes.includes(anchor.dataset.mode ?? "")) {
+            return anchor;
+        }
+
+        const roll = ((): DamageRoll | null => {
+            try {
+                return new DamageRoll(formula);
+            } catch {
+                return null;
             }
+        })();
+        // Consider any roll formula with d20s or coins to definitely not be a damage roll
+        if (!roll || !looksLikeDamageRoll(roll)) {
+            return anchor;
+        }
 
-            // Replace the die icon with one representing the damage roll's first damage die
-            const icon = damageDiceIcon(roll);
-            // The fourth match group will be a label
-            const label = match[4] && match[4].length > 0 ? match[4] : roll.formula;
+        // Replace the die icon with one representing the damage roll's first damage die
+        const icon = damageDiceIcon(roll);
+        // The fourth match group will be a label
+        const label = match[4] && match[4].length > 0 ? match[4] : roll.formula;
 
-            anchor.innerHTML = `${icon.outerHTML}${label}`;
-            anchor.dataset.tooltip = roll.formula;
-            anchor.dataset.damageRoll = "";
+        anchor.innerHTML = `${icon.outerHTML}${label}`;
+        anchor.dataset.tooltip = roll.formula;
+        anchor.dataset.damageRoll = "";
 
-            const isPersistent = roll.instances.length > 0 && roll.instances.every((i) => i.persistent);
-            if (isPersistent) {
-                anchor.draggable = true;
-                anchor.dataset.persistent = "";
-            }
+        const isPersistent = roll.instances.length > 0 && roll.instances.every((i) => i.persistent);
+        if (isPersistent) {
+            anchor.draggable = true;
+            anchor.dataset.persistent = "";
         }
 
         return anchor;
