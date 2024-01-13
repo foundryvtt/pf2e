@@ -3,27 +3,27 @@
     h4,
     h6 {
         @include p-reset;
-        line-height: 1;
-        display: flex;
         align-items: center;
+        display: flex;
+        line-height: 1;
     }
 
     h6 {
         @include micro;
-        padding: var(--space-2) 0.25rem;
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
         color: var(--text-light);
+        padding: var(--space-2) var(--space-4);
     }
 
     ul.proficiencies-list {
-        list-style: none;
         @include p-reset;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
         align-items: center;
-        margin-bottom: 0.75rem;
+        display: grid;
+        gap: var(--space-8);
+        grid-template-columns: repeat(2, 1fr);
+        list-style: none;
+        margin-bottom: var(--space-12);
 
         li {
             @include frame-elegant;
@@ -32,7 +32,7 @@
             font-family: var(--serif);
             font-size: var(--font-size-16);
             min-height: 2.5rem;
-            padding: 0 0.5rem 0 0.25rem;
+            padding: 0 var(--space-8) 0 var(--space-4);
 
             a.d20 {
                 &:hover {
@@ -41,7 +41,8 @@
 
                 filter: drop-shadow(0 0 1px var(--color-shadow-dark)) drop-shadow(0 0 3px var(--color-text-dark-4))
                     drop-shadow(0 0 12px var(--color-text-light-3));
-                padding: 0.25rem;
+                padding: var(--space-4);
+
                 path {
                     fill: var(--color-text-light-1);
                 }
@@ -51,22 +52,23 @@
             .modifier,
             .dc {
                 // Compensation for the font's alignment
-                padding-top: 0.1em;
                 margin-bottom: -0.1em;
+                padding-top: 0.1em;
             }
 
             .modifier,
             .dc {
-                color: var(--primary);
+                color: var(--color-pf-primary);
                 font-weight: 600;
-                margin-right: 0.25rem;
+                margin-right: var(--space-4);
                 text-align: end;
                 width: 1.75rem;
             }
 
             .name {
                 flex: 1;
-                margin-right: 0.25rem;
+                line-height: 1em;
+                margin-right: var(--space-4);
             }
 
             .button-group {
@@ -91,7 +93,7 @@
                     width: 6.5em;
 
                     &:hover {
-                        background: var(--primary);
+                        background: var(--color-pf-primary);
                     }
                 }
 
@@ -107,10 +109,10 @@
 
                 a.delete {
                     font-size: var(--font-size-12);
+                    opacity: 0.65;
                     position: absolute;
                     right: -0.5rem;
                     top: -0.5rem;
-                    opacity: 0.65;
                 }
 
                 &:hover a.delete {
@@ -118,25 +120,15 @@
                 }
             }
         }
-    }
 
-    ul.lores-list,
-    ul.combat-list {
-        li .button-group {
-            flex-direction: row;
-            flex-wrap: nowrap;
-            margin-left: auto;
-
-            .item-controls {
-                font-size: var(--font-size-12);
-                margin-left: 0.5rem;
-                margin-top: var(--space-1);
-            }
+        &.lores-list > li .button-group .item-controls {
+            font-size: var(--font-size-12);
+            margin-left: var(--space-8);
         }
-    }
 
-    ul.lores-list > li,
-    li.all-by-myself {
-        grid-column: span 2;
+        &.lores-list > li,
+        li.all-by-myself {
+            grid-column: span 2;
+        }
     }
 }
