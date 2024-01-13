@@ -4,7 +4,7 @@
     "name": "Spell Effect: Blood Ward",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Blood Ward]</em></p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Blood Ward]</em></p>\n<p>You gain a +1 status bonus to saving throws and AC against creatures with the trait you select.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,16 +22,9 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Defending vs. target of Blood Ward",
-                "option": "blood-ward",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "blood-ward"
+                    "origin:trait:{item|flags.pf2e.rulesSelections.blood}"
                 ],
                 "selector": [
                     "ac",
@@ -52,6 +45,68 @@
                     ],
                     "field": "item|system.level.value"
                 }
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAberration",
+                        "value": "aberration"
+                    },
+                    {
+                        "label": "PF2E.TraitAnimal",
+                        "value": "animal"
+                    },
+                    {
+                        "label": "PF2E.TraitBeast",
+                        "value": "beast"
+                    },
+                    {
+                        "label": "PF2E.TraitCelestial",
+                        "value": "celestial"
+                    },
+                    {
+                        "label": "PF2E.TraitConstruct",
+                        "value": "construct"
+                    },
+                    {
+                        "label": "PF2E.TraitDragon",
+                        "value": "dragon"
+                    },
+                    {
+                        "label": "PF2E.TraitElemental",
+                        "value": "elemental"
+                    },
+                    {
+                        "label": "PF2E.TraitFey",
+                        "value": "fey"
+                    },
+                    {
+                        "label": "PF2E.TraitFiend",
+                        "value": "fiend"
+                    },
+                    {
+                        "label": "PF2E.TraitFungus",
+                        "value": "fungus"
+                    },
+                    {
+                        "label": "PF2E.TraitMonitor",
+                        "value": "monitor"
+                    },
+                    {
+                        "label": "PF2E.TraitOoze",
+                        "value": "ooze"
+                    },
+                    {
+                        "label": "PF2E.TraitPlant",
+                        "value": "plant"
+                    },
+                    {
+                        "label": "PF2E.TraitUndead",
+                        "value": "undead"
+                    }
+                ],
+                "flag": "blood",
+                "key": "ChoiceSet"
             }
         ],
         "start": {
