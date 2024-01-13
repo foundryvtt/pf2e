@@ -1,15 +1,17 @@
 import { CheckRoll } from "@system/check/index.ts";
 import { createHTMLElement, fontAwesomeIcon } from "@util";
+import type { ChatMessagePF2e } from "../document.ts";
 
 /** Add a button to set a check roll as the roller's initiative */
 export const SetAsInitiative = {
-    listen: (li: HTMLElement): void => {
-        const message = game.messages.get(li.dataset.messageId ?? "", { strict: true });
+    listen: (message: ChatMessagePF2e, li: HTMLElement): void => {
+        if ((message.blind || !message.isAuthor) && !game.user.isGM) return;
+
         const token = message.token;
         const hasCheckRoll = message.rolls.some(
             (r) => r instanceof CheckRoll && ["skill-check", "perception-check"].includes(r.options.type ?? ""),
         );
-        if (!(hasCheckRoll && (!message.blind || game.user.isGM) && token?.actor)) {
+        if (!(hasCheckRoll && token?.actor)) {
             return;
         }
 
