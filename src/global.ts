@@ -132,6 +132,7 @@ interface GamePF2e
             };
             /** Encumbrance automation */
             encumbrance: boolean;
+            gmVision: boolean;
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
             metagame: {

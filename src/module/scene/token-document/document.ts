@@ -406,7 +406,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const initializeVision =
             !!this.scene?.isView &&
             this.sight.enabled &&
-            Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.traits.senses"));
+            Object.keys(fu.flattenObject(actorUpdates)).some((k) => k.startsWith("system.perception.senses"));
         if (initializeVision) canvas.perception.update({ initializeVision }, true);
 
         const preUpdate = this.toObject(false);

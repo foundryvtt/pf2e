@@ -112,6 +112,7 @@ export const SetGamePF2e = {
                 cards: game.settings.get("pf2e", "drawCritFumble"),
             },
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
+            gmVision: game.settings.get("pf2e", "gmVision"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
             metagame: {
                 breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),

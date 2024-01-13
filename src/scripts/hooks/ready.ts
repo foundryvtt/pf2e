@@ -96,8 +96,7 @@ export const Ready = {
                 canvas.ready &&
                 game.user.isGM &&
                 !game.modules.get("gm-vision")?.active &&
-                !game.modules.get("perfect-vision")?.active &&
-                game.settings.get("pf2e", "gmVision")
+                game.pf2e.settings.gmVision
             ) {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
                 canvas.colorManager.initialize();

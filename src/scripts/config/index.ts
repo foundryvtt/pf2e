@@ -1074,7 +1074,7 @@ export const PF2ECONFIG = {
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,
-            gmVision: 0x908cb9,
+            gmVision: 0xd1ccff,
         },
     },
 };
