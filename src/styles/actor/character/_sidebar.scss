@@ -1,28 +1,25 @@
 aside {
-    grid-area: sidebar;
-    color: var(--sidebar-label);
-    font-family: var(--serif);
-    font-size: var(--font-size-10);
-    font-weight: 600;
-    margin-left: 8px;
     background-image: url("/assets/sheet/red_sidebar_top.webp"), url("/assets/sheet/red_sidebar_bottom.webp");
     background-repeat: no-repeat;
     background-position:
-        center calc(100% - 52px),
+        center calc(100% - 3.25rem),
         center bottom;
     background-size:
-        224px 100%,
-        224px 52px;
+        14rem 100%,
+        14rem 3.25rem;
+    color: var(--sidebar-label);
     display: flex;
     flex-direction: column;
+    font: 600 var(--font-size-10) var(--serif);
+    grid-area: sidebar;
+    margin-left: 8px; // ignore font-size setting
 
     input[type="number"] {
         color: var(--text-light);
-
-        text-align: center;
         font-size: var(--font-size-28);
-        line-height: 1em;
         font-weight: initial;
+        line-height: 1em;
+        text-align: center;
 
         &:focus {
             box-shadow: none;
@@ -32,10 +29,7 @@ aside {
             -webkit-appearance: none;
             margin: 0;
         }
-        &:read-only {
-            pointer-events: none;
-            color: var(--color-pf-tertiary-light);
-        }
+
         &:hover {
             @include input-glow;
         }
@@ -58,9 +52,9 @@ aside {
     }
 
     .sidebar {
-        padding: 0 var(--space-2) var(--space-2) var(--space-8);
         margin-bottom: 2.625rem;
         overflow: hidden scroll;
+        padding: 0 var(--space-2) var(--space-2) var(--space-8);
 
         &::-webkit-scrollbar-track {
             box-shadow: none;
@@ -74,25 +68,25 @@ aside {
         }
 
         header {
+            align-items: end;
             display: flex;
             flex-wrap: nowrap;
             justify-content: space-between;
-            align-items: flex-end;
             margin: 0.8em 0 0.5em;
 
             &:first-of-type {
-                margin-top: 0.5em;
                 margin-bottom: calc(-1 * var(--space-1));
+                margin-top: 0.5em;
             }
 
             h2 {
+                color: var(--sidebar-title);
+                flex: 1;
                 font-family: var(--sans-serif);
                 font-size: var(--font-size-13);
                 font-variant: small-caps;
                 letter-spacing: 0.05em;
                 line-height: 1;
-                color: var(--sidebar-title);
-                flex: 1;
             }
 
             button {
@@ -241,15 +235,15 @@ aside {
                     text-align: center;
 
                     &.current-hp {
+                        background-color: var(--color-pf-primary);
                         background-image: linear-gradient(
                             90deg,
                             darken($primary-color, 5) 0%,
                             lighten($primary-color, 8) 50%,
                             darken($primary-color, 5) 100%
                         );
-                        background-color: var(--color-pf-primary);
-                        border-radius: 0 0 4px 4px;
                         border: 1px solid var(--sidebar-title);
+                        border-radius: 0 0 4px 4px;
                         display: flex;
                         flex-direction: column;
                         padding: var(--space-10) var(--space-4) 0;
@@ -359,7 +353,7 @@ aside {
                 flex-direction: column;
                 height: 4.625rem;
                 justify-content: start;
-                padding: var(--space-14) var(--space-10) 0 var(--space-10);
+                padding: var(--space-14) var(--space-10) 0;
                 text-align: center;
 
                 .data-value {
@@ -382,7 +376,7 @@ aside {
                 }
 
                 &.hp {
-                    background: url("/assets/sheet/shield-red.webp") no-repeat top center;
+                    background: url("/assets/sheet/shield-red.webp") no-repeat center center;
                     grid-area: shield-hp;
 
                     &.disabled {
@@ -429,7 +423,7 @@ aside {
                                 }
 
                                 text {
-                                    fill: var(--primary-dark);
+                                    fill: var(--color-pf-primary-dark);
                                 }
                             }
                         }
@@ -460,21 +454,21 @@ aside {
                 }
 
                 .max {
+                    align-items: center;
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
 
                     label {
-                        white-space: normal;
-                        text-align: center;
-                        width: 5em;
                         margin-bottom: var(--space-4);
+                        text-align: center;
+                        white-space: normal;
+                        width: 5em;
                     }
 
                     .data-value {
                         color: var(--color-pf-tertiary);
-                        text-align: center;
                         font: normal var(--font-size-26) / 1em var(--serif);
+                        text-align: center;
                     }
                 }
 

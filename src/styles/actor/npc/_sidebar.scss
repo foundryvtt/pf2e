@@ -52,8 +52,8 @@
 
     .hit-points {
         display: flex;
-        justify-content: end;
         flex: 0;
+        justify-content: end;
         margin-left: auto;
 
         input.current {
@@ -93,11 +93,11 @@
         }
 
         .shield-details {
-            display: flex;
-            flex: auto;
-            flex-direction: row;
-            justify-content: flex-start;
             align-items: baseline;
+            display: flex;
+            flex-direction: row;
+            flex: auto;
+            justify-content: start;
 
             .label {
                 flex: 0;
@@ -169,16 +169,16 @@
             li {
                 display: flex;
                 flex-direction: column;
-                text-align: center;
                 height: 2.5rem;
+                text-align: center;
 
                 label {
                     font-weight: 700;
                 }
 
                 input.modifier {
-                    text-align: center;
                     height: 1.5rem;
+                    text-align: center;
                 }
             }
         }
@@ -216,8 +216,9 @@
 
     // Used to grey out empty values on the simple sheet
     .value0 {
-        color: darkgrey;
         border-bottom: 1px darkgrey solid;
+        color: darkgrey;
+
         input {
             color: darkgrey;
         }
