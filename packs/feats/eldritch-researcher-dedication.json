@@ -31,7 +31,48 @@
             "remaster": false,
             "title": "Pathfinder #164: Hands of the Devil"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "value": {
+                            "name": "arcana",
+                            "value": "arc"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "value": {
+                            "name": "occultism",
+                            "value": "occ"
+                        }
+                    }
+                ],
+                "flag": "eldritch",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:investigate"
+                        ]
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.eldritch.name}",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.eldritch.value}.rank",
+                "value": 2
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "spellcasting": {
