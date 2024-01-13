@@ -24,7 +24,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
-        Object.defineProperty(this, "flankingHighlight", { configurable: false, writable: false });
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -36,8 +35,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this.document.hidden && !game.user.isGM) return false;
 
         // Some tokens are always visible
-        if (!canvas.effects.visibility.tokenVision) return true;
-        if (this.controlled) return true;
+        if (!canvas.effects.visibility.tokenVision || this.controlled) return true;
 
         // Otherwise, test visibility against current sight polygons
         if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
@@ -341,8 +339,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
+        // If GM vision is enabled, making nothing a vision source will allow the user to see everything
+        if (game.pf2e.settings.gmVision && game.user.isGM) return false;
+
         const partyVisionEnabled =
-            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.pf2e.settings.metagame.partyVision;
+            game.pf2e.settings.metagame.partyVision && !!this.actor?.hasPlayerOwner && !game.user.isGM;
         return partyVisionEnabled || super._isVisionSource();
     }
 

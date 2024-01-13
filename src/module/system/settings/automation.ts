@@ -26,6 +26,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 requiresReload: true,
                 onChange: (value) => {
                     game.pf2e.settings.rbv = !!value;
+                    canvas.perception.update({ initializeVision: true }, true);
                 },
             },
             iwr: {

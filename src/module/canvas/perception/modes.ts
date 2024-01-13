@@ -1,5 +1,5 @@
-import { TokenPF2e } from "../token/index.ts";
-import { HearingSource } from "./hearing-source.ts";
+import { TokenPF2e } from "../token/object.ts";
+import type { HearingSource } from "./hearing-source.ts";
 
 const darkvision = new VisionMode({
     id: "darkvision",
@@ -46,7 +46,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
+        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
     }
 }
 

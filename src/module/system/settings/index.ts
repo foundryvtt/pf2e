@@ -284,9 +284,14 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: (value) => {
+            game.pf2e.settings.gmVision = !!value;
             const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
             CONFIG.Canvas.darknessColor = color;
+            if (ui.controls && canvas.activeLayer) {
+                ui.controls.initialize({ layer: canvas.activeLayer.constructor.layerOptions.name });
+            }
             canvas.colorManager.initialize();
+            canvas.perception.update({ initializeVision: true }, true);
         },
     });
 
