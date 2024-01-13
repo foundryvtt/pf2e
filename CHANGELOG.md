@@ -1,3 +1,26 @@
+## 5.12.6
+
+### System Improvements
+
+-   (nikolaj-a) Add Identify Alchemy and Identify Magic action macros
+-   (stwlam) Improve various aspects of GM vision
+
+### Bugfixes
+
+-   (Chromatic Penguin) Fix Browse Downtime Actions button on PC sheet
+-   (stwlam) Fix display of stealth DCs on simple hazards
+-   (stwlam) Fix default batch sizes created by most advanced alchemy features
+-   (stwlam) Fix issue causing crafting entries to prevent opening token configurations
+
+### Data Updates
+
+-   (Abaddon) Restore note to Pugwampi senses
+-   (Dire Weasel) Remove links to Earplugs effects in favor of REs on items themselves
+-   (DocSchlock) Localize note on Strong-Blooded Dwarf Heritage
+-   (j-bs) Update various text to use "counteract rank" terminology from Player/GM Core
+-   (j-bs) Update Witch and Wizard class summary text to match Player Core
+-   (rectulo) Fix level of Dig Up Secrets feat
+
 ## 5.12.5
 
 ### Bugfixes
