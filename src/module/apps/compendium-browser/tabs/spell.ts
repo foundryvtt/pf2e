@@ -69,7 +69,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     }
 
                     const isCantrip = spellData.system.traits.value.includes("cantrip");
-                    const isFocusSpell = spellData.system.traits.value.includes("focus");
+                    const isFocusSpell =
+                        spellData.system.traits.value.includes("focus") ||
+                        (isCantrip && (spellData.system.traits.traditions ?? []).length === 0);
                     const isRitual = !!spellData.system.ritual;
                     const isSpell = !isCantrip && !isFocusSpell && !isRitual;
                     const categories = R.compact([

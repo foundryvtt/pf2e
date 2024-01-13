@@ -1008,7 +1008,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -1085,7 +1085,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1357,7 +1357,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -1570,7 +1570,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
+                    "value": "<p>This ordinary-looking hat allows you to cloak yourself in illusions.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> any number of times per day</p>\n<hr />\n<p><strong>Effect</strong> The hat casts a 2nd-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> spell on you. While setting up the disguise, you can magically alter the hat to appear as a comb, ribbon, helm, or other piece of headwear.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2259,12 +2259,6 @@
                 "temp": 0,
                 "value": 238
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -2280,6 +2274,18 @@
         },
         "details": {
             "blurb": "Genderfluid witchwyrd monk",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "common",
+                    "draconic",
+                    "kelish",
+                    "kholo",
+                    "mwangi",
+                    "osiriani",
+                    "vudrani"
+                ]
+            },
             "level": {
                 "value": 13
             },
@@ -2290,6 +2296,18 @@
                 "remaster": false,
                 "title": "Pathfinder #191: The Destiny War"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2312,23 +2330,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "kelish",
-                    "kholo",
-                    "mwangi",
-                    "osiriani",
-                    "vudrani"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

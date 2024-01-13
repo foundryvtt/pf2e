@@ -262,7 +262,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature damaged by the banshee's touch that isn't already @UUID[Compendium.pf2e.conditionitems.Item.Frightened] must attempt a @Check[type:will|dc:38] save (@Check[type:will|dc:43] if the attack was a critical hit). If the creature fails its save, it's @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}; on a critical failure, the creature also cowers with fear and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}. If the creature is protected against fear by a spell or magic item, the banshee's touch first attempts to counteract the protection effect, with the effect of a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> spell.</p>"
+                    "value": "<p>A creature damaged by the banshee's touch that isn't already @UUID[Compendium.pf2e.conditionitems.Item.Frightened] must attempt a @Check[type:will|dc:38] save (@Check[type:will|dc:43] if the attack was a critical hit). If the creature fails its save, it's @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}; on a critical failure, the creature also cowers with fear and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 4}. If the creature is protected against fear by a spell or magic item, the banshee's touch first attempts to counteract the protection effect, with the effect of a 9th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -446,12 +446,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -478,6 +472,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "elven"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -488,6 +489,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "hears heartbeats (imprecise) 60 feet",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -505,18 +518,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "elven"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "hears heartbeats (imprecise) 60 feet, darkvision"
-            },
             "size": {
                 "value": "med"
             },

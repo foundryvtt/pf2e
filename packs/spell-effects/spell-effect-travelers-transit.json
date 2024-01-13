@@ -1,0 +1,68 @@
+{
+    "_id": "Ig9p2rDXGYHpEuTx",
+    "img": "systems/pf2e/icons/spells/travelers-transit.webp",
+    "name": "Spell Effect: Traveler's Transit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Traveler's Transit]</p>\n<p>You gain either a climb Speed or a swim Speed. The Speed is equal to your land Speed.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> You can choose to gain a fly Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 5
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": "fly"
+                    }
+                ],
+                "flag": "traveler",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.traveler}",
+                "value": "@actor.system.attributes.speed.total"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -21,7 +21,7 @@ import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } fro
 import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { isCycle } from "@item/container/helpers.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
 import { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -45,7 +45,12 @@ import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import type {
+    ArmorStatistic,
+    PerceptionStatistic,
+    StatisticCheck,
+    StatisticDifficultyClass,
+} from "@system/statistic/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -62,7 +67,7 @@ import {
     RollOptionFlags,
     StrikeData,
 } from "./data/base.ts";
-import { ActorSourcePF2e, ActorType } from "./data/index.ts";
+import { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
@@ -76,13 +81,14 @@ import {
     isReallyPC,
     migrateActorSource,
 } from "./helpers.ts";
-import { ActorInitiative } from "./initiative.ts";
+import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
 import { StatisticModifier } from "./modifiers.ts";
 import { ActorSheetPF2e } from "./sheet/base.ts";
 import { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
+import { ActorType } from "./types.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
@@ -90,8 +96,8 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED
  * @category Actor
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
-    /** Has this actor completed construction? */
-    constructed = true;
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
 
     /** A UUIDv5 hash digest of the foundry UUID */
     declare signature: string;
@@ -121,7 +127,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
 
-    declare perception?: Statistic;
+    declare perception?: PerceptionStatistic;
 
     /** Skill checks for the actor if supported by the actor type */
     declare skills?: Partial<CreatureSkills>;
@@ -222,7 +228,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get size(): Size {
-        return this.system.traits?.size.value ?? "med";
+        return this.system.traits?.size?.value ?? "med";
     }
 
     /**
@@ -318,7 +324,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => new TokenEffect(e));
 
-        return [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat();
+        return R.uniqBy(
+            [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
+            (e) => e.icon,
+        );
     }
 
     /** A means of checking this actor's type without risk of circular import references */
@@ -591,6 +600,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     merged.prototypeToken.actorLink = true;
                     merged.prototypeToken.sight = { enabled: true };
                     break;
+                case "hazard":
+                    merged.prototypeToken.sight = { enabled: false };
+                    break;
                 case "loot":
                     // Make loot actors linked and interactable
                     merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
@@ -629,9 +641,24 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, context);
     }
 
+    /** Set module art if available */
+    protected override _initializeSource(
+        source: Record<string, unknown>,
+        options?: DocumentConstructionContext<TParent>,
+    ): this["_source"] {
+        const initialized = super._initializeSource(source, options);
+
+        if (options?.pack && initialized._id) {
+            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
+            return fu.mergeObject(initialized, art);
+        }
+
+        return initialized;
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.constructed ??= false;
-        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+        this.initialized = false;
         this._itemTypes = null;
         this.rules = [];
         this.initiative = null;
@@ -681,24 +708,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /** Set module art if available */
-    protected override _initializeSource(
-        source: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>,
-    ): this["_source"] {
-        const initialized = super._initializeSource(source, options);
-
-        if (options?.pack && initialized._id) {
-            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
-            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
-            return fu.mergeObject(initialized, art);
-        }
-
-        return initialized;
-    }
-
-    /** Prepare token data derived from this actor, refresh Effects Panel */
+    /**
+     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
+     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     */
     override prepareData(): void {
+        if (this.initialized) return;
+
+        // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
+        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+
+        if (this.parent && !this.parent.initialized) return;
+        this.initialized = true;
         super.prepareData();
 
         // Split spellcasting entry into those that extend a magic tradition and those that don't.
@@ -727,7 +748,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.preparePrototypeToken();
-        if (this.constructed && canvas.ready) {
+        if (this.initialized && canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
             const thisTokenIsControlled = canvas.tokens.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this),
@@ -736,6 +757,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 game.pf2e.effectPanel.refresh();
             }
         }
+
+        this.conditions.finalize();
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
@@ -770,11 +793,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
-        // Perform full reset instead of upstream's double data preparation
-        // See https://github.com/foundryvtt/foundryvtt/issues/7987
-        for (const item of this.items) {
-            item.reset();
-        }
+        super.prepareEmbeddedDocuments();
 
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
@@ -1526,6 +1545,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Can a user loot this actor? Same as update modification permission but overridable by subclasses */
     isLootableBy(user: UserPF2e): boolean {
         return this.canUserModify(user, "update");
     }
@@ -1633,7 +1653,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 "system.equipped.handsHeld": 0,
                 "system.equipped.inSlot": false,
             });
-        } else if (!isCycle(item, container)) {
+        } else if (!isContainerCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "system.containerId": container.id,
@@ -1748,7 +1768,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param slugs Slug(s) of the queried condition(s)
      */
     hasCondition(...slugs: ConditionSlug[]): boolean {
-        return slugs.some((s) => this.conditions.bySlug(s, { active: true }).length > 0);
+        return slugs.some((s) => this.conditions.hasType(s));
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1900,7 +1920,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Remove the death overlay if present upon hit points being increased
         const currentHP = this.hitPoints?.value ?? 0;
         const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
-        if (currentHP > 0 && hpChange > 0 && this.isDead) {
+        if (currentHP > 0 && hpChange > 0 && this.isDead && game.user.id === userId) {
             const { combatant } = this;
             if (combatant) {
                 combatant.toggleDefeated({ to: false });
@@ -1974,7 +1994,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        options?: EmbeddedItemUpdateContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
@@ -1998,6 +2018,10 @@ interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends D
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
+}
+
+interface EmbeddedItemUpdateContext<TParent extends ActorPF2e> extends DocumentUpdateContext<TParent> {
+    checkHP?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */

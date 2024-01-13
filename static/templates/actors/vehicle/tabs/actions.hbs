@@ -1,27 +1,34 @@
 <div class="tab actions actions-pane" data-group="primary" data-tab="actions">
     <div class="actions-container">
         <div class="actions-tabs-wrapper">
-            <div class="actions-panels">
-                <ol class="actions-list item-list directory-list strikes-list">
-                    <div class="toggles section-container headerless">
-                        {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
-                    </div>
-                    {{#each actions as |section sid|}}
-                        <li class="action-header">
-                            <h3>{{section.label}}</h3>
-                            {{#if @root.editable}}
-                                <div class="item-controls">
-                                    <a class="item-control item-create" title="{{localize "PF2E.CreateActionTitle"}}" data-type="action" data-action-type="{{sid}}"><i class="fa-solid fa-fw fa-plus"></i></a>
-                                    <a class="item-control action-browse" title="{{localize "PF2E.OpenActionBrowserTitle"}}" data-type="feat"><i class="fa-solid fa-fw fa-search"></i></a>
-                                </div>
-                            {{/if}}
-                        </li>
+            <section class="actions-panels major">
+                <div class="toggles section-container headerless">
+                    {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
+                </div>
+                {{#each actions as |section sid|}}
+                    <header class="action-header">
+                        {{#if @root.editable}}
+                            {{section.label}}
+                            <div class="controls">
+                                <button
+                                    type="button"
+                                    data-action="create-item"
+                                    data-type="action"
+                                    data-action-type="{{sid}}"
+                                ><i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}</button>
+                                <button type="button" data-action="browse-abilities">
+                                    <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                                </button>
+                            </div>
+                        {{/if}}
+                    </header>
+                    <ol class="actions-list item-list directory-list strikes-list">
                         {{#each section.actions as |action aid|}}
                             {{> "systems/pf2e/templates/actors/partials/action.hbs" action=action}}
                         {{/each}}
-                    {{/each}}
-                </ol>
-            </div>
+                    </ol>
+                {{/each}}
+            </section>
         </div>
     </div>
 </div>

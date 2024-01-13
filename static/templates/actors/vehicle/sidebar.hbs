@@ -1,8 +1,8 @@
-<div class="sidebar_title">
+<header>
   <h2>
       {{localize "PF2E.HitPointsHeader"}}
   </h2>
-</div>
+</header>
 <div class="hitpoints">
   <div class="hp-big">
     <div class="container temp-hp" title="{{localize "PF2E.ShieldBrokenThresholdLabel"}}">
@@ -26,9 +26,9 @@
   </div>
 </div>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-</div>
+</header>
 <div class="armor-class">
     <div class="shield ac" title="{{localize "PF2E.ArmorClassLabel"}}">
         <div class="data-value">
@@ -51,15 +51,15 @@
     </div>
 </div>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
-</div>
+</header>
 <ul class="sidebar-saves">
     <li class="roll-data" data-save="fortitude">
         <h2 class="sidebar_label">{{localize "PF2E.SavesFortitude"}}</h2>
         <div class="save-roll">
             {{#if options.editable}}
-                <a class="roll-icon save-name">
+                <a class="roll-icon" data-action="roll-check" data-statistic="fortitude">
                     {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                 </a>
             {{/if}}
@@ -68,41 +68,45 @@
     </li>
 </ul>
 
-<div class="sidebar_title"><h2>{{localize "PF2E.ImmunitiesLabel"}}</h2></div>
+<header>
+    <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
+    {{#if editable}}
+        <button type="button" class="modifiers_button" data-action="edit-immunities">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </a>
+    {{/if}}
+</header>
 <ol class="immunities tags">
     {{#each data.attributes.immunities as |immunity|}}
         <li class="tag tag_secondary" data-immunity="{{immunity.type}}">{{immunity.label}}</li>
     {{/each}}
-    {{#if options.editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>
 
-<div class="sidebar_title"><h2>{{localize "PF2E.WeaknessesLabel"}}</h2></div>
+<header>
+    <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
+    {{#if editable}}
+        <button type="button" class="modifiers_button" data-action="edit-weaknesses">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </button>
+    {{/if}}
+</header>
 <ol class="weaknesses tags">
     {{#each data.attributes.weaknesses as |weakness|}}
         <li class="tag tag_secondary" data-weakness="{{weakness.type}}">{{weakness.label}}</li>
     {{/each}}
-    {{#if options.editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>
 
-<div class="sidebar_title">
+<header>
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
-</div>
+    {{#if editable}}
+        <button type="button" class="modifiers_button" data-action="edit-resistances">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </button>
+    {{/if}}
+</header>
 <ol class="resistances tags">
     {{#each data.attributes.resistances as |resistance|}}
         <li class="tag tag_secondary" data-resistance="{{resistance.type}}">{{resistance.label}}</li>
     {{/each}}
-    {{#if options.editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>
 

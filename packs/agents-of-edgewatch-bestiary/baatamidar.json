@@ -470,7 +470,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell level were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
+                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -767,7 +767,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>1 mile @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures who start their turn in the aura must succeed at a @Check[type:will|dc:48|traits:incapacitation] save or become unable to understand any communication (including telepathy), distinguish social rank or authority, or differentiate the relative value of objects or services. This persists for as long as the creature is in the aura.</p>\n<p>Creatures who succeed at the save are temporarily immune for 1 hour (24 hours on a critical success). Proteans are immune to the unrelativity field.</p>\n<p>The baatamidar can suppress this aura or activate it again as a free action.</p>"
+                    "value": "<p>1 mile. Creatures who start their turn in the aura must succeed at a @Check[type:will|dc:48|traits:incapacitation] save or become unable to understand any communication (including telepathy), distinguish social rank or authority, or differentiate the relative value of objects or services. This persists for as long as the creature is in the aura.</p>\n<p>Creatures who succeed at the save are temporarily immune for 1 hour (24 hours on a critical success). Proteans are immune to the unrelativity field.</p>\n<p>The baatamidar can suppress this aura or activate it again as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1132,12 +1132,6 @@
                     "type": "paralyzed"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 39
-            },
             "resistances": [
                 {
                     "type": "precision",
@@ -1161,6 +1155,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "protean"
+                ]
+            },
             "level": {
                 "value": 21
             },
@@ -1172,6 +1175,23 @@
                 "title": "Pathfinder #162: Ruins of the Radiant Siege"
             },
             "sidebarText": ""
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 39,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1194,20 +1214,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "protean"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "med"
             },

@@ -2624,15 +2624,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "great-fortitude",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2892,24 +2892,6 @@
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
                         "key": "CriticalSpecialization",
                         "predicate": [
                             {
@@ -2922,6 +2904,19 @@
                     }
                 ],
                 "slug": "weapon-expertise-swashbuckler",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 2
+                        },
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2956,7 +2951,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe.</p>"
+                    "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3280,7 +3275,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -3338,9 +3333,6 @@
             "hp": {
                 "temp": 0,
                 "value": 73
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3414,6 +3406,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "amurrun",
+                    "common"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3432,6 +3431,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3517,22 +3519,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "amurrun",
-                    "common"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

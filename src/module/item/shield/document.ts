@@ -141,7 +141,6 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                     { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
-                this.system.traits.integrated.versatile.options;
             } else if (this.system.traits.integrated) {
                 this.system.traits.integrated.versatile = null;
             }
@@ -165,6 +164,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareActorData(this: ShieldPF2e<ActorPF2e>): void {
+        super.prepareActorData();
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         setActorShieldData(this);

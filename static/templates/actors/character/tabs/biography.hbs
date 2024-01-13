@@ -1,4 +1,4 @@
-<section class="tab biography major" data-group="primary" data-tab="biography" data-tooltip-class="pf2e">
+<section class="tab biography major" data-group="primary" data-tab="biography">
     {{#if (or document.isOwner biography.visibility.appearance)}}
         <header>
             <span>{{localize "PF2E.BiographyAppearance"}}</span>
@@ -10,7 +10,7 @@
         </header>
         <section class="appearance-details{{#if editable}} editable{{/if}}">
             <div class="bio appearance">
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.appearance target="system.details.biography.appearance" button=true owner=owner editable=editable}}
                 </div>
             </div>
@@ -36,7 +36,7 @@
         </header>
         <section{{#if editable}} class="editable"{{/if}}>
             <div class="bio backstory">
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.backstory target="system.details.biography.backstory" button=true owner=owner editable=editable}}
                 </div>
             </div>
@@ -73,7 +73,10 @@
             </div>
             <div class="bio edicts" data-field="edicts" data-tooltip-direction="LEFT">
                 <div class="label-add">
-                    <label class="details-label" for="{{document.uuid}}-edicts">{{localize "PF2E.BiographyEdicts"}}</label>
+                    <label
+                        class="details-label"{{#if biography.edicts}}
+                        for="{{document.uuid}}-edicts"{{/if}}
+                    >{{localize "PF2E.BiographyEdicts"}}</label>
                     <a
                         data-action="add-edict-anathema"
                         data-tooltip="PF2E.Actor.Character.Biography.Edicts.Add"
@@ -99,7 +102,10 @@
             </div>
             <div class="bio anathema" data-field="anathema" data-tooltip-direction="LEFT">
                 <div class="label-add">
-                    <label class="details-label" for="{{document.uuid}}-anathema">{{localize "PF2E.BiographyAnathema"}}</label>
+                    <label
+                        class="details-label"
+                        {{#if biography.anathema}}for="{{document.uuid}}-anathema"{{/if}}
+                    >{{localize "PF2E.BiographyAnathema"}}</label>
                     <a
                         data-action="add-edict-anathema"
                         data-tooltip="PF2E.Actor.Character.Biography.Anathema.Add"
@@ -156,25 +162,25 @@
         <section class="campaign{{#if editable}} editable{{/if}}">
             <div class="bio campaign-notes">
                 <h4 class="details-label">{{localize "PF2E.BiographyCampaignNotes"}}</h4>
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.campaignNotes target="system.details.biography.campaignNotes" button=true owner=owner editable=editable}}
                 </div>
             </div>
             <div class="bio allies">
                 <h4 class="details-label">{{localize "PF2E.BiographyAllies"}}</h4>
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.allies target="system.details.biography.allies" button=true owner=owner editable=editable}}
                 </div>
             </div>
             <div class="bio enemies">
                 <h4 class="details-label">{{localize "PF2E.BiographyEnemies"}}</h4>
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.enemies target="system.details.biography.enemies" button=true owner=owner editable=editable}}
                 </div>
             </div>
             <div class="bio organizations">
                 <h4 class="details-label">{{localize "PF2E.BiographyOrganizations"}}</h4>
-                <div class="biography-content">
+                <div class="biography-content" data-tooltip-class="">
                     {{editor enrichedContent.organizations target="system.details.biography.organizations" button=true owner=owner editable=editable}}
                 </div>
             </div>

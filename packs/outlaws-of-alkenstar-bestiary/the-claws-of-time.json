@@ -821,7 +821,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The Claws of Time's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes @Damage[6d6[slashing]] damage (@Check[type:fortitude|dc:29|basic:true] save).</p>\n<p>A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
+                    "value": "<p>30 feet. The Claws of Time's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes @Damage[6d6[slashing]] damage (@Check[type:fortitude|dc:29|basic:true] save).</p>\n<p>A creature that critically succeeds at its save is temporarily immune for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -906,7 +906,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Claws of Time casts a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em> spell, but it must transport itself into a space adjacent to an angle of 90º (or more acute) in the structure or environment around it. This means the hound can use <em>dimension door</em> to appear adjacent to any wall or corner in the Cradle of Quartz except for the central geode (area <strong>D16</strong>).</p>\n<p>Once per day, the hound can use this ability to <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em> to or from the Dimension of Time, with the same restrictions on what angles next to which it can appear.</p>"
+                    "value": "<p>The Claws of Time casts a 4th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em> spell, but it must transport itself into a space adjacent to an angle of 90º (or more acute) in the structure or environment around it. This means the hound can use <em>dimension door</em> to appear adjacent to any wall or corner in the Cradle of Quartz except for the central geode (area <strong>D16</strong>).</p>\n<p>Once per day, the hound can use this ability to <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em> to or from the Dimension of Time, with the same restrictions on what angles next to which it can appear.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1108,12 +1108,6 @@
                     "type": "emotion"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -1136,6 +1130,12 @@
         },
         "details": {
             "blurb": "Hound of Tindalos hunter",
+            "languages": {
+                "details": "(can't speak any language), telepathy 300 feet",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -1146,6 +1146,18 @@
                 "remaster": false,
                 "title": "Pathfinder #179: Cradle of Quartz"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "lamp vision 30 feet",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1163,17 +1175,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language), Telepathy 300 feet",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "greater darkvision, lamp vision 30 feet"
-            },
             "size": {
                 "value": "med"
             },

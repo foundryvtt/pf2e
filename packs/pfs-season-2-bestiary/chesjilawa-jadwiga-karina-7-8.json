@@ -399,7 +399,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -649,8 +649,8 @@
                     "value": "<p>You summon an isolated blizzard of obscuring, scouring ice to follow your target. The target attempts a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[1d6[cold]] damage, and the spell ends.</p>\n<p><strong>Failure</strong> The target takes @Damage[1d6[cold]] damage and @Damage[1d6[persistent,cold]] damage. (The persistent damage automatically ends when the spell ends.) It is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to other creatures, and other creatures are concealed to it.</p>\n<p><strong>Critical Failure</strong> As failure, but both the cold damage and the persistent cold damage increase to @Damage[2d6[cold]] damage and @Damage[2d6[persistent,cold]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage and persistent cold damage increase by 1 (2 on a critical failure).</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -1177,7 +1177,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained, up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -1215,7 +1215,6 @@
                     "value": [
                         "cantrip",
                         "cold",
-                        "focus",
                         "manipulate",
                         "witch"
                     ]
@@ -2173,7 +2172,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>@Damage[3d6[cold]] damage, @Check[type:fortitude|dc:22|basic:true] save.</p>"
+                    "value": "<p>5 feet. @Damage[3d6[cold]] damage, @Check[type:fortitude|dc:22|basic:true] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2485,12 +2484,6 @@
                 "temp": 0,
                 "value": 90
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -2504,6 +2497,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "hallit",
+                    "jotun",
+                    "skald"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -2514,6 +2517,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #2-08: A Frosty Mug"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "winter wise",
+            "mod": 12,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -2536,24 +2547,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "hallit",
-                    "jotun",
-                    "skald"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "winter wise"
-            },
             "size": {
                 "value": "med"
             },

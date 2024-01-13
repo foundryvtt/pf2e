@@ -197,7 +197,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -263,7 +263,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -503,7 +503,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This aeon stone must be activated to provide a benefit. The resonant power allows you to cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</em> cantrip as an arcane innate spell.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A spell targets you</p>\n<hr />\n<p><strong>Effect</strong> The stone casts a 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> spell in an attempt to counteract the triggering spell, with a counteract modifier of [[/r 1d20+22]]. This can be used only on spells that specifically target you-not area spells that don't have targets. If it succeeds, it counteracts the spell for all targets if other creatures were targeted in addition to you.</p>\n<p>Each time you activate this <em>aeon stone</em>, attempt a @Check[type:flat|dc:5]. On a failure, the stone permanently turns into a <em>dull gray aeon stone</em>.</p>"
+                    "value": "<p>This aeon stone must be activated to provide a benefit. The resonant power allows you to cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</em> cantrip as an arcane innate spell.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> A spell targets you</p>\n<hr />\n<p><strong>Effect</strong> The stone casts a 6th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> spell in an attempt to counteract the triggering spell, with a counteract modifier of [[/r 1d20+22]]. This can be used only on spells that specifically target you-not area spells that don't have targets. If it succeeds, it counteracts the spell for all targets if other creatures were targeted in addition to you.</p>\n<p>Each time you activate this <em>aeon stone</em>, attempt a @Check[type:flat|dc:5]. On a failure, the stone permanently turns into a <em>dull gray aeon stone</em>.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1106,12 +1106,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1124,6 +1118,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -1134,6 +1135,18 @@
                 "remaster": false,
                 "title": "Pathfinder #185: A Taste of Ashes"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1151,18 +1164,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

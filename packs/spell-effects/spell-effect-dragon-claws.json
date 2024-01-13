@@ -1,6 +1,6 @@
 {
     "_id": "7zy4W2RXQiMEr6cp",
-    "img": "icons/creatures/claws/claw-hooked-barbed.webp",
+    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
     "name": "Spell Effect: Dragon Claws",
     "system": {
         "description": {
@@ -22,6 +22,7 @@
         },
         "rules": [
             {
+                "baseType": "claw",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -41,56 +42,16 @@
             },
             {
                 "damageType": "{actor|flags.pf2e.dragonBloodline.damageType}",
+                "diceNumber": "ternary(gte(@item.level, 9), 3, ternary(gte(@item.level, 5), 2, 1))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "PF2E.Weapon.Base.claw",
-                "selector": "dragon-claw-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "dragon-claw-damage"
             },
             {
                 "key": "Resistance",
                 "type": "{actor|flags.pf2e.dragonBloodline.damageType}",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 5
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": 10
-                        },
-                        {
-                            "start": 9,
-                            "value": 15
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level, 9), 15, ternary(gte(@item.level, 5), 10, 5))"
             }
         ],
         "start": {

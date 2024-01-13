@@ -1,5 +1,4 @@
-import type { CreaturePF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CreaturePF2e } from "@actor";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { BooleanField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";

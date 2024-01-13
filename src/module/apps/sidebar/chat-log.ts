@@ -206,7 +206,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     animation: "fade",
                     trigger: "click",
                     arrow: false,
-                    content: $(messageEl).find("div.hover-content"),
+                    content: htmlQuery(messageEl, "div.hover-content"),
                     contentAsHTML: true,
                     contentCloning: true,
                     debug: BUILD_MODE === "development",
@@ -290,7 +290,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         if (!canvas) return;
         const token = message.token?.object;
         if (token?.isVisible && token.isOwner) {
-            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            if (token.controlled) {
+                token.release();
+            } else {
+                token.control({ releaseOthers: !event.shiftKey });
+            }
             // If a double click, also pan to the token
             if (event.type === "dblclick") {
                 const scale = Math.max(1, canvas.stage.scale.x);
@@ -327,18 +331,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         };
 
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
-            canApplyDamage($li) && game.settings.get("pf2e", "critFumbleButtons");
-
-        const canApplyInitiative: ContextOptionCondition = ($li: JQuery) => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-
-            // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
-            // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-            const validActor =
-                message.token?.actor?.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
-            const validRollType = message.isRoll && message.isCheckRoll;
-            return validActor && validRollType;
-        };
+            canApplyDamage($li) && game.pf2e.settings.critFumble.buttons;
 
         const canReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
@@ -410,33 +403,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
-                },
-            },
-            {
-                name: "PF2E.ClickToSetInitiativeContext",
-                icon: fontAwesomeIcon("swords").outerHTML,
-                condition: canApplyInitiative,
-                callback: async ($li) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    const { actor, token } = message;
-                    if (!token) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                                actor: message.actor?.name ?? message.user?.name ?? "",
-                            }),
-                        );
-                        return;
-                    }
-                    if (!actor) return;
-                    const combatant = await CombatantPF2e.fromActor(actor);
-                    if (!combatant) return;
-                    const value = message.rolls.at(0)?.total ?? 0;
-
-                    await combatant.encounter.setInitiative(combatant.id, value);
-
-                    ui.notifications.info(
-                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value }),
-                    );
                 },
             },
             {

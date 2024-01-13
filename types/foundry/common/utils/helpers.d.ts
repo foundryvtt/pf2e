@@ -24,6 +24,13 @@ export function deepClone<T>(original: T): T;
 export function duplicate<T>(original: T): T;
 
 /**
+ * Test whether a value is empty-like; either undefined or a content-less object.
+ * @param value The value to test
+ * @returns Is the value empty-like?
+ */
+export function isEmpty(value: unknown): boolean;
+
+/**
  * Update a source object by replacing its keys and values with those from a target object.
  *
  * @param original     The initial object which should be updated with values from the target

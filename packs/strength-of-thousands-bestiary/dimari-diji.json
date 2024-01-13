@@ -176,7 +176,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You request a direct intercession from the natural world. Nature always refuses unnatural requests and might grant a different request (potentially more powerful or better fitting its character) than the one you asked for. A <em>primal phenomenon</em> spell can do any of the following things.</p>\n<ul>\n<li>Duplicate any primal spell of 9th level or lower.</li>\n<li>Duplicate any non-primal spell of 7th level or lower.</li>\n<li>Produce any effect whose power level is in line with the above effects.</li>\n<li>Reverse certain effects that refer to the <em>wish</em> spell.</li>\n</ul>\n<p>At the GM's discretion, you can try to use <em>primal phenomenon</em> to produce greater effects than these, but doing so may be dangerous, or the spell may have only a partial effect.</p>"
+                    "value": "<p>You request a direct intercession from the natural world. Nature always refuses unnatural requests and might grant a different request (potentially more powerful or better fitting its character) than the one you asked for. A <em>primal phenomenon</em> spell can do any of the following things.</p>\n<ul>\n<li>Duplicate any primal spell of 9th rank or lower.</li>\n<li>Duplicate any non-primal spell of 7th level or lower.</li>\n<li>Produce any effect whose power level is in line with the above effects.</li>\n<li>Reverse certain effects that refer to the <em>wish</em> spell.</li>\n</ul>\n<p>At the GM's discretion, you can try to use <em>primal phenomenon</em> to produce greater effects than these, but doing so may be dangerous, or the spell may have only a partial effect.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -242,7 +242,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -251,7 +251,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 10
@@ -382,7 +382,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 9
@@ -508,7 +508,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 8
@@ -1171,7 +1171,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1542,7 +1542,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Plant Growth]</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 level higher than it was cast, to a maximum of 9th level (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain fast healing 20 while in the area.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Growth]</p>"
+                    "value": "<p>120 feet. Plants near Dimari-Diji grow larger and more vibrant. Plants in the emanation gain the success effects of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Plant Growth]</em> ritual. Any plant spells cast in the area are empowered and use the effects of the spell 1 rank higher than it was cast, to a maximum of 9th rank (Dimari-Diji's spells are unaffected). Finally, other plant creatures gain fast healing 20 while in the area.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Growth]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1629,7 +1629,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Dimari-Diji's natural power enhances primal spellcasting around him. All creatures within the emanation can alter a primal spell as if they had just used @UUID[Compendium.pf2e.feats-srd.Item.Reach Spell] or @UUID[Compendium.pf2e.feats-srd.Item.Widen Spell] when they Cast the Spell.</p>"
+                    "value": "<p>60 feet. Dimari-Diji's natural power enhances primal spellcasting around him. All creatures within the emanation can alter a primal spell as if they had just used @UUID[Compendium.pf2e.feats-srd.Item.Reach Spell] or @UUID[Compendium.pf2e.feats-srd.Item.Widen Spell] when they Cast the Spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2072,12 +2072,6 @@
                     "type": "poison"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 43
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -2105,6 +2099,19 @@
         },
         "details": {
             "blurb": "Male arboreal nature-speaker",
+            "languages": {
+                "details": "speak with animals, speak with plants, telepathy 300 feet",
+                "value": [
+                    "aklo",
+                    "arboreal",
+                    "common",
+                    "draconic",
+                    "empyrean",
+                    "fey",
+                    "requian",
+                    "sphinx"
+                ]
+            },
             "level": {
                 "value": 25
             },
@@ -2115,6 +2122,23 @@
                 "remaster": false,
                 "title": "Pathfinder #172: Secrets of the Temple-City"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 43,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2132,24 +2156,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak With Animals, Speak With Plants, Telepathy 300 feet",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "arboreal",
-                    "common",
-                    "draconic",
-                    "empyrean",
-                    "fey",
-                    "requian",
-                    "sphinx"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "low-light vision, tremorsense (imprecise) 120 feet; <em>true seeing</em>"
-            },
             "size": {
                 "value": "grg"
             },

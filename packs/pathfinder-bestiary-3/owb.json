@@ -166,7 +166,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "occult",
                         "teleportation"
                     ]
                 }
@@ -384,8 +383,7 @@
                         "concentrate",
                         "detection",
                         "manipulate",
-                        "mental",
-                        "occult"
+                        "mental"
                     ]
                 }
             },
@@ -413,7 +411,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -457,8 +455,7 @@
                     "value": [
                         "concentrate",
                         "darkness",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -723,7 +720,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1317,12 +1314,6 @@
                     "type": "cold"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 13
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1335,6 +1326,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language), telepathy 100 feet",
+                "value": [
+                    "caligni"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -1345,6 +1342,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 13,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1367,20 +1376,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "(Can't Speak Any Language), Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "caligni"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

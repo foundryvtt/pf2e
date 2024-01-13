@@ -11,13 +11,13 @@ import {
     extractModifierAdjustments,
     extractRollSubstitutions,
 } from "@module/rules/helpers.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 import {
     CheckContext,
@@ -99,7 +99,7 @@ export class ActionMacroHelpers {
         outcome: DegreeOfSuccessString,
         translationKey?: string,
     ): RollNotePF2e {
-        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const visible = game.pf2e.settings.metagame.results;
         const outcomes = visible ? [outcome] : [];
         return new RollNotePF2e({
             selector,
@@ -109,7 +109,7 @@ export class ActionMacroHelpers {
     }
 
     static outcomesNote(selector: string, translationKey: string, outcomes: DegreeOfSuccessString[]): RollNotePF2e {
-        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const visible = game.pf2e.settings.metagame.results;
         const visibleOutcomes = visible ? outcomes : [];
         return new RollNotePF2e({
             selector: selector,
@@ -128,7 +128,7 @@ export class ActionMacroHelpers {
         } else if (options.actors) {
             rollers.push(options.actors);
         } else {
-            rollers.push(...getSelectedOrOwnActors());
+            rollers.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
 
         if (rollers.length === 0) {
@@ -168,7 +168,6 @@ export class ActionMacroHelpers {
                 );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
                 const label = (await options.content?.(header)) ?? header;
-                const title = `${game.i18n.localize(options.title)} - ${game.i18n.localize(subtitle)}`;
 
                 if (statistic instanceof Statistic) {
                     const dc = this.#resolveCheckDC({ unresolvedDC: options.difficultyClass });
@@ -176,7 +175,7 @@ export class ActionMacroHelpers {
                         ...eventToRollParams(options.event, { type: "check" }),
                         token: selfToken,
                         label,
-                        title,
+                        title: label,
                         dc,
                         extraRollNotes: notes,
                         extraRollOptions: combinedOptions,
@@ -240,7 +239,7 @@ export class ActionMacroHelpers {
                             dosAdjustments,
                             substitutions,
                             traits: actionTraits,
-                            title,
+                            title: label,
                         },
                         options.event,
                         (roll, outcome, message) => {

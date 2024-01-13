@@ -1,8 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 
 const ACTION_COSTS = ["free", "reaction", 1, 2, 3] as const;
 type ActionCost = (typeof ACTION_COSTS)[number];
+
+const ACTION_SECTIONS = ["basic", "skill", "specialty-basic"] as const;
+type ActionSection = (typeof ACTION_SECTIONS)[number];
 
 interface ActionMessageOptions {
     blind: boolean;
@@ -37,6 +41,8 @@ interface Action {
     glyph?: string;
     img?: string;
     name: string;
+    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    section?: ActionSection;
     slug: string;
     traits: string[];
     variants: Collection<ActionVariant>;
@@ -45,4 +51,12 @@ interface Action {
     use(options?: Partial<ActionUseOptions>): Promise<unknown>;
 }
 
-export type { Action, ActionCost, ActionMessageOptions, ActionUseOptions, ActionVariant, ActionVariantUseOptions };
+export type {
+    Action,
+    ActionCost,
+    ActionMessageOptions,
+    ActionSection,
+    ActionUseOptions,
+    ActionVariant,
+    ActionVariantUseOptions,
+};

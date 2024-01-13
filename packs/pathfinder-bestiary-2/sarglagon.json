@@ -536,7 +536,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> rank, two devils whose levels are each at least 2 less than double the spell rank, or three devils whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -895,7 +895,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the heavy aura must attempt a @Check[type:will|dc:23] save. It is then temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] while it remains in the area. If the creature is already encumbered, it is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] while it remains within the aura.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect persists for 3 rounds after leaving the aura.</p>"
+                    "value": "<p>10 feet. A creature that enters the heavy aura must attempt a @Check[type:will|dc:23] save. It is then temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] while it remains in the area. If the creature is already encumbered, it is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] while it remains within the aura.</p>\n<p><strong>Critical Failure</strong> As failure, but the effect persists for 3 rounds after leaving the aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1212,12 +1212,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 18
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -1253,6 +1247,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "diabolic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -1263,6 +1264,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1290,21 +1303,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "diabolic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "greater darkvision; see invisibility"
-            },
             "size": {
                 "value": "lg"
             },

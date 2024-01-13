@@ -410,7 +410,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -1304,7 +1304,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1801,7 +1801,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -1860,7 +1860,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2121,7 +2121,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -2922,12 +2922,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -2947,6 +2941,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet, tongues",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -2957,6 +2958,23 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 100,
+                    "type": "thoughtsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2974,18 +2992,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet, tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, thoughtsense (precise) 100 feet"
-            },
             "size": {
                 "value": "med"
             },

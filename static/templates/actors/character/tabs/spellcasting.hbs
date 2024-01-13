@@ -1,6 +1,8 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
+    {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
+
     <ol class="spellcastingEntry-list directory-list" data-foundry-list>
-        {{#each spellcastingEntries as |entry eid|}}
+        {{#each spellcastingEntries as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
                     {{#unless entry.isRitual}}
@@ -10,27 +12,31 @@
                     <h3 class="item-name">
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
                     </h3>
-                    {{#if @root.options.editable}}
-                        <div class="item-controls" data-tooltip-class="pf2e">
+                    {{#if @root.editable}}
+                        <div class="item-controls">
                             {{#if entry.isFocusPool}}
-                                <a class="item-control spell-browse" data-tooltip="PF2E.OpenSpellBrowserTitle"
-                                    data-location="{{entry.id}}"><i class="fa-solid fa-fw fa-search"></i></a>
+                                <a
+                                    data-action="browse-spells"
+                                    data-tooltip="PF2E.OpenSpellBrowserTitle"
+                                    data-location="{{entry.id}}"
+                                    data-rank="{{entry.highestRank}}"
+                                ><i class="fa-solid fa-fw fa-search"></i></a>
                             {{/if}}
                             {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
-                                <a class="skill-name slotless-level-toggle" data-tooltip="PF2E.ToggleSlotlessSpellLevelsTitle">
-                                    <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
+                                <a data-action="toggle-show-slotless-ranks" data-tooltip="PF2E.ToggleSlotlessSpellLevelsTitle">
+                                    <i class="{{#if entry.showSlotlessRanks}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
                             {{/if}}
                             {{#unless entry.isRitual}}
-                                <a class="item-control" data-action="spellcasting-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-                                <a class="item-control" data-action="spellcasting-remove" data-tooltip="PF2E.RemoveSpellcastingEntryTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                                <a data-action="spellcasting-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                                <a data-action="spellcasting-remove" data-tooltip="PF2E.RemoveSpellcastingEntryTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                             {{/unless}}
                         </div>
                     {{/if}}
                 </div>
 
                 {{#unless entry.isRitual}}
-                    <div class="spell-ability-data" data-tooltip-class="pf2e">
+                    <div class="spell-ability-data">
                         <div class="statistic-values">
                             <section class="skill-data" data-tooltip="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
@@ -52,8 +58,9 @@
                         </div>
 
                         {{#if entry.isPrepared}}
-                            <button type="button" class="skill-name prepared-toggle blue-button">
-                                <i class="fa-solid fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
+                            <button type="button" class="prepare-spells blue" data-action="open-spell-preparation">
+                                <i class="fa-duotone fa-book-sparkles"></i>
+                                {{localize "PF2E.ToggleSpellVisibilityTitle"}}
                             </button>
                         {{/if}}
 
@@ -92,16 +99,13 @@
                 {{/if}}
             </li>
         {{/each}}
-
-        {{#if @root.options.editable}}
-            <li class="item spellbook-empty">
-                <div class="item-controls pf-add-item-row">
-                    <a class="item-control blue-button" data-action="spellcasting-create">
-                        <i class="fa-solid fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
-                    </a>
-                </div>
-            </li>
-        {{/if}}
     </ol>
+
+
+    {{#if @root.editable}}
+        <button type="button" class="blue create-entry" data-action="spellcasting-create">
+            <i class="fa-solid fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
+        </button>
+    {{/if}}
 
 </div>

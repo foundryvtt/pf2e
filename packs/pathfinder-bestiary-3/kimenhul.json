@@ -208,7 +208,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell level were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind]{Spell Effect: Mind Blank}</p>"
+                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind]{Spell Effect: Mind Blank}</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -242,11 +242,11 @@
                     "rarity": "uncommon",
                     "traditions": [
                         "arcane",
+                        "divine",
                         "occult"
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -311,12 +311,12 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
+                        "divine",
                         "occult",
                         "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "emotion",
                         "fear",
                         "illusion",
@@ -549,7 +549,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "revelation"
                     ]
@@ -705,11 +704,11 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
+                        "divine",
                         "occult"
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "incapacitation",
                         "linguistic",
                         "manipulate",
@@ -778,7 +777,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -807,7 +805,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -928,7 +926,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "emotion",
                         "fear",
                         "manipulate",
@@ -950,7 +947,7 @@
             "sort": 1300000,
             "system": {
                 "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell level were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
+                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
                 },
                 "duration": {
                     "expiry": "turn-start",
@@ -1824,12 +1821,6 @@
                     "type": "fear-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1848,6 +1839,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "requian"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -1858,6 +1858,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1880,23 +1897,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "requian"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "huge"
             },

@@ -1,10 +1,12 @@
 import { ActorPF2e } from "@actor";
+import { createProficiencyModifier } from "@actor/modifiers.ts";
 import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util/misc.ts";
+import * as R from "remeda";
 import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
@@ -69,7 +71,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         this.attribute = attribute;
         const tradition = (this.tradition = TrickMagicTradition[skill]);
 
-        const selectors = [`${attribute}-based`, "all", "spell-attack-dc"];
+        const domains = [`${attribute}-based`, "all", "spell-attack-dc"];
         const attackSelectors = [
             `${tradition}-spell-attack`,
             "spell-attack",
@@ -81,14 +83,18 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
         const skillRank = actor.skills[skill].rank;
         const trickRank = skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0;
+        const levelProficiencyBonus =
+            trickRank === 0 && !game.pf2e.settings.variants.pwol
+                ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
+                : null;
 
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
             attribute: attribute,
-            rank: trickRank || "untrained-level",
-            modifiers: extractModifiers(actor.synthetics, selectors),
-            domains: selectors,
+            rank: trickRank,
+            modifiers: R.compact([levelProficiencyBonus, ...extractModifiers(actor.synthetics, domains)]),
+            domains,
             check: {
                 type: "attack-roll",
                 modifiers: extractModifiers(actor.synthetics, attackSelectors),
@@ -149,15 +155,11 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
         const { rollMode, message } = options;
-        const castLevel = spell.computeCastRank(spell.rank);
+        const castRank = spell.computeCastRank(spell.rank);
         if (message === false) return;
 
-        try {
-            spell.trickMagicEntry = this;
-            await spell.toMessage(undefined, { rollMode, data: { castLevel } });
-        } finally {
-            spell.trickMagicEntry = null;
-        }
+        spell = spell.loadVariant({ entryId: this.id }) ?? spell;
+        await spell.toMessage(null, { rollMode, data: { castRank } });
     }
 
     async getSheetData(): Promise<SpellcastingSheetData> {
@@ -169,9 +171,9 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             category: "items",
             hasCollection: false,
             sort: 0,
-            levels: [],
+            groups: [],
             usesSpellProficiency: false,
-            spellPrepList: null,
+            prepList: null,
         };
     }
 }

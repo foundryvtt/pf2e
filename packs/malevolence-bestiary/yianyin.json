@@ -477,7 +477,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -806,7 +806,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that begins its turn within the aura must attempt a @Check[type:will|dc:22|basic:true] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to unnerving presence for 24 hours.</p>\n<p><strong>Success</strong> The creature's attack rolls take a -1 status penalty for 1 round.</p>\n<p><strong>Failure</strong> The creature feels Yianyin's eyeless gaze upon them but knows that something far more dangerous and monstrous watches them through those empty sockets. The overwhelming presence of this alien intelligence causes the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as they shake and tremble with fear.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is instead @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and knows the name of what watches from those empty eyes: Tchekuth.</p>"
+                    "value": "<p>30 feet. A creature that begins its turn within the aura must attempt a @Check[type:will|dc:22|basic:true] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and becomes temporarily immune to unnerving presence for 24 hours.</p>\n<p><strong>Success</strong> The creature's attack rolls take a -1 status penalty for 1 round.</p>\n<p><strong>Failure</strong> The creature feels Yianyin's eyeless gaze upon them but knows that something far more dangerous and monstrous watches them through those empty sockets. The overwhelming presence of this alien intelligence causes the creature to become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round as they shake and tremble with fear.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is instead @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} and knows the name of what watches from those empty eyes: Tchekuth.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1169,12 +1169,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "resistances": [
                 {
                     "type": "void",
@@ -1192,6 +1186,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 120 feet, tongues",
+                "value": [
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "requian"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1202,6 +1205,23 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Malevolence"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1224,20 +1244,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 120 feet, Tongues",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "requian"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, lifesense 60 feet"
-            },
             "size": {
                 "value": "med"
             },

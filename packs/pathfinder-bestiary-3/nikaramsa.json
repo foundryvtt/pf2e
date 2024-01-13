@@ -637,7 +637,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-level spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
+                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-rank spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1442,7 +1442,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</em> of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
+                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</em> of an equal or higher spell rank can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th rank or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1924,7 +1924,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A foe within 60 feet casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em> or a beneficial spell that the nikaramsa could cast to remove an affliction or condition (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em>)</p>\n<hr />\n<p><strong>Effect</strong> The nikaramsa attempts to counteract the enemy's spell (counteract modifier [[/r 1d20+24 #Counteract]]{+24} and counteract level 7). If the nikaramsa succeeds, the triggering creature is subjected to the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em> spell or the effect it was trying to remove.</p>"
+                    "value": "<p><strong>Trigger</strong> A foe within 60 feet casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em> or a beneficial spell that the nikaramsa could cast to remove an affliction or condition (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em>)</p>\n<hr />\n<p><strong>Effect</strong> The nikaramsa attempts to counteract the enemy's spell (counteract modifier [[/r 1d20+24 #Counteract]]{+24} and counteract rank 7). If the nikaramsa succeeds, the triggering creature is subjected to the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em> spell or the effect it was trying to remove.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2186,12 +2186,6 @@
                     "type": "curse"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 50
@@ -2205,6 +2199,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "diabolic"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -2215,6 +2216,21 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "detect alignment",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "type": "see-invisibility"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2237,21 +2253,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "diabolic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "detect alignment, darkvision, see invisibility"
-            },
             "size": {
                 "value": "lg"
             },

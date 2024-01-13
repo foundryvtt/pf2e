@@ -234,7 +234,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -507,7 +506,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -576,7 +575,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A creature entering the aura or starting their turn in the aura must succeed at a @Check[type:fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a critical failure for as long as it's sickened). While within the aura, creatures also take a -2 circumstance penalty to saves against fear and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute and does not take the penalty to saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rotting Stench]</p>"
+                    "value": "<p>10 feet. A creature entering the aura or starting their turn in the aura must succeed at a @Check[type:fortitude|dc:18] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on a critical failure for as long as it's sickened). While within the aura, creatures also take a -2 circumstance penalty to saves against fear and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute and does not take the penalty to saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Rotting Stench]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -758,12 +757,6 @@
                 "temp": 0,
                 "value": 70
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -782,6 +775,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -792,6 +791,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -809,17 +820,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

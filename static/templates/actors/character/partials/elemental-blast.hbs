@@ -4,7 +4,7 @@
     data-item-id="{{action.item.id}}"
     data-item-type="{{action.item.type}}"
 >
-    <div class="item-name rollable" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+    <div class="item-name rollable" data-tooltip-direction="UP">
         <div class="item-image strike framed">
             <img src="{{action.img}}" /> <i class="fa-solid fa-message"></i>
         </div>
@@ -14,7 +14,7 @@
                 <h4 class="name"><a data-action="toggle-summary">{{localize action.label}}</a></h4>
                 <div class="item-controls">
                     {{#if (and @root.editable (eq @index 0))}}
-                        <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
                     {{/if}}
                 </div>
             </div>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="alt-usage" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+    <div class="alt-usage" data-tooltip-direction="UP">
         <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
         {{#> attackDamage action=action melee=false}}{{/attackDamage}}
     </div>

@@ -1,0 +1,201 @@
+{
+    "_id": "WEP9Oe1D9WsWSOU8",
+    "img": "icons/magic/symbols/circled-gem-pink.webp",
+    "name": "Effect: Energy Ablation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Energy Ablation]</p>\n<p>You gain resistance to an energy damage type of your choice equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "energyAblationType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    7
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    9
+                                ]
+                            }
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    11
+                                ]
+                            }
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    13
+                                ]
+                            }
+                        ],
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    15
+                                ]
+                            }
+                        ],
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    17
+                                ]
+                            }
+                        ],
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": 10
+                    }
+                ],
+                "flag": "energyAblationRank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energyAblationType}",
+                "value": "{item|flags.pf2e.rulesSelections.energyAblationRank}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -344,7 +344,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 8
@@ -478,7 +478,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>A spray of rainbow light beams cascades from your open hand. Each creature in the area must roll 1d8 on the table below to see which beam affects it, then attempt a saving throw of the indicated type. The table notes any additional traits that apply to each type of ray. If a creature is struck by multiple beams, it uses the same d20 result for all its saving throws. For all rays, a successful saving throw negates the effect for that creature.</p>\n<h3><strong>Prismatic Spray</strong></h3>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>1d8</th>\n<th>Color</th>\n<th>Save</th>\n<th>Effects (Traits)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Red</td>\n<td>Reflex</td>\n<td>50 fire damage (fire)</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Orange</td>\n<td>Reflex</td>\n<td>60 acid damage (acid)</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Yellow</td>\n<td>Reflex</td>\n<td>70 electricity damage (electricity)</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Green</td>\n<td>Fortitude</td>\n<td>30 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute (poison)</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Blue</td>\n<td>Fortitude</td>\n<td>Affected as if by <em>@UUID[Compendium.pf2e.spells-srd.Item.Petrify]</em></td>\n</tr>\n<tr>\n<td>6</td>\n<td>Indigo</td>\n<td>Will</td>\n<td>Confused, as the <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em> spell (mental)</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Violet</td>\n<td>Will</td>\n<td>Slowed for 1 minute; if a critical failure, sent to another plane, as <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em> (teleportation)</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Potent beam</td>\n<td>-</td>\n<td>Affected by two beams - roll twice, rerolling any duplicates or results of 8</td>\n</tr>\n</tbody>\n</table>\n<p>@Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] @Check[type:reflex|dc:resolve(@actor.attributes.spellDC.value)] @Check[type:will|dc:resolve(@actor.attributes.spellDC.value)]</p>"
+                    "value": "<p>A spray of rainbow light beams cascades from your open hand. Each creature in the area must roll 1d8 on the table below to see which beam affects it, then attempt a saving throw of the indicated type. The table notes any additional traits that apply to each type of ray. If a creature is struck by multiple beams, it uses the same d20 result for all its saving throws. For all rays, a successful saving throw negates the effect for that creature.</p>\n<h3><strong>Prismatic Spray</strong></h3>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>1d8</th>\n<th>Color</th>\n<th>Save</th>\n<th>Effects (Traits)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>Red</td>\n<td>Reflex</td>\n<td>50 fire damage (fire)</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Orange</td>\n<td>Reflex</td>\n<td>60 acid damage (acid)</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Yellow</td>\n<td>Reflex</td>\n<td>70 electricity damage (electricity)</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Green</td>\n<td>Fortitude</td>\n<td>30 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 minute (poison)</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Blue</td>\n<td>Fortitude</td>\n<td>Affected as if by <em>@UUID[Compendium.pf2e.spells-srd.Item.Petrify]</em></td>\n</tr>\n<tr>\n<td>6</td>\n<td>Indigo</td>\n<td>Will</td>\n<td>Confused, as the <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em> spell (mental)</td>\n</tr>\n<tr>\n<td>7</td>\n<td>Violet</td>\n<td>Will</td>\n<td>Slowed for 1 minute; if a critical failure, sent to another plane, as <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em> (teleportation)</td>\n</tr>\n<tr>\n<td>8</td>\n<td>Potent beam</td>\n<td>-</td>\n<td>Affected by two beams - roll twice, rerolling any duplicates or results of 8</td>\n</tr>\n</tbody>\n</table>\n<p>@Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] @Check[type:reflex|dc:resolve(@actor.attributes.spellDC.value)] @Check[type:will|dc:resolve(@actor.attributes.spellDC.value)]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1039,7 +1039,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A spell or magical effect deals damage.</p>\n<hr />\n<p>Exchanging material energy with that of the Shadow Plane, you transform the triggering spell into a partially illusory version of itself. Attempt to counteract the target spell. If the attempt is successful, any creatures that would be damaged by the spell instead take only half as much damage, but the spell otherwise works as normal. Treat shadow siphon's counteract level as 2 higher for this attempt.</p>"
+                    "value": "<p><strong>Trigger</strong> A spell or magical effect deals damage.</p>\n<hr />\n<p>Exchanging material energy with that of the Shadow Plane, you transform the triggering spell into a partially illusory version of itself. Attempt to counteract the target spell. If the attempt is successful, any creatures that would be damaged by the spell instead take only half as much damage, but the spell otherwise works as normal. Treat shadow siphon's counteract rank as 2 higher for this attempt.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1515,7 +1515,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 3
@@ -1793,7 +1793,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 2
@@ -2085,7 +2085,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2155,7 +2155,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -2219,7 +2219,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.6ZIKB0151LUR19Rw"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ill-omen.webp",
+            "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
             "sort": 3000000,
             "system": {
@@ -2236,7 +2236,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is struck with misfortune, which throws them off balance. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>"
+                    "value": "<p>The target is struck with misfortune, which throws it off balance. The target must attempt a Will save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ill Omen]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2250,9 +2250,9 @@
                     "value": "aLhWdKoUI0wcntZE"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -3042,12 +3042,6 @@
                     "type": "misfortune-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -3061,6 +3055,12 @@
         },
         "details": {
             "blurb": "Variant fabled harrowkin",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -3071,6 +3071,18 @@
                 "remaster": false,
                 "title": "Pathfinder #192: Worst of All Possible Worlds"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -3088,17 +3100,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

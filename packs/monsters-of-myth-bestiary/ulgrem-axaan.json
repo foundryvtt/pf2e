@@ -257,7 +257,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures entering or starting their turn in the emanation that can see Ulgrem-Axaan must succeed at a @Check[type:will|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). A creature that succeeds at its save is temporarily immune to baleful glare for 1 minute.</p>"
+                    "value": "<p>15 feet. Creatures entering or starting their turn in the emanation that can see Ulgrem-Axaan must succeed at a @Check[type:will|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). A creature that succeeds at its save is temporarily immune to baleful glare for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -801,12 +801,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 18
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -844,6 +838,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "necril",
+                    "wildsong"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -854,6 +855,23 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "wavesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -871,18 +889,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "necril",
-                    "wildsong"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, wavesense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

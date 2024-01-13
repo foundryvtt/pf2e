@@ -592,7 +592,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that begins its turn in the aura must attempt a @Check[type:will|dc:27] save. Undead take a -2 circumstance penalty to this saving throw. The creature is then temporarily immune to the grieving aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, but the effects lasts while the creature remains in the aura plus 1 minute.</p>"
+                    "value": "<p>30 feet. A creature that begins its turn in the aura must attempt a @Check[type:will|dc:27] save. Undead take a -2 circumstance penalty to this saving throw. The creature is then temporarily immune to the grieving aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, but the effects lasts while the creature remains in the aura plus 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -895,12 +895,6 @@
                     "type": "swarm-mind"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -945,6 +939,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "requian"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -955,6 +959,23 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Malevolence"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "see magic",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -982,21 +1003,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "requian"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, lifesense 60 feet, see magic"
-            },
             "size": {
                 "value": "lg"
             },

@@ -681,7 +681,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
                 }
             },
-            "img": "icons/skills/melee/spear-tips-double-purple.webp",
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 900000,
             "system": {
@@ -1647,7 +1647,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1726,7 +1726,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell level to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1887,7 +1887,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -2017,7 +2017,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -2363,7 +2363,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>As a scattered coven, the Graveclaw grants Sahni the ability to cast the following spells as 3rd-level occult spells, once per day each, without requiring help from her fellow coven members: <em>@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Curse Of Lost Time]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Earthbind]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Construct]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Water Walk]</em>. If Sahni is the third hag they confront, the coven is broken and she lacks these coven spells.</p>"
+                    "value": "<p>As a scattered coven, the Graveclaw grants Sahni the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members: <em>@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Curse Of Lost Time]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Earthbind]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Summon Construct]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Water Walk]</em>. If Sahni is the third hag they confront, the coven is broken and she lacks these coven spells.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2541,12 +2541,6 @@
                 "temp": 0,
                 "value": 120
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -2565,6 +2559,15 @@
         },
         "details": {
             "blurb": "Female variant sea hag lawyer",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "iblydan",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -2575,6 +2578,18 @@
                 "remaster": false,
                 "title": "Pathfinder #182: Graveclaw"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2592,20 +2607,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "iblydan",
-                    "necril"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

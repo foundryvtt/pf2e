@@ -1342,7 +1342,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -2389,7 +2389,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -3047,7 +3047,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "img": "icons/equipment/chest/breastplate-helmet-metal.webp",
             "name": "Warpriest",
             "sort": 0,
             "system": {
@@ -3170,7 +3170,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "img": "icons/equipment/chest/breastplate-helmet-metal.webp",
             "name": "First Doctrine (Warpriest)",
             "sort": 0,
             "system": {
@@ -3197,24 +3197,6 @@
                     "title": "Pathfinder Player Core"
                 },
                 "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    },
                     {
                         "flag": "shieldBlock",
                         "key": "GrantItem",
@@ -3252,6 +3234,19 @@
                     }
                 ],
                 "slug": "first-doctrine-warpriest",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        },
+                        "light": {
+                            "rank": 1
+                        },
+                        "medium": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3274,9 +3269,6 @@
             "hp": {
                 "temp": 0,
                 "value": 21
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3348,6 +3340,12 @@
             "keyability": {
                 "value": "wis"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 1
@@ -3366,6 +3364,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3453,20 +3454,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

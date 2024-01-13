@@ -1,4 +1,4 @@
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { StrictSchemaField } from "@system/schema-data-fields.ts";
 import { isObject } from "@util";

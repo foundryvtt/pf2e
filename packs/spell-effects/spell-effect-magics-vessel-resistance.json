@@ -1,0 +1,167 @@
+{
+    "_id": "FxB7DS6CFPhd2hBr",
+    "img": "icons/skills/melee/maneuver-sword-katana-yellow.webp",
+    "name": "Spell Effect: Magic's Vessel (Resistance)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Magic's Vessel]</p>\n<p>The target gains resistance to damage from spells equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    5
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    7
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    9
+                                ]
+                            }
+                        ],
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    11
+                                ]
+                            }
+                        ],
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    13
+                                ]
+                            }
+                        ],
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    15
+                                ]
+                            }
+                        ],
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    17
+                                ]
+                            }
+                        ],
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": 10
+                    }
+                ],
+                "flag": "magicsVesselRank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
+            },
+            {
+                "definition": [
+                    "damage",
+                    "item:type:spell"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromSpells",
+                "type": "custom",
+                "value": "{item|flags.pf2e.rulesSelections.magicsVesselRank}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

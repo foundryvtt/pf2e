@@ -108,6 +108,10 @@ declare abstract class InteractionLayer extends CanvasLayer {
     protected _onDeleteKey(event: KeyboardEvent): Promise<void>;
 }
 
+declare interface InteractionLayer extends CanvasLayer {
+    constructor: typeof InteractionLayer;
+}
+
 declare interface InteractionLayerOptions extends CanvasLayerOptions {
     sortActiveTop: boolean;
     zIndex: number;

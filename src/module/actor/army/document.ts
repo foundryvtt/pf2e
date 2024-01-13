@@ -1,5 +1,5 @@
 import { FeatGroup } from "@actor/character/feats.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
@@ -24,7 +24,6 @@ import type { ArmyStrike } from "./types.ts";
 import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
     declare scouting: Statistic;
     declare maneuver: Statistic;
     declare morale: Statistic;
@@ -55,6 +54,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ARMY_STATS.maxTactics[this.level];
     }
 
+    override prepareData(): void {
+        super.prepareData();
+        this.kingdom?.notifyUpdate();
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -65,7 +69,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
-        this.system.traits.senses = [];
+        this.system.perception = { senses: [] };
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
@@ -89,9 +93,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.consumption = Math.max(0, this.system.consumption);
 
         if (this.itemTypes.campaignFeature.some((f) => f.slug === "darkvision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "darkvision" }));
+            const sense = new Sense({ type: "darkvision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         } else if (this.itemTypes.campaignFeature.some((f) => f.slug === "low-light-vision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "lowLightVision" }));
+            const sense = new Sense({ type: "low-light-vision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         }
 
         this.tactics = new FeatGroup(this, {
@@ -107,6 +113,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const expectedAC = ARMY_STATS.ac[this.level];
         const acAdjustment = this.system.ac.value - expectedAC;
         this.armorClass = new ArmorStatistic(this, {
+            attribute: null,
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
@@ -168,7 +175,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             });
         }
 
-        this.initiative = new ActorInitiative(this, { statistic: "scouting" });
+        const tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
+        this.initiative = new ActorInitiative(this, { statistic: "scouting", tiebreakPriority });
         this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
             this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
         );
@@ -433,10 +441,16 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         return super._preUpdate(changed, options, user);
     }
+
+    override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+        this.kingdom?.reset();
+    }
 }
 
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: ArmySource;
+    armorClass: StatisticDifficultyClass<ArmorStatistic>;
     system: ArmySystemData;
 
     get hitPoints(): HitPointsSummary;

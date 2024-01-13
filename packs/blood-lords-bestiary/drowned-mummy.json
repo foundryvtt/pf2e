@@ -395,7 +395,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A creature that begins its turn within the aura feels overburdened by the weight of the water around it and must succeed at a @Check[type:fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] for as long as it remains in the area. A creature that succeeds is temporarily immune to water pressure for 24 hours. Water pressure only functions while the drowned mummy is underwater and can only affect creatures that are in contact with the same body of water.</p>"
+                    "value": "<p>30 feet. A creature that begins its turn within the aura feels overburdened by the weight of the water around it and must succeed at a @Check[type:fortitude|dc:35] save or become @UUID[Compendium.pf2e.conditionitems.Item.Encumbered] for as long as it remains in the area. A creature that succeeds is temporarily immune to water pressure for 24 hours. Water pressure only functions while the drowned mummy is underwater and can only affect creatures that are in contact with the same body of water.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -536,7 +536,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>This disease and damage from it can't be healed unless this curse is removed. A creature killed by rancid bloat rots away to waterlogged pieces of flesh and can't be resurrected except by an 8th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @Damage[16d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (1 day)</p>"
+                    "value": "<p>This disease and damage from it can't be healed unless this curse is removed. A creature killed by rancid bloat rots away to waterlogged pieces of flesh and can't be resurrected except by an 8th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:38]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[12d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @Damage[16d6[void]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 4}, and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} (1 day)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -784,12 +784,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -808,6 +802,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 30 feet",
+                "value": [
+                    "necril",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -818,6 +819,23 @@
                 "remaster": false,
                 "title": "Pathfinder #186: Ghost King's Rage"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 120,
+                    "type": "echolocation"
+                },
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -835,18 +853,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 30 feet",
-                "selected": [],
-                "value": [
-                    "necril",
-                    "thalassic"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "aquatic echolocation 120 feet, darkvision"
-            },
             "size": {
                 "value": "med"
             },

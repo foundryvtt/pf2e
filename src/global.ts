@@ -58,7 +58,12 @@ import type { CheckPF2e } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
-import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
+import type {
+    CustomDamageData,
+    HomebrewTag,
+    HomebrewTraitSettingsKey,
+    LanguageRaritiesData,
+} from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
@@ -121,10 +126,22 @@ interface GamePF2e
                 enabled: boolean;
                 sections: FeatGroupOptions[];
             };
+            critFumble: {
+                buttons: boolean;
+                cards: boolean;
+            };
             /** Encumbrance automation */
             encumbrance: boolean;
+            gmVision: boolean;
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
+            metagame: {
+                breakdowns: boolean;
+                dcs: boolean;
+                partyStats: boolean;
+                partyVision: boolean;
+                results: boolean;
+            };
             /** Rules-based vision */
             rbv: boolean;
             tokens: {
@@ -251,9 +268,10 @@ declare global {
         get(module: "pf2e", setting: "metagame_partyVision"): boolean;
         get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame_showBreakdowns"): boolean;
         get(module: "pf2e", setting: "metagame_showDC"): boolean;
-        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
+        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
@@ -273,9 +291,11 @@ declare global {
         get(module: "pf2e", setting: "activePartyFolderState"): boolean;
         get(module: "pf2e", setting: "createdFirstParty"): boolean;
 
+        get(module: "pf2e", setting: "homebrew.languages"): HomebrewTag<"languages">[];
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
+        get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageRaritiesData;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;

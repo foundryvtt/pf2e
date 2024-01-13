@@ -3,8 +3,8 @@ import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, tupleHasValue } from "@util";
-import Peggy from "peggy";
+import { ErrorPF2e, fontAwesomeIcon, isObject, tupleHasValue } from "@util";
+import type Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
@@ -38,32 +38,6 @@ abstract class AbstractDamageRoll extends Roll {
 }
 
 class DamageRoll extends AbstractDamageRoll {
-    roller: UserPF2e | null;
-
-    constructor(formula: string, data = {}, options: DamageRollData = {}) {
-        formula = formula.trim();
-        const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
-        super(wrapped, data, options);
-
-        this.roller = game.users.get(options.rollerId ?? "") ?? null;
-
-        if (tupleHasValue(["double-damage", "double-dice"], options.critRule)) {
-            // Ensure same crit rule is present on all instances
-            for (const instance of this.instances) {
-                instance.critRule = options.critRule;
-            }
-        } else {
-            // Prune nullish `critRule` property
-            delete options.critRule;
-        }
-
-        if (options.evaluatePersistent) {
-            for (const instance of this.instances) {
-                instance.options.evaluatePersistent = true;
-            }
-        }
-    }
-
     static override CHAT_TEMPLATE = "systems/pf2e/templates/dice/damage-roll.hbs";
 
     static override TOOLTIP_TEMPLATE = "systems/pf2e/templates/dice/damage-tooltip.hbs";
@@ -88,6 +62,34 @@ class DamageRoll extends AbstractDamageRoll {
         this.classifyDice(poolData);
 
         return [InstancePool.fromData(poolData)];
+    }
+
+    constructor(formula: string, data = {}, options: DamageRollData = {}) {
+        formula = formula.trim();
+        const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
+        super(wrapped, data, options);
+
+        this.options.showBreakdown ??= true;
+
+        if (tupleHasValue(["double-damage", "double-dice"], options.critRule)) {
+            // Ensure same crit rule is present on all instances
+            for (const instance of this.instances) {
+                instance.critRule = options.critRule;
+            }
+        } else {
+            // Prune nullish `critRule` property
+            delete options.critRule;
+        }
+
+        if (options.evaluatePersistent) {
+            for (const instance of this.instances) {
+                instance.options.evaluatePersistent = true;
+            }
+        }
+    }
+
+    get roller(): UserPF2e | null {
+        return game.users.get(this.options.rollerId ?? "") ?? null;
     }
 
     /** Ensure the roll is parsable as `PoolTermData` */
@@ -221,7 +223,9 @@ class DamageRoll extends AbstractDamageRoll {
                 iconClass: i.iconClass,
                 dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
             }));
-        return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances });
+        const showBreakdown = this.options.showBreakdown;
+
+        return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances, showBreakdown });
     }
 
     /** Work around upstream issue in which display base formula is used for chat messages instead of display formula */
@@ -241,11 +245,15 @@ class DamageRoll extends AbstractDamageRoll {
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
         const total = this.total ?? NaN;
         const damageKinds = this.kinds;
+        const showBreakdown = this.options.showBreakdown;
+        const showTotalInstances = instances.length > 1 || !(showBreakdown || game.user.isGM);
+        const tooltip =
+            isPrivate || this.dice.length === 0 || !(showBreakdown || game.user.isGM) ? "" : await this.getTooltip();
 
         const chatData = {
             formula,
             user: game.user.id,
-            tooltip: isPrivate || this.dice.length === 0 ? "" : await this.getTooltip(),
+            tooltip,
             instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((total * 100) / 100),
             increasedFrom: this.options.increasedFrom,
@@ -254,7 +262,9 @@ class DamageRoll extends AbstractDamageRoll {
             healingOnly: !damageKinds.has("damage"),
             allPersistent: this.instances.every((i) => i.persistent),
             persistentEvaluated: this.instances.some((i) => i.persistent && i.options.evaluatePersistent),
-            showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
+            showBreakdown,
+            showTotalInstances,
+            showTripleDamage: game.pf2e.settings.critFumble.buttons,
         };
 
         return renderTemplate(template, chatData);
@@ -313,7 +323,7 @@ class DamageRoll extends AbstractDamageRoll {
 interface DamageRoll extends AbstractDamageRoll {
     constructor: typeof DamageRoll;
 
-    options: DamageRollData;
+    options: DamageRollData & { showBreakdown: boolean };
 }
 
 class DamageInstance extends AbstractDamageRoll {
@@ -327,17 +337,14 @@ class DamageInstance extends AbstractDamageRoll {
 
     critRule: CriticalDoublingRule | null = null;
 
-    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
-        super(formula.trim(), data, options);
+    constructor(formula: string, data = {}, { flavor = "damage,healing", ...options }: DamageInstanceData = {}) {
+        super(formula.trim(), data, { flavor, ...options });
 
-        const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
-        this.type =
-            flavorIdentifiers.find((t): t is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, t)) ?? "untyped";
+        const flavorIdentifiers = flavor.replace(/[^a-z,_-]/g, "").split(",");
+        this.type = flavorIdentifiers.find((i): i is DamageType => i in CONFIG.PF2E.damageTypes) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = new Set(
-            flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
-                objectHasKey(CONFIG.PF2E.materialDamageEffects, i),
-            ),
+            flavorIdentifiers.filter((i): i is MaterialDamageEffect => i in CONFIG.PF2E.materialDamageEffects),
         );
 
         const canBeHealing =

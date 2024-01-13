@@ -8,22 +8,34 @@
                 </span>
             {{/if}}
             {{#if (or @root.inventory.showValueAlways (includes section.types "treasure"))}}
-                <span class="sell-value">
-                    {{#if (eq @root.actor.type "loot")}}
-                        {{localize "PF2E.UnitPriceLabel"}}
-                    {{else}}
+                <span class="price">
+                    {{~#if @root.inventory.showUnitBulkPrice~}}
+                        {{localize "PF2E.Actor.Inventory.UnitTitle.Price"}}
+                    {{~else~}}
                         {{localize "PF2E.ValueLabel"}}
-                    {{/if}}
+                    {{~/if~}}
                 </span>
             {{/if}}
             <span class="quantity">{{localize "PF2E.QuantityLabel"}}</span>
-            <span class="bulk">{{localize "PF2E.Item.Physical.Bulk.Label"}}</span>
+            <span class="bulk">
+                {{~#if @root.inventory.showUnitBulkPrice~}}
+                    {{localize "PF2E.Actor.Inventory.UnitTitle.Bulk"}}
+                {{~else~}}
+                    {{localize "PF2E.Item.Physical.Bulk.Label"}}
+                {{~/if~}}
+            </span>
             {{#if @root.editable}}
                 <div class="item-controls">
-                    <a class="item-control item-create" data-tooltip="PF2E.CreateItemTitle" data-types="{{section.types}}"
-                        ><i class="fa-solid fa-fw fa-plus"></i></a>
-                    <a class="item-control inventory-browse" data-tooltip="PF2E.OpenInventoryBrowser" data-filter="{{section.types}}"
-                        ><i class="fa-solid fa-fw fa-search"></i></a>
+                    <a
+                        data-action="create-item"
+                        data-tooltip="PF2E.CreateItemTitle"
+                        data-types="{{section.types}}"
+                    ><i class="fa-solid fa-fw fa-plus"></i></a>
+                    <a
+                        data-action="browse-equipment"
+                        data-tooltip="PF2E.OpenInventoryBrowser"
+                        data-filter="{{section.types}}"
+                    ><i class="fa-solid fa-fw fa-search"></i></a>
                 </div>
             {{/if}}
         </header>

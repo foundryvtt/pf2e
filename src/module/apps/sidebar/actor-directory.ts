@@ -175,7 +175,11 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
     }
 
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.target instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
+
         // Prevent drag drop for the other parties folder
         if (event.target.dataset.entryId === "otherParties") {
             event.preventDefault();

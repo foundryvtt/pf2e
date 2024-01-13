@@ -221,7 +221,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 8
@@ -801,7 +801,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em> effect on the creature ([[/r 1d20+30 #Counteract]]{+30 counteract modifier}) and then deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[type:reflex|dc:40|basic:true] save.</p>"
+                    "value": "<p>10 feet. A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm attempts to counteract any <em>@UUID[Compendium.pf2e.spells-srd.Item.Death Ward]</em> effect on the creature ([[/r 1d20+30 #Counteract]]{+30 counteract modifier}) and then deals @Damage[4d6[slashing],4d6[void]]{4d6 slashing damage and 4d6 void damage} to the creature, with a @Check[type:reflex|dc:40|basic:true] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1107,12 +1107,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
             "resistances": [
                 {
                     "type": "piercing",
@@ -1135,6 +1129,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "skeletal lore languages",
+                "value": [
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1145,6 +1145,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1172,17 +1184,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Skeletal Lore Languages",
-                "selected": [],
-                "value": [
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision; true seeing"
-            },
             "size": {
                 "value": "huge"
             },

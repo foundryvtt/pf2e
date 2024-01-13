@@ -365,7 +365,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -633,7 +633,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>120 feet. @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -908,7 +908,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The queen has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] with her proboscis</p>\n<hr />\n<p><strong>Effect</strong> The queen devours a portion of the creature's soul and steals some of its ability. The creature takes @Damage[5d8[void]] damage (@Check[type:fortitude|dc:41] save). The queen gains temporary HP equal to the total amount of HP the target loses, including any HP lost from being drained.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is drained 1 and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. The queen steals a spell slot or training. If she steals a spell from a prepared caster, she transfers the spell to herself; if she steals from a spontaneous caster, she gains a prepared spell of the appropriate level and expends one of the creature's spell slots of that level. If she steals training, she chooses Perception, attack modifier, or any skill. For 24 hours, she gains a +2 status bonus to that statistic and the creature takes a -2 status penalty. The queen can have any number of stolen abilities, but only one from each creature.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
+                    "value": "<p><strong>Requirements</strong> The queen has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained] with her proboscis</p>\n<hr />\n<p><strong>Effect</strong> The queen devours a portion of the creature's soul and steals some of its ability. The creature takes @Damage[5d8[void]] damage (@Check[type:fortitude|dc:41] save). The queen gains temporary HP equal to the total amount of HP the target loses, including any HP lost from being drained.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and is drained 1 and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}. The queen steals a spell slot or training. If she steals a spell from a prepared caster, she transfers the spell to herself; if she steals from a spontaneous caster, she gains a prepared spell of the appropriate rank and expends one of the creature's spell slots of that rank. If she steals training, she chooses Perception, attack modifier, or any skill. For 24 hours, she gains a +2 status bonus to that statistic and the creature takes a -2 status penalty. The queen can have any number of stolen abilities, but only one from each creature.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1166,12 +1166,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 31
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1195,6 +1189,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "voice of the soul",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1205,6 +1208,23 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 200,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1222,20 +1242,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Voice of the Soul",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, soulscent (imprecise) 200 feet"
-            },
             "size": {
                 "value": "huge"
             },

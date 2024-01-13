@@ -1236,7 +1236,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Any creature that begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for as long as it remains in the aura and for 1 hour thereafter.</p>"
+                    "value": "<p>60 feet. Any creature that begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for as long as it remains in the aura and for 1 hour thereafter.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1520,12 +1520,6 @@
                     "type": "death-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1548,6 +1542,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -1558,6 +1559,28 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "tremorsense"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1585,21 +1608,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 120 feet, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

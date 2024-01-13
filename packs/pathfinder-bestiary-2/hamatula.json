@@ -190,7 +190,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
+                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell rank to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -587,7 +587,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> rank, two devils whose levels are each at least 2 less than double the spell rank, or three devils whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1346,12 +1346,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -1383,6 +1377,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "diabolic",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1393,6 +1395,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1420,22 +1434,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "diabolic",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

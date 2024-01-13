@@ -107,8 +107,20 @@ export const SetGamePF2e = {
                 enabled: game.settings.get("pf2e", "campaignFeats"),
                 sections: game.settings.get("pf2e", "campaignFeatSections"),
             },
+            critFumble: {
+                buttons: game.settings.get("pf2e", "critFumbleButtons"),
+                cards: game.settings.get("pf2e", "drawCritFumble"),
+            },
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
+            gmVision: game.settings.get("pf2e", "gmVision"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
+            metagame: {
+                breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
+                dcs: game.settings.get("pf2e", "metagame_showDC"),
+                partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
+                partyVision: game.settings.get("pf2e", "metagame_partyVision"),
+                results: game.settings.get("pf2e", "metagame_showResults"),
+            },
             rbv: game.settings.get("pf2e", "automation.rulesBasedVision"),
             tokens: {
                 autoscale: game.settings.get("pf2e", "tokens.autoscale"),

@@ -131,7 +131,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 7
@@ -202,7 +202,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -270,7 +270,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 5
@@ -407,7 +407,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 3
@@ -890,7 +890,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>When a creature ends its turn in the emanation, it must attempt a @Check[type:will|dc:29] save. If the creature fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. If it's already frightened, its frightened value instead increases by 1 (maximum @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}) and doesn't decrease by 1 at the end of the creature's next turn. If a creature's frightened value is 3 or higher before failing its save, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+                    "value": "<p>30 feet. When a creature ends its turn in the emanation, it must attempt a @Check[type:will|dc:29] save. If the creature fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. If it's already frightened, its frightened value instead increases by 1 (maximum @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}) and doesn't decrease by 1 at the end of the creature's next turn. If a creature's frightened value is 3 or higher before failing its save, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -970,7 +970,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The Mosquito Witch can't Cast an occult Spell without simultaneously expending a number of Blood Points equal to 10 × the spell's level.</p>"
+                    "value": "<p>The Mosquito Witch can't Cast an occult Spell without simultaneously expending a number of Blood Points equal to 10 × the spell's rank.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1291,12 +1291,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1313,6 +1307,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey",
+                    "sussuran"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -1323,6 +1326,18 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "swarmsense (imprecise) 30 feet",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1340,20 +1355,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "speak with animals",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey",
-                    "sussuran"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, swarmsense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "med"
             },

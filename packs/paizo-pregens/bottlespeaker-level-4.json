@@ -706,7 +706,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -958,7 +958,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
                 }
             },
-            "img": "icons/skills/melee/spear-tips-double-purple.webp",
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 0,
             "system": {
@@ -2143,7 +2143,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -2852,15 +2852,16 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.traits.languages.value",
-                        "value": "wildsong"
-                    }
-                ],
+                "rules": [],
                 "slug": "druidic-language",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "wildsong"
+                        ],
+                        "slots": 0
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2889,7 +2890,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>The power of the wild world flows through you. You can cast primal spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a druid, you can usually hold a primal focus (such as holly and mistletoe) for spells requiring material components instead of needing to use a material component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>The power of the wild world flows through you. You can cast primal spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a druid, you can usually hold a primal focus (such as holly and mistletoe) for spells requiring material components instead of needing to use a material component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3051,15 +3052,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3100,15 +3101,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "great-fortitude",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3393,7 +3394,7 @@
                         "plant"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -3452,9 +3453,6 @@
                 "temp": 0,
                 "value": 48
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3507,6 +3505,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 4
             },
@@ -3524,6 +3526,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3598,15 +3603,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

@@ -992,15 +992,16 @@
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 1
                     }
                 ],
                 "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3350,15 +3351,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3399,21 +3400,18 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "expert-strikes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3512,9 +3510,6 @@
                 "temp": 0,
                 "value": 80
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3579,6 +3574,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "dwarven",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -3596,6 +3598,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3682,21 +3687,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "dwarven",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "evil",
-                "lawful"
-            ]
         }
     },
     "type": "character"

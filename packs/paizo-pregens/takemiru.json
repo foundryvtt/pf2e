@@ -69,7 +69,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
                 },
                 "description": {
-                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals @Damage[1d6[piercing]] damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Pest Form]</em>.</p>"
+                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Pest Form]</em>.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -78,6 +78,7 @@
                 },
                 "rules": [
                     {
+                        "baseType": "jaws",
                         "category": "unarmed",
                         "damage": {
                             "base": {
@@ -1702,7 +1703,7 @@
                 "hp": 10,
                 "items": {
                     "07lzm": {
-                        "img": "systems/pf2e/icons/features/classes/masterful-hunter.webp",
+                        "img": "icons/weapons/bows/shortbow-recurve-yellow-blue.webp",
                         "level": 17,
                         "name": "Masterful Hunter",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter"
@@ -1750,7 +1751,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "bv3vc": {
-                        "img": "systems/pf2e/icons/features/classes/swift-prey.webp",
+                        "img": "icons/creatures/invertebrates/spider-pink-purple.webp",
                         "level": 19,
                         "name": "Swift Prey",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Swift Prey"
@@ -1816,7 +1817,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Hunt Prey"
                     },
                     "upgl9": {
-                        "img": "systems/pf2e/icons/features/classes/ranger-expertise.webp",
+                        "img": "icons/skills/ranged/target-bullseye-arrow-yellow.webp",
                         "level": 9,
                         "name": "Ranger Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Ranger Expertise"
@@ -2067,15 +2068,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "iron-will",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2320,7 +2321,7 @@
                         "kitsune"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -2436,9 +2437,6 @@
                 "temp": 0,
                 "value": 56
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2525,6 +2523,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2542,6 +2546,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2630,19 +2637,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

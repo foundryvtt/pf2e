@@ -487,7 +487,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -807,7 +807,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures within the aura must succeed at a @Check[type:fortitude|dc:37] save. On a failure, they can't breathe and must hold their breath to avoid suffocation until they leave the aura. The tumblak can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
+                    "value": "<p>100 feet. Creatures within the aura must succeed at a @Check[type:fortitude|dc:37] save. On a failure, they can't breathe and must hold their breath to avoid suffocation until they leave the aura. The tumblak can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1176,12 +1176,6 @@
                     "type": "precision"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -1213,6 +1207,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "requian"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1223,6 +1226,23 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Night of the Gray Death"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1240,20 +1260,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "requian"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "med"
             },

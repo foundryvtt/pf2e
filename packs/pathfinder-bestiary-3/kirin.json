@@ -164,7 +164,6 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -202,7 +201,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 2
@@ -236,7 +235,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "emotion",
                         "incapacitation",
                         "manipulate",
@@ -307,7 +305,6 @@
                     "value": [
                         "concentrate",
                         "detection",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -986,7 +983,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures within a kirin's peaceful aura attempting to use a hostile action must first attempt a @Check[type:will|dc:22] save; on a failure, the hostile action is disrupted.</p>\n<p>If a creature in the aura successfully uses a hostile action, it's temporarily immune to peaceful aura for 24 hours, and while it's temporarily immune, other creatures in the kirin's peaceful aura can perform hostile actions toward it without needing to attempt a Will save.</p>\n<p>A kirin can select creatures within their aura that can use hostile actions without needing to attempt a Will save.</p>"
+                    "value": "<p>60 feet. Creatures within a kirin's peaceful aura attempting to use a hostile action must first attempt a @Check[type:will|dc:22] save; on a failure, the hostile action is disrupted.</p>\n<p>If a creature in the aura successfully uses a hostile action, it's temporarily immune to peaceful aura for 24 hours, and while it's temporarily immune, other creatures in the kirin's peaceful aura can perform hostile actions toward it without needing to attempt a Will save.</p>\n<p>A kirin can select creatures within their aura that can use hostile actions without needing to attempt a Will save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1278,12 +1275,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 17
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
@@ -1291,6 +1282,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "draconic",
+                    "empyrean",
+                    "sussuran"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1301,6 +1301,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1323,23 +1340,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "empyrean",
-                    "sussuran"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

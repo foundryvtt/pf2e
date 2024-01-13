@@ -19,39 +19,6 @@
                     flex-direction: column;
                 }
             }
-
-            .actions-options {
-                @include frame-elegant;
-                display: flex;
-                flex-wrap: wrap;
-                margin-bottom: 0.5rem;
-                padding: 0.5rem 1rem;
-
-                .actions-option {
-                    align-items: center;
-                    display: flex;
-                    width: 100%;
-                    margin: 1px 0;
-
-                    label {
-                        * {
-                            vertical-align: middle;
-                        }
-
-                        input {
-                            @include p-reset;
-                        }
-
-                        .unchecked-disabled {
-                            color: var(--color-text-dark-inactive);
-                        }
-
-                        select {
-                            margin-left: 0.25em;
-                        }
-                    }
-                }
-            }
         }
     }
 }
@@ -246,7 +213,7 @@ ol.actions-list {
                 "icon    name    tracking controls" 1fr
                 "icon    buttons tracking controls" auto
                 "summary summary summary   summary" auto
-                / min-content 1fr 20% 10%;
+                / min-content 1fr min-content 2rem;
 
             > .icon {
                 grid-area: icon;

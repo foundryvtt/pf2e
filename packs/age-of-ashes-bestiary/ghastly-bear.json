@@ -183,7 +183,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stench]</p>"
+                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it's sickened on a critical failure).</p>\n<p>While within the aura, the creature takes a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stench]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -551,12 +551,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -564,6 +558,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 9
             },
@@ -574,6 +572,23 @@
                 "remaster": false,
                 "title": "Pathfinder #147: Tomorrow Must Burn"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -591,15 +606,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

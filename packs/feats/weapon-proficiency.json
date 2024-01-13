@@ -16,6 +16,7 @@
         "level": {
             "value": 1
         },
+        "maxTakable": null,
         "prerequisites": {
             "value": []
         },
@@ -29,15 +30,24 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.attacks.martial.rank",
-                "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.simple.rank",
-                "value": 1
+                "predicate": [
+                    {
+                        "gte": [
+                            "actor:level",
+                            11
+                        ]
+                    }
+                ],
+                "value": 2
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "martial": {
+                    "rank": 1
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

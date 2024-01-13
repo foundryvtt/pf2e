@@ -118,7 +118,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and the swarm regains [[/r 3]]{3 HP} for each victim drained.</p>"
+                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} and the swarm regains [[/r 3[healing]]]{3 HP} for each victim drained.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -283,12 +283,6 @@
                     "type": "swarm-mind"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 13
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -315,6 +309,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 5
             },
@@ -325,6 +323,23 @@
                 "remaster": false,
                 "title": "Pathfinder #151: The Show Must Go On"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 13,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -342,15 +357,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "low-light vision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

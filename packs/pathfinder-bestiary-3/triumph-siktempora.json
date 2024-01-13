@@ -159,13 +159,13 @@
                     "rarity": "common",
                     "traditions": [
                         "divine",
+                        "occult",
                         "primal"
                     ],
                     "value": [
                         "air",
                         "concentrate",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -303,7 +303,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "occult",
                         "teleportation"
                     ]
                 }
@@ -555,7 +554,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature within the aura who uses or benefits from an effect with the fortune trait must succeed at a @Check[type:will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
+                    "value": "<p>50 feet. A creature within the aura who uses or benefits from an effect with the fortune trait must succeed at a @Check[type:will|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -970,12 +969,6 @@
                     "type": "poison"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "speed": {
                 "details": "air walk",
                 "otherSpeeds": [],
@@ -984,6 +977,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language), telepathy 200 feet",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -994,6 +993,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1016,20 +1027,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "(Can't Speak Any Language), Telepathy 200 feet",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

@@ -201,7 +201,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your touch afflicts the target with Abyssal plague, which siphons fragments of their soul away to empower the Abyss. The effect is based on the target's Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 2 spirit damage per spell level, and takes a -2 status penalty to saves against Abyssal plague for 1 day or until the target contracts it, whichever comes first.</p>\n<p><strong>Failure</strong> The target is afflicted with Abyssal plague at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with Abyssal plague at stage 2.</p>\n<hr />\n<p><strong>Abyssal Plague</strong> (disease) <strong>Level 9</strong></p>\n<p>The target can't recover from the drained condition from Abyssal plague until the disease is cured</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> Drained increases by 2 (1 day).</p>"
+                    "value": "<p>Your touch afflicts the target with Abyssal plague, which siphons fragments of their soul away to empower the Abyss. The effect is based on the target's Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 2 spirit damage per spell rank, and takes a -2 status penalty to saves against Abyssal plague for 1 day or until the target contracts it, whichever comes first.</p>\n<p><strong>Failure</strong> The target is afflicted with Abyssal plague at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with Abyssal plague at stage 2.</p>\n<hr />\n<p><strong>Abyssal Plague</strong> (disease) <strong>Level 9</strong></p>\n<p>The target can't recover from the drained condition from Abyssal plague until the disease is cured</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 2</strong> Drained increases by 2 (1 day).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -704,7 +704,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1055,7 +1055,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as itʼs sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>30 feet. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as itʼs sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1305,12 +1305,6 @@
                 "temp": 0,
                 "value": 245
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1333,6 +1327,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1343,6 +1345,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1370,22 +1384,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

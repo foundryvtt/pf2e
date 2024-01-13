@@ -5,9 +5,7 @@ import {
     CreatureDetailsSource,
     CreatureSystemData,
     CreatureSystemSource,
-    CreatureTraitsData,
 } from "@actor/creature/data.ts";
-import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
 import { AttributeString } from "@actor/types.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
 
@@ -22,6 +20,7 @@ interface FamiliarSystemSource extends CreatureSystemSource {
     };
 
     customModifiers?: never;
+    perception?: never;
     resources?: never;
     saves?: never;
     skills?: never;
@@ -29,8 +28,7 @@ interface FamiliarSystemSource extends CreatureSystemSource {
 }
 
 interface FamiliarAttributesSource {
-    hp: { value: number };
-    initiative?: never;
+    hp: { value: number; temp: number };
     immunities?: never;
     weaknesses?: never;
     resistances?: never;
@@ -40,46 +38,40 @@ interface FamiliarDetailsSource extends CreatureDetailsSource {
     creature: {
         value: string;
     };
-    readonly alliance?: never;
-    readonly level?: never;
+    alliance?: never;
+    languages?: never;
+    level?: never;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
 interface FamiliarSystemData extends Omit<FamiliarSystemSource, SourceOmission>, CreatureSystemData {
     details: FamiliarDetails;
-    actions?: never;
     attack: StatisticTraceData;
-    attributes: FamiliarAttributes;
+    attributes: CreatureAttributes;
     master: {
         id: string | null;
         ability: AttributeString | null;
     };
-    traits: FamiliarTraitsData;
+
+    actions?: never;
+    initiative?: never;
 }
 
 type SourceOmission =
     | "attributes"
     | "customModifiers"
     | "details"
+    | "perception"
     | "toggles"
     | "resources"
     | "saves"
     | "skills"
     | "traits";
 
-interface FamiliarAttributes extends CreatureAttributes {
-    ac: { value: number; breakdown: string; check?: number };
-    initiative?: never;
-}
-
 interface FamiliarDetails extends CreatureDetails {
     creature: {
         value: string;
     };
-}
-
-interface FamiliarTraitsData extends CreatureTraitsData {
-    senses: CreatureSensePF2e[];
 }
 
 export type { FamiliarSource, FamiliarSystemData, FamiliarSystemSource };

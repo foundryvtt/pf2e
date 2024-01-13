@@ -1,18 +1,23 @@
 import type { ActorPF2e } from "@actor";
+import type { MovementType } from "@actor/types.ts";
 import { ErrorPF2e, htmlQueryAll } from "@util";
-import { BaseTagSelector, TagSelectorData } from "./base.ts";
-import { SelectableTagField, TagSelectorOptions } from "./index.ts";
+import * as R from "remeda";
+import { BaseTagSelector, type TagSelectorData } from "./base.ts";
+import type { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
 class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
-    protected objectProperty = "system.attributes.speed.otherSpeeds";
-
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             id: "speed-selector",
             template: "systems/pf2e/templates/system/tag-selector/speeds.hbs",
-            title: "PF2E.SpeedTypes",
-        });
+            title: "PF2E.Actor.Speed.Plural",
+        };
     }
+
+    protected objectProperty = "system.attributes.speed.otherSpeeds";
+
+    override choices = R.omit(CONFIG.PF2E.speedTypes, ["land"]);
 
     protected get configTypes(): readonly SelectableTagField[] {
         return ["speedTypes"];
@@ -24,19 +29,15 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
         }
 
         const speeds = this.document.system.attributes.speed.otherSpeeds;
-        const speedLabels: Record<string, string> = CONFIG.PF2E.speedTypes;
-        const choices = Object.keys(this.choices).reduce((accum: Record<string, ChoiceData>, type) => {
+        const choices = R.mapValues(this.choices, (label, type) => {
             const speed = speeds.find((s) => s.type === type);
             return {
-                ...accum,
-                [type]: {
-                    selected: !!speed,
-                    disabled: !!speed?.source,
-                    label: game.i18n.localize(speedLabels[type]),
-                    value: Number(speed?.value) || "",
-                },
+                selected: !!speed,
+                disabled: !!speed?.source,
+                label,
+                value: Number(speed?.value) || "",
             };
-        }, {});
+        });
 
         return {
             ...(await super.getData(options)),
@@ -75,7 +76,7 @@ class SpeedSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
 
 interface SpeedSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TActor> {
     hasExceptions: boolean;
-    choices: Record<string, ChoiceData>;
+    choices: Record<Exclude<MovementType, "land">, ChoiceData>;
 }
 
 interface ChoiceData {

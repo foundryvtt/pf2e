@@ -238,6 +238,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -259,9 +260,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -320,9 +321,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -333,7 +334,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -380,74 +381,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "waterskin",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Z1dgtn22iuyievPl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 2100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": "Z81ram2Iy3rw3Tfv",
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "chalk",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -500,9 +441,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -513,7 +454,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -560,9 +501,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -573,7 +514,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -620,9 +561,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -655,10 +596,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity to use certain abilities and cast some spells. A religious symbol can be worn on the body on a chain or pin, or can be held.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -680,12 +622,19 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
                 "slug": "religious-symbol-wooden",
                 "traits": {
@@ -693,7 +642,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -751,9 +700,9 @@
                     "value": {}
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 50,
@@ -766,7 +715,6 @@
                     "property": [],
                     "striking": 0
                 },
-                "selectedAmmoId": "rnm1ZBIQpbHekUh9",
                 "size": "med",
                 "slug": "sling",
                 "splashDamage": {
@@ -828,9 +776,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 10,
                 "rules": [],
@@ -859,7 +807,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.grmaV4GdoGD7sKbn"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+            "img": "icons/weapons/swords/scimitar-worn-blue.webp",
             "name": "Scimitar",
             "sort": 3300000,
             "system": {
@@ -907,9 +855,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -960,7 +908,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -982,7 +931,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 5,
                 "rules": [],
@@ -1016,7 +965,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1038,7 +988,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 9,
                 "rules": [],
@@ -1072,7 +1022,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1094,7 +1045,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "quantity": 9,
                 "rules": [],
@@ -1272,9 +1223,9 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": true,
+                        "applyMod": false,
                         "category": null,
-                        "formula": "0",
+                        "formula": "1d6",
                         "kinds": [
                             "damage"
                         ],
@@ -1289,7 +1240,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You push into the target's mind and daze it with a mental jolt. The jolt deals 1d6 mental damage, with a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1309,9 +1260,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -1351,7 +1302,7 @@
                 }
             },
             "img": "icons/magic/death/undead-skeleton-fire-green.webp",
-            "name": "Disrupt Undead",
+            "name": "Vitality Lash",
             "sort": 3900000,
             "system": {
                 "area": null,
@@ -1378,7 +1329,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You lance the target with energy. You deal 2d6 vitality damage. The target must attempt a basic Fortitude save. If the creature critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You demolish the target's corrupted essence with energy from Creation's Forge. You deal @Damage[2d6[vitality]] damage with a basic Fortitude save. If the creature critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1398,18 +1349,18 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "disrupt-undead",
+                "slug": "vitality-lash",
                 "target": {
-                    "value": "1 undead creature"
+                    "value": "1 creature that is undead or otherwise has void healing"
                 },
                 "time": {
                     "value": "2"
@@ -1449,11 +1400,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>You create an orb of light that sheds bright light in a 20-foot radius (and dim light for the next 20 feet) in a color you choose. If you create the light in the same space as a willing creature, you can attach the light to the creature, causing it to float near that creature as it moves. You can Sustain the spell to move the light up to 60 feet; you can attach or detach it from a creature as part of this movement.</p>\n<p>You can Dismiss the spell. If you Cast the Spell while you already have four <em>light</em> spells active, you must choose one of the existing spells to end.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The orb sheds light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "until the next time you make your daily preparations"
+                    "value": "until your next daily preparations"
                 },
                 "level": {
                     "value": 1
@@ -1462,18 +1413,18 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "120 feet"
                 },
                 "requirements": "",
                 "rules": [],
                 "slug": "light",
                 "target": {
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -1515,7 +1466,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Vitality energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
+                    "value": "<p>Life energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1528,9 +1479,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1580,7 +1531,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You ward a creature with protective energy that deters enemy attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr /><strong>Critical Success</strong> Sanctuary ends.\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of sanctuary's duration.</p>"
+                    "value": "<p>You ward a creature with protective energy that deters attacks. Creatures attempting to attack the target must attempt a Will save each time. If the target uses a hostile action, the spell ends.</p>\n<hr />\n<p><strong>Critical Success</strong> <em>Sanctuary </em>ends.</p>\n<p><strong>Success</strong> The creature can attempt its attack and any other attacks against the target this turn.</p>\n<p><strong>Failure</strong> The creature can't attack the target and wastes the action. It can't attempt further attacks against the target this turn.</p>\n<p><strong>Critical Failure</strong> The creature wastes the action and can't attempt to attack the target for the rest of <em>sanctuary</em>'s duration.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1593,9 +1544,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -2006,6 +1957,7 @@
                 "dexCap": 2,
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -2028,9 +1980,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2070,10 +2022,10 @@
                 "damage": {
                     "formula": "2d8+5",
                     "kind": "healing",
-                    "type": "untyped"
+                    "type": "vitality"
                 },
                 "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -2097,9 +2049,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2111,7 +2063,8 @@
                         "consumable",
                         "healing",
                         "magical",
-                        "potion"
+                        "potion",
+                        "vitality"
                     ]
                 },
                 "usage": {
@@ -2150,12 +2103,12 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You form a spiritual link with another creature, taking in its pain. When you Cast this Spell and at the start of each of your turns, if the target is below maximum Hit Points, it regains 2 Hit Points (or the difference between its current and maximum Hit Points, if that's lower). You lose as many Hit Points as the target regained.</p>\n<p>This is a spiritual transfer, so no effects apply that would increase the Hit Points the target regains or decrease the Hit Points you lose. This transfer also ignores any temporary Hit Points you or the target have. Since this effect doesn't involve vitality or void energy, spirit link works even if you or the target is undead. While the duration persists, you gain no benefit from regeneration or fast healing. You can Dismiss this spell, and if you're ever at 0 Hit Points, spirit link ends automatically.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of Hit Points transferred each time increases by 2.</p>"
+                    "value": "<p>You form a spiritual link with another creature, taking in its pain. When you Cast this Spell and at the start of each of your turns, if the target is below maximum Hit Points, it regains 2 Hit Points (or the difference between its current and maximum Hit Points, if that's lower). You lose as many Hit Points as the target regained.</p>\n<p>This is a spiritual transfer, so no effects apply that would increase the Hit Points the target regains or decrease the Hit Points you lose. This transfer also ignores any temporary Hit Points you or the target have. Since this effect doesn't involve vitality or void energy, <em>spirit link</em> works even if you or the target is undead. While the duration persists, you gain no benefit from regeneration or fast healing. You can Dismiss this spell, and if you're ever at 0 Hit Points, <em>spirit link </em>ends automatically.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of Hit Points transferred each time increases by 2.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2175,9 +2128,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -2238,9 +2191,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -2304,7 +2257,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -2395,9 +2348,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "rules": [],
@@ -2509,7 +2462,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse vital energy in a @Template[type:emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2640,9 +2593,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "varies"
@@ -2713,9 +2666,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 5,
                 "rules": [
@@ -2819,7 +2772,7 @@
                 }
             },
             "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Tools",
+            "name": "Healer's Toolkit",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -2828,7 +2781,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds. If you wear your healer's tools, you can draw and replace them as part of the action that uses them.</p>"
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2853,20 +2806,20 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "healers-tools",
+                "slug": "healers-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -2890,7 +2843,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity]</p>"
+                    "value": "<p>You ask for the guidance of supernatural entities, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Guidance]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Guidance Immunity]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2903,9 +2856,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -2945,7 +2898,10 @@
             "name": "Bless",
             "sort": 0,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "emanation",
+                    "value": 15
+                },
                 "cost": {
                     "value": ""
                 },
@@ -2953,7 +2909,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>\n<p>Bless can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Aura: Bless]</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet.</p>\n<p>Bless can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Aura: Bless]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2966,9 +2922,9 @@
                     "value": "uCa63ASRihr7gGVe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -2989,6 +2945,7 @@
                         "occult"
                     ],
                     "value": [
+                        "aura",
                         "concentrate",
                         "manipulate",
                         "mental"
@@ -3027,11 +2984,11 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A blazing band of fire arcs through the air. Make a spell attack roll. The ray deals 2d6 fire damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The ray deals double damage and @Damage[1d4[persistent,fire]] damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the persistent fire damage on a critical success increases by 1d4.</p>"
+                    "value": "<p>A blazing band of fire arcs through the air, lighting your opponent and the ground they stand upon on fire. Make a spell attack roll against the target's AC. The ray deals 2d6 fire damage on a hit (or double damage on a critical hit). On any result other than a critical failure, the ground in the target's space catches fire, dealing 1d6 fire damage to each creature that ends its turn in one of the squares.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the fire damage dealt by the burning space increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
+                    "value": "until the end of the target's turn"
                 },
                 "heightening": {
                     "damage": {
@@ -3047,9 +3004,9 @@
                     "value": "cCpv2On41fT9Ar9X"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -3126,16 +3083,16 @@
                         "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
                         "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "light": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3194,16 +3151,16 @@
                         "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
                         "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "light": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3221,7 +3178,7 @@
                 }
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Resist Energy (Level 2)",
+            "name": "Scroll of Resist Energy (Rank 2)",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -3232,10 +3189,11 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3255,14 +3213,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "scroll-of-2nd-level-spell",
+                "slug": "scroll-of-2nd-rank-spell",
                 "spell": {
                     "_id": null,
                     "flags": {
@@ -3308,12 +3266,12 @@
                         },
                         "location": {
                             "heightenedLevel": 2,
-                            "value": ""
+                            "value": null
                         },
                         "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
+                            "license": "ORC",
+                            "remaster": true,
+                            "title": "Pathfinder Player Core"
                         },
                         "range": {
                             "value": "touch"
@@ -3346,12 +3304,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "arcane",
                         "consumable",
-                        "divine",
                         "magical",
-                        "occult",
-                        "primal",
                         "scroll"
                     ]
                 },
@@ -3374,7 +3328,7 @@
                 }
             },
             "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Restoration (Level 2)",
+            "name": "Scroll of Restoration (Rank 2)",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -3385,10 +3339,11 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Restoration]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>The spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack modifier and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical costs are provided when a scroll is created, so you don't need to provide them when casting from a scroll. If the spell requires a locus, you must have that locus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3408,14 +3363,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "scroll-of-2nd-level-spell",
+                "slug": "scroll-of-2nd-rank-spell",
                 "spell": {
                     "_id": null,
                     "flags": {
@@ -3435,7 +3390,7 @@
                         "damage": {},
                         "defense": null,
                         "description": {
-                            "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                            "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                         },
                         "duration": {
                             "sustained": false,
@@ -3446,7 +3401,7 @@
                         },
                         "location": {
                             "heightenedLevel": 2,
-                            "value": ""
+                            "value": null
                         },
                         "publication": {
                             "license": "OGL",
@@ -3485,10 +3440,7 @@
                     "rarity": "common",
                     "value": [
                         "consumable",
-                        "divine",
                         "magical",
-                        "occult",
-                        "primal",
                         "scroll"
                     ]
                 },
@@ -3652,7 +3604,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -4593,15 +4545,15 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -4610,6 +4562,73 @@
                 }
             },
             "type": "feat"
+        },
+        {
+            "_id": "F9qLrE08qZR8EfYZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 2100000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "Z81ram2Iy3rw3Tfv",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
         }
     ],
     "name": "Kyra (Level 3)",
@@ -4620,14 +4639,12 @@
         }
     },
     "system": {
+        "abilities": null,
         "attributes": {
             "bonusbulk": 0,
             "hp": {
                 "temp": 0,
                 "value": 32
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -4696,6 +4713,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "kelish"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 3
@@ -4714,6 +4738,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4802,21 +4829,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "kelish"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

@@ -1,7 +1,7 @@
 <section class="dice-roll damage-roll" data-tooltip-class="pf2e">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     <div class="dice-result">
-        <div class="dice-formula">{{{formula}}}</div>
+        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{{formula}}}</div>
         {{{tooltip}}}
         {{#unless (and allPersistent (not persistentEvaluated))}}
             <h4 class="dice-total">
@@ -10,7 +10,7 @@
                         <span class="increased-from">*</span>
                     {{~/if~}}
                 </span>
-                {{#if (gt instances.length 1)}}
+                {{#if showTotalInstances}}
                     <div class="instances">
                         (
                         {{~#each instances as |instance|~}}
@@ -30,7 +30,7 @@
 </section>
 
 <section class="damage-application">
-    {{#if healingOnly}}
+    {{#if (and healingOnly (not isPrivate))}}
         <button
             type="button"
             class="healing-only"
@@ -43,7 +43,7 @@
             </span>
             <span class="label">{{localize "PF2E.Damage.Kind.Healing.Apply.Label"}}</span>
         </button>
-    {{else}}
+    {{else if (not isPrivate)}}
         <button type="button" data-action="apply-damage" title="{{localize "PF2E.DamageButton.Full"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}">
             <i class="fa-solid fa-heart-broken fa-fw"></i>
             <span class="label">{{#if splashOnly}}{{localize "PF2E.TraitSplash"}}{{else}}{{localize "PF2E.DamageButton.FullShort"}}{{/if}}</span>

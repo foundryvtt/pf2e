@@ -503,7 +503,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -569,7 +569,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call upon the powers of Abaddon to grant you the assistance of a div. You call upon a div whose level can be no more than double <em>div pact's </em>spell level, two divs whose levels are each at least 2 less than double the spell level, or three divs whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the div or divs, and they require nothing in return for their service.</p>\n<p><strong>Success</strong> You conjure the div or divs. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> you don't conjure any divs.</p>\n<p><strong>Critical Failure</strong> You don't conjure any divs, and they send a spiritual backlash that denies your use of any of your innate divine spells for 24 hours. If you are under the effect of any of your innate divine spells, the durations end.</p>"
+                    "value": "<p>You call upon the powers of Abaddon to grant you the assistance of a div. You call upon a div whose level can be no more than double <em>div pact's </em>spell rank, two divs whose levels are each at least 2 less than double the spell rank, or three divs whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the div or divs, and they require nothing in return for their service.</p>\n<p><strong>Success</strong> You conjure the div or divs. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> you don't conjure any divs.</p>\n<p><strong>Critical Failure</strong> You don't conjure any divs, and they send a spiritual backlash that denies your use of any of your innate divine spells for 24 hours. If you are under the effect of any of your innate divine spells, the durations end.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1212,12 +1212,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1240,6 +1234,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1250,6 +1251,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1277,21 +1290,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

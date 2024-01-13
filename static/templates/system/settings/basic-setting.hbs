@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label for="{{setting.key}}">{{localize setting.name}}</label>
+    <div class="form-fields">
+        {{#if setting.isSelect}}
+            <select name="{{setting.key}}">
+                {{#select setting.value}}
+                    {{#each setting.choices as |label value|}}
+                        <option value="{{value}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        {{else if setting.isCheckbox}}
+            <input type="checkbox" name="{{setting.key}}" {{checked setting.value}} />
+        {{/if}}
+    </div>
+    <p class="notes">{{localize setting.hint}}</p>
+</div>

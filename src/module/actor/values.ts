@@ -6,6 +6,8 @@ const ATTRIBUTE_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha
 
 const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
+const ACTOR_TYPES = ["army", "character", "familiar", "hazard", "loot", "npc", "party", "vehicle"] as const;
+
 const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
 
 const IMMUNITY_TYPES = new Set(Object.keys(immunityTypes)) as Set<ImmunityType>;
@@ -16,7 +18,7 @@ const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<Resistance
 
 const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
-const SKILL_ABBREVIATIONS = new Set([
+const SKILL_ABBREVIATIONS = [
     "acr",
     "arc",
     "ath",
@@ -33,7 +35,7 @@ const SKILL_ABBREVIATIONS = new Set([
     "ste",
     "sur",
     "thi",
-] as const);
+] as const;
 
 const SKILL_DICTIONARY = {
     acr: "acrobatics",
@@ -92,6 +94,7 @@ const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
 const SIZE_LINKABLE_ACTOR_TYPES = new Set([...CREATURE_ACTOR_TYPES, "vehicle"]);
 
 export {
+    ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
     CREATURE_ACTOR_TYPES,
     DC_SLUGS,

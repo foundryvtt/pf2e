@@ -204,7 +204,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -604,7 +604,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[type:will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
+                    "value": "<p>60 feet. The flames from a yaganty's fingers shed bright light in a 10-foot radius and are visible even in areas affected by magical darkness, but they do not shed dim light beyond that radius. Any creature within 60 feet in an area of darkness or dim light that sees the yaganty's candle fingers must succeed at a @Check[type:will|dc:27] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the yaganty for 1 minute or until the yaganty uses a hostile action against the creature, whichever comes first.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -898,12 +898,6 @@
                 "temp": 0,
                 "value": 200
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -923,6 +917,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -933,6 +935,18 @@
                 "remaster": false,
                 "title": "Pathfinder #153: Life's Long Shadows"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -955,19 +969,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "diabolic",
-                    "fey"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "lg"
             },

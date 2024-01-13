@@ -1,5 +1,5 @@
-import { ActorType } from "@actor/data/index.ts";
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
+import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";

@@ -5,14 +5,13 @@ import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@a
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
-import { isCycle } from "@item/container/helpers.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
-import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { LightLevels } from "@scene/data.ts";
@@ -21,19 +20,11 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, localizer, setHasElement } from "@util";
+import { PerceptionStatistic } from "@system/statistic/perception.ts";
+import { ErrorPF2e, localizer, setHasElement } from "@util";
 import * as R from "remeda";
-import {
-    CreatureSkills,
-    CreatureSpeeds,
-    CreatureSystemData,
-    LabeledSpeed,
-    SenseData,
-    VisionLevel,
-    VisionLevels,
-} from "./data.ts";
+import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureSensePF2e } from "./sense.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 import { SIZE_TO_REACH } from "./values.ts";
 
@@ -49,7 +40,7 @@ abstract class CreaturePF2e<
     /** Saving throw rolls for the creature, built during data prep */
     declare saves: Record<SaveType, Statistic>;
 
-    declare perception: Statistic;
+    declare perception: PerceptionStatistic;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "affliction"];
@@ -101,21 +92,14 @@ abstract class CreaturePF2e<
     }
 
     override get visionLevel(): VisionLevel {
-        const { senses } = this.system.traits;
-        const hasSensesData =
-            Array.isArray(senses) &&
-            senses.every((s): s is CreatureSensePF2e => isObject(s) && "type" in s && typeof s.type === "string");
-        if (!hasSensesData) {
-            return VisionLevels.NORMAL;
-        }
+        const senses = this.system.perception.senses;
 
         const senseTypes = new Set(senses.map((sense) => sense.type));
-
-        return this.getCondition("blinded")
+        return this.hasCondition("blinded")
             ? VisionLevels.BLINDED
-            : senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")
+            : senseTypes.has("darkvision") || senseTypes.has("greater-darkvision")
               ? VisionLevels.DARKVISION
-              : senseTypes.has("lowLightVision")
+              : senseTypes.has("low-light-vision")
                 ? VisionLevels.LOWLIGHT
                 : VisionLevels.NORMAL;
     }
@@ -239,7 +223,54 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
+        if (this.initialized) return;
         super.prepareData();
+
+        Object.defineProperties(this.system.attributes, {
+            initiative: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#attributes#initiative is deprecated. Use CreatureSystemData#initiative instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.initiative;
+                },
+                enumerable: false,
+            },
+            perception: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#attributes#perception is deprecated. Use CreatureSystemData#perception instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.perception;
+                },
+                enumerable: false,
+            },
+        });
+        Object.defineProperties(this.system.traits, {
+            languages: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#traits#languages is deprecated. Use CreatureSystemData#details#languages instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.details.languages;
+                },
+                enumerable: false,
+            },
+            senses: {
+                get: () => {
+                    fu.logCompatibilityWarning(
+                        "CreatureSystemData#traits#senses is deprecated. Use CreatureSystemData#perception#senses instead.",
+                        { since: "5.12.0", until: "6.0.0" },
+                    );
+                    return this.system.perception.senses;
+                },
+                enumerable: false,
+            },
+        });
+
         for (const party of this.parties) {
             party.reset({ actor: true });
         }
@@ -251,6 +282,8 @@ abstract class CreaturePF2e<
 
         this.flags.pf2e.rollOptions.all["self:creature"] = true;
 
+        this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
+
         const attributes = this.system.attributes;
         attributes.hardness ??= { value: 0 };
         attributes.flanking.canFlank = true;
@@ -258,9 +291,10 @@ abstract class CreaturePF2e<
         attributes.flanking.offGuardable = true;
         attributes.reach = { base: 0, manipulate: 0 };
         attributes.speed = fu.mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
+        attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
 
-        if (attributes.initiative) {
-            attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
+        if (this.system.initiative) {
+            this.system.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
         }
 
         // Bless raw custom modifiers as `ModifierPF2e`s
@@ -273,7 +307,7 @@ abstract class CreaturePF2e<
 
         // Set base actor-shield data for PCs NPCs
         if (this.isOfType("character", "npc")) {
-            this.system.attributes.shield = {
+            attributes.shield = {
                 itemId: null,
                 name: game.i18n.localize("PF2E.ArmorTypeShield"),
                 ac: 0,
@@ -312,13 +346,19 @@ abstract class CreaturePF2e<
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        // Set labels for attributes
+        if (this.system.abilities) {
+            for (const [shortForm, data] of R.toPairs.strict(this.system.abilities)) {
+                data.label = CONFIG.PF2E.abilities[shortForm];
+                data.shortLabel = `PF2E.AbilityId.${shortForm}`;
+            }
+        }
+
         // Set minimum reach according to creature size
-        const { attributes } = this;
+        const { attributes, rollOptions } = this;
         const reachFromSize = SIZE_TO_REACH[this.size];
         attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
         attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
-
-        const { rollOptions } = this;
 
         // Add creature-specific self: roll options
         if (this.isSpellcaster) {
@@ -401,7 +441,9 @@ abstract class CreaturePF2e<
     ): Promise<void> {
         const { usage } = item.system;
         if (carryType === "stowed") {
-            const container = item.actor.itemTypes.backpack.find((c) => c !== item.container && !isCycle(item, c));
+            const container = item.actor.itemTypes.backpack.find(
+                (c) => c !== item.container && !isContainerCycle(item, c),
+            );
             if (container) await item.actor.stowOrUnstow(item, container);
         } else {
             const equipped: EquippedData = {
@@ -484,7 +526,7 @@ abstract class CreaturePF2e<
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    async rollRecovery(event: JQuery.TriggeredEvent): Promise<Rolled<CheckRoll> | null> {
+    async rollRecovery(event?: MouseEvent): Promise<Rolled<CheckRoll> | null> {
         const { dying } = this.attributes;
 
         if (!dying?.value) return null;
@@ -537,26 +579,6 @@ abstract class CreaturePF2e<
         });
     }
 
-    /** Prepare derived creature senses from Rules Element synthetics */
-    prepareSenses(data: SenseData[], synthetics: RuleElementSynthetics): CreatureSensePF2e[] {
-        const preparedSenses = data.map((datum) => new CreatureSensePF2e(datum));
-
-        for (const { sense, predicate, force } of synthetics.senses) {
-            if (predicate && !predicate.test(this.getRollOptions(["all", "sense"]))) continue;
-            const existing = preparedSenses.find((oldSense) => oldSense.type === sense.type);
-            if (!existing) {
-                preparedSenses.push(sense);
-            } else if (force) {
-                preparedSenses.findSplice((oldSense) => oldSense === existing, sense);
-            } else {
-                if (sense.isMoreAcuteThan(existing)) existing.acuity = sense.acuity;
-                if (sense.hasLongerRangeThan(existing)) existing.value = sense.value;
-            }
-        }
-
-        return preparedSenses;
-    }
-
     prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
@@ -578,8 +600,8 @@ abstract class CreaturePF2e<
                 landSpeed,
                 { overwrite: false },
             );
-            const typeLabel = game.i18n.localize("PF2E.SpeedTypesLand");
-            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: typeLabel });
+            const typeLabel = game.i18n.localize(CONFIG.PF2E.speedTypes.land);
+            const statLabel = game.i18n.format("PF2E.Actor.Speed.Type.Label", { type: typeLabel });
             const otherData = {
                 type: "land",
                 label: statLabel,
@@ -596,7 +618,7 @@ abstract class CreaturePF2e<
                 breakdown: {
                     get(): string {
                         return [
-                            `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${stat.value}`,
+                            `${game.i18n.format("PF2E.Actor.Speed.BaseLabel", { type: typeLabel })} ${stat.value}`,
                             ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
                         ].join(", ");
                     },
@@ -694,6 +716,10 @@ abstract class CreaturePF2e<
             changedHP.value = options.allowHPOverage
                 ? Math.max(0, changedHP.value)
                 : Math.clamped(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
+        }
+        if (changed.system.attributes?.hp?.temp !== undefined) {
+            const inputValue = changed.system.attributes.hp.temp;
+            changed.system.attributes.hp.temp = Math.floor(Math.clamped(Number(inputValue) || 0, 0, 999));
         }
 
         // Clamp focus points

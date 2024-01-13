@@ -2849,7 +2849,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "blnv0": {
-                        "img": "systems/pf2e/icons/features/classes/heightened-senses.webp",
+                        "img": "icons/creatures/eyes/human-single-brown.webp",
                         "level": 17,
                         "name": "Heightened Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Heightened Senses"
@@ -3234,24 +3234,6 @@
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
                         "key": "CriticalSpecialization",
                         "predicate": [
                             "self:effect:rage",
@@ -3260,6 +3242,19 @@
                     }
                 ],
                 "slug": "brutality",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 2
+                        },
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3319,15 +3314,16 @@
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "fortitude",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "juggernaut",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3449,15 +3445,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.reflex.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "lightning-reflexes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "reflex": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3542,15 +3538,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.classDCs.barbarian.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "mighty-rage",
+                "subfeatures": {
+                    "proficiencies": {
+                        "barbarian": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3889,9 +3885,6 @@
                 "temp": 0,
                 "value": 195
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3958,6 +3951,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 11
             },
@@ -3980,6 +3977,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4055,15 +4055,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

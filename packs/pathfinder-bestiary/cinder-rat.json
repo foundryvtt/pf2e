@@ -130,7 +130,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the aura or begins its turn there must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p>Everything within the aura, including the cinder rat, is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by smoke.</p>"
+                    "value": "<p>5 feet. A creature that enters the aura or begins its turn there must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p>Everything within the aura, including the cinder rat, is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by smoke.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -296,12 +296,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 9
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
@@ -315,6 +309,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 3
             },
@@ -325,6 +323,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -342,18 +352,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, smoke vision"
-            },
             "size": {
                 "value": "sm"
             },

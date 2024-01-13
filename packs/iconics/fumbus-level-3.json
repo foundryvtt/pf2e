@@ -162,9 +162,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -223,9 +223,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -283,9 +283,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -296,7 +296,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -344,9 +344,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 3,
                 "rules": [],
@@ -409,9 +409,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -422,7 +422,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -549,7 +549,7 @@
                 }
             },
             "img": "icons/sundries/books/book-tooled-brass-brown.webp",
-            "name": "Formula Book",
+            "name": "Formula Book (Blank)",
             "sort": 181250,
             "system": {
                 "baseItem": null,
@@ -558,7 +558,7 @@
                 },
                 "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
-                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; characters of the alchemist class typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
@@ -583,9 +583,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -618,7 +618,7 @@
                 },
                 "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
-                    "value": "<p>A lantern sheds bright light and requires 1 pint of oil to function for 6 hours. A bull's-eye lantern emits its light in a 60-foot cone (and dim light in the next 60 feet). A hooded lantern sheds light in a 30-foot radius (and dim light in the next 30 feet) and is equipped with shutters, which you can close to block the light. Closing or opening the shutters takes an Interact action.</p>"
+                    "value": "<p>A lantern sheds bright light and requires 1 pint of oil to function for 6 hours. A hooded lantern sheds light in a 30-foot radius (and dim light in the next 30 feet) and is equipped with shutters, which you can close to block the light. Closing or opening the shutters takes an Interact action.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
@@ -643,12 +643,31 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 30,
+                            "color": "#975335",
+                            "dim": 60,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "value": "icons/sundries/lights/lantern-iron-yellow.webp"
+                    }
+                ],
                 "size": "med",
                 "slug": "lantern-hooded",
                 "traits": {
@@ -680,7 +699,7 @@
                 "containerId": "bA6HG8Q7l2mLBgOE",
                 "damage": null,
                 "description": {
-                    "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5-foot square you target. You must succeed at a @Check[type:flat|dc:10] for the oil to ignite successfully when it hits. If the oil ignites, the target takes 1d6 fire damage.</p>"
+                    "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5-foot square you target. You must succeed at a @Check[type:flat|dc:10] for the oil to ignite successfully when it hits. If the oil ignites, the target takes @Damage[1d6[fire]] damage.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
@@ -704,9 +723,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 8,
                 "rules": [],
@@ -717,7 +736,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "uses": {
                     "autoDestroy": true,
@@ -735,7 +754,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
-            "name": "Repair Kit",
+            "name": "Repair Toolkit",
             "sort": 196875,
             "system": {
                 "baseItem": null,
@@ -744,7 +763,7 @@
                 },
                 "containerId": "bA6HG8Q7l2mLBgOE",
                 "description": {
-                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill.</p>"
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "stowed",
@@ -769,20 +788,20 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "repair-kit",
+                "slug": "repair-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -835,9 +854,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -890,7 +909,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "sword",
@@ -912,9 +931,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -930,7 +949,7 @@
                 "size": "med",
                 "slug": "dogslicer",
                 "splashDamage": {
-                    "value": null
+                    "value": 0
                 },
                 "traits": {
                     "rarity": "uncommon",
@@ -1301,7 +1320,7 @@
                 }
             },
             "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Tools",
+            "name": "Healer's Toolkit",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -1310,11 +1329,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds.</p>"
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 2,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1335,20 +1354,20 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "healers-tools",
+                "slug": "healers-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -1387,7 +1406,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1413,9 +1432,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 2,
                 "range": 20,
@@ -1433,7 +1452,6 @@
                 "splashDamage": {
                     "value": 2
                 },
-                "temporary": true,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1441,11 +1459,11 @@
                         "alchemical",
                         "bomb",
                         "consumable",
-                        "infused",
                         "splash"
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -1485,7 +1503,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1511,9 +1529,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 4,
                 "range": 20,
@@ -1531,7 +1549,6 @@
                 "splashDamage": {
                     "value": 2
                 },
-                "temporary": true,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1539,11 +1556,11 @@
                         "bomb",
                         "consumable",
                         "fire",
-                        "infused",
                         "splash"
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
@@ -1600,14 +1617,12 @@
                 "rules": [],
                 "size": "med",
                 "slug": "comprehension-elixir-lesser",
-                "temporary": true,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
                         "elixir",
-                        "infused",
                         "mental"
                     ]
                 },
@@ -1645,7 +1660,7 @@
                     "type": "untyped"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Minor)]</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Minor)]</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1669,23 +1684,21 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "elixir-of-life-minor",
-                "temporary": true,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "alchemical",
                         "consumable",
                         "elixir",
-                        "healing",
-                        "infused"
+                        "healing"
                     ]
                 },
                 "usage": {
@@ -1756,7 +1769,7 @@
                 }
             },
             "img": "icons/tools/laboratory/vials-blue-pink.webp",
-            "name": "Alchemist's Tools",
+            "name": "Alchemist's Toolkit",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -1765,66 +1778,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist's tools, you can draw and replace them as part of the action that uses them.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "alchemists-tools",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-two-hands"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "mHDUdR7FMN3wDX6b",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
-                }
-            },
-            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
-            "name": "Thieves' Tools",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves' tools, you can draw and replace them as part of the action that uses them.</p>"
+                    "value": "<p>This mobile collection of vials and chemicals can be used for simple alchemical tasks. If you wear your alchemist's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1849,20 +1803,80 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "thieves-tools",
+                "slug": "alchemists-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "mHDUdR7FMN3wDX6b",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
+                }
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Toolkit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need a thieves' toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' toolkit is broken, you can repair it by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your toolkit; this doesn't require using the Repair action. If you wear your thieves' toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "thieves-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -1875,7 +1889,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/wayfinder.webp",
-            "name": "Droven's Wayfinder",
+            "name": "Wayfinder",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -1884,7 +1898,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This compact compass repurposes ancient technology to draw fantastic powers from the mysterious magical items called aeon stones. It serves as a badge of office for agents of the Pathfinder Society and as a status symbol among adventurers of any stripe. A wayfinder functions as a compass.</p>\n<p>An indentation in the middle of the <em>wayfinder</em> can hold a single <em>aeon stone</em>. Placing an <em>aeon stone</em> in this indentation provides you all the benefits of having the <em>aeon stone</em> orbiting your head, but it protects the stone from being noticed or stolen as easily. You invest a <em>wayfinder</em> and the <em>aeon stone</em> within it simultaneously, and they count as only one item toward your investiture limit. An invested <em>aeon stone</em> slotted in a <em>wayfinder</em> also grants its resonant power.</p>\n<p>If you have more than one <em>wayfinder</em> with an invested <em>aeon stone</em> on your person at a given time, destructive interference from their resonance prevents you from gaining benefits from any of them. You can still benefit from additional <em>aeon stones</em> orbiting your head, just not in <em>wayfinders</em>.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> The <em>wayfinder</em> is targeted by a 1st-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> spell.</p>"
+                    "value": "<p><strong>Access</strong> member of the Pathfinder Society</p>\n<hr />\n<p>This compact compass repurposes ancient technology to draw fantastic powers from the mysterious magical items called <em>aeon stones</em>. It serves as a badge of office for agents of the Pathfinder Society and as a status symbol among adventurers of any stripe. A <em>wayfinder</em> functions as a compass.</p>\n<p>An indentation in the middle of the <em>wayfinder</em> can hold a single <em>aeon stone</em>. Placing an <em>aeon stone</em> in this indentation provides you all the benefits of having the <em>aeon stone</em> orbiting your head, but it protects the stone from being noticed or stolen as easily. You invest a <em>wayfinder</em> and the <em>aeon stone</em> within it simultaneously, and they count as only one item toward your investiture limit. An invested <em>aeon stone</em> slotted in a <em>wayfinder</em> also grants its resonant power.</p>\n<p>If you have more than one <em>wayfinder</em> with an invested <em>aeon stone</em> on your person at a given time, destructive interference from their resonance prevents you from gaining benefits from any of them. You can still benefit from additional <em>aeon stones</em> orbiting your head, just not in <em>wayfinders</em>.</p>\n<p><strong>Activate—Light</strong> <span class=\"action-glyph\">A</span> (concentrate)</p>\n<hr />\n<p><strong>Effect</strong> The <em>wayfinder</em> is targeted by a 1st-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> spell.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1909,9 +1923,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [
@@ -2819,10 +2833,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; characters of the alchemist class typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2843,9 +2858,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -2956,13 +2971,11 @@
         }
     },
     "system": {
+        "abilities": null,
         "attributes": {
             "hp": {
                 "temp": 0,
                 "value": 33
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3062,6 +3075,15 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "draconic",
+                    "jotun",
+                    "orcish",
+                    "osiriani"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -3079,6 +3101,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3156,22 +3181,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "draconic",
-                    "jotun",
-                    "orcish",
-                    "osiriani"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

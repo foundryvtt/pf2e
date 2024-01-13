@@ -10,65 +10,70 @@ form > header {
     display: flex;
     font-family: var(--sans-serif);
     font-weight: 600;
-    gap: 8px;
+    gap: var(--space-8);
     justify-content: space-between;
     margin-bottom: 0.1em;
-    padding: 0 16px;
+    padding: 0 1rem;
     text-transform: uppercase;
     width: 100%;
 
     .frame-container {
-        flex: 0 0 60px;
-        padding: 4px; // frames use shadows to create the border, so we need to offset it
-        margin: 16px 0;
+        flex: 0 0 3.75rem;
+        padding: var(--space-4); // frames use shadows to create the border, so we need to offset it
+        margin: 1rem 0;
 
         .frame {
-            width: 60px;
-            height: 60px;
-        }
-
-        .image-container {
-            [data-action="show-image"] {
-                color: var(--color-text-dark-primary);
-            }
+            width: 3.75rem;
+            height: 3.75rem;
         }
 
         .actor-image {
+            @include brown-border;
+            border-radius: 0;
+            border: none;
+            max-height: 11.125rem;
             object-fit: cover;
             object-position: top;
-            border: none;
-            border-radius: 0;
-            max-height: 178px;
             width: 100%;
-            @include brown-border;
         }
 
         .edit-mode-button {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            bottom: -10px;
-            left: -10px;
-            border-radius: 10px;
-            background-color: white;
-            color: var(--text-dark);
-            cursor: pointer;
             @include brown-border;
-
-            // center the icon
-            display: flex;
-            justify-content: center;
             align-items: center;
+            background-color: var(--color-text-light-0);
+            border-radius: 10px;
+            bottom: -0.625rem;
+            color: var(--text-dark);
+            display: flex;
             font-size: 1.05em;
+            height: 1.25rem;
+            justify-content: center;
+            left: -0.625rem;
+            position: absolute;
+            width: 1.25rem;
+
+            &:hover {
+                text-shadow: none;
+            }
         }
     }
 
     .details {
-        margin: 4px 0;
         flex: 1;
+        margin: var(--space-4) 0;
 
-        tags.tags.paizo-style .tagify__input::before {
-            color: var(--color-text-light-7);
+        tags.paizo-style {
+            select {
+                border-radius: 0;
+            }
+
+            tag {
+                height: 1.5rem;
+
+                .tagify__input::before {
+                    color: var(--color-text-trait);
+                }
+            }
         }
     }
 
@@ -77,6 +82,7 @@ form > header {
         color: var(--text-light);
         border: none;
         border-bottom: 1px solid transparent;
+
         &:hover:not(:disabled),
         &:focus {
             border: none;
@@ -86,14 +92,13 @@ form > header {
     }
 
     .title {
+        align-items: baseline;
         display: flex;
         flex-direction: row;
-        align-items: baseline;
-        gap: 4px;
-
-        font-size: var(--font-size-28);
         font-family: var(--serif-condensed);
+        font-size: var(--font-size-28);
         font-weight: 700;
+        gap: var(--space-4);
 
         .name {
             flex: 1;
@@ -101,8 +106,8 @@ form > header {
         }
 
         .level {
-            width: 32px;
             text-align: center;
+            width: 2rem;
         }
     }
 }

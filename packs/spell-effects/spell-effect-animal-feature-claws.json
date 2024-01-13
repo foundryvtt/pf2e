@@ -4,7 +4,7 @@
     "name": "Spell Effect: Animal Feature (Claws)",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Feature]</em></p>\n<p>You gain a claw attack that deals @Damage[1d6[slashing]] damage and has the agile, finesse, and unarmed traits.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Feature]</em></p>\n<p>You gain a claw attack that deals 1d6 slashing damage and has the agile, finesse, and unarmed traits.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,12 +16,13 @@
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
+                "baseType": "claw",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -30,6 +31,7 @@
                         "die": "d6"
                     }
                 },
+                "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
                 "range": null,

@@ -17,6 +17,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -376,6 +377,7 @@ class ElementalBlast {
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first() ?? null;
+        const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =
             blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
                 ?.value ?? 0;
@@ -389,14 +391,17 @@ class ElementalBlast {
             outcome,
             melee,
             checkContext: params.checkContext,
-            options: new Set([
-                `action:${actionSlug}`,
-                `action:cost:${actionCost}`,
-                meleeOrRanged,
-                `item:${meleeOrRanged}`,
-                `item:damage:type:${params.damageType}`,
-                ...item.traits,
-            ]),
+            options: new Set(
+                R.compact([
+                    `action:${actionSlug}`,
+                    `action:cost:${actionCost}`,
+                    meleeOrRanged,
+                    `item:${meleeOrRanged}`,
+                    `item:damage:type:${params.damageType}`,
+                    damageCategory ? `item:damage:category:${damageCategory}` : null,
+                    ...item.traits,
+                ]),
+            ),
         });
 
         const baseDamage: BaseDamageData = {

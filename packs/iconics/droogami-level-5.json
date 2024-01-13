@@ -180,7 +180,7 @@
                         "animal"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -246,7 +246,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
+                        "path": "system.perception.rank",
                         "value": 1
                     },
                     {
@@ -442,30 +442,6 @@
                         "value": 1
                     },
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.reflex.rank",
-                        "value": 2
-                    },
-                    {
                         "key": "Striking",
                         "predicate": [
                             "unarmed"
@@ -486,6 +462,22 @@
                     }
                 ],
                 "slug": null,
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        },
+                        "perception": {
+                            "rank": 2
+                        },
+                        "reflex": {
+                            "rank": 2
+                        },
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -526,9 +518,6 @@
             "hp": {
                 "temp": 0,
                 "value": 44
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -575,6 +564,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 5
             },
@@ -590,6 +583,9 @@
                 "pct": 0,
                 "value": 0
             }
+        },
+        "initiative": {
+            "statistic": "perception"
         },
         "pfs": {
             "characterNumber": null,
@@ -663,15 +659,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

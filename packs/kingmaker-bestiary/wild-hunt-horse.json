@@ -228,7 +228,6 @@
                         "concentrate",
                         "manipulate",
                         "plant",
-                        "primal",
                         "teleportation"
                     ]
                 }
@@ -356,8 +355,7 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "plant",
-                        "primal"
+                        "plant"
                     ]
                 }
             },
@@ -419,8 +417,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -514,7 +511,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -697,7 +694,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:500] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A wild hunt horse grants a +10-foot status bonus to wild hunt creatures' Speed other than wild hunt horses.</p>"
+                    "value": "<p>500 feet. A wild hunt horse grants a +10-foot status bonus to wild hunt creatures' Speed other than wild hunt horses.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -874,7 +871,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Those who meet the gaze of a wild hunt horse come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:33] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt horse can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt horse come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:33] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt horse can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -934,7 +931,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] 60 feet</p>\n<p>The wild hunt horse stamps its hooves and prances in place, creating the sound of hundreds of horses apparently approaching from all directions. Each creature within @Template[type:emanation|distance:60] must attempt a @Check[type:will|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Bewildering Hoofbeats for 1 hour.</p>\n<p><strong>Success</strong> The creature is distracted by the sound. Until the start of the creature's next turn, if it attempts to use a reaction, it must succeed at a @Check[type:flat|dc:5] or the reaction is disrupted, wasted with no effect.</p>\n<p><strong>Failure</strong> The creature is bewildered by the sound, with the same effects as success except it is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the confusion effect persists for 1 minute or until the creature recovers by other means.</p>"
+                    "value": "<p>60 feet. The wild hunt horse stamps its hooves and prances in place, creating the sound of hundreds of horses apparently approaching from all directions. Each creature within @Template[type:emanation|distance:60] must attempt a @Check[type:will|dc:33] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Bewildering Hoofbeats for 1 hour.</p>\n<p><strong>Success</strong> The creature is distracted by the sound. Until the start of the creature's next turn, if it attempts to use a reaction, it must succeed at a @Check[type:flat|dc:5] or the reaction is disrupted, wasted with no effect.</p>\n<p><strong>Failure</strong> The creature is bewildered by the sound, with the same effects as success except it is also @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the confusion effect persists for 1 minute or until the creature recovers by other means.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1174,12 +1171,6 @@
                 "temp": 0,
                 "value": 320
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1198,6 +1189,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals; speak with plants",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -1208,6 +1206,23 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "greensight",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1225,18 +1240,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "speak with animals; speak with plants",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, greensight, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

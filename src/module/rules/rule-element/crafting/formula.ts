@@ -1,5 +1,4 @@
-import type { CharacterPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CharacterPF2e } from "@actor";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { RuleElementSource } from "../data.ts";
 

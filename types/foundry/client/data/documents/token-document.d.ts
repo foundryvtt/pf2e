@@ -2,17 +2,12 @@ import type { CanvasBaseToken } from "./client-base-mixes.d.ts";
 
 declare global {
     class TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
-        constructor(
-            data: PreCreate<foundry.documents.TokenSource>,
-            context?: TokenDocumentConstructionContext<TParent, Actor<TokenDocument> | null>,
-        );
+        /* -------------------------------------------- */
+        /*  Properties                                  */
+        /* -------------------------------------------- */
 
-        /** An array of detection modes which are available to this Token */
-        detectionModes: TokenDetectionMode[];
-
-        sort: number;
-
-        delta: ActorDelta<this> | null;
+        /** A singleton collection which holds a reference to the synthetic token actor by its base actor's ID. */
+        actors: Collection<Actor>;
 
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
@@ -20,6 +15,9 @@ declare global {
          * Otherwise, the Actor document is a synthetic (ephemeral) document constructed using the Token's actorData.
          */
         get actor(): Actor<this | null> | null;
+
+        /** A reference to the base, World-level Actor this token represents. */
+        get baseActor(): Actor<null>;
 
         /** An indicator for whether or not the current User has full control over this Token document. */
         override get isOwner(): boolean;
@@ -32,6 +30,16 @@ declare global {
 
         /** An indicator for whether or not this Token is currently involved in the active combat encounter. */
         get inCombat(): boolean;
+
+        /**
+         * Define a sort order for this TokenDocument.
+         * This controls its rendering order in the PrimaryCanvasGroup relative to siblings at the same elevation.
+         * In the future this will be replaced with a persisted database field for permanent adjustment of token stacking.
+         * In case of ties, Tokens will be sorted above other types of objects.
+         */
+        get sort(): number;
+
+        set sort(value: number);
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -190,6 +198,8 @@ declare global {
     }
 
     interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
+        delta: ActorDelta<this> | null;
+
         get object(): Token<this> | null;
         get sheet(): TokenConfig<this>;
         get uuid(): TokenDocumentUUID;

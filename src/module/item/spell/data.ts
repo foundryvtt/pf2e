@@ -1,6 +1,6 @@
 import type { SaveType } from "@actor/types.ts";
 import type { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
-import type { OneToTen, ValueAndMax } from "@module/data.ts";
+import type { OneToTen, ValueAndMax, ZeroToThree } from "@module/data.ts";
 import type { DamageCategoryUnique, DamageKind, DamageType, MaterialDamageEffect } from "@system/damage/index.ts";
 import type { EffectAreaSize, EffectAreaType, MagicTradition, SpellTrait } from "./types.ts";
 
@@ -90,16 +90,23 @@ interface SpellHeightenLayer {
 }
 
 interface SpellOverlayOverride {
-    _id: string;
     system?: DeepPartial<SpellSystemSource>;
     name?: string;
     overlayType: "override";
     sort: number;
 }
 
-interface SpellSystemData extends Omit<SpellSystemSource, "damage">, Omit<ItemSystemData, "level" | "traits"> {
+interface SpellSystemData
+    extends Omit<SpellSystemSource, "damage" | "description">,
+        Omit<ItemSystemData, "level" | "traits"> {
+    /** Time and resources consumed in the casting of this spell */
+    cast: SpellCastData;
     damage: Record<string, SpellDamage>;
     defense: SpellDefenseData | null;
+}
+
+interface SpellCastData {
+    focusPoints: ZeroToThree;
 }
 
 interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {

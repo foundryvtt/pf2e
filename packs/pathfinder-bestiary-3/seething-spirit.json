@@ -164,8 +164,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -320,8 +319,7 @@
                         "concentrate",
                         "detection",
                         "manipulate",
-                        "mental",
-                        "occult"
+                        "mental"
                     ]
                 }
             },
@@ -384,8 +382,7 @@
                     ],
                     "value": [
                         "illusion",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -608,8 +605,7 @@
                         "auditory",
                         "concentrate",
                         "illusion",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -811,7 +807,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>This aura emanates from any creature possessed by the seething spirit, and it's inactive while the spirit isn't possessing anyone.</p>\n<p>Any creature in the aura, including a creature possessed by the spirit, takes a -1 status penalty to AC, can't perform actions with the concentrate trait except for the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action and actions with the rage trait, and gains a +2 status bonus to melee damage rolls against the spirit's enemies.</p>\n<p>A creature can attempt a @Check[type:will|dc:30] save when it enters the aura to avoid the effect. If the creature would need to attempt a save against the aura again within 24 hours, it automatically uses the same save result rather than attempting a new save.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pulse of Rage]</p>"
+                    "value": "<p>20 feet. This aura emanates from any creature possessed by the seething spirit, and it's inactive while the spirit isn't possessing anyone.</p>\n<p>Any creature in the aura, including a creature possessed by the spirit, takes a -1 status penalty to AC, can't perform actions with the concentrate trait except for the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action and actions with the rage trait, and gains a +2 status bonus to melee damage rolls against the spirit's enemies.</p>\n<p>A creature can attempt a @Check[type:will|dc:30] save when it enters the aura to avoid the effect. If the creature would need to attempt a save against the aura again within 24 hours, it automatically uses the same save result rather than attempting a new save.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Pulse of Rage]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -888,7 +884,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A seething spirit can't attempt to possess a creature affected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>. If creature possessed by a seething spirit fails a saving throw against <em>calm emotions</em>, the spirit is forced out.</p>\n<p>If the spirit isn't possessing a creature and is targeted with <em>calm emotions</em>, the spirit takes @Damage[12[mental]] damage per level of the spell instead of the normal spell effects.</p>"
+                    "value": "<p>A seething spirit can't attempt to possess a creature affected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>. If creature possessed by a seething spirit fails a saving throw against <em>calm emotions</em>, the spirit is forced out.</p>\n<p>If the spirit isn't possessing a creature and is targeted with <em>calm emotions</em>, the spirit takes @Damage[12[mental]] damage per rank of the spell instead of the normal spell effects.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1116,12 +1112,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -1155,6 +1145,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "common",
+                    "dwarven",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1165,6 +1163,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "tastes anger (imprecise) 1 mile",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1187,22 +1197,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "dwarven",
-                    "jotun"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, tastes anger (imprecise) 1 mile"
-            },
             "size": {
                 "value": "med"
             },

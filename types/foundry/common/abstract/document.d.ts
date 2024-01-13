@@ -38,7 +38,7 @@ export default abstract class Document<
     static get database(): abstract.DatabaseBackend;
 
     /** Return a reference to the implemented subclass of this base document type. */
-    static get implementation(): typeof Document;
+    static get implementation(): ConstructorOf<Document>;
 
     /** The named collection to which this Document belongs. */
     static get collectionName(): string;

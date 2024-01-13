@@ -1,0 +1,52 @@
+{
+    "_id": "SLVQVIE1AjOc73jU",
+    "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp",
+    "name": "Effect: Forgiven Defaced Naiad Queen's Thanks",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +3 status bonus to Lore checks and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 15
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "lore-skill-check",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

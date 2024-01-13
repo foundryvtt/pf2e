@@ -964,7 +964,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1246,7 +1246,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1477,7 +1477,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1946,7 +1946,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Over the course of 1 hour, the quintessivore removes and deconstructs the soul of a creature. The creature must either be captive or have been dead for no more than 2 hours before the start of the process. At the end of the hour, the quintessivore consumes the quintessence of the creature's soul.</p>\n<p>For the next month, it gains a +1 status bonus to its spell DC and spell attack roll, and it adds 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Never Mind]</em> and <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination]</em> to its arcane prepared spells.</p>\n<p>Deconstructing a soul maps the unique properties of the creature's soul into the quintessivore's blade-legs. The soul can be reconstructed by binding it to quintessence. A dead quintessivore's soul flees its body as pure quintessence suitable for this purpose.</p>"
+                    "value": "<p>Over the course of 1 hour, the quintessivore removes and deconstructs the soul of a creature. The creature must either be captive or have been dead for no more than 2 hours before the start of the process. At the end of the hour, the quintessivore consumes the quintessence of the creature's soul.</p>\n<p>For the next month, it gains a +1 status bonus to its spell DC and spell attack roll, and it adds 6th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Never Mind]</em> and <em>@UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination]</em> to its arcane prepared spells.</p>\n<p>Deconstructing a soul maps the unique properties of the creature's soul into the quintessivore's blade-legs. The soul can be reconstructed by binding it to quintessence. A dead quintessivore's soul flees its body as pure quintessence suitable for this purpose.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2184,12 +2184,6 @@
                 "temp": 0,
                 "value": 180
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 17
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -2202,6 +2196,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "common",
+                    "diabolic",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -2212,6 +2216,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2234,21 +2250,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "common",
-                    "diabolic",
-                    "sakvroth"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -191,8 +191,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1582,7 +1608,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -2220,7 +2246,7 @@
                         "strix"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -2275,9 +2301,6 @@
             "hp": {
                 "temp": 0,
                 "value": 44
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -2336,6 +2359,15 @@
             "keyability": {
                 "value": "dex"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic",
+                    "strix",
+                    "varisian"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2353,6 +2385,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2438,23 +2473,6 @@
             "thi": {
                 "rank": 2
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "diabolic",
-                    "strix",
-                    "varisian"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

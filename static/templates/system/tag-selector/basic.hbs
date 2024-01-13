@@ -1,28 +1,43 @@
-<form {{#if flat}}data-flat="{{flat}}"{{/if}} autocapitalize="off">
-    <header class="trait-header flexrow">
-        <div class="header-search">
-            <i class="fa-solid fa-search"></i>
-            <input type="search" value="{{searchString}}" placeholder="{{localize "FILES.Search"}}" />
-        </div>
+<form {{#if flat}}data-flat="{{flat}}"{{/if}} autocomplete="off" autocapitalize="off" data-tooltip-class="pf2e">
+    <header>
+        <input type="search" id="{{options.id}}-search" placeholder="&#xf002;" aria-label="Filter" />
     </header>
-    <ol class="trait-list{{#if allowCustom}} has-custom{{/if}}">
+
+    <ul class="{{#if hasCustomChoices}}has-custom{{/if}}{{#if hasRarity}} has-rarity{{/if}}">
         {{#each choices as |choice key|}}
-        <li class="trait-item">
-            <label class="trait-selection-label">
+        <li>
+            <label class="option">
                 <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                <span class="trait-label">{{choice.label}}</span>
+                <span>{{choice.label}}</span>
+                {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}" data-tooltip-direction="RIGHT"></i>{{/if}}
             </label>
+            {{#if choice.rarity~}}
+                <div class="tags paizo-style">
+                    <span class="tag rarity {{choice.rarity.slug}}">{{choice.rarity.label}}</span>
+                </div>
+            {{~/if}}
         </li>
         {{/each}}
-    </ol>
-    {{#if allowCustom}}
-    <div class="form-group stacked trait-footer">
-        <label>{{localize "PF2E.SpecialLabel"}}:</label>
-        <input type="text" name="custom" value="{{custom}}" />
-    </div>
-    {{/if}}
+    </ul>
 
-    <button type="submit" class="trait-footer">
-        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
-    </button>
+    <hr />
+
+    <footer>
+        {{#if details~}}
+            <div class="form-group stacked details">
+                <label for="{{options.id}}-details">{{localize "PF2E.Details"}}</label>
+                <input
+                    type="text"
+                    id="{{options.id}}-details"
+                    value="{{details.value}}"
+                    placeholder="{{localize details.placeholder}}"
+                    data-details data-path={{details.path}}
+                />
+            </div>
+        {{~/if}}
+
+        <button type="submit" class="trait-footer">
+            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+        </button>
+    </footer>
 </form>

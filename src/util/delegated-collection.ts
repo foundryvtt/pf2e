@@ -42,7 +42,7 @@ export class DelegatedCollection<V> {
     }
 
     filter<T extends V = V>(condition: (value: V) => value is T): T[];
-    filter<T extends V = V>(condition: (value: V) => boolean): T[];
+    filter<T extends V = V>(condition: (value: V) => unknown): T[];
     filter<T extends V = V>(predicate: (value: V) => boolean): T[] {
         return this.#data.filter(predicate);
     }

@@ -843,8 +843,8 @@
                     "value": "<p>Intense fervor fills the target creature, empowering their blows. The target gains a +2 status bonus to damage rolls. Once this spell ends, the target becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The status bonus to damage increases by 1.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Stoke the Heart]</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -876,7 +876,6 @@
                         "cantrip",
                         "concentrate",
                         "emotion",
-                        "focus",
                         "hex",
                         "witch"
                     ]
@@ -1256,12 +1255,6 @@
                 "temp": 0,
                 "value": 20
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 5
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1269,6 +1262,13 @@
         },
         "details": {
             "blurb": "Male kobold witch",
+            "languages": {
+                "details": "",
+                "value": [
+                    "diabolic",
+                    "draconic"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -1279,6 +1279,18 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Crown of the Kobold King"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 5,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1296,18 +1308,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "diabolic",
-                    "draconic"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

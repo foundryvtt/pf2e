@@ -271,7 +271,7 @@
             "system": {
                 "area": null,
                 "cost": {
-                    "value": "faerie circle ingredients worth a total value of 1 gp × the spell level × the target's level"
+                    "value": "faerie circle ingredients worth a total value of 1 gp × the spell rank × the target's level"
                 },
                 "counteraction": false,
                 "damage": {},
@@ -901,7 +901,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The zomok blasts forth a @Template[type:cone|distance:60] of earth and gravel, dealing @Damage[17d6[bludgeoning]] damage (@Check[type:reflex|dc:34|basic:true] save); @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures take a -2 circumstance penalty to this saving throw. Creatures touching the ground that fail their saves take a 10-foot circumstance penalty to their Speeds and are @UUID[Compendium.pf2e.conditionitems.Item.Restrained] (Escape DC 34) on a critical failure.</p>\n<p>The zomok can't use Entombing Breath again for [[/br 1d4 #Recharge Entombing Breath]]{1d4 rounds}.</p>\n<p>The bodies of creatures slain by Entombing Breath instantly decompose and are destroyed-they can be restored to life only by a 7th-level or higher spell or ritual that restores life. The creature's equipment is unharmed but buried under 5 feet of earth.</p>"
+                    "value": "<p>The zomok blasts forth a @Template[type:cone|distance:60] of earth and gravel, dealing @Damage[17d6[bludgeoning]] damage (@Check[type:reflex|dc:34|basic:true] save); @UUID[Compendium.pf2e.conditionitems.Item.Prone] creatures take a -2 circumstance penalty to this saving throw. Creatures touching the ground that fail their saves take a 10-foot circumstance penalty to their Speeds and are @UUID[Compendium.pf2e.conditionitems.Item.Restrained] (Escape DC 34) on a critical failure.</p>\n<p>The zomok can't use Entombing Breath again for [[/br 1d4 #Recharge Entombing Breath]]{1d4 rounds}.</p>\n<p>The bodies of creatures slain by Entombing Breath instantly decompose and are destroyed-they can be restored to life only by a 7th-rank or higher spell or ritual that restores life. The creature's equipment is unharmed but buried under 5 feet of earth.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -934,7 +934,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The zomok teleports itself with the effects of a 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em> spell, but the zomok must begin and end the teleportation effect in forest terrain. The zomok regains [[/r 10d10[healing]]] Hit Points during this teleportation. Creatures swallowed by the zomok are left behind.</p>\n<p>The zomok can't use Forest Step again for [[/br 1d6+1 #rounds]]{1d6+1 rounds}.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The zomok teleports itself with the effects of a 5th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em> spell, but the zomok must begin and end the teleportation effect in forest terrain. The zomok regains [[/r 10d10[healing]]] Hit Points during this teleportation. Creatures swallowed by the zomok are left behind.</p>\n<p>The zomok can't use Forest Step again for [[/br 1d6+1 #rounds]]{1d6+1 rounds}.</p>"
                 },
                 "frequency": {
                     "max": 3,
@@ -1242,12 +1242,6 @@
                     "type": "stunned"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 28
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1266,6 +1260,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with plants",
+                "value": [
+                    "arboreal",
+                    "common",
+                    "fey",
+                    "petran"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1276,6 +1279,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 28,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1303,23 +1323,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Speak With Plants",
-                "selected": [],
-                "value": [
-                    "arboreal",
-                    "common",
-                    "fey",
-                    "petran"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "grg"
             },

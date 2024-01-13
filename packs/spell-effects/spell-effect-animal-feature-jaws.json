@@ -4,7 +4,7 @@
     "name": "Spell Effect: Animal Feature (Jaws)",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Feature]</em></p>\n<p>You gain a jaws attack that deals @Damage[1d8[piercing]] damage and has the unarmed trait.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Feature]</em></p>\n<p>You gain a jaws attack that deals 1d8 piercing damage and has the unarmed trait.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,12 +16,13 @@
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
+                "baseType": "jaws",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -30,6 +31,7 @@
                         "die": "d8"
                     }
                 },
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "range": null,

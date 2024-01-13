@@ -640,16 +640,16 @@
                         "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
                         "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "light": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1877,7 +1877,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -4375,7 +4375,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -4733,7 +4733,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4918,15 +4918,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5221,15 +5221,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -5322,7 +5322,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         }
@@ -5334,9 +5334,6 @@
             "hp": {
                 "temp": 0,
                 "value": 60
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -5402,6 +5399,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "osiriani"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -5419,6 +5422,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -5507,20 +5513,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "osiriani"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "evil",
-                "lawful"
-            ]
         }
     },
     "type": "character"

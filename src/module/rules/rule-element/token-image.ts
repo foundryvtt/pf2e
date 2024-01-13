@@ -1,6 +1,7 @@
 import type { AlphaField, ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { isBracketedValue } from "../helpers.ts";
+import { RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 
 /**
  * Change the image representing an actor's token
@@ -16,6 +17,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 nullable: false,
                 initial: undefined,
                 label: "TOKEN.ImagePath",
+                validate: (v) => typeof v === "string" || isBracketedValue(v),
             }),
             scale: new fields.NumberField({
                 required: false,
@@ -32,14 +34,6 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 initial: null,
             }),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
-
-        if (!(typeof this.value === "string" || this.isBracketedValue(this.value))) {
-            this.failValidation("value must be a string or a bracketed value");
-        }
     }
 
     override afterPrepareData(): void {

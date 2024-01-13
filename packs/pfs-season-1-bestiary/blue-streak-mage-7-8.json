@@ -293,7 +293,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>With a word of necromantic power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>"
+                    "value": "<p>With a word of power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bind Undead]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -306,9 +306,9 @@
                     "value": "OGVvOv2mnL9Ipvpk"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -317,7 +317,7 @@
                 "rules": [],
                 "slug": "bind-undead",
                 "target": {
-                    "value": "1 mindless undead creature with a level no greater than bind undead's spell level"
+                    "value": "1 mindless undead creature with a level no greater than bind undead's spell rank"
                 },
                 "time": {
                     "value": "2"
@@ -881,7 +881,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1408,7 +1408,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2136,7 +2136,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The Blue Streak mage emits a scent of putrid rot in a 5-foot emanation. A creature that enters or begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>5 feet. The Blue Streak mage emits a scent of putrid rot in a 5-foot emanation. A creature that enters or begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2343,12 +2343,6 @@
                 "temp": 0,
                 "value": 58
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -2357,6 +2351,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "hallit"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -2367,6 +2368,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -2389,18 +2398,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "hallit"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

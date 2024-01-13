@@ -420,7 +420,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {},
@@ -644,7 +644,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -834,12 +834,12 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> You expend one of your wizard spell slots to cast a wizard spell of the necromancy school.</p>\n<hr />\n<p>You use some of the spell's magic to heal yourself, regaining 1d8 Hit Points per level of the spell.</p>"
+                    "value": "<p><strong>Trigger</strong> You expend one of your wizard spell slots to cast a wizard spell of the necromancy school.</p>\n<hr />\n<p>You use some of the spell's magic to heal yourself, regaining 1d8 Hit Points per rank of the spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1058,7 +1058,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -1642,7 +1642,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1854,7 +1854,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2679,7 +2679,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> Your most recent action was to cast a non-cantrip necromancy spell</p>\n<hr />\n<p><strong>Effect</strong> You harness the residual energy from the spell you last cast into the body of an undead creature within 30 feet. That creature's resistances increase by an amount equal to the level of the spell cast until the beginning of the next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Requirements</strong> Your most recent action was to cast a non-cantrip necromancy spell</p>\n<hr />\n<p><strong>Effect</strong> You harness the residual energy from the spell you last cast into the body of an undead creature within 30 feet. That creature's resistances increase by an amount equal to the rank of the spell cast until the beginning of the next turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -2966,12 +2966,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 28
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -3001,6 +2995,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -3011,6 +3012,18 @@
                 "remaster": false,
                 "title": "Pathfinder #186: Ghost King's Rage"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 28,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -3033,18 +3046,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

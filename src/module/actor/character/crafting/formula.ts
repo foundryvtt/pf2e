@@ -1,11 +1,13 @@
-import { ConsumablePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
+import { PhysicalItemPF2e } from "@item";
 import { Coins, Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { Rarity } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
 
 class CraftingFormula implements CraftingFormulaData {
+    /** The item to craft */
+    item: PhysicalItemPF2e;
+
     /** The difficulty class to craft this item */
     dc: number;
 
@@ -15,10 +17,14 @@ class CraftingFormula implements CraftingFormulaData {
     /** Whether or not this formula is saved directly on the actor and can be deleted */
     deletable: boolean;
 
+    /** The set of roll options form this formula's item */
+    #options: Set<string> | null = null;
+
     constructor(
-        public item: PhysicalItemPF2e,
+        item: PhysicalItemPF2e,
         { dc, batchSize, deletable = false }: { dc?: number; batchSize?: number; deletable?: boolean } = {},
     ) {
+        this.item = item;
         this.dc =
             dc ??
             calculateDC(item.level, {
@@ -31,6 +37,10 @@ class CraftingFormula implements CraftingFormulaData {
 
         /** Is the formula on the actor and therefore deletable? */
         this.deletable = deletable;
+    }
+
+    get options(): Set<string> {
+        return (this.#options ??= new Set(this.item.getRollOptions("item")));
     }
 
     get uuid(): ItemUUID {
@@ -62,17 +72,21 @@ class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return STACK_DEFINITIONS[this.item.system.stackGroup ?? ""]?.size ?? 1;
+        return this.item.system.price.per;
     }
 
     get defaultBatchSize(): number {
-        const { item } = this;
-        const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmo && !item.isMagical;
+        const item = this.item;
+        const isAmmo = item.isOfType("consumable") && item.isAmmo;
+        const isMundaneAmmo = isAmmo && !item.isMagical;
         const isConsumable =
-            (item instanceof ConsumablePF2e && item.category !== "wand") ||
-            (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
+            (item.isOfType("consumable") && item.category !== "wand") ||
+            (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
 
-        return Math.max(this.minimumBatchSize, isMundaneAmmo ? 10 : isConsumable ? 4 : 1);
+        return Math.max(
+            this.minimumBatchSize,
+            isMundaneAmmo ? Math.clamped(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
+        );
     }
 
     get description(): string {

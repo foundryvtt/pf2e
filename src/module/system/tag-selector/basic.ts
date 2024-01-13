@@ -3,34 +3,26 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ValuesList } from "@module/data.ts";
-import { htmlQuery, htmlQueryAll } from "@util";
+import { htmlQuery, sortStringRecord } from "@util";
+import * as R from "remeda";
 import { BaseTagSelector, TagSelectorData } from "./base.ts";
 import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 
-/* Basic trait selector options */
-export interface BasicSelectorOptions extends TagSelectorOptions {
-    /* The base property to update e.g. 'data.traits.languages' */
-    objectProperty: string;
-    /* An array of keys from CONFIG.PF2E */
-    configTypes: SelectableTagField[];
-}
-
 export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
-function isValuesList(value: unknown): value is ValuesList {
-    return !!(value && typeof value === "object" && "value" in value);
+function isValuesList(obj: unknown): obj is ValuesList {
+    return R.isObject(obj) && Array.isArray(obj.value) && obj.value.every((v) => typeof v === "string");
 }
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             template: "systems/pf2e/templates/system/tag-selector/basic.hbs",
-        });
+            filters: [{ inputSelector: "input[type=search]", contentSelector: "ul", delay: 150 }],
+            scrollY: ["ul"],
+        };
     }
-
-    allowCustom: boolean;
-
-    #filterTimeout: number | null = null;
 
     protected objectProperty: string;
 
@@ -38,10 +30,9 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         super(document, options);
 
         this.objectProperty = options.objectProperty;
-        this.allowCustom = options.allowCustom ?? true;
         if (options.customChoices) {
             fu.mergeObject(this.choices, options.customChoices);
-            this.choices = this.sortChoices(this.choices);
+            this.choices = sortStringRecord(this.choices);
         }
     }
 
@@ -50,25 +41,26 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
     }
 
     override async getData(options?: Partial<TagSelectorOptions>): Promise<TagSelectorBasicData<TDocument>> {
-        const { chosen, custom, flat, disabled } = (() => {
+        const { chosen, flat, disabled } = (() => {
             const document: { toObject(): ActorSourcePF2e | ItemSourcePF2e } = this.document;
             // Compare source and prepared properties to determine which tags were automatically selected
             const sourceProperty: unknown = fu.getProperty(document.toObject(), this.objectProperty);
             const preparedProperty: unknown = fu.getProperty(document, this.objectProperty);
 
             if (Array.isArray(preparedProperty)) {
-                const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((prop) => String(prop)) : [];
-                const automaticallyChosen = preparedProperty.filter((tag) => !manuallyChosen.includes(tag));
+                const manuallyChosen = Array.isArray(sourceProperty) ? sourceProperty.map((v) => String(v)) : [];
+                const automaticallyChosen = preparedProperty.filter((v): v is string => !manuallyChosen.includes(v));
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
-                return { chosen, custom: null, flat: true, disabled: automaticallyChosen };
+                return { chosen, flat: true, disabled: automaticallyChosen };
             } else if (isValuesList(preparedProperty) && isValuesList(sourceProperty)) {
-                const manuallyChosen: string[] = sourceProperty.value.map((prop) => prop.toString());
-                const custom = this.allowCustom ? sourceProperty.custom : null;
-                const automaticallyChosen = preparedProperty.value.filter((tag) => !manuallyChosen.includes(tag));
+                const manuallyChosen: string[] = sourceProperty.value.map((v) => v.toString());
+                const automaticallyChosen = preparedProperty.value.filter(
+                    (v): v is string => !manuallyChosen.includes(v),
+                );
                 const chosen = Array.from(new Set([...manuallyChosen, ...automaticallyChosen]));
-                return { chosen, custom, flat: false, disabled: automaticallyChosen };
+                return { chosen, flat: false, disabled: automaticallyChosen };
             } else {
-                return { chosen: [], custom: null, flat: this.flat, disabled: [] };
+                return { chosen: [], flat: this.flat, disabled: [] };
             }
         })();
 
@@ -87,32 +79,38 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         return {
             ...(await super.getData(options)),
             choices,
-            allowCustom: this.allowCustom && !flat,
-            custom,
+            details: null,
             flat,
+            hasCustomChoices: !!options?.customChoices,
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
-        // Search filtering
-        const searchInput = htmlQuery<HTMLInputElement>(html, "input[type=search]");
-        searchInput?.addEventListener("input", () => {
-            this.#onFilterResults(searchInput);
-        });
+    protected override _onSearchFilter(_event: KeyboardEvent, _query: string, rgx: RegExp): void {
+        for (const row of this.form.querySelectorAll("li")) {
+            row.style.display = rgx.test(row.querySelector("label")?.innerText ?? "") ? "" : "none";
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const flat = event.target instanceof HTMLElement ? event.target.dataset.flat : false;
         const value = this.#getUpdateData(formData);
-        if (this.allowCustom && typeof formData["custom"] === "string") {
-            return super._updateObject(event, { [this.objectProperty]: { value, custom: formData["custom"] } });
-        } else if (flat) {
+        if (flat) {
             return super._updateObject(event, { [this.objectProperty]: value });
         } else {
-            return super._updateObject(event, { [`${this.objectProperty}.value`]: value });
+            const data = ((): Record<string, string | string[] | number[]> => {
+                const detailsEl = htmlQuery<HTMLInputElement>(event.target, "input[data-details]");
+                return detailsEl?.dataset.path
+                    ? {
+                          [`${this.objectProperty}.value`]: value,
+                          [detailsEl.dataset.path]: detailsEl.value.trim(),
+                      }
+                    : { [`${this.objectProperty}.value`]: value };
+            })();
+            return super._updateObject(event, data);
         }
     }
 
@@ -120,33 +118,8 @@ class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSe
         const optionsAreNumeric = Object.keys(formData).every((tag) => Number.isInteger(Number(tag)));
         const selections = Object.entries(formData)
             .flatMap(([tag, selected]) => (selected ? tag : []))
-            .filter((tag) => tag !== "custom");
-        return optionsAreNumeric ? selections.map((tag) => Number(tag)) : selections;
-    }
-
-    /**
-     * Filter the potential traits to only show ones which match a provided search string
-     * @param searchString The search string to match
-     */
-    #search(searchString: string): void {
-        const query = new RegExp(RegExp.escape(searchString), "i");
-        const html = this.element[0];
-        for (const row of htmlQueryAll(html, "li.trait-item")) {
-            const name = row.getElementsByClassName("trait-label")[0]?.textContent ?? "";
-            row.style.display = query.test(name) ? "flex" : "none";
-        }
-    }
-
-    /**
-     * Handle trait filtering through search field
-     * Toggle the visibility of indexed trait entries by name match
-     */
-    #onFilterResults(input: HTMLInputElement): void {
-        if (this.#filterTimeout) {
-            clearTimeout(this.#filterTimeout);
-            this.#filterTimeout = null;
-        }
-        this.#filterTimeout = window.setTimeout(() => this.#search(input.value), 100);
+            .filter((s) => s !== "custom");
+        return optionsAreNumeric ? selections.map((s) => Number(s)) : selections;
     }
 }
 
@@ -154,11 +127,20 @@ interface TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseT
     options: BasicSelectorOptions;
 }
 
+/* Basic tag selector options */
+interface BasicSelectorOptions extends TagSelectorOptions {
+    /* The actor value object to update; e.g., "system.traits" */
+    objectProperty: string;
+    /* An array of keys from CONFIG.PF2E */
+    configTypes: SelectableTagField[];
+}
+
 interface TagSelectorBasicData<TDocument extends ActorPF2e | ItemPF2e> extends TagSelectorData<TDocument> {
     choices: Record<string, { label: string; selected: boolean; disabled: boolean }>;
-    allowCustom: boolean;
-    custom: string | null;
+    hasCustomChoices: boolean;
+    details: { path: string; placeholder: string; value: string } | null;
     flat: boolean;
 }
 
 export { TagSelectorBasic };
+export type { BasicSelectorOptions, TagSelectorBasicData };

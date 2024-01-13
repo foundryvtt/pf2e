@@ -144,7 +144,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -250,10 +250,10 @@
                 },
                 "traits": {
                     "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
+                    "traditions": [
                         "arcane"
-                    ]
+                    ],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -379,7 +379,7 @@
             "system": {
                 "area": null,
                 "cost": {
-                    "value": "warding diagram ingredients worth a total value of 2 gp × the spell level × the target's level"
+                    "value": "warding diagram ingredients worth a total value of 2 gp × the spell rank × the target's level"
                 },
                 "counteraction": false,
                 "damage": {},
@@ -425,10 +425,10 @@
                 },
                 "traits": {
                     "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
+                    "traditions": [
                         "arcane"
-                    ]
+                    ],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -492,7 +492,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "revelation"
                     ]
@@ -553,11 +552,11 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
+                        "divine",
                         "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "water"
                     ]
@@ -624,9 +623,10 @@
                 },
                 "traits": {
                     "rarity": "uncommon",
-                    "traditions": [],
+                    "traditions": [
+                        "arcane"
+                    ],
                     "value": [
-                        "arcane",
                         "healing"
                     ]
                 }
@@ -691,7 +691,6 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -850,7 +849,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -928,7 +926,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -1747,7 +1744,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:46] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
+                    "value": "<p>100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:46] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2149,12 +2146,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 41
-            },
             "speed": {
                 "details": "air walk, water walk",
                 "otherSpeeds": [
@@ -2168,6 +2159,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "empyrean",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 23
             },
@@ -2178,6 +2177,28 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 41,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "wavesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2205,22 +2226,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "empyrean",
-                    "thalassic"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing, wavesense (imprecise) 100 feet"
-            },
             "size": {
                 "value": "grg"
             },

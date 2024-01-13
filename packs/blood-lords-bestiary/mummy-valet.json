@@ -132,7 +132,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Living creatures are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} while in a mummy guardian's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. The creature is then temporarily immune for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Despair]</p>"
+                    "value": "<p>30 feet. Living creatures are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} while in a mummy guardian's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round. The creature is then temporarily immune for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Despair]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -242,7 +242,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>"
+                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[void]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (1 day)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -368,12 +368,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -387,6 +381,12 @@
         },
         "details": {
             "blurb": "Elite mummy guardian",
+            "languages": {
+                "details": "any one ancient language",
+                "value": [
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -397,6 +397,18 @@
                 "remaster": false,
                 "title": "Pathfinder #182: Graveclaw"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -414,17 +426,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Any One Ancient Language",
-                "selected": [],
-                "value": [
-                    "necril"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

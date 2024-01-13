@@ -39,6 +39,8 @@ import { AttributeString, AuraEffectData, DamageRollContextParams } from "./type
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
  * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
  * @param [options] Render options for actor sheets and tokens
+ * @param [options.sheets=true] Render actor sheets
+ * @param [options.tokens=false] Redraw tokens
  */
 async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRenderOptions = {}): Promise<void> {
     actors ??= [
@@ -46,6 +48,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
     actors = R.uniq(Array.from(actors));
+    options.sheets ??= true;
 
     for (const actor of actors) {
         actor.reset();
@@ -299,7 +302,7 @@ function getStrikeAttackDomains(
         const alternativeAttributeModifier = actor.isOfType("character")
             ? weaponTraits.has("finesse")
                 ? createAttributeModifier({ actor, attribute: "dex", domains })
-                : weaponTraits.has("brutal")
+                : weaponTraits.has("brutal") || weaponTraits.has("propulsive")
                   ? createAttributeModifier({ actor, attribute: "str", domains })
                   : null
             : null;
@@ -323,18 +326,22 @@ function getStrikeDamageDomains(
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
-    const { actor, traits } = weapon;
+    const { actor, group, traits } = weapon;
+    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+    const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
-    const domains = [
+    const domains = R.compact([
         `${weapon.id}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-strike-damage`,
         `${meleeOrRanged}-damage`,
         `${unarmedOrWeapon}-damage`,
+        group ? `${group}-group-damage` : null,
+        baseType ? `${baseType}-base-damage` : null,
         "attack-damage",
         "strike-damage",
         "damage",
-    ];
+    ]);
 
     if (weapon.group) {
         domains.push(`${weapon.group}-weapon-group-damage`);
@@ -350,8 +357,6 @@ function getStrikeDamageDomains(
     }
 
     // Include selectors for "equivalent weapons": longbow for composite longbow, etc.
-    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-    const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     if (baseType && !domains.includes(`${baseType}-damage`)) {
         domains.push(`${baseType}-damage`);
     }

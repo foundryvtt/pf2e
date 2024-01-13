@@ -291,7 +291,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -752,7 +752,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -883,7 +883,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1414,7 +1414,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature that Reast can see damages a follower of Groetus other than Reast</p>\n<hr />\n<p><strong>Effect</strong> Reast gains the effect of a 1st-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Sure Strike]</em> spell. If Reast makes an attack roll against anyone other than the triggering creature, the true strike ends with no effect.</p>\n<p>Reast can use this reaction once per day.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature that Reast can see damages a follower of Groetus other than Reast</p>\n<hr />\n<p><strong>Effect</strong> Reast gains the effect of a 1st-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Sure Strike]</em> spell. If Reast makes an attack roll against anyone other than the triggering creature, the true strike ends with no effect.</p>\n<p>Reast can use this reaction once per day.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1587,12 +1587,6 @@
                 "temp": 0,
                 "value": 24
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1600,6 +1594,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 2
             },
@@ -1610,6 +1610,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-22: Doom of Cassomir"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1632,17 +1640,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

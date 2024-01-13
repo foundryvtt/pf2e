@@ -1069,8 +1069,8 @@
                     "value": "<p>Drawing your hand in a sweeping gesture, you shroud the target in a veil of night. The target's eyes are blanketed in darkness. If you cast this hex on a willing ally (for instance, one with light blindness), the ally can choose which result it gets without rolling. Regardless of the outcome, the target is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is shrouded in murky darkness. Unless the target has @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision], other creatures are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to it.</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1108,7 +1108,6 @@
                     "value": [
                         "cantrip",
                         "darkness",
-                        "focus",
                         "hex",
                         "manipulate",
                         "witch"
@@ -1144,8 +1143,8 @@
                     "value": "<p>You draw the target into a drowsy state, causing daydreams and sluggishness. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes a -1 status penalty to Perception, attack rolls, and Will saves. This penalty increases to -2 for Will saves against sleep effects.</p>\n<p><strong>Failure</strong> As success, and any time the target uses a concentrate action, it must succeed at a @Check[type:flat|dc:5] or the action is disrupted.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Veil of Dreams]</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1509,12 +1508,6 @@
                 "temp": 0,
                 "value": 10
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 9
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1522,6 +1515,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "mahwek"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -1532,6 +1532,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #4-12: Negotiations for the Star Gun"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1554,17 +1562,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": [
-                    "common",
-                    "mahwek"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

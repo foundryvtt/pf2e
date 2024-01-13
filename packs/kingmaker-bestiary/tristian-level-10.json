@@ -25,7 +25,7 @@
                 "rules": [
                     {
                         "key": "Sense",
-                        "selector": "lowLightVision"
+                        "selector": "low-light-vision"
                     },
                     {
                         "key": "Sense",
@@ -232,15 +232,17 @@
                         "grantedId": "NaGBwRrjBDGJf759",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Multilingual"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.traits.languages.value",
-                        "value": "empyrean"
                     }
                 ],
                 "slug": "angelkin",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "empyrean"
+                        ],
+                        "slots": 0
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -295,8 +297,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1732,7 +1760,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -3002,7 +3030,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>You're a conduit for vitality energy, and as you channel it through you, it heals some of your minor injuries.</p>\n<p>When you cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell to heal a single creature other than yourself, you regain Hit Points equal to the spell level of the heal spell.</p>"
+                    "value": "<p>You're a conduit for vitality energy, and as you channel it through you, it heals some of your minor injuries.</p>\n<p>When you cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell to heal a single creature other than yourself, you regain Hit Points equal to the spell rank of the heal spell.</p>"
                 },
                 "level": {
                     "taken": 8,
@@ -3408,8 +3436,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3495,7 +3549,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -3582,7 +3636,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 2
@@ -3643,7 +3697,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -4139,11 +4193,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>The object glows with soft golden light that lays bare the truth, reveals hidden objects, and shines supernatural light on false orders. The object casts bright light in a 60-foot radius (and dim light for the next 60 feet). Within the area of bright light, Perception checks to locate hidden objects (including secret doors but not traps), Will saves to resist visual illusions, and Will saves to resist effects placed by evil creatures that inflict the controlled condition all gain a +2 status bonus. This light suppresses magical darkness of your Dawnflower's light spell's level or lower.</p>\n<p>Finally, the supernatural light created by this spell is similar to sunlight, and while it can't damage creatures normally harmed by sunlight, it does make them uncomfortable so that they suffer a -2 status penalty to saves versus fear effects while in the area of bright light.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +3.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +4.</p>"
+                    "value": "<p>The object glows with soft golden light that lays bare the truth, reveals hidden objects, and shines supernatural light on false orders. The object casts bright light in a 60-foot radius (and dim light for the next 60 feet). Within the area of bright light, Perception checks to locate hidden objects (including secret doors but not traps), Will saves to resist visual illusions, and Will saves to resist effects placed by evil creatures that inflict the controlled condition all gain a +2 status bonus. This light suppresses magical darkness of your Dawnflower's light spell's rank or lower.</p>\n<p>Finally, the supernatural light created by this spell is similar to sunlight, and while it can't damage creatures normally harmed by sunlight, it does make them uncomfortable so that they suffer a -2 status penalty to saves versus fear effects while in the area of bright light.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +3.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +4.</p>"
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 4
@@ -4582,7 +4636,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -4877,7 +4931,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -5235,7 +5289,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -5420,15 +5474,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5555,15 +5609,16 @@
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "will",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "resolve",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5860,15 +5915,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -5917,15 +5972,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "third-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "spellcasting": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -6027,9 +6082,6 @@
                 "temp": 0,
                 "value": 128
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -6095,6 +6147,15 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "fey",
+                    "hallit",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -6117,6 +6178,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -6194,22 +6258,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "fey",
-                    "hallit",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

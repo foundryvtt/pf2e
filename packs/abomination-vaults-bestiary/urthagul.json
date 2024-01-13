@@ -19,7 +19,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This concave lens has a drifting crimson cloud resembling slowly swirling blood within it. While you have the Crimson Fulcrum Lens invested, you seethe with malevolent fury you can barely contain. You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack). You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crimson Fulcrum Lens]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You grasp the Crimson Fulcrum Lens in one hand and make a Strike that doesn't require that hand. The Strike deals an additional 1d8 precision damage (or 2d8 precision damage if you make a jaws Strike) and doesn't count toward your multiple attack penalty.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<hr />\n<p><strong>Effect</strong> While grasping the lens, make a melee spell attack roll with a modifier of +18. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
+                    "value": "<p>This concave lens has a drifting crimson cloud resembling slowly swirling blood within it. While you have the <em>Crimson Fulcrum Lens</em> invested, you seethe with malevolent fury you can barely contain. You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack). You can also activate the lens in the following ways.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Crimson Fulcrum Lens]</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You grasp the <em>Crimson Fulcrum Lens</em> in one hand and make a Strike that doesn't require that hand. The Strike deals an additional 1d8 precision damage (or 2d8 precision damage if you make a jaws Strike) and doesn't count toward your multiple attack penalty.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (attack, possession)</p>\n<p><strong>Effect</strong> While grasping the lens, make a melee spell attack roll with a modifier of [[/r 1d20+18]]{+18}. On a hit, you force the splinter of Nhimbaloth's essence from the lens to possess the target. You're no longer invested in the lens, and the target gains the benefits as though it had invested the lens but can't activate the lens's other abilities. This effect is permanent, but it can be ended by any effect that removes a possession effect. The lens doesn't have any magical abilities until the possession effect ends; when it does, the essence returns to the lens.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -50,30 +50,35 @@
                 "quantity": 1,
                 "rules": [
                     {
-                        "key": "FlatModifier",
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.ItemStrike",
+                        "option": "crimson-fulcrum-lens-strike",
+                        "toggleable": true
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
                         "predicate": [
-                            "fear"
+                            "crimson-fulcrum-lens-strike",
+                            {
+                                "not": "item:base:jaws"
+                            }
                         ],
-                        "selector": "saving-throw",
-                        "type": "item",
-                        "value": 2
+                        "selector": "strike-damage"
                     },
                     {
-                        "key": "FlatModifier",
-                        "selector": "melee-strike-damage",
-                        "slug": "crimson-fulcrum-lens",
-                        "type": "item",
-                        "value": 2
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "mode": "upgrade",
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
                         "predicate": [
+                            "crimson-fulcrum-lens-strike",
                             "item:base:jaws"
                         ],
-                        "selector": "melee-strike-damage",
-                        "slug": "crimson-fulcrum-lens",
-                        "value": 4
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": "crimson-fulcrum-lens",
@@ -569,12 +574,6 @@
                 "temp": 0,
                 "value": 175
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -587,6 +586,12 @@
         },
         "details": {
             "blurb": "Male gug (Pathfinder Bestiary 198)",
+            "languages": {
+                "details": "",
+                "value": [
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -597,6 +602,18 @@
                 "remaster": false,
                 "title": "Pathfinder Abomination Vaults Hardcover Compilation"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -614,17 +631,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "sakvroth"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

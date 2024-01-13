@@ -888,8 +888,7 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "plant",
-                        "primal"
+                        "plant"
                     ]
                 }
             },
@@ -1495,8 +1494,7 @@
                         "emotion",
                         "incapacitation",
                         "manipulate",
-                        "mental",
-                        "primal"
+                        "mental"
                     ]
                 }
             },
@@ -1524,7 +1522,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2374,7 +2372,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A defaced naiad queen suffers from shame when it attacks any target that can cast primal spells, any fey creature, or any creature that can cast divine spells and worships a deity or faith associated with nature or the First World (such as Gozreh, one of the Eldest, or the Green Faith). Forgive Foe can be attempted against a defaced naiad queen with a @Check[type:diplomacy|dc:36] check or Nature check. If a defaced naiad queen is affected by a critical success from Forgive Foe, its eyes are restored and it cries out in relief an instant before it vanishes, returning to the First World as a chaotic neutral naiad queen. As it does so, a wave of emotional thanks and inspiration infuse the character who used Forgive Foe, granting them a +3 status bonus to Lore checks and saves against fear effects for 24 hours.</p>"
+                    "value": "<p>A defaced naiad queen suffers from shame when it attacks any target that can cast primal spells, any fey creature, or any creature that can cast divine spells and worships a deity or faith associated with nature or the First World (such as Gozreh, one of the Eldest, or the Green Faith). @UUID[Compendium.pf2e.adventure-specific-actions.Item.Forgive Foe] can be attempted against a defaced naiad queen with a @Check[type:diplomacy|dc:36] check or Nature check. If a defaced naiad queen is affected by a critical success from Forgive Foe, its eyes are restored and it cries out in relief an instant before it vanishes, returning to the First World as a chaotic neutral naiad queen. As it does so, a wave of emotional thanks and inspiration infuse the character who used Forgive Foe, granting them a +3 status bonus to Lore checks and saves against fear effects for 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Forgiven Defaced Naiad Queen's Thanks]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2474,7 +2472,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Creatures that start their turn in this aura must succeed at a @Check[type:will|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] as their eyes cloud with blood, darkening their vision. This effect persists as long as the creature continues to begin its turn within the aura, even if it can't see the defaced naiad on subsequent turns.</p>"
+                    "value": "<p>30 feet. Creatures that start their turn in this aura must succeed at a @Check[type:will|dc:33] save or become @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] as their eyes cloud with blood, darkening their vision. This effect persists as long as the creature continues to begin its turn within the aura, even if it can't see the defaced naiad on subsequent turns.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2863,12 +2861,6 @@
                 "temp": 0,
                 "value": 230
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 28
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -2888,6 +2880,14 @@
         },
         "details": {
             "blurb": "Variant female naiad queen",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "elven",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -2898,6 +2898,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 28,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2920,19 +2932,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "elven",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "med"
             },

@@ -135,7 +135,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "levels": {
@@ -313,7 +313,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a wave of energy that ripples through the earth. Terrestrial creatures in the affected area must attempt a Reflex save to avoid stumbling as the shockwave shakes the ground.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of its next turn.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature takes 1d6 damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The area increases by 5 feet (to a 20-foot cone at 2nd level, and so on).</p>"
+                    "value": "<p>You create a wave of energy that ripples through the earth. Terrestrial creatures in the affected area must attempt a Reflex save to avoid stumbling as the shockwave shakes the ground.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of its next turn.</p>\n<p><strong>Failure</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature takes 1d6 damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The area increases by 5 feet (to a 20-foot cone at 2nd rank, and so on).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -979,12 +979,6 @@
                 "temp": 0,
                 "value": 110
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -1003,6 +997,14 @@
         },
         "details": {
             "blurb": "Genderless alien entity of unknown provenance",
+            "languages": {
+                "details": "can't speak any language; telepathy 100 feet",
+                "value": [
+                    "common",
+                    "kholo",
+                    "osiriani"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1013,6 +1015,23 @@
                 "remaster": false,
                 "title": "Pathfinder #179: Cradle of Quartz"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1030,19 +1049,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Can't Speak Any Language; Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "kholo",
-                    "osiriani"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "med"
             },

@@ -1,5 +1,5 @@
 <form autocomplete="off">
-    <table class="pf2-table">
+    <table class="pf2e" data-tooltip-class="pf2e">
         <thead>
             <tr>
                 <th>{{localize "PF2E.Actor.Creature.Sense.Label"}}</th>
@@ -8,23 +8,69 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td class="type">
+                    <div class="container">
+                        <input
+                            type="checkbox"
+                            id="{{@root.options.id}}-vision"
+                            name="system.perception.vision"
+                            {{checked vision.value}}
+                            {{disabled (not vision.editable)}}
+                        />
+                        <label for="{{@root.options.id}}-vision">{{localize "PF2E.Actor.Creature.Sense.Type.Vision"}}</label>
+                        {{#if vision.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{vision.source}}"></i>{{/if}}
+                    </div>
+                </td>
+                <td class="acuity">
+                    <select disabled>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Precise"}}</option>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Imprecise"}}</option>
+                        <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Vague"}}</option>
+                    </select>
+                </td>
+                <td class="range">
+                    <input type="number" disabled />
+                </td>
+            </tr>
             {{#each choices as |choice key|}}
-                <tr class="sense">
-                    <td>
-                        <input type="checkbox" id="{{@root.options.id}}-{{key}}" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                        <label for="{{@root.options.id}}-{{key}}">{{choice.label}}</label>
+                <tr>
+                    <td class="type">
+                        <div class="container">
+                            <input
+                                type="checkbox"
+                                id="{{@root.options.id}}-{{key}}"
+                                name="{{key}}"
+                                {{checked choice.selected}}
+                                {{disabled choice.source}}
+                            />
+                            <label for="{{@root.options.id}}-{{key}}">{{choice.label}}</label>
+                            {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}"></i>{{/if}}
+                        </div>
                     </td>
-                    <td>
-                        <select name="{{key}}" {{disabled (or choice.disabled choice.mandatoryAcuity)}}>
-                            {{#each ../senseAcuity as |acuity k|}}
-                                <option value={{k}}{{#if (eq k choice.acuity)}} selected{{/if}}>{{localize acuity}}</option>
-                            {{/each}}
+                    <td class="acuity">
+                        <select name="{{key}}" {{disabled (not choice.canSetAcuity)}}>
+                            {{#select choice.acuity}}
+                                {{#each ../senseAcuities as |label acuity|}}
+                                    <option value="{{acuity}}">{{localize label}}</option>
+                                {{/each}}
+                            {{/select}}
                         </select>
                     </td>
-                    <td>
-                        {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
-                            <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" min="0" max="1000" {{choice.disabled}} />
-                        {{/unless}}
+                    <td class="range">
+                        <input
+                            type="number"
+                            id="input_value_{{key}}"
+                            name="{{key}}"
+                            value="{{choice.range}}"
+                            {{#if choice.canSetRange}}
+                                min="5"
+                                max="1000"
+                                step="5"
+                            {{else}}
+                                disabled
+                            {{/if}}
+                        />
                     </td>
                 </tr>
             {{/each}}

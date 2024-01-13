@@ -214,7 +214,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>Wind and lightning have always been close friends to you. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</em> cantrip as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>"
+                    "value": "<p>Wind and lightning have always been close friends to you. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</em> cantrip as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -2660,7 +2660,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -3160,12 +3160,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
                         "value": 2
                     },
@@ -3185,12 +3179,6 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
                         "value": 2
                     },
                     {
@@ -3225,6 +3213,16 @@
                     }
                 ],
                 "slug": "weapon-tricks",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3389,7 +3387,7 @@
                         "tengu"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -3469,9 +3467,6 @@
                 "temp": 0,
                 "value": 61
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3547,6 +3542,13 @@
             "keyability": {
                 "value": "dex"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "tengu"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3565,6 +3567,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3653,21 +3658,6 @@
             "thi": {
                 "rank": 2
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "tengu"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

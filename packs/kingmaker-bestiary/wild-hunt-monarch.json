@@ -532,7 +532,7 @@
             "system": {
                 "area": null,
                 "cost": {
-                    "value": "faerie circle ingredients worth a total value of 1 gp × the spell level × the target's level"
+                    "value": "faerie circle ingredients worth a total value of 1 gp × the spell rank × the target's level"
                 },
                 "counteraction": false,
                 "damage": {},
@@ -578,10 +578,10 @@
                 },
                 "traits": {
                     "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
+                    "traditions": [
                         "arcane"
-                    ]
+                    ],
+                    "value": []
                 }
             },
             "type": "spell"
@@ -775,8 +775,7 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "plant",
-                        "primal"
+                        "plant"
                     ]
                 }
             },
@@ -984,8 +983,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -1183,7 +1181,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1710,7 +1708,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>1 mile @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A wild hunt monarch increases the range of wild hunt link to affect all wild hunt members within a mile. Other wild hunt creatures in this link who end their turn within 60 feet of a wild hunt monarch gain regeneration 50 until the end of their next turn; this regeneration can only be deactivated by forcing the wild hunt out of the 60-foot aura or by killing the wild hunt monarch.</p>"
+                    "value": "<p>1 mile. A wild hunt monarch increases the range of wild hunt link to affect all wild hunt members within a mile. Other wild hunt creatures in this link who end their turn within 60 feet of a wild hunt monarch gain regeneration 50 until the end of their next turn; this regeneration can only be deactivated by forcing the wild hunt out of the 60-foot aura or by killing the wild hunt monarch.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1857,7 +1855,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Those who meet the gaze of a wild hunt monarch come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:39] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt monarch can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt monarch come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:39] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt monarch can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2320,12 +2318,6 @@
                 "temp": 0,
                 "value": 450
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
@@ -2339,6 +2331,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals; speak with plants",
+                "value": [
+                    "aklo",
+                    "common",
+                    "draconic",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -2349,6 +2350,23 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "greensight",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2371,20 +2389,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "speak with animals; speak with plants",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "draconic",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, greensight, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "med"
             },

@@ -1,8 +1,8 @@
 import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
-import { SenseAcuity, SenseType } from "@actor/creature/sense.ts";
-import { LANGUAGES } from "@actor/creature/values.ts";
-import { ActorType } from "@actor/data/index.ts";
-import { AttributeString } from "@actor/types.ts";
+import { SenseAcuity } from "@actor/creature/types.ts";
+import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
+import { ActorType, AttributeString } from "@actor/types.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import {
     AbilityItemPF2e,
     AfflictionPF2e,
@@ -29,12 +29,13 @@ import {
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
+import { ArmorCategory, ArmorGroup } from "@item/armor/types.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
 import { CONSUMABLE_CATEGORIES } from "@item/consumable/values.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { FeatOrFeatureCategory } from "@item/feat/index.ts";
 import { PreciousMaterialGrade } from "@item/physical/types.ts";
-import { MeleeWeaponGroup, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
+import { MeleeWeaponGroup, WeaponCategory, WeaponGroup, WeaponReloadTime } from "@item/weapon/types.ts";
 import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
@@ -91,24 +92,12 @@ const abilities: Record<AttributeString, string> = {
 };
 
 // Senses
-const senses: Record<SenseType, string> = {
-    darkvision: "PF2E.Actor.Creature.Sense.Type.Darkvision",
-    echolocation: "PF2E.Actor.Creature.Sense.Type.Echolocation",
-    greaterDarkvision: "PF2E.Actor.Creature.Sense.Type.GreaterDarkvision",
-    heatsight: "PF2E.Actor.Creature.Sense.Type.Heatsight",
-    lifesense: "PF2E.Actor.Creature.Sense.Type.Lifesense",
-    lowLightVision: "PF2E.Actor.Creature.Sense.Type.LowLightVision",
-    motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
-    scent: "PF2E.Actor.Creature.Sense.Type.Scent",
-    seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
-    spiritsense: "PF2E.Actor.Creature.Sense.Type.Spiritsense",
-    thoughtsense: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
-    tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
-    wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
-};
+const senses = R.mapToObj(Array.from(SENSE_TYPES), (t) => [
+    t,
+    `PF2E.Actor.Creature.Sense.Type.${sluggify(t, { camel: "bactrian" })}`,
+]);
 
-// Sense acuity
-const senseAcuity: Record<SenseAcuity, string> = {
+const senseAcuities: Record<SenseAcuity, string> = {
     imprecise: "PF2E.Actor.Creature.Sense.Acuity.Imprecise",
     precise: "PF2E.Actor.Creature.Sense.Acuity.Precise",
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
@@ -165,7 +154,26 @@ const conditionTypes: Record<ConditionSlug, string> = {
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
 
-const weaponCategories = {
+const armorCategories: Record<ArmorCategory, string> = {
+    unarmored: "PF2E.ArmorTypeUnarmored",
+    light: "PF2E.ArmorTypeLight",
+    medium: "PF2E.ArmorTypeMedium",
+    heavy: "PF2E.ArmorTypeHeavy",
+    "light-barding": "PF2E.Item.Armor.Category.light-barding",
+    "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
+};
+
+const armorGroups: Record<ArmorGroup, string> = {
+    composite: "PF2E.ArmorGroupComposite",
+    chain: "PF2E.ArmorGroupChain",
+    cloth: "PF2E.ArmorGroupCloth",
+    leather: "PF2E.ArmorGroupLeather",
+    plate: "PF2E.ArmorGroupPlate",
+    skeletal: "PF2E.ArmorGroupSkeletal",
+    wood: "PF2E.ArmorGroupWood",
+};
+
+const weaponCategories: Record<WeaponCategory, string> = {
     simple: "PF2E.WeaponTypeSimple",
     martial: "PF2E.WeaponTypeMartial",
     advanced: "PF2E.WeaponTypeAdvanced",
@@ -223,6 +231,11 @@ const sizeTypes: Record<Size, string> = {
     huge: "PF2E.ActorSizeHuge",
     grg: "PF2E.ActorSizeGargantuan",
 };
+
+const speedTypes = R.mapToObj(MOVEMENT_TYPES, (t) => [
+    t,
+    `PF2E.Actor.Speed.Type.${sluggify(t, { camel: "bactrian" })}`,
+]);
 
 const featCategories: Record<FeatOrFeatureCategory, string> = {
     ancestry: "PF2E.FeatTypeAncestry",
@@ -664,28 +677,9 @@ export const PF2ECONFIG = {
     },
 
     weaponReload,
-
-    armorCategories: {
-        unarmored: "PF2E.ArmorTypeUnarmored",
-        light: "PF2E.ArmorTypeLight",
-        medium: "PF2E.ArmorTypeMedium",
-        heavy: "PF2E.ArmorTypeHeavy",
-        "light-barding": "PF2E.Item.Armor.Category.light-barding",
-        "heavy-barding": "PF2E.Item.Armor.Category.heavy-barding",
-    },
-
-    armorGroups: {
-        composite: "PF2E.ArmorGroupComposite",
-        chain: "PF2E.ArmorGroupChain",
-        cloth: "PF2E.ArmorGroupCloth",
-        leather: "PF2E.ArmorGroupLeather",
-        plate: "PF2E.ArmorGroupPlate",
-        skeletal: "PF2E.ArmorGroupSkeletal",
-        wood: "PF2E.ArmorGroupWood",
-    },
-
+    armorCategories,
+    armorGroups,
     consumableCategories,
-
     identification: configFromLocalization(EN_JSON.PF2E.identification, "PF2E.identification"),
 
     preparationType: {
@@ -818,16 +812,19 @@ export const PF2ECONFIG = {
         "PF2E.ProficiencyLevel4", // legendary
     ] as const,
 
+    proficiencyRanks: {
+        untrained: "PF2E.ProficiencyLevel0",
+        trained: "PF2E.ProficiencyLevel1",
+        expert: "PF2E.ProficiencyLevel2",
+        master: "PF2E.ProficiencyLevel3",
+        legendary: "PF2E.ProficiencyLevel4",
+    } as const,
+
     actorSizes: sizeTypes,
 
     actorTypes,
 
-    speedTypes: {
-        swim: "PF2E.SpeedTypesSwim",
-        climb: "PF2E.SpeedTypesClimb",
-        fly: "PF2E.SpeedTypesFly",
-        burrow: "PF2E.SpeedTypesBurrow",
-    },
+    speedTypes,
 
     prerequisitePlaceholders: {
         prerequisite1: "PF2E.Prerequisite1",
@@ -839,7 +836,7 @@ export const PF2ECONFIG = {
 
     senses,
 
-    senseAcuity,
+    senseAcuities,
 
     conditionTypes,
 
@@ -936,7 +933,7 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Homebrew.FeatTraits.Hint",
             },
             languages: {
-                name: "PF2E.SETTINGS.Homebrew.Languages.Name",
+                name: "PF2E.Actor.Creature.Language.Plural",
                 hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
             },
             spellTraits: {
@@ -1077,7 +1074,7 @@ export const PF2ECONFIG = {
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,
-            gmVision: 0x908cb9,
+            gmVision: 0xd1ccff,
         },
     },
 };

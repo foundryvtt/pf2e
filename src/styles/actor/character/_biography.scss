@@ -1,9 +1,9 @@
 &.biography {
     & > header {
-        display: flex;
         align-items: baseline;
+        display: flex;
         justify-content: space-between;
-        padding: 0 1px;
+        padding: 0 var(--space-1);
 
         i.fa-eye-slash {
             opacity: 75%;
@@ -47,12 +47,12 @@
             flex-wrap: wrap;
 
             .bio {
+                align-items: start;
                 display: flex;
                 flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
                 flex: 50%;
-                margin-bottom: 8px;
+                justify-content: start;
+                margin-bottom: var(--space-8);
 
                 span {
                     width: 100%;
@@ -109,6 +109,7 @@
 
             &:focus {
                 border-bottom: 1px solid #644f33;
+
                 &::placeholder {
                     color: transparent;
                 }
@@ -116,12 +117,12 @@
 
             &[type="number"] {
                 padding-bottom: 0;
-                padding-left: 4px;
+                padding-left: var(--space-4);
             }
         }
 
         hr {
-            margin: 10px 6px 10px 0;
+            margin: var(--space-10) var(--space-6) var(--space-10) 0;
         }
 
         .bio {
@@ -132,15 +133,15 @@
                 color: var(--text-dark);
                 font: 700 var(--font-size-14) var(--body-serif);
                 grid-area: mod;
-                height: 26px;
-                padding: 8px 4px 6px;
+                height: 1.625rem;
+                padding: var(--space-8) var(--space-4) var(--space-6);
                 width: calc(100% - 6px);
 
                 i {
-                    position: relative;
-                    right: -2px;
-                    top: -2px;
                     float: right;
+                    position: relative;
+                    right: calc(-1 * var(--space-2));
+                    top: calc(-1 * var(--space-2));
                 }
 
                 span.value {
@@ -169,23 +170,23 @@
                 h1 {
                     text-align: center;
                     font-size: 2.5em;
-                    margin-bottom: 30px;
+                    margin-bottom: 1.875rem;
                 }
 
                 h2 {
-                    color: var(--secondary);
+                    color: var(--color-pf-secondary);
                     font-size: 2.25em;
                 }
 
                 h3 {
                     font-size: 2em;
-                    border-bottom: 0px;
+                    border-bottom: 0;
                 }
 
                 h4 {
-                    color: var(--text-dark);
                     border-bottom: 1px solid var(--color-border-dark-primary);
-                    margin-bottom: 0px;
+                    color: var(--text-dark);
+                    margin-bottom: 0;
                     text-transform: uppercase;
                 }
 
@@ -195,14 +196,14 @@
 
                 h6 {
                     background-color: var(--header-bg);
+                    border-radius: var(--space-12) var(--space-12) 0 0;
                     color: var(--header-color);
-                    margin-bottom: 5px;
-                    padding-left: 8px;
-                    padding-top: 5px;
-                    padding-bottom: 3px;
                     font-size: 1.25em;
+                    margin-bottom: var(--space-5);
+                    padding-bottom: var(--space-3);
+                    padding-left: var(--space-8);
+                    padding-top: var(--space-5);
                     text-transform: uppercase;
-                    border-radius: 12px 12px 0px 0px;
                 }
 
                 p,
@@ -214,14 +215,14 @@
 
                 .editor {
                     .editor-edit {
-                        background: var(--primary);
+                        background: var(--color-pf-primary);
                         color: var(--text-light);
                     }
 
                     // When the editor is open, fill more space so the user has something to work with
                     .tox.tox-tinymce {
                         // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-                        height: 200px !important;
+                        height: 12.5rem !important;
                     }
 
                     .tox {
@@ -230,11 +231,11 @@
                                 background: none;
 
                                 .tox-toolbar-overlord {
-                                    background-color: var(--secondary);
+                                    background-color: var(--color-pf-secondary);
 
                                     .tox-toolbar {
                                         &__primary {
-                                            background-color: var(--alt);
+                                            background-color: var(--color-pf-alternate);
                                             box-shadow: inset 0 0 0 1px rgba(white, 0.3);
                                         }
                                     }
@@ -243,19 +244,39 @@
                         }
 
                         .tox-tbtn {
-                            color: #cdcdcd;
-                            border-radius: 1px;
-
-                            svg {
-                                fill: #cdcdcd;
-                            }
-
-                            &:hover {
-                                background: var(--secondary);
+                            &:not(&--disabled) {
+                                border-radius: 1px;
                                 color: var(--text-light);
+                                cursor: pointer;
+
+                                &:hover {
+                                    background: var(--color-pf-secondary);
+
+                                    svg {
+                                        fill: var(--text-light);
+                                    }
+                                }
+
+                                span {
+                                    cursor: pointer;
+                                }
 
                                 svg {
-                                    fill: white;
+                                    fill: var(--text-light);
+                                }
+                            }
+
+                            &--disabled {
+                                svg {
+                                    fill: var(--text-light-disabled);
+                                }
+                            }
+
+                            &--select {
+                                background: var(--color-pf-alternate);
+
+                                .tox-tbtn__select-label {
+                                    width: 5em;
                                 }
                             }
                         }

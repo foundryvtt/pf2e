@@ -527,7 +527,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -882,7 +882,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Isqulugia's @UUID[Compendium.pf2e.conditionitems.Item.Sickened], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] conditions can't be removed until this affliction is removed</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 hour)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 3</strong> fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 4</strong> paralyzed (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies, and its body violently transforms into a new isqulug. <em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new isqulug remains even if the victim is brought back to life.</p>"
+                    "value": "<p>Isqulugia's @UUID[Compendium.pf2e.conditionitems.Item.Sickened], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] conditions can't be removed until this affliction is removed</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (1 hour)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 3</strong> fatigued and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 4</strong> paralyzed (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies, and its body violently transforms into a new isqulug. <em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new isqulug remains even if the victim is brought back to life.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1105,12 +1105,6 @@
                     "type": "swarm-mind"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -1136,6 +1130,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1146,6 +1146,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1168,20 +1185,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision, host scent 30 feet"
-            },
             "size": {
                 "value": "med"
             },

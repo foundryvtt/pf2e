@@ -1051,7 +1051,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>An astradaemon draws power from the souls of the recently slain. If a Small or larger living creature dies within its aura, the astradaemon gains 5 temporary Hit Points and a status bonus to attack and damage rolls for 1 round, unless the creature was slain by an astradaemon's Devour Soul ability.</p>\n<p>Incorporeal undead and living spirits traveling outside the body take @Damage[1d8[force]] damage each round within the daemon's aura from the spiritual pressure as the astradaemon pulls in fragments of their soul.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Soul Siphon]</p>"
+                    "value": "<p>30 feet. An astradaemon draws power from the souls of the recently slain. If a Small or larger living creature dies within its aura, the astradaemon gains 5 temporary Hit Points and a status bonus to attack and damage rolls for 1 round, unless the creature was slain by an astradaemon's Devour Soul ability.</p>\n<p>Incorporeal undead and living spirits traveling outside the body take @Damage[1d8[force]] damage each round within the daemon's aura from the spiritual pressure as the astradaemon pulls in fragments of their soul.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Soul Siphon]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1352,12 +1352,6 @@
                     "type": "void"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 28
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1376,6 +1370,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1386,6 +1387,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 28,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 30,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1408,18 +1426,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, lifesense 30 feet; true seeing"
-            },
             "size": {
                 "value": "lg"
             },

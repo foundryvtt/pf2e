@@ -343,7 +343,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Creatures in the aura take a -2 status penalty to checks to Identify Alchemy, Recall Knowledge about alchemical subjects, or examine snake oil effects. When a creature first enters the area, if it hears the ichor slinger talking, it must attempt a secret @Check[type:will|dc:23|traits:secret] save against the slinger's Deception DC. On a failure, it treats its next failed check to Identify Alchemy or Recall Knowledge about alchemical subjects in the next 24 hours as though it were a critical failure instead. This is an auditory misfortune effect.</p>"
+                    "value": "<p>60 feet. Creatures in the aura take a -2 status penalty to checks to Identify Alchemy, Recall Knowledge about alchemical subjects, or examine snake oil effects. When a creature first enters the area, if it hears the ichor slinger talking, it must attempt a secret @Check[type:will|dc:23|traits:secret] save against the slinger's Deception DC. On a failure, it treats its next failed check to Identify Alchemy or Recall Knowledge about alchemical subjects in the next 24 hours as though it were a critical failure instead. This is an auditory misfortune effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -723,12 +723,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -737,6 +731,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "any one language",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -747,6 +748,18 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -764,18 +777,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Any One Language",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

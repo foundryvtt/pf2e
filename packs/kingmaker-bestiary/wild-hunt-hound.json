@@ -227,8 +227,7 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "plant",
-                        "primal"
+                        "plant"
                     ]
                 }
             },
@@ -257,7 +256,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -432,12 +431,12 @@
                     "traditions": [
                         "arcane",
                         "divine",
-                        "occult"
+                        "occult",
+                        "primal"
                     ],
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "primal",
                         "revelation"
                     ]
                 }
@@ -500,8 +499,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -529,7 +527,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -664,7 +662,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -845,7 +843,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:500] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A wild hunt hound grants all other members of the wild hunt in the aura except wild hunt hounds the effects of its constant <em>@UUID[Compendium.pf2e.spells-srd.Item.See the Unseen]</em> innate spell.</p>"
+                    "value": "<p>500 feet. A wild hunt hound grants all other members of the wild hunt in the aura except wild hunt hounds the effects of its constant <em>@UUID[Compendium.pf2e.spells-srd.Item.See the Unseen]</em> innate spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -957,7 +955,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Those who meet the gaze of a wild hunt hound come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:31] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt hound can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt hound come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:31] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt hound can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1266,12 +1264,6 @@
                 "temp": 0,
                 "value": 300
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 50
@@ -1285,6 +1277,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals; speak with plants",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -1295,6 +1294,26 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "greensight",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                },
+                {
+                    "type": "see-invisibility"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1312,18 +1331,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "speak with animals; speak with plants",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, greensight, scent (imprecise) 30 feet, see invisibility"
-            },
             "size": {
                 "value": "med"
             },

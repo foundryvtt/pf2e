@@ -692,16 +692,16 @@
                         "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
                         "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "light": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -842,7 +842,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -1267,7 +1267,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3032,7 +3032,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p>After you drink this bitter draft, your skin thickens like bark. You gain the effects of a 2nd-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Oaken Resilience]</em> spell for 10 minutes.</p>"
+                    "value": "<p>After you drink this bitter draft, your skin thickens like bark. You gain the effects of a 2nd-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Oaken Resilience]</em> spell for 10 minutes.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -4146,7 +4146,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Your mystery provides you with divine magical power. You can cast spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. your unconventional access to this divine power means you can usually replace material components with somatic components, so you don't need to use a material component pouch when casting spells.</p>\n<p>At 1st level, you can cast up to two 1st-level spells per day. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots. As you increase in level as an oracle, your number of spells per day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
+                    "value": "<p>Your mystery provides you with divine magical power. You can cast spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. your unconventional access to this divine power means you can usually replace material components with somatic components, so you don't need to use a material component pouch when casting spells.</p>\n<p>At 1st level, you can cast up to two 1st-rank spells per day. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots. As you increase in level as an oracle, your number of spells per day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4284,7 +4284,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and five cantrips of your choice. You choose these from the common spells from the divine spell list, or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot, you add a spell of the same level to your spell repertoire. At 2nd level, you select another 1st-level spell; at 3rd level, you select two 2nd-level spells, and so on. When you add spells, you might choose a higher-level version of a spell you already have so that you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\"><strong>Swapping Spells in your Repertoire</strong></h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
+                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank spells of your choice and five cantrips of your choice. You choose these from the common spells from the divine spell list, or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot, you add a spell of the same rank to your spell repertoire. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might choose a higher-rank version of a spell you already have so that you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\"><strong>Swapping Spells in your Repertoire</strong></h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4328,7 +4328,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Experience enables you to cast some spells more flexibly.</p>\n<p>For each spell level you have access to, choose one spell of that level to be a signature spell. You don't need to learn heightened versions of signature spells separately; instead, you can heighten these spells freely. If you've learned a signature spell at a higher level than its minimum, you can also cast all its lower-level versions without learning those separately. If you swap out a signature spell, you can replace it with any spell you could have chosen when you first selected it (i.e., of the same spell level or lower).</p>\n<p>You can also retrain specifically to change a signature spell to a different spell of that level without swapping any spells; this takes as much time as retraining a spell normally does.</p>"
+                    "value": "<p>Experience enables you to cast some spells more flexibly.</p>\n<p>For each spell rank you have access to, choose one spell of that rank to be a signature spell. You don't need to learn heightened versions of signature spells separately; instead, you can heighten these spells freely. If you've learned a signature spell at a higher level than its minimum, you can also cast all its lower-rank versions without learning those separately. If you swap out a signature spell, you can replace it with any spell you could have chosen when you first selected it (i.e., of the same spell rank or lower).</p>\n<p>You can also retrain specifically to change a signature spell to a different spell of that rank without swapping any spells; this takes as much time as retraining a spell normally does.</p>"
                 },
                 "level": {
                     "value": 3
@@ -4660,6 +4660,7 @@
                 },
                 "rules": [
                     {
+                        "baseType": "claw",
                         "category": "unarmed",
                         "damage": {
                             "base": {
@@ -4771,9 +4772,6 @@
                 "temp": 0,
                 "value": 58
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "resistances": [
                 {
                     "type": "physical",
@@ -4852,6 +4850,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "iruxi"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -4870,6 +4875,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4958,21 +4966,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "iruxi"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

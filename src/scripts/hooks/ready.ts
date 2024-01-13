@@ -79,6 +79,8 @@ export const Ready = {
                 }
             });
 
+            game.settings.get("pf2e", "homebrew.languageRarities").onReady();
+
             // Update chat messages to add set-as-initiative buttons to skill checks
             for (const li of htmlQueryAll(document.body, "#chat-log > li.message")) {
                 SetAsInitiative.listen(li);
@@ -94,8 +96,7 @@ export const Ready = {
                 canvas.ready &&
                 game.user.isGM &&
                 !game.modules.get("gm-vision")?.active &&
-                !game.modules.get("perfect-vision")?.active &&
-                game.settings.get("pf2e", "gmVision")
+                game.pf2e.settings.gmVision
             ) {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
                 canvas.colorManager.initialize();

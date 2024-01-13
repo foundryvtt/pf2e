@@ -687,7 +687,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -1433,7 +1433,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>With a touch, the ghost attempts to drain a living creature's life force. It makes a ghostly hand Strike but deals no damage on a hit.</p>\n<p>Instead, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 day, and the ghost regains HP equal to half its own level.</p>"
+                    "value": "<p>With a touch, the ghost attempts to drain a living creature's life force. It makes a ghostly hand Strike but deals no damage on a hit.</p>\n<p>Instead, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 day, and the ghost regains [[/r (max(1,floor(@actor.level/2)))[healing]]]{HP equal to half its own level}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1706,12 +1706,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -1738,6 +1732,14 @@
         },
         "details": {
             "blurb": "Male halfling ghost",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "gnomish",
+                    "halfling"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1748,6 +1750,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1765,19 +1779,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "gnomish",
-                    "halfling"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

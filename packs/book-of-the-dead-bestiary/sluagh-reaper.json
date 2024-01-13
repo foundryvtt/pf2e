@@ -207,7 +207,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:26]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>30 feet. @Check[type:will|dc:26]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -602,12 +602,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -627,6 +621,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -637,6 +639,23 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -654,19 +673,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision, soulscent (imprecise) 100 feet"
-            },
             "size": {
                 "value": "med"
             },

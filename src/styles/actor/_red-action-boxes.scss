@@ -3,28 +3,27 @@
     flex-direction: column;
 
     .section-header {
-        border: 1px solid var(--primary);
-        border-radius: 3px 3px 0px 0px;
-        background: var(--primary);
-
-        display: flex;
-        flex: 0;
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
         align-items: baseline;
-        text-align: left;
+        background: var(--color-pf-primary);
+        border-radius: 3px 3px 0 0;
+        border: 1px solid var(--color-pf-primary);
         color: var(--text-light);
+        display: flex;
+        flex-direction: row;
+        flex: 0;
         font-size: var(--font-size-13);
-        padding: 0 8px;
+        justify-content: space-between;
         line-height: 2em;
+        padding: 0 var(--space-8);
+        text-align: left;
+        width: 100%;
 
         h4 {
-            flex: auto;
-            display: flex;
             align-items: baseline;
-            gap: 4px;
-            margin-bottom: 0px;
+            display: flex;
+            flex: auto;
+            gap: var(--space-4);
+            margin-bottom: 0;
             text-transform: uppercase;
         }
 
@@ -34,20 +33,18 @@
         }
 
         .controls {
-            gap: 0.5rem;
+            gap: var(--space-8);
             white-space: nowrap;
         }
     }
 
     .section-body {
-        border: 1px solid var(--primary);
-        border-radius: 0px 0px 3px 3px;
-
-        display: flex;
-        flex: auto;
-        flex-wrap: wrap;
-        flex-direction: row;
         align-items: baseline;
+        border-radius: 0 0 3px 3px;
+        border: 1px solid var(--color-pf-primary);
+        display: flex;
+        flex-flow: row wrap;
+        flex: auto;
         justify-content: flex-start;
         width: 100%;
     }
@@ -69,12 +66,12 @@
         flex: 0;
         flex-wrap: nowrap;
         font-size: var(--font-size-12);
-        gap: 1px;
+        gap: var(--space-1);
         margin-left: auto;
 
         .chat {
-            margin-right: 2px;
             font-size: 0.9em;
+            margin-right: var(--space-2);
         }
     }
 
@@ -88,7 +85,7 @@
 
             .flexrow,
             .sub-section {
-                gap: 2px;
+                gap: var(--space-2);
             }
 
             .sub-section {
@@ -109,8 +106,8 @@
                 border-radius: 3px;
                 border: none;
                 box-shadow:
-                    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-                    inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                    inset 0 0 0 1px rgba(black, 0.3),
+                    inset 0 0 0 2px rgba(white, 0.2);
                 color: var(--color-text-light-0);
                 cursor: pointer;
                 font-size: var(--font-size-11);
@@ -118,7 +115,7 @@
                 justify-content: center;
                 line-height: var(--font-size-18);
                 margin: 0;
-                padding: 0 8px;
+                padding: 0 var(--space-8);
                 white-space: nowrap;
                 width: auto;
 
@@ -133,12 +130,12 @@
             }
 
             .attack-button {
-                background-color: var(--secondary);
+                background-color: var(--color-pf-secondary);
             }
 
             .damage-button,
             .critical-button {
-                background-color: var(--primary);
+                background-color: var(--color-pf-primary);
             }
         }
 
@@ -152,8 +149,8 @@
         display: flex;
         flex-direction: row;
         justify-content: start;
-        gap: 0.25rem;
-        padding: 0.25rem 0;
+        gap: var(--space-4);
+        padding: var(--space-4) 0;
 
         &:last-child {
             border-bottom: none;
@@ -165,23 +162,23 @@
             flex-wrap: wrap;
             font-size: 0.9rem;
             font-weight: 500;
-            gap: 2px;
-            margin: 0 4px 0 0;
+            gap: var(--space-2);
+            margin: 0 var(--space-4) 0 0;
             white-space: nowrap;
 
             > span,
             > a {
                 display: flex;
-                gap: 3px;
+                gap: var(--space-3);
                 line-height: 1.125rem;
-                margin-right: 4px;
+                margin-right: var(--space-4);
             }
         }
     }
 
     li.action {
         display: flex;
-        gap: 0.25rem;
+        gap: var(--space-4);
 
         &:not(:last-child) {
             border-bottom: 1px solid var(--color-border-light-tertiary);
@@ -190,7 +187,7 @@
         > h4 {
             align-items: center;
             display: flex;
-            gap: 0.25rem;
+            gap: var(--space-4);
             flex: auto;
             font-size: 0.9rem;
             margin: 0;
@@ -198,14 +195,14 @@
             > a {
                 align-items: center;
                 display: flex;
-                gap: 2px;
+                gap: var(--space-2);
             }
         }
 
         .button-group > button.use-action {
+            background-color: var(--color-pf-secondary);
             color: var(--color-text-light-0);
-            background-color: var(--secondary);
-            margin-right: 0.5rem;
+            margin-right: var(--space-8);
         }
 
         .action-traits {
@@ -213,11 +210,10 @@
         }
 
         .tracking {
-            flex: 0;
             align-items: center;
             display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
+            flex-flow: row nowrap;
+            flex: 0;
             margin-left: auto;
             margin-right: var(--font-size-16);
 
@@ -225,11 +221,10 @@
                 background: none;
                 border: 0;
                 flex: 0 1 4rem;
-                flex: 1;
                 font-family: inherit;
                 font-size: 0.9rem;
                 height: auto;
-                padding: 0 3px;
+                padding: 0 var(--space-3);
                 text-align: center;
                 width: 0;
             }

@@ -683,7 +683,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -748,7 +748,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -885,7 +885,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1664,12 +1664,6 @@
                 "temp": 0,
                 "value": 275
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -1694,6 +1688,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 60 feet; tongues",
+                "value": [
+                    "akitonian"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -1704,6 +1704,23 @@
                 "remaster": false,
                 "title": "Pathfinder #173: Doorway to the Red Star"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "thoughtsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1721,17 +1738,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 60 feet; Tongues",
-                "selected": [],
-                "value": [
-                    "akitonian"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, thoughtsense 60 feet"
-            },
             "size": {
                 "value": "med"
             },

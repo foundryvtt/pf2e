@@ -16,7 +16,7 @@ interface BaseStatisticData {
 /** Used to build the actual statistic object */
 interface StatisticData extends BaseStatisticData {
     attribute?: AttributeString | null;
-    rank?: ZeroToFour | "untrained-level";
+    rank?: ZeroToFour;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     lore?: boolean;

@@ -16,6 +16,7 @@
         "level": {
             "value": 1
         },
+        "maxTakable": 2,
         "prerequisites": {
             "value": []
         },
@@ -24,19 +25,22 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [
-            {
-                "key": "Sense",
-                "selector": "lowLightVision"
-            },
-            {
-                "key": "Sense",
-                "predicate": [
-                    "self:low-light-vision:from-ancestry"
-                ],
-                "selector": "darkvision"
+        "rules": [],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {
+                    "special": {
+                        "ancestry": true,
+                        "llv": false,
+                        "second": true
+                    }
+                },
+                "low-light-vision": {
+                    "acuity": "imprecise",
+                    "range": 30
+                }
             }
-        ],
+        },
         "traits": {
             "rarity": "common",
             "value": [

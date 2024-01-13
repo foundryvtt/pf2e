@@ -1,10 +1,9 @@
-import type { CharacterPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CharacterPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { setHasElement, sluggify } from "@util";
+import { sluggify, tupleHasValue } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
@@ -51,7 +50,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
         const systemData = this.actor.system;
         const skillLongForms: Record<string, { shortForm?: string } | undefined> = SKILL_EXPANDED;
         const proficiency = skillLongForms[selector]?.shortForm ?? selector;
-        const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
+        const statistic = tupleHasValue(SKILL_ABBREVIATIONS, proficiency)
             ? this.actor.skills[proficiency]
             : proficiency === "ac"
               ? systemData.attributes.ac

@@ -1774,7 +1774,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[type:fortitude|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes @Damage[4d6[piercing]] damage, plus @Damage[5[void]] damage for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[8d6[piercing]] damage, plus @Damage[10[void]] damage for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>60 feet. Any creature that ends its turn in the aura while in possession of any crystals, gemstones, or other precious stones must attempt a @Check[type:fortitude|dc:39|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to the aura for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature's crystals reverberate with Ulressia's vengeful aura, sharpening at every corner and digging, as if powerfully magnetized, into the creature's flesh.</p>\n<p>The creature takes @Damage[4d6[piercing]] damage, plus @Damage[5[void]] damage for every 2,000 gp the crystals are cumulatively worth (maximum 40 damage).</p>\n<p>The creature can't discard the crystals until they leave the aura or roll a successful save against it.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[8d6[piercing]] damage, plus @Damage[10[void]] damage for every 2,000 gp of the crystals' value (maximum 80 damage).</p>\n<hr />\n<p>Ulressia can deactivate or activate this aura using a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2013,12 +2013,6 @@
                 "temp": 0,
                 "value": 355
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "resistances": [
                 {
                     "type": "energy",
@@ -2043,6 +2037,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "diabolic",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -2054,6 +2056,18 @@
                 "title": "Pathfinder #162: Ruins of the Radiant Siege"
             },
             "sidebarText": ""
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "crystal sense (imprecise) 30 feet",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2076,19 +2090,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "diabolic",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "crystal sense (imprecise) 30 feet, darkvision"
-            },
             "size": {
                 "value": "med"
             },

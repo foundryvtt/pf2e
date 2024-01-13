@@ -2914,7 +2914,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3210,7 +3210,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -3332,7 +3332,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This polished black wand has a green gem at the tip, and anyone who looks into it sees a reflection of a grinning skull instead of their face.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> Once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Execute]</em> at 7th level.</p>\n<p>If the spell slays its target, the corpse releases void energy in a @Template[type:emanation|distance:20], dealing void damage equal to double the spell's level (@Damage[14[void]] damage).</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply a casting of finger of death of the appropriate level.</p>"
+                    "value": "<p>This polished black wand has a green gem at the tip, and anyone who looks into it sees a reflection of a grinning skull instead of their face.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> Once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Execute]</em> at 7th rank.</p>\n<p>If the spell slays its target, the corpse releases void energy in a @Template[type:emanation|distance:20], dealing void damage equal to double the spell's rank (@Damage[14[void]] damage).</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply a casting of finger of death of the appropriate rank.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -3980,12 +3980,6 @@
                 "temp": 0,
                 "value": 324
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 38
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -4002,6 +3996,15 @@
         },
         "details": {
             "blurb": "Variant female annis hag",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -4012,6 +4015,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 38,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -4039,20 +4054,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey",
-                    "jotun"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

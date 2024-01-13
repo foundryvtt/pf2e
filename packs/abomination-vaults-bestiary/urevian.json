@@ -136,7 +136,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -424,7 +424,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -841,7 +841,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 3
@@ -906,7 +906,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1180,7 +1180,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1246,7 +1246,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> rank, two devils whose levels are each at least 2 less than double the spell rank, or three devils whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1996,12 +1996,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "deception"
-            },
-            "perception": {
-                "value": 19
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -2028,6 +2022,18 @@
         },
         "details": {
             "blurb": "Male phistophilus field commander",
+            "languages": {
+                "details": "telepathy 100 feet, tongues",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "common",
+                    "diabolic",
+                    "empyrean",
+                    "necril",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -2038,6 +2044,18 @@
                 "remaster": false,
                 "title": "Pathfinder #164: Hands of the Devil"
             }
+        },
+        "initiative": {
+            "statistic": "deception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2065,23 +2083,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet, Tongues",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "common",
-                    "diabolic",
-                    "empyrean",
-                    "necril",
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

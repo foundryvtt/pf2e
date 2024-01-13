@@ -35,6 +35,9 @@ import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
     }
@@ -178,7 +181,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: MouseEvent | JQuery.TriggeredEvent,
+        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
         options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
@@ -223,15 +226,21 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
         this.rules = [];
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
+     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     */
     override prepareData(): void {
-        if (this.parent && !this.parent.flags?.pf2e) return;
-
-        super.prepareData();
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
@@ -862,11 +871,12 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>],
     ) {
+        const source = args[0];
         const type =
-            args[0]?.type === "armor" && (args[0].system?.category as string | undefined) === "shield"
+            source?.type === "armor" && (source.system?.category as string | undefined) === "shield"
                 ? "shield"
-                : args[0]?.type;
-        const ItemClass = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
+                : source?.type;
+        const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
         return new ItemClass(...args);
     },
 });

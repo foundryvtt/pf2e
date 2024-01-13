@@ -197,7 +197,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures entering the aura or starting their turn in the aura must succeed at a @Check[type:will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}. As a reflection of Ulthadar's emotional state, this aura is active when Ulthadar is agitated or angry and is suppressed when he is calm.</p>"
+                    "value": "<p>30 feet. Creatures entering the aura or starting their turn in the aura must succeed at a @Check[type:will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3}. As a reflection of Ulthadar's emotional state, this aura is active when Ulthadar is agitated or angry and is suppressed when he is calm.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -331,7 +331,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Ulthadar attempts to drain a living creature's life force. He makes a ghostly hand Strike but deals no damage on a hit. Instead, the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 day and Ulthadar regains [[/r 4]]{4 Hit Points}.</p>"
+                    "value": "<p>Ulthadar attempts to drain a living creature's life force. He makes a ghostly hand Strike but deals no damage on a hit. Instead, the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} for 1 day and Ulthadar regains [[/r 4[healing]]]{4 Hit Points}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -554,12 +554,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -586,6 +580,13 @@
         },
         "details": {
             "blurb": "Male ghost high priest of Aroden",
+            "languages": {
+                "details": "",
+                "value": [
+                    "azlanti",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -596,6 +597,18 @@
                 "remaster": false,
                 "title": "Pathfinder #152: Legacy of the Lost God"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -613,18 +626,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "azlanti",
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

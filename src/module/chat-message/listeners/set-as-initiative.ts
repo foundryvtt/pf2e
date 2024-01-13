@@ -22,7 +22,7 @@ export const SetAsInitiative = {
             children: [fontAwesomeIcon("swords")],
         });
         button.type = "button";
-        const selector = message.isReroll ? ".pf2e-reroll-second .dice-total" : ".dice-total";
+        const selector = message.isReroll ? ".reroll-second .dice-total" : ".dice-total";
         li.querySelector(selector)?.appendChild(button);
     },
 };

@@ -822,7 +822,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:38]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 day)</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by wind walk and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over [[/br 2d6 #minutes]]{2d6 minutes}.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</p>"
+                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:38]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} (1 day)</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by wind walk and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over [[/br 2d6 #minutes]]{2d6 minutes}.</p>\n<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Wish]</em>, similar magic, or a 9th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1147,12 +1147,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1175,6 +1169,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 1 mile",
+                "value": [
+                    "aklo",
+                    "common",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1185,6 +1187,23 @@
                 "remaster": false,
                 "title": "Pathfinder #149: Against the Scarlet Triad"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "infrared-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1207,19 +1226,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 1 mile",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "jotun"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, heatsight 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

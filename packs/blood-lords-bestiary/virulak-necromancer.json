@@ -316,7 +316,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>With a word of necromantic power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>"
+                    "value": "<p>With a word of power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bind Undead]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -330,9 +330,9 @@
                     "value": "pU2wsrbVRPL7i9Z5"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -341,7 +341,7 @@
                 "rules": [],
                 "slug": "bind-undead",
                 "target": {
-                    "value": "1 mindless undead creature with a level no greater than bind undead's spell level"
+                    "value": "1 mindless undead creature with a level no greater than bind undead's spell rank"
                 },
                 "time": {
                     "value": "2"
@@ -1018,7 +1018,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1167,7 +1167,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1761,12 +1761,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 13
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1774,6 +1768,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1784,6 +1785,18 @@
                 "remaster": false,
                 "title": "Pathfinder #182: Graveclaw"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 13,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1801,18 +1814,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -352,7 +352,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
                 }
             },
-            "img": "icons/skills/melee/spear-tips-double-purple.webp",
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 400000,
             "system": {
@@ -1663,7 +1663,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Nathatel succeeds at a save against a foe's harmful spell, or a foe fails a spell attack roll against him</p>\n<hr />\n<p><strong>Effect</strong> Nathatel redirects the spell's energy back at its caster. The caster takes @Damage[1d6[bludgeoning]] damage per spell level (@Check[type:reflex|dc:23] negates). If the harmful spell dealt damage of a particular type, such fire damage, use that type instead of bludgeoning.</p>"
+                    "value": "<p><strong>Trigger</strong> Nathatel succeeds at a save against a foe's harmful spell, or a foe fails a spell attack roll against him</p>\n<hr />\n<p><strong>Effect</strong> Nathatel redirects the spell's energy back at its caster. The caster takes @Damage[1d6[bludgeoning]] damage per spell rank (@Check[type:reflex|dc:23] negates). If the harmful spell dealt damage of a particular type, such fire damage, use that type instead of bludgeoning.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1847,12 +1847,6 @@
                 "temp": 0,
                 "value": 99
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 14
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1860,6 +1854,16 @@
         },
         "details": {
             "blurb": "Male elf zealot",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "elven",
+                    "empyrean",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -1870,6 +1874,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #4-99: Blessings of the Forest"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1892,21 +1908,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "elven",
-                    "empyrean",
-                    "fey"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "med"
             },

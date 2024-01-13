@@ -1,8 +1,7 @@
-import type { CharacterPF2e } from "@actor";
+import type { ActorType, CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
 import { CharacterSkill } from "@actor/character/types.ts";
-import { SENSE_ACUITIES, SENSE_TYPES } from "@actor/creature/sense.ts";
-import { ActorType } from "@actor/data/index.ts";
+import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
@@ -11,6 +10,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
@@ -59,15 +59,28 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
-                        new fields.StringField({ required: true, blank: false, choices: [...SENSE_TYPES] }),
+                        new fields.StringField({
+                            required: true,
+                            blank: false,
+                            choices: () => ({
+                                ...CONFIG.PF2E.senses,
+                                ...R.mapKeys(CONFIG.PF2E.senses, (k) => sluggify(k, { camel: "dromedary" })),
+                            }),
+                        }),
                         new fields.SchemaField({
                             acuity: new fields.StringField({
-                                choices: SENSE_ACUITIES,
+                                choices: () => CONFIG.PF2E.senseAcuities,
                                 required: false,
                                 blank: false,
                                 initial: undefined,
                             }),
-                            range: new fields.NumberField({ required: false, nullable: true, initial: undefined }),
+                            range: new fields.NumberField({
+                                required: false,
+                                nullable: true,
+                                positive: true,
+                                integer: true,
+                                initial: undefined,
+                            }),
                         }),
                         { required: false, initial: undefined },
                     ),
@@ -188,6 +201,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         this.#setRollOptions();
         this.#prepareSenses();
+        if (this.ignored) return;
 
         for (const trait of this.overrides.traits) {
             const currentTraits = actor.system.traits;
@@ -211,9 +225,10 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.#prepareIWR();
 
         // Initiative is built from skills/perception, so re-initialize just in case
-        const initiativeSkill = this.actor.system.attributes.initiative?.statistic || "perception";
-        this.actor.initiative = new ActorInitiative(this.actor, { statistic: initiativeSkill });
-        this.actor.system.attributes.initiative = this.actor.initiative.getTraceData();
+        const actor = this.actor;
+        const initiativeData = actor.system.initiative;
+        actor.initiative = new ActorInitiative(actor, R.pick(initiativeData, ["statistic", "tiebreakPriority"]));
+        actor.system.initiative = actor.initiative.getTraceData();
     }
 
     /** Remove temporary hit points */
@@ -279,16 +294,21 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         this.#suppressModifiers(armorClass);
         const newModifier = (Number(this.resolveValue(overrides.armorClass?.modifier)) || 0) - 10;
         armorClass.modifiers.push(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
-        this.actor.system.attributes.ac = armorClass.parent.getTraceData();
+        this.actor.system.attributes.ac = fu.mergeObject(
+            this.actor.system.attributes.ac,
+            armorClass.parent.getTraceData(),
+        );
     }
 
     /** Add new senses the character doesn't already have */
     #prepareSenses(): void {
-        for (const senseType of SENSE_TYPES) {
-            const newSense = this.overrides.senses?.[senseType];
-            if (!newSense) continue;
-            newSense.acuity ??= "precise";
-            const ruleData = { key: "Sense", selector: senseType, force: true, ...newSense };
+        for (const [key, data] of Object.entries(this.overrides.senses ?? {})) {
+            const slug = sluggify(key);
+            if (!setHasElement(SENSE_TYPES, slug)) {
+                this.failValidation(`senses: ${slug} is not a valid choice`);
+                return;
+            }
+            const ruleData = { key: "Sense", selector: slug, force: true, ...data };
             new SenseRuleElement(ruleData, { parent: this.item }).beforePrepareData();
         }
     }
@@ -329,7 +349,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     #prepareSkills(): void {
         for (const [skillShort, newSkill] of Object.entries(this.overrides.skills ?? {})) {
-            if (!setHasElement(SKILL_ABBREVIATIONS, skillShort)) {
+            if (!tupleHasValue(SKILL_ABBREVIATIONS, skillShort)) {
                 return this.failValidation(`Unrecognized skill abbreviation: ${skillShort}`);
             }
             newSkill.ownIfHigher ??= true;

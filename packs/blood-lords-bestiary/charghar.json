@@ -133,7 +133,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>The charghar causes clumsiness and uncertainty in those nearby. Each creature that starts its turn in the aura must attempt a @Check[type:will|dc:21] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is temporarily immune to Malevolent Mishaps for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the start of its next turn. If the creature is living, the charghar Imparts Fears.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+                    "value": "<p>10 feet. The charghar causes clumsiness and uncertainty in those nearby. Each creature that starts its turn in the aura must attempt a @Check[type:will|dc:21] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is temporarily immune to Malevolent Mishaps for 1 minute.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the start of its next turn. If the creature is living, the charghar Imparts Fears.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -404,12 +404,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -436,6 +430,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -446,6 +447,23 @@
                 "remaster": false,
                 "title": "Pathfinder #181: Zombie Feast"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -463,18 +481,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, lifesense 60 feet"
-            },
             "size": {
                 "value": "med"
             },

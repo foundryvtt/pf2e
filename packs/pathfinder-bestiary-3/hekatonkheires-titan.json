@@ -379,7 +379,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "occult",
                         "revelation"
                     ]
                 }
@@ -439,13 +438,13 @@
                     "rarity": "common",
                     "traditions": [
                         "divine",
+                        "occult",
                         "primal"
                     ],
                     "value": [
                         "air",
                         "concentrate",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -579,12 +578,12 @@
                     "traditions": [
                         "arcane",
                         "divine",
+                        "occult",
                         "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -906,7 +905,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:48] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
+                    "value": "<p>120 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:48] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -952,7 +951,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per month</p>\n<p><strong>Trigger</strong> The titan casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em></p>\n<hr />\n<p><strong>Effect</strong> The titan arrives in a storm of shattered planar barriers. This has the effects of a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Storm of Vengeance]</em>.</p>"
+                    "value": "<p><strong>Frequency</strong> once per month</p>\n<p><strong>Trigger</strong> The titan casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Interplanar Teleport]</em></p>\n<hr />\n<p><strong>Effect</strong> The titan arrives in a storm of shattered planar barriers. This has the effects of a 10th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Storm of Vengeance]</em>.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1262,12 +1261,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 43
-            },
             "speed": {
                 "details": "air walk, freedom of movement",
                 "otherSpeeds": [],
@@ -1276,6 +1269,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "common",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 24
             },
@@ -1286,6 +1288,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 43,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1308,23 +1327,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "common",
-                    "empyrean"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

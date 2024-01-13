@@ -5,6 +5,9 @@ import { TokenDocumentPF2e } from "./index.ts";
 import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
@@ -50,7 +53,14 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
     override prepareData(): void {
+        if (this.initialized) return;
+        this.initialized = true;
         super.prepareData();
 
         Promise.resolve().then(() => {

@@ -170,7 +170,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>When a creature enters or ends its turn within the cursed king's aura, it must attempt a @Check[type:will|dc:26] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. If it critically fails, it's cowed into submission; in addition to becoming frightened 2, it must use its first action on its turn to kneel or flee from the cursed king. A creature who succeeds at its saving throw becomes immune to the king's false authority for 24 hours.</p>"
+                    "value": "<p>30 feet. When a creature enters or ends its turn within the cursed king's aura, it must attempt a @Check[type:will|dc:26] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. If it critically fails, it's cowed into submission; in addition to becoming frightened 2, it must use its first action on its turn to kneel or flee from the cursed king. A creature who succeeds at its saving throw becomes immune to the king's false authority for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -523,12 +523,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -542,6 +536,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "plus any two ancient languages (can't speak)",
+                "value": [
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -552,6 +552,18 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Impossible Lands"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -569,17 +581,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Plus Any Two Ancient Languages (Can't Speak)",
-                "selected": [],
-                "value": [
-                    "necril"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

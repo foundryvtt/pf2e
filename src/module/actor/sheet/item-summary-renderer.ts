@@ -32,7 +32,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             const container = htmlQuery(element, ".item-summary");
             if (container?.hasChildNodes()) return container;
             if (!container || !(item instanceof ItemPF2e)) return null;
-            const chatData = await item.getChatData({ secrets: item.isOwner }, element.dataset);
+            const chatData = await item.getChatData({ secrets: item.isOwner }, { ...element.dataset });
             await this.renderItemSummary(container, item, chatData);
             InlineRollLinks.listen(container, item);
             return container;
@@ -68,11 +68,11 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     /** Retrieves the item from the element that the current toggleable summary is for */
     protected async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
         const actor = this.sheet.actor;
-        const { itemId, itemType, actionIndex } = element.dataset;
-        const isFormula = !!element.dataset.isFormula;
+        const { itemId, itemUuid, itemType, actionIndex } = element.dataset;
+        const isFormula = !!itemUuid && element.dataset.isFormula !== undefined;
 
         return isFormula
-            ? await fromUuid(itemId ?? "")
+            ? fromUuid(itemUuid)
             : itemType === "condition"
               ? actor.conditions.get(itemId, { strict: true })
               : actionIndex
@@ -88,7 +88,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        const rarity = item.system.traits?.rarity;
         const isEffect = item instanceof AbstractEffectPF2e;
         const selfEffect =
             item.isOfType("action", "feat") && item.system.selfEffect
@@ -101,7 +100,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             item,
             description,
             identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
-            rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
             isCreature: item.actor?.isOfType("creature"),
             chatData,
             selfEffect,

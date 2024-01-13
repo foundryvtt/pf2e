@@ -270,7 +270,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The llorona unleashes a somber wail. Each living creature within @Check[type:emanation|distance:120]{120 feet} must attempt a @Check[type:will|dc:31] save. Regardless of its result, the creature is then temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the nearest body of water and compelled to move toward the water and drown itself. If there's no nearby body of water, the creature instead remains still. The creature can attempt another @Check[type:will|dc:31] save at the end of each of its turns. On a success, the creature is no longer fascinated. Once the fascinated condition ends, the creature becomes stunned 1.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature receives another Will save only at the end of a round in which it's submerged in water.</p>"
+                    "value": "<p>The llorona unleashes a somber wail. Each living creature within @Template[type:emanation|distance:120]{120 feet} must attempt a @Check[type:will|dc:31] save. Regardless of its result, the creature is then temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the nearest body of water and compelled to move toward the water and drown itself. If there's no nearby body of water, the creature instead remains still. The creature can attempt another @Check[type:will|dc:31] save at the end of each of its turns. On a success, the creature is no longer fascinated. Once the fascinated condition ends, the creature becomes stunned 1.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature receives another Will save only at the end of a round in which it's submerged in water.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -348,7 +348,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -373,7 +374,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -398,7 +400,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -423,7 +426,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -484,12 +488,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -517,6 +515,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 12
             },
@@ -527,6 +531,18 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -544,17 +560,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

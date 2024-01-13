@@ -1,14 +1,27 @@
 import { htmlClosest, htmlQuery } from "@util";
+import * as R from "remeda";
 
 abstract class SettingsMenuPF2e extends FormApplication {
     static readonly namespace: string;
-    cache: Record<string, unknown> = {};
+
+    protected cache: Record<string, unknown> & { clear(): void } = (() => {
+        const data: Record<string, unknown> & { clear(): void } = {
+            clear(): void {
+                for (const key of Object.keys(this)) {
+                    delete this[key];
+                }
+            },
+        };
+        Object.defineProperty(data, "clear", { enumerable: false });
+        return data;
+    })();
 
     static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.classes.push("settings-menu", "sheet");
 
-        return fu.mergeObject(options, {
+        return {
+            ...options,
             title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
             id: `${this.namespace}-settings`,
             template: `systems/pf2e/templates/system/settings/menu.hbs`,
@@ -17,19 +30,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: "form" }],
             closeOnSubmit: false,
             submitOnChange: true,
-        });
-    }
-
-    static get prefix(): string {
-        return `${this.namespace}.`;
-    }
-
-    get namespace(): string {
-        return this.constructor.namespace;
-    }
-
-    get prefix(): string {
-        return this.constructor.prefix;
+        };
     }
 
     static readonly SETTINGS: readonly string[];
@@ -41,22 +42,40 @@ abstract class SettingsMenuPF2e extends FormApplication {
 
     static registerSettings(): void {
         const settings = this.settings;
-        for (const setting of this.SETTINGS) {
-            game.settings.register("pf2e", `${this.prefix}${setting}`, {
-                ...settings[setting],
+        for (const key of this.SETTINGS) {
+            const setting = settings[key];
+            game.settings.register("pf2e", `${setting.prefix ?? ""}${key}`, {
+                ...R.omit(setting, ["prefix"]),
                 scope: "world",
                 config: false,
             });
         }
     }
 
+    get namespace(): string {
+        return this.constructor.namespace;
+    }
+
     override async getData(): Promise<MenuTemplateData> {
         const settings = (this.constructor as typeof SettingsMenuPF2e).settings;
-        const templateData = settingsToSheetData(settings, this.cache, this.prefix);
+        const templateData = settingsToSheetData(settings, this.cache);
+
+        // Ensure cache values are initialized
+        for (const [key, value] of Object.entries(settings)) {
+            if (!(key in this.cache)) {
+                this.cache[key] = game.settings.get("pf2e", `${value.prefix ?? ""}${key}`);
+            }
+        }
+
         return fu.mergeObject(await super.getData(), {
             settings: templateData,
             instructions: `PF2E.SETTINGS.${this.namespace.titleCase()}.Hint`,
         });
+    }
+
+    override close(options?: { force?: boolean }): Promise<void> {
+        this.cache.clear();
+        return super.close(options);
     }
 
     /* -------------------------------------------- */
@@ -67,6 +86,11 @@ abstract class SettingsMenuPF2e extends FormApplication {
         super.activateListeners($html);
         const html = $html[0];
 
+        htmlQuery(html, "button[type=reset]")?.addEventListener("click", () => {
+            this.cache.clear();
+            this.render();
+        });
+
         const { highlightSetting } = this.options;
         if (highlightSetting) {
             const formGroup = htmlClosest(htmlQuery(html, `label[for="${highlightSetting}"]`), ".form-group");
@@ -75,8 +99,9 @@ abstract class SettingsMenuPF2e extends FormApplication {
     }
 
     protected override async _updateObject(event: Event, data: Record<string, unknown>): Promise<void> {
-        for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
-            const settingKey = `${this.prefix}${key}`;
+        for (const key of this.constructor.SETTINGS) {
+            const setting = this.constructor.settings[key];
+            const settingKey = `${setting.prefix ?? ""}${key}`;
             const value = data[key];
             this.cache[key] = value;
             if (event.type === "submit") {
@@ -96,9 +121,11 @@ abstract class SettingsMenuPF2e extends FormApplication {
         super._injectHTML($html);
 
         // Initialize cache
-        for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
-            const settingKey = `${this.prefix}${key}`;
-            this.cache[key] = game.settings.get("pf2e", settingKey);
+        for (const key of this.constructor.SETTINGS) {
+            const setting = this.constructor.settings[key];
+            const settingKey = `${setting.prefix ?? ""}${key}`;
+            const value = game.settings.get("pf2e", settingKey);
+            this.cache[key] = value instanceof foundry.abstract.DataModel ? value.clone() : value;
         }
     }
 }
@@ -108,7 +135,9 @@ interface SettingsMenuPF2e extends FormApplication {
     options: SettingsMenuOptions;
 }
 
-type PartialSettingsData = Omit<SettingRegistration, "scope" | "config">;
+interface PartialSettingsData extends Omit<SettingRegistration, "scope" | "config"> {
+    prefix?: string;
+}
 
 interface SettingsTemplateData extends PartialSettingsData {
     key: string;
@@ -128,12 +157,10 @@ interface SettingsMenuOptions extends FormApplicationOptions {
 function settingsToSheetData(
     settings: Record<string, PartialSettingsData>,
     cache: Record<string, unknown>,
-    prefix = "",
 ): Record<string, SettingsTemplateData> {
     return Object.entries(settings).reduce((result: Record<string, SettingsTemplateData>, [key, setting]) => {
-        const lookupKey = `${prefix}${key}`;
+        const lookupKey = `${setting.prefix ?? ""}${key}`;
         const value = key in cache ? cache[key] : game.settings.get("pf2e", lookupKey);
-        cache[key] = value;
         result[key] = {
             ...setting,
             key,

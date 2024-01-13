@@ -416,7 +416,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.6ZIKB0151LUR19Rw"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ill-omen.webp",
+            "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
             "sort": 500000,
             "system": {
@@ -433,7 +433,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is struck with misfortune, which throws them off balance. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>"
+                    "value": "<p>The target is struck with misfortune, which throws it off balance. The target must attempt a Will save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ill Omen]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -446,9 +446,9 @@
                     "value": "cOs52YJoc3SCVU5C"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -645,8 +645,8 @@
                     "value": "<p>Drawing your hand in a sweeping gesture, you shroud the target in a veil of night. The target's eyes are blanketed in darkness. If you cast this hex on a willing ally (for instance, one with light blindness), the ally can choose which result it gets without rolling. Regardless of the outcome, the target is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is shrouded in murky darkness. Unless the target has @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision], other creatures are @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to it.</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -684,7 +684,6 @@
                     "value": [
                         "cantrip",
                         "darkness",
-                        "focus",
                         "hex",
                         "manipulate",
                         "witch"
@@ -793,8 +792,8 @@
                     "value": "<p>You draw the target into a drowsy state, causing daydreams and sluggishness. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes a -1 status penalty to Perception, attack rolls, and Will saves. This penalty increases to -2 for Will saves against sleep effects.</p>\n<p><strong>Failure</strong> As success, and any time the target uses a concentrate action, it must succeed at a @Check[type:flat|dc:5] or the action is disrupted.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Veil of Dreams]</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1147,12 +1146,6 @@
                 "temp": 0,
                 "value": 15
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 7
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1160,6 +1153,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "mahwek"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -1170,6 +1170,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #4-12: Negotiations for the Star Gun"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1192,18 +1200,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "mahwek"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

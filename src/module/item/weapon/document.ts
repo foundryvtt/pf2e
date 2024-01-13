@@ -7,6 +7,7 @@ import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
+import { PhysicalItemConstructionContext } from "@item/physical/document.ts";
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RangeData } from "@item/types.ts";
@@ -140,7 +141,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     get isOversized(): boolean {
         return (
             this.category !== "unarmed" &&
-            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+            !!this.parent?.system.traits?.size?.isSmallerThan(this.size, { smallIsMedium: true })
         );
     }
 
@@ -175,7 +176,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
-        return ammo?.isOfType("consumable", "weapon") && ammo.quantity > 0 ? ammo : null;
+        return ammo?.isOfType("consumable", "weapon") ? ammo : null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {
@@ -728,7 +729,7 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     get traits(): Set<WeaponTrait>;
 }
 
-interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
+interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends PhysicalItemConstructionContext<TParent> {
     shield?: ShieldPF2e<TParent>;
 }
 

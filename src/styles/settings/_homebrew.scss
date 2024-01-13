@@ -1,29 +1,69 @@
 #homebrew-settings section.window-content {
-    display: block;
     .form-group {
         &.setting {
             display: inherit;
-            tags {
-                background-color: rgba(0, 0, 0, 0.05);
-                border: 1px solid #7a7971;
-                border-radius: 3px;
-                &.tagify--focus {
-                    border: 1px solid #7a7971;
-                    box-shadow: 0 0 5px red;
-                }
-            }
 
-            .homebrew {
-                --tag-text-color--edit: #111;
-                --tag-pad: 0.2em 0.4em;
+            tags {
+                --tag-bg: rgba(255, 255, 255, 0.25);
                 --tag-remove-bg: var(--tag-hover);
-                --tag-remove-btn-bg--hover: black;
+                --tag-remove-btn-bg--hover: var(--text-dark);
+                --tag-text-color--edit: var(--text-dark);
+                --tags-border-color: var(--color-border-light-tertiary);
+                background-color: rgba(black, 0.05);
                 font-size: var(--font-size-13);
-                min-width: 0;
             }
         }
-        &.buttons {
+
+        &.common-language {
             margin-top: 0.5em;
+        }
+    }
+
+    .form-group.language-rarities {
+        label {
+            --form-field-height: 1em;
+            column-gap: var(--space-3);
+            padding-bottom: var(--space-3);
+        }
+
+        ul {
+            background: rgba(black, 0.05);
+            border-radius: 3px;
+            border: 1px solid var(--color-border-light-tertiary);
+            gap: 0.25em;
+            margin-top: 0;
+            padding: 0.25em;
+
+            li {
+                background: rgba(white, 0.2);
+                cursor: grab;
+
+                &:hover {
+                    box-shadow: 0 0 0.3em;
+                }
+
+                &.drag-gap {
+                    border-color: var(--tag-color);
+                    box-shadow: 0 0 0.3em var(--tag-color);
+                    color: transparent;
+                }
+            }
+        }
+
+        &.common li:hover {
+            --tag-color: var(--color-rarity-common);
+        }
+
+        &.uncommon li:hover {
+            --tag-color: var(--color-rarity-uncommon);
+        }
+
+        &.rare li:hover {
+            --tag-color: var(--color-rarity-rare);
+        }
+
+        &.secret li:hover {
+            --tag-color: var(--color-pf-primary);
         }
     }
 }

@@ -178,7 +178,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         }
     }
 
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         if (!this.isEditable) return;
 
         const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;

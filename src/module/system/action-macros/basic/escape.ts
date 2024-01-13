@@ -1,9 +1,15 @@
 import { CharacterPF2e, NPCPF2e, type ActorPF2e } from "@actor";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import {
+    ActionCheckPreview,
+    SingleCheckAction,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
+import { Statistic } from "@system/statistic/index.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
@@ -51,15 +57,15 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     const candidates = data.slug ? [data.slug] : ["acrobatics", "athletics"];
     const alternatives = candidates
         .filter((slug) => slug !== "unarmed")
-        .map((slug) => {
-            const actionRollOptions = ["action:escape", `action:escape:${slug}`];
-            const { property } = ActionMacroHelpers.resolveStat(slug);
-            const { rollOptions } = opts.buildContext({
+        .map((slug) => opts.actor.getStatistic(slug))
+        .filter((statistic): statistic is Statistic => !!statistic)
+        .map((statistic) => {
+            const actionRollOptions = ["action:escape", `action:escape:${statistic.slug}`];
+            const rollOptions = opts.buildContext({
                 actor: opts.actor,
                 rollOptions: actionRollOptions,
                 target: opts.target,
-            });
-            const statistic = fu.getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
+            }).rollOptions;
             return {
                 actor: opts.actor,
                 rollOptions,
@@ -127,6 +133,36 @@ class EscapeActionVariant extends SingleCheckActionVariant {
     ): CheckContext<ItemType> | undefined {
         return escapeCheckContext(opts, data);
     }
+
+    protected override toActionCheckPreview(options: {
+        actor?: ActorPF2e;
+        rollOptions: string[];
+        slug: string;
+    }): ActionCheckPreview | null {
+        return this.#unarmedCheckPreview(options) ?? super.toActionCheckPreview(options);
+    }
+
+    #unarmedCheckPreview(args: { actor?: ActorPF2e; rollOptions: string[]; slug: string }): ActionCheckPreview | null {
+        if (args.slug === "unarmed") {
+            if (args.actor) {
+                const options = { actor: args.actor, buildContext: () => ({ rollOptions: args.rollOptions }) };
+                const data = { rollOptions: args.rollOptions, slug: args.slug };
+                const statistic = unarmedStrikeWithHighestModifier(options, data)?.statistic;
+                if (statistic) {
+                    return {
+                        label: game.i18n.localize("PF2E.TraitUnarmed"),
+                        modifier: statistic.totalModifier,
+                        slug: args.slug,
+                    };
+                }
+            }
+            return {
+                label: game.i18n.localize("PF2E.TraitUnarmed"),
+                slug: args.slug,
+            };
+        }
+        return null;
+    }
 }
 
 class EscapeAction extends SingleCheckAction {
@@ -142,8 +178,9 @@ class EscapeAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Escape.Notes.criticalFailure" },
             ],
             rollOptions: ["action:escape"],
+            section: "basic",
             slug: "escape",
-            statistic: "unarmed",
+            statistic: ["unarmed", "acrobatics", "athletics"],
             traits: ["attack"],
         });
     }

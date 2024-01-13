@@ -801,7 +801,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p>The clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 2nd-level innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>The clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 2nd-rank innate spell the clockwork mage cast (the GM determines the spell randomly if it has not cast any eligible spells). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>\n<hr />\n<p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -999,7 +999,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[type:thievery|dc:25|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 1st-level innate spell the clockwork mage cast (<em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em>, if the clockwork Belimarius hasn't yet cast a 1st-level spell in this adventure). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate level.</p>"
+                    "value": "<p>The clockwork mage uses a mechanical wand as a focus to channel magical energy. This wand is built into the clockwork mage's chest, with only the crystal at the end exposed. The mage can Interact to the remove the wand, or someone else can remove it with a @Check[type:thievery|dc:25|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]. The clockwork mage becomes unable to cast any spells except cantrips while the wand is removed.</p>\n<p>When removed, the clockwork wand is a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Magic Wand (2nd-Rank Spell)]{Magic Wand}</em> containing the last 1st-rank innate spell the clockwork mage cast (<em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em>, if the clockwork Belimarius hasn't yet cast a 1st-rank spell in this adventure). The spells are placed within the wand while the mage is created, and the creator can substitute other arcane spells of the appropriate rank.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1058,7 +1058,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes.</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd level or higher.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes.</p>\n<hr />\n<p><strong>Effect</strong> The clockwork mage regains a spell it has already cast that day. It must spend 1 hour of its operational time, or 2 hours if the spell is 3rd rank or higher.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1145,12 +1145,6 @@
                 "value": 115
             },
             "immunities": [],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -1180,6 +1174,10 @@
         },
         "details": {
             "blurb": "Variant clockwork mage",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 4
             },
@@ -1190,6 +1188,18 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Rusthenge"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1212,18 +1222,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

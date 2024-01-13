@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import type { AbilityItemPF2e, FeatPF2e, SpellPF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { FrequencySource } from "@item/base/data/system.ts";
@@ -81,7 +80,7 @@ interface SelfEffectSheetReference extends SelfEffectReference {
 }
 
 /** Save data from an effect item dropped on an ability or feat sheet. */
-async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: ElementDragEvent): Promise<void> {
+async function handleSelfEffectDrop(sheet: AbilitySheetPF2e | FeatSheetPF2e, event: DragEvent): Promise<void> {
     if (!sheet.isEditable || sheet.item.system.actionType.value === "passive") {
         return;
     }
@@ -109,11 +108,11 @@ function createActionRangeLabel(range: Maybe<RangeData>): string | null {
 }
 
 /**  Add the holy/unholy trait to sanctified actions and spells if the owning actor is also holy/unholy */
-function processSanctification(item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e> | SpellPF2e<ActorPF2e>): void {
+function processSanctification(item: AbilityItemPF2e | FeatPF2e | SpellPF2e): void {
     const itemTraits: { value: string[] } = item.system.traits;
     if (!itemTraits.value.includes("sanctified")) return;
 
-    const actorTraits: string[] = item.actor.system.traits?.value ?? [];
+    const actorTraits: string[] = item.actor?.system.traits?.value ?? [];
     const isHoly = actorTraits.includes("holy");
     const isUnholy = actorTraits.includes("unholy");
     if ((isHoly || isUnholy) && !(isHoly && isUnholy)) {

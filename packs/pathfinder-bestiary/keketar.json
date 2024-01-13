@@ -422,7 +422,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-rank version, but you and the other targets can travel to any planet within the same galaxy.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1855,7 +1855,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature using a teleportation ability within the aura or arriving in it via teleportation must succeed at a @Check[type:fortitude|dc:38] save or wink out of existence for [[/br 1d4 #rounds]]{1d4 rounds} before completing the teleport. The creature can't act, sense anything, or be targeted. On a successful save, the creature completes the teleport normally but is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Keketars are immune to this effect.</p>"
+                    "value": "<p>30 feet. A creature using a teleportation ability within the aura or arriving in it via teleportation must succeed at a @Check[type:fortitude|dc:38] save or wink out of existence for [[/br 1d4 #rounds]]{1d4 rounds} before completing the teleport. The creature can't act, sense anything, or be targeted. On a successful save, the creature completes the teleport normally but is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. Keketars are immune to this effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2270,12 +2270,6 @@
                 "temp": 0,
                 "value": 290
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "resistances": [
                 {
                     "type": "precision",
@@ -2304,6 +2298,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet, tongues",
+                "value": [
+                    "chthonian",
+                    "empyrean",
+                    "protean"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -2314,6 +2316,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "entropy sense (imprecise) 60 feet",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2336,19 +2350,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet, Tongues",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "empyrean",
-                    "protean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "entropy sense (imprecise) 60 feet, darkvision"
-            },
             "size": {
                 "value": "lg"
             },

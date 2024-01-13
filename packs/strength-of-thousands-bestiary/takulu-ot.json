@@ -455,7 +455,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -719,7 +719,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell level to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -854,7 +854,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -984,7 +984,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1531,12 +1531,6 @@
                 "temp": 0,
                 "value": 60
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 11
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1544,6 +1538,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "amurrun",
+                    "common",
+                    "elven",
+                    "fey",
+                    "iruxi",
+                    "xanmba"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -1554,6 +1559,14 @@
                 "remaster": false,
                 "title": "Pathfinder #169: Kindled Magic"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1571,22 +1584,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "amurrun",
-                    "common",
-                    "elven",
-                    "fey",
-                    "iruxi",
-                    "xanmba"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

@@ -187,8 +187,11 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     }
 
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
         const dragElement = event.currentTarget;
+        if (!(dragElement instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
         const { uuid } = dragElement.dataset;
         if (!uuid) return super._onDragStart(event);
 

@@ -13,41 +13,29 @@
         margin: 10px 6px 10px 0;
     }
 
-    .pc h3 {
-        align-items: center;
-        background-color: rgba($text-dark-color, 0.1);
-        border: none;
-        color: var(--text-dark);
-        display: flex;
-        font: 700 var(--font-size-14) / 1em var(--body-serif);
-        margin: 0;
-        padding: 0.5em 0.25em;
-        width: calc(100% - 0.5em);
-
-        span.value {
-            flex-basis: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-
     .character-details {
+        align-items: start;
         display: grid;
         grid:
-            "img details" 9rem
-            "img deity" auto
-            / 120px 1fr;
+            "img details" auto
+            / 7.5rem minmax(0, 1fr);
         margin-top: 0.25rem;
 
         .image-container {
+            display: flex;
             grid-area: img;
+            flex: 0 0 8rem;
             z-index: 3;
+            position: relative;
+            max-height: 10.5rem;
+
+            display: flex;
+            flex-direction: column;
 
             .actor-image {
                 @include brown-border;
                 border-radius: 0;
-                max-height: 11rem;
+                max-height: 10.5rem;
                 object-fit: cover;
                 object-position: top;
                 width: 100%;
@@ -55,21 +43,66 @@
         }
 
         .abcd {
-            grid-area: details;
+            flex: 1;
             display: grid;
-            grid-template-columns: repeat(2, 13em);
+            grid-template-columns: repeat(2, 50%);
             grid-row-gap: 0.5rem;
             justify-content: start;
             padding-left: 0.75rem;
 
-            > * {
+            .detail {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 2px;
-
                 .details-label {
                     flex-basis: 100%;
                 }
+
+                h3 {
+                    align-items: center;
+                    background-color: rgba($text-dark-color, 0.1);
+                    border: none;
+                    color: var(--text-dark);
+                    display: flex;
+                    font: 700 var(--font-size-14) / 1em var(--body-serif);
+                    margin: 0;
+                    padding: 0.5em 0.25em;
+                    position: relative;
+                    width: calc(100% - 0.5em);
+
+                    &.has-emblem {
+                        border-radius: 0 0.75rem 0.75rem 0;
+                    }
+
+                    span.value {
+                        flex-basis: 100%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    .emblem {
+                        position: relative;
+                        flex: 0 0 1.75rem;
+                        margin-left: 0.25rem;
+                        margin-right: -0.3755rem;
+                        img {
+                            position: absolute;
+                            @include brown-border;
+                            top: -0.875rem;
+                            left: 0;
+                            border-radius: 50%;
+                            height: 1.75rem;
+                            width: 1.75rem;
+                        }
+                    }
+                }
+            }
+
+            .traits {
+                grid-column: span 2;
+                margin: -4px 0 0 -2px;
+                padding: 0;
             }
 
             .deity {
@@ -80,15 +113,6 @@
                         min-width: 11em;
                     }
                 }
-            }
-
-            img.deity-emblem {
-                @include brown-border;
-                align-self: end;
-                border-radius: 50%;
-                height: 2rem;
-                margin-left: 0.25rem;
-                width: 2rem;
             }
         }
 
@@ -136,70 +160,79 @@
         }
     }
 
-    .character-traits {
+    ul.languages {
         display: flex;
         flex-wrap: wrap;
+        gap: 0.25rem;
+        margin-top: 0;
 
-        .tags {
-            width: 100%;
+        > li.over-limit {
+            --tag-color: var(--color-pf-primary);
         }
 
-        .pc {
+        > li.unallocated {
+            --tag-color: var(--color-pf-alternate);
+            font-style: italic;
+        }
+    }
+
+    .language-details {
+        padding: 0 0.25em;
+    }
+
+    .character-speeds {
+        display: flex;
+        margin-bottom: 0.5rem;
+        .speed {
+            align-items: center;
             display: flex;
             flex-direction: column;
-            justify-content: start;
-            align-items: start;
-            flex: 20%;
-            margin-bottom: 0.5rem;
+            flex: 1 0 0;
+            text-align: center;
 
-            span {
-                width: 100%;
+            & + .speed {
+                border-left: 1px solid #d3ccbc;
             }
 
-            span.speed {
-                * {
-                    width: 50%;
+            .label {
+                color: var(--color-pf-alternate-dark);
+                font: 500 var(--font-size-14) var(--sans-serif);
+                font-variant: small-caps;
+                position: relative;
+            }
+
+            .value {
+                align-items: baseline;
+                color: var(--color-text-dark-2);
+                display: flex;
+                font: 500 var(--font-size-18) / 1 var(--serif);
+                gap: 0.25ch;
+                padding: 0.25rem;
+                padding-bottom: 0;
+                position: relative;
+
+                i {
+                    color: var(--color-pf-alternate-dark);
+                    font-size: var(--font-size-13);
+                    opacity: 0.85;
                 }
-            }
 
-            &_land-speed,
-            &_size {
-                flex: 50%;
-            }
+                .unit {
+                    font-size: var(--font-size-14);
+                }
 
-            &_speed-types {
-                flex: 50%;
-            }
-
-            &_senses {
-                flex: 50%;
-            }
-
-            &_languages {
-                flex: 50%;
-                margin-bottom: 0;
-            }
-            &_traits {
-                flex: 50%;
-                margin-bottom: 0;
-            }
-
-            label,
-            h4 {
-                margin: 0;
-                white-space: nowrap;
-            }
-
-            .tags {
-                margin: 0;
-                padding: 0;
-            }
-
-            .tags,
-            select,
-            input,
-            h3 {
-                margin-top: 0.25rem;
+                &.rollable {
+                    svg {
+                        width: 1rem;
+                        height: 1rem;
+                        path {
+                            fill: var(--color-text-dark-2);
+                        }
+                    }
+                    &:hover svg {
+                        @include die-spin;
+                    }
+                }
             }
         }
     }

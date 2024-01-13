@@ -440,7 +440,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -959,7 +959,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a tidehawk dies, it melts into a torrent of rainwater. If this rain falls into a body of water, such as an ocean or lake, the tidehawk returns to life fully healed [[/br 1d4 #Self-Resurrection]]{1d4 rounds} later, as if subject to a 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual. Self-resurrection happens only if there are remains to resurrect; for instance, a tidehawk killed by a <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell can't use this ability. A tidehawk that dies while above land must wait until its rainwater runs or seeps into an appropriate body of water to self-resurrect. A tidehawk can self-resurrect only once per year.</p>"
+                    "value": "<p>When a tidehawk dies, it melts into a torrent of rainwater. If this rain falls into a body of water, such as an ocean or lake, the tidehawk returns to life fully healed [[/br 1d4 #Self-Resurrection]]{1d4 rounds} later, as if subject to a 6th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Resurrect]</em> ritual. Self-resurrection happens only if there are remains to resurrect; for instance, a tidehawk killed by a <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell can't use this ability. A tidehawk that dies while above land must wait until its rainwater runs or seeps into an appropriate body of water to self-resurrect. A tidehawk can self-resurrect only once per year.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1195,12 +1195,6 @@
                 "temp": 0,
                 "value": 213
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -1229,6 +1223,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "sussuran",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 12
             },
@@ -1239,6 +1241,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "wavesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1261,22 +1280,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "sussuran",
-                    "thalassic"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, wavesense (imprecise) 120 feet"
-            },
             "size": {
                 "value": "huge"
             },

@@ -468,7 +468,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120]{120 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The guthallath erodes away the physical integrity of all around it. Creatures and objects in the emanation other than the guthallath have their hardness and resistances reduced by 10. At the start of its turn, a creature in the erosion aura's area takes @Damage[6d6[bludgeoning]] damage (@Check[type:fortitude|dc:39|basic:true]).</p>"
+                    "value": "<p>120 feet. The guthallath erodes away the physical integrity of all around it. Creatures and objects in the emanation other than the guthallath have their hardness and resistances reduced by 10. At the start of its turn, a creature in the erosion aura's area takes @Damage[6d6[bludgeoning]] damage (@Check[type:fortitude|dc:39|basic:true]).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -540,7 +540,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A guthallath releases two beams of destruction from its eyes. Each beam is a @Template[type:line|distance:120]. Everything in either line takes the effect of a hit from a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell (@Check[type:fortitude|dc:41|basic:true|traits:attack,evocation,arcane]). There is no additional effect on creatures in any area where the beams overlap.</p>\n<p>The guthallath can't use this ability again for [[/br 1d4 #Recharge Annihilation Beams]]{1d4 rounds}.</p>"
+                    "value": "<p>A guthallath releases two beams of destruction from its eyes. Each beam is a @Template[type:line|distance:120]. Everything in either line takes the effect of a hit from a 10th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell (@Check[type:fortitude|dc:41|basic:true|traits:attack,evocation,arcane]). There is no additional effect on creatures in any area where the beams overlap.</p>\n<p>The guthallath can't use this ability again for [[/br 1d4 #Recharge Annihilation Beams]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -852,12 +852,6 @@
                 "value": 325
             },
             "immunities": [],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -879,6 +873,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 19
             },
@@ -889,6 +887,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -911,15 +926,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

@@ -38,6 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:command-an-animal"],
+    section: "skill",
     slug: "command-an-animal",
     statistic: "nature",
     traits: ["auditory", "concentrate"],

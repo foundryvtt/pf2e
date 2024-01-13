@@ -3,7 +3,10 @@
 /* ----------------------------------------- */
 
 .pf2e.chat-card {
+    display: flex;
+    flex-direction: column;
     font-family: var(--sans-serif);
+    gap: var(--space-3);
 
     h2,
     h3,
@@ -12,14 +15,14 @@
     }
 
     .card-header {
-        padding: 2px 0;
-        border-top: 2px groove #fff;
+        padding: var(--space-2) 0;
+        border-top: var(--space-2) groove var(--color-text-light-0);
         align-items: center;
         min-height: 2.25rem;
 
         img {
             flex: 0 0 2.25rem;
-            margin-right: 0.25rem;
+            margin-right: var(--space-4);
             height: 2.25rem;
             width: 2.25rem;
         }
@@ -44,14 +47,16 @@
     }
 
     .tags {
-        margin: 3px 0 0;
+        border-bottom: var(--space-2) groove var(--color-text-light-0);
+        margin: 0;
+        padding: 0 0 var(--space-4) 0;
     }
 
     .card-content {
-        margin: 0.25rem 0;
+        margin: 0;
 
         p {
-            margin: 0.25rem 0;
+            margin: var(--space-4) 0;
             min-height: unset;
         }
     }
@@ -60,10 +65,10 @@
         display: flex;
         flex-basis: 100%;
         flex-direction: column;
-        margin: 0.25rem 0;
+        margin: var(--space-4) 0;
 
         button {
-            margin: 2px 0;
+            margin: var(--space-2) 0;
 
             span {
                 border: none;
@@ -105,13 +110,13 @@
         }
     }
 
-    .card-footer {
-        padding: 3px 0 0;
-        border-top: 2px groove #fff;
+    footer {
+        padding: var(--space-3) 0 0;
+        border-top: var(--space-2) groove var(--color-text-light-0);
 
         span {
-            border-right: 2px groove #fff;
-            padding: 0 0.25rem 0 0;
+            border-right: var(--space-2) groove var(--color-text-light-0);
+            padding: 0 var(--space-4) 0 0;
             font-size: var(--font-size-12);
 
             &:last-child {
@@ -124,6 +129,6 @@
     .card-buttons-two-column {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-column-gap: 0.25rem;
+        grid-column-gap: var(--space-4);
     }
 }

@@ -14,7 +14,7 @@ nav.sheet-navigation {
         .pfs-icon {
             clip-rule: evenodd;
             fill-rule: evenodd;
-            padding: 4px;
+            padding: var(--space-4);
             position: relative;
             stroke-linejoin: round;
             stroke-miterlimit: 2;
@@ -29,7 +29,7 @@ nav.sheet-navigation {
     .manage-tabs {
         color: var(--text-light);
         margin: 0;
-        padding: 0 6px;
+        padding: 0 var(--space-6);
     }
 }
 
@@ -57,6 +57,15 @@ nav.sheet-navigation {
 
     // general item-image properties
     .item-image {
+        &.framed {
+            background-color: var(--tertiary);
+
+            &,
+            i {
+                @include frame-icon;
+            }
+        }
+
         i {
             display: none;
             position: absolute;
@@ -75,15 +84,6 @@ nav.sheet-navigation {
         }
     }
 
-    // character specific item-image properties
-    .item-image.framed {
-        background-color: var(--tertiary);
-        &,
-        i {
-            @include frame-icon;
-        }
-    }
-
     .tab {
         flex-direction: column;
 
@@ -94,39 +94,11 @@ nav.sheet-navigation {
     .directory-list {
         @include p-reset;
         display: flex;
-        flex-direction: column;
-        list-style: none;
+        flex-flow: column nowrap;
         width: 100%;
 
         h4 {
             @include p-reset;
-        }
-
-        .item {
-            ol {
-                list-style: none;
-            }
-        }
-    }
-
-    .blue-button {
-        align-items: center;
-        background: var(--secondary);
-        border: black;
-        border-radius: 2px;
-        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 50%);
-        color: var(--text-light);
-        display: flex;
-        font-family: var(--serif);
-        font-weight: 500;
-        gap: 0.25em;
-        line-height: 1.8em;
-        justify-content: center;
-        margin: 0;
-        padding: 0 0.5em;
-
-        &:hover {
-            text-shadow: 0 0 4px white;
         }
     }
 }

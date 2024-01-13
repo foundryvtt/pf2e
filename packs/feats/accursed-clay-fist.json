@@ -33,6 +33,13 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.golemGrafter.featCount",
+                "value": 1
+            },
+            {
+                "baseType": "fist",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -42,13 +49,24 @@
                     }
                 },
                 "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/clay-fist.webp",
                 "key": "Strike",
-                "label": "Stone Fist",
+                "label": "PF2E.SpecificRule.GolemGrafter.ClayFist.Label",
                 "range": null,
                 "traits": [
                     "unarmed",
                     "nonlethal"
                 ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-attack",
+                "text": "PF2E.SpecificRule.GolemGrafter.ClayFist.Note",
+                "title": "{item|name}"
             }
         ],
         "traits": {

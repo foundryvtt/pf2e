@@ -417,7 +417,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -963,7 +963,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The demon enslaves the soul of a living creature within 60 feet. The target can attempt to resist this enslavement with a @Check[type:will|dc:29] save.</p>\n<p>A slaver demon can have only one living soul enslaved with this ability at a time, and no more than one slaver demon can enslave the same soul. If a slaver demon kills a creature whose soul it has enslaved, the demon regains 20 HP and the soul is consigned to an eternity of toil in the Abyss, adding to the slaver demon's tally of souls and allowing the demon to enslave another.</p>\n<hr />\n<p><strong>Success</strong> The target avoids being enslaved and is temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The target is enslaved and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 24 hours or until the slaver demon is slain, whichever comes first.</p>\n<p><strong>Critical Failure</strong> As failure, and the target also suffers the effects of a failed saving throw against <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>.</p>"
+                    "value": "<p>The demon enslaves the soul of a living creature within 60 feet. The target can attempt to resist this enslavement with a @Check[type:will|dc:29] save.</p>\n<p>A slaver demon can have only one living soul enslaved with this ability at a time, and no more than one slaver demon can enslave the same soul. If a slaver demon kills a creature whose soul it has enslaved, the demon regains [[/r 20[healing]]]{20 HP} and the soul is consigned to an eternity of toil in the Abyss, adding to the slaver demon's tally of souls and allowing the demon to enslave another.</p>\n<hr />\n<p><strong>Success</strong> The target avoids being enslaved and is temporarily immune for 24 hours.</p>\n<p><strong>Failure</strong> The target is enslaved and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 24 hours or until the slaver demon is slain, whichever comes first.</p>\n<p><strong>Critical Failure</strong> As failure, and the target also suffers the effects of a failed saving throw against <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1144,12 +1144,6 @@
                 "temp": 0,
                 "value": 200
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1167,6 +1161,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -1177,6 +1179,18 @@
                 "remaster": false,
                 "title": "Pathfinder #147: Tomorrow Must Burn"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1204,19 +1218,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

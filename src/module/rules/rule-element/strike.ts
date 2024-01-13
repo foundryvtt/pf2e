@@ -1,5 +1,4 @@
-import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
 import { NPCAttackTrait } from "@item/melee/data.ts";
@@ -37,7 +36,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     declare graspingAppendage: boolean;
 
     constructor(source: StrikeSource, options: RuleElementOptions) {
-        source.img ??= source.fist ? "icons/skills/melee/unarmed-punch-fist.webp" : options.parent.img;
+        source.img ??= source.fist ? StrikeRuleElement.#defaultFistIcon : options.parent.img;
 
         super(source, options);
 
@@ -57,6 +56,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
               ? !!this.graspingAppendage
               : false;
     }
+
+    static #defaultFistIcon = "icons/skills/melee/unarmed-punch-fist.webp";
 
     static override defineSchema(): StrikeSchema {
         const { fields } = foundry.data;
@@ -234,6 +235,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
 
         if (predicatePassed) {
+            // Prefer a non-default fist icon if one is set
+            if (this.fist && this.img === StrikeRuleElement.#defaultFistIcon) {
+                this.img = this.actor.synthetics.strikes.get("fist")?.img ?? this.img;
+            }
+
             const weapon = this.#constructWeapon(damageType, dice);
             const slug = weapon.slug ?? sluggify(weapon.name);
             this.actor.synthetics.strikes.set(slug, weapon);

@@ -280,7 +280,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -359,7 +359,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell level to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -948,7 +948,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>The firing of the mindmoppet's synapses create dim light. The range increases to 10 feet if its shell is destroyed.</p>"
+                    "value": "<p>5 feet. The firing of the mindmoppet's synapses create dim light. The range increases to 10 feet if its shell is destroyed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1374,12 +1374,6 @@
                     "type": "visual"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -1407,6 +1401,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "one other language; telepathy 100 feet",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -1417,6 +1417,15 @@
                 "remaster": false,
                 "title": "Pathfinder #189: Dreamers of the Nameless Spires"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "mindsense (precise) 120 feet",
+            "mod": 12,
+            "senses": [],
+            "vision": false
         },
         "resources": {},
         "saves": {
@@ -1434,17 +1443,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "One Other Language; Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "mindsense (precise) 120 feet, no vision"
-            },
             "size": {
                 "value": "tiny"
             },

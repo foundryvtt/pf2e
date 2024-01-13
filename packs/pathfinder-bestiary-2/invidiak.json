@@ -343,7 +343,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -543,7 +543,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1223,12 +1223,6 @@
                     "type": "precision"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -1265,6 +1259,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1275,6 +1276,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1302,21 +1315,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -379,7 +379,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p><strong>Requirements</strong> The sunflower leshy begins its turn in an area of bright light</p>\n<hr />\n<p><strong>Effect</strong> The sunflower leshy reflects the sun or another source of bright light from their face. Each creature that ends its turn in the emanation must attempt a @Check[type:will|dc:16] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to heliotrope for 24 hours.</p>\n<p><strong>Failure</strong> The creature is distracted by the light, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
+                    "value": "<p>20 feet. <strong>Requirements</strong> The sunflower leshy begins its turn in an area of bright light</p>\n<hr />\n<p><strong>Effect</strong> The sunflower leshy reflects the sun or another source of bright light from their face. Each creature that ends its turn in the emanation must attempt a @Check[type:will|dc:16] save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to heliotrope for 24 hours.</p>\n<p><strong>Failure</strong> The creature is distracted by the light, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -587,12 +587,6 @@
                 "temp": 0,
                 "value": 20
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 7
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -600,6 +594,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with plants (sunflowers only)",
+                "value": [
+                    "common",
+                    "fey",
+                    "wildsong"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -610,6 +612,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -632,22 +646,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Speak With Plants (Sunflowers Only)",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "wildsong"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

@@ -1,5 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { MigrationRecord } from "@module/data.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
@@ -13,7 +14,7 @@ interface CollectionDiff<T extends foundry.documents.ActiveEffectSource | ItemSo
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.911;
+    static LATEST_SCHEMA_VERSION = 0.915;
 
     static MINIMUM_SAFE_VERSION = 0.634;
 
@@ -78,6 +79,11 @@ export class MigrationRunnerBase {
                 if (currentItem.type === "consumable" && currentItem.system.spell) {
                     await migration.preUpdateItem?.(currentItem.system.spell);
                 }
+                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                    for (const embed of currentItem.system.subitems) {
+                        migration.preUpdateItem?.(embed);
+                    }
+                }
             }
         }
 
@@ -86,9 +92,14 @@ export class MigrationRunnerBase {
 
             for (const currentItem of currentActor.items) {
                 await migration.updateItem?.(currentItem, currentActor);
-                // Handle embedded spells
+                // Handle embedded items
                 if (currentItem.type === "consumable" && currentItem.system.spell) {
                     await migration.updateItem?.(currentItem.system.spell, currentActor);
+                }
+                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                    for (const embed of currentItem.system.subitems) {
+                        migration.preUpdateItem?.(embed);
+                    }
                 }
             }
         }
@@ -114,6 +125,11 @@ export class MigrationRunnerBase {
             await migration.preUpdateItem?.(current);
             if (current.type === "consumable" && current.system.spell) {
                 await migration.preUpdateItem?.(current.system.spell);
+            }
+            if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
+                for (const embed of current.system.subitems) {
+                    migration.preUpdateItem?.(embed);
+                }
             }
         }
 

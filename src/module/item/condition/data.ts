@@ -34,7 +34,7 @@ interface PersistentSourceData {
 }
 
 interface ConditionSystemData
-    extends Omit<ConditionSystemSource, "fromSpell">,
+    extends Omit<ConditionSystemSource, "description" | "fromSpell">,
         Omit<AbstractEffectSystemData, "level" | "slug" | "traits"> {
     persistent?: PersistentDamageData;
     duration: DurationData;

@@ -28,14 +28,22 @@ interface ContainerBulkSource {
 }
 
 interface ContainerSystemData
-    extends Omit<
-            ContainerSystemSource,
-            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
-        >,
+    extends Omit<ContainerSystemSource, SourceOmission>,
         Omit<Investable<PhysicalSystemData>, "traits"> {
     bulk: ContainerBulkData;
     stackGroup: null;
 }
+
+type SourceOmission =
+    | "apex"
+    | "bulk"
+    | "description"
+    | "hp"
+    | "identification"
+    | "material"
+    | "price"
+    | "temporary"
+    | "usage";
 
 interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 

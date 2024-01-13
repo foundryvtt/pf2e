@@ -16,7 +16,7 @@ import {
     objectHasKey,
     setHasElement,
 } from "@util";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
@@ -509,9 +509,7 @@ class CompendiumBrowser extends Application {
                     filter.isExpanded = !filter.isExpanded;
                     const contentElement = title.nextElementSibling;
                     if (contentElement instanceof HTMLElement) {
-                        filter.isExpanded
-                            ? (contentElement.style.display = "")
-                            : (contentElement.style.display = "none");
+                        contentElement.style.display = filter.isExpanded ? "" : "none";
                     }
                 };
                 switch (filterType) {
@@ -546,9 +544,11 @@ class CompendiumBrowser extends Application {
                             const checkbox = currentTab.filterData.checkboxes[filterName];
                             const option = checkbox.options[optionName];
                             option.selected = !option.selected;
-                            option.selected
-                                ? checkbox.selected.push(optionName)
-                                : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                            if (option.selected) {
+                                checkbox.selected.push(optionName);
+                            } else {
+                                checkbox.selected = checkbox.selected.filter((name) => name !== optionName);
+                            }
                             this.#clearScrollLimit(true);
                         }
                     });
@@ -808,7 +808,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #takePhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
+        const actors = getSelectedActors({ include: ["character", "loot", "npc", "party"], assignedFallback: true });
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
@@ -833,25 +833,29 @@ class CompendiumBrowser extends Application {
     }
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedOrOwnActors(["character", "loot", "npc"]);
+        const actors = getSelectedActors({ include: ["character", "loot", "npc"], assignedFallback: true });
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
-            ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
-            return;
+            if (game.user.character?.isOfType("character")) {
+                actors.push(game.user.character);
+            } else {
+                ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
+                return;
+            }
         }
 
-        let purchasesSucceeded = 0;
+        let purchaseSuccesses = 0;
 
         for (const actor of actors) {
             if (await actor.inventory.removeCoins(item.price.value)) {
-                purchasesSucceeded = purchasesSucceeded + 1;
+                purchaseSuccesses = purchaseSuccesses + 1;
                 await actor.inventory.add(item, { stack: true });
             }
         }
 
         if (actors.length === 1) {
-            if (purchasesSucceeded === 1) {
+            if (purchaseSuccesses === 1) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithCharacter", {
                         item: item.name,
@@ -867,7 +871,7 @@ class CompendiumBrowser extends Application {
                 );
             }
         } else {
-            if (purchasesSucceeded === actors.length) {
+            if (purchaseSuccesses === actors.length) {
                 ui.notifications.info(
                     game.i18n.format("PF2E.CompendiumBrowser.BoughtItemWithAllCharacters", {
                         item: item.name,
@@ -901,10 +905,13 @@ class CompendiumBrowser extends Application {
     }
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
-    protected override _onDragStart(event: ElementDragEvent): void {
-        this.element.animate({ opacity: 0.125 }, 250);
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.currentTarget instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
 
-        const item = $(event.currentTarget)[0];
+        this.element.animate({ opacity: 0.125 }, 250);
+        const item = event.currentTarget;
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
@@ -928,9 +935,9 @@ class CompendiumBrowser extends Application {
         );
     }
 
-    protected override _onDragOver(event: ElementDragEvent): void {
+    protected override _onDragOver(event: DragEvent): void {
         super._onDragOver(event);
-        if (event.dataTransfer.types.includes("from-browser")) {
+        if (event.dataTransfer?.types.includes("from-browser")) {
             this.element.css({ pointerEvents: "none" });
         }
     }

@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer.ts";
@@ -260,10 +259,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         return handlers;
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -282,10 +278,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: ElementDragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<ItemPF2e<ArmyPF2e>[]> {
+    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemSource._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
             // In the army sheet, dragging outside the slot immediately makes it a bonus slot
@@ -302,9 +295,9 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         return super._onSortItem(event, itemSource);
     }
 
-    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
-        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
-        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+    #getFeatSlotData(event: DragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = htmlClosest(event.target, "[data-group-id]")?.dataset.groupId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
         return typeof groupId === "string" ? { slotId, groupId } : null;
     }
 }

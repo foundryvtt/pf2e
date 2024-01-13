@@ -684,7 +684,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>@Damage[2d12[electricity]] damage</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
+                    "value": "<p>15 feet. @Damage[2d12[electricity]] damage</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -741,7 +741,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:38]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:38]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -787,7 +787,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Water in the aura that is also in the same body of water as the dragon is difficult terrain for @UUID[Compendium.pf2e.actionspf2e.Item.Swim]{Swimming} creatures that don't have the water trait.</p>"
+                    "value": "<p>40 feet. Water in the aura that is also in the same body of water as the dragon is difficult terrain for @UUID[Compendium.pf2e.actionspf2e.Item.Swim]{Swimming} creatures that don't have the water trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1230,12 +1230,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1252,6 +1246,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals",
+                "value": [
+                    "common",
+                    "draconic",
+                    "dwarven",
+                    "elven",
+                    "gnomish",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1262,6 +1267,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1284,22 +1306,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak With Animals",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "dwarven",
-                    "elven",
-                    "gnomish",
-                    "thalassic"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 100 feet"
-            },
             "size": {
                 "value": "grg"
             },

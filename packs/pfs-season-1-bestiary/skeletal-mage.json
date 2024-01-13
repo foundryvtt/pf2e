@@ -233,7 +233,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>With a word of necromantic power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>"
+                    "value": "<p>With a word of power, you seize control of the target. It gains the minion trait. If you or an ally uses any hostile actions against the target, the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bind Undead]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -247,9 +247,9 @@
                     "value": "FtpurxrqT3RpF3pv"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -258,7 +258,7 @@
                 "rules": [],
                 "slug": "bind-undead",
                 "target": {
-                    "value": "1 mindless undead creature with a level no greater than bind undead's spell level"
+                    "value": "1 mindless undead creature with a level no greater than bind undead's spell rank"
                 },
                 "time": {
                     "value": "2"
@@ -454,7 +454,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1074,7 +1074,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1728,7 +1728,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a skeletal mage casts a spell, either it gains temporary Hit Points equal to the spell's level for 1 round, or one target takes @Damage[1[void]] damage per spell level (if the spell already deals void damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+                    "value": "<p>When a skeletal mage casts a spell, either it gains temporary Hit Points equal to the spell's rank for 1 round, or one target takes @Damage[1[void]] damage per spell rank (if the spell already deals void damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1908,12 +1908,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -1943,6 +1937,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "necril",
+                    "tien"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -1953,6 +1954,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-06: Lost on the Spirit Road"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1975,18 +1988,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "necril",
-                    "tien"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

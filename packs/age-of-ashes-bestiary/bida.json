@@ -127,7 +127,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-level spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
+                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-rank spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -520,7 +520,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>By concentrating for 4 hours, the bida hides a small settlement. This is a 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Mirage]</em> spell, except the area is a @Template[type:burst|distance:500] and creatures are invisible while inside structures in the area. The bida can conceal only one settlement at a time, and must concentrate on the effect for 10 minutes at the beginning of each day to maintain the illusion.</p>"
+                    "value": "<p>By concentrating for 4 hours, the bida hides a small settlement. This is a 5th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Mirage]</em> spell, except the area is a @Template[type:burst|distance:500] and creatures are invisible while inside structures in the area. The bida can conceal only one settlement at a time, and must concentrate on the effect for 10 minutes at the beginning of each day to maintain the illusion.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -744,12 +744,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "resistances": [
                 {
                     "type": "acid",
@@ -776,6 +770,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "mwangi"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -786,6 +788,23 @@
                 "remaster": false,
                 "title": "Pathfinder #146: Cult of Cinders"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -808,19 +827,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "mwangi"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "huge"
             },

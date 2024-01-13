@@ -329,7 +329,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
                 },
                 "description": {
-                    "value": "<p>The blood of the fey is so strong within you that you're truly one of them. You gain the fey trait, in addition to the gnome and humanoid traits. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up. You can change this cantrip to a different one from the same list once per day by meditating to realign yourself with the First World; this is a 10-minute activity that has the concentrate trait.</p>"
+                    "value": "<p>The blood of the fey is so strong within you that you're truly one of them. You gain the fey trait, in addition to the gnome and humanoid traits. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up. You can change this cantrip to a different one from the same list once per day by meditating to realign yourself with the First World; this is a 10-minute activity that has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2275,7 +2275,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>Your connection to the First World grants you a primal innate spell, much like those of the fey. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>"
+                    "value": "<p>Your connection to the First World grants you a primal innate spell, much like those of the fey. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
                 },
                 "level": {
                     "taken": 5,
@@ -2790,8 +2790,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3885,23 +3911,21 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
                         "value": 2
                     }
                 ],
                 "slug": "alchemical-weapon-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3944,15 +3968,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "iron-will",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -4647,7 +4671,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         }
@@ -4662,9 +4686,6 @@
             "hp": {
                 "temp": 0,
                 "value": 104
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -4810,6 +4831,18 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "draconic",
+                    "elven",
+                    "hallit",
+                    "jotun",
+                    "kelish",
+                    "pyric"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -4832,6 +4865,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4909,25 +4945,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "draconic",
-                    "elven",
-                    "hallit",
-                    "jotun",
-                    "kelish",
-                    "pyric"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

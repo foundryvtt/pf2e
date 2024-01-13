@@ -931,7 +931,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within Taviah's reach</p>\n<hr />\n<p><strong>Effect</strong> Taviah seizes a creature and consumes its memories. This requires an @Check[type:athletics|defense:fortitude] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions. The victim is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} if Taviah's Athletics check is a critical success), and Taviah regains [[/r 18[healing]]]{18 Hit Points}, gaining any excess as temporary Hit Points. Draining Thoughts from a creature that is already stupefied doesn't restore any HP to Taviah but increases the victim's stupefied value by 1. Additionally, Taviah views one of the victim's memories, and can choose to alter, enhance, or erase the memory she views as a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Memory]</em> spell. A victim's stupefied condition value decreases by 1 every week.</p>\n<p>A victim that becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 5} in this way is rendered comatose until Taviah is destroyed, becoming permanently unconscious. While unconscious, its stupefied condition doesn't decrease.</p>"
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], or willing creature is within Taviah's reach</p>\n<hr />\n<p><strong>Effect</strong> Taviah seizes a creature and consumes its memories. This requires an @Check[type:athletics|defense:fortitude] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions. The victim is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} if Taviah's Athletics check is a critical success), and Taviah regains [[/r 18[healing]]]{18 Hit Points}, gaining any excess as temporary Hit Points. Draining Thoughts from a creature that is already stupefied doesn't restore any HP to Taviah but increases the victim's stupefied value by 1. Additionally, Taviah views one of the victim's memories, and can choose to alter, enhance, or erase the memory she views as a 4th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Memory]</em> spell. A victim's stupefied condition value decreases by 1 every week.</p>\n<p>A victim that becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 5} in this way is rendered comatose until Taviah is destroyed, becoming permanently unconscious. While unconscious, its stupefied condition doesn't decrease.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1328,12 +1328,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 23
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -1352,6 +1346,16 @@
         },
         "details": {
             "blurb": "Female vetalarana vampire annis hag",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "aklo",
+                    "common",
+                    "jotun",
+                    "mwangi",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 12
             },
@@ -1362,6 +1366,18 @@
                 "remaster": false,
                 "title": "Pathfinder #183: Field of Maidens"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "thoughtsense",
+            "mod": 23,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1379,21 +1395,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "jotun",
-                    "mwangi",
-                    "necril"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, thoughtsense"
-            },
             "size": {
                 "value": "lg"
             },

@@ -77,4 +77,6 @@ type JournalEntryPageSchema<
     _stats: fields.DocumentStatsField;
 };
 
+export type JournalEntryPageSource = SourceFromSchema<JournalEntryPageSchema>;
+
 export type CorePageType = "image" | "pdf" | "text" | "video";

@@ -1,77 +1,147 @@
-<form class="npc-sheet simple" autocomplete="off">
-    {{!--         --}}
-    {{!-- Sidebar --}}
-    {{!--         --}}
+<form class="npc-sheet simple" autocomplete="off" data-tooltip-class="pf2e">
     <div class="sidebar">
         {{!-- Image --}}
         <div class="image-container">
-            <img class="actor-image" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="auto" width="100%" style="margin: 0 auto"/>
-            <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
+            <img class="actor-image" src="{{actor.img}}" data-edit="img" height="auto" width="100%" style="margin: 0 auto" />
+            <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
-        {{!-- HP --}}
-        <div class="health-section side-bar-section">
-            <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
-                <div class="side-bar-label">
-                    <i class="fa-solid fa-fw fa-heart"></i>
-                    <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
-                    <div class="hit-points">
-                        {{#with data.attributes.hp as |hp|}}
-                            <input type="number" name="system.attributes.hp.value" value="{{hp.value}}" class="current" placeholder="0" />
-                            <span class="slash">/</span>
-                            <input type="text" class="max adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}" data-property="system.attributes.hp.max" value="{{hp.max}}" data-dtype="Number" placeholder="0" />
-                        {{/with}}
-                    </div>
-                </div>
+
+    {{!-- Hit Points --}}
+    <div class="subsection health">
+        <header>
+            <label for="{{document.uuid}}-hp" data-tooltip="{{data.attributes.hp.breakdown}}">
+                <span>{{localize "PF2E.HitPointsShortLabel"}}</span>
+            </label>
+
+            <span class="hit-points">
+                {{#with data.attributes.hp as |hp|}}
+                    <input
+                        type="number"
+                        name="system.attributes.hp.value"
+                        class="current"
+                        id="{{../document.uuid}}-hp"
+                        value="{{hp.value}}"
+                        placeholder="0"
+                    />
+                    <span class="slash">/</span>
+                    <input
+                        type="number"
+                        class="max adjustable{{#if (lt hp.max 10)}} lt10{{else if (lt hp.max 100)}} lt100{{else}} lt1000{{/if}}{{#if hp.adjustedHigher}} adjusted-higher{{else if hp.adjustedLower}} adjusted-lower{{/if}}"
+                        data-property="system.attributes.hp.max"
+                        value="{{hp.max}}"
+                        placeholder="0"
+                    />
+                {{/with}}
+            </span>
+        </header>
+
+        {{!-- Temp HP --}}
+        <div class="side-bar-section-content">
+            <div class="hp-temp labeled-field">
+                <label for="{{document.uuid}}-temp-hp">{{localize "PF2E.RuleElement.TempHPShortLabel"}}</label>
+                <input
+                    class="hp-temp-value"
+                    type="number"
+                    name="system.attributes.hp.temp"
+                    id="{{document.uuid}}-temp-hp"
+                    value="{{data.attributes.hp.temp}}"
+                    placeholder="0"
+                />
             </div>
         </div>
+    </div>
+
+
         {{!-- Will --}}
-        <div class="side-bar-section will">
-            <div class="side-bar-section-header value{{data.saves.will.value}}">
-                <div class="side-bar-label labelled-field" data-save="will">
-                    <a class="attribute-label rollable" title="{{data.saves.will.breakdown}}">{{localize "PF2E.SavesWill"}}</a>
-                    <input type="text" value="{{numberFormat data.saves.will.value decimals=0 sign=true}}" class="modifier" data-property="system.saves.will.value" data-dtype="Number" placeholder="0" />
-                </div>
-            </div>
+        <div class="subsection will">
+            <header>
+                {{#with data.saves.will as |will|}}
+                    <label>
+                        <a
+                            class="attribute-label roll"
+                            data-action="roll-check"
+                            data-statistic="will"
+                            data-tooltip="{{will.breakdown}}"
+                        >{{localize "PF2E.SavesWill"}}</a>
+                    </label>
+                    <input
+                        type="text"
+                        value="{{numberFormat will.totalModifier sign=true}}"
+                        class="modifier adjustable{{#if will.adjustedHigher}} adjusted-higher{{/if}}{{#if will.adjustedLower}} adjusted-lower{{/if}}"
+                        data-property="system.saves.will.value"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
+                {{/with}}
+            </header>
         </div>
+
         {{!-- Perception --}}
-        <div class="side-bar-section senses">
-            <div class="side-bar-section-header value{{data.attributes.perception.value}}">
-                <div class="perception side-bar-label labelled-field" data-attribute="perception">
-                    <a class="attribute-label rollable">{{localize "PF2E.PerceptionHeader"}}</a>
-                    {{#with data.attributes.perception as |perception|}}
-                        <input type="text" value="{{numberFormat perception.value decimals=0 sign=true}}" class="modifier" data-property="system.attributes.perception.value" data-dtype="Number" placeholder="0" />
-                    {{/with}}
-                </div>
-            </div>
+        <div class="subsection perception">
+            <header>
+                <label>
+                    <a
+                        class="attribute-label roll"
+                        data-action="roll-check"
+                        data-statistic="perception"
+                        data-tooltip="{{data.perception.breakdown}}"
+                    >{{localize "PF2E.PerceptionLabel"}}</a>
+                </label>
+                {{#with data.perception as |perception|}}
+                    <input
+                        type="text"
+                        value="{{numberFormat perception.mod sign=true}}"
+                        class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}} adjusted-lower{{/if}}"
+                        data-property="system.perception.mod"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
+                {{/with}}
+            </header>
             <div class="section-body">
-                {{# if options.editable}}
-                    <input name="system.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="" />
-                {{else}}
-                    <span>{{data.traits.senses.value}}</span>
-                {{/if}}
+                <ul class="senses comma-separated">
+                    {{~#each data.perception.senses as |sense|}}
+                        <li data-slug="{{sense.type}}">
+                            {{~#if sense.emphasizeLabel}}<em>{{sense.label}}</em>{{else}}{{sense.label}}{{/if~}}
+                        </li>
+                    {{/each~}}
+                    {{~#unless data.perception.vision}}<li>{{localize "PF2E.Actor.Creature.Sense.NoVision"}}</li>{{/unless}}
+                </ul>
+
+                <input
+                    type="text"
+                    name="system.perception.details"
+                    value="{{data.perception.details}}"
+                    placeholder="{{localize "PF2E.SpecialSensesLabel"}}"
+                />
             </div>
         </div>
+
         {{!-- Skills --}}
-        <div class="skills side-bar-section">
-            <div class="side-bar-section-header">
-                <div class="side-bar-label labelled-field">
+        <div class="subsection skills">
+            <header>
+                <label>
                     <label class="attribute-label">{{localize "PF2E.SkillsLabel"}}</label>
-                    {{#if options.editable}}
-                        <div class="skills-controls controls" for="data.skills">
-                            <a class="skills-edit edit" data-options="skill" title="{{localize "PF2E.NPC.EditSkills"}}"><i class="fa-solid fa-edit"></i></a>
-                        </div>
-                    {{/if}}
-                </div>
-            </div>
+                </label>
+                {{#if editable}}
+                    <div class="controls">
+                        <a data-action="edit-skills" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
+                    </div>
+                {{/if}}
+            </header>
             <div class="side-bar-section-body">
                 <div class="list">
-                    {{#each data.sortedSkills as |skill id|}}
+                    {{#each data.sortedSkills as |skill|}}
                         {{#if skill.visible}}
-                            <div class="skill-entry tag-legacy" data-skill="{{id}}">
-                                <a class="rollable">{{skill.label}} <span class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}">{{numberFormat skill.value decimals=0 sign=true}}</span></a>
+                            <div class="skill-entry tag-legacy" data-statistic="{{skill.slug}}">
+                                <a class="roll" data-action="roll-check">
+                                    {{skill.label}}
+                                    <span
+                                        class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}"
+                                    >{{numberFormat skill.value sign=true}}</span></a>
                                 {{#if skill.variants}}
                                     {{#each skill.variants as |variant variantId|}}
-                                        <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{variant.label}})</a>
+                                        <a class="roll" data-action="roll-check" data-options="{{variant.options}}">({{variant.label}})</a>
                                     {{/each}}
                                 {{/if}}
                             </div>
@@ -81,14 +151,10 @@
             </div>
         </div>
     </div>
-    {{!--        --}}
-    {{!--  Body  --}}
-    {{!--        --}}
+
     <div class="npc-body">
-        {{!--          --}}
         {{!--  Header  --}}
-        {{!--          --}}
-        <header class="npc-sheet-header">
+        <header>
             {{!-- Name & Level --}}
             <div class="name flexrow bottom-separator">
                 <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
@@ -97,7 +163,7 @@
                     <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
                 {{/with}}
             </div>
-            {{!-- Traits Dropdowns --}}
+            {{!-- Rarity and size --}}
             <div class="flexrow">
                 <div class="flexrow tags paizo-style">
                     <select class="rarity-select traits-list-item tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
@@ -126,10 +192,9 @@
                 <input name="system.details.blurb" type="text" value="{{data.details.blurb}}" />
             </div>
         </header>
-        {{!--        --}}
+
         {{!--  Body  --}}
-        {{!--        --}}
-        <section class="sheet-body notes">
+        <section class="sheet-body notes active">
             {{!-- Description --}}
             <div class="notes-section public-notes section-container">
                 <h4>{{localize "PF2E.NPC.PublicNotes"}}</h4>

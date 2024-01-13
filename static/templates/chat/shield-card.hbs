@@ -3,11 +3,11 @@
         <img src="{{item.img}}" alt="{{item.name}}" />
         <h3>{{item.name}}</h3>
     </header>
-    <div class="tags" data-tooltip-class="pf2e">
-        {{#if (and item.isIdentified (ne item.rarity "common"))}}
+    <div class="tags paizo-style" data-tooltip-class="pf2e">
+        {{#if (and item.isIdentified data.rarity)}}
             <span
-                class="tag rarity {{item.rarity}}"
-                data-trait="{{item.rarity}}"
+                class="tag rarity {{data.rarity.slug}}"
+                data-trait="{{data.rarity.slug}}"
                 data-tooltip="{{data.rarity.description}}"
             >{{localize data.rarity.label}}</span>
         {{/if}}
@@ -19,16 +19,15 @@
         {{#if (and item.isIdentified data.material)}}<span class="tag tag_material">{{data.material}}</span>{{/if}}
     </div>
 
-    <hr />
-
     <div class="card-content">
         {{{item.description}}}
     </div>
 
-    <footer class="card-footer">
-        {{#if item.isIdentified}}
-            <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
-            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
-        {{/if}}
+    <footer{{#unless item.isIdentified}} data-visibility="gm"{{/unless}}>
+        <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
+        <span>{{localize "PF2E.Item.Physical.PriceLabel" price=(coinLabel item.price)}}</span>
+        {{#each data.properties as |property|}}
+            <span>{{localize property}}</span>
+        {{/each}}
     </footer>
 </div>

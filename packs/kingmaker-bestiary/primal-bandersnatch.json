@@ -82,7 +82,7 @@
                     "value": [
                         "agile",
                         "magical",
-                        "reach-20"
+                        "reach-15"
                     ]
                 },
                 "weaponType": {
@@ -112,7 +112,7 @@
                 "damageRolls": {
                     "PG5YnSEe59Gob0Rg": {
                         "damage": "4d4+18",
-                        "damageType": "spirit"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -149,7 +149,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "pain"
+                    ]
                 },
                 "bonus": {
                     "value": 33
@@ -157,7 +160,7 @@
                 "damageRolls": {
                     "Iojo7x3z1RrZWsEW": {
                         "damage": "4d4+18",
-                        "damageType": "spirit"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -425,7 +428,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>"
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -808,12 +811,6 @@
                     "type": "confused"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -832,6 +829,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 19
             },
@@ -842,6 +843,23 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 120,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -859,15 +877,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, scent (precise) 120 feet"
-            },
             "size": {
                 "value": "grg"
             },

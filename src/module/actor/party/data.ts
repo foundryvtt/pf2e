@@ -21,7 +21,6 @@ interface PartySystemSource extends ActorSystemSource {
 interface PartyAttributesSource extends ActorAttributesSource {
     hp?: never;
     ac?: never;
-    initiative?: never;
     immunities?: never;
     weaknesses?: never;
     resistances?: never;

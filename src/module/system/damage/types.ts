@@ -49,7 +49,7 @@ interface DamageRollContext extends BaseRollContext {
     options: Set<string>;
     secret?: boolean;
     /** The domains this roll had, for reporting purposes */
-    domains?: string[];
+    domains: string[];
     /** The number of MAP increases from the preceding check */
     mapIncreases?: ZeroToTwo;
 }
@@ -65,6 +65,7 @@ interface DamageFormulaData {
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
+    roll?: never;
     formula: Record<DegreeOfSuccessString, string | null>;
     breakdown: Record<DegreeOfSuccessString, string[]>;
 }

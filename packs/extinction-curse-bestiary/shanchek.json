@@ -491,7 +491,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -709,7 +709,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -846,7 +846,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -1503,7 +1503,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -2607,7 +2607,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:will|dc:36] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>"
+                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[type:will|dc:36] save.</p>\n<p>On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} and also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 round on a critical failure).</p>\n<p>A creature that succeeds at its save is temporarily immune to psychogenic secretions for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2905,12 +2905,6 @@
                 "temp": 0,
                 "value": 280
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -2929,6 +2923,13 @@
         },
         "details": {
             "blurb": "Female xulgath thoughtmaw",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "draconic",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -2939,6 +2940,23 @@
                 "remaster": false,
                 "title": "Pathfinder #156: The Apocalypse Prophet"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "thoughtsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2961,18 +2979,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "draconic",
-                    "sakvroth"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, thoughtsense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "med"
             },

@@ -269,7 +269,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 2
@@ -727,7 +727,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:35]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:35]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -773,7 +773,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Each creature that ends its turn in the aura must succeed at a @Check[type:will|dc:37] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The copper dragon can turn this aura on or off with a single action, which has the concentrate trait, and can choose not to affect allies within the aura.</p>"
+                    "value": "<p>10 feet. Each creature that ends its turn in the aura must succeed at a @Check[type:will|dc:37] saving throw or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The copper dragon can turn this aura on or off with a single action, which has the concentrate trait, and can choose not to affect allies within the aura.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -984,7 +984,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The copper dragon tells a fantastic joke. Each creature in a @Template[type:emanation|distance:100] must succeed at a @Check[type:will|dc:39] save or suffer the effects of a 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit]</em> spell for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The copper dragon tells a fantastic joke. Each creature in a @Template[type:emanation|distance:100] must succeed at a @Check[type:will|dc:39] save or suffer the effects of a 9th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit]</em> spell for 1 minute.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1232,12 +1232,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "details": "climb on stone only",
                 "otherSpeeds": [
@@ -1255,6 +1249,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "dwarven",
+                    "elven",
+                    "gnomish"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1265,6 +1269,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1287,21 +1308,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "dwarven",
-                    "elven",
-                    "gnomish"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "huge"
             },

@@ -64,6 +64,13 @@ class DecipherWritingAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.DecipherWriting.Notes.criticalFailure" },
             ],
             rollOptions: ["action:decipher-writing"],
+            sampleTasks: {
+                trained: "PF2E.Actions.DecipherWriting.SampleTasks.Trained",
+                expert: "PF2E.Actions.DecipherWriting.SampleTasks.Expert",
+                master: "PF2E.Actions.DecipherWriting.SampleTasks.Master",
+                legendary: "PF2E.Actions.DecipherWriting.SampleTasks.Legendary",
+            },
+            section: "skill",
             slug: "decipher-writing",
             statistic: "",
             traits: ["concentrate", "exploration", "secret"],

@@ -1,5 +1,5 @@
 import { PreciousMaterialType } from "@item/physical/types.ts";
-import {
+import type {
     MELEE_WEAPON_GROUPS,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,
@@ -9,7 +9,7 @@ import {
 
 type WeaponPropertyRuneType = SetElement<typeof WEAPON_PROPERTY_RUNE_TYPES>;
 
-type WeaponCategory = SetElement<typeof WEAPON_CATEGORIES>;
+type WeaponCategory = (typeof WEAPON_CATEGORIES)[number];
 type MeleeWeaponGroup = SetElement<typeof MELEE_WEAPON_GROUPS>;
 
 type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;

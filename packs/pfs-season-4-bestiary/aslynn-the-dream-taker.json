@@ -261,7 +261,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "levels": {
@@ -438,7 +438,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -779,7 +779,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1135,7 +1135,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This variant of a traditional hag's heartstone was crafted from the petrified tears of a dream dragon, which is psychically attuned by Aslynn's spirit and proximity. The <em>siphoning heartstone</em> stores the dreaming minds stolen by Aslynn through her siphoning stones. Aslynn can release a stored mind, sifting out its essence, but such tampering usually inflicts psychological harm, resulting in new phobias or sleep disorders.</p>\n<p>When Aslynn wears the <em>siphoning heartstone</em>, she gains a +2 item bonus to saving throws. Additionally, it grants her Dream Theft ability and allows her to use additional occult innate spells: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ethereal Jaunt]</em> (9th level), <em>@UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Mind Reading]</em> at will. If it's separated from Aslynn for 24 hours (or she's been dead for 24 hours), the <em>siphoning heartstone</em> becomes a nonmagical gemstone.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Requirements</strong> You must be touching the siphoning heartstone</p>\n<hr />\n<p><strong>Effect</strong> The <em>siphoning heartstone</em> attempts to counteract one disease affecting you (counteract level 5, counteract modifier [[/r 1d20+18 #Counteract]]{+18}).</p>"
+                    "value": "<p>This variant of a traditional hag's heartstone was crafted from the petrified tears of a dream dragon, which is psychically attuned by Aslynn's spirit and proximity. The <em>siphoning heartstone</em> stores the dreaming minds stolen by Aslynn through her siphoning stones. Aslynn can release a stored mind, sifting out its essence, but such tampering usually inflicts psychological harm, resulting in new phobias or sleep disorders.</p>\n<p>When Aslynn wears the <em>siphoning heartstone</em>, she gains a +2 item bonus to saving throws. Additionally, it grants her Dream Theft ability and allows her to use additional occult innate spells: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ethereal Jaunt]</em> (9th level), <em>@UUID[Compendium.pf2e.spells-srd.Item.Seize Soul]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Mind Reading]</em> at will. If it's separated from Aslynn for 24 hours (or she's been dead for 24 hours), the <em>siphoning heartstone</em> becomes a nonmagical gemstone.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p><strong>Requirements</strong> You must be touching the siphoning heartstone</p>\n<hr />\n<p><strong>Effect</strong> The <em>siphoning heartstone</em> attempts to counteract one disease affecting you (counteract rank 5, counteract modifier [[/r 1d20+18 #Counteract]]{+18}).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1902,12 +1902,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 24
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -1947,6 +1941,17 @@
         },
         "details": {
             "blurb": "Variant night hag",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "common",
+                    "diabolic",
+                    "empyrean",
+                    "tien"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1957,6 +1962,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #4-17: Trapping the Hag's Claw"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1984,22 +2001,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "common",
-                    "diabolic",
-                    "empyrean",
-                    "tien"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

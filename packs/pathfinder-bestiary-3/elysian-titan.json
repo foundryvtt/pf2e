@@ -130,7 +130,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -139,7 +139,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 10
@@ -281,13 +281,13 @@
             "system": {
                 "area": null,
                 "cost": {
-                    "value": "valuable oils and objects associated with the target worth a total value of 100 gp × the spell level × the target's level"
+                    "value": "valuable oils and objects associated with the target worth a total value of 100 gp × the spell rank × the target's level"
                 },
                 "counteraction": false,
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You perform a ritual to free a creature imprisoned, petrified, or otherwise put into stasis by any magical effects from all such effects, even effects like <em>@UUID[Compendium.pf2e.spells-srd.Item.Imprisonment]</em> that don't have a duration, as long as <em>freedom</em>'s spell level is equal to or higher than the effect's spell level. To perform the ritual, you must be within 10 feet of the target, or within 10 feet of the place where the target was imprisoned (in the case of effects that trap the creature in an unreachable prison, like the oubliette form of Imprisonment). You must know the name of the creature and details of its background; if the creature is not a close associate, a failure or critical failure on a secondary Society check reduces even a critical success on the primary check to a failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis. It gains a +1 status bonus to saving throws to resist those same magical effects for 1 week.</p>\n<p><strong>Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis.</p>\n<p><strong>Failure</strong> You fail to free the target.</p>\n<p><strong>Critical Failure</strong> The magical effects imprisoning the target, petrifying the target, or putting it into stasis affect you and all secondary casters.</p>"
+                    "value": "<p>You perform a ritual to free a creature imprisoned, petrified, or otherwise put into stasis by any magical effects from all such effects, even effects like <em>@UUID[Compendium.pf2e.spells-srd.Item.Imprisonment]</em> that don't have a duration, as long as <em>freedom</em>'s spell rank is equal to or higher than the effect's spell rank. To perform the ritual, you must be within 10 feet of the target, or within 10 feet of the place where the target was imprisoned (in the case of effects that trap the creature in an unreachable prison, like the oubliette form of Imprisonment). You must know the name of the creature and details of its background; if the creature is not a close associate, a failure or critical failure on a secondary Society check reduces even a critical success on the primary check to a failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis. It gains a +1 status bonus to saving throws to resist those same magical effects for 1 week.</p>\n<p><strong>Success</strong> You free the target from all magical effects imprisoning it, petrifying it, or putting it into stasis.</p>\n<p><strong>Failure</strong> You fail to free the target.</p>\n<p><strong>Critical Failure</strong> The magical effects imprisoning the target, petrifying the target, or putting it into stasis affect you and all secondary casters.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -392,7 +392,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "teleportation"
                     ]
@@ -428,7 +427,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -532,7 +531,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "revelation"
                     ]
@@ -667,7 +665,6 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -732,7 +729,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -798,7 +794,6 @@
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate"
                     ]
                 }
@@ -1306,7 +1301,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:44] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
+                    "value": "<p>100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a @Check[type:will|dc:44] save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1653,12 +1648,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 36
-            },
             "speed": {
                 "details": "air walk",
                 "otherSpeeds": [],
@@ -1667,6 +1656,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 21
             },
@@ -1677,6 +1674,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 36,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1704,22 +1718,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "empyrean"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

@@ -1,75 +1,262 @@
-{{> "systems/pf2e/templates/items/partials/ability-activation.hbs"}}
+<fieldset class="basics">
+    {{> "systems/pf2e/templates/items/partials/ability-activation.hbs"}}
 
-{{#if item.isFeat}}
-    <div class="form-group">
-        <label for="{{fieldIdPrefix}}max-takable">{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
-        <div class="form-fields">
-            <select
-                {{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}}
-                id="{{fieldIdPrefix}}max-takable"
-                data-dtype="Number"
-                {{disabled mandatoryTakeOnce}}
-            >
-                {{#select data.maxTakable}}
-                    <option value="1">{{localize "No"}}</option>
-                    <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
-                    <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
-                    <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
-                    <option value="5">{{localize "PF2E.Item.Feat.TakeMultiple.Five"}}</option>
-                    <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
-                {{/select}}
-            </select>
-            {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
-        </div>
-    </div>
-
-    {{#if (eq item.level 1)}}
+    {{#if item.isFeat}}
         <div class="form-group">
-            <label for="{{fieldIdPrefix}}only-level-1">{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
+            <label for="{{fieldIdPrefix}}max-takable">{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
             <div class="form-fields">
-                <input
-                    type="checkbox"
-                    name="system.onlyLevel1"
-                    id="{{fieldIdPrefix}}only-level-1"
-                    {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}}
-                />
+                <select
+                    {{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}}
+                    id="{{fieldIdPrefix}}max-takable"
+                    data-dtype="Number"
+                    {{disabled mandatoryTakeOnce}}
+                >
+                    {{#select data.maxTakable}}
+                        <option value="1">{{localize "No"}}</option>
+                        <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
+                        <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
+                        <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
+                        <option value="5">{{localize "PF2E.Item.Feat.TakeMultiple.Five"}}</option>
+                        <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
+                    {{/select}}
+                </select>
+                {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
             </div>
         </div>
-    {{/if}}
-{{/if}}
 
-<div class="form-group stacked">
-    <label for="{{fieldIdPrefix}}prerequisites">{{localize "PF2E.FeatPrereqLabel"}}</label>
-    <div class="form-fields">
-        <input
-            class="pf2e-tagify"
-            type="text"
-            name="system.prerequisites.value"
-            id="{{fieldIdPrefix}}prerequisites"
-            value="{{json item.system.prerequisites.value}}"
-            data-dtype="JSON"
-        />
+        {{#if (eq item.level 1)}}
+            <div class="form-group">
+                <label for="{{fieldIdPrefix}}only-level-1">{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
+                <div class="form-fields">
+                    <input
+                        type="checkbox"
+                        name="system.onlyLevel1"
+                        id="{{fieldIdPrefix}}only-level-1"
+                        {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}}
+                    />
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+
+    <div class="form-group stacked">
+        <label for="{{fieldIdPrefix}}prerequisites">{{localize "PF2E.FeatPrereqLabel"}}</label>
+        <div class="form-fields">
+            <input
+                class="pf2e-tagify"
+                type="text"
+                name="system.prerequisites.value"
+                id="{{fieldIdPrefix}}prerequisites"
+                value="{{json item.system.prerequisites.value}}"
+                data-dtype="JSON"
+            />
+        </div>
     </div>
-</div>
+</fieldset>
+
+<fieldset class="subfeatures">
+    <legend>{{localize "PF2E.Item.Feat.Subfeatures.Label"}}</legend>
+
+    {{#if canHaveKeyOptions}}
+        <div class="form-group stacked">
+            <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Label"}}</label>
+            <div class="form-fields">
+                <input class="pf2e-tagify"
+                    type="text"
+                    name="system.subfeatures.keyOptions"
+                    id="{{fieldIdPrefix}}key-options"
+                    value="{{json item.system.subfeatures.keyOptions}}"
+                    data-dtype="JSON"
+                />
+            </div>
+            <p class="hint">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Hint"}}</p>
+        </div>
+    {{/if}}
+
+    <div class="form-group stacked" data-languages>
+        <label for="{{fieldIdPrefix}}add-language">{{localize "PF2E.Actor.Creature.Language.Plural"}}</label>
+        <ul{{#unless hasLanguages}} class="empty"{{/unless}}>
+            {{#if (gt languages.slots 0)}}
+                <li>
+                    <label for="{{fieldIdPrefix}}slots">[{{localize "PF2E.Item.Feat.Subfeatures.Languages.OpenSlots"}}]</label>
+                    <input
+                        type="number"
+                        name="system.subfeatures.languages.slots"
+                        id="{{fieldIdPrefix}}slots"
+                        value="{{data.subfeatures.languages.slots}}"
+                    />
+                    <a data-action="delete-slots" data-slug="{{language.slug}}"><i class="fa-solid fa-trash"></i></a>
+                </li>
+            {{/if}}
+            {{#each languages.granted.selected as |language|}}
+                <li>
+                    <label>{{language.label}}</label>
+                    <a data-action="delete-language" data-slug="{{language.slug}}"><i class="fa-solid fa-trash"></i></a>
+                </li>
+            {{/each}}
+            <li class="add-subfeature">
+                <select id="{{fieldIdPrefix}}add-language" class="unselected-options" data-unselected-options>
+                    <option></option>
+                    {{#if (eq languages.slots 0)~}}
+                        <option value="slots">[{{localize "PF2E.Item.Feat.Subfeatures.Languages.OpenSlots"}}]</option>
+                    {{~/if}}
+                    {{#each languages.granted.available as |language|}}
+                        {{#unless language.selected~}}
+                            <option value="{{language.slug}}">{{language.label}}</option>
+                        {{~/unless}}
+                    {{/each}}
+                </select>
+                <a data-action="add-language" disabled><i class="fa-solid fa-plus"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-group stacked proficiencies" data-proficiencies>
+        <label for="{{fieldIdPrefix}}add-proficiency">{{localize "PF2E.Item.Feat.Subfeatures.Proficiencies.Label"}}</label>
+        <ul{{#unless hasProficiencies}} class="empty"{{/unless}}>
+            {{#each proficiencies as |group|~}}
+                {{#each group.options as |option|~}}
+                    {{#if option.rank~}}
+                        <li>
+                            <label for="{{@root.fieldIdPrefix}}{{option.slug}}">{{option.label}}</label>
+                            <select
+                                name="{{concat "system.subfeatures.proficiencies." option.slug ".rank"}}"
+                                class="rank"
+                                id="{{@root.fieldIdPrefix}}{{option.slug}}"
+                                data-dtype="Number"
+                            >
+                                {{#select option.rank}}
+                                    <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
+                                    <option value="2">{{localize "PF2E.ProficiencyLevel2"}}</option>
+                                    <option value="3">{{localize "PF2E.ProficiencyLevel3"}}</option>
+                                    <option value="4">{{localize "PF2E.ProficiencyLevel4"}}</option>
+                                {{/select}}
+                            </select>
+
+                            {{#if (or option.attribute (eq option.attribute null))}}
+                                <select
+                                    name="{{concat "system.subfeatures.proficiencies." option.slug ".attribute"}}"
+                                    class="attribute"
+                                    data-dtype="JSON"
+                                >
+                                    <option value="null"></option>
+                                    {{~#each @root.attributes as |label slug|}}
+                                        <option value="{{json slug}}"{{#if (eq option.attribute slug)}} selected{{/if}}>{{localize label}}</option>
+                                    {{/each}}
+                                </select>
+                            {{/if}}
+                            <a data-action="delete-proficiency" data-slug="{{option.slug}}"><i class="fa-solid fa-trash"></i></a>
+                        </li>
+                    {{~/if}}
+                {{~/each}}
+            {{~/each}}
+
+            <li class="add-subfeature">
+                <select id="{{fieldIdPrefix}}add-proficiency" class="unselected-options" data-unselected-options>
+                    <option></option>
+                    {{#each proficiencies as |group|}}
+                        {{#if group.group}}
+                            <optgroup label="{{group.group}}">
+                                {{#each group.options as |option|}}
+                                    {{#unless option.rank~}}
+                                        <option value="{{option.slug}}">{{option.label}}</option>
+                                    {{~/unless}}
+                                {{/each}}
+                            </optgroup>
+                        {{else}}
+                            {{#each group.options as |option|}}
+                                {{#unless option.rank~}}
+                                    <option value="{{option.slug}}">{{option.label}}</option>
+                                {{~/unless}}
+                            {{/each}}
+                        {{/if}}
+                    {{/each}}
+                </select>
+
+                {{#if hasProficiencies}}
+                    <select class="rank" disabled>
+                        <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
+                    </select>
+                {{/if}}
+
+                <a data-action="add-proficiency" disabled><i class="fa-solid fa-plus"></i></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="form-group stacked senses" data-senses>
+        <label for="{{fieldIdPrefix}}add-sense">{{localize "PF2E.Actor.Creature.Sense.Plural"}}</label>
+        <ul{{#unless hasSenses}} class="empty"{{/unless}}>
+            {{#each senses as |option|~}}
+                {{#if option.selected~}}
+                    <li>
+                        <label for="{{@root.fieldIdPrefix}}{{option.slug}}">
+                            {{~option.label}}
+                            {{~#if (eq option.slug "darkvision")}}
+                                <a
+                                    class="darkvision-special"
+                                    data-action="toggle-darkvision-special"
+                                    data-special="ancestry"
+                                    data-tooltip="PF2E.Item.Feat.Subfeatures.Senses.Darkvision.Ancestry"
+                                ><i class="fa-{{#if option.special.ancestry}}solid{{else}}regular{{/if}} fa-circle-a"></i></a>
+                                <a
+                                    class="darkvision-special"
+                                    data-action="toggle-darkvision-special"
+                                    data-special="llv"
+                                    data-tooltip="PF2E.Item.Feat.Subfeatures.Senses.Darkvision.LLV"
+                                ><i class="fa-{{#if option.special.llv}}solid{{else}}regular{{/if}} fa-circle-l"></i></a>
+                                <a
+                                    class="darkvision-special"
+                                    data-action="toggle-darkvision-special"
+                                    data-special="second"
+                                    data-tooltip="PF2E.Item.Feat.Subfeatures.Senses.Darkvision.Second"
+                                ><i class="fa-{{#if option.special.second}}solid{{else}}regular{{/if}} fa-circle-2"></i></a>
+                            {{~/if~}}
+                        </label>
+                        <select
+                            name="{{concat "system.subfeatures.senses." option.slug ".acuity"}}"
+                            class="acuity"
+                            id="{{@root.fieldIdPrefix}}{{option.slug}}"
+                            {{disabled (not option.canSetAcuity)}}
+                        >
+                            {{#select option.acuity}}
+                                <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Precise"}}</option>
+                                <option value="imprecise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Imprecise"}}</option>
+                                <option value="vague">{{localize "PF2E.Actor.Creature.Sense.Acuity.Vague"}}</option>
+                            {{/select}}
+                        </select>
+
+                        <input
+                            type="number"
+                            class="range"
+                            name="{{concat "system.subfeatures.senses." option.slug ".range"}}"
+                            placeholder="{{localize "PF2E.Actor.Creature.Sense.NoRangeLimit"}}"
+                            value="{{option.range}}"
+                            {{disabled (not option.canSetRange)}}
+                        />
+
+                        <a data-action="delete-sense" data-slug="{{option.slug}}"><i class="fa-solid fa-trash"></i></a>
+                    </li>
+                {{~/if}}
+            {{~/each}}
+
+            <li class="add-subfeature">
+                <select id="{{fieldIdPrefix}}add-sense" class="unselected-options" data-unselected-options>
+                    <option></option>
+                    {{#each senses as |sense|}}
+                        {{#unless sense.selected}}
+                            <option value="{{sense.slug}}">{{sense.label}}</option>
+                        {{~/unless}}
+                    {{/each}}
+                </select>
+                <a data-action="add-sense" disabled><i class="fa-solid fa-plus"></i></a>
+            </li>
+        </ul>
+    </div>
+</fieldset>
 
 {{#unless (eq item.system.actionType.value "passive")}}
     {{> "systems/pf2e/templates/items/partials/self-applied-effect.hbs"}}
 {{/unless}}
-
-{{#if canHaveKeyOptions}}
-    <div class="form-group stacked">
-        <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Label"}}</label>
-        <div class="form-fields">
-            <input class="pf2e-tagify"
-                type="text"
-                name="system.subfeatures.keyOptions"
-                id="{{fieldIdPrefix}}key-options"
-                value="{{json item.system.subfeatures.keyOptions}}"
-                data-dtype="JSON"
-            />
-        </div>
-        <p class="hint">{{localize "PF2E.Item.Feat.KeyAbilityOptions.Hint"}}</p>
-    </div>
-{{/if}}
 
 {{> "systems/pf2e/templates/items/partials/other-tags.hbs"}}

@@ -222,11 +222,11 @@
                 "traits": {
                     "rarity": "common",
                     "traditions": [
+                        "divine",
                         "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "divine",
                         "manipulate",
                         "plant"
                     ]
@@ -321,7 +321,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -649,7 +649,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:23] save. The kodama can activate or deactivate this aura by using a single action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated]. This condition ends if the creature ends its turn outside the aura.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it remains fascinated.</p>"
+                    "value": "<p>30 feet. When a creature ends its turn in the aura, it must attempt a @Check[type:will|dc:23] save. The kodama can activate or deactivate this aura by using a single action, which has the concentrate trait.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated]. This condition ends if the creature ends its turn outside the aura.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} as long as it remains fascinated.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -883,12 +883,6 @@
                 "temp": 0,
                 "value": 95
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "resistances": [
                 {
                     "type": "unholy",
@@ -908,6 +902,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with plants, telepathy 50 feet",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -918,6 +918,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -940,20 +952,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Speak With Plants, Telepathy 50 feet",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

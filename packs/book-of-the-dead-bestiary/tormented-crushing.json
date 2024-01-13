@@ -212,7 +212,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] or @Template[type:emanation|distance:60] if the tormented is at 125 HP or lower.</p>\n<p>The psychic agony of a tormented spills into the world around them, inflicting murderous hallucinations replicating the tormented's last moments. A non-undead creature that ends its turn in the aura must succeed at a @Check[type:will|dc:32] save or take @Damage[4d8[bludgeoning]] damage and be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. While it has a condition from Tortured Gaze, a creature can't gain a new condition from the aura but can take damage from it again.</p>"
+                    "value": "<p>30 foot or 60 foot if the tormented is at 125 HP or lower.</p>\n<p>The psychic agony of a tormented spills into the world around them, inflicting murderous hallucinations replicating the tormented's last moments. A non-undead creature that ends its turn in the aura must succeed at a @Check[type:will|dc:32] save or take @Damage[4d8[bludgeoning]] damage and be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. While it has a condition from Tortured Gaze, a creature can't gain a new condition from the aura but can take damage from it again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -477,12 +477,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 27
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -502,6 +496,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -512,6 +514,23 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 27,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -529,19 +548,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, lifesense 60 feet"
-            },
             "size": {
                 "value": "med"
             },

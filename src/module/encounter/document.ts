@@ -13,6 +13,10 @@ import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
 class EncounterPF2e extends Combat {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
+    /** Threat assessment and XP award of this encounter */
     declare metrics: EncounterMetrics | null;
 
     /** Sort combatants by initiative rolls, falling back to tiebreak priority and then finally combatant ID (random) */
@@ -22,11 +26,7 @@ class EncounterPF2e extends Combat {
     ): number {
         const resolveTie = (): number => {
             const [priorityA, priorityB] = [a, b].map(
-                (combatant): number =>
-                    combatant.overridePriority(combatant.initiative ?? 0) ??
-                    (combatant.actor?.system.attributes.initiative
-                        ? combatant.actor.system.attributes.initiative.tiebreakPriority
-                        : 3),
+                (c): number => c.overridePriority(c.initiative ?? 0) ?? c.actor?.initiative?.tiebreakPriority ?? 3,
             );
             return priorityA === priorityB ? a.id.localeCompare(b.id) : priorityA - priorityB;
         };
@@ -92,6 +92,18 @@ class EncounterPF2e extends Combat {
         const participants = { party: fightyPartyMembers, opposition };
 
         return { threat, budget, award, participants };
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
+    /** Prevent double data preparation */
+    override prepareData(): void {
+        if (this.initialized) return;
+        this.initialized = true;
+        super.prepareData();
     }
 
     override prepareDerivedData(): void {
@@ -210,7 +222,7 @@ class EncounterPF2e extends Combat {
                 {
                     id: combatant.id,
                     value,
-                    statistic: combatant.actor.attributes.initiative.statistic || "perception",
+                    statistic: combatant.actor.system.initiative.statistic || "perception",
                 },
             ]);
         }

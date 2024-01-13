@@ -16,16 +16,16 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/partials/strike.hbs",
 
         // PC Sheet Tabs
-        "systems/pf2e/templates/actors/character/tabs/general.hbs",
         "systems/pf2e/templates/actors/character/tabs/actions.hbs",
         "systems/pf2e/templates/actors/character/tabs/biography.hbs",
+        "systems/pf2e/templates/actors/character/tabs/character.hbs",
+        "systems/pf2e/templates/actors/character/tabs/crafting.hbs",
         "systems/pf2e/templates/actors/character/tabs/effects.hbs",
         "systems/pf2e/templates/actors/character/tabs/feats.hbs",
         "systems/pf2e/templates/actors/character/tabs/inventory.hbs",
         "systems/pf2e/templates/actors/character/tabs/pfs.hbs",
         "systems/pf2e/templates/actors/character/tabs/proficiencies.hbs",
         "systems/pf2e/templates/actors/character/tabs/spellcasting.hbs",
-        "systems/pf2e/templates/actors/character/tabs/crafting.hbs",
 
         // Hazard Sheets Partials
         "systems/pf2e/templates/actors/hazard/partials/header.hbs",
@@ -113,6 +113,7 @@ export function registerTemplates(): void {
 
         // Item Sheet Partials (sub-partials)
         "systems/pf2e/templates/items/partials/ability-activation.hbs",
+        "systems/pf2e/templates/items/partials/apex.hbs",
         "systems/pf2e/templates/items/partials/duration.hbs",
         "systems/pf2e/templates/items/partials/other-tags.hbs",
         "systems/pf2e/templates/items/partials/self-applied-effect.hbs",
@@ -149,6 +150,9 @@ export function registerTemplates(): void {
 
         // Partials for multiple document types
         "systems/pf2e/templates/partials/publication-data.hbs",
+
+        // misc partials
+        "systems/pf2e/templates/system/settings/basic-setting.hbs",
     ];
 
     loadTemplates(templatePaths);

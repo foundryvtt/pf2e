@@ -211,7 +211,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The primordial envy attempts to drain magic from a spellcasting creature that it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The spellcasting creature must attempt a @Check[type:will|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Spell Drain for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the creature's uncast spells or unused spell slots is lost, as if they had cast it. The spell or slot lost is one of the highest-level spells the creature can cast, determined randomly if multiple prepared spells are available. If a cantrip is drained, the spellcaster loses access to that cantrip for 10 minutes. The primordial envy becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 for 1 round, and can use the extra action to Stride or Strike.</p>"
+                    "value": "<p>The primordial envy attempts to drain magic from a spellcasting creature that it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The spellcasting creature must attempt a @Check[type:will|dc:20] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Spell Drain for 24 hours.</p>\n<p><strong>Success</strong> The creature takes @Damage[1d6[mental]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[2d6[mental]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but one of the creature's uncast spells or unused spell slots is lost, as if they had cast it. The spell or slot lost is one of the highest-rank spells the creature can cast, determined randomly if multiple prepared spells are available. If a cantrip is drained, the spellcaster loses access to that cantrip for 10 minutes. The primordial envy becomes @UUID[Compendium.pf2e.conditionitems.Item.Quickened] 1 for 1 round, and can use the extra action to Stride or Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -348,12 +348,6 @@
                     "type": "visual"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 6
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -375,6 +369,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 3
             },
@@ -385,6 +383,18 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Rusthenge"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "magic sense (precise) 30 feet",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -402,14 +412,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, magic sense (precise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

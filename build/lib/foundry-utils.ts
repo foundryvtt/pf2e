@@ -70,21 +70,41 @@ function setProperty(obj: object, key: string, value: unknown): boolean {
     return changed;
 }
 
+class Color extends Number {}
+
 /**
- * Learn the named type of a token - extending the functionality of typeof to recognize some core Object types
- * @param token     Some passed token
+ * Learn the underlying data type of some variable. Supported identifiable types include:
+ * undefined, null, number, string, boolean, function, Array, Set, Map, Promise, Error,
+ * HTMLElement (client side only), Object (catchall for other object types)
+ * @param variable A provided variable
  * @return The named type of the token
  */
-function getType(token: unknown): string {
-    const tof = typeof token;
-    if (typeof token === "object") {
-        if (token === null) return "null";
-        const cn = token.constructor.name;
-        if (["String", "Number", "Boolean", "Array", "Set"].includes(cn)) return cn;
-        else if (/^HTML/.test(cn)) return "HTMLElement";
-        else return "Object";
+function getType(variable: unknown): string {
+    // Primitive types, handled with simple typeof check
+    const typeOf = typeof variable;
+    if (typeOf !== "object") return typeOf;
+
+    // Special cases of object
+    if (variable === null) return "null";
+    if (variable instanceof Object && !variable.constructor) return "Object"; // Object with the null prototype.
+    if (variable instanceof Object && variable.constructor.name === "Object") return "Object"; // simple objects
+
+    // Match prototype instances
+    const prototypes: [Function, string][] = [
+        [Array, "Array"],
+        [Set, "Set"],
+        [Map, "Map"],
+        [Promise, "Promise"],
+        [Error, "Error"],
+        [Color, "number"],
+    ];
+    if ("HTMLElement" in globalThis) prototypes.push([globalThis.HTMLElement, "HTMLElement"]);
+    for (const [cls, type] of prototypes) {
+        if (variable instanceof cls) return type;
     }
-    return tof;
+
+    // Unknown Object type
+    return "Object";
 }
 
 /**
@@ -115,13 +135,13 @@ function duplicate<T>(original: T): T {
 }
 
 /** Update a source object by replacing its keys and values with those from a target object. */
-export function mergeObject<T extends object, U extends object = T>(
+function mergeObject<T extends object, U extends object = T>(
     original: T,
     other?: U,
     options?: MergeObjectOptions,
     _d?: number,
 ): T & U;
-export function mergeObject(
+function mergeObject(
     original: object,
     other: object = {},
     {
@@ -242,46 +262,94 @@ function _mergeUpdate(
     }
 }
 
-function arrayEquals(self: unknown[], other: unknown[]): boolean {
-    if (!(other instanceof Array) || other.length !== self.length) return false;
-    return self.every((v, i) => other[i] === v);
-}
-
 /**
- * Deeply difference an object against some other, returning the update keys and values
- * @param original     An object comparing data against which to compare.
- * @param other        An object containing potentially different data.
- * @param [inner]     Only recognize differences in other for keys which also exist in original.
- * @return An object of the data in other which differs from that in original.
+ * Deeply difference an object against some other, returning the update keys and values.
+ * @param original     An object comparing data against which to compare
+ * @param other        An object containing potentially different data
+ * @param [options={}] Additional options which configure the diff operation
+ * @param [options.inner=false]  Only recognize differences in other for keys which also exist in original
+ * @param [options.deletionKeys=false] Apply special logic to deletion keys. They will only be kept if the
+ *                                               original object has a corresponding key that could be deleted.
+ * @return {object}               An object of the data in other which differs from that in original
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function diffObject(original: any, other: any, { inner = false } = {}): any {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function _difference(v0: any, v1: any): [boolean, any] {
-        const t0 = getType(v0);
-        const t1 = getType(v1);
+function diffObject(original: object, other: object, { inner = false, deletionKeys = false } = {}) {
+    function _difference(v0: unknown, v1: unknown) {
+        // Eliminate differences in types
+        const t0 = fu.getType(v0);
+        const t1 = fu.getType(v1);
         if (t0 !== t1) return [true, v1];
-        if (t0 === "Array") return [!arrayEquals(v0, v1), v1];
-        if (t0 === "Object") {
-            const v0IsEmpty = Object.keys(v0).length === 0;
-            const v1IsEmpty = Object.keys(v1).length === 0;
-            if (v0IsEmpty !== v1IsEmpty) return [true, v1];
-            const d = diffObject(v0, v1, { inner });
-            return [Object.keys(d).length > 0, d];
+
+        // null and undefined
+        if (["null", "undefined"].includes(t0)) return [v0 !== v1, v1];
+
+        // If the prototype explicitly exposes an equality-testing method, use it
+        if (v0 instanceof Object && "equals" in v0 && v0.equals instanceof Function) {
+            return [!v0.equals(v1), v1];
         }
-        return [v0 !== v1, v1];
+
+        // Recursively diff objects
+        if (v0 instanceof Object && v1 instanceof Object && t0 === "Object") {
+            if (fu.isEmpty(v1)) return [false, {}];
+            if (fu.isEmpty(v0)) return [true, v1];
+            const d = diffObject(v0, v1, { inner, deletionKeys });
+            return [!isEmpty(d), d];
+        }
+
+        // Differences in primitives
+        return [v0 instanceof Object && v1 instanceof Object && v0.valueOf() !== v1.valueOf(), v1];
     }
 
     // Recursively call the _difference function
-    return Object.keys(other).reduce(
-        (obj, key) => {
-            if (inner && original[key] === undefined) return obj;
-            const [isDifferent, difference] = _difference(original[key], other[key]);
-            if (isDifferent) obj[key] = difference;
+    return Object.keys(other).reduce((obj: Record<string, unknown>, key) => {
+        const isDeletionKey = key.startsWith("-=");
+        if (isDeletionKey && deletionKeys) {
+            const otherKey = key.substring(2);
+            if (otherKey in original) obj[key] = (other as Record<string, unknown>)[key];
             return obj;
-        },
-        {} as Record<string, unknown>,
-    );
+        }
+        if (inner && !(key in original)) return obj;
+        const [isDifferent, difference] = _difference(
+            (original as Record<string, unknown>)[key],
+            (other as Record<string, unknown>)[key],
+        );
+        if (isDifferent) obj[key] = difference;
+        return obj;
+    }, {});
+}
+
+/**
+ * Test whether a value is empty-like; either undefined or a content-less object.
+ * @param {*} value       The value to test
+ * @returns {boolean}     Is the value empty-like?
+ */
+function isEmpty(value: unknown): boolean {
+    const t = getType(value);
+    switch (t) {
+        case "undefined":
+            return true;
+        case "null":
+            return true;
+        case "Array":
+            return Array.isArray(value) ? !value.length : !!value;
+        case "Object":
+            return value instanceof Object ? !Object.keys(value).length : !!value;
+        case "Set":
+        case "Map":
+            return value instanceof Map ? !value.size : !!value;
+        default:
+            return false;
+    }
+}
+
+/**
+ * Generate a random string ID of a given requested length.
+ * @param length The length of the random ID to generate
+ * @return Return a string containing random letters and numbers
+ */
+function randomID(length = 16): string {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const r = Array.from({ length }, () => (Math.random() * chars.length) >> 0);
+    return r.map((i) => chars[i]).join("");
 }
 
 const f = (global.foundry = {
@@ -290,7 +358,10 @@ const f = (global.foundry = {
         diffObject,
         duplicate,
         expandObject,
+        isEmpty,
+        getType,
         mergeObject,
+        randomID,
         setProperty,
     },
 } as typeof foundry);

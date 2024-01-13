@@ -7,10 +7,10 @@
     </h4>
 
     <div class="controls">
-        <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
-        {{#if isEditable}}
-            <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-            <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+        <a class="chat" data-action="item-to-chat" data-tooltip="PF2E.NPC.SendToChat"><i class="fa-solid fa-fw fa-message"></i></a>
+        {{#if @root.editable}}
+            <a data-action="edit-item" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-fw fa-edit"></i></a>
+            <a data-action="delete-item" data-tooltip="Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
         {{/if}}
     </div>
 

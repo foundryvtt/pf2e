@@ -88,7 +88,7 @@
                         }
 
                         &:active {
-                            text-shadow: 0 0 1px var(--primary);
+                            text-shadow: 0 0 1px var(--color-pf-primary);
                         }
                     }
                 }
@@ -211,8 +211,6 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                margin-left: auto;
-                margin-right: 1rem;
 
                 input {
                     width: 0;
@@ -223,6 +221,10 @@
                 span {
                     white-space: nowrap;
                 }
+            }
+
+            .item-summary .level {
+                display: none;
             }
         }
     }
@@ -243,7 +245,7 @@
 
         &.active,
         &:hover {
-            background-color: var(--primary);
+            background-color: var(--color-pf-primary);
             color: var(--text-light);
             opacity: 1;
         }

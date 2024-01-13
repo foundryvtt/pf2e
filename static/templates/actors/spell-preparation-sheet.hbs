@@ -22,20 +22,18 @@
     </header>
 
     <section class="sheet-content">
-        <ol class="directory-list item-list spell-list">
-            {{#unless entry.spellPrepList}}
-                {{#if @root.options.editable}}
+        <ol class="spell-list">
+            {{#unless entry.prepList}}
+                {{#if @root.editable}}
                     <li class="spellbook-header spellbook-empty">
                         <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                         <a
-                            class="control"
                             data-action="create-spell"
                             data-tooltip="PF2E.CreateSpellTitle"
                             data-type="spell"
                             data-location="{{entry.id}}"
                         ><i class="fa-solid fa-plus fa-fw"></i>{{localize "PF2E.AddSpellTitle"}}</a>
                         <a
-                            class="control"
                             data-action="browse-spells"
                             data-tooltip="PF2E.OpenSpellBrowserTitle"
                             data-location="{{entry.id}}"
@@ -43,9 +41,9 @@
                     </li>
                 {{/if}}
             {{/unless}}
-            {{#each entry.spellPrepList as |spells rank|}}
-                {{#if spells}}
-                    <li class="spell-level-header">
+            {{#each entry.prepList as |spells rank|}}
+                {{#if (lte rank @root.maxRank)}}
+                    <li class="header-row">
                         <div class="item-name flexrow">
                             <h3>
                                 {{#if (gt rank 0)}}
@@ -57,14 +55,14 @@
                         </div>
 
                         <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <div class="item-controls">
                                 <a
                                     class="control"
                                     data-action="create-spell"
                                     data-tooltip="PF2E.CreateSpellTitle"
                                     data-type="spell"
-                                    data-level="{{rank}}"
+                                    data-group-id="{{#if (eq rank "0")}}cantrips{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-plus fa-fw"></i></a>
                                 <a
@@ -72,19 +70,20 @@
                                     data-action="browse-spells"
                                     data-tooltip="PF2E.OpenSpellBrowserTitle"
                                     data-category="{{#if (eq rank "0")}}cantrip{{else}}spell{{/if}}"
-                                    data-rank="{{#if (eq rank "0")}}10{{else}}{{rank}}{{/if}}"
+                                    data-rank="{{#if (eq rank "0")}}1{{else}}{{rank}}{{/if}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-search fa-fw"></i></a>
                             </div>
                         {{/if}}
                     </li>
-                    <!-- Unprepared Spells -->
+                    {{!-- Unprepared Spells --}}
                     {{#each spells as |item i|}}
                         <li class="item spell spellbook-item" data-item-id="{{item.spell.id}}" data-item-type="spell" draggable="true">
                             <div class="item-name rollable">
-                                <div class="item-image">
-                                    <img class="item-icon" data-action="spell-to-chat" src="{{spell.img}}" alt="{{spell.name}}" />
-                                </div>
+                                <a class="item-image" data-action="spell-to-chat">
+                                    <img class="item-icon" src="{{spell.img}}" />
+                                    <i class="fa-solid fa-message"></i>
+                                </a>
                                 <h4 class="name">
                                     <a data-action="toggle-summary">{{spell.name}}</a>
                                     {{{actionGlyph spell.system.time.value}}}

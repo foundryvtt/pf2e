@@ -366,7 +366,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 10 minutes"
+                    "value": "10 minutes"
                 },
                 "level": {
                     "value": 6
@@ -429,7 +429,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature]</em> spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mirage]</em> spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-level version, and the duration is unlimited.</p>"
+                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Creature]</em> spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mirage]</em> spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-rank version, and the duration is unlimited.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -853,7 +853,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> rank, two devils whose levels are each at least 2 less than double the spell rank, or three devils whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for [[/r 1d4 #weeks]]{1d4 weeks}.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for [[/r 1d4 #days]]{1d4 days}.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1569,12 +1569,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -1602,6 +1596,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "indominable oration, telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "diabolic",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1612,6 +1616,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "(+36 to sense motive)",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1639,24 +1655,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Indominable Oration, Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "diabolic",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "(+36 to Sense Motive), greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

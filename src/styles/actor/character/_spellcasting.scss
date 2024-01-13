@@ -13,20 +13,19 @@
         }
 
         .rollable {
-            &:hover {
-                text-shadow: none;
-            }
-
             .d20-svg {
                 width: var(--font-size-14);
                 height: var(--font-size-14);
                 path {
-                    fill: black;
+                    fill: var(--color-text-dark-1);
                 }
             }
 
-            &:hover svg {
-                @include rotate;
+            &:hover {
+                text-shadow: none;
+                svg {
+                    @include die-spin;
+                }
             }
         }
 
@@ -42,18 +41,6 @@
                 align-items: center;
             }
 
-            button {
-                width: auto;
-                line-height: 1.5em;
-                i {
-                    font-size: 0.9em;
-                }
-
-                // hardcoded alignment adjustments due to annoying font centering
-                padding-top: 1px;
-                margin-bottom: 1px;
-            }
-
             .skill-score {
                 font-family: var(--serif);
                 font-weight: bold;
@@ -61,6 +48,11 @@
                 letter-spacing: -1px;
                 line-height: 1;
                 color: var(--secondary);
+            }
+
+            button.prepare-spells {
+                font-family: var(--serif);
+                font-size: var(--font-size-14);
             }
 
             .statistic-values {
@@ -124,9 +116,7 @@
     }
 
     .spellbook-empty {
-        margin: 8px 0;
-        background: none;
-        border: none;
+        margin: 0.5rem 0;
     }
 
     .pf-add-item-row {
@@ -140,5 +130,11 @@
             width: 100%;
             margin-bottom: 12px;
         }
+    }
+
+    button.create-entry {
+        font-family: var(--serif);
+        font-size: var(--font-size-14);
+        margin: 1rem 0;
     }
 }

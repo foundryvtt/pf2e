@@ -147,7 +147,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The sunburst corpse sheds bright light. Any creature that starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:31] save. If it fails, it's @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute, and if it critically fails, it's blinded permanently. A creature that succeeds at its save is temporarily immune to this effect for 24 hours.</p>"
+                    "value": "<p>60 feet. The sunburst corpse sheds bright light. Any creature that starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:31] save. If it fails, it's @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute, and if it critically fails, it's blinded permanently. A creature that succeeds at its save is temporarily immune to this effect for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -215,7 +215,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A sunburst corpse is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while in areas of magical darkness. If the level of the magical darkness effect is at least half of the sunburst corpse's level (a 7th-level effect against most sunburst corpses), the sunburst corpse is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the area.</p>"
+                    "value": "<p>A sunburst corpse is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} while in areas of magical darkness. If the level of the magical darkness effect is at least half of the sunburst corpse's level (a 7th-rank effect against most sunburst corpses), the sunburst corpse is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the area.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -526,12 +526,6 @@
                     "type": "fire"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -545,6 +539,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -555,6 +555,18 @@
                 "remaster": false,
                 "title": "Pathfinder #172: Secrets of the Temple-City"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -572,17 +584,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Languages)",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -13,8 +13,7 @@ import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
 function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
-    const basePrice = item.price.value;
-    if (item.isOfType("treasure")) return basePrice;
+    if (item.isOfType("treasure")) return item.price.value;
 
     // Adjust the item price according to precious material and runes
     // Base prices are not included in these cases
@@ -23,7 +22,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const materialData = getMaterialValuationData(item);
     const materialPrice = materialData?.price ?? 0;
     const heldOrStowedBulk = new Bulk(item.system.bulk.heldOrStowed);
-    const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
+    const bulk = Math.max(heldOrStowedBulk.normal, 1);
     const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
@@ -33,6 +32,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
             : RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0;
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
+    const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
         : basePrice.add({ gp: materialValue });

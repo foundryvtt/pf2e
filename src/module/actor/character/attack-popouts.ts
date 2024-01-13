@@ -1,9 +1,9 @@
 import type { ElementTrait } from "@scripts/config/traits.ts";
-import type { CharacterPF2e } from "./document.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
-import { type CharacterSheetData, CharacterSheetPF2e } from "./sheet.ts";
-import type { ElementalBlastConfig } from "./elemental-blast.ts";
 import type { CharacterStrike } from "./data.ts";
+import type { CharacterPF2e } from "./document.ts";
+import type { ElementalBlastConfig } from "./elemental-blast.ts";
+import { CharacterSheetPF2e, type CharacterSheetData } from "./sheet.ts";
 
 class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TActor> {
     type: "strike" | "blast" = "strike";
@@ -73,7 +73,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         if (this.type === "blast") {
             base.elementalBlasts = this.#blasts = base.elementalBlasts.filter((b) => b.element === this.#elementTrait);
             base.data.actions = [];
-            base.toggles = base.toggles.filter((t) => t.domain === "elemental-blast");
+            base.toggles.actions = base.toggles.actions?.filter((t) => t.domain === "elemental-blast") ?? [];
         } else {
             base.elementalBlasts = [];
             if (this.#strikeSlug && this.#strikeItemId) {

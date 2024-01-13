@@ -225,19 +225,19 @@ declare global {
          * Callback actions which occur at the beginning of a drag start workflow.
          * @param event The originating DragEvent
          */
-        protected _onDragStart(event: ElementDragEvent): void;
+        protected _onDragStart(event: DragEvent): void;
 
         /**
          * Callback actions which occur when a dragged element is over a drop target.
          * @param event The originating DragEvent
          */
-        protected _onDragOver(event: ElementDragEvent): void;
+        protected _onDragOver(event: DragEvent): void;
 
         /**
          * Callback actions which occur when a dragged element is dropped on a target.
          * @param event The originating DragEvent
          */
-        protected _onDrop(event: ElementDragEvent): void;
+        protected _onDrop(event: DragEvent): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -313,8 +313,8 @@ declare global {
                 dragstart?: Function;
                 drop?: Function;
             };
-            dragSelector?: string;
-            dropSelector?: string;
+            dragSelector?: Maybe<string>;
+            dropSelector?: Maybe<string>;
         }[];
         /** A default window title string (popOut only) */
         title: string;

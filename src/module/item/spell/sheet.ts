@@ -61,7 +61,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const spell = this.item;
-        const { isCantrip, isFocusSpell, isRitual } = spell;
 
         const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
         sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
@@ -119,9 +118,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
-            isCantrip,
-            isFocusSpell,
-            isRitual,
             passiveDefense,
             variants,
             isVariant: this.item.isVariant,
@@ -358,14 +354,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super._updateObject(event, formData);
     }
 
-    protected override _onDragStart(event: ElementDragEvent): void {
-        const id = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
-        event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
+    protected override _onDragStart(event: DragEvent): void {
+        const id = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
+        event.dataTransfer?.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
-        const transferString = event.dataTransfer.getData("text/plain");
+        const transferString = event.dataTransfer?.getData("text/plain");
         if (!transferString) return;
 
         const { action, data } = (JSON.parse(transferString) ?? {}) as { action?: string; data?: { sourceId: string } };
@@ -374,7 +370,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             case "sort": {
                 // Sort spell variants
                 const sourceId = data?.sourceId ?? "";
-                const targetId = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
+                const targetId = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
                 if (sourceId && targetId && sourceId !== targetId) {
                     const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
                     const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });
@@ -446,7 +442,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     #getDefaultProperty(property: string): unknown {
         const scaling = this.item.getHeightenLayers().reverse();
         const baseValue = (() => {
-            for (const entry of [...scaling, { system: this.item.system }]) {
+            for (const entry of [...scaling, { system: fu.deepClone(this.item._source.system) }]) {
                 if (objectHasKey(entry.system, property)) {
                     return entry.system[property];
                 }
@@ -494,9 +490,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 }
 
 interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    isCantrip: boolean;
-    isFocusSpell: boolean;
-    isRitual: boolean;
     passiveDefense: string | null;
     isVariant: boolean;
     variants: {

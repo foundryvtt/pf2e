@@ -13,6 +13,7 @@ import {
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
+    LanguageSelector,
     SELECTABLE_TAG_FIELDS,
     SelectableTagField,
     TagSelectorBasic,
@@ -169,7 +170,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                     })),
                 ),
             },
-            proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
+            proficiencyRanks: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
 
@@ -222,31 +223,27 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
         const selectorType = anchor.dataset.tagSelector ?? "";
-        if (selectorType !== "basic") {
+        if (!["basic", "languages"].includes(selectorType)) {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
-        const propertyIsFlat = anchor.dataset.flat === "true";
         const objectProperty = anchor.dataset.property ?? "";
-        const title = anchor.dataset.title;
         const configTypes = (anchor.dataset.configTypes ?? "")
             .split(",")
             .map((type) => type.trim())
             .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
-        const selectorOptions: BasicConstructorOptions = {
+        const options: BasicConstructorOptions = {
             objectProperty,
             configTypes,
-            title,
-            flat: propertyIsFlat,
+            title: anchor.dataset.title,
+            flat: anchor.dataset.flat === "true",
         };
 
-        const noCustom = anchor.dataset.noCustom === "true";
-        if (noCustom) {
-            selectorOptions.allowCustom = false;
-        } else if (this.actor && configTypes.includes("attackEffects")) {
-            selectorOptions.customChoices = this.getAttackEffectOptions();
+        if (this.actor && configTypes.includes("attackEffects")) {
+            options.customChoices = this.getAttackEffectOptions();
         }
 
-        new TagSelectorBasic(this.item, selectorOptions).render(true);
+        const SelectorClass = selectorType === "languages" ? LanguageSelector : TagSelectorBasic;
+        new SelectorClass(this.item, options).render(true);
     }
 
     /** Get NPC attack effect options */
@@ -332,7 +329,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
-        for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
@@ -670,7 +667,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     enabledRulesUI: boolean;
     ruleEditing: boolean;
     rarity: Rarity | null;
-    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
+    rarities: typeof CONFIG.PF2E.rarityTraits;
     traits: SheetOptions | null;
     traitTagifyData: TraitTagifyEntry[] | null;
     rules: {
@@ -683,7 +680,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
         }[];
     };
     /** Lore only, will be removed later */
-    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+    proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }
 
 interface ItemSheetOptions extends DocumentSheetOptions {

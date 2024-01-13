@@ -603,7 +603,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1191,7 +1191,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -1481,7 +1481,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -3041,15 +3041,16 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.traits.languages.value",
-                        "value": "wildsong"
-                    }
-                ],
+                "rules": [],
                 "slug": "druidic-language",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "wildsong"
+                        ],
+                        "slots": 0
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3078,7 +3079,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>The power of the wild world flows through you. You can cast primal spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a druid, you can usually hold a primal focus (such as holly and mistletoe) for spells requiring material components instead of needing to use a material component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>The power of the wild world flows through you. You can cast primal spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a druid, you can usually hold a primal focus (such as holly and mistletoe) for spells requiring material components instead of needing to use a material component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -3500,7 +3501,7 @@
                 },
                 "category": "ancestryfeature",
                 "description": {
-                    "value": "<p>You draw minor powers from your draconic exemplar. Choose a type of chromatic or metallic dragon to be your exemplar. This determines your scale color and appearance, and dragons sometimes look more favorably upon those kobolds who resemble them, at the GM's discretion. Your exemplar may also determine details of other abilities you have, using the Draconic Exemplars table.</p>\n<h3><strong>Table 1-1 Draconic Exemplars</strong></h3>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Breath Weapon Shape</th>\n<th>Damage Type</th>\n<th>Saving Throw</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Line</td>\n<td>Acid</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Line</td>\n<td>Electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Cone</td>\n<td>Poison</td>\n<td>Fortitude</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Cone</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Cone</td>\n<td>Cold</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Line</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Line</td>\n<td>Electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Line</td>\n<td>Acid</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Cone</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Cone</td>\n<td>Cold</td>\n<td>Reflex</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>You draw minor powers from your draconic exemplar. Choose a type of chromatic or metallic dragon to be your exemplar. This determines your scale color and appearance, and dragons sometimes look more favorably upon those kobolds who resemble them, at the GM's discretion. Your exemplar may also determine details of other abilities you have, using the Draconic Exemplars table.</p>\n<h3><strong>Table 1-1 Draconic Exemplars</strong></h3>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Breath Weapon Shape</th>\n<th>Damage Type</th>\n<th>Saving Throw</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Line</td>\n<td>Acid</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Line</td>\n<td>Electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Cone</td>\n<td>Poison</td>\n<td>Fortitude</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Cone</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Cone</td>\n<td>Cold</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Line</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Line</td>\n<td>Electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Line</td>\n<td>Acid</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Cone</td>\n<td>Fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Cone</td>\n<td>Cold</td>\n<td>Reflex</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "level": {
                     "value": 0
@@ -3584,9 +3585,6 @@
                 "temp": 0,
                 "value": 14
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -3659,6 +3657,14 @@
             "keyability": {
                 "value": "wis"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 1
@@ -3677,6 +3683,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3765,22 +3774,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "sakvroth"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "lawful"
-            ]
         }
     },
     "type": "character"

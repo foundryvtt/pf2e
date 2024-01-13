@@ -292,7 +292,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -358,7 +358,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -844,7 +844,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>@Damage[4d6[fire]] damage (@Check[type:reflex|dc:39|basic:true] save)</p>"
+                    "value": "<p>10 feet. @Damage[4d6[fire]] damage (@Check[type:reflex|dc:39|basic:true] save)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -893,7 +893,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:40]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:40]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1074,7 +1074,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The red dragon attempts to take control of a magical fire or a fire spell within 100 feet.</p>\n<p>If it succeeds at a counteract check (counteract level 10, counteract modifier +32), the original caster loses control of the spell or magic fire, control is transferred to the dragon, and the dragon counts as having @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustained the Spell} with this action (if applicable). The dragon can choose to end the spell instead of taking control, if it chooses.</p>"
+                    "value": "<p>The red dragon attempts to take control of a magical fire or a fire spell within 100 feet.</p>\n<p>If it succeeds at a counteract check (counteract rank 10, counteract modifier +32), the original caster loses control of the spell or magic fire, control is transferred to the dragon, and the dragon counts as having @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustained the Spell} with this action (if applicable). The dragon can choose to end the spell instead of taking control, if it chooses.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1316,12 +1316,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1340,6 +1334,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "draconic",
+                    "dwarven",
+                    "jotun",
+                    "orcish"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -1350,6 +1355,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1372,22 +1394,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "draconic",
-                    "dwarven",
-                    "jotun",
-                    "orcish"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, smoke vision"
-            },
             "size": {
                 "value": "huge"
             },

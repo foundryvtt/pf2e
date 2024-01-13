@@ -209,7 +209,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-level spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
+                    "value": "<p>You erect protective wards that make the target difficult to detect via magic. Nondetection attempts to counteract all detection, revelation, and scrying divinations made against the target or the target's gear throughout the duration, counting cantrips as 1st-rank spells for this purpose. Successfully counteracting a divination that targets an area or multiple targets negates the effects only for nondetection's target.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -378,7 +378,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -724,7 +724,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Any creature that begins its turn in the aura must attempt a @Check[type:fortitude|dc:34|traits:damaging-effect] save or be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute and become temporarily immune for 1 day. If the creature critically fails this save, it's permanently blinded.</p>"
+                    "value": "<p>40 feet. Any creature that begins its turn in the aura must attempt a @Check[type:fortitude|dc:34|traits:damaging-effect] save or be @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute and become temporarily immune for 1 day. If the creature critically fails this save, it's permanently blinded.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1058,12 +1058,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -1094,6 +1088,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1104,6 +1104,26 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1121,17 +1141,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, low-light vision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "huge"
             },

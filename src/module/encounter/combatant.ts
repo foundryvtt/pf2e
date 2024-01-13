@@ -8,6 +8,9 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     get encounter(): TParent {
         return this.parent;
     }
@@ -155,6 +158,20 @@ class CombatantPF2e<
         Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
     }
 
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    override prepareData(): void {
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -191,19 +208,9 @@ class CombatantPF2e<
     }
 
     override _getInitiativeFormula(): string {
-        const { actor } = this;
-        if (!actor) return "1d20";
-        let bonus = 0;
-
-        if (typeof actor.attributes.initiative?.totalModifier === "number") {
-            bonus = actor.attributes.initiative.totalModifier;
-        } else if (actor.attributes.perception) {
-            bonus = actor.attributes.perception.value;
-        }
-
-        const parts = ["1d20", bonus || 0];
-
-        return parts.join("+");
+        const actor = this.actor;
+        const modifier = actor?.initiative?.mod ?? actor?.perception?.mod ?? 0;
+        return modifier < 0 ? `1d20${modifier}` : `1d20+${modifier}`;
     }
 
     /** Toggle the visibility of names to players */

@@ -242,7 +242,7 @@ class TextEditorPF2e extends TextEditor {
         const { dataset, classList } = span;
 
         if (typeof visible === "boolean") visibility = visible ? "all" : "gm";
-        if (visibility) dataset.visibility = visibility;
+        if (visibility && visibility !== "all") dataset.visibility = visibility;
         if (whose) dataset.whose = whose;
         if (tooltip) dataset.tooltip = tooltip.trim();
         if (classes) {
@@ -367,7 +367,7 @@ class TextEditorPF2e extends TextEditor {
         // Determine DC visibility. Players and Parties show their DCs by default.
         const showDC = setHasElement(USER_VISIBILITIES, rawParams.showDC)
             ? rawParams.showDC
-            : actor?.hasPlayerOwner || actor?.isOfType("party") || game.settings.get("pf2e", "metagame_showDC")
+            : actor?.hasPlayerOwner || actor?.isOfType("party") || game.pf2e.settings.metagame.dcs
               ? "all"
               : "gm";
 
@@ -779,7 +779,7 @@ async function augmentInlineDamageRoll(
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
 
-            const extractOptions = { resolvables: rollData ?? {}, test: options };
+            const extractOptions = { test: options };
             return processDamageCategoryStacking(base, {
                 modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
                 dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),

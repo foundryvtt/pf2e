@@ -13,7 +13,6 @@ type Rarity = (typeof RARITIES)[number];
 
 interface ValuesList<T extends string = string> {
     value: T[];
-    custom: string;
 }
 
 /** Generic { value, label, type } type used in various places in actor/items types. */
@@ -48,7 +47,7 @@ type TwoToThree = Exclude<OneToThree, 1>;
 type ZeroToFour = ZeroToThree | 4;
 type OneToFour = Exclude<ZeroToFour, 0>;
 type ZeroToFive = ZeroToFour | 5;
-type OneToFive = OneToThree | Extract<ZeroToFive, 4 | 5>;
+type OneToFive = OneToFour | Extract<ZeroToFive, 5>;
 type ZeroToSix = ZeroToFive | 6;
 type OneToSix = Exclude<ZeroToSix, 0>;
 type ZeroToTen = ZeroToFive | 6 | 7 | 8 | 9 | 10;

@@ -1,0 +1,42 @@
+{
+    "_id": "uG1EljvrnC9HGwUh",
+    "img": "systems/pf2e/icons/spells/elemental-form-water.webp",
+    "name": "Effect: Ocean's Balm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ocean's Balm]</p>\n<p>You gain fire resistance.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": "floor((max(1,@item.origin.level)-1)/2)+2"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

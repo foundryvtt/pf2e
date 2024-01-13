@@ -1,4 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ItemFlagsPF2e } from "@item/base/data/system.ts";
 import {
     BasePhysicalItemSource,
@@ -82,6 +83,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
     graspingAppendage?: boolean;
 
+    /** Doubly-embedded adjustments, attachments, talismans etc. */
+    subitems: PhysicalItemSource[];
+
     // Refers to custom damage, *not* property runes
     property1: {
         value: string;
@@ -139,7 +143,7 @@ type WeaponRuneSource = {
 };
 
 interface WeaponSystemData
-    extends Omit<WeaponSystemSource, "bulk" | "hp" | "identification" | "price" | "temporary">,
+    extends Omit<WeaponSystemSource, SourceOmission>,
         Omit<Investable<PhysicalSystemData>, "material"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
@@ -158,6 +162,8 @@ interface WeaponSystemData
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
     stackGroup: null;
 }
+
+type SourceOmission = "apex" | "bulk" | "description" | "hp" | "identification" | "price" | "temporary";
 
 type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 

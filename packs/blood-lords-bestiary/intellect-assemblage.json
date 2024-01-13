@@ -333,7 +333,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -872,7 +872,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>The thought shards composing the intellect assemblage's body reflect countless memories, thoughts, and dreams. A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the intellect assemblage for 1 round. An intellect assemblage can suppress or activate this aura as a single action with the concentrate trait.</p>"
+                    "value": "<p>20 feet. The thought shards composing the intellect assemblage's body reflect countless memories, thoughts, and dreams. A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:38] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with the intellect assemblage for 1 round. An intellect assemblage can suppress or activate this aura as a single action with the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1097,12 +1097,6 @@
                     "type": "fear-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
@@ -1110,6 +1104,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet; tongues",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -1120,6 +1120,21 @@
                 "remaster": false,
                 "title": "Pathfinder #186: Ghost King's Rage"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 29,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "thoughtsense"
+                }
+            ],
+            "vision": false
         },
         "resources": {},
         "saves": {
@@ -1137,17 +1152,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet; Tongues",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "thoughtsense 100 feet, no vision"
-            },
             "size": {
                 "value": "med"
             },

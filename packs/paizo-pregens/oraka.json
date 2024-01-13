@@ -3090,18 +3090,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "predicate": [
                             {
@@ -3116,6 +3104,16 @@
                     }
                 ],
                 "slug": "weapon-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3623,9 +3621,6 @@
                 "temp": 0,
                 "value": 60
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3698,6 +3693,17 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "goblin",
+                    "kelish",
+                    "orcish",
+                    "osiriani",
+                    "petran"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3716,6 +3722,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3801,23 +3810,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "goblin",
-                    "kelish",
-                    "orcish",
-                    "osiriani",
-                    "petran"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

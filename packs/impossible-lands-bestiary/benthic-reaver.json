@@ -164,7 +164,6 @@
                         "primal"
                     ],
                     "value": [
-                        "arcane",
                         "concentrate",
                         "manipulate",
                         "revelation"
@@ -495,7 +494,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>@Damage[5d6[cold]] damage (@Check[type:reflex|dc:41|basic:true]). On a failure, the creature takes a –15-foot status penalty to its Speeds for 1 round.</p>"
+                    "value": "<p>30 feet. @Damage[5d6[cold]] damage (@Check[type:reflex|dc:41|basic:true]). On a failure, the creature takes a –15-foot status penalty to its Speeds for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -871,12 +870,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 41
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -904,6 +897,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 21
             },
@@ -914,6 +914,23 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Impossible Lands"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 41,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -931,18 +948,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

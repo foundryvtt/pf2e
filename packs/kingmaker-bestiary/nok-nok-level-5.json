@@ -1954,15 +1954,16 @@
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 1
                     }
                 ],
                 "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2154,7 +2155,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -2654,12 +2655,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
                         "value": 2
                     },
@@ -2679,12 +2674,6 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
                         "value": 2
                     },
                     {
@@ -2719,6 +2708,16 @@
                     }
                 ],
                 "slug": "weapon-tricks",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2917,9 +2916,6 @@
                 "temp": 0,
                 "value": 66
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2979,6 +2975,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 5
             },
@@ -3001,6 +3001,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3076,18 +3079,6 @@
             "thi": {
                 "rank": 2
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": [
-                "chaotic",
-                "evil"
-            ]
         }
     },
     "type": "character"

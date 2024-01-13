@@ -77,7 +77,9 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
             const newHPValue = Math.floor(oldHP.value * (newHP.max / oldHP.max));
             return newHPValue === oldHP.value ? [] : { _id: item.id, "system.hp.value": newHPValue };
         });
-        if (updates.length > 0) await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
+        if (updates.length > 0) {
+            await this.actor.updateEmbeddedDocuments("Item", updates, { render: false, checkHP: false });
+        }
     }
 
     #applyAlteration(additionalItems: ItemPF2e<ActorPF2e>[] = []): void {

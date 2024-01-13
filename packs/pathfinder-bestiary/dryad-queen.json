@@ -344,7 +344,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 8
@@ -1963,7 +1963,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2790,7 +2790,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -3068,7 +3068,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A nymph queen is intrinsically tied to a specific region, such as a forest for a dryad queen. As long as the queen is healthy, the environment is exceptionally resilient, allowing the nymph queen to automatically attempt to counteract spells and rituals such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Blight]</em> that would harm the environment, using her Spell DC with a counteract level equal to the highest-level druid spell she can cast. When the nymph queen becomes physically or psychologically unhealthy, however, her warded region eventually becomes twisted or unhealthy as well. In that case, restoring the nymph queen swiftly heals the entire region.</p>"
+                    "value": "<p>A nymph queen is intrinsically tied to a specific region, such as a forest for a dryad queen. As long as the queen is healthy, the environment is exceptionally resilient, allowing the nymph queen to automatically attempt to counteract spells and rituals such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Blight]</em> that would harm the environment, using her Spell DC with a counteract rank equal to the highest-level druid spell she can cast. When the nymph queen becomes physically or psychologically unhealthy, however, her warded region eventually becomes twisted or unhealthy as well. In that case, restoring the nymph queen swiftly heals the entire region.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3173,7 +3173,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>On a failed save, the target is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] in awe for 1 minute.</p>\n<hr />\n<p>Creatures that start their turn in the aura must succeed at a @Check[type:will|dc:30] save or suffer an effect described in the nymph queen's entry.</p>"
+                    "value": "<p>30 feet. On a failed save, the target is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] in awe for 1 minute.</p>\n<hr />\n<p>Creatures that start their turn in the aura must succeed at a @Check[type:will|dc:30] save or suffer an effect described in the nymph queen's entry.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3659,12 +3659,6 @@
                 "temp": 0,
                 "value": 220
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -3682,6 +3676,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with plants",
+                "value": [
+                    "common",
+                    "elven",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 13
             },
@@ -3692,6 +3694,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -3714,19 +3728,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak With Plants",
-                "selected": [],
-                "value": [
-                    "common",
-                    "elven",
-                    "fey"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "med"
             },

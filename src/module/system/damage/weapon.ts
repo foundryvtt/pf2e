@@ -1,5 +1,6 @@
 import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { NPCAttackDamage } from "@item/melee/data.ts";
 import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
@@ -94,7 +95,7 @@ class WeaponDamagePF2e {
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const { baseDamage } = weapon;
         const { options } = context;
-        const domains = context.domains ?? [];
+        const domains = context.domains;
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
@@ -118,25 +119,19 @@ class WeaponDamagePF2e {
         options.add(isMelee ? "melee" : "ranged");
 
         // Determine ability modifier
-        if (actor.isOfType("character", "npc")) {
+        if (actor.isOfType("character") && weapon.isOfType("weapon")) {
+            const attributeDomains = ATTRIBUTE_ABBREVIATIONS.map((a) => `${a}-damage`);
+            const domain = domains.find((d) => attributeDomains.has(d));
             const strengthModValue = actor.abilities.str.mod;
-            const modifierValue = WeaponDamagePF2e.#strengthModToDamage(weapon, domains.includes("str-damage"))
-                ? strengthModValue
-                : weaponTraits.some((t) => t === "propulsive")
-                  ? strengthModValue < 0
-                      ? strengthModValue
-                      : Math.floor(strengthModValue / 2)
-                  : null;
+            const modifierValue =
+                domain === "str-damage"
+                    ? strengthModValue < 0 || !weaponTraits.some((t) => t === "propulsive")
+                        ? strengthModValue
+                        : Math.floor(strengthModValue / 2)
+                    : null;
 
-            if (weapon.isOfType("weapon") && typeof modifierValue === "number") {
-                const strModifier = new ModifierPF2e({
-                    slug: "str",
-                    label: CONFIG.PF2E.abilities.str,
-                    ability: "str",
-                    modifier: modifierValue,
-                    type: "ability",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "str"),
-                });
+            if (typeof modifierValue === "number") {
+                const strModifier = createAttributeModifier({ actor, attribute: "str", domains, max: modifierValue });
                 modifiers.push(strModifier);
             }
         }
@@ -390,15 +385,10 @@ class WeaponDamagePF2e {
             options.add(option);
         }
 
-        // Attach modifier adjustments from synthetics and property runes
+        // Attach modifier adjustments from property runes
         for (const modifier of modifiers) {
             const propRuneAdjustments = propertyRuneAdjustments.filter((a) => a.slug === modifier.slug);
-            const extractedAdjustments = extractModifierAdjustments(
-                actor.synthetics.modifierAdjustments,
-                domains,
-                modifier.slug,
-            );
-            modifier.adjustments.push(...propRuneAdjustments, ...extractedAdjustments);
+            modifier.adjustments.push(...propRuneAdjustments);
         }
 
         const baseUncategorized = ((): WeaponBaseDamageData | null => {
@@ -528,11 +518,6 @@ class WeaponDamagePF2e {
             persistent: null,
             category: instance.category,
         };
-    }
-
-    /** Determine whether a strike's damage includes the actor's (full) strength modifier */
-    static #strengthModToDamage(weapon: WeaponPF2e | MeleePF2e, strengthBased: boolean): boolean {
-        return weapon.isOfType("weapon") && strengthBased && !weapon.traits.has("propulsive");
     }
 }
 

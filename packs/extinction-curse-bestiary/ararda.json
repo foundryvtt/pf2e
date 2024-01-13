@@ -621,7 +621,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1067,7 +1067,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Blightburn crystals infused into an ararda's body attempt to counteract any teleportation spell moving into or out of the aura's emanation (counteract check +31; 7th level).</p>\n<p>In addition, any creature that starts its turn within the emanation is exposed to Blightburn Sickness. The aura is blocked by lead sheeting, 1 foot of stone, or large force effects (such as a <em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Force]</em>, but not a <em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em> spell).</p>\n<p>An ararda can suppress their aura with an action (<span class=\"action-glyph\">a</span>) that has the concentrate trait.</p>"
+                    "value": "<p>60 feet. Blightburn crystals infused into an ararda's body attempt to counteract any teleportation spell moving into or out of the aura's emanation (counteract check +31; 7th level).</p>\n<p>In addition, any creature that starts its turn within the emanation is exposed to Blightburn Sickness. The aura is blocked by lead sheeting, 1 foot of stone, or large force effects (such as a <em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Force]</em>, but not a <em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em> spell).</p>\n<p>An ararda can suppress their aura with an action (<span class=\"action-glyph\">a</span>) that has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1432,12 +1432,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 31
-            },
             "resistances": [
                 {
                     "type": "electricity",
@@ -1467,6 +1461,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "petran",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1477,6 +1478,23 @@
                 "remaster": false,
                 "title": "Pathfinder #155: Lord of the Black Sands"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "detect magic",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1499,21 +1517,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "petran",
-                    "sakvroth"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, detect magic, tremorsense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

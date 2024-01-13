@@ -795,7 +795,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:30]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:30]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -892,7 +892,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
+                    "value": "<p>40 feet. Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1395,12 +1395,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "details": "water walk",
                 "otherSpeeds": [
@@ -1418,6 +1412,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "elven",
+                    "sussuran",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 12
             },
@@ -1428,6 +1432,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "wavesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1455,21 +1476,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "elven",
-                    "sussuran",
-                    "thalassic"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, wavesense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "huge"
             },
