@@ -365,6 +365,26 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Forceful trait
+        if (weaponTraits.some((t) => t === "forceful") && weapon.isOfType("weapon")) {
+            modifiers.push(
+                new ModifierPF2e({
+                    slug: "forceful-second",
+                    label: "PF2E.TraitForcefulSecond",
+                    modifier: weapon._source.system.damage.dice + strikingDice,
+                    type: "circumstance",
+                    ignored: true,
+                }),
+                new ModifierPF2e({
+                    slug: "forceful-third",
+                    label: "PF2E.TraitForcefulThird",
+                    modifier: 2 * (weapon._source.system.damage.dice + strikingDice),
+                    type: "circumstance",
+                    ignored: true,
+                }),
+            );
+        }
+
         // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
