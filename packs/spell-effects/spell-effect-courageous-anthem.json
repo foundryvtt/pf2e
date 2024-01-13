@@ -38,6 +38,20 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Bard.DiscordantVoice.Label",
+                "predicate": [
+                    "parent:origin:discordant-voice",
+                    {
+                        "not": "parent:origin:signature:{item|parent.signature}"
+                    }
+                ],
+                "selector": "strike-damage"
             }
         ],
         "start": {
