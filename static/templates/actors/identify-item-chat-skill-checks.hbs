@@ -6,5 +6,5 @@
 <p>{{localize "PF2E.identification.PostSkillsToChatText"}}</p>
 
 {{#each skills as |dc slug|}}
-    <p>@Check[{{slug}}|traits:{{../rollOptions}}|dc:{{dc}}]</p>
+    <p>[[/act {{@root.action}} dc={{dc}} stat={{slug}} show-dc=gm item={{@root.uuid}}]]</p>
 {{/each}}
