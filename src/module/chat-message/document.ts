@@ -200,7 +200,9 @@ class ChatMessagePF2e extends ChatMessage {
         Listeners.ChatCards.listen(this, html);
         InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
-        if (canvas.ready) Listeners.SetAsInitiative.listen(html);
+        if (canvas.ready || !game.settings.get("core", "noCanvas")) {
+            Listeners.SetAsInitiative.listen(this, html);
+        }
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];

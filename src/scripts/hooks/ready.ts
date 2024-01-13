@@ -3,14 +3,12 @@ import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
-import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative.ts";
 import { MigrationList } from "@module/migration/index.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { activateSocketListener } from "@scripts/socket.ts";
 import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
 import { extendDragData } from "@scripts/system/dragstart-handler.ts";
-import { htmlQueryAll } from "@util";
 import * as R from "remeda";
 
 export const Ready = {
@@ -80,11 +78,6 @@ export const Ready = {
             });
 
             game.settings.get("pf2e", "homebrew.languageRarities").onReady();
-
-            // Update chat messages to add set-as-initiative buttons to skill checks
-            for (const li of htmlQueryAll(document.body, "#chat-log > li.message")) {
-                SetAsInitiative.listen(li);
-            }
 
             activateSocketListener();
 
