@@ -1,5 +1,4 @@
 import { PhysicalItemPF2e } from "@item";
-import { STACK_DEFINITIONS } from "@item/physical/bulk.ts";
 import { Coins, Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { Rarity } from "@module/data.ts";
@@ -73,19 +72,20 @@ class CraftingFormula implements CraftingFormulaData {
     }
 
     get minimumBatchSize(): number {
-        return STACK_DEFINITIONS[this.item.system.stackGroup ?? ""]?.size ?? 1;
+        return this.item.system.price.per;
     }
 
     get defaultBatchSize(): number {
         const item = this.item;
-        const isMundaneAmmo = item.isOfType("consumable") && item.isAmmo && !item.isMagical;
+        const isAmmo = item.isOfType("consumable") && item.isAmmo;
+        const isMundaneAmmo = isAmmo && !item.isMagical;
         const isConsumable =
             (item.isOfType("consumable") && item.category !== "wand") ||
             (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
 
         return Math.max(
             this.minimumBatchSize,
-            isMundaneAmmo ? Math.clamped(item.system.price.per, 5, 10) : isConsumable ? 4 : 1,
+            isMundaneAmmo ? Math.clamped(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
         );
     }
 
