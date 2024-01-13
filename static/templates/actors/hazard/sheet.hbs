@@ -4,7 +4,7 @@
         {{> "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs"}}
         {{!-- BODY --}}
         <section class="content">
-            {{#if document.isComplex}}
+            {{#if (or hasStealth editing)}}
                 <div class="section-container stealth">
                     <div class="section-header">
                         <h4>
