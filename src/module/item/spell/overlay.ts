@@ -37,7 +37,6 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
             case "override":
                 await this.spell.update({
                     [`system.overlays.${id}`]: {
-                        _id: id,
                         sort: this.overrideVariants.length + 1,
                         overlayType: "override",
                         system: {},

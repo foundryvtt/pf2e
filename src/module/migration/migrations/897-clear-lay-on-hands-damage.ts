@@ -43,7 +43,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
         if (source.system.slug === "lay-on-hands") {
             source.system.overlays ??= {
                 a33QUFoKgoOprovO: {
-                    _id: "a33QUFoKgoOprovO",
                     name: "Lay on Hands (Vs. Undead)",
                     overlayType: "override",
                     sort: 2,
@@ -63,7 +62,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                     },
                 },
                 uLuOg62dVyxvbW66: {
-                    _id: "uLuOg62dVyxvbW66",
                     name: "Lay on Hands (Healing)",
                     overlayType: "override",
                     sort: 1,
@@ -85,7 +83,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
         } else {
             source.system.overlays ??= {
                 "2a6Vm4mIjBgrzlO2": {
-                    _id: "2a6Vm4mIjBgrzlO2",
                     name: "Touch of Corruption (Vs. Living)",
                     overlayType: "override",
                     sort: 2,
@@ -105,7 +102,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                     },
                 },
                 gHIOzknAtexc6GUE: {
-                    _id: "gHIOzknAtexc6GUE",
                     name: "Touch of Corruption (Healing)",
                     overlayType: "override",
                     sort: 1,
