@@ -9,6 +9,7 @@ import {
     ActionVariant,
     ActionVariantUseOptions,
 } from "./types.ts";
+import type { ActionTrait } from "@item/ability/index.ts";
 import type { ProficiencyRank } from "@item/base/data/index.ts";
 import { PROFICIENCY_RANKS } from "@module/data.ts";
 
@@ -17,7 +18,7 @@ interface BaseActionVariantData {
     description?: string;
     name?: string;
     slug?: string;
-    traits?: string[];
+    traits?: ActionTrait[];
 }
 
 interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = BaseActionVariantData> {
@@ -28,7 +29,7 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     section?: ActionSection;
     slug?: string | null;
-    traits?: string[];
+    traits?: ActionTrait[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
 }
 
@@ -48,7 +49,7 @@ abstract class BaseActionVariant implements ActionVariant {
     readonly #description?: string;
     readonly name?: string;
     readonly #slug?: string;
-    readonly #traits?: string[];
+    readonly #traits?: ActionTrait[];
 
     protected constructor(action: BaseAction<BaseActionVariantData, BaseActionVariant>, data?: BaseActionVariantData) {
         this.#action = action;
@@ -77,7 +78,7 @@ abstract class BaseActionVariant implements ActionVariant {
         return this.#slug || sluggify(this.name ?? "") || this.#action.slug;
     }
 
-    get traits(): string[] {
+    get traits(): ActionTrait[] {
         return this.#traits ?? this.#action.traits;
     }
 
@@ -119,7 +120,7 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     readonly section?: ActionSection;
     readonly slug: string;
-    readonly traits: string[];
+    readonly traits: ActionTrait[];
     readonly #variants: TAction[];
 
     protected constructor(data: BaseActionData<TData>) {
