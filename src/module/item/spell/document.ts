@@ -942,19 +942,26 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return null;
         }
 
-        if (!this.spellcasting?.statistic?.attribute) {
+        const spellcasting = this.spellcasting;
+        if (!spellcasting?.statistic?.attribute) {
             console.warn(
                 ErrorPF2e(`Spell ${this.name} (${this.uuid}) is missing a statistic with which to counteract.`).message,
             );
             return null;
         }
 
+        // NPCs have neither a proficiency bonus nor specified attribute modifier: use their base attack roll modifier
+        const baseModifier = this.actor.isOfType("npc")
+            ? spellcasting.statistic.check.modifiers.find((m) => m.type === "untyped" && m.slug === "modifier")?.clone()
+            : null;
+
         const localize = localizer("PF2E.Item.Spell.Counteract");
         const statistic = new Statistic(this.actor, {
             slug: "counteract",
             label: localize("Label"),
-            attribute: this.spellcasting.attribute,
-            rank: this.spellcasting.statistic.rank ?? 0,
+            attribute: spellcasting.statistic.attribute,
+            rank: spellcasting.statistic.rank ?? 0,
+            modifiers: R.compact([baseModifier]),
         });
         const domain = "counteract-check";
         const notes = [
@@ -975,7 +982,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }),
         ];
 
-        const traits = R.uniq(R.compact([...this.traits, this.spellcasting.tradition]));
+        const traits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
         const { check } = statistic.extend({ domains: [domain], rollOptions: traits });
 
         return check.roll({
