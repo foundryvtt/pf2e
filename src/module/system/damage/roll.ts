@@ -252,7 +252,6 @@ class DamageRoll extends AbstractDamageRoll {
 
         const chatData = {
             formula,
-            user: game.user.id,
             tooltip,
             instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((total * 100) / 100),
@@ -263,6 +262,7 @@ class DamageRoll extends AbstractDamageRoll {
             allPersistent: this.instances.every((i) => i.persistent),
             persistentEvaluated: this.instances.some((i) => i.persistent && i.options.evaluatePersistent),
             showBreakdown,
+            showButtons: !isPrivate,
             showTotalInstances,
             showTripleDamage: game.pf2e.settings.critFumble.buttons,
         };
