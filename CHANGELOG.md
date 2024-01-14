@@ -1,3 +1,23 @@
+## 5.12.7
+
+### Bugfixes
+
+-   (jfn4th) Restore heightened signature spell background color
+-   (stwlam) Hide speaker in encounter participant conditions message if applicable metagame setting is enabled
+-   (stwlam) Fix issue causing crafting entries to prevent opening token configurations, with feeling this time
+
+### Data Updates
+
+-   (Dire Weasel) Add automation for Discordant Voice
+-   (Dire Weasel) Add link to lower-level effect to Corpse-Killer's Defiance
+-   (Dire Weasel) Remove one-time heal from Hymn of Healing
+-   (Dire Weasel) Replace Facetbound Cascader's Aeon Stone (Orange Prism) effect links with Aeon Stone Resonance (Amplifying)
+-   (DocSchlock) Add rule elements to Charming Liar and Eldritch Researcher Dedication
+-   (DocSchlock) Improve Automation of Blood Ward
+-   (nikolaj-a) Correct text of Identify Alchemy action object outcome notes
+-   (Rigo) Restrict Basic Finisher to require Finishing Precision archetype feat
+-   (rectulo) Fix description in Coerce and Earn Income actions
+
 ## 5.12.6
 
 ### System Improvements
