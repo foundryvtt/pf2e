@@ -30,7 +30,7 @@
 </section>
 
 <section class="damage-application">
-    {{#if (and healingOnly (not isPrivate))}}
+    {{#if (and healingOnly showButtons)}}
         <button
             type="button"
             class="healing-only"
@@ -43,7 +43,7 @@
             </span>
             <span class="label">{{localize "PF2E.Damage.Kind.Healing.Apply.Label"}}</span>
         </button>
-    {{else if (not isPrivate)}}
+    {{else if showButtons}}
         <button type="button" data-action="apply-damage" title="{{localize "PF2E.DamageButton.Full"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}">
             <i class="fa-solid fa-heart-broken fa-fw"></i>
             <span class="label">{{#if splashOnly}}{{localize "PF2E.TraitSplash"}}{{else}}{{localize "PF2E.DamageButton.FullShort"}}{{/if}}</span>
