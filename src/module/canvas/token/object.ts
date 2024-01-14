@@ -242,7 +242,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
-        if (!canvas.ready) return;
+        if (!canvas.initialized) return;
 
         const actor = this.document.actor;
         if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
