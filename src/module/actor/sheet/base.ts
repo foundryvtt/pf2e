@@ -79,6 +79,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
+    constructor(actor: TActor, options?: Partial<ActorSheetOptions>) {
+        super(actor, options);
+
+        // On initial opening, adjust width according to `fontSize` setting
+        const baseWidth = this.options.width;
+        if (typeof baseWidth === "number") {
+            const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
+            this.position.width &&= Math.floor(Math.clamped(calculatedWidth, 0.75 * baseWidth, 1024));
+        }
+    }
+
     /** Implementation used to handle the toggling and rendering of item summaries */
     itemRenderer: ItemSummaryRenderer<TActor, ActorSheetPF2e<TActor>> = new ItemSummaryRenderer(this);
 
