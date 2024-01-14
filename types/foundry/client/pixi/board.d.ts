@@ -313,7 +313,7 @@ declare global {
          * @param origin  Point to display Ping at
          * @param options Additional options to configure how the ping is drawn.
          */
-        ping(origin: Point, options: Record<string, unknown>): Promise<boolean>;
+        ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
 
         /**
          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
