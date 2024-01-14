@@ -72,7 +72,7 @@ class DecipherWritingAction extends SingleCheckAction {
             },
             section: "skill",
             slug: "decipher-writing",
-            statistic: "",
+            statistic: ["arcana", "occultism", "religion", "society"],
             traits: ["concentrate", "exploration", "secret"],
         });
     }

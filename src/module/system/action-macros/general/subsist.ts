@@ -85,7 +85,7 @@ class SubsistAction extends SingleCheckAction {
             },
             section: "skill",
             slug: "subsist",
-            statistic: "",
+            statistic: ["society", "survival"],
             traits: ["downtime"],
         });
     }
