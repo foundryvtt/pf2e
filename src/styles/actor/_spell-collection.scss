@@ -216,16 +216,7 @@ ol.spell-list {
 
     &[data-category="spontaneous"] {
         .virtual {
-            position: relative;
-            &::before {
-                background-color: #0005ff1d;
-                content: "";
-                height: 100%;
-                mix-blend-mode: saturation;
-                pointer-events: none;
-                position: absolute;
-                width: 100%;
-            }
+            backdrop-filter: blur(8px) hue-rotate(210deg) saturate(2);
         }
 
         .item:not(.virtual) + .virtual {
