@@ -177,7 +177,6 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
 
         const groups: SpellcastingSlotGroup[] = [];
         const spells = this.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
-        const signatureSpells = spells.filter((s) => s.system.location.signature);
         const isFlexible = this.entry.isFlexible;
         const maxCantripRank = Math.max(1, Math.ceil(actor.level / 2)) as OneToTen;
 
@@ -280,7 +279,13 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         }
 
         // Handle signature spells, we need to add signature spells to each spell level
-        if (this.entry.isSpontaneous || isFlexible) {
+        const canHaveSignatureSpells = this.entry.isSpontaneous || isFlexible;
+        const signatureSpells = canHaveSignatureSpells
+            ? spells
+                  .filter((s) => s.system.location.signature)
+                  .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang))
+            : [];
+        if (canHaveSignatureSpells) {
             for (const spell of signatureSpells) {
                 for (const group of groups) {
                     if (group.id === "cantrips" || spell.baseRank > group.id) continue;
