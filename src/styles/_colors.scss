@@ -19,11 +19,6 @@ $light-background-color: #f8f4f1;
 $less-light-background-color: darken($light-background-color, 10);
 $sub-color: #605856;
 
-/* Lighter / Darker */
-$light-color: lighten($primary-color, 5);
-$dark-color: darken($primary-color, 5);
-$darker-color: darken($primary-color, 10);
-
 /* Text */
 $text-dark-color: #1c1c1c !default;
 
@@ -48,9 +43,10 @@ $adjusted-lower: #cc3311;
 :root {
     /* Global */
     --color-pf-primary: #{$primary-color};
-    --color-pf-primary-dark: #{$dark-color};
-    --color-pf-primary-darker: #{$darker-color};
-    --color-pf-primary-light: #{$light-color};
+    --color-pf-primary-dark: #{darken($primary-color, 5)};
+    --color-pf-primary-darker: #{darken($primary-color, 10)};
+    --color-pf-primary-light: #{lighten($primary-color, 5)};
+    --color-pf-primary-lighter: #{lighten($primary-color, 10)};
     --color-pf-alternate: #{$alt-color};
     --color-pf-alternate-dark: #{$alt-dark};
     --color-pf-alternate-light: #{lighten($alt-color, 10)};
