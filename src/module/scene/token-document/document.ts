@@ -31,7 +31,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     override hasStatusEffect(statusId: string): boolean {
         if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
 
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor || !game.pf2e.settings.rbv) {
             return false;
         }
@@ -165,7 +165,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** The pixel-coordinate pair constituting this token's center */
     get center(): Point {
-        const { bounds } = this;
+        const bounds = this.bounds;
         return {
             x: bounds.x + bounds.width / 2,
             y: bounds.y + bounds.height / 2,
@@ -189,10 +189,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
-        const { actor, scene } = this;
-        if (!actor || !scene) return;
-
         this.flags = fu.mergeObject(this.flags, { pf2e: {} });
+        const actor = this.actor;
+        if (!actor) return;
+
         TokenDocumentPF2e.assignDefaultImage(this);
 
         // Dimensions and scale
@@ -298,7 +298,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Synchronize the token image with the actor image if the token does not currently have an image */
     static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const { actor } = token;
+        const actor = token.actor;
         if (!actor) return;
 
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
@@ -322,7 +322,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
     static prepareSize(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
-        const { actor } = token;
+        const actor = token.actor;
         if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
@@ -336,9 +336,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }[actor.size];
         if (actor.isOfType("vehicle")) {
             // Vehicles can have unequal dimensions
-            const { width, height } = actor.getTokenDimensions();
-            token.width = width;
-            token.height = height;
+            const dimensions = actor.getTokenDimensions();
+            token.width = dimensions.width;
+            token.height = dimensions.height;
         } else {
             token.width = size;
             token.height = size;
