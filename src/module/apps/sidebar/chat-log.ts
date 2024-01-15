@@ -8,9 +8,61 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey, sluggify } from "@util";
+import { ActionUseOptions } from "@actor/actions/index.ts";
 
 class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
+    static readonly #actPattern = new RegExp(/\s*\/(act) (?<slug>[-a-z]+)\s*(?<options>.+)?/, "i");
+
+    static override parse(message: string): [string, RegExpMatchArray] {
+        const match = message.match(this.#actPattern);
+        if (match) {
+            return ["macro", match]; // abuse the "macro" chat command since that suppresses message creation
+        }
+        return super.parse(message);
+    }
+
+    /**
+     * Process messages which execute a macro.
+     * @param {string} command  The chat command typed.
+     * @param {RegExpMatchArray} match  The RegExp matches.
+     * @private
+     */
+    protected override _processMacroCommand(command: string, match: RegExpMatchArray): unknown {
+        if (match[1] === "act" && match.groups?.slug) {
+            const slug = match.groups.slug;
+            const action = game.pf2e.actions.get(slug ?? "");
+            if (action) {
+                const options: Partial<ActionUseOptions> = {};
+                for (const option of (match.groups.options ?? "").split(/\s+/)) {
+                    const [key, value] = option.split("=");
+                    switch (key) {
+                        case "dc": {
+                            const dc = Number(value);
+                            options["difficultyClass"] = Number.isInteger(dc) ? { value: dc } : value;
+                            break;
+                        }
+                        case "stat": {
+                            options["statistic"] = value;
+                            break;
+                        }
+                        case "traits": {
+                            options[key] = value.split(",");
+                            break;
+                        }
+                        default: {
+                            const param = sluggify(key, { camel: "dromedary" });
+                            options[param] = value;
+                        }
+                    }
+                }
+                action.use(options).catch((reason) => ui.notifications.warn(reason));
+            }
+            return;
+        }
+        return super._processMacroCommand(command, match);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

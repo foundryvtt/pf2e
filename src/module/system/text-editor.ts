@@ -18,6 +18,7 @@ import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/
 import {
     createHTMLElement,
     fontAwesomeIcon,
+    getActionGlyph,
     htmlClosest,
     localizer,
     objectHasKey,
@@ -211,6 +212,8 @@ class TextEditorPF2e extends TextEditor {
         const [_match, inlineType, paramString, inlineLabel] = data;
 
         switch (inlineType) {
+            case "act":
+                return this.#createAction(data.groups?.slug ?? "", data.groups?.options ?? "", data.groups?.label);
             case "Check": {
                 const actor = options.rollData?.actor ?? item?.actor ?? null;
                 return this.#createCheck({ paramString, inlineLabel, item, actor });
@@ -345,6 +348,41 @@ class TextEditorPF2e extends TextEditor {
         );
 
         return result;
+    }
+
+    static #createAction(slug: string, options: string, label?: string): HTMLElement | null {
+        const action = game.pf2e.actions.get(slug);
+        if (action) {
+            const element = document.createElement("span");
+
+            // action attribute
+            element.dataset["pf2Action"] = slug;
+
+            // glyph attribute
+            const glyph = getActionGlyph(action.cost ?? null);
+            if (glyph) {
+                element.dataset["pf2Glyph"] = glyph;
+            }
+
+            // options
+            for (const option of options.split(/\s+/)) {
+                const [key, value] = option.split("=");
+                const attribute = sluggify(`pf2-${key}`, { camel: "dromedary" });
+                element.dataset[attribute] = value;
+            }
+
+            element.innerText = label || game.i18n.localize(action.name);
+            return element;
+        }
+        const element = document.createElement("a");
+        element.classList.add("content-link", "broken", "unresolvable-action");
+        const icon = document.createElement("i");
+        icon.classList.add("fas", "fa-unlink");
+        element.appendChild(icon);
+        element.appendChild(
+            document.createTextNode(game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug })),
+        );
+        return element;
     }
 
     static #createCheck({

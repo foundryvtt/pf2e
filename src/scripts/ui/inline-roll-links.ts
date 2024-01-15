@@ -63,18 +63,27 @@ export const InlineRollLinks = {
         for (const link of links.filter((l) => l.dataset.pf2Action)) {
             const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = link.dataset;
             link.addEventListener("click", (event) => {
-                const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
+                const slug = sluggify(pf2Action ?? "");
                 const visibility = pf2ShowDc ?? "all";
-                if (pf2Action && action) {
-                    action({
-                        event,
-                        glyph: pf2Glyph,
-                        variant: pf2Variant,
-                        difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
-                        skill: pf2Skill,
-                    });
+                const difficultyClass = pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined;
+                if (slug && game.pf2e.actions.has(slug)) {
+                    game.pf2e.actions
+                        .get(slug)
+                        ?.use({ event, variant: pf2Variant, difficultyClass, statistic: pf2Skill })
+                        .catch((reason) => ui.notifications.warn(reason));
                 } else {
-                    console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
+                    const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
+                    if (pf2Action && action) {
+                        action({
+                            event,
+                            glyph: pf2Glyph,
+                            variant: pf2Variant,
+                            difficultyClass,
+                            skill: pf2Skill,
+                        });
+                    } else {
+                        console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
+                    }
                 }
             });
         }

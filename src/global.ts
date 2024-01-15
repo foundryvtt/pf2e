@@ -67,6 +67,7 @@ import type {
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
+import type { Action } from "@actor/actions/index.ts";
 
 interface GamePF2e
     extends Game<
@@ -80,7 +81,7 @@ interface GamePF2e
         UserPF2e
     > {
     pf2e: {
-        actions: Record<string, Function>;
+        actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
         worldClock: WorldClock;
