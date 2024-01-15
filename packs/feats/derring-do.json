@@ -24,7 +24,64 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": ["self:effect:panache", "action:tumble-through"],
+            "selector": ["acrobatics-check"]
+          },
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": [
+              "self:effect:panache",
+              "feature:battledancer",
+              "action:perform"
+            ],
+            "selector": ["performance-check"]
+          },
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": [
+              "self:effect:panache",
+              "feature:braggart",
+              "action:demoralize"
+            ],
+            "selector": ["skill-check"]
+          },
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": [
+              "self:effect:panache",
+              "feature:fencer",
+              {
+                "or": ["action:feint", "action:create-a-diversion"]
+              }
+            ],
+            "selector": ["skill-check"]
+          },
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": [
+              "self:effect:panache",
+              "feature:gymnast",
+              {
+                "or": ["action:shove", "action:trip", "action:grapple"]
+              }
+            ],
+            "selector": ["skill-check"]
+          },
+          {
+            "keep": "higher",
+            "key": "RollTwice",
+            "predicate": ["self:effect:panache", "feature:wit", "action:bon-mot"],
+            "selector": ["skill-check"]
+          }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
