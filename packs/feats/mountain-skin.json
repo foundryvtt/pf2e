@@ -28,7 +28,20 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Highhelm"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "@actor.system.proficiencies.defenses.light.rank"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "heavy": {
