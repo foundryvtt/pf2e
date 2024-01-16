@@ -1,12 +1,12 @@
 <form autocomplete="off">
-    <ul>
+    <ul class="speeds">
         {{#each choices as |choice key|}}
             <li>
-                <div class="form-group">
-                    <input type="checkbox" id="{{options.id}}-{{key}}" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                    <label class="trait-label" for="{{options.id}}-{{key}}">{{localize choice.label}}</label>
-                    <input type="number" name="{{key}}" value="{{choice.value}}" placeholder="0" {{disabled choice.disabled}} />
-                </div>
+                <label>
+                    <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                    {{localize choice.label}}
+                </label>
+                <input type="number" name="{{key}}" value="{{choice.value}}" placeholder="0" {{disabled choice.disabled}} />
             </li>
         {{/each}}
     </ul>

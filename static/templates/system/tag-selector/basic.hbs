@@ -5,18 +5,18 @@
 
     <ul class="{{#if hasCustomChoices}}has-custom{{/if}}{{#if hasRarity}} has-rarity{{/if}}">
         {{#each choices as |choice key|}}
-        <li>
-            <label class="option">
-                <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                <span>{{choice.label}}</span>
-                {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}" data-tooltip-direction="RIGHT"></i>{{/if}}
-            </label>
-            {{#if choice.rarity~}}
-                <div class="tags paizo-style">
-                    <span class="tag rarity {{choice.rarity.slug}}">{{choice.rarity.label}}</span>
-                </div>
-            {{~/if}}
-        </li>
+            <li>
+                <label class="option">
+                    <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                    <span>{{choice.label}}</span>
+                    {{#if choice.source}}<i class="fa-solid fa-info-circle" data-tooltip="{{choice.source}}" data-tooltip-direction="RIGHT"></i>{{/if}}
+                </label>
+                {{#if choice.rarity~}}
+                    <div class="tags paizo-style">
+                        <span class="tag rarity {{choice.rarity.slug}}">{{choice.rarity.label}}</span>
+                    </div>
+                {{~/if}}
+            </li>
         {{/each}}
     </ul>
 
