@@ -162,7 +162,7 @@
                                 <button type="button" class="cast-spell blue" data-action="cast-spell">{{localize "PF2E.Item.Spell.Cast"}}</button>
                                 <div class="item-controls" data-tooltip-class="pf2e">
                                     {{#if entry.isPrepared}}
-                                        {{#unless (eq group "cantrips")}}
+                                        {{#unless (eq group.id "cantrips")}}
                                             <a
                                                 data-action="toggle-slot-expended"
                                                 data-tooltip="{{#if slot.expended}}PF2E.RestoreSpellTitle{{else}}PF2E.ExpendSpellTitle{{/if}}"
@@ -173,7 +173,7 @@
                                             data-tooltip="PF2E.UnprepareItemTitle"
                                         ><i class="fa-solid fa-fw fa-trash"></i></a>
                                     {{else}}
-                                        {{#if (and entry.isSpontaneous (ne group "cantrips"))}}
+                                        {{#if (and entry.isSpontaneous (ne group.id "cantrips"))}}
                                             <a
                                                 data-action="toggle-signature-spell"
                                                 data-tooltip="PF2E.ToggleSignatureSpellTitle"
