@@ -30,7 +30,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
     static override defineSchema(): BattleFormRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: false, initial: undefined }),
@@ -55,7 +55,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                                 initial: true,
                             }),
                         },
-                        { required: false, initial: undefined },
+                        { required: false },
                     ),
                     tempHP: new ResolvableValueField({ required: false, nullable: true, initial: null }),
                     senses: new RecordField(
@@ -189,8 +189,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const { actor } = this;
-        const { attributes } = actor;
+        const actor = this.actor;
+        const attributes = actor.attributes;
         if (attributes.polymorphed) {
             actor.synthetics.preparationWarnings.add("PF2e System | You are already under a polymorph effect");
             this.ignored = true;
@@ -208,7 +208,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
-        if (this.overrides.armorClass?.ignoreSpeedPenalty) {
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
             const speedRollOptions = (actor.rollOptions.speed ??= {});
             speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
@@ -247,13 +247,13 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const { attributes, rollOptions } = this.actor;
         rollOptions.all["polymorph"] = true;
         rollOptions.all["battle-form"] = true;
-        if (this.overrides.armorClass) {
-            rollOptions.all["armor:ignore-check-penalty"] = this.overrides.armorClass.ignoreCheckPenalty;
-            rollOptions.all["armor:ignore-speed-penalty"] = this.overrides.armorClass.ignoreSpeedPenalty;
-            if (this.overrides.armorClass.ignoreSpeedPenalty) {
-                const speedRollOptions = (rollOptions.speed ??= {});
-                speedRollOptions["armor:ignore-speed-penalty"] = true;
-            }
+        if (this.overrides.armorClass.ignoreCheckPenalty) {
+            rollOptions.all["armor:ignore-check-penalty"] = true;
+        }
+        if (this.overrides.armorClass.ignoreSpeedPenalty) {
+            rollOptions.all["armor:ignore-speed-penalty"] = true;
+            const speedRollOptions = (rollOptions.speed ??= {});
+            speedRollOptions["armor:ignore-speed-penalty"] = true;
         }
 
         if (this.overrides.skills) {
@@ -285,19 +285,15 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     /** Override the character's AC and ignore speed penalties if necessary */
     #prepareAC(): void {
-        const overrides = this.overrides;
-        const { actor } = this;
-        const { armorClass } = actor;
-        const acOverride = Number(this.resolveValue(overrides.armorClass?.modifier, armorClass.value)) || 0;
+        const { actor, overrides } = this;
+        const armorClass = actor.armorClass;
+        const acOverride = Number(this.resolveValue(overrides.armorClass.modifier, armorClass.value)) || 0;
         if (!acOverride) return;
 
         this.#suppressModifiers(armorClass);
-        const newModifier = (Number(this.resolveValue(overrides.armorClass?.modifier)) || 0) - 10;
+        const newModifier = (Number(this.resolveValue(overrides.armorClass.modifier)) || 0) - 10;
         armorClass.modifiers.push(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
-        this.actor.system.attributes.ac = fu.mergeObject(
-            this.actor.system.attributes.ac,
-            armorClass.parent.getTraceData(),
-        );
+        actor.system.attributes.ac = fu.mergeObject(actor.system.attributes.ac, armorClass.parent.getTraceData());
     }
 
     /** Add new senses the character doesn't already have */
@@ -322,7 +318,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     /** Add, replace and/or adjust non-land speeds */
     #prepareSpeeds(): void {
-        const { attributes } = this.actor;
+        const attributes = this.actor.attributes;
         const currentSpeeds = attributes.speed;
 
         for (const movementType of MOVEMENT_TYPES) {
@@ -333,7 +329,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 this.#suppressModifiers(attributes.speed);
                 attributes.speed.value = speedOverride;
             } else {
-                const { otherSpeeds } = currentSpeeds;
+                const otherSpeeds = currentSpeeds.otherSpeeds;
                 const label = game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]);
                 otherSpeeds.findSplice((s) => s.type === movementType);
                 otherSpeeds.push({ type: movementType, label, value: speedOverride });
@@ -381,7 +377,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     /** Clear out existing strikes and replace them with the form's stipulated ones, if any */
     #prepareStrikes(): void {
-        const { synthetics } = this.actor;
+        const synthetics = this.actor.synthetics;
         const strikes = this.overrides.strikes ?? {};
         for (const strike of Object.values(strikes)) {
             strike.ownIfHigher ??= true;
