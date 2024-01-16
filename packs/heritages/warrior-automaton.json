@@ -24,9 +24,15 @@
             {
                 "key": "DamageDice",
                 "override": {
-                    "dieSize": "d6"
+                    "upgrade": true
                 },
-                "selector": "fist-damage"
+                "predicate": [
+                    "item:category:unarmed",
+                    "item:damage:die:faces:4"
+                ],
+                "selector": [
+                    "fist-base-damage"
+                ]
             }
         ],
         "traits": {
