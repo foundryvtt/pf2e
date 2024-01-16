@@ -239,7 +239,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
                         return false;
                     },
-                    functionFormat: (instance, _helper, $content): string | JQuery<HTMLElement> => {
+                    functionFormat: (instance, _helper, contentEl: HTMLElement): string | JQuery => {
                         const tokens = getTokens();
                         const nonBrokenShields = getNonBrokenShields(tokens);
                         const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
@@ -247,12 +247,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
                         // If the actor is wielding more than one shield, have the user pick which shield to use for blocking.
                         if (multipleShields && !shieldActivated) {
-                            const content: HTMLElement = $content[0];
                             // Populate the list with the shield options
-                            const listEl = htmlQuery(content, "ul.shield-options");
-                            if (!listEl) return $content;
-                            const shieldList: HTMLLIElement[] = [];
-                            for (const shield of nonBrokenShields) {
+                            const listEl = htmlQuery(contentEl, "ul.shield-options");
+                            if (!listEl) return $(contentEl);
+
+                            const shieldList = nonBrokenShields.map((shield): HTMLLIElement => {
                                 const input = document.createElement("input");
                                 input.classList.add("data");
                                 input.type = "radio";
@@ -272,14 +271,18 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                                 hardness.classList.add("tag");
                                 const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
                                 hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
+
                                 const itemLi = document.createElement("li");
                                 itemLi.classList.add("item");
                                 itemLi.append(input, shieldName, hardness);
-                                shieldList.push(itemLi);
-                            }
+
+                                return itemLi;
+                            });
+
                             listEl.replaceChildren(...shieldList);
                         }
-                        return $content;
+
+                        return $(contentEl);
                     },
                 })
                 .tooltipster("open");
