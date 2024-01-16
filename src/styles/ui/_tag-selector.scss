@@ -30,7 +30,7 @@
         }
     }
 
-    > ul {
+    ul {
         display: flex;
         flex-direction: column;
         list-style-type: none;
@@ -52,11 +52,11 @@
             label {
                 align-items: center;
                 display: flex;
-                gap: 0.125rem;
+                gap: var(--space-2);
 
                 i.fa-info-circle {
                     cursor: help;
-                    margin-left: 0.125rem;
+                    margin-left: var(--space-2);
                 }
             }
         }
@@ -66,6 +66,20 @@
 
             &:nth-child(even) {
                 background: rgba(black, 0.05);
+            }
+        }
+    }
+
+    ul.speeds {
+        row-gap: var(--space-6);
+
+        > li {
+            gap: 1.5rem;
+            margin-right: var(--space-4);
+            padding: 0;
+
+            input[type="number"] {
+                width: 8ch;
             }
         }
     }
@@ -80,7 +94,7 @@
         }
 
         th {
-            padding: 0.5rem;
+            padding: var(--space-8);
         }
 
         tbody > tr {
