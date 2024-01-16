@@ -9,7 +9,8 @@
         overflow: visible;
 
         .tooltipster-content {
-            @include p-reset;
+            margin: 0;
+            padding: 0;
 
             .item-summary {
                 @include journal-styling;
@@ -21,16 +22,14 @@
 
             .hover-content {
                 display: flex;
-                min-width: 120px;
-                max-width: fit-content;
-                padding: 4px;
-                line-height: 1;
                 flex-direction: column;
+                line-height: 1;
+                max-width: fit-content;
+                min-width: 7.5rem;
+                padding: var(--space-4);
 
                 p {
-                    font-size: var(--font-size-14);
-                    font-family: var(--body-serif);
-                    font-weight: 400;
+                    font: 400 var(--font-size-14) var(--body-serif);
                 }
 
                 h1,
@@ -68,26 +67,11 @@
                     }
                 }
 
-                &.select-shield {
-                    width: 160px;
-                    ul {
-                        li.item {
-                            .data {
-                                position: relative;
-                                top: -2px;
-                            }
-                            .tag-legacy {
-                                width: auto;
-                            }
-                        }
-                    }
-                }
-
                 a.item-location-option {
                     color: rgba(white, 0.5);
 
                     i {
-                        margin: 1px 4px 1px 0;
+                        margin: var(--space-1) var(--space-4) var(--space-1) 0;
                     }
 
                     &.selected {
@@ -101,17 +85,38 @@
                 }
 
                 ul {
-                    list-style: none;
-                    @include p-reset;
+                    display: flex;
+                    flex-direction: column;
                     flex: 1 auto;
+                    gap: var(--space-6);
+                    justify-content: center;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+
+                    &.shield-options {
+                        width: 12rem;
+
+                        li {
+                            align-items: center;
+                            grid-template-columns: 1.5rem auto 5rem;
+                            justify-content: normal;
+
+                            .data {
+                                justify-self: center;
+                            }
+                        }
+                    }
+
                     input {
-                        color: var(--text-light);
+                        background: transparent;
+                        border-bottom: 1px solid rgba(white, 0.5);
                         border: none;
                         border-radius: 0;
-                        background: transparent;
+                        color: var(--text-light);
                         font-family: var(--body-serif);
                         width: 100%;
-                        border-bottom: 1px solid rgba(white, 0.5);
+
                         &:focus {
                             box-shadow: none;
                             border-bottom: 1px solid white;
@@ -119,62 +124,63 @@
                                 color: transparent;
                             }
                         }
+
                         &::placeholder {
                             color: rgba(white, 0.8);
                         }
+
                         &::-webkit-outer-spin-button,
                         &::-webkit-inner-spin-button {
                             -webkit-appearance: none;
                             appearance: none;
                             margin: 0;
                         }
+
                         &[type="number"] {
-                            appearance: textfield;
                             -moz-appearance: textfield;
+                            appearance: textfield;
                         }
                     }
 
                     select {
-                        border-radius: 2px;
-                        height: 18px;
-                        border: 1px solid white;
                         background: transparent;
+                        border-radius: 2px;
+                        border: 1px solid var(--color-border-light-1);
                         cursor: pointer;
+                        height: 1.125rem;
 
                         option {
+                            color: var(--text-dark);
                             font-size: 0.8rem;
                             min-height: 1rem;
-                            color: var(--text-dark);
                             text-transform: capitalize;
                         }
                     }
 
                     label {
-                        display: flex;
                         align-items: center;
-                        text-align: left;
+                        display: flex;
                         font-family: var(--serif);
                         font-weight: 500;
+                        text-align: left;
                     }
 
                     .label,
                     .data {
-                        font-size: var(--font-size-12);
-                        font-family: var(--serif);
-                        font-weight: 400;
                         color: var(--text-light);
-                        @include p-reset;
+                        font: 400 var(--font-size-12) var(--serif);
+                        margin: 0;
+                        padding: 0;
                     }
 
                     .item {
+                        align-items: center;
+                        column-gap: var(--space-8);
                         display: grid;
                         grid:
                             "data label close" min-content
                             "data type close" min-content
-                            / 30px 1fr;
-                        margin: 8px 0;
-                        align-items: center;
-                        column-gap: 8px;
+                            / 1.875rem 1fr;
                         justify-items: start;
 
                         &:first-child {
@@ -189,7 +195,7 @@
                         .tag-legacy {
                             @include micro;
                             @include flex-center;
-                            color: var(--tertiary);
+                            color: var(--color-pf-tertiary);
                             grid-area: type;
                             letter-spacing: 0.5px;
                             white-space: nowrap;
@@ -202,15 +208,15 @@
 
                         .label {
                             grid-area: label;
+                            line-height: var(--space-14);
                         }
 
                         .data {
-                            grid-area: data;
-                            text-align: right;
                             font-size: var(--font-size-21);
+                            grid-area: data;
                             justify-self: right;
+                            text-align: right;
                             width: min-content;
-                            padding-top: 2px;
                         }
                     }
 
@@ -228,42 +234,42 @@
 
                 &.modifiers-tooltip {
                     .remove-modifier {
-                        grid-area: close;
-                        font-size: 0.8rem;
                         cursor: pointer;
+                        font-size: 0.8rem;
+                        grid-area: close;
                     }
 
                     .add-modifier {
                         border-top: 1px solid var(--sidebar-title);
-                        padding-top: 5px;
+                        align-items: baseline;
+                        font-size: 0.8rem;
+                        gap: var(--space-4) var(--space-8);
                         grid:
                             "value name name" 1fr
                             "type type btn" 1fr
-                            /42px 1fr 1fr;
-                        font-size: 0.8rem;
-                        gap: 0.25rem 0.5rem;
-                        align-items: baseline;
+                            / 2.625rem 1fr 1fr;
+                        padding-top: var(--space-5);
 
                         .add-modifier-value {
-                            grid-area: value;
-                            font-size: 1rem;
-                            text-align: right;
+                            align-items: center;
+                            column-gap: var(--space-4);
                             display: grid;
+                            font-size: 1rem;
                             grid:
                                 "input plus" 1fr
                                 "input minus" 1fr
-                                /1fr 10px;
-                            column-gap: 4px;
-                            align-items: center;
+                                / 1fr var(--space-10);
+                            grid-area: value;
+                            text-align: right;
 
                             input {
                                 grid-area: input;
                             }
 
                             .fa-solid {
-                                margin-top: 2px;
-                                font-size: var(--font-size-9);
                                 cursor: pointer;
+                                font-size: var(--font-size-9);
+                                margin-top: var(--space-2);
 
                                 &.fa-plus-circle {
                                     grid-area: plus;
@@ -281,11 +287,11 @@
 
                         .add-modifier-submit {
                             @include micro;
-                            grid-area: btn;
-                            white-space: nowrap;
-                            line-height: 1.5;
                             background-color: black;
-                            color: var(--tertiary);
+                            color: var(--color-pf-tertiary);
+                            grid-area: btn;
+                            line-height: 1.5;
+                            white-space: nowrap;
                         }
                     }
                 }
@@ -296,7 +302,7 @@
                             display: flex;
 
                             label {
-                                color: var(--tertiary);
+                                color: var(--color-pf-tertiary);
                                 flex-basis: 100%;
                             }
 
