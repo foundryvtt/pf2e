@@ -1787,7 +1787,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // If investing and unequipped, equip first
         if (!invested && !item.isEquipped) {
             const newCarryType = item.system.usage.type === "carried" ? "worn" : item.system.usage.type;
-            await this.adjustCarryType(item, {
+            await this.changeCarryType(item, {
                 carryType: newCarryType,
                 handsHeld: item.system.usage.hands,
                 inSlot: true,

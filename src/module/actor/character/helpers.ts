@@ -204,7 +204,7 @@ class WeaponAuxiliaryAction {
         const COVER_UUID = "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi";
 
         if (this.carryType) {
-            await actor.adjustCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
+            await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
             const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
             if (!updated) return;
