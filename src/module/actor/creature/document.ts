@@ -422,24 +422,14 @@ abstract class CreaturePF2e<
 
     /**
      * Changes the carry type of an item (held/worn/stowed/etc) and/or regrips/reslots
-     * @param item       The item
-     * @param carryType  Location to be set to
-     * @param handsHeld  Number of hands being held
-     * @param inSlot     Whether the item is in the slot or not. Equivilent to "equipped" previously
+     * @param item    The item
+     * @param options Options to specify how the item should be carried
      */
-    async adjustCarryType(
+    async changeCarryType(
         item: PhysicalItemPF2e<CreaturePF2e>,
-        {
-            carryType,
-            handsHeld = 0,
-            inSlot = false,
-        }: {
-            carryType: ItemCarryType;
-            handsHeld?: ZeroToTwo;
-            inSlot?: boolean;
-        },
+        { carryType, handsHeld = 0, inSlot = false }: ChangeCarryTypeOptions,
     ): Promise<void> {
-        const { usage } = item.system;
+        const usage = item.system.usage;
         if (carryType === "stowed") {
             const container = item.actor.itemTypes.backpack.find(
                 (c) => c !== item.container && !isContainerCycle(item, c),
@@ -807,6 +797,15 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
         ids: string[],
         context?: DocumentModificationContext<this>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
+}
+
+interface ChangeCarryTypeOptions {
+    /** Whether the item is held, worn, stowed, etc. */
+    carryType: ItemCarryType;
+    /** If requesting to hold the item, how many holds with which to holt it */
+    handsHeld?: ZeroToTwo;
+    /** If requesting to wear the item, and the item has a usage slot, whether the item to be in the slot */
+    inSlot?: boolean;
 }
 
 export { CreaturePF2e };

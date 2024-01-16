@@ -107,7 +107,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 inSlot !== current.inSlot ||
                 (carryType === "held" && handsHeld !== current.handsHeld)
             ) {
-                this.actor.adjustCarryType(item, { carryType, handsHeld, inSlot });
+                this.actor.changeCarryType(item, { carryType, handsHeld, inSlot });
             }
         };
         for (const carryTypeMenu of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
