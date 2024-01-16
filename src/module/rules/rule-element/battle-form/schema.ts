@@ -32,7 +32,7 @@ type BattleFormRuleOverrideSchema = {
         ModelPropsFromSchema<OverrideACSchema>,
         false,
         false,
-        false
+        true
     >;
     tempHP: ResolvableValueField<false, true, true>;
     senses: RecordField<
