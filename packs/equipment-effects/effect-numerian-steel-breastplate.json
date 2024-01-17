@@ -1,0 +1,49 @@
+{
+    "_id": "AiDZAHnvKWAWTxHk",
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/numerian-steel-breastplate.webp",
+    "name": "Effect: Numerian Steel Breastplate",
+    "system": {
+        "description": {
+            "value": "<p>You activate the remnants of mysterious technology within the breastplate to encase yourself in an electric field. For 1 minute, adjacent creatures that hit you with a melee Strike, as well as creatures that touch you or hit you with an unarmed attack, take @Damage[1d10[electricity]] damage per hit.</p>\n<p><strong>Note:</strong> Damage to melee attacks is not automated</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "label": "Numerian Steel Breastplate Activation",
+                "predicate": [
+                    "melee",
+                    "armor:slug:numerian-steel-breastplate"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
