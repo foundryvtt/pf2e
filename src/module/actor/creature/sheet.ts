@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
+import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e, ContainerPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
@@ -102,6 +102,16 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             const inSlot = menu.dataset.inSlot === "true";
             const current = item.system.equipped;
+
+            if (carryType === "stowed") {
+                const containerId = menu.dataset.containerId;
+                if (containerId && item.system.containerId !== containerId) {
+                    const container = this.actor.items.get(containerId);
+                    if (container instanceof ContainerPF2e) this.actor.stowOrUnstow(item, container);
+                }
+                return;
+            }
+
             if (
                 carryType !== current.carryType ||
                 inSlot !== current.inSlot ||

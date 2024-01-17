@@ -198,7 +198,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             bulk: actor.inventory.bulk,
             showValueAlways: actor.isOfType("npc", "loot", "party"),
             showUnitBulkPrice: actor.isOfType("loot"),
-            hasStowingContainers: actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
+            containers: actor.itemTypes.backpack,
             invested: actor.inventory.invested,
         };
     }
@@ -652,7 +652,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 contentAsHTML: true,
                 debug: BUILD_MODE === "development",
                 interactive: true,
-                side: ["bottom"],
+                side: ["bottom", "top"],
                 theme: "crb-hover",
                 minWidth: 120,
             });

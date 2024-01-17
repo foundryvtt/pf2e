@@ -33,15 +33,17 @@
                 data-carry-type="worn"
                 data-in-slot="false"><i class="fa-solid fa-tshirt"></i>{{localize "PF2E.CarryType.worn"}}</a>
         </li>
-        {{#if @root.inventory.hasStowingContainers}}
-            <li>
-                <a class="item-control item-location-option{{#if (eq item.system.equipped.carryType "stowed")}} selected{{/if}}"
-                    data-carry-type="stowed"><i class="fa-solid fa-box"></i>{{localize "PF2E.CarryType.stowed"}}</a>
-            </li>
-        {{/if}}
         <li>
             <a class="item-control item-location-option {{#if (eq item.system.equipped.carryType "dropped")}}selected{{/if}}"
                 data-carry-type="dropped"><i class="fa-solid fa-grip-lines"></i>{{localize "PF2E.CarryType.dropped"}}</a>
         </li>
+        {{#unless (eq item.type "backpack")}}
+            {{#each @root.inventory.containers as |container|}}
+                <li>
+                    <a class="item-control item-location-option{{#if (eq ../item.system.containerId container.id)}} selected{{/if}}"
+                        data-carry-type="stowed" data-container-id="{{container.id}}"><i class="fa-solid fa-box"></i>{{container.name}}</a>
+                </li>  
+            {{/each}}
+        {{/unless}}
     </ul>
 </div>
