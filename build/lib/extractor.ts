@@ -478,6 +478,10 @@ class PackExtractor {
                                     ];
                                 }
                             }
+
+                            if (docSource.system.perception.vision) {
+                                delete (docSource.system.perception as { vision?: unknown }).vision;
+                            }
                         }
                     } else if (isItemSource(docSource)) {
                         this.#pruneItem(docSource);
