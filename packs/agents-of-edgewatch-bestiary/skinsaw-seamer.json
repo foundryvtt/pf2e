@@ -753,7 +753,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Every Skinsaw seamer keeps a sewing needle attached to a loop of thick silk, wrapped loosely around their hand not holding a weapon, which they can use in combat to snag or disarm attackers</p>\n<p><strong>Trigger</strong> A creature hits the seamer with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The seamer attempts an Athletics check to either @UUID[Compendium.pf2e.action-macros.Macro.Grapple: Athletics]{Grapple} or @UUID[Compendium.pf2e.action-macros.Macro.Disarm: Athletics]{Disarm} the triggering creature.</p>"
+                    "value": "<p>Every Skinsaw seamer keeps a sewing needle attached to a loop of thick silk, wrapped loosely around their hand not holding a weapon, which they can use in combat to snag or disarm attackers</p>\n<p><strong>Trigger</strong> A creature hits the seamer with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The seamer attempts an Athletics check to either @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] the triggering creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -790,7 +790,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "flay",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "flay"
+                        ],
+                        "selector": "war-razor-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
