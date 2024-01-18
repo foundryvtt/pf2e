@@ -245,16 +245,22 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
     // Change carry type
     async #openCarryTypeMenu(anchor: HTMLElement): Promise<void> {
-        game.tooltip.dismissLockedTooltips();
+        // Close the menu and return early if any carry-type menu is already open
+        const menuOpen = !!document.body.querySelector("aside.locked-tooltip.carry-type-menu");
+        if (menuOpen) return game.tooltip.dismissLockedTooltips();
+
         const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
         const item = this.actor.inventory.get(itemId, { strict: true });
+
         const template = await renderTemplate("systems/pf2e/templates/actors/partials/carry-type.hbs", { item });
         const content = createHTMLElement("ul", { innerHTML: template });
 
         content.addEventListener("click", (event) => {
             const menuOption = htmlClosest(event.target, "a[data-carry-type]");
-            const carryType = menuOption?.dataset.carryType;
-            if (!menuOption || !tupleHasValue(ITEM_CARRY_TYPES, carryType)) {
+            if (!menuOption) return;
+
+            const carryType = menuOption.dataset.carryType;
+            if (!tupleHasValue(ITEM_CARRY_TYPES, carryType)) {
                 throw ErrorPF2e("Unexpected error retrieving requested carry type");
             }
 
