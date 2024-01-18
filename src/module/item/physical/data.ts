@@ -10,10 +10,10 @@ import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
-import { UsageDetails } from "./usage.ts";
+import type { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import type { UsageDetails } from "./usage.ts";
 
-type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
+type ItemCarryType = (typeof ITEM_CARRY_TYPES)[number];
 
 type BasePhysicalItemSource<
     TType extends PhysicalItemType,

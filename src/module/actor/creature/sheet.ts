@@ -9,7 +9,7 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { Language } from "./index.ts";
@@ -76,44 +76,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         super.activateListeners($html);
         const html = $html[0];
 
-        // Change carry type
-        const carryMenuListener = (event: MouseEvent) => {
-            if (!(event.currentTarget instanceof HTMLElement)) {
-                throw ErrorPF2e("Unexpected error retrieving carry-type link");
-            }
-            const menu = event.currentTarget;
-            const toggle = menu.nextElementSibling;
-            if (toggle?.classList.contains("carry-type-hover")) {
-                $(toggle).tooltipster("close");
-            }
-
-            const carryType = menu.dataset.carryType;
-            if (!setHasElement(ITEM_CARRY_TYPES, carryType)) {
-                throw ErrorPF2e("Unexpected error retrieving requested carry type");
-            }
-
-            const itemId = htmlClosest(menu, "[data-item-id]")?.dataset.itemId;
-            const item = this.actor.inventory.get(itemId, { strict: true });
-
-            const handsHeld = Number(menu.dataset.handsHeld) || 0;
-            if (!tupleHasValue([0, 1, 2], handsHeld)) {
-                throw ErrorPF2e("Invalid number of hands specified");
-            }
-
-            const inSlot = menu.dataset.inSlot === "true";
-            const current = item.system.equipped;
-            if (
-                carryType !== current.carryType ||
-                inSlot !== current.inSlot ||
-                (carryType === "held" && handsHeld !== current.handsHeld)
-            ) {
-                this.actor.changeCarryType(item, { carryType, handsHeld, inSlot });
-            }
-        };
-        for (const carryTypeMenu of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
-            carryTypeMenu.addEventListener("click", carryMenuListener);
-        }
-
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
         for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selectors)) {
@@ -160,6 +122,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         };
 
         handlers["recovery-check"] = (event) => this.actor.rollRecovery(event);
+
+        handlers["open-carry-type-menu"] = (_, anchor) => this.#openCarryTypeMenu(anchor);
 
         // SPELLCASTING
 
@@ -277,6 +241,41 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         };
 
         return handlers;
+    }
+
+    // Change carry type
+    async #openCarryTypeMenu(anchor: HTMLElement): Promise<void> {
+        game.tooltip.dismissLockedTooltips();
+        const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
+        const item = this.actor.inventory.get(itemId, { strict: true });
+        const template = await renderTemplate("systems/pf2e/templates/actors/partials/carry-type.hbs", { item });
+        const content = createHTMLElement("ul", { innerHTML: template });
+
+        content.addEventListener("click", (event) => {
+            const menuOption = htmlClosest(event.target, "a[data-carry-type]");
+            const carryType = menuOption?.dataset.carryType;
+            if (!menuOption || !tupleHasValue(ITEM_CARRY_TYPES, carryType)) {
+                throw ErrorPF2e("Unexpected error retrieving requested carry type");
+            }
+
+            const handsHeld = Number(menuOption.dataset.handsHeld) || 0;
+            if (!tupleHasValue([0, 1, 2], handsHeld)) {
+                throw ErrorPF2e("Invalid number of hands specified");
+            }
+
+            const inSlot = menuOption.dataset.inSlot !== undefined;
+            const current = item.system.equipped;
+            if (
+                carryType !== current.carryType ||
+                inSlot !== current.inSlot ||
+                (carryType === "held" && handsHeld !== current.handsHeld)
+            ) {
+                this.actor.changeCarryType(item, { carryType, handsHeld, inSlot });
+                game.tooltip.dismissLockedTooltips();
+            }
+        });
+
+        game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", content, locked: true });
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
