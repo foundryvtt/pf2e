@@ -36,6 +36,7 @@ const immunityTypes = {
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
     "death-effects": "PF2E.Damage.IWR.Type.death-effects",
+    detection: "PF2E.Damage.IWR.Type.detection",
     disease: "PF2E.Damage.IWR.Type.disease",
     doomed: "PF2E.Damage.IWR.Type.doomed",
     drained: "PF2E.Damage.IWR.Type.drained",
