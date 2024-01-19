@@ -137,11 +137,16 @@
     </div>
 </fieldset>
 
-<fieldset>
+<fieldset class="material-runes">
     <legend>{{localize "PF2E.Item.Physical.MaterialRunes.Label"}}</legend>
     <div class="form-group">
-        <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
-        <select data-property="system.material" data-value-base="{{json item._source.system.material}}" data-dtype="JSON">
+        <label for="{{fieldIdPrefix}}material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
+        <select
+            id="{{fieldIdPrefix}}material"
+            data-property="system.material"
+            data-value-base="{{json item._source.system.material}}"
+            data-dtype="JSON"
+        >
             {{#select preciousMaterials.value}}
                 <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
                 {{#each preciousMaterials.materials as |material|}}
