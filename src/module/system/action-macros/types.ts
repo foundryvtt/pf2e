@@ -86,7 +86,7 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     createMessage?: boolean;
     weaponTrait?: WeaponTrait;
     weaponTraitWithPenalty?: WeaponTrait;
-    target?: () => { token: TokenDocumentPF2e; actor: ActorPF2e } | null;
+    target?: () => { token: TokenDocumentPF2e | null; actor: ActorPF2e } | null;
 }
 
 type UnresolvedCheckDC = CheckDC | DCSlug | ((actor: ActorPF2e | null) => CheckDC | null);
