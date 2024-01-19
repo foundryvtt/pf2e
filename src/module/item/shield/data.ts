@@ -46,7 +46,7 @@ interface SpecificShieldData extends Pick<ShieldSystemSource, "material" | "rune
 
 interface ShieldSystemData
     extends Omit<ShieldSystemSource, SourceOmission>,
-        Omit<PhysicalSystemData, "baseItem" | "traits"> {
+        Omit<PhysicalSystemData, "baseItem" | "subitems" | "traits"> {
     traits: ShieldTraits;
     /** Shields are always held. */
     usage: HeldUsage;
