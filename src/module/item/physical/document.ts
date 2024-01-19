@@ -35,7 +35,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     private declare _container: ContainerPF2e<ActorPF2e> | null;
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
-    declare subitems: PhysicalItemPF2e<TParent>[];
+    declare subitems: Collection<PhysicalItemPF2e<TParent>>;
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: PhysicalItemConstructionContext<TParent> = {}) {
         super(data, context);
@@ -279,13 +279,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         // Prepare doubly-embedded items if this is of an appropriate physical-item type
-        this.subitems =
-            "subitems" in this.system && Array.isArray(this.system.subitems)
-                ? this.system.subitems.map(
-                      (i) =>
-                          new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
-                  )
-                : [];
+        this.subitems = new Collection(
+            this.system.subitems?.map((i): [string, PhysicalItemPF2e<TParent>] => [
+                i._id ?? "",
+                new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
+            ]) ?? [],
+        );
 
         // Normalize apex data
         if (this.system.apex) {

@@ -11,12 +11,14 @@ type TreasureSystemSource = Omit<PhysicalSystemSource, "usage"> & {
 };
 
 interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
-    apex?: never;
     equipped: TreasureEquippedData;
     /** Treasure need only be on one's person. */
     usage: CarriedUsage;
 
     stackGroup: "coins" | "gems" | null;
+
+    apex?: never;
+    subitems?: never;
 }
 
 interface TreasureEquippedData extends EquippedData {

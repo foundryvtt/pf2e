@@ -1,6 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorTrait } from "@item/armor/types.ts";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ConsumableTrait } from "@item/consumable/data.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { ShieldTrait } from "@item/shield/types.ts";
@@ -71,6 +72,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     bulk: BulkData;
     material: ItemMaterialData;
     traits: PhysicalItemTraits;
+    subitems?: PhysicalItemSource[];
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;
