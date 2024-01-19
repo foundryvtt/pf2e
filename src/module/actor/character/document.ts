@@ -159,15 +159,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     get handsFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld);
-        return Math.clamped(
-            2 - R.sumBy(heldItems, (i) => (i.traits.has("free-hand") ? 0 : i.handsHeld)),
-            0,
-            2,
-        ) as ZeroToTwo;
+        const heldItems = this.inventory.filter((i) => i.isHeld && i.type !== "shield" && !i.traits.has("free-hand"));
+        return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
     }
 
-    /** The number of hands this PC "really" has free: this is, ignoring allowances for the Free Hand trait */
+    /** The number of hands this PC "really" has free, ignoring allowances for shields and the Free-Hand trait */
     get handsReallyFree(): ZeroToTwo {
         const heldItems = this.inventory.filter((i) => i.isHeld);
         return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
