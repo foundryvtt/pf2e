@@ -26,22 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:effect:panache",
-                    {
-                        "or": [
-                            "action:grapple",
-                            "action:shove",
-                            "action:trip"
-                        ]
-                    }
-                ],
-                "selector": "athletics",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.ath.rank",
@@ -49,28 +33,6 @@
                     "class:swashbuckler"
                 ],
                 "value": 1
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
-                    {
-                        "or": [
-                            "action:grapple",
-                            "action:shove",
-                            "action:trip"
-                        ]
-                    },
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "athletics",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
             },
             {
                 "hideIfDisabled": true,
@@ -90,6 +52,20 @@
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": "2* @weapon.system.damage.dice"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

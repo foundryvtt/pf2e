@@ -26,16 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:demoralize",
-                    "self:effect:panache"
-                ],
-                "selector": "intimidation",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.itm.rank",
@@ -51,28 +41,20 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "action:demoralize",
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "intimidation",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Braggart",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {
