@@ -10,7 +10,7 @@ import { Statistic } from "@system/statistic/statistic.ts";
 import { DelegatedCollection, ErrorPF2e, tupleHasValue } from "@util";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
-    /** The base casting proficiency, which spellcasting build off of */
+    /** The base casting proficiency, off of which spellcasting builds */
     declare base: Statistic;
 
     /** All available spell lists on this actor */
