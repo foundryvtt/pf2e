@@ -43,11 +43,6 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         };
     }
 
-    /** Collect all options within the specified scope and then eliminate any that fail the predicate test */
-    protected getChoices(): PickableThing<T>[] {
-        return this.choices.filter((choice) => this.predicate.test(choice.domain ?? [])) ?? [];
-    }
-
     protected getSelection(event: MouseEvent): PickableThing<T> | null {
         if (!(event.currentTarget instanceof HTMLElement)) {
             throw ErrorPF2e("Unexpected error retrieving form data");
@@ -66,7 +61,6 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     async resolveSelection(): Promise<PickableThing<T> | null> {
-        this.choices = this.getChoices();
         this.render(true);
         return new Promise((resolve) => {
             this.#resolve = resolve;
@@ -78,7 +72,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         options.id = `pick-a-${slug}`;
 
         return {
-            selectMenu: this.choices.length > 9,
+            item: this.item,
             choices: this.choices.map((c, index) => ({ ...c, value: index })),
         };
     }
@@ -120,20 +114,6 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         for (const element of htmlQueryAll(this.element[0], "button, select")) {
             element.style.pointerEvents = "none";
         }
-
-        if (this.choices.length === 0) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
-                    actor: this.actor.name,
-                    item: this.item.name,
-                }),
-            );
-        } else if (!this.selection && !this.allowNoSelection) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
-            );
-        }
-
         this.#resolve?.(this.selection);
 
         return super.close(options);
@@ -159,8 +139,8 @@ interface PickableThing<T extends string | number | object = string | number | o
 
 interface PromptTemplateData {
     choices: PickableThing[];
-    /** Whether to use a select menu instead of a column of buttons */
-    selectMenu: boolean;
+    /** An item pertinent to the selection being made */
+    item: ItemPF2e;
 }
 
 export { PickAThingPrompt };

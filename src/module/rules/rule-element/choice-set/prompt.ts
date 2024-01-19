@@ -54,14 +54,6 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
         };
     }
 
-    protected override getChoices(): PickableThing[] {
-        return this.choices;
-    }
-
-    setChoices(choices: PickableThing[]): void {
-        this.choices = choices;
-    }
-
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -129,11 +121,27 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 
         // Exit early if there are no valid choices
         if (this.choices.length === 0 && !this.allowedDrops) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
+                    actor: this.actor.name,
+                    item: this.item.name,
+                }),
+            );
             this.close({ force: true });
             return null;
         }
 
         return super.resolveSelection();
+    }
+
+    override async close(options?: { force?: boolean }): Promise<void> {
+        if (this.choices.length > 0 && !this.selection && !this.allowNoSelection) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
+            );
+        }
+
+        return super.close(options);
     }
 
     /** Handle a dropped homebrew item */
@@ -231,6 +239,8 @@ interface ChoiceSetChoice extends PickableThing {
 interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
     choices: ChoiceSetChoice[];
+    /** Whether to use a select menu instead of a column of buttons */
+    selectMenu: boolean;
     includeDropZone: boolean;
     allowNoSelection: boolean;
     containsItems: boolean;
