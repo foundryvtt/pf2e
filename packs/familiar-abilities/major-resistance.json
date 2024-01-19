@@ -11,14 +11,25 @@
         },
         "category": "familiar",
         "description": {
-            "value": "<p>Your familiar increases the resistance it gains from its resistance familiar ability to a value equal to your level. To select this you must be at least 8th level.</p>"
+            "value": "<p>Your familiar increases the resistance it gains from its @UUID[Compendium.pf2e.familiar-abilities.Item.Resistance] familiar ability to a value equal to your level. To select this you must be at least 8th level.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.resistance.resistanceOne}",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.resistance.resistanceTwo}",
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
