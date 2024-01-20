@@ -1,7 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
+import type { UserPF2e } from "@module/user/document.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
@@ -12,7 +13,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
 
     protected selection: PickableThing<T> | null = null;
 
-    protected choices: PickableThing<T>[] = [];
+    protected choices: PickableThing<T>[];
 
     /** If the number of choices is beyond a certain length, a select menu is presented instead of a list of buttons */
     protected selectMenu?: Tagify<{ value: string; label: string }>;
@@ -24,9 +25,15 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
     constructor(data: PickAThingConstructorArgs<T>) {
         super();
         this.item = data.item;
+        this.choices = data.choices;
         this.predicate = data.predicate ?? new PredicatePF2e();
         this.options.title = data.title ?? this.item.name;
         this.allowNoSelection = data.allowNoSelection ?? false;
+    }
+
+    override get id(): string {
+        const slug = this.item.slug ?? sluggify(this.item.name);
+        return `pick-a-${slug}`;
     }
 
     get actor(): ActorPF2e {
@@ -44,17 +51,13 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
     }
 
     protected getSelection(event: MouseEvent): PickableThing<T> | null {
-        if (!(event.currentTarget instanceof HTMLElement)) {
-            throw ErrorPF2e("Unexpected error retrieving form data");
-        }
-
         const valueElement =
-            event.currentTarget.closest(".choice")?.querySelector<HTMLElement>("button[data-action=pick]") ??
-            event.currentTarget.closest(".content")?.querySelector<HTMLElement>("tag") ??
-            event.currentTarget;
-        const selectedIndex = valueElement.getAttribute("value");
+            htmlClosest(event.target, ".content")?.querySelector<HTMLElement>("tag") ??
+            htmlClosest(event.target, "button[data-action=pick]") ??
+            htmlClosest(event.target, "[value]");
+        const selectedIndex = valueElement?.getAttribute("value");
 
-        return ["", null].includes(selectedIndex) || !Number.isInteger(Number(selectedIndex))
+        return !selectedIndex || !Number.isInteger(Number(selectedIndex))
             ? null
             : this.choices.at(Number(selectedIndex)) ?? null;
     }
@@ -67,13 +70,11 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         });
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<PromptTemplateData> {
-        const slug = this.item.slug ?? sluggify(this.item.name);
-        options.id = `pick-a-${slug}`;
-
+    override async getData(): Promise<PromptTemplateData> {
         return {
             item: this.item,
             choices: this.choices.map((c, index) => ({ ...c, value: index })),
+            user: game.user,
         };
     }
 
@@ -123,7 +124,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
 interface PickAThingConstructorArgs<T extends string | number | object> {
     title?: string;
     prompt?: string;
-    choices?: PickableThing<T>[];
+    choices: PickableThing<T>[];
     item: ItemPF2e<ActorPF2e>;
     predicate?: PredicatePF2e;
     allowNoSelection?: boolean;
@@ -141,6 +142,7 @@ interface PromptTemplateData {
     choices: PickableThing[];
     /** An item pertinent to the selection being made */
     item: ItemPF2e;
+    user: UserPF2e;
 }
 
 export { PickAThingPrompt };
