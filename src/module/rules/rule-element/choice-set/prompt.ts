@@ -38,9 +38,9 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
         };
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<ChoiceSetTemplateData> {
+    override async getData(): Promise<ChoiceSetTemplateData> {
         return {
-            ...(await super.getData(options)),
+            ...(await super.getData()),
             choices: this.choices.map((c, index) => ({
                 ...c,
                 value: index,
@@ -227,7 +227,6 @@ interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
     prompt: string;
-    choices?: PickableThing[];
     containsItems: boolean;
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
 }
