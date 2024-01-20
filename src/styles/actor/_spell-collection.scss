@@ -11,31 +11,13 @@ ol.spell-list {
         align-items: center;
         display: grid;
         gap: var(--space-8);
-        grid-template-columns: 52.5% auto fit-content(5rem) 3rem;
+        grid-template-columns: 1fr 3.75rem 5rem min-content 3rem;
         margin: 0;
 
         > * {
             align-items: center;
             display: flex;
             flex-wrap: nowrap;
-        }
-
-        &[data-slot-expended] {
-            h4 {
-                color: var(--color-disabled);
-                text-decoration: line-through;
-            }
-
-            button.cast-spell {
-                background: var(--color-disabled);
-                border-color: transparent;
-                box-shadow: inset 0 0 0 1px rgba(white, 0.5);
-                cursor: not-allowed;
-
-                &:hover {
-                    text-shadow: none;
-                }
-            }
         }
 
         &:nth-child(odd) {
@@ -80,8 +62,8 @@ ol.spell-list {
                 }
             }
 
-            .range-uses {
-                grid-column: span 2;
+            .invisible {
+                visibility: hidden;
             }
 
             .item-controls {
@@ -121,16 +103,28 @@ ol.spell-list {
             font-size: var(--font-size-13);
             padding: var(--space-3) var(--space-4);
 
+            &[data-slot-expended] {
+                h4 {
+                    color: var(--color-disabled);
+                    text-decoration: line-through;
+                }
+
+                button.cast-spell {
+                    background: var(--color-disabled);
+                    border-color: transparent;
+                    box-shadow: inset 0 0 0 1px rgba(white, 0.5);
+                    cursor: not-allowed;
+
+                    &:hover {
+                        text-shadow: none;
+                    }
+                }
+            }
+
             // The lighter background gives an illusion of larger padding: tweak slightly
             &:nth-child(even) {
                 padding: var(--space-2) var(--space-4);
             }
-        }
-
-        .level-prepared-toggle {
-            flex: 0;
-            font-size: var(--space-12);
-            color: var(--color-pf-secondary);
         }
 
         .item-name {
@@ -210,7 +204,7 @@ ol.spell-list {
             border-bottom: 1px solid var(--sub);
             border-top: 1px solid lighten($sub-color, 30);
             display: block;
-            grid-column: span 4;
+            grid-column: span 5;
             padding: var(--space-4) 0 var(--space-8);
         }
     }

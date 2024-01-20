@@ -69,6 +69,10 @@
                         {{/if}}
                     </div>
 
+                    <div class="defense">
+                        {{localize "PF2E.Item.Spell.Defense.Label"}}
+                    </div>
+
                     <div class="range-uses">
                         {{~#if entry.isInnate~}}
                             {{localize "PF2E.SpellUsesLabel"}}
@@ -78,6 +82,9 @@
                     </div>
 
                     {{#if @root.editable}}
+                        {{!-- This button will get removed by the stylesheet, and only exists for sizing reasons (localization) --}}
+                        <button type="button" class="cast-spell blue invisible">{{localize "PF2E.Item.Spell.Cast"}}</button>
+
                         <div class="item-controls">
                             {{#unless entry.isPrepared}}
                                 <a
@@ -123,6 +130,8 @@
                                     {{{actionGlyph spell.system.time.value}}}
                                 </h4>
                             </div>
+
+                            <div class="defense">{{spell.defense.label}}</div>
 
                             <div class="range-uses">
                                 {{!-- Innate spells replace range for uses --}}
