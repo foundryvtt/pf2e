@@ -11,6 +11,7 @@ import {
 } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
+import { ActionTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
@@ -27,7 +28,7 @@ import { CheckPF2e, CheckRollCallback } from "@system/check/check.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckRollContext, CheckType, RollTwiceOption } from "@system/check/types.ts";
 import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success.ts";
-import { ErrorPF2e, isObject, sluggify } from "@util";
+import { ErrorPF2e, isObject, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import {
@@ -597,9 +598,6 @@ interface StatisticRollParameters {
     /** Callback called when the roll occurs. */
     callback?: CheckRollCallback;
 }
-
-import { ActionTrait } from "@item/ability/types.ts";
-import { signedInteger } from "@util";
 
 class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
     parent: TParent;
