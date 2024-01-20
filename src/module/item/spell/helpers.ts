@@ -39,4 +39,19 @@ async function createDescriptionPrepend(
     return rendered ? `${rendered}\n<hr />` : "";
 }
 
-export { createDescriptionPrepend, createSpellRankLabel };
+function getPassiveDefenseLabel(statistic: string): string | null {
+    switch (statistic) {
+        case "ac":
+            return "PF2E.Check.DC.Specific.armor";
+        case "fortitude-dc":
+            return "PF2E.Check.DC.Specific.fortitude";
+        case "reflex-dc":
+            return "PF2E.Check.DC.Specific.reflex";
+        case "will-dc":
+            return "PF2E.Check.DC.Specific.will";
+        default:
+            return null;
+    }
+}
+
+export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };
