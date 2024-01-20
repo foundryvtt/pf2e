@@ -1,0 +1,68 @@
+{
+    "_id": "I52OwJQWjJEGFfzu",
+    "img": "icons/commodities/tech/bearing-steel-green.webp",
+    "name": "Effect: Magnetic Shot (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.5RJivM5SShjbqFf0]{Magnetic Shot (Moderate)}</p>\n<p>The activated ammunition grants a +1 circumstance bonus to attack rolls against such targets. Due to magnetic acceleration, the ammunition deals three additional weapon damage dice and is deadly d10.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectMagneticShot",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "diceNumber": 3,
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.effectMagneticShot}-damage"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectMagneticShot}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d10"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.effectMagneticShot}-attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
