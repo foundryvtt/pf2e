@@ -793,6 +793,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         slug: "sinisterKnight",
         traits: ["illusion", "magical"],
     },
+    sizeChanging: {
+        name: "PF2E.ArmorPropertyRuneSizeChanging",
+        level: 7,
+        price: 350,
+        rarity: "common",
+        slug: "sizeChanging",
+        traits: ["magical"],
+    },
     slick: {
         name: "PF2E.ArmorPropertyRuneSlick",
         level: 5,
