@@ -18,6 +18,7 @@ import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/
 import {
     createHTMLElement,
     fontAwesomeIcon,
+    getActionGlyph,
     htmlClosest,
     localizer,
     objectHasKey,
@@ -211,6 +212,8 @@ class TextEditorPF2e extends TextEditor {
         const [_match, inlineType, paramString, inlineLabel] = data;
 
         switch (inlineType) {
+            case "act":
+                return this.#createAction(data.groups?.slug ?? "", data.groups?.options ?? "", data.groups?.label);
             case "Check": {
                 const actor = options.rollData?.actor ?? item?.actor ?? null;
                 return this.#createCheck({ paramString, inlineLabel, item, actor });
@@ -345,6 +348,155 @@ class TextEditorPF2e extends TextEditor {
         );
 
         return result;
+    }
+
+    static #invalidInlineAction(classes: string[], icons: string | string[], reason: string): HTMLElement {
+        const element = document.createElement("a");
+        element.classList.add("content-link", "broken", ...classes);
+        if (Array.isArray(icons)) {
+            const stack = Object.assign(document.createElement("span"), { className: "fa-stack" });
+            for (const icon of icons) {
+                stack.appendChild(Object.assign(document.createElement("i"), { className: `${icon} fa-stack-1x` }));
+            }
+            element.appendChild(stack);
+        } else {
+            element.appendChild(Object.assign(document.createElement("i"), { className: `${icons}` }));
+        }
+        element.appendChild(document.createTextNode(reason));
+        return element;
+    }
+
+    static #createAction(slug: string, options: string, label?: string): HTMLElement | null {
+        const action = game.pf2e.actions.get(slug);
+        if (!action) {
+            console.warn("Unable to resolve action", slug);
+            return this.#invalidInlineAction(
+                ["unresolvable-action"],
+                "fas fa-unlink",
+                game.i18n.format("PF2E.InlineAction.Warning.UnresolvableAction", { slug }),
+            );
+        }
+
+        // params
+        const params = options.split(/\s+/).reduce(
+            (result, option) => {
+                const [key, value] = option.split("=").map((s) => s.trim());
+                result[key] = value;
+                return result;
+            },
+            {} as Record<string, string>,
+        );
+
+        // validate difficulty class format
+        const dc = params["difficulty-class"] || params["dc"];
+        if (dc && Number.isNumeric(dc) && !Number.isInteger(Number(dc))) {
+            console.warn("Numeric DC", dc, "is not an integer for action", slug);
+            return this.#invalidInlineAction(
+                [],
+                ["fa-solid fa-slash", "fa-solid fa-person-running"],
+                game.i18n.format("PF2E.InlineAction.Warning.InvalidAction", { slug }),
+            );
+        }
+
+        const element = document.createElement("span");
+
+        // action attribute
+        element.dataset["pf2Action"] = slug;
+
+        // glyph attribute
+        const glyph = getActionGlyph(action.cost ?? null);
+        if (glyph) {
+            element.dataset["pf2Glyph"] = glyph;
+        }
+
+        // attributes
+        const aliases: Record<string, string> = {
+            ["difficulty-class"]: "dc",
+            stat: "skill",
+            statistic: "skill",
+        };
+        for (const [alias, value] of Object.entries(params)) {
+            const key = aliases[alias] ?? alias;
+            const attribute = sluggify(`pf2-${key}`, { camel: "dromedary" });
+            element.dataset[attribute] = value;
+        }
+
+        // variant
+        const variant = action.variants.get(params.variant?.trim() ?? "");
+
+        if (label?.trim()) {
+            // label
+            element.innerText = label.trim();
+        } else {
+            // name
+            const text = document.createElement("span");
+            text.innerText = variant?.name
+                ? `${game.i18n.localize(action.name)} - ${game.i18n.localize(variant.name)}`
+                : game.i18n.localize(action.name);
+            element.appendChild(text);
+
+            // difficulty class
+            const visibility = (params["show-dc"] || "all").trim().toLowerCase();
+            const showDC =
+                (visibility === "all" && game.pf2e.settings.metagame.dcs) ||
+                (["all", "gm"].includes(visibility) && game.user.isGM);
+
+            // statistic
+            const statistic = (
+                params["statistic"] ||
+                params["stat"] ||
+                params["skill"] ||
+                (variant && "statistic" in variant && typeof variant.statistic === "string" ? variant.statistic : "") ||
+                ("statistic" in action && typeof action.statistic === "string" ? action.statistic : "")
+            )?.trim();
+
+            if ((dc && showDC) || statistic) {
+                const STATISTIC_LABELS: Record<string, string> = {
+                    perception: "PF2E.PerceptionLabel",
+                    ...CONFIG.PF2E.saves,
+                    ...CONFIG.PF2E.skillList,
+                    unarmed: "PF2E.TraitUnarmed",
+                };
+                element.appendChild(document.createTextNode(" "));
+
+                const details = document.createElement("span");
+                if (dc && showDC && Number.isNumeric(dc)) {
+                    // (<span data-visibility="...">DC #</span> Statistic)
+                    details.appendChild(document.createTextNode("("));
+                    const span = document.createElement("span");
+                    span.dataset["visibility"] = visibility;
+                    span.innerText = game.i18n.format("PF2E.InlineAction.Check.DC", { dc });
+                    details.appendChild(span);
+                    const suffix = statistic
+                        ? ` ${game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic})`
+                        : ")";
+                    details.appendChild(document.createTextNode(suffix));
+                } else if (dc && showDC) {
+                    // (Statistic vs Defense DC)
+                    const defense = game.i18n.localize(`PF2E.Check.DC.Specific.${dc}`);
+                    const text = statistic
+                        ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
+                              defense,
+                              statistic: game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic,
+                          })
+                        : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
+                    details.innerText = `(${text})`;
+                } else if (statistic) {
+                    // (Statistic)
+                    const text = game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic;
+                    details.innerText = `(${text})`;
+                }
+                element.appendChild(details);
+            }
+        }
+
+        // traits as tooltip
+        element.dataset["tooltip"] = (variant?.traits ?? action.traits)
+            .map((trait) => game.i18n.localize(CONFIG.PF2E.actionTraits[trait] || trait))
+            .sort()
+            .join(", ");
+
+        return element;
     }
 
     static #createCheck({
