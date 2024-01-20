@@ -183,15 +183,17 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Returns the bulk of this item and all sub-containers */
     get bulk(): Bulk {
-        const { per } = this.system.bulk;
+        const per = this.system.bulk.per;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
         // Only convert to actor-relative size if the actor is a creature
         // https://2e.aonprd.com/Rules.aspx?ID=258
         const actorSize = this.actor?.isOfType("creature") ? this.actor.size : null;
 
-        return new Bulk(this.system.bulk.value)
+        const baseBulk = new Bulk(this.system.bulk.value)
             .convertToSize(this.size, actorSize ?? this.size)
             .times(bulkRelevantQuantity);
+
+        return this.subitems.reduce((bulk, subitem) => bulk.plus(subitem.bulk), baseBulk);
     }
 
     get activations(): (ItemActivation & { componentsLabel: string })[] {
@@ -230,6 +232,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this._container = null;
+        this.subitems ??= new Collection();
         super._initialize(options);
     }
 
@@ -271,20 +274,31 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        this.system.bulk = prepareBulkData(this);
-
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {
             this._container = null;
         }
 
         // Prepare doubly-embedded items if this is of an appropriate physical-item type
-        this.subitems = new Collection(
-            this.system.subitems?.map((i): [string, PhysicalItemPF2e<TParent>] => [
-                i._id ?? "",
-                new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
-            ]) ?? [],
-        );
+        for (const subitemSource of this.system.subitems ?? []) {
+            subitemSource.system.equipped = R.pick(this.system.equipped, ["carryType", "handsHeld"]);
+            const item =
+                this.subitems.get(subitemSource._id ?? "") ??
+                (new ItemProxyPF2e(subitemSource, {
+                    parent: this.parent,
+                    parentItem: this,
+                }) as PhysicalItemPF2e<TParent>);
+            item.updateSource(subitemSource);
+            this.subitems.set(item.id, item);
+        }
+
+        // Remove any items no longer in the subitem source
+        const subitemIds = this.system.subitems?.flatMap((i) => i._id ?? []) ?? [];
+        for (const subitem of this.subitems) {
+            if (!subitemIds.includes(subitem.id)) this.subitems.delete(subitem.id);
+        }
+
+        this.system.bulk = prepareBulkData(this);
 
         // Normalize apex data
         if (this.system.apex) {
@@ -565,6 +579,49 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
 
         return traitData;
+    }
+
+    /** Redirect subitem updates to the parent item */
+    override async update(
+        data: Record<string, unknown>,
+        context: DocumentModificationContext<TParent> = {},
+    ): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems =
+                "subitems" in parentItem._source.system
+                    ? parentItem._source.system.subitems.map((i) =>
+                          i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
+                      )
+                    : [];
+            const updated = await parentItem.update({ system: { subitems: newSubitems } }, context);
+            if (updated) {
+                this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.update(data, context);
+    }
+
+    /** Redirect subitem deletes to parent-item updates */
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems =
+                "subitems" in parentItem._source.system
+                    ? parentItem._source.system.subitems.filter((i) => i._id !== this.id)
+                    : [];
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, context);
+            if (updated) {
+                this._onDelete(context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.delete(context);
     }
 
     /* -------------------------------------------- */

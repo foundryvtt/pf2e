@@ -63,7 +63,7 @@
         <div class="tabs" data-tab-container="primary">
             <a class="list-row" data-tab="description">{{localize "Description"}}</a>
             <a class="list-row" data-tab="details">{{localize "PF2E.Details"}}</a>
-            {{#if (and isPhysical user.isGM)}}
+            {{#if (and isPhysical user.isGM (not item.parentItem))}}
                 <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
             {{/if}}
             {{#if (and enabledRulesUI (not isVariant))}}
