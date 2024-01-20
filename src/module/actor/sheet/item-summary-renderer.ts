@@ -68,8 +68,13 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     /** Retrieves the item from the element that the current toggleable summary is for */
     protected async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
         const actor = this.sheet.actor;
-        const { itemId, itemUuid, itemType, actionIndex } = element.dataset;
+        const { subitemId, itemId, itemUuid, itemType, actionIndex } = element.dataset;
         const isFormula = !!itemUuid && element.dataset.isFormula !== undefined;
+        const realItemId = subitemId ? htmlClosest(element, "[data-item-id]")?.dataset.itemId : itemId;
+        const subitem = subitemId
+            ? actor.inventory.get(realItemId, { strict: true }).subitems.get(subitemId, { strict: true })
+            : null;
+        if (subitem) return subitem;
 
         return isFormula
             ? fromUuid(itemUuid)
@@ -77,7 +82,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
               ? actor.conditions.get(itemId, { strict: true })
               : actionIndex
                 ? actor.system.actions?.[Number(actionIndex)].item ?? null
-                : actor.items.get(itemId ?? "") ?? null;
+                : actor.items.get(realItemId ?? "") ?? null;
     }
 
     /**
@@ -149,9 +154,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         // Identify which item and action summaries are expanded currently
         const html: HTMLElement | null = this.sheet.element[0] ?? null;
         const summaries = htmlQueryAll(html, ".item-summary:not([hidden])");
-        const elements = summaries.flatMap(
-            (s) => htmlClosest(s, "[data-item-id], [data-action-index]") ?? htmlClosest(s, "li") ?? [],
-        );
+        const selectors = ["subitem-id", "item-id", "action-index"].map((s) => `[data-${s}]`).join(",");
+        const elements = summaries.flatMap((s) => htmlClosest(s, selectors) ?? htmlClosest(s, "li") ?? []);
         const $result = await callback.apply(null);
         const result = $result[0];
 

@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { ActionTrait } from "@item/ability/index.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
@@ -19,6 +20,7 @@ interface ActionVariantUseOptions extends Record<string, unknown> {
     actors: ActorPF2e | ActorPF2e[];
     event: Event;
     traits: ActionTrait[];
+    target: ActorPF2e | TokenPF2e;
 }
 
 interface ActionVariant {

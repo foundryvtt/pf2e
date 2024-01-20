@@ -56,7 +56,7 @@ import {
     SpellSystemData,
     SpellSystemSource,
 } from "./data.ts";
-import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
+import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicTradition, SpellTrait } from "./types.ts";
 
@@ -131,6 +131,23 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     get actionGlyph(): string | null {
         if (this.isRitual) return null;
         return getActionGlyph(this.system.time.value) || null;
+    }
+
+    get defense(): { slug: string; label: string } | null {
+        const defense = this.system.defense;
+        if (defense?.passive) {
+            const label = getPassiveDefenseLabel(defense.passive.statistic);
+            if (label) {
+                return { slug: defense.passive.statistic, label: game.i18n.localize(label) };
+            }
+        } else if (defense?.save) {
+            return {
+                slug: defense.save.statistic,
+                label: game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]),
+            };
+        }
+
+        return null;
     }
 
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {

@@ -435,7 +435,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             },
             "edit-item": (event) => {
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
                 const item = this.actor.items.get(itemId, { strict: true });
+                if (item.isOfType("physical") && subitemId) {
+                    return item.subitems.get(subitemId, { strict: true }).sheet.render(true);
+                }
                 return item.sheet.render(true);
             },
             "effect-toggle-unidentified": (event): Promise<unknown> | void => {
@@ -448,7 +452,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             },
             "delete-item": (event) => {
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
                 const item = this.actor.items.get(itemId, { strict: true });
+                if (item.isOfType("physical") && subitemId) {
+                    const subitem = item.subitems.get(subitemId, { strict: true });
+                    return this.deleteItem(subitem, event);
+                }
                 return this.deleteItem(item, event);
             },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
@@ -487,7 +496,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
             },
             "toggle-summary": (_, anchor): Promise<void> | void => {
-                const element = htmlClosest(anchor, "[data-item-id], [data-action-index]") ?? htmlClosest(anchor, "li");
+                const selectors = ["subitem-id", "item-id", "action-index"].map((s) => `[data-${s}]`).join(",");
+                const element = htmlClosest(anchor, selectors) ?? htmlClosest(anchor, "li");
                 if (element) return this.itemRenderer.toggleSummary(element);
             },
             "use-action": (event, anchor) => {
@@ -641,22 +651,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             }
         });
-
-        for (const anchor of htmlQueryAll(panel, ".carry-type-hover")) {
-            $(anchor).tooltipster({
-                animation: "fade",
-                delay: 200,
-                animationDuration: 10,
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["bottom"],
-                theme: "crb-hover",
-                minWidth: 120,
-            });
-        }
     }
 
     /** Inventory drag & drop listeners */

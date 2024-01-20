@@ -1,8 +1,10 @@
 <div class="inventory-details">
-    <div class="form-group quantity">
-        <label for="{{fieldIdPrefix}}quantity">{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="number" name="system.quantity" id="{{fieldIdPrefix}}quantity" value="{{data.quantity}}" />
-    </div>
+    {{#unless item.parentItem}}
+        <div class="form-group quantity">
+            <label for="{{fieldIdPrefix}}quantity">{{localize "PF2E.QuantityLabel"}}</label>
+            <input type="number" name="system.quantity" id="{{fieldIdPrefix}}quantity" value="{{data.quantity}}" />
+        </div>
+    {{/unless}}
 
     {{#if (eq item.type "weapon")}}
         <div class="form-group">
