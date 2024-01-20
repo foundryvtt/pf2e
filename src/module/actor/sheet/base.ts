@@ -641,22 +641,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
             }
         });
-
-        for (const anchor of htmlQueryAll(panel, ".carry-type-hover")) {
-            $(anchor).tooltipster({
-                animation: "fade",
-                delay: 200,
-                animationDuration: 10,
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["bottom"],
-                theme: "crb-hover",
-                minWidth: 120,
-            });
-        }
     }
 
     /** Inventory drag & drop listeners */
