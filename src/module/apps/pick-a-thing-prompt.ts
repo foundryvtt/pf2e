@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, sluggify } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
@@ -29,11 +29,6 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         this.predicate = data.predicate ?? new PredicatePF2e();
         this.options.title = data.title ?? this.item.name;
         this.allowNoSelection = data.allowNoSelection ?? false;
-    }
-
-    override get id(): string {
-        const slug = this.item.slug ?? sluggify(this.item.name);
-        return `pick-a-${slug}`;
     }
 
     get actor(): ActorPF2e {
