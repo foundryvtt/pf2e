@@ -93,7 +93,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         // Return early if value resolution failed
         if (this.ignored) return;
 
-        this.actor.synthetics.criticalSpecalizations[this.alternate ? "alternate" : "standard"].push(synthetic);
+        this.actor.synthetics.criticalSpecializations[this.alternate ? "alternate" : "standard"].push(synthetic);
     }
 
     #getEffect(weapon: WeaponPF2e | MeleePF2e): CritSpecEffect {

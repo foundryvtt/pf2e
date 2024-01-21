@@ -277,7 +277,7 @@ class WeaponDamagePF2e {
         const critSpecEffect = ((): CritSpecEffect => {
             // If an alternate critical specialization effect is available, apply it only if there is also a
             // qualifying non-alternate
-            const critSpecs = actor.synthetics.criticalSpecalizations;
+            const critSpecs = actor.synthetics.criticalSpecializations;
             const standard = critSpecs.standard.reduceRight(
                 (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
                 null,

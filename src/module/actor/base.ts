@@ -668,7 +668,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
-            criticalSpecalizations: { standard: [], alternate: [] },
+            criticalSpecializations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
