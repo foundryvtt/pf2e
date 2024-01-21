@@ -484,11 +484,19 @@ class TextEditorPF2e extends TextEditor {
             }
         }
 
+        // traits
+        const traits = variant?.traits ?? action.traits;
+
         // traits as tooltip
-        element.dataset["tooltip"] = (variant?.traits ?? action.traits)
+        element.dataset["tooltip"] = traits
             .map((trait) => game.i18n.localize(CONFIG.PF2E.actionTraits[trait] || trait))
             .sort()
             .join(", ");
+
+        // add an indicator for secret checks
+        if (traits.includes("secret")) {
+            element.dataset["secret"] = "";
+        }
 
         return element;
     }
