@@ -163,6 +163,11 @@ span[data-pf2-action] {
     @include inline-link;
     cursor: pointer;
 
+    &[data-secret] {
+        background: var(--blind-roll);
+        border-color: #720073;
+    }
+
     &[data-pf2-glyph]::before {
         font-family: "Pathfinder2eActions";
         margin-right: var(--space-2);
