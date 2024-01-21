@@ -8,21 +8,29 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
-import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type {
+    ArrayField,
+    DataField,
+    DataFieldOptions,
+    NumberField,
+    SchemaField,
+    SourcePropFromDataField,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
 
 const { fields, validation } = foundry.data;
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
-class ItemAlterationValidator<TDataSchema extends AlterationSchema> extends fields.SchemaField<TDataSchema> {
+class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
     #validateForItem?: (item: ItemPF2e | ItemSourcePF2e) => DataModelValidationFailure | void;
 
     operableOnInstances: boolean;
 
     operableOnSource: boolean;
 
-    constructor(fields: TDataSchema, options: AlterationFieldOptions<SourceFromSchema<TDataSchema>> = {}) {
+    constructor(fields: TSchema, options: AlterationFieldOptions<SourceFromSchema<TSchema>> = {}) {
         super(fields, options);
         if (options.validateForItem) this.#validateForItem = options.validateForItem;
         this.operableOnInstances = options.operableOnInstances ?? true;
@@ -34,8 +42,8 @@ class ItemAlterationValidator<TDataSchema extends AlterationSchema> extends fiel
      * Errors will bubble all the way up to the originating parent rule element
      */
     isValid(data: { item: ItemPF2e | ItemSourcePF2e; alteration: { itemType: string } }): data is {
-        item: ItemOrSource<SourceFromSchema<TDataSchema>["itemType"]>;
-        alteration: SourceFromSchema<TDataSchema>;
+        item: ItemOrSource<SourceFromSchema<TSchema>["itemType"]>;
+        alteration: SourceFromSchema<TSchema>;
     } {
         const { item, alteration } = data;
         const failure = this.validate(alteration);
@@ -164,7 +172,30 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             choices: ["add"],
         }),
-        value: new fields.StringField({ required: true, blank: false, nullable: false, initial: undefined } as const),
+        value: new fields.ArrayField<
+            DescriptionElementField,
+            SourcePropFromDataField<DescriptionValueField>,
+            SourcePropFromDataField<DescriptionValueField>,
+            true,
+            false,
+            false
+        >(
+            new fields.SchemaField({
+                title: new fields.StringField({
+                    required: false,
+                    nullable: true,
+                    blank: false,
+                    initial: null,
+                } as const),
+                text: new fields.StringField({
+                    required: true,
+                    nullable: false,
+                    blank: false,
+                    initial: undefined,
+                } as const),
+            }) satisfies DescriptionElementField,
+            { required: true, nullable: false, initial: undefined } as const,
+        ) satisfies DescriptionValueField,
     }),
 
     "dex-cap": new ItemAlterationValidator({
@@ -407,5 +438,18 @@ type PersistentDamageValueSchema = {
     damageType: StringField<DamageType, DamageType, true, false, false>;
     dc: NumberField<number, number, true, false, true>;
 };
+
+type DescriptionValueField = ArrayField<
+    DescriptionElementField,
+    SourcePropFromDataField<DescriptionElementField>[],
+    { title: string | null; text: string }[],
+    true,
+    false,
+    false
+>;
+type DescriptionElementField = SchemaField<{
+    title: StringField<string, string, false, true, true>;
+    text: StringField<string, string, true, false, false>;
+}>;
 
 export { ITEM_ALTERATION_VALIDATORS };

@@ -247,11 +247,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { flags } = this;
-        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-
-        // Temporary measure until upstream issue is addressed (`null` slug is being set to empty string)
         this.system.slug ||= null;
+        this.system.description.addenda = [];
+
+        const flags = this.flags;
+        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
