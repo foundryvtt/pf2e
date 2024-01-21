@@ -39,6 +39,7 @@ import { bonMot } from "./diplomacy/bon-mot.ts";
 import * as gatherInformation from "./diplomacy/gather-information.ts";
 import * as makeAnImpression from "./diplomacy/make-an-impression.ts";
 import * as request from "./diplomacy/request.ts";
+import { affixATalisman } from "./exploration/affix-a-talisman.ts";
 import * as avoidNotice from "./exploration/avoid-notice.ts";
 import * as senseDirection from "./exploration/sense-direction.ts";
 import * as track from "./exploration/track.ts";
@@ -162,6 +163,7 @@ export const ActionMacros = {
 
 export const SystemActions: Action[] = [
     administerFirstAid.action,
+    affixATalisman,
     aid,
     arrestAFall,
     avertGaze,
