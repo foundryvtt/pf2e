@@ -34,7 +34,52 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "shadow-signet",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.DC.Specific.fortitude",
+                        "value": "fortitude-dc"
+                    },
+                    {
+                        "label": "PF2E.Check.DC.Specific.reflex",
+                        "value": "reflex-dc"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "shadow-signet",
+                    "item:trait:attack",
+                    "item:defense:ac"
+                ],
+                "property": "defense-passive",
+                "value": "{item|flags.pf2e.rulesSelections.shadowSignet}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "shadow-signet",
+                    "item:trait:attack",
+                    {
+                        "or": [
+                            "item:defense:fortitude-dc",
+                            "item:defense:reflex-dc"
+                        ]
+                    }
+                ],
+                "selector": "spell-attack-roll",
+                "text": "PF2E.SpecificRule.ShadowSignet.Note",
+                "title": "{item|name}"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
