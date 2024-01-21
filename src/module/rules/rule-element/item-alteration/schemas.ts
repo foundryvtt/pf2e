@@ -161,6 +161,16 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
+    /** The passive defense targeted by an attack spell */
+    "defense-passive": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["spell"] }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: ["ac", "fortitude-dc", "reflex-dc", "will-dc"],
+        } as const),
+    }),
     description: new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
