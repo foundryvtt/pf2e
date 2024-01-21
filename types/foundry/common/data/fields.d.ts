@@ -762,10 +762,10 @@ export class EmbeddedCollectionField<
  */
 export class EmbeddedCollectionDeltaField<
     TDocument extends abstract.Document<abstract.Document>,
-    TSource extends (
-        | DocumentSourceFromSchema<TDocument["schema"]["fields"], true>
+    TSource extends (SourcePropFromDataField<TDocument["schema"]> | SourceFromSchema<TombstoneDataSchema>)[] = (
+        | SourcePropFromDataField<TDocument["schema"]>
         | SourceFromSchema<TombstoneDataSchema>
-    )[] = (DocumentSourceFromSchema<TDocument["schema"]["fields"], true> | SourceFromSchema<TombstoneDataSchema>)[],
+    )[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,

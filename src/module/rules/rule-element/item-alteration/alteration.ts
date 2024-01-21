@@ -56,6 +56,10 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         };
     }
 
+    get rule(): RuleElementPF2e {
+        return this.parent;
+    }
+
     get actor(): ActorPF2e {
         return this.parent.actor;
     }
@@ -78,7 +82,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.parent.resolveValue(this.value)),
+                value: (this.value = this.resolveValue(this.value)),
             },
         };
         const { DataModelValidationFailure } = foundry.data.validation;
@@ -157,7 +161,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 if (!(data.item instanceof ItemPF2e)) return;
-                data.item.system.description.addenda.push(data.alteration.value);
+                data.item.system.description.addenda.push({ label: this.rule.label, content: data.alteration.value });
                 return;
             }
             case "dex-cap": {
