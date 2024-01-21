@@ -51,6 +51,10 @@ export class DelegatedCollection<V> {
         return this.#data.map(callback);
     }
 
+    flatMap<U>(callback: (value: V, index: number, array: V[]) => U | readonly U[]): U[] {
+        return this.#data.contents.flatMap(callback);
+    }
+
     delete(key: string): boolean {
         return this.#data.delete(key);
     }
