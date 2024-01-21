@@ -442,13 +442,7 @@ class TextEditorPF2e extends TextEditor {
                 (["all", "gm"].includes(visibility) && game.user.isGM);
 
             // statistic
-            const statistic = (
-                params["statistic"] ||
-                params["stat"] ||
-                params["skill"] ||
-                (variant && "statistic" in variant && typeof variant.statistic === "string" ? variant.statistic : "") ||
-                ("statistic" in action && typeof action.statistic === "string" ? action.statistic : "")
-            )?.trim();
+            const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
 
             if ((dc && showDC) || statistic) {
                 const STATISTIC_LABELS: Record<string, string> = {
