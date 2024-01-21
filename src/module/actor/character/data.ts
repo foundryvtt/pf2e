@@ -195,6 +195,33 @@ interface CharacterResourcesSource {
     resolve?: { value: number };
 }
 
+/** A Pathfinder Society Faction */
+type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
+
+/** A Pathfinder Society School */
+type PFSSchool = "scrolls" | "spells" | "swords" | null;
+
+/** PFS faction reputation values */
+type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
+
+/** Pathfinder Society Organized Play data fields */
+interface PathfinderSocietyData {
+    /** Number assigned to the player. */
+    playerNumber: number | null;
+    /** Number assigned to the character. */
+    characterNumber: number | null;
+    /** Is the character currently affected by a level bump? */
+    levelBump: boolean;
+    /** Character's currently slotted faction */
+    currentFaction: PFSFaction;
+
+    /** Character's Pathfinder school */
+    school: PFSSchool;
+
+    /** Character's Reputation with all the factions */
+    reputation: PathfinderSocietyReputation;
+}
+
 /** The raw information contained within the actor data object for characters. */
 interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission>, CreatureSystemData {
     /** The six primary attribute scores. */
@@ -238,10 +265,7 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     resources: CharacterResources;
 
     /** Crafting-related data, including known formulas */
-    crafting: {
-        formulas: CraftingFormulaData[];
-        entries: Record<string, Partial<CraftingEntryData>>;
-    };
+    crafting: CharacterCraftingData;
 
     exploration: string[];
 }
@@ -376,31 +400,9 @@ interface VersatileWeaponOption {
     glyph: string | null;
 }
 
-/** A Pathfinder Society Faction */
-type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
-
-/** A Pathfinder Society School */
-type PFSSchool = "scrolls" | "spells" | "swords" | null;
-
-/** PFS faction reputation values */
-type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
-
-/** Pathfinder Society Organized Play data fields */
-interface PathfinderSocietyData {
-    /** Number assigned to the player. */
-    playerNumber: number | null;
-    /** Number assigned to the character. */
-    characterNumber: number | null;
-    /** Is the character currently affected by a level bump? */
-    levelBump: boolean;
-    /** Character's currently slotted faction */
-    currentFaction: PFSFaction;
-
-    /** Character's Pathfinder school */
-    school: PFSSchool;
-
-    /** Character's Reputation with all the factions */
-    reputation: PathfinderSocietyReputation;
+interface CharacterCraftingData {
+    formulas: CraftingFormulaData[];
+    entries: Record<string, Partial<CraftingEntryData>>;
 }
 
 interface CharacterResources extends CreatureResources {
