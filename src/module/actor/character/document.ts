@@ -1143,13 +1143,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 this.itemTypes.shield
                     .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                     .map((s) => s.generateWeapon()),
+                this.inventory.flatMap((i) =>
+                    i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+                ),
             ].flat(),
         ) as WeaponPF2e<this>[];
 
-        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and finally
-        // move all readied strikes to beginning
+        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and then move
+        // all readied strikes to beginning
         const handsReallyFree = this.handsReallyFree;
-        return weapons
+        const strikes = weapons
             .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
             .sort((a, b) =>
                 a.label
@@ -1160,6 +1163,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .sort((a, b) => (a.slug === "basic-unarmed" ? 1 : b.slug === "basic-unarmed" ? -1 : 0))
             .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
             .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
+
+        // Finally, position subitem weapons directly above their parents
+        for (const subitemStrike of strikes.filter((s) => s.item.parentItem)) {
+            const subitem = subitemStrike.item;
+            const parentStrike = strikes.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
+            if (parentStrike) {
+                strikes.splice(strikes.indexOf(subitemStrike), 1);
+                strikes.splice(strikes.indexOf(parentStrike), 0, subitemStrike);
+            }
+        }
+
+        return strikes;
     }
 
     /** Prepare a strike action from a weapon */
@@ -1292,9 +1307,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weapon.system.traits.toggles.modular.options.length > 0) {
             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
-        if (isRealItem && weapon.category !== "unarmed") {
+        if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
             const traitsArray = weapon.system.traits.value;
-            const { usage } = weapon.system;
+            const usage = weapon.system.usage;
             const weaponAsShield = weapon.shield;
             const canWield2H =
                 usage.hands === 2 ||
