@@ -693,6 +693,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             if (isAreaEffect) spellOptions.add("area-damage");
         }
 
+        const defense = this.system.defense;
+        if (defense?.passive?.statistic) spellOptions.add(`defense:${defense.passive.statistic}`);
+        if (defense?.save?.statistic) spellOptions.add(`defense:${defense.save.statistic}`);
+        if (defense?.save?.basic) spellOptions.add(`defense:${defense.save.basic}`);
+
         // Include spellcasting roll options (if available)
         for (const option of spellcasting?.getRollOptions?.("spellcasting") ?? []) {
             spellOptions.add(option);
