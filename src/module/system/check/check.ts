@@ -463,7 +463,7 @@ class CheckPF2e {
         const degree = ((): DegreeOfSuccess | null => {
             const dc = context.dc;
             if (!dc) return null;
-            if (dc.slug === "armor") {
+            if (["ac", "armor"].includes(dc.slug ?? "")) {
                 const targetActor = ((): ActorPF2e | null => {
                     const target = context.target;
                     if (!target?.actor) return null;
@@ -616,8 +616,11 @@ class CheckPF2e {
 
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): ResultFlavorTemplateData["dc"] => {
-            const dcSlug =
-                dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
+            const dcSlug = ((): string | null => {
+                const fromParams =
+                    dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
+                return fromParams === "ac" ? "armor" : fromParams?.replace(/-dc$/, "") ?? null;
+            })();
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
                     game.i18n.localize(

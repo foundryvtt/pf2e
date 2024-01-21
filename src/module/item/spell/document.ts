@@ -696,7 +696,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const defense = this.system.defense;
         if (defense?.passive?.statistic) spellOptions.add(`defense:${defense.passive.statistic}`);
         if (defense?.save?.statistic) spellOptions.add(`defense:${defense.save.statistic}`);
-        if (defense?.save?.basic) spellOptions.add(`defense:${defense.save.basic}`);
+        if (defense?.save?.basic) spellOptions.add("defense:basic");
 
         // Include spellcasting roll options (if available)
         for (const option of spellcasting?.getRollOptions?.("spellcasting") ?? []) {
@@ -904,7 +904,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         attackNumber = 1,
         context: StatisticRollParameters = {},
     ): Promise<void> {
-        const { spellcasting } = this;
+        const spellcasting = this.spellcasting;
         const statistic = spellcasting?.statistic;
         if (statistic) {
             context.extraRollOptions = R.uniq(
@@ -917,6 +917,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 item: this,
                 traits: R.uniq(R.compact([...this.traits, spellcasting.tradition])),
                 attackNumber,
+                dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
             });
         } else {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");

@@ -1115,7 +1115,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const dcData = ((): CheckDC | null => {
             const { domains, defense } = params;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = targetActor?.getStatistic(defense)?.dc;
+            const statistic = targetActor?.getStatistic(defense.replace(/-dc$/, ""))?.dc;
             return statistic ? { scope, statistic, slug: defense, value: statistic.value } : null;
         })();
 

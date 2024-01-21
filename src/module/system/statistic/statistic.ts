@@ -380,11 +380,10 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             return args;
         })();
 
-        const { domains } = this;
+        const domains = this.domains;
         const token = args.token ?? this.actor.getActiveTokens(false, true).shift();
         const item = args.item ?? null;
-
-        const { origin } = args;
+        const origin = args.origin;
         const targetToken = origin
             ? null
             : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find(
@@ -397,10 +396,11 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 ? this.actor.isOfType("army")
                 : this.actor.isOfType("creature", "hazard");
             const isTargetedCheck =
-                (this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
-                (!["flat-check", "saving-throw"].includes(this.type) &&
-                    !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
-                    (!item || item.isOfType("action", "campaignFeature", "feat", "weapon")));
+                !!targetToken &&
+                ((this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
+                    (!["flat-check", "saving-throw"].includes(this.type) &&
+                        !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
+                        (!item || item.isOfType("action", "campaignFeature", "feat", "weapon"))));
 
             return isValidAttacker && isTargetedCheck
                 ? this.actor.getCheckContext({
@@ -408,7 +408,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                       domains,
                       statistic: this,
                       target: targetToken,
-                      defense: args.dc?.slug ?? "armor",
+                      defense: args.dc?.slug ?? "ac",
                       melee: args.melee,
                       options: new Set(args.extraRollOptions ?? []),
                   })
