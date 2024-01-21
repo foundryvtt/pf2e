@@ -112,10 +112,6 @@ class ActorConditions<TActor extends ActorPF2e> extends DelegatedCollection<Cond
         return this.contents.every(condition);
     }
 
-    flatMap<T>(transformer: (value: ConditionPF2e<TActor>) => T | T[] | never[]): T[] {
-        return this.contents.flatMap(transformer);
-    }
-
     /** No deletions: a new instance is created every data preparation cycle */
     override delete(): false {
         return false;
