@@ -56,8 +56,10 @@
         }
     }
 
-    @import "item-summary";
-    @import "inventory";
+    .sheet-body {
+        @import "item-summary";
+        @import "inventory";
+    }
 
     .item-image {
         display: flex;
@@ -164,7 +166,7 @@
 }
 
 .actor.sheet {
-    .crb-style {
+    form.crb-style {
         display: grid;
         grid:
             "sidebar header" 4.625rem
@@ -450,10 +452,10 @@
 
     &.character {
         @import "character/attack-popout";
-    }
 
-    &.character .crb-style {
-        @import "character";
+        .crb-style {
+            @import "character";
+        }
     }
 
     &.vehicle .crb-style {
