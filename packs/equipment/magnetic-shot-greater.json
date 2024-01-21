@@ -1,6 +1,6 @@
 {
     "_id": "JqKNiEJxSZX1sD06",
-    "img": "systems/pf2e/icons/default-icons/consumable.svg",
+    "img": "icons/commodities/tech/bearing-steel-green.webp",
     "name": "Magnetic Shot (Greater)",
     "system": {
         "baseItem": null,
@@ -36,7 +36,28 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            },
+            {
+                "diceNumber": 4,
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|_id}-attack",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
