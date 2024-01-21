@@ -488,6 +488,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             attribute.mod = Math.trunc(attribute.mod) || 0;
         }
 
+        // Indicate that the strength requirement of this actor's armor is met
+        const strengthRequirement = this.wornArmor?.system.strength;
+        if (typeof strengthRequirement === "number" && this.system.abilities.str.mod >= strengthRequirement) {
+            for (const selector of ["dex-skill-check", "str-skill-check"]) {
+                const rollOptions = (this.rollOptions[selector] ??= {});
+                rollOptions["armor:strength-requirement-met"] = true;
+            }
+        }
+
         const build = this.system.build;
         // Remove any unrecognized languages
         const sourceLanguages = this._source.system.details.languages.value.filter((l) => l in CONFIG.PF2E.languages);
@@ -892,15 +901,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 "all",
             ];
             const modifiers: ModifierPF2e[] = [];
-
-            // Indicate that the strength requirement of this actor's armor is met
-            const strengthRequirement = wornArmor?.strength;
-            if (typeof strengthRequirement === "number" && system.abilities.str.mod >= strengthRequirement) {
-                for (const selector of ["skill-check", "initiative"]) {
-                    const rollOptions = (this.rollOptions[selector] ??= {});
-                    rollOptions["armor:strength-requirement-met"] = true;
-                }
-            }
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
                 const slug = "armor-check-penalty";
