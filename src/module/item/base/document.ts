@@ -406,18 +406,22 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         data: T,
     ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
-        if (isItemSystemData(data)) {
-            const chatData = fu.duplicate(data);
-            htmlOptions.rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
-            chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
-                ...htmlOptions,
-                async: true,
-            });
+        if (!isItemSystemData(data)) return data;
 
-            return chatData;
-        }
+        const chatData = fu.duplicate(data);
+        htmlOptions.rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
 
-        return data;
+        const description = await (async (): Promise<string> => {
+            const baseText = chatData.description.value;
+            const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
+            const addenda = await Promise.all(
+                chatData.description.addenda.map((addendum) => renderTemplate(templatePath, { addendum })),
+            );
+            return R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
+        })();
+        chatData.description.value = await TextEditor.enrichHTML(description, { ...htmlOptions, async: true });
+
+        return chatData;
     }
 
     async getChatData(
