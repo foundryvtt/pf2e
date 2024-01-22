@@ -23,7 +23,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:condition:broken"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -56,19 +67,7 @@
             },
             "immunities": [
                 {
-                    "type": "critical-hits"
-                },
-                {
                     "type": "object-immunities"
-                },
-                {
-                    "type": "precision"
-                }
-            ],
-            "weaknesses": [
-                {
-                    "type": "fire",
-                    "value": 15
                 }
             ]
         },
@@ -84,9 +83,9 @@
             "pilotingCheck": "Arcana (DC 32), Crafting (DC 32), Nature (DC 32), or Piloting Lore (DC 30)",
             "price": 6000,
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder Gamemastery Guide"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
             },
             "space": {
                 "high": 60,

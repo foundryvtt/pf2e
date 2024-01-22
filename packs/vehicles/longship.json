@@ -23,7 +23,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:condition:broken"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -55,28 +66,12 @@
             },
             "immunities": [
                 {
-                    "exceptions": [],
                     "type": "object-immunities"
-                },
-                {
-                    "exceptions": [],
-                    "type": "critical-hits"
-                },
-                {
-                    "exceptions": [],
-                    "type": "precision"
-                }
-            ],
-            "weaknesses": [
-                {
-                    "exceptions": [],
-                    "type": "fire",
-                    "value": 15
                 }
             ]
         },
         "details": {
-            "crew": "1 pilot",
+            "crew": "1 pilot, 10 rowers",
             "description": "",
             "level": {
                 "value": 8
