@@ -1164,13 +1164,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
             .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
 
-        // Finally, position subitem weapons directly above their parents
+        // Finally, position subitem weapons directly below their parents
         for (const subitemStrike of strikes.filter((s) => s.item.parentItem)) {
             const subitem = subitemStrike.item;
             const parentStrike = strikes.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
             if (parentStrike) {
                 strikes.splice(strikes.indexOf(subitemStrike), 1);
-                strikes.splice(strikes.indexOf(parentStrike), 0, subitemStrike);
+                strikes.splice(strikes.indexOf(parentStrike) + 1, 0, subitemStrike);
             }
         }
 
