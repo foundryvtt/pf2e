@@ -2,9 +2,9 @@
     gap: 1rem;
 
     select {
-        width: calc(100% - var(--space-6));
         background-color: var(--color-pf-alternate);
         border: 1px solid darken($alt-color, 8);
+        width: calc(100% - var(--space-6));
 
         &:disabled {
             cursor: initial;
@@ -45,10 +45,10 @@
         .abcd {
             display: grid;
             flex: 1;
-            grid-row-gap: 0.5rem;
+            grid-row-gap: var(--space-8);
             grid-template-columns: repeat(2, 50%);
             justify-content: start;
-            padding-left: 0.75rem;
+            padding-left: var(--space-12);
 
             .detail {
                 display: flex;
@@ -71,32 +71,11 @@
                     position: relative;
                     width: calc(100% - 0.5em);
 
-                    &.has-emblem {
-                        border-radius: 0 0.75rem 0.75rem 0;
-                    }
-
                     span.value {
                         flex-basis: 100%;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
-                    }
-
-                    .emblem {
-                        flex: 0 0 1.75rem;
-                        margin-left: 0.25rem;
-                        margin-right: -0.3755rem;
-                        position: relative;
-
-                        img {
-                            @include brown-border;
-                            border-radius: 50%;
-                            height: 1.75rem;
-                            left: 0;
-                            position: absolute;
-                            top: -0.875rem;
-                            width: 1.75rem;
-                        }
                     }
                 }
             }
@@ -107,12 +86,32 @@
                 padding: 0;
             }
 
-            .deity {
-                align-items: center;
+            .deity.selected {
+                min-width: max-content;
 
-                .input {
-                    h3 {
-                        min-width: 11em;
+                h3 {
+                    border-radius: 0 var(--space-12) var(--space-12) 0;
+                    flex-basis: auto;
+                    gap: var(--space-4);
+
+                    span.value {
+                        text-overflow: unset;
+                    }
+
+                    .emblem {
+                        flex: 0 0 1.75rem;
+                        margin: 0 calc(-1 * var(--space-3)) 0 var(--space-4);
+                        position: relative;
+
+                        img {
+                            @include brown-border;
+                            border-radius: 50%;
+                            height: 1.75rem;
+                            left: calc(-1 * var(--space-4));
+                            position: absolute;
+                            top: calc(-1 * var(--space-14));
+                            width: 1.75rem;
+                        }
                     }
                 }
             }
@@ -131,15 +130,15 @@
             }
 
             #context-menu {
-                left: -85px;
-                min-width: 105px;
+                left: -5.375rem;
+                min-width: 6.5rem;
                 padding: 0;
                 text-align: left;
 
                 .context-item {
                     font-family: var(--font-primary);
                     font-weight: normal;
-                    min-width: 105px;
+                    min-width: 6.5rem;
 
                     i {
                         position: static;
@@ -269,27 +268,28 @@
         }
 
         .abbreviation {
-            @include p-reset;
             border: none;
             color: var(--color-pf-primary);
             font: 400 var(--font-size-22) var(--serif-condensed);
+            margin: 0;
+            padding: 0;
             position: relative;
             text-align: center;
             text-transform: capitalize;
 
             i.key,
             i.apex {
-                bottom: 4px;
+                bottom: var(--space-4);
                 position: absolute;
                 font-size: var(--font-size-12);
             }
 
             i.key {
-                left: 2px;
+                left: var(--space-2);
             }
 
             i.apex {
-                right: 2px;
+                right: var(--space-2);
 
                 &.unselected:not(:hover) {
                     opacity: 0.75;

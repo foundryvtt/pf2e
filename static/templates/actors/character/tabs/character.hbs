@@ -20,24 +20,24 @@
                 {{/each}}
             </ul>
 
-            <div class="detail ancestry">
-                {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries" }}
+            <div class="detail ancestry{{#if ancestry}} selected{{/if}}">
+                {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries"}}
             </div>
 
-            <div class="detail heritage">
-                {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages" }}
+            <div class="detail heritage{{#if heritage}} selected{{/if}}">
+                {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages"}}
             </div>
 
-            <div class="detail background">
-                {{> detailItem item=background type="background" compendium="pf2e.backgrounds" }}
+            <div class="detail background{{#if background}} selected{{/if}}">
+                {{> detailItem item=background type="background" compendium="pf2e.backgrounds"}}
             </div>
 
-            <div class="detail class">
-                {{> detailItem item=class type="class" compendium="pf2e.classes" }}
+            <div class="detail class{{#if class}} selected{{/if}}">
+                {{> detailItem item=class type="class" compendium="pf2e.classes"}}
             </div>
 
-            <div class="detail deity">
-                {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=true }}
+            <div class="detail deity{{#if deity}} selected{{/if}}">
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=deity}}
             </div>
         </div>
 
@@ -152,7 +152,7 @@
 
 {{#*inline "detailItem"}}
     <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
-    <h3{{#if (and item showEmblem)}} class="has-emblem"{{/if}}>
+    <h3>
         <span class="value">{{item.name}}</span>
         {{#if @root.editable}}
             {{#if item}}
@@ -161,7 +161,7 @@
                 <a data-action="open-compendium" data-compendium={{compendium}}><i class="fa-solid fa-fw fa-search"></i></a>
             {{/if}}
         {{/if}}
-        {{#if (and item showEmblem)}}
+        {{#if showEmblem}}
             <div class="emblem">
                 <img src="{{item.img}}" alt="{{item.name}}" />
             </div>
