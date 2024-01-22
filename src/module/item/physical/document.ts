@@ -466,7 +466,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (containerResolved && !isContainerCycle(this, containerResolved)) {
                 const carryType = containerResolved.stowsItems ? "stowed" : "worn";
                 const equipped = { carryType, handsHeld: 0, inSlot: false };
-                return { system: { containerId: containerResolved?.id, equipped } };
+                return { system: { containerId: containerResolved.id, equipped } };
             }
             // Move out of a container
             if (!containerResolved && this.isInContainer) {
@@ -524,11 +524,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return {
             name,
             img,
-            data: {
-                description: {
-                    value: description,
-                },
-            },
+            data: { description: { value: description } },
         };
     }
 
@@ -645,6 +641,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        if (!this.actor || this._source.system.containerId?.length !== 16) {
+            this._source.system.containerId = null;
+        }
+
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
 
