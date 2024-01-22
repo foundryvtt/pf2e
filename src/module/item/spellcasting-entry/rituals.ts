@@ -27,7 +27,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
     }
 
     get sort(): number {
-        return Math.max(0, ...this.actor.itemTypes.spellcastingEntry.map((e) => e.sort)) + 10;
+        return Math.max(0, ...this.actor.itemTypes.spellcastingEntry.map((e) => e.sort)) + 20;
     }
 
     get category(): "ritual" {
@@ -62,6 +62,10 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
         return false;
     }
 
+    get isEphemeral(): true {
+        return true;
+    }
+
     canCast(spell: SpellPF2e): boolean {
         return spell.isRitual;
     }
@@ -80,6 +84,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
             tradition: null,
             category: this.category,
             isRitual: true,
+            isEphemeral: true,
             hasCollection: true,
             sort: this.sort,
             usesSpellProficiency: false,

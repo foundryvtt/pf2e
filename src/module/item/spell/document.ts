@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
@@ -62,7 +63,7 @@ import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaSize, MagicTradition, SpellTrait } from "./types.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    readonly isFromConsumable: boolean;
+    readonly parentItem: ConsumablePF2e<TParent> | null;
 
     /** The original spell. Only exists if this is a variant */
     declare original?: SpellPF2e<TParent>;
@@ -74,7 +75,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext<TParent> = {}) {
         super(data, context);
-        this.isFromConsumable = !!context.fromConsumable;
+        this.parentItem = context.parentItem ?? null;
     }
 
     /** The id of the override overlay that constitutes this variant */
@@ -481,7 +482,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const actor = this.parent;
-        const variant = new SpellPF2e(overrides, { parent: actor, fromConsumable: this.isFromConsumable });
+        const variant = new SpellPF2e(overrides, { parent: actor, parentItem: this.parentItem });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
         variant.system.traits.value = Array.from(variant.traits);
@@ -667,7 +668,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const entryHasSlots = !!(spellcasting?.isPrepared || spellcasting?.isSpontaneous);
-        if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
+        if (entryHasSlots && !this.isCantrip && !this.parentItem) {
             spellOptions.add(`${prefix}:spell-slot`);
         }
 
@@ -749,7 +750,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
             flags.casting = { id: spellcasting.id, tradition };
-            if (this.isFromConsumable) {
+            if (this.parentItem) {
                 flags.casting.embeddedSpell = this.toObject();
             }
 
@@ -1157,7 +1158,7 @@ interface SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 }
 
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
-    fromConsumable?: boolean;
+    parentItem?: Maybe<ConsumablePF2e<TParent>>;
 }
 
 interface SpellDamage {

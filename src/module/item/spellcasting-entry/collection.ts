@@ -5,7 +5,6 @@ import { ErrorPF2e, groupBy, localizer, ordinalString } from "@util";
 import * as R from "remeda";
 import { SlotKey } from "./data.ts";
 import { spellSlotGroupIdToNumber } from "./helpers.ts";
-import { RitualSpellcasting } from "./rituals.ts";
 import { ActiveSpell, BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingEntry<TActor | null>> extends Collection<
@@ -168,12 +167,9 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        if (this.entry instanceof RitualSpellcasting) {
-            return this.#getRitualData();
+        if (!(this.entry instanceof SpellcastingEntryPF2e)) {
+            return this.#getEphemeralData();
         }
-
-        // Anything past this point must be a `SpellcastingEntryPF2e`
-        this.#assertEntryIsDocument(this.entry);
 
         const groups: SpellcastingSlotGroup[] = [];
         const spells = this.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
@@ -328,7 +324,7 @@ class SpellCollection<TActor extends ActorPF2e, TEntry extends BaseSpellcastingE
         });
     }
 
-    async #getRitualData(): Promise<SpellCollectionData> {
+    async #getEphemeralData(): Promise<SpellCollectionData> {
         const groupedByRank = R.groupBy.strict(Array.from(this.values()), (s) => s.rank);
         const groups = R.toPairs
             .strict(groupedByRank)
