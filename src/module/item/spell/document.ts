@@ -141,10 +141,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 return { slug: defense.passive.statistic, label: game.i18n.localize(label) };
             }
         } else if (defense?.save) {
-            return {
-                slug: defense.save.statistic,
-                label: game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]),
-            };
+            const saveLabel = game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]);
+            const label = defense.save.basic
+                ? game.i18n.format("PF2E.Item.Spell.Defense.BasicDefense", { save: saveLabel })
+                : saveLabel;
+            return { slug: defense.save.statistic, label };
         }
 
         return null;
