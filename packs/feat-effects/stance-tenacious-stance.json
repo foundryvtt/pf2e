@@ -4,7 +4,7 @@
     "name": "Stance: Tenacious Stance",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Tenacious Stance]</p>\n<p>You gain a number of temporary Hit Points equal to half your level (minimum 1) and a +2 circumstance bonus to DCs against being Shoved and Tripped.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Tenacious Stance]</p>\n<p>You gain a number of temporary Hit Points equal to half your level (minimum 1) and a +2 circumstance bonus to DCs against being Shoved and Tripped. However, you no longer negate your armor check penalty or Speed penalty for having a high Strength while in this stance.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,7 +22,6 @@
         },
         "rules": [
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -33,8 +32,8 @@
                     }
                 ],
                 "selector": [
-                    "fortitude",
-                    "reflex"
+                    "fortitude-dc",
+                    "reflex-dc"
                 ],
                 "type": "circumstance",
                 "value": 2
@@ -42,6 +41,20 @@
             {
                 "key": "TempHP",
                 "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "domain": "dex-skill-check",
+                "key": "RollOption",
+                "option": "armor:strength-requirement-met",
+                "phase": "beforeDerived",
+                "value": false
+            },
+            {
+                "domain": "str-skill-check",
+                "key": "RollOption",
+                "option": "armor:strength-requirement-met",
+                "phase": "beforeDerived",
+                "value": false
             }
         ],
         "start": {
