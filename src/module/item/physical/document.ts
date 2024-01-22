@@ -93,6 +93,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.equipped.carryType === "worn";
     }
 
+    /** Whether the item has an attached (or affixed, applied, etc.) usage */
+    get isAttachable(): boolean {
+        return false;
+    }
+
     get price(): Price {
         return this.system.price;
     }
@@ -209,6 +214,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 ...action,
             };
         });
+    }
+
+    /** Whether other items can be attached (or affixed, applied, etc.) to this item */
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    acceptsSubitem(): boolean {
+        return false;
     }
 
     /** Generate a list of strings for use in predication */

@@ -54,6 +54,15 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
+    override acceptsSubitem(attachable: PhysicalItemPF2e): boolean {
+        return (
+            !this.system.traits.integrated &&
+            attachable.isOfType("weapon") &&
+            attachable.system.traits.value.some((t) => t === "attached-to-shield") &&
+            !this.subitems.some((i) => i.isOfType("weapon"))
+        );
+    }
+
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "armor"): string[] {
         const reinforcingRune = this.system.runes.reinforcing;
