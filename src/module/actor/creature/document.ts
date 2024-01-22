@@ -26,7 +26,6 @@ import * as R from "remeda";
 import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
-import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -354,11 +353,7 @@ abstract class CreaturePF2e<
             }
         }
 
-        // Set minimum reach according to creature size
         const { attributes, rollOptions } = this;
-        const reachFromSize = SIZE_TO_REACH[this.size];
-        attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
-        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
 
         // Add creature-specific self: roll options
         if (this.isSpellcaster) {
@@ -372,13 +367,16 @@ abstract class CreaturePF2e<
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
+        // Start with a baseline reach of 5 feet: melee attacks with reach can adjust it
+        this.system.attributes.reach = { base: 5, manipulate: 5 };
+
         // Set whether the actor's shield is raised
         if (attributes.shield?.raised && !attributes.shield.broken && !attributes.shield.destroyed) {
-            this.rollOptions.all["self:shield:raised"] = true;
+            rollOptions.all["self:shield:raised"] = true;
         }
 
         // Set whether this creature emits sound
-        this.system.attributes.emitsSound = !this.isDead;
+        attributes.emitsSound = !this.isDead;
 
         this.prepareSynthetics();
 
