@@ -124,11 +124,10 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const system = this.system;
-        const synthetics = this.synthetics;
+        const { system, synthetics } = this;
         const modifierAdjustments = synthetics.modifierAdjustments;
-        const baseLevel = this.system.details.level.base;
-        this.synthetics.modifiers.hp ??= [];
+        const baseLevel = system.details.level.base;
+        synthetics.modifiers.hp ??= [];
 
         if (this.isElite) {
             modifierAdjustments.all.push({
@@ -136,7 +135,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base + 2,
                 test: () => true,
             });
-            this.synthetics.modifiers.hp.push(
+            synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
@@ -150,7 +149,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base - 2,
                 test: () => true,
             });
-            this.synthetics.modifiers.hp.push(
+            synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
@@ -161,16 +160,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         system.details.level.base = baseLevel;
 
-        for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.trunc(Number(ability.mod)) || 0;
+        for (const attribute of Object.values(system.abilities)) {
+            attribute.mod = Math.trunc(Number(attribute.mod)) || 0;
         }
 
         // Hit Points
         {
             const base = system.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [
-                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
-                extractModifiers(this.synthetics, ["hp-per-level"], {
+                extractModifiers(synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
+                extractModifiers(synthetics, ["hp-per-level"], {
                     test: this.getRollOptions(["hp-per-level"]),
                 }).map((modifier) => {
                     modifier.modifier *= this.level;
@@ -209,7 +208,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             details: system.attributes.ac.details,
         });
         this.armorClass = armorStatistic.dc;
-        this.system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
+        system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
             attribute: armorStatistic.attribute ?? "dex",
         });
 
@@ -232,8 +231,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     }),
                 ],
                 check: { type: "perception-check" },
-                senses: this.system.perception.senses,
-                vision: this.system.perception.vision,
+                senses: system.perception.senses,
+                vision: system.perception.vision,
             });
             system.perception = fu.mergeObject(this.perception.getTraceData(), {
                 attribute: this.perception.attribute ?? "wis",
@@ -252,17 +251,17 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Initiative
         this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
-        this.system.initiative = this.initiative.getTraceData();
+        system.initiative = this.initiative.getTraceData();
     }
 
     private prepareSaves(): void {
-        const systemData = this.system;
+        const system = this.system;
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
         for (const saveType of SAVE_TYPES) {
-            const save = systemData.saves[saveType];
+            const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const attribute = save.attribute;
@@ -287,7 +286,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
             saves[saveType] = statistic;
             fu.mergeObject(this.system.saves[saveType], statistic.getTraceData());
-            systemData.saves[saveType].base = base;
+            system.saves[saveType].base = base;
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
