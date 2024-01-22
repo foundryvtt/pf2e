@@ -70,15 +70,17 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             }
         }
 
-        source.system.description = recursiveReplaceString(source.system.description, (s) =>
-            s.replace(/\battributes\.perception\b/, "perception"),
-        );
-        source.system.rules = source.system.rules.map((r) =>
-            recursiveReplaceString(r, (s) => s.replace(/\battributes\.perception\b/, "perception")),
-        );
-        source.flags.pf2e &&= recursiveReplaceString(source.flags.pf2e, (s) =>
-            s.replace(/\battributes\.perception\b/, "perception"),
-        );
+        for (const fieldName of ["initiative", "perception"]) {
+            const pattern = new RegExp(String.raw`\battributes\.${fieldName}\b`, "g");
+
+            source.system.description = recursiveReplaceString(source.system.description, (s) =>
+                s.replace(new RegExp(pattern), fieldName),
+            );
+            source.system.rules = source.system.rules.map((r) =>
+                recursiveReplaceString(r, (s) => s.replace(pattern, fieldName)),
+            );
+            source.flags.pf2e &&= recursiveReplaceString(source.flags.pf2e, (s) => s.replace(pattern, fieldName));
+        }
 
         if (source.type === "ancestry") {
             const vision: string = (source.system.vision ??= "normal");
