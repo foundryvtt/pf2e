@@ -694,9 +694,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const defense = this.system.defense;
-        if (defense?.passive?.statistic) spellOptions.add(`defense:${defense.passive.statistic}`);
-        if (defense?.save?.statistic) spellOptions.add(`defense:${defense.save.statistic}`);
-        if (defense?.save?.basic) spellOptions.add("defense:basic");
+        if (defense?.passive?.statistic) spellOptions.add(`${prefix}:defense:${defense.passive.statistic}`);
+        if (defense?.save?.statistic) spellOptions.add(`${prefix}:defense:${defense.save.statistic}`);
+        if (defense?.save?.basic) spellOptions.add(`${prefix}:defense:basic`);
 
         // Include spellcasting roll options (if available)
         for (const option of spellcasting?.getRollOptions?.("spellcasting") ?? []) {
