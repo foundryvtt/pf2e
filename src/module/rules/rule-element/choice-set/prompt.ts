@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import {
     PickableThing,
@@ -6,12 +7,12 @@ import {
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
 import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
 /** Prompt the user for a selection among a set of options */
-class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
+class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
     /** The prompt statement to present the user in this application's window */
     prompt: string;
 
@@ -221,11 +222,11 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     }
 }
 
-interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
-    getSelection: (event: MouseEvent) => ChoiceSetChoice | null;
+interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
+    getSelection(event: MouseEvent): ChoiceSetChoice | null;
 }
 
-interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
+interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {
     prompt: string;
     containsItems: boolean;
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;

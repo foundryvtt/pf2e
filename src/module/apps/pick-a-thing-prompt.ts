@@ -1,4 +1,3 @@
-import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import { PredicatePF2e } from "@system/predication.ts";
@@ -6,14 +5,14 @@ import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import Tagify from "@yaireo/tagify";
 
 /** Prompt the user to pick from a number of options */
-abstract class PickAThingPrompt<T extends string | number | object> extends Application {
-    protected item: ItemPF2e<ActorPF2e>;
+abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | number | object> extends Application {
+    protected item: TItem;
 
-    #resolve?: (value: PickableThing<T> | null) => void;
+    #resolve?: (value: PickableThing<TThing> | null) => void;
 
-    protected selection: PickableThing<T> | null = null;
+    protected selection: PickableThing<TThing> | null = null;
 
-    protected choices: PickableThing<T>[];
+    protected choices: PickableThing<TThing>[];
 
     /** If the number of choices is beyond a certain length, a select menu is presented instead of a list of buttons */
     protected selectMenu?: Tagify<{ value: string; label: string }>;
@@ -22,7 +21,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
 
     protected allowNoSelection: boolean;
 
-    constructor(data: PickAThingConstructorArgs<T>) {
+    constructor(data: PickAThingConstructorArgs<TItem, TThing>) {
         super();
         this.item = data.item;
         this.choices = data.choices;
@@ -31,7 +30,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         this.allowNoSelection = data.allowNoSelection ?? false;
     }
 
-    get actor(): ActorPF2e {
+    get actor(): TItem["parent"] {
         return this.item.actor;
     }
 
@@ -45,7 +44,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
         };
     }
 
-    protected getSelection(event: MouseEvent): PickableThing<T> | null {
+    protected getSelection(event: MouseEvent): PickableThing<TThing> | null {
         const valueElement =
             htmlClosest(event.target, ".content")?.querySelector<HTMLElement>("tag") ??
             htmlClosest(event.target, "button[data-action=pick]") ??
@@ -58,7 +57,7 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
     }
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
-    async resolveSelection(): Promise<PickableThing<T> | null> {
+    async resolveSelection(): Promise<PickableThing<TThing> | null> {
         this.render(true);
         return new Promise((resolve) => {
             this.#resolve = resolve;
@@ -116,11 +115,11 @@ abstract class PickAThingPrompt<T extends string | number | object> extends Appl
     }
 }
 
-interface PickAThingConstructorArgs<T extends string | number | object> {
+interface PickAThingConstructorArgs<TItem extends ItemPF2e, TThing extends string | number | object> {
     title?: string;
     prompt?: string;
-    choices: PickableThing<T>[];
-    item: ItemPF2e<ActorPF2e>;
+    choices: PickableThing<TThing>[];
+    item: TItem;
     predicate?: PredicatePF2e;
     allowNoSelection?: boolean;
 }
