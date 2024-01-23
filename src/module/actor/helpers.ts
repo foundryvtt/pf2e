@@ -552,6 +552,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 rollTwice,
                 substitutions,
                 dosAdjustments,
+                createMessage: params.createMessage ?? true,
             };
             const roll = await CheckPF2e.roll(check, checkContext, params.event);
 
@@ -605,6 +606,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 options: context.options,
                 domains,
                 traits: context.traits,
+                createMessage: params.createMessage ?? true,
                 ...eventToRollParams(params.event, { type: "damage" }),
             };
 

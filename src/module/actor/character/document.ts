@@ -1591,6 +1591,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     substitutions,
                     dosAdjustments,
                     mapIncreases: mapIncreases as ZeroToTwo,
+                    createMessage: params.createMessage ?? true,
                 };
 
                 if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
@@ -1654,6 +1655,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     options,
                     domains,
                     traits: context.traits,
+                    createMessage: params.createMessage ?? true,
                     ...eventToRollParams(params.event, { type: "damage" }),
                 };
 
