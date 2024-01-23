@@ -1,6 +1,5 @@
 import { CreaturePF2e } from "@actor";
 import type { Abilities, CreatureSkills } from "@actor/creature/data.ts";
-import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
@@ -86,11 +85,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         const { attributes, details } = this.system;
-
-        attributes.reach = {
-            base: SIZE_TO_REACH[this.size],
-            manipulate: SIZE_TO_REACH[this.size],
-        };
 
         if (details.alliance === undefined) {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
