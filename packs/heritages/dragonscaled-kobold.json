@@ -19,63 +19,7 @@
         "rules": [
             {
                 "key": "Resistance",
-                "predicate": [
-                    {
-                        "or": [
-                            "self:feature:draconic-exemplar:black",
-                            "self:feature:draconic-exemplar:copper"
-                        ]
-                    }
-                ],
-                "type": "acid",
-                "value": "max(1,floor(@actor.level/2))"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    {
-                        "or": [
-                            "self:feature:draconic-exemplar:blue",
-                            "self:feature:draconic-exemplar:bronze"
-                        ]
-                    }
-                ],
-                "type": "electricity",
-                "value": "max(1,floor(@actor.level/2))"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    "self:feature:draconic-exemplar:green"
-                ],
-                "type": "poison",
-                "value": "max(1,floor(@actor.level/2))"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    {
-                        "or": [
-                            "self:feature:draconic-exemplar:red",
-                            "self:feature:draconic-exemplar:gold",
-                            "self:feature:draconic-exemplar:brass"
-                        ]
-                    }
-                ],
-                "type": "fire",
-                "value": "max(1,floor(@actor.level/2))"
-            },
-            {
-                "key": "Resistance",
-                "predicate": [
-                    {
-                        "or": [
-                            "self:feature:draconic-exemplar:white",
-                            "self:feature:draconic-exemplar:silver"
-                        ]
-                    }
-                ],
-                "type": "cold",
+                "type": "{actor|flags.pf2e.draconicExemplar.damageType}",
                 "value": "max(1,floor(@actor.level/2))"
             }
         ],
