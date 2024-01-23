@@ -104,7 +104,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** The monetary value of the entire item stack */
     get assetValue(): CoinsPF2e {
-        return CoinsPF2e.fromPrice(this.price, this.quantity);
+        const baseValue = CoinsPF2e.fromPrice(this.price, this.quantity);
+        return this.isSpecific
+            ? baseValue
+            : this.subitems.reduce((total, i) => total.plus(CoinsPF2e.fromPrice(i.price, i.quantity)), baseValue);
     }
 
     get identificationStatus(): IdentificationStatus {

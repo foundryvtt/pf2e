@@ -36,9 +36,9 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
-        : basePrice.add({ gp: materialValue });
+        : basePrice.plus({ gp: materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
-    const afterReinforcingRune = higher.add(new CoinsPF2e({ gp: reinforcingRuneValue }));
+    const afterReinforcingRune = higher.plus(new CoinsPF2e({ gp: reinforcingRuneValue }));
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */

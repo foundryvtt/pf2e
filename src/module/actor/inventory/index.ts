@@ -22,13 +22,13 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     get coins(): CoinsPF2e {
         return this.filter((i) => i.isOfType("treasure") && i.isCoinage)
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.add(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new CoinsPF2e());
     }
 
     get totalWealth(): CoinsPF2e {
         return this.filter((item) => game.user.isGM || item.isIdentified)
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.add(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new CoinsPF2e());
     }
 
     get invested(): { value: number; max: number } | null {
@@ -143,7 +143,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
 
         // Test if the actor has enough coins to pull
-        const coinsToPull = actorCoins.add(coinsToAdd);
+        const coinsToPull = actorCoins.plus(coinsToAdd);
         const sufficient =
             coinsToRemove.pp <= coinsToPull.pp &&
             coinsToRemove.gp <= coinsToPull.gp &&
@@ -202,7 +202,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         const treasureIds = treasures.map((item) => item.id);
         const coins = treasures
             .map((item) => item.assetValue)
-            .reduce((first, second) => first.add(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new CoinsPF2e());
         await this.actor.deleteEmbeddedDocuments("Item", treasureIds);
         await this.actor.inventory.addCoins(coins);
     }
