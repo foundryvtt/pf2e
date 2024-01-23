@@ -370,14 +370,14 @@ class WeaponDamagePF2e {
             modifiers.push(
                 new ModifierPF2e({
                     slug: "forceful-second",
-                    label: "PF2E.TraitForcefulSecond",
+                    label: "PF2E.Item.Weapon.Forceful.Second",
                     modifier: weapon._source.system.damage.dice + strikingDice,
                     type: "circumstance",
                     ignored: true,
                 }),
                 new ModifierPF2e({
                     slug: "forceful-third",
-                    label: "PF2E.TraitForcefulThird",
+                    label: "PF2E.Item.Weapon.Forceful.Third",
                     modifier: 2 * (weapon._source.system.damage.dice + strikingDice),
                     type: "circumstance",
                     ignored: true,
