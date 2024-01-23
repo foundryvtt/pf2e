@@ -24,6 +24,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     spell: SpellSource | null;
     usage: { value: string };
     stackGroup: AmmoStackGroup | null;
+    subitems?: never;
 }
 
 type ConsumableUses = {
@@ -41,7 +42,7 @@ type ConsumableDamageHealing = {
 
 interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, SourceOmission>,
-        Omit<PhysicalSystemData, "traits"> {
+        Omit<PhysicalSystemData, "subitems" | "traits"> {
     apex?: never;
     stackGroup: AmmoStackGroup | null;
 }

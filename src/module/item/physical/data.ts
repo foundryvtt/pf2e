@@ -40,6 +40,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     usage?: { value: string };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
+    subitems?: PhysicalItemSource[];
 
     /**
      * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
@@ -72,7 +73,6 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     bulk: BulkData;
     material: ItemMaterialData;
     traits: PhysicalItemTraits;
-    subitems?: PhysicalItemSource[];
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;

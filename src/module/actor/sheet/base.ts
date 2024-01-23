@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
-import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
 import { isPhysicalData } from "@item/base/data/helpers.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -10,6 +10,7 @@ import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { Coins } from "@item/physical/data.ts";
+import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
@@ -459,6 +460,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     return this.deleteItem(subitem, event);
                 }
                 return this.deleteItem(item, event);
+            },
+            "detach-item": (event) => {
+                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
+                const item = this.actor.inventory.get(itemId, { strict: true });
+                const subitem = item.subitems.get(subitemId, { strict: true });
+                return detachSubitem(item, subitem, event.ctrlKey);
             },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
@@ -1067,7 +1075,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Creating a new item: clear the _id via cloning it
-        return this._onDropItemCreate(new ItemProxyPF2e(itemSource).clone().toObject());
+        return this._onDropItemCreate(new Item.implementation(itemSource).clone().toObject());
     }
 
     protected override async _onDropFolder(

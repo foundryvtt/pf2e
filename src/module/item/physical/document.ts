@@ -595,12 +595,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     ): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
-            const newSubitems =
-                "subitems" in parentItem._source.system
-                    ? parentItem._source.system.subitems.map((i) =>
-                          i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
-                      )
-                    : [];
+            const newSubitems = parentItem._source.system.subitems?.map((i) =>
+                i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
+            );
             const updated = await parentItem.update({ system: { subitems: newSubitems } }, context);
             if (updated) {
                 this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
@@ -616,10 +613,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
-            const newSubitems =
-                "subitems" in parentItem._source.system
-                    ? parentItem._source.system.subitems.filter((i) => i._id !== this.id)
-                    : [];
+            const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
             const updated = await parentItem.update({ "system.subitems": newSubitems }, context);
             if (updated) {
                 this._onDelete(context, game.user.id);

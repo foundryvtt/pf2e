@@ -3,14 +3,15 @@ import { CarriedUsage } from "@item/physical/usage.ts";
 
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
 
-type TreasureSystemSource = Omit<PhysicalSystemSource, "usage"> & {
+type TreasureSystemSource = Omit<PhysicalSystemSource, "subitems" | "usage"> & {
     apex?: never;
     /** Usage for treasure isn't stored. */
     readonly usage?: never;
     stackGroup: "coins" | "gems" | null;
+    subitems?: never;
 };
 
-interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
+interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped" | "subitems"> {
     equipped: TreasureEquippedData;
     /** Treasure need only be on one's person. */
     usage: CarriedUsage;
@@ -18,7 +19,6 @@ interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
     stackGroup: "coins" | "gems" | null;
 
     apex?: never;
-    subitems?: never;
 }
 
 interface TreasureEquippedData extends EquippedData {

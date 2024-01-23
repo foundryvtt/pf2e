@@ -526,7 +526,7 @@ class PackExtractor {
                 delete (source.system as { specific?: unknown }).specific;
             }
 
-            if ("subitems" in source.system && source.system.subitems.length === 0) {
+            if (source.system.subitems?.length === 0) {
                 delete (source.system as { subitems?: unknown[] }).subitems;
             }
 
