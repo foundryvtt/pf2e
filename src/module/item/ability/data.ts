@@ -1,4 +1,5 @@
 import {
+    ActionCostValue,
     ActionType,
     BaseItemSourcePF2e,
     Frequency,
@@ -7,7 +8,6 @@ import {
     ItemSystemSource,
     ItemTraitsNoRarity,
 } from "@item/base/data/system.ts";
-import { OneToThree } from "@module/data.ts";
 import { ActionCategory, ActionTrait } from "./types.ts";
 
 type AbilityItemSource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
@@ -20,7 +20,7 @@ interface AbilitySystemSource extends ItemSystemSource {
         value: ActionType;
     };
     actions: {
-        value: OneToThree | null;
+        value: ActionCostValue | null;
     };
     category: ActionCategory | null;
     deathNote: boolean;

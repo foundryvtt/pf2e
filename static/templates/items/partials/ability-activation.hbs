@@ -10,15 +10,13 @@
             {{/select}}
         </select>
         {{#if (eq data.actionType.value "action")}}
-            <select name="system.actions.value" data-dtype="Number">
+            <select name="system.actions.value">
                 {{#select data.actions.value}}
                     {{#each actionsNumber as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                     {{/each}}
                 {{/select}}
             </select>
-        {{else}}
-            <input type="hidden" name="system.actions.value" value="" />
         {{/if}}
     </div>
 </div>

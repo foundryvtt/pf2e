@@ -1,4 +1,5 @@
 import {
+    ActionCostValue,
     ActionType,
     BaseItemSourcePF2e,
     Frequency,
@@ -7,7 +8,6 @@ import {
     ItemSystemSource,
     ItemTraits,
 } from "@item/base/data/system.ts";
-import { OneToThree } from "@module/data.ts";
 import { KingmakerCategory, KingmakerTrait } from "./types.ts";
 
 type CampaignFeatureSource = BaseItemSourcePF2e<"campaignFeature", CampaignFeatureSystemSource>;
@@ -27,7 +27,7 @@ interface CampaignFeatureSystemSource extends ItemSystemSource {
         value: ActionType;
     };
     actions: {
-        value: OneToThree | null;
+        value: ActionCostValue | null;
     };
     prerequisites: {
         value: PrerequisiteTagData[];

@@ -3,7 +3,7 @@ import { ActionTrait } from "@item/ability/types.ts";
 import { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemTrait } from "@item/physical/data.ts";
-import { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
+import { MigrationRecord, PublicationData, Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import type * as fields from "types/foundry/common/data/fields.d.ts";
 import { ItemType } from "./index.ts";
@@ -19,9 +19,11 @@ type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrai
 
 type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
 
+type ActionCostValue = keyof ConfigPF2e["PF2E"]["actionsNumber"];
+
 interface ActionCost {
     type: Exclude<ActionType, "passive">;
-    value: OneToThree | null;
+    value: ActionCostValue | null;
 }
 
 interface ItemTraits<T extends ItemTrait = ItemTrait> {
@@ -125,6 +127,7 @@ interface Frequency extends FrequencySource {
 
 export type {
     ActionCost,
+    ActionCostValue,
     ActionType,
     BaseItemSourcePF2e,
     Frequency,
