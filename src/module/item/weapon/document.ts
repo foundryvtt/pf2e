@@ -178,12 +178,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return new Set(this.system.traits.otherTags);
     }
 
-    override acceptsSubitem(attachable: PhysicalItemPF2e): boolean {
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
         return (
+            candidate !== this &&
+            candidate.isOfType("weapon") &&
+            candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
             ["crossbow", "firearm"].includes(this.group ?? "") &&
+            !this.isAttachable &&
             !this.system.traits.value.includes("combination") &&
-            attachable.isOfType("weapon") &&
-            attachable.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
             !this.subitems.some((i) => i.isOfType("weapon"))
         );
     }
