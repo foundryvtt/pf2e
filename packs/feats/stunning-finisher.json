@@ -27,10 +27,14 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": [
-                    "finisher:lethal"
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
                 ],
-                "selector": "strike-damage",
+                "predicate": [
+                    "finisher:stunning"
+                ],
+                "selector": "strike-attack-roll",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
             }
