@@ -1,4 +1,7 @@
+import type { ActionTrait } from "@item/ability/index.ts";
+import type { ProficiencyRank } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { getActionGlyph, sluggify } from "@util";
 import {
     Action,
@@ -9,9 +12,6 @@ import {
     ActionVariant,
     ActionVariantUseOptions,
 } from "./types.ts";
-import type { ActionTrait } from "@item/ability/index.ts";
-import type { ProficiencyRank } from "@item/base/data/index.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
 
 interface BaseActionVariantData {
     cost?: ActionCost;
@@ -187,20 +187,11 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
-        // use the data from the action to construct the message if no variant is specified
-        const variant = options?.variant
-            ? new Promise((resolve: (variant: TAction) => void) => resolve(this.getDefaultVariant(options)))
-            : Promise.resolve(undefined);
-        return variant
-            .then((variant) => variant ?? this.toActionVariant())
-            .catch((reason) => Promise.reject(reason))
-            .then((variant) => variant.toMessage(options));
+        return this.getDefaultVariant(options).toMessage(options);
     }
 
     async use(options?: Partial<ActionUseOptions>): Promise<unknown> {
-        return new Promise((resolve: (variant: TAction) => void) => resolve(this.getDefaultVariant(options)))
-            .catch((reason) => Promise.reject(reason))
-            .then((variant) => variant.use(options));
+        return this.getDefaultVariant(options).use(options);
     }
 
     protected abstract toActionVariant(data?: TData): TAction;
