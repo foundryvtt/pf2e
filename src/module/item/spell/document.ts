@@ -874,9 +874,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                       description: CONFIG.PF2E.traitsDescriptions[this.rarity],
                   };
 
-        return {
+        return this.processChatData(htmlOptions, {
             ...systemData,
-            description: { value: description },
+            description: { value: description, addenda: this.system.description.addenda },
             isAttack: this.isAttack,
             isSave,
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
@@ -896,7 +896,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             area,
             variants,
             isAura: this.traits.has("aura"),
-        };
+        });
     }
 
     async rollAttack(

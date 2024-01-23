@@ -77,6 +77,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/action-details.hbs",
         "systems/pf2e/templates/items/action-sidebar.hbs",
         "systems/pf2e/templates/items/activation-panel.hbs",
+        "systems/pf2e/templates/items/partials/addendum.hbs",
         "systems/pf2e/templates/items/affliction-details.hbs",
         "systems/pf2e/templates/items/affliction-sidebar.hbs",
         "systems/pf2e/templates/items/ancestry-details.hbs",
