@@ -25,7 +25,25 @@
                     "failure"
                 ],
                 "predicate": [
-                    "finisher:confident"
+                    "finisher:confident",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    }
                 ],
                 "selector": "attack-roll",
                 "text": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident.Note",
