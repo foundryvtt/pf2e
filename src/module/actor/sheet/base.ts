@@ -778,14 +778,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         await this.actor.updateEmbeddedDocuments("Item", sortingUpdates);
     }
 
-    protected async deleteItem(item: ItemPF2e, event?: MouseEvent): Promise<void> {
-        const result =
-            event?.ctrlKey ||
-            (await Dialog.confirm({
-                title: game.i18n.localize("PF2E.DeleteItemTitle"),
-                content: `<p>${game.i18n.format("PF2E.DeleteQuestion", { name: `"${item.name}"` })}</p>`,
-            }));
-        if (result) await item.delete();
+    protected deleteItem<TItem extends ItemPF2e>(item: TItem, event?: MouseEvent): Promise<TItem | undefined> {
+        return event?.ctrlKey ? item.delete() : item.deleteDialog();
     }
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
