@@ -31,7 +31,143 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "kinetic-gate:earth",
+                            "kinetic-gate:water",
+                            "kinetic-gate:wood"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:air"
+                ],
+                "selector": "fly",
+                "value": 80
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ],
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ],
+                "selector": "land",
+                "value": 50
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:water"
+                ],
+                "selector": "swim",
+                "value": 60
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ],
+                "selector": "climb",
+                "value": 30
+            },
+            {
+                "add": [
+                    "elemental",
+                    "earth"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "fire"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "metal"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "water"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:water"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "wood"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "air"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:air"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {}
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
