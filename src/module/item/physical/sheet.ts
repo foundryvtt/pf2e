@@ -2,8 +2,9 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
-import { localizer, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
+import { detachSubitem } from "./helpers.ts";
 import { CoinsPF2e, ItemActivation, MaterialValuationData, PreciousMaterialGrade } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
@@ -155,6 +156,33 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
+
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        super.activateListeners($html);
+        const html = $html[0];
+
+        // Subitem management
+        htmlQuery(html, "ul[data-subitems]")?.addEventListener("click", async (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+            if (!anchor) return;
+
+            const item = this.item;
+            const subitemId = htmlClosest(anchor, "[data-subitem-id]")?.dataset.subitemId;
+            const subitem = item.subitems.get(subitemId, { strict: true });
+
+            switch (anchor.dataset.action) {
+                case "edit-subitem":
+                    return subitem.sheet.render(true);
+                case "detach-subitem":
+                    return detachSubitem(item, subitem, event.ctrlKey);
+                case "delete-subitem": {
+                    return event.ctrlKey ? subitem.delete() : subitem.deleteDialog();
+                }
+                default:
+                    throw ErrorPF2e("Unexpected control options");
+            }
+        });
+    }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Process precious-material selection

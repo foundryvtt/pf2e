@@ -9,6 +9,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
@@ -433,6 +434,8 @@ abstract class CreaturePF2e<
                 (c) => c !== item.container && !isContainerCycle(item, c),
             );
             if (container) await item.actor.stowOrUnstow(item, container);
+        } else if (carryType === "attached" && item.quantity > 0) {
+            await new ItemAttacher({ item }).resolveSelection();
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,

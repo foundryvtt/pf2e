@@ -1,0 +1,29 @@
+<div class="content">
+    <div class="form-group">
+        <div class="attachment">
+            <img src="{{item.img}}" />
+        </div>
+
+        <span class="arrow">
+            <i class="fa-solid fa-paperclip"></i>
+        </span>
+
+        <select class="choices" data-choices>
+            {{#each choices as |choice|}}
+                <option value="{{choice.value}}"{{#if (eq choice.value 0)}} selected{{/if}}>{{choice.label}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <hr />
+
+    <footer>
+        <button type="button" data-action="pick" value="0">{{localize "Attach"}}</button>
+        {{#if item.actor.skills.crafting}}
+            <label class="check">
+                <input type="checkbox" data-crafting-check {{checked (not user.isGM)}} />
+                <span>{{localize "PF2E.Item.Physical.Attach.CraftingCheck"}}</span>
+            </label>
+        {{/if}}
+    </footer>
+</div>
