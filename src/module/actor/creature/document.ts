@@ -406,6 +406,11 @@ abstract class CreaturePF2e<
             focus.value = Math.clamped(Math.floor(focus.value), 0, focus.max) || 0;
         }
 
+        // Disallow creatures not in either alliance to flank
+        if (this.system.details.alliance === null) {
+            attributes.flanking.canFlank = false;
+        }
+
         imposeEncumberedCondition(this);
     }
 
