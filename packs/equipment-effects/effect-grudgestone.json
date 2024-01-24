@@ -1,0 +1,62 @@
+{
+    "_id": "Hq1FthmyHvDDuESp",
+    "img": "icons/commodities/stone/boulder-black.webp",
+    "name": "Effect: Grudgestone",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Grudgestone]</p>\n<p>Your Strikes with the affixed weapon against the triggering creature gain a +3 status bonus to damage rolls.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "grudgestone"
+            },
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectGrudgestone",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:grudgestone"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.effectGrudgestone}-damage",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
