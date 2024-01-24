@@ -601,7 +601,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             const newSubitems = parentItem._source.system.subitems?.map((i) =>
                 i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
             );
-            const updated = await parentItem.update({ system: { subitems: newSubitems } }, context);
+            const parentContext = { ...context, diff: true, recursive: true };
+            const updated = await parentItem.update({ system: { subitems: newSubitems } }, parentContext);
             if (updated) {
                 this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
                 return this;

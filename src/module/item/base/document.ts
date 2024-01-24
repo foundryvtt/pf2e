@@ -278,8 +278,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
     async refreshFromCompendium(options: RefreshFromCompendiumParams = {}): Promise<this | null> {
-        if (!this.isOwned) {
-            throw ErrorPF2e("This utility may only be used on owned items");
+        if (this.uuid === this.sourceId) {
+            throw ErrorPF2e(`Item "${this.name}" (${this.uuid}) is its own source.`);
         }
         if (!this.sourceId?.startsWith("Compendium.")) {
             throw ErrorPF2e(`Item "${this.name}" (${this.uuid}) has no compendium source.`);

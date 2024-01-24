@@ -461,7 +461,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 return this.deleteItem(item, event);
             },
-            "detach-item": (event) => {
+            "detach-subitem": (event) => {
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
                 const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
                 const item = this.actor.inventory.get(itemId, { strict: true });
