@@ -5464,7 +5464,7 @@ export class ClientBaseItem<
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this | undefined>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
