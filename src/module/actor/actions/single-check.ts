@@ -2,7 +2,6 @@ import { ActorPF2e } from "@actor";
 import { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
 import { DC_SLUGS } from "@actor/values.ts";
-import type { ItemPF2e } from "@item";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { ActionMacroHelpers } from "@system/action-macros/index.ts";
 import {
@@ -156,6 +155,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
                     note.selector ||= selector; // treat empty selectors as always applicable to this check
                     return note;
                 }),
+            passthrough: options,
             target: () => {
                 if (options.target instanceof ActorPF2e) {
                     return { token: null, actor: options.target };
@@ -172,10 +172,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
         return results;
     }
 
-    protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    protected checkContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
         return ActionMacroHelpers.defaultCheckContext(opts, data);
     }
 

@@ -1,15 +1,12 @@
 import { ActorPF2e } from "@actor";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
 import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Grapple";
 
-function grappleCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
-    opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+function grappleCheckContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
     // weapon
     const weapon = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "grapple") ?? []).shift();
 
@@ -22,7 +19,7 @@ function grappleCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         }
     }
 
-    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, modifiers });
+    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, item: weapon, modifiers });
 }
 
 function grapple(options: SkillActionOptions): void {
@@ -51,10 +48,7 @@ function grapple(options: SkillActionOptions): void {
 }
 
 class GrappleActionVariant extends SingleCheckActionVariant {
-    protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    protected override checkContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
         return grappleCheckContext(opts, data);
     }
 }

@@ -21,36 +21,37 @@ class CheckContextError extends Error {
     }
 }
 
-interface BuildCheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface BuildCheckContextOptions {
     actor: ActorPF2e;
-    item?: ItemType;
+    item?: ItemPF2e<ActorPF2e>;
     rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
-interface BuildCheckContextResult<ItemType extends ItemPF2e<ActorPF2e>> {
-    item?: ItemType;
+interface BuildCheckContextResult {
+    item?: ItemPF2e<ActorPF2e>;
     rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
-interface CheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface CheckContextOptions<PassthroughType = unknown> {
     actor: ActorPF2e;
-    buildContext: (options: BuildCheckContextOptions<ItemType>) => BuildCheckContextResult<ItemType>;
+    buildContext: (options: BuildCheckContextOptions) => BuildCheckContextResult;
+    passthrough?: PassthroughType;
     target?: ActorPF2e | null;
 }
 
-interface CheckContextData<ItemType extends ItemPF2e<ActorPF2e>> {
-    item?: ItemType;
+interface CheckContextData {
+    item?: ItemPF2e<ActorPF2e>;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
     target?: ActorPF2e | null;
 }
 
-interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
+interface CheckContext {
     type: CheckType;
-    item?: ItemType;
+    item?: ItemPF2e<ActorPF2e>;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
@@ -65,13 +66,11 @@ interface CheckResultCallback {
     roll: Rolled<CheckRoll>;
 }
 
-interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>, PassthroughType = unknown> {
     actors: ActorPF2e | ActorPF2e[] | undefined;
     actionGlyph: ActionGlyph | undefined;
     title: string;
-    checkContext: (
-        context: CheckContextOptions<ItemType>,
-    ) => Promise<CheckContext<ItemType>> | CheckContext<ItemType> | undefined;
+    checkContext: (context: CheckContextOptions<PassthroughType>) => Promise<CheckContext> | CheckContext | undefined;
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
     item?: (actor: ActorPF2e) => ItemType | undefined;
     traits: string[];
@@ -87,6 +86,7 @@ interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     weaponTrait?: WeaponTrait;
     weaponTraitWithPenalty?: WeaponTrait;
     target?: () => { token: TokenDocumentPF2e | null; actor: ActorPF2e } | null;
+    passthrough?: PassthroughType;
 }
 
 type UnresolvedCheckDC = CheckDC | DCSlug | ((actor: ActorPF2e | null) => CheckDC | null);

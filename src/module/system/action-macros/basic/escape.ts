@@ -7,7 +7,6 @@ import {
 } from "@actor/actions/index.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
-import type { ItemPF2e } from "@item";
 import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
@@ -16,10 +15,7 @@ const toHighestModifier = (highest: StatisticModifier | null, current: Statistic
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
 };
 
-function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
-    opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>,
-) {
+function unarmedStrikeWithHighestModifier(opts: CheckContextOptions, data: CheckContextData) {
     const actionRollOptions = ["action:escape", "action:escape:unarmed"];
     const { rollOptions } = opts.buildContext({
         actor: opts.actor,
@@ -46,10 +42,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     return statistic ? { actor, rollOptions, statistic } : null;
 }
 
-function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
-    opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+function escapeCheckContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
     // find all unarmed strikes and pick the one with the highest modifier
     const unarmed = data.slug && data.slug !== "unarmed" ? null : unarmedStrikeWithHighestModifier(opts, data);
 
@@ -127,10 +120,7 @@ class EscapeActionVariant extends SingleCheckActionVariant {
         return ""; // default to the highest modifier, instead of just unarmed
     }
 
-    protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    protected override checkContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
         return escapeCheckContext(opts, data);
     }
 

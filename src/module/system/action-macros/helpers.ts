@@ -63,10 +63,7 @@ export class ActionMacroHelpers {
         }
     }
 
-    static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    static defaultCheckContext(options: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
             options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StatisticModifier);
@@ -118,8 +115,8 @@ export class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: SimpleRollActionCheckOptions<ItemType>,
+    static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>, PassthroughType = unknown>(
+        options: SimpleRollActionCheckOptions<ItemType, PassthroughType>,
     ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -154,6 +151,7 @@ export class ActionMacroHelpers {
                         combinedOptions.push(...(args.item?.getRollOptions("item") ?? []));
                         return { item: args.item, rollOptions: combinedOptions.sort(), target: args.target };
                     },
+                    passthrough: options.passthrough,
                     target: targetData.actor,
                 })!;
 
