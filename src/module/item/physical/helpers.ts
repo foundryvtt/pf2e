@@ -4,7 +4,7 @@ import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
-import { createHTMLElement, localizer } from "@util";
+import { ErrorPF2e, createHTMLElement, localizer } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
@@ -220,7 +220,10 @@ function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
  * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
  * quantity of aan existing stack.
  */
-async function detachSubitem(item: PhysicalItemPF2e, subitem: PhysicalItemPF2e, skipConfirm: boolean): Promise<void> {
+async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): Promise<void> {
+    const parentItem = subitem.parentItem;
+    if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
+
     const localize = localizer("PF2E.Item.Physical.Attach.Detach");
     const confirmed =
         skipConfirm ||
@@ -228,18 +231,22 @@ async function detachSubitem(item: PhysicalItemPF2e, subitem: PhysicalItemPF2e, 
             title: localize("Label"),
             content: createHTMLElement("p", { children: [localize("Prompt", { attachable: subitem.name })] }).outerHTML,
         }));
+
     if (confirmed) {
         const deletePromise = subitem.delete();
         const createPromise = (async (): Promise<unknown> => {
             // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
-            const stack = item.actor?.inventory.findStackableItem(
+            const stack = parentItem.actor?.inventory.findStackableItem(
                 subitem.clone({ "system.equipped.carryType": "worn" }),
             );
             return (
                 stack?.update({ "system.quantity": stack.quantity + 1 }) ??
                 Item.implementation.create(
-                    fu.mergeObject(subitem.toObject(), { _id: null, "system.containerId": item.system.containerId }),
-                    { parent: item.actor },
+                    fu.mergeObject(subitem.toObject(), {
+                        _id: null,
+                        "system.containerId": parentItem.system.containerId,
+                    }),
+                    { parent: parentItem.actor },
                 )
             );
         })();
