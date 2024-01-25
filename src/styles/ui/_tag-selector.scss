@@ -7,12 +7,14 @@
 }
 
 .app.tag-selector form {
+    display: flex;
+    flex-direction: column;
     font-family: var(--sans-serif);
     height: 100%;
 
     input[type="search"],
     input[type="text"] {
-        background: rgba(255, 255, 255, 0.5);
+        background: rgba(white, 0.5);
         color: var(--text-dark);
     }
 
@@ -130,14 +132,12 @@
         }
     }
 
-    > hr {
-        margin-top: 0;
-    }
-
     > footer {
+        border-top: var(--space-2) groove var(--color-text-light-0);
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: var(--space-8);
+        margin-top: auto;
 
         .form-group.details {
             margin-top: 0;
