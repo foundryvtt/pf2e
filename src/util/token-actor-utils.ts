@@ -6,12 +6,11 @@ const actorTypes: (ActorType | "creature")[] = [...ACTOR_TYPES];
 
 /**
  * Collects every actor whose token is controlled on the canvas.
- * @param [options.types]
- * @param [options.assignedFallback=false] If no actors are controlled, fall back to the user's assigned character.
+ * @param [options] Filter and fallback options
  * @returns An array of ActorPF2E instances filtered by the requested types.
  */
-function getSelectedActors(params: GetSelectedActorsParams = {}): ActorPF2e[] {
-    const { include = actorTypes, exclude = [], assignedFallback = false } = params;
+function getSelectedActors(options: GetSelectedActorsOptions = {}): ActorPF2e[] {
+    const { include = actorTypes, exclude = [], assignedFallback = false } = options;
     const actors = R.uniq(
         game.user
             .getActiveTokens()
@@ -38,7 +37,7 @@ function getSelectedActors(params: GetSelectedActorsParams = {}): ActorPF2e[] {
     return [];
 }
 
-interface GetSelectedActorsParams {
+interface GetSelectedActorsOptions {
     /** Actor types that should be included (defaults to all) */
     include?: (ActorType | "creature")[];
     /** Actor types that should be excluded (defaults to none) */
