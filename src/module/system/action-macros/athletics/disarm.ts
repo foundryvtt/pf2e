@@ -1,32 +1,48 @@
 import { ActorPF2e } from "@actor";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 import { WeaponPF2e } from "@item";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import {
+    CheckContext,
+    CheckContextData,
+    CheckContextOptions,
+    CheckResultCallback,
+    CombatManeuverActionUseOptions,
+} from "@system/action-macros/types.ts";
+import {
+    SingleCheckAction,
+    SingleCheckActionUseOptions,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Disarm";
 
-function disarmCheckContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
+type DisarmActionUseOptions = SingleCheckActionUseOptions & CombatManeuverActionUseOptions;
+
+function disarmCheckContext(
+    opts: CheckContextOptions<Partial<CombatManeuverActionUseOptions>>,
+    data: CheckContextData,
+): CheckContext | undefined {
     // weapon
-    const weapon = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "disarm") ?? []).shift();
+    const item = ActionMacroHelpers.resolveWieldedWeapon(opts.actor, opts.passthrough?.item, "disarm");
 
     // modifiers
     const modifiers = data.modifiers?.length ? [...data.modifiers] : [];
-    if (weapon && weapon.slug !== "basic-unarmed") {
-        const modifier = ActionMacroHelpers.getWeaponPotencyModifier(weapon, data.slug);
+    if (item && item.slug !== "basic-unarmed") {
+        const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, data.slug);
         if (modifier) {
             modifiers.push(modifier);
         }
     }
 
-    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, item: weapon, modifiers });
+    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, item, modifiers });
 }
 
-function disarm(options: SkillActionOptions): void {
+function disarm(options: SkillActionOptions & Partial<CombatManeuverActionUseOptions>): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:disarm"];
-    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>, Partial<CombatManeuverActionUseOptions>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
@@ -40,6 +56,7 @@ function disarm(options: SkillActionOptions): void {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Disarm", "criticalFailure"),
         ],
+        passthrough: options,
     }).catch((error: Error) => {
         ui.notifications.error(error.message);
         throw error;
@@ -47,7 +64,14 @@ function disarm(options: SkillActionOptions): void {
 }
 
 class DisarmActionVariant extends SingleCheckActionVariant {
-    protected override checkContext(opts: CheckContextOptions, data: CheckContextData): CheckContext | undefined {
+    override async use(options: Partial<DisarmActionUseOptions> = {}): Promise<CheckResultCallback[]> {
+        return super.use(options);
+    }
+
+    protected override checkContext(
+        opts: CheckContextOptions<Partial<DisarmActionUseOptions>>,
+        data: CheckContextData,
+    ): CheckContext | undefined {
         return disarmCheckContext(opts, data);
     }
 }

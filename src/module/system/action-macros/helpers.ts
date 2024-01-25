@@ -2,7 +2,8 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
-import type { ItemPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e } from "@item";
+import type { WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -24,9 +25,14 @@ import {
     CheckContextData,
     CheckContextError,
     CheckContextOptions,
+    CombatManeuverActionUseOptions,
     SimpleRollActionCheckOptions,
     UnresolvedCheckDC,
 } from "./types.ts";
+
+function isOwnedItemUUID(uuid: EmbeddedItemUUID | string, actor: ActorPF2e) {
+    return uuid.match(/^Actor\.[a-zA-Z0-9]+\.Item\.[a-zA-Z0-9]+$/) && uuid.startsWith(`Actor.${actor.id}`);
+}
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -318,6 +324,44 @@ export class ActionMacroHelpers {
         if (typeof unresolvedDC === "function") return unresolvedDC(target);
 
         return unresolvedDC;
+    }
+
+    static resolveWieldedWeapon(
+        actor: ActorPF2e,
+        original: CombatManeuverActionUseOptions["item"] | undefined,
+        traits: WeaponTrait | WeaponTrait[],
+    ): WeaponPF2e<ActorPF2e> | undefined {
+        if (original === false) {
+            return undefined;
+        }
+        traits = Array.isArray(traits) ? traits : [traits];
+        let weapon: WeaponPF2e<ActorPF2e> | undefined;
+        if (original && typeof original === "string") {
+            if (isOwnedItemUUID(original, actor)) {
+                const item = fromUuidSync<ItemPF2e<ActorPF2e>>(original);
+                if (item && item.isOfType("weapon")) {
+                    weapon = item;
+                }
+            }
+        } else {
+            weapon = original;
+        }
+        if (weapon && weapon.isOfType("weapon") && weapon.parent?.id === actor.id) {
+            if (!weapon.traits.intersects(new Set<WeaponTrait>(traits))) {
+                console.warn(
+                    `Specified weapon '${weapon.name}' lacks any of the required traits: ${traits
+                        .map((trait) => game.i18n.localize(CONFIG.PF2E.weaponTraits[trait]))
+                        .sort()
+                        .join(", ")}`,
+                );
+            }
+        }
+        if (!weapon) {
+            weapon = traits
+                .flatMap((trait) => ActionMacroHelpers.getApplicableEquippedWeapons(actor, trait) ?? [])
+                .shift();
+        }
+        return weapon;
     }
 }
 

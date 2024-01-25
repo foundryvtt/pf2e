@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { DCSlug } from "@actor/types.ts";
-import type { ItemPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { TokenDocumentPF2e } from "@scene";
@@ -104,6 +104,14 @@ interface SkillActionOptions extends ActionDefaultOptions {
     difficultyClass?: CheckDC;
 }
 
+interface CombatManeuverActionUseOptions {
+    /**
+     * The UUID or item instance of the weapon used to perform a combat maneuver with, if any. Explicitly setting it
+     * to false will disable the automatic attempted lookup of a wielded weapon suitable to use for the action.
+     */
+    item: EmbeddedItemUUID | WeaponPF2e<ActorPF2e> | false;
+}
+
 export { CheckContextError };
 export type {
     ActionDefaultOptions,
@@ -112,6 +120,7 @@ export type {
     CheckContextData,
     CheckContextOptions,
     CheckResultCallback,
+    CombatManeuverActionUseOptions,
     SimpleRollActionCheckOptions,
     SkillActionOptions,
     UnresolvedCheckDC,
