@@ -1,0 +1,133 @@
+{
+    "_id": "IURDAutTgGTKW1ks",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/erraticannon.webp",
+    "name": "Effect: Erraticannon (Extra)",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Acid",
+                "Cold",
+                "Electricity",
+                "Fire",
+                "Sonic",
+                "Bludgeoning",
+                "Piercing",
+                "Slashing"
+            ],
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d8"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Erraticannon]</p>\n<p>The <em>erraticannon</em> deals 1d6 additional damage of a second damage type.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #180: The Smoking Gun"
+        },
+        "rules": [
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:1"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:2"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:3"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:4"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:5"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:6"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "piercing",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:7"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "self:effect:erraticannon-extra:8"
+                ],
+                "selector": "erraticannon-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
