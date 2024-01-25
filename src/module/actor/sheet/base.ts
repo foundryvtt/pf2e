@@ -270,7 +270,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             const selector = this.actor.isOfType("loot") ? ".sheet-body" : ".tab[data-tab=inventory]";
             return htmlQuery(html, selector);
         })();
-        this.activateInventoryListeners(inventoryPanel);
+        this.#activateInventoryDragDrop(inventoryPanel);
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
@@ -424,6 +424,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     /** Sheet-wide click listeners for elements selectable as `a[data-action]` */
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const inventoryItemFromDOM = (event: MouseEvent): PhysicalItemPF2e<TActor> => {
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
+            const parentItem = this.actor.inventory.get(itemId, { strict: true });
+            return subitemId ? parentItem.subitems.get(subitemId, { strict: true }) : parentItem;
+        };
+
         const handlers: SheetClickActionHandlers = {
             "browse-abilities": (_, anchor) => {
                 this.#onClickBrowseAbilities(anchor);
@@ -461,23 +468,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 return this.deleteItem(item, event);
             },
-            "detach-subitem": (event) => {
-                const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-                const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
-                const item = this.actor.inventory.get(itemId, { strict: true });
-                const subitem = item.subitems.get(subitemId, { strict: true });
-                return detachSubitem(item, subitem, event.ctrlKey);
-            },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const itemId = itemEl?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("spell")) {
                     const castRank = Number(itemEl?.dataset.castRank ?? NaN);
-                    return item.toMessage(event, { create: true, data: { castRank } });
-                } else if (!item.isOfType("physical") || item.isIdentified) {
-                    return item.toMessage(event, { create: true });
+                    return item.toMessage(event, { data: { castRank } });
+                } else if (item.isOfType("physical")) {
+                    const subitemId = htmlClosest(event.target, "[data-subitem-id]")?.dataset.subitemId;
+                    const actualItem = subitemId ? item.subitems.get(subitemId, { strict: true }) : item;
+                    return actualItem.toMessage(event);
                 }
+
+                return item.toMessage(event);
             },
             "roll-check": (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
@@ -524,6 +528,81 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     return createSelfEffectMessage(item, eventToRollMode(event));
                 }
             },
+            // INVENTORY
+            "add-coins": () => {
+                return new AddCoinsPopup(this.actor).render(true);
+            },
+            "decrease-quantity": (event) => {
+                const item = inventoryItemFromDOM(event);
+                if (item.quantity > 0) {
+                    const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
+                    return item.update({ "system.quantity": item.quantity - subtrahend });
+                }
+                return;
+            },
+            "detach-subitem": (event) => {
+                const subitem = inventoryItemFromDOM(event);
+                return detachSubitem(subitem, event.ctrlKey);
+            },
+            "increase-quantity": (event) => {
+                const item = inventoryItemFromDOM(event);
+                const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
+                return item.update({ "system.quantity": item.quantity + addend });
+            },
+            "remove-coins": () => {
+                return new RemoveCoinsPopup(this.actor).render(true);
+            },
+            "repair-item": (event) => {
+                const item = inventoryItemFromDOM(event);
+                return game.pf2e.actions.repair({ event, item });
+            },
+            "sell-all-treasure": () => {
+                return this.#onClickSellAllTreasure();
+            },
+            "sell-treasure": (event) => {
+                const item = inventoryItemFromDOM(event);
+                const sellItem = async (): Promise<void> => {
+                    if (item?.isOfType("treasure") && !item.isCoinage) {
+                        await item.delete();
+                        await this.actor.inventory.addCoins(item.assetValue);
+                    }
+                };
+
+                if (event.ctrlKey) return sellItem();
+
+                const content = document.createElement("p");
+                content.innerText = game.i18n.format("PF2E.SellItemQuestion", { item: item.name });
+                return new Dialog({
+                    title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
+                    content: content.outerHTML,
+                    buttons: {
+                        Yes: {
+                            icon: fontAwesomeIcon("check").outerHTML,
+                            label: game.i18n.localize("Yes"),
+                            callback: sellItem,
+                        },
+                        cancel: {
+                            icon: fontAwesomeIcon("times").outerHTML,
+                            label: game.i18n.localize("Cancel"),
+                        },
+                    },
+                    default: "Yes",
+                }).render(true);
+            },
+            "toggle-container": (event) => {
+                const item = inventoryItemFromDOM(event);
+                if (!item.isOfType("backpack")) return;
+                const isCollapsed = item.system.collapsed ?? false;
+                return item.update({ "system.collapsed": !isCollapsed });
+            },
+            "toggle-identified": (event) => {
+                const item = inventoryItemFromDOM(event);
+                if (item.isIdentified) {
+                    item.setIdentificationStatus("unidentified");
+                } else {
+                    new IdentifyItemPopup(item).render(true);
+                }
+            },
         };
 
         // IWR
@@ -553,112 +632,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         html.addEventListener("click", sheetHandler);
 
         return handlers;
-    }
-
-    /** DOM listeners for inventory panel */
-    protected activateInventoryListeners(panel: HTMLElement | null): void {
-        if (!this.isEditable) return;
-        if (this._canDragDrop(".item-list")) {
-            this.#activateInventoryDragDrop(panel);
-        }
-
-        // Links and buttons
-        panel?.addEventListener("click", (event) => {
-            const link = htmlClosest(event.target, "a[data-action], button[data-action]");
-            if (!link) return;
-            const getItem = (): PhysicalItemPF2e<ActorPF2e> => {
-                const itemId = htmlClosest(link, "[data-item-id]")?.dataset.itemId ?? "";
-                const item = this.actor.items.get(itemId);
-                if (!item?.isOfType("physical")) throw ErrorPF2e("Item not found or isn't physical");
-                return item;
-            };
-
-            switch (link.dataset.action) {
-                case "add-coins": {
-                    new AddCoinsPopup(this.actor).render(true);
-                    return;
-                }
-                case "remove-coins": {
-                    new RemoveCoinsPopup(this.actor).render(true);
-                    return;
-                }
-                case "increase-quantity": {
-                    const item = getItem();
-                    const addend = event.ctrlKey ? 10 : event.shiftKey ? 5 : 1;
-                    item.update({ "system.quantity": item.quantity + addend });
-                    return;
-                }
-                case "decrease-quantity": {
-                    const item = getItem();
-                    if (item.quantity > 0) {
-                        const subtrahend = Math.min(item.quantity, event.ctrlKey ? 10 : event.shiftKey ? 5 : 1);
-                        item.update({ "system.quantity": item.quantity - subtrahend });
-                    }
-                    return;
-                }
-                case "repair": {
-                    const item = getItem();
-                    game.pf2e.actions.repair({ event, item });
-                    return;
-                }
-                case "toggle-identified": {
-                    const item = getItem();
-                    if (item.isIdentified) {
-                        item.setIdentificationStatus("unidentified");
-                    } else {
-                        new IdentifyItemPopup(item).render(true);
-                    }
-                    return;
-                }
-                case "toggle-container": {
-                    const item = getItem();
-                    if (!item.isOfType("backpack")) return;
-
-                    const isCollapsed = item.system.collapsed ?? false;
-                    item.update({ "system.collapsed": !isCollapsed });
-                    return;
-                }
-                case "sell-treasure": {
-                    const item = getItem();
-                    const sellItem = async (): Promise<void> => {
-                        if (item?.isOfType("treasure") && !item.isCoinage) {
-                            await item.delete();
-                            await this.actor.inventory.addCoins(item.assetValue);
-                        }
-                    };
-
-                    if (event.ctrlKey) {
-                        sellItem();
-                        return;
-                    }
-
-                    const content = document.createElement("p");
-                    content.innerText = game.i18n.format("PF2E.SellItemQuestion", {
-                        item: item.name,
-                    });
-                    new Dialog({
-                        title: game.i18n.localize("PF2E.SellItemConfirmHeader"),
-                        content: content.outerHTML,
-                        buttons: {
-                            Yes: {
-                                icon: fontAwesomeIcon("check").outerHTML,
-                                label: game.i18n.localize("Yes"),
-                                callback: sellItem,
-                            },
-                            cancel: {
-                                icon: fontAwesomeIcon("times").outerHTML,
-                                label: game.i18n.localize("Cancel"),
-                            },
-                        },
-                        default: "Yes",
-                    }).render(true);
-                    return;
-                }
-                case "sell-all-treasure": {
-                    this.#onClickSellAllTreasure();
-                }
-            }
-        });
     }
 
     /** Inventory drag & drop listeners */

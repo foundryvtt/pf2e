@@ -174,7 +174,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
                 case "edit-subitem":
                     return subitem.sheet.render(true);
                 case "detach-subitem":
-                    return detachSubitem(item, subitem, event.ctrlKey);
+                    return detachSubitem(subitem, event.ctrlKey);
                 case "delete-subitem": {
                     return event.ctrlKey ? subitem.delete() : subitem.deleteDialog();
                 }

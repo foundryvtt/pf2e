@@ -90,9 +90,9 @@
                     </a>
                 {{/if}}
                 {{#if item.isDamaged}}
-                    <a data-action="repair" data-tooltip="PF2E.RepairItemTitle"><i class="fa-solid fa-hammer fa-fw"></i></a>
+                    <a data-action="repair-item" data-tooltip="PF2E.RepairItemTitle"><i class="fa-solid fa-hammer fa-fw"></i></a>
                 {{/if}}
-                {{#if (and @root.user.isGM (not isSubitem))}}
+                {{#if @root.user.isGM}}
                     {{#if item.isIdentified}}
                         <a data-action="toggle-identified" data-tooltip="PF2E.identification.Mystify"><i class="fa-regular fa-question-circle fa-fw"></i></a>
                     {{else}}
