@@ -197,11 +197,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         // https://2e.aonprd.com/Rules.aspx?ID=258
         const actorSize = this.actor?.isOfType("creature") ? this.actor.size : null;
 
-        const baseBulk = new Bulk(this.system.bulk.value)
+        return new Bulk(this.system.bulk.value)
             .convertToSize(this.size, actorSize ?? this.size)
             .times(bulkRelevantQuantity);
-
-        return this.subitems.reduce((bulk, subitem) => bulk.plus(subitem.bulk), baseBulk);
     }
 
     get activations(): (ItemActivation & { componentsLabel: string })[] {

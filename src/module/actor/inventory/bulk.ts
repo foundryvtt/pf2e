@@ -91,7 +91,11 @@ export class InventoryBulk {
         const stackingItems = items.filter((i) => !nonStackingIds.has(i.id));
 
         // Compute non-stacking bulks
-        const baseBulk = nonStackingItems.map((i) => i.bulk).reduce((first, second) => first.plus(second), new Bulk());
+        const withSubitems = (i: PhysicalItemPF2e) =>
+            i.subitems.reduce((total, subitem) => total.plus(subitem.bulk), i.bulk);
+        const baseBulk = nonStackingItems
+            .map((i) => withSubitems(i))
+            .reduce((first, second) => first.plus(second), new Bulk());
 
         // Group by stack group, then combine into quantities, then compute bulk from combined quantities
         const stackingBehaviors = stackingItems.map((item) => ({
