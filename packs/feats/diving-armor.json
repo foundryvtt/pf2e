@@ -28,7 +28,21 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "armor:slug:subterfuge-suit",
+                            "armor:slug:power-suit"
+                        ]
+                    }
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
