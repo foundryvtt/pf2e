@@ -1,4 +1,17 @@
 #homebrew-settings section.window-content {
+    overflow: hidden;
+
+    .tab.active {
+        min-height: 4rem;
+        max-height: 40rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        &[data-tab="languages"] {
+            padding-right: var(--space-8);
+        }
+    }
+
     .form-group {
         &.setting {
             display: inherit;
@@ -19,7 +32,7 @@
         }
     }
 
-    .form-group.language-rarities {
+    .form-group.language-rarity {
         label {
             --form-field-height: 1em;
             column-gap: var(--space-3);
@@ -32,6 +45,7 @@
             border: 1px solid var(--color-border-light-tertiary);
             gap: 0.25em;
             margin-top: 0;
+            min-height: 2em;
             padding: 0.25em;
 
             li {
@@ -65,6 +79,14 @@
         &.secret li:hover {
             --tag-color: var(--color-pf-primary);
         }
+
+        &.unavailable {
+            margin-top: 1rem;
+
+            label {
+                padding-bottom: 0;
+            }
+        }
     }
 }
 
@@ -72,22 +94,24 @@ table.damage-types {
     th,
     td {
         white-space: nowrap;
+
         &:not(:last-child) {
-            padding-right: 0.25rem;
+            padding-right: var(--space-4);
         }
     }
 
     .icon-preview {
         display: flex;
         align-items: center;
-        gap: 0.125rem;
+        gap: var(--space-2);
     }
 
     .delete-cell {
         text-align: end;
         width: 1rem;
+
         i {
-            padding: 0.125rem 0.25rem;
+            padding: var(--space-2) var(--space-4);
             cursor: pointer;
         }
     }

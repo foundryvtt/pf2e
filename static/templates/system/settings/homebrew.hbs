@@ -1,16 +1,10 @@
 <form autocomplete="off" spellcheck="false">
     <nav class="sheet-tabs tabs">
-        <a class="item" data-tab="campaign">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Campaign"}}</a>
         <a class="item" data-tab="languages">{{localize "PF2E.Actor.Creature.Language.Plural"}}</a>
+        <a class="item" data-tab="campaign">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Campaign"}}</a>
         <a class="item" data-tab="traits">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Traits"}}</a>
         <a class="item" data-tab="damage">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Damage"}}</a>
     </nav>
-
-    <section class="tab" data-tab="campaign">
-        {{#each campaignSettings as |setting|}}
-            {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
-        {{/each}}
-    </section>
 
     <section class="tab" data-tab="languages"></div>
         <div class="form-group setting">
@@ -34,7 +28,7 @@
             <p class="hint">{{localize "PF2E.SETTINGS.Homebrew.Languages.CommonLanguage.Hint"}}</p>
         </div>
 
-        <div class="form-group stacked language-rarities common">
+        <div class="form-group stacked language-rarity common">
             <label class="tags paizo-style"></label>
             <ul class="tags light" data-languages data-rarity="common">
                 {{#each languageRarities.common as |language|~}}
@@ -43,7 +37,7 @@
             </ul>
         </div>
 
-        <div class="form-group stacked language-rarities uncommon">
+        <div class="form-group stacked language-rarity uncommon">
             <label class="tags paizo-style"></label>
             <ul class="tags light" data-languages data-rarity="uncommon">
                 {{#each languageRarities.uncommon as |language|~}}
@@ -52,7 +46,7 @@
             </ul>
         </div>
 
-        <div class="form-group stacked language-rarities rare">
+        <div class="form-group stacked language-rarity rare">
             <label class="tags paizo-style"></label>
             <ul class="tags light" data-languages data-rarity="rare">
                 {{#each languageRarities.rare as |language|~}}
@@ -61,7 +55,7 @@
             </ul>
         </div>
 
-        <div class="form-group stacked language-rarities secret">
+        <div class="form-group stacked language-rarity secret">
             <label class="tags paizo-style"></label>
             <ul class="tags light" data-languages data-rarity="secret">
                 {{#each languageRarities.secret as |language|~}}
@@ -69,6 +63,22 @@
                 {{~/each}}
             </ul>
         </div>
+
+        <div class="form-group stacked language-rarity unavailable">
+            <label>{{localize "PF2E.SETTINGS.Homebrew.Languages.Rarities.Unavailable.Label"}}</label>
+            <p class="hint">{{localize "PF2E.SETTINGS.Homebrew.Languages.Rarities.Unavailable.Hint"}}</p>
+            <ul class="tags light" data-languages data-rarity="unavailable">
+                {{#each languageRarities.unavailable as |language|~}}
+                    <li class="tag" data-slug="{{language.slug}}" data-rarity="unavailable">{{language.label}}</li>
+                {{~/each}}
+            </ul>
+        </div>
+    </section>
+
+    <section class="tab" data-tab="campaign">
+        {{#each campaignSettings as |setting|}}
+            {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
+        {{/each}}
     </section>
 
     <section class="tab" data-tab="traits"></div>
