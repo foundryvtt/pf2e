@@ -253,7 +253,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some((s) => s.usesSpellProficiency);
+        sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some(
+            (s) => s.usesSpellProficiency && !s.isInnate,
+        );
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
