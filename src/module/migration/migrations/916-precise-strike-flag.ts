@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 
-/** Update rule element on Devise a Stratagem action and related feats. */
+/** Add rule element on Precise Strike and Finishing Precision to set the damage as a flag on the actor. */
 export class Migration916PreciseStrikeFlag extends MigrationBase {
     static override version = 0.916;
 
