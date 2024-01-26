@@ -32,12 +32,7 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    {
-                        "or": [
-                            "armor:base:subterfuge-suit",
-                            "armor:base:power-suit"
-                        ]
-                    }
+                    "armor:id:{actor|flags.pf2e.innovationId}"
                 ],
                 "selector": "swim",
                 "value": "@actor.attributes.speed.total"
