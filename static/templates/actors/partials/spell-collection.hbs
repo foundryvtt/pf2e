@@ -69,17 +69,13 @@
                         {{/if}}
                     </div>
 
-                    <div class="defense">
-                        {{localize "PF2E.Item.Spell.Defense.Label"}}
-                    </div>
+                    <div class="defense">{{localize "PF2E.Item.Spell.Defense.Label"}}</div>
 
-                    <div class="range-uses">
-                        {{~#if entry.isInnate~}}
-                            {{localize "PF2E.SpellUsesLabel"}}
-                        {{~else~}}
-                            {{localize "PF2E.SpellRangeLabel"}}
-                        {{~/if~}}
-                    </div>
+                    {{~#if entry.isInnate~}}
+                        <div class="uses">{{localize "PF2E.SpellUsesLabel"}}</div>
+                    {{~else~}}
+                        <div class="range">{{localize "PF2E.SpellRangeLabel"}}</div>
+                    {{~/if~}}
 
                     {{#if @root.editable}}
                         {{!-- This button will get removed by the stylesheet, and only exists for sizing reasons (localization) --}}
@@ -133,12 +129,9 @@
 
                             <div class="defense">{{spell.defense.label}}</div>
 
-                            <div class="range-uses">
-                                {{!-- Innate spells replace range for uses --}}
-                                {{#if (not entry.isInnate)}}
-                                    {{spell.system.range.value}}
-                                {{else if slot.uses}}
-                                    <div class="uses">
+                            {{#if entry.isInnate}}
+                                <div class="uses">
+                                    {{#if slot.uses}}
                                         <span class="spell-slots-input">
                                             <input
                                                 type="number"
@@ -161,11 +154,13 @@
                                         {{#if @root.editable}}
                                             <a data-action="reset-spell-slots"><i class="fa-solid fa-redo"></i></a>
                                         {{/if}}
-                                    </div>
-                                {{else}}
-                                    {{localize "PF2E.SpellUnlimitedLabel"}}
-                                {{/if}}
-                            </div>
+                                    {{else}}
+                                        <span class="unlimited">&infin;</span>
+                                    {{/if}}
+                                </div>
+                            {{else}}
+                                <div class="range">{{spell.system.range.value}}</div>
+                            {{/if}}
 
                             {{#if @root.editable}}
                                 <button type="button" class="cast-spell blue" data-action="cast-spell">{{localize "PF2E.Item.Spell.Cast"}}</button>

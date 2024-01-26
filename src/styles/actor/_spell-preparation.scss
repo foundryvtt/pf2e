@@ -7,10 +7,10 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: 0.25rem;
+        padding: var(--space-4);
     }
 
-    .sheet-header {
+    form > header {
         align-items: baseline;
         display: block;
         flex: 0;
@@ -19,11 +19,12 @@
         h1 {
             display: flex;
             flex: 1;
-            overflow: hidden;
             font-family: var(--serif-condensed);
             font-weight: 700;
-            white-space: nowrap;
             justify-content: space-between;
+            overflow: hidden;
+            padding-right: var(--space-4);
+            white-space: nowrap;
         }
 
         p.hint {
@@ -39,46 +40,58 @@
     .sheet-content {
         display: flex;
         overflow: hidden scroll;
-        padding-bottom: 1em;
-        padding-right: 0.25em; // easier resize gripping
+        padding: 0 var(--space-3) 1em 0; // easier resize gripping
 
         ol.spell-list {
             height: fit-content;
-        }
 
-        ol.spell-list > li {
-            grid-template-columns: 1fr 3.75rem 4rem 3rem;
+            > li {
+                --cast-spell-width: 1.5rem;
+                --controls-width: 2.25rem;
 
-            .item-name .item-image {
-                display: flex;
-                flex: 0 0 1.5rem;
-                height: 1.5rem;
-                position: relative;
-
-                i {
-                    align-items: center;
-                    background: #f1eee9;
-                    border-radius: 2px;
-                    box-shadow:
-                        0 0 0 1px var(--tertiary),
-                        0 0 0 2px rgba(#9f725b, 0.65),
-                        inset 0 0 4px rgba(0, 0, 0, 0.5);
-                    color: var(--text-dark);
-                    display: none;
-                    font-size: var(--font-size-16);
-                    height: 100%;
-                    justify-content: center;
-                    position: absolute;
-                    width: 100%;
-                }
-
-                &:hover {
-                    text-shadow: none;
+                .item-name .item-image {
+                    display: flex;
+                    flex: 0 0 1.5rem;
+                    height: 1.5rem;
+                    position: relative;
 
                     i {
-                        display: flex;
+                        align-items: center;
+                        background: #f1eee9;
+                        border-radius: 2px;
+                        box-shadow:
+                            0 0 0 1px var(--tertiary),
+                            0 0 0 2px rgba(#9f725b, 0.65),
+                            inset 0 0 4px rgba(0, 0, 0, 0.5);
+                        color: var(--text-dark);
+                        display: none;
+                        font-size: var(--font-size-16);
+                        height: 100%;
+                        justify-content: center;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        text-shadow: none;
+
+                        i {
+                            display: flex;
+                        }
                     }
                 }
+
+                .cast-spell {
+                    justify-content: center;
+
+                    input {
+                        margin: 0;
+                    }
+                }
+            }
+
+            &:not(.flexible) > li {
+                --cast-spell-width: 0;
             }
         }
     }
