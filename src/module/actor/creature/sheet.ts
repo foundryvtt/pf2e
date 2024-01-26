@@ -270,7 +270,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 throw ErrorPF2e("Invalid number of hands specified");
             }
 
-            const inSlot = menuOption.dataset.inSlot !== undefined;
+            const inSlot = "inSlot" in menuOption.dataset;
             const current = item.system.equipped;
             if (
                 carryType !== current.carryType ||
