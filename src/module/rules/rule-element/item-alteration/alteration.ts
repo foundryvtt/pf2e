@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { PersistentSourceData } from "@item/condition/data.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import { itemIsOfType, reduceItemName } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { isObject, objectHasKey } from "@util";
@@ -169,7 +169,10 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 if (!(data.item instanceof ItemPF2e)) return;
-                data.item.system.description.addenda.push({ label: this.rule.label, content: data.alteration.value });
+                data.item.system.description.addenda.push({
+                    label: reduceItemName(this.rule.label),
+                    content: data.alteration.value,
+                });
                 return;
             }
             case "dex-cap": {
