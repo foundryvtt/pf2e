@@ -210,7 +210,7 @@ class CombatantPF2e<
     override _getInitiativeFormula(): string {
         const actor = this.actor;
         const modifier = actor?.initiative?.mod ?? actor?.perception?.mod ?? 0;
-        return modifier < 0 ? `1d20${modifier}` : `1d20+${modifier}`;
+        return modifier < 0 ? `3d6${modifier}` : `3d6+${modifier}`;
     }
 
     /** Toggle the visibility of names to players */

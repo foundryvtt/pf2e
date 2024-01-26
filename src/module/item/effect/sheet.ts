@@ -33,7 +33,7 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         htmlQuery(html, "[data-action=badge-add]")?.addEventListener("click", () => {
             const type = htmlQuery<HTMLSelectElement>(html, ".badge-type")?.value;
             const badge: EffectBadgeSource =
-                type === "formula" ? { type: "formula", value: "1d20", evaluate: true } : { type: "counter", value: 1 };
+                type === "formula" ? { type: "formula", value: "3d6", evaluate: true } : { type: "counter", value: 1 };
             this.item.update({ system: { badge } });
         });
 
