@@ -101,6 +101,28 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "oracular-curse:stage:{item|badge.value}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:badge:value",
+                            2
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.OracleCurses.Life.DescriptionModerate"
+                    }
+                ]
             }
         ],
         "start": {
