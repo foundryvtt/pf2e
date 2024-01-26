@@ -26,7 +26,7 @@
         },
         "rules": [
             {
-                "domain": "all",
+                "domain": "spell-healing",
                 "key": "RollOption",
                 "option": "divine-infusion",
                 "placement": "spellcasting",
@@ -40,6 +40,12 @@
                         "or": [
                             "item:slug:harm",
                             "item:slug:heal"
+                        ]
+                    },
+                    {
+                        "lt": [
+                            "item:cast:actions",
+                            3
                         ]
                     }
                 ],
