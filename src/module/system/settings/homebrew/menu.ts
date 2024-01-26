@@ -142,6 +142,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                     uncommon: [...LANGUAGES_BY_RARITY.uncommon],
                     rare: [...LANGUAGES_BY_RARITY.rare],
                     secret: [...LANGUAGES_BY_RARITY.secret],
+                    unavailable: [],
                 },
                 onChange: () => {
                     const languageSelector = Object.values(ui.windows).find((a) => a instanceof LanguageSelector);
@@ -533,7 +534,7 @@ class LanguagesManager {
         const homebrewLanguages = this.menu.cache.languages;
         return {
             commonLanguage: data.commonLanguage,
-            ...R.mapToObj(LANGUAGE_RARITIES, (r) => [
+            ...R.mapToObj([...LANGUAGE_RARITIES, "unavailable"] as const, (r) => [
                 r,
                 data[r]
                     .map((slug) => {
@@ -573,11 +574,13 @@ class LanguagesManager {
 
         const rarities: readonly string[] = LANGUAGE_RARITIES;
         const localize = localizer("PF2E.SETTINGS.Homebrew.Languages.Rarities");
-        for (const raritySection of htmlQueryAll(html, ".form-group.language-rarities")) {
-            const rarity = Array.from(raritySection.classList).find((c) => rarities.includes(c)) ?? "common";
+        for (const raritySection of htmlQueryAll(html, ".form-group.language-rarity")) {
+            const rarity = Array.from(raritySection.classList).find((c) => rarities.includes(c)) ?? "unavailable";
+            if (rarity === "unavailable") continue;
             const labelEl = raritySection.querySelector("label");
             if (!labelEl) throw ErrorPF2e("");
-            labelEl.innerHTML = localize(`${sluggify(rarity, { camel: "bactrian" })}Languages`);
+
+            labelEl.innerHTML = localize(sluggify(rarity, { camel: "bactrian" }));
             game.pf2e.TextEditor.convertXMLNode(labelEl, "rarity", { classes: ["tag", "rarity", rarity] });
         }
     }
@@ -600,8 +603,10 @@ class LanguagesManager {
         const commonLanguageSelect = htmlQuery<HTMLSelectElement>(this.menu.form, "select[data-common-language]");
         if (!commonLanguageSelect) throw ErrorPF2e("Unexpected error updating menu");
 
+        const rarities = ["uncommon", "rare", "secret", "unavailable"] as const;
+
         if (newRarity === "common") {
-            for (const rarity of ["uncommon", "rare", "secret"] as const) {
+            for (const rarity of rarities) {
                 source[rarity].findSplice((l) => l === language);
             }
             // Add `commonLanguageOption` without full re-render
@@ -610,10 +615,10 @@ class LanguagesManager {
             newOption.textContent = droppedEl.textContent;
             commonLanguageSelect.append(newOption);
         } else {
-            if (!tupleHasValue(["uncommon", "rare", "secret"], newRarity)) {
+            if (!tupleHasValue(rarities, newRarity)) {
                 throw ErrorPF2e("Unexpected update to language rarities");
             }
-            for (const rarity of ["uncommon", "rare", "secret"] as const) {
+            for (const rarity of rarities) {
                 source[rarity].findSplice((l) => l === language);
             }
             source[newRarity].push(language);
@@ -648,7 +653,7 @@ class LanguagesManager {
             render = true;
         }
 
-        for (const rarity of ["uncommon", "rare", "secret"] as const) {
+        for (const rarity of ["uncommon", "rare", "secret", "unavailable"] as const) {
             for (const language of source[rarity]) {
                 if (!languageSet.has(language) && !updatedLanguages.includes(language)) {
                     source[rarity].findSplice((l) => l === language);

@@ -50,47 +50,56 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             (g) => [g.slug, g.source],
         );
 
+        const languagesByRarity = game.settings.get("pf2e", "homebrew.languageRarities");
+
+        for (const language of languagesByRarity.unavailable) {
+            delete sheetData.choices[language];
+        }
+
+        const choices = R.mapValues(sheetData.choices, (data, key): ChoiceData => {
+            const slug = key as Language;
+            const rarityLocKeys = { ...CONFIG.PF2E.rarityTraits, secret: "PF2E.TraitSecret" };
+            const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [
+                r,
+                { slug: r, label: game.i18n.localize(rarityLocKeys[r]) },
+            ]);
+
+            // Disable checkboxes for manually-added languages granted by items so that they'll be cleared on save
+            if (
+                data.selected &&
+                !data.disabled &&
+                actor?.isOfType("character") &&
+                actor.system.build.languages.granted.some((g) => g.slug === key)
+            ) {
+                data.disabled = true;
+            }
+
+            const rarity = ((): { slug: string; label: string } => {
+                if (slug === "common") {
+                    if (languagesByRarity.commonLanguage) {
+                        const commonLanguage = game.i18n.localize(
+                            CONFIG.PF2E.languages[languagesByRarity.commonLanguage],
+                        );
+                        const locKey = "PF2E.Actor.Creature.Language.CommonLanguage";
+                        data.label = game.i18n.format(locKey, { language: commonLanguage });
+                    }
+                    return tags.common;
+                }
+                if (languagesByRarity.uncommon.has(slug)) return tags.uncommon;
+                if (languagesByRarity.rare.has(slug)) return tags.rare;
+                if (languagesByRarity.secret.has(slug)) return tags.secret;
+                return tags.common;
+            })();
+            const source = grantedLanguageSources[slug] ?? null;
+
+            return { ...data, rarity, source };
+        });
+
         return {
             ...sheetData,
             hasRarity: true,
             details,
-            choices: R.mapValues(sheetData.choices, (data, key): ChoiceData => {
-                const slug = key as Language;
-                const rarities = game.settings.get("pf2e", "homebrew.languageRarities");
-                const rarityLocKeys = { ...CONFIG.PF2E.rarityTraits, secret: "PF2E.TraitSecret" };
-                const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [
-                    r,
-                    { slug: r, label: game.i18n.localize(rarityLocKeys[r]) },
-                ]);
-
-                // Disable checkboxes for manually-added languages granted by items so that they'll be cleared on save
-                if (
-                    data.selected &&
-                    !data.disabled &&
-                    actor?.isOfType("character") &&
-                    actor.system.build.languages.granted.some((g) => g.slug === key)
-                ) {
-                    data.disabled = true;
-                }
-
-                const rarity = ((): { slug: string; label: string } => {
-                    if (slug === "common") {
-                        if (rarities.commonLanguage) {
-                            const commonLanguage = game.i18n.localize(CONFIG.PF2E.languages[rarities.commonLanguage]);
-                            const locKey = "PF2E.Actor.Creature.Language.CommonLanguage";
-                            data.label = game.i18n.format(locKey, { language: commonLanguage });
-                        }
-                        return tags.common;
-                    }
-                    if (rarities.uncommon.has(slug)) return tags.uncommon;
-                    if (rarities.rare.has(slug)) return tags.rare;
-                    if (rarities.secret.has(slug)) return tags.secret;
-                    return tags.common;
-                })();
-                const source = grantedLanguageSources[slug] ?? null;
-
-                return { ...data, rarity, source };
-            }),
+            choices,
         };
     }
 
