@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { InventoryBulk } from "@actor/inventory/index.ts";
-import { ContainerPF2e, PhysicalItemPF2e } from "@item";
+import { PhysicalItemPF2e } from "@item";
 import { Coins } from "@item/physical/data.ts";
 import { RollOptionToggle } from "@module/rules/synthetics.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
@@ -40,7 +40,6 @@ export interface SheetInventory {
     bulk: InventoryBulk;
     showValueAlways: boolean;
     showUnitBulkPrice: boolean;
-    containers: ContainerPF2e[];
     invested?: { value: number; max: number } | null;
 }
 
