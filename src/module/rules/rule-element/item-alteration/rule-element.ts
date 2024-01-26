@@ -44,7 +44,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     override onApplyActiveEffects(): void {
-        this.#applyAlteration();
+        this.applyAlteration();
     }
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
@@ -52,7 +52,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
         // Apply feature/feature alterations during pre-creation to possibly inform subsequent REs like choice sets
         if (this.itemType === "feat") {
-            this.#applyAlteration(tempItems);
+            this.applyAlteration({ additionalItems: tempItems });
         }
 
         // If this RE alters max HP, proportionally adjust current HP of items it would match against
@@ -82,7 +82,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         }
     }
 
-    #applyAlteration(additionalItems: ItemPF2e<ActorPF2e>[] = []): void {
+    applyAlteration({ singleItem = null, additionalItems = [] }: ApplyAlterationOptions = {}): void {
         // Predicate testing is done per item among specified item type
         if (this.ignored) return;
 
@@ -90,11 +90,15 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         const actorRollOptions = predicate.length > 0 ? this.actor.getRollOptions() : [];
         const parentRollOptions = this.parent.getRollOptions("parent");
         try {
-            const items: ItemPF2e<ActorPF2e>[] = this.itemId
-                ? R.compact([this.actor.items.get(this.resolveInjectedProperties(this.itemId))])
-                : this.itemType === "condition"
-                  ? this.actor.conditions.contents
-                  : this.actor.itemTypes[this.itemType!];
+            const items = ((): ItemPF2e<ActorPF2e>[] => {
+                const itemId = this.resolveInjectedProperties(this.itemId);
+                if (singleItem) return this.itemType === singleItem.type ? [singleItem] : [];
+                return itemId
+                    ? R.compact([this.actor.items.get(itemId)])
+                    : this.itemType === "condition"
+                      ? this.actor.conditions.contents
+                      : this.actor.itemTypes[this.itemType!];
+            })();
             items.push(
                 ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );
@@ -125,5 +129,11 @@ type ItemAlterationRuleSchema = RuleElementSchema &
         /** As an alternative to specifying item types, an exact item ID can be provided */
         itemId: StringField<string, string, false, false, false>;
     };
+
+interface ApplyAlterationOptions {
+    /** A single item to on which to run alterations instead of all qualifying items owned by the actor */
+    singleItem?: ItemPF2e<ActorPF2e> | null;
+    additionalItems?: ItemPF2e<ActorPF2e>[];
+}
 
 export { ItemAlterationRuleElement };
