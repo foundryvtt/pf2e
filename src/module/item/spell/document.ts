@@ -19,6 +19,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
+import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -436,8 +437,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 }
             }
 
-            let source = this.toObject();
-
             const overlayTypes = overlays.map((overlay) => overlay.data.overlayType);
             if (overlayTypes.filter((type) => type === "override").length > 1) {
                 throw ErrorPF2e(
@@ -445,6 +444,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 );
             }
 
+            let source = this.toObject();
             for (const { id, data } of overlays) {
                 switch (data.overlayType) {
                     case "override": {
@@ -460,7 +460,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
 
             for (const overlay of heightenOverlays) {
-                fu.mergeObject(source.system, overlay.system);
+                source.system = fu.mergeObject(source.system, overlay.system);
             }
 
             // Set the spell as heightened if necessary (either up or down)
@@ -480,11 +480,18 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             overrides.system.location.value = options.entryId;
         }
 
-        const variant = new SpellPF2e(overrides, { parent: this.actor, fromConsumable: this.isFromConsumable });
+        const actor = this.parent;
+        const variant = new SpellPF2e(overrides, { parent: actor, fromConsumable: this.isFromConsumable });
         variant.original = this;
         variant.appliedOverlays = appliedOverlays;
-        // Retrieve tradition since `#prepareSiblingData` isn't run:
         variant.system.traits.value = Array.from(variant.traits);
+
+        // Run some additional preparation since this spell exists outside the normal data-preparation cycle
+        const rules = actor?.rules ?? [];
+        for (const alteration of rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration")) {
+            alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
+        }
+
         processSanctification(variant);
 
         return variant;
