@@ -1,6 +1,8 @@
+import type { CharacterPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { SlugField } from "@system/schema-data-fields.ts";
+import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
+import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { setHasElement, tupleHasValue } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -10,7 +12,7 @@ import type { RuleElementSchema } from "./data.ts";
 /** Create a special-purpose statistic for use in checks and as a DC */
 class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
     static override defineSchema(): StatisticRESchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             slug: new SlugField({
@@ -39,6 +41,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
                 nullable: true,
                 initial: null,
             }),
+            itemCasting: new PredicateField({ required: false, nullable: true, initial: null }),
         };
     }
 
@@ -46,10 +49,13 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
         if (this.type === "simple") return;
 
         const checkDomains = this.type === "check" ? [`${this.slug}-check`] : [`${this.slug}-attack-roll`];
-        const extendedFrom = this.extends ? this.actor.getStatistic(this.extends) : null;
+        const extendedFrom = this.extends
+            ? this.actor.getStatistic(this.extends) ?? this.actor.synthetics.statistics.get(this.extends) ?? null
+            : null;
+        const label = this.itemCasting ? extendedFrom?.label ?? this.label : this.label;
         const data: StatisticData = {
             slug: this.slug,
-            label: this.label,
+            label,
             attribute: this.attribute ?? extendedFrom?.attribute ?? null,
             domains: [this.slug],
             check: { type: this.type === "check" ? "check" : "attack-roll", domains: checkDomains },
@@ -59,6 +65,18 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
         const statistic = extendedFrom?.extend(data) ?? new Statistic(this.actor, data);
         if (statistic) {
             this.actor.synthetics.statistics.set(this.slug, statistic);
+            if (this.itemCasting) {
+                this.actor.spellcasting.set(
+                    this.slug,
+                    new ItemSpellcasting({
+                        id: this.slug,
+                        name: this.label,
+                        actor: this.actor,
+                        statistic,
+                        castPredicate: this.itemCasting,
+                    }),
+                );
+            }
         } else {
             this.failValidation(`Unable to find statistic ${this.extends} to extend from`);
         }
@@ -69,12 +87,15 @@ interface SpecialStatisticRuleElement
     extends RuleElementPF2e<StatisticRESchema>,
         Omit<ModelPropsFromSchema<StatisticRESchema>, "label"> {
     slug: string;
+
+    get actor(): CharacterPF2e;
 }
 
 type StatisticRESchema = RuleElementSchema & {
     type: StringField<StatisticType, StatisticType, true, false, true>;
     extends: StringField<string, string, true, true, true>;
     attribute: StringField<AttributeString, AttributeString, false, true, true>;
+    itemCasting: PredicateField<false, true, true>;
 };
 
 type StatisticType = "simple" | "check" | "attack-roll";

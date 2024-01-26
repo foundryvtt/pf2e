@@ -27,6 +27,8 @@ interface RollParameters {
     callback?: (roll: Rolled<Roll>) => void;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
+    /** Whether to create a message from the roll */
+    createMessage?: boolean;
 }
 
 interface AttackRollParams extends RollParameters {

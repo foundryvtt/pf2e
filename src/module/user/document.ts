@@ -40,7 +40,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
         if (!canvas.ready || canvas.tokens.controlled.length === 0) {
             return R.compact([game.user.character?.getActiveTokens(true, true).shift()]);
         }
-        return canvas.tokens.controlled.map((t) => t.document);
+        return canvas.tokens.controlled.filter((t) => t.isOwner).map((t) => t.document);
     }
 
     /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */

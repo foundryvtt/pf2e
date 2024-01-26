@@ -11,7 +11,8 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static readonly searchEngine = new MiniSearch<CompendiumIndexData>({
         fields: ["name"],
         idField: "uuid",
-        processTerm: (t) => (t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        processTerm: (t) =>
+            t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "") : null,
         searchOptions: { combineWith: "AND", prefix: true },
         storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
     });

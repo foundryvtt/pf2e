@@ -73,13 +73,11 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
     protected override _initialize(options?: Record<string, unknown>): void {
         super._initialize(options);
 
+        const nonCommonLanguages = new Set([...this.uncommon, ...this.rare, ...this.secret, ...this.unavailable]);
         this.common = new Set(
             R.keys
                 .strict(CONFIG.PF2E.languages)
-                .filter(
-                    (l): l is LanguageNotCommon =>
-                        l !== "common" && !this.uncommon.has(l) && !this.rare.has(l) && !this.secret.has(l),
-                ),
+                .filter((l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l)),
         );
     }
 
@@ -107,7 +105,7 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
             uncommon: languageSetField([...LANGUAGES_BY_RARITY.uncommon]),
             rare: languageSetField([...LANGUAGES_BY_RARITY.rare]),
             secret: languageSetField([...LANGUAGES_BY_RARITY.secret]),
-            hidden: languageSetField([]),
+            unavailable: languageSetField([]),
         };
     }
 
@@ -123,7 +121,7 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
     /** Schema-restricting choices removes homebrew languages before they're registered: prune in ready hook instead. */
     onReady(): void {
         const source = this._source;
-        for (const rarity of LANGUAGE_RARITIES) {
+        for (const rarity of [...LANGUAGE_RARITIES, "unavailable"] as const) {
             if (rarity === "common") continue;
             source[rarity] = source[rarity].filter((l) => l in CONFIG.PF2E.languages);
         }
@@ -144,8 +142,8 @@ type LanguageRaritiesSchema = {
     rare: LanguageSetField;
     /** "Secret" languages (Wildsong) */
     secret: LanguageSetField;
-    /** Languages hidden from player view in the language selector */
-    hidden: LanguageSetField;
+    /** Languages not available for use on any creature */
+    unavailable: LanguageSetField;
 };
 
 type LanguageSetField = SetField<

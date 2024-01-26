@@ -153,7 +153,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override prepareActorData(): void {
-        if (!this.actor?.isOfType("npc")) return;
+        const actor = this.actor;
+        if (!actor?.isOfType("npc")) return;
 
         // Normalize damage instance formulas and add elite/weak adjustments
         const damageInstances = Object.values(this.system.damageRolls);
@@ -166,13 +167,22 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 instance.damage = "1d4";
             }
 
-            const { isElite, isWeak } = this.actor;
+            const { isElite, isWeak } = actor;
             if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
                 const adjustment = isElite ? 2 : -2;
                 instance.damage = simplifyFormula(`${instance.damage} + ${adjustment}`);
             } else {
                 instance.damage = new Roll(instance.damage)._formula;
             }
+        }
+
+        // Adjust the NPC's reach if this attack has a reach treat
+        const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
+        const attackReach = Number(reachTrait?.replace(/^reach-/, "") ?? NaN);
+        if (Number.isInteger(attackReach)) {
+            const reach = actor.system.attributes.reach;
+            reach.base = attackReach > 0 ? Math.max(attackReach, reach.base) : 0;
+            reach.manipulate = reach.base;
         }
     }
 

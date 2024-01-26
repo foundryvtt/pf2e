@@ -56,8 +56,8 @@
         }
     }
 
-    @import "item-summary";
     @import "inventory";
+    @import "item-summary";
 
     .item-image {
         display: flex;
@@ -164,7 +164,7 @@
 }
 
 .actor.sheet {
-    .crb-style {
+    form.crb-style {
         display: grid;
         grid:
             "sidebar header" 4.625rem
@@ -362,12 +362,13 @@
         /* Navigation */
         @import "nav";
 
-        section.major > header {
+        section.major > header,
+        section.major > .subsection > header {
             border-bottom: 1px solid var(--color-border-divider);
             color: var(--color-pf-primary);
             font: 600 var(--font-size-16) / 1 var(--serif);
             position: relative;
-            margin: var(--space-4) 0 var(--space-8) 0;
+            margin: var(--space-8) 0;
 
             a {
                 color: var(--color-text-dark-primary);
@@ -401,6 +402,17 @@
                 &.has-unallocated {
                     @include requires-user-attention;
                 }
+            }
+        }
+
+        section.major > .subsection {
+            flex-wrap: wrap;
+            margin-bottom: var(--space-12);
+
+            header {
+                display: flex;
+                flex-basis: 100%;
+                margin-top: 0;
             }
         }
 
@@ -438,10 +450,10 @@
 
     &.character {
         @import "character/attack-popout";
-    }
 
-    &.character .crb-style {
-        @import "character";
+        .crb-style {
+            @import "character";
+        }
     }
 
     &.vehicle .crb-style {

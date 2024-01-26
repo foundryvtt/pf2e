@@ -7,7 +7,7 @@
         "bulk": {
             "value": 0
         },
-        "containerId": "null",
+        "containerId": null,
         "description": {
             "value": "<p>This obsidian ring allows you to partially warp your spells through the Shadow Plane, allowing them to strike directly at a target's body.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">f</span> (concentrate, spellshape)</p>\n<hr />\n<p><strong>Effect</strong> If your next action is to Cast a Spell that requires a spell attack roll against Armor Class, choose Fortitude DC or Reflex DC. You make your spell attack roll against that defense instead of AC. If the spell has multiple targets, the choice of DC applies to all of them.</p>"
         },
@@ -34,7 +34,52 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "shadow-signet",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.DC.Specific.fortitude",
+                        "value": "fortitude-dc"
+                    },
+                    {
+                        "label": "PF2E.Check.DC.Specific.reflex",
+                        "value": "reflex-dc"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "shadow-signet",
+                    "item:trait:attack",
+                    "item:defense:ac"
+                ],
+                "property": "defense-passive",
+                "value": "{item|flags.pf2e.rulesSelections.shadowSignet}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "shadow-signet",
+                    "item:trait:attack",
+                    {
+                        "or": [
+                            "item:defense:fortitude-dc",
+                            "item:defense:reflex-dc"
+                        ]
+                    }
+                ],
+                "selector": "spell-attack-roll",
+                "text": "PF2E.SpecificRule.ShadowSignet.Note",
+                "title": "{item|name}"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

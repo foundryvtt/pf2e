@@ -56,7 +56,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         if (fromMaster) this.sheet.render();
     }
 
-    /** Set base emphemeral data for later updating by derived-data preparation */
+    /** Set base emphemeral data for later updating by derived-data preparation. */
     override prepareBaseData(): void {
         this.system.details = {
             alliance: null,
@@ -103,6 +103,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             label: CONFIG.PF2E.speedTypes.land,
             otherSpeeds: [],
         };
+
+        system.attributes.reach = { base: 0, manipulate: 0 };
 
         system.skills = {};
 

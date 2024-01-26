@@ -23,7 +23,18 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "self:condition:broken"
+                            }
+                        ],
+                        "type": "fire",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -58,12 +69,6 @@
                 {
                     "type": "object-immunities"
                 }
-            ],
-            "weaknesses": [
-                {
-                    "type": "fire",
-                    "value": 10
-                }
             ]
         },
         "details": {
@@ -74,19 +79,19 @@
                 "value": 6
             },
             "passengers": "6",
-            "pilotingCheck": "Nature (DC 24) or Sailing Lore (DC 22)",
+            "pilotingCheck": "Nature (DC 24), Sailing Lore (DC 22)",
             "price": 750,
             "publication": {
-                "license": "OGL",
-                "remaster": false,
-                "title": "Pathfinder Lost Omens: The Grand Bazaar"
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder GM Core"
             },
             "space": {
                 "high": 20,
                 "long": 30,
                 "wide": 15
             },
-            "speed": "Swim 30 feet (Wind)"
+            "speed": "swim 30 feet (wind)"
         },
         "saves": {
             "fortitude": {

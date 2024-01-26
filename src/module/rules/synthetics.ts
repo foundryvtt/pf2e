@@ -16,7 +16,7 @@ import { Statistic } from "@system/statistic/index.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
-    criticalSpecalizations: {
+    criticalSpecializations: {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
     };

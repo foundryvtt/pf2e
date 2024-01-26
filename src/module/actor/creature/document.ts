@@ -9,6 +9,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
@@ -26,7 +27,6 @@ import * as R from "remeda";
 import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
-import { SIZE_TO_REACH } from "./values.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -354,11 +354,7 @@ abstract class CreaturePF2e<
             }
         }
 
-        // Set minimum reach according to creature size
         const { attributes, rollOptions } = this;
-        const reachFromSize = SIZE_TO_REACH[this.size];
-        attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
-        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
 
         // Add creature-specific self: roll options
         if (this.isSpellcaster) {
@@ -372,13 +368,16 @@ abstract class CreaturePF2e<
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
+        // Start with a baseline reach of 5 feet: melee attacks with reach can adjust it
+        this.system.attributes.reach = { base: 5, manipulate: 5 };
+
         // Set whether the actor's shield is raised
         if (attributes.shield?.raised && !attributes.shield.broken && !attributes.shield.destroyed) {
-            this.rollOptions.all["self:shield:raised"] = true;
+            rollOptions.all["self:shield:raised"] = true;
         }
 
         // Set whether this creature emits sound
-        this.system.attributes.emitsSound = !this.isDead;
+        attributes.emitsSound = !this.isDead;
 
         this.prepareSynthetics();
 
@@ -405,6 +404,11 @@ abstract class CreaturePF2e<
             const { focus } = this.system.resources;
             focus.max = Math.clamped(Math.floor(focus.max), 0, focus.cap) || 0;
             focus.value = Math.clamped(Math.floor(focus.value), 0, focus.max) || 0;
+        }
+
+        // Disallow creatures not in either alliance to flank
+        if (this.system.details.alliance === null) {
+            attributes.flanking.canFlank = false;
         }
 
         imposeEncumberedCondition(this);
@@ -435,6 +439,8 @@ abstract class CreaturePF2e<
                 (c) => c !== item.container && !isContainerCycle(item, c),
             );
             if (container) await item.actor.stowOrUnstow(item, container);
+        } else if (carryType === "attached" && item.quantity > 0) {
+            await new ItemAttacher({ item }).resolveSelection();
         } else {
             const equipped: EquippedData = {
                 carryType: carryType,

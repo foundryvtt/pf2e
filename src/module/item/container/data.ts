@@ -18,6 +18,7 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     bulk: ContainerBulkSource;
     collapsed: boolean;
     usage: { value: string };
+    subitems?: never;
 }
 
 interface ContainerBulkSource {
@@ -29,7 +30,7 @@ interface ContainerBulkSource {
 
 interface ContainerSystemData
     extends Omit<ContainerSystemSource, SourceOmission>,
-        Omit<Investable<PhysicalSystemData>, "traits"> {
+        Omit<Investable<PhysicalSystemData>, "subitems" | "traits"> {
     bulk: ContainerBulkData;
     stackGroup: null;
 }

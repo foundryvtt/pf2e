@@ -26,16 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:perform",
-                    "self:effect:panache"
-                ],
-                "selector": "performance",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.prf.rank",
@@ -55,28 +45,20 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "action:perform",
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "performance",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Battledancer",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    "action:perform"
+                ],
+                "selector": "performance-check"
             }
         ],
         "traits": {

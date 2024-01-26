@@ -1,0 +1,94 @@
+{
+    "_id": "YFAaJntmFK2fPqi5",
+    "img": "icons/equipment/chest/breastplate-layered-steel-green.webp",
+    "name": "Dragon Turtle Armor",
+    "system": {
+        "acBonus": 6,
+        "baseItem": "full-plate",
+        "bulk": {
+            "value": 4
+        },
+        "category": "heavy",
+        "checkPenalty": -3,
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+1 resilient full plate</em> is crafted from the most colorful fragments chipped from scales of a dragon turtle's shell, traditionally incorporating that motif in the form of a thicker, sturdier backplate. While wearing this armor, you aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from creatures that flank you, and you ignore the armor's speed penalty when you Swim and its check penalty to Athletics checks to Swim.</p>"
+        },
+        "dexCap": 0,
+        "group": "plate",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 12
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 2000
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "swim-speed",
+                "slug": "armor-speed-penalty",
+                "suppress": true
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "slug": "armor-check-penalty",
+                "suppress": true
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "resilient": 1
+            }
+        },
+        "speedPenalty": -10,
+        "strength": 4,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "bulwark",
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

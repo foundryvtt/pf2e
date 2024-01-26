@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
@@ -183,10 +184,13 @@ class ElementalBlast {
             const domains = [...statistic.check.domains, "elemental-blast-attack-roll"];
             const options = this.actor.getRollOptions(domains);
 
-            const modifier = statistic.check.mod;
-            const mapsFor = (melee: boolean): { map1: string; map2: string } => {
-                const penalties = calculateMAPs(this.#createModifiedItem({ melee }) ?? item, { domains, options });
+            const mapsFor = (melee: boolean): { map0: string; map1: string; map2: string } => {
+                const modifiedItem = this.#createModifiedItem({ melee }) ?? item;
+                const blastStatistic = this.#createAttackStatistic(statistic, modifiedItem, melee);
+                const modifier = blastStatistic.check.mod;
+                const penalties = calculateMAPs(modifiedItem, { domains, options });
                 return {
+                    map0: signedInteger(modifier),
                     map1: game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
                         value: signedInteger(modifier + penalties.map1),
                         penalty: penalties.map1,
@@ -291,6 +295,23 @@ class ElementalBlast {
         return clone;
     }
 
+    #createAttackStatistic(statistic: Statistic, item: AbilityItemPF2e<ActorPF2e>, melee: boolean): Statistic {
+        const actionSlug = "elemental-blast";
+        const meleeOrRanged = melee ? "melee" : "ranged";
+        return statistic.extend({
+            check: {
+                domains: [`${actionSlug}-attack-roll`],
+                modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
+            },
+            rollOptions: [
+                `action:${actionSlug}`,
+                `action:cost:${this.actionCost}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+            ],
+        });
+    }
+
     /** Make an impulse attack roll as part of an elemental blast. */
     async attack(params: BlastAttackParams): Promise<Rolled<CheckRoll> | null> {
         const { statistic, actionCost } = this;
@@ -321,13 +342,7 @@ class ElementalBlast {
             return null;
         }
 
-        const actionSlug = "elemental-blast";
-        const blastStatistic = statistic.extend({
-            check: {
-                domains: [`${actionSlug}-attack-roll`],
-                modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
-            },
-        });
+        const blastStatistic = this.#createAttackStatistic(statistic, item, params.melee);
         const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
             title: item.name,
             glyph: actionCost.toString(),
@@ -338,7 +353,7 @@ class ElementalBlast {
 
         return blastStatistic.roll({
             identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
-            action: actionSlug,
+            action: "elemental-blast",
             attackNumber: mapIncreases + 1,
             target: targetToken?.actor ?? null,
             token: thisToken?.document ?? null,
@@ -348,12 +363,6 @@ class ElementalBlast {
             melee,
             damaging: true,
             dc: { slug: "ac" },
-            extraRollOptions: [
-                `action:${actionSlug}`,
-                `action:cost:${actionCost}`,
-                meleeOrRanged,
-                `item:${meleeOrRanged}`,
-            ],
             ...eventToRollParams(params.event, { type: "check" }),
         });
     }
@@ -559,8 +568,8 @@ interface ElementalBlastConfig extends Omit<ModelPropsFromSchema<BlastConfigSche
     statistic: Statistic;
     actionCost: 1 | 2;
     maps: {
-        melee: { map1: string; map2: string };
-        ranged: { map1: string; map2: string };
+        melee: { map0: string; map1: string; map2: string };
+        ranged: { map0: string; map1: string; map2: string };
     };
 }
 

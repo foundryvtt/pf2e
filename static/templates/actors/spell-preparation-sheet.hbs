@@ -54,6 +54,10 @@
                             </h3>
                         </div>
 
+                        <div class="defense">
+                            {{localize "PF2E.Item.Spell.Defense.Label"}}
+                        </div>
+
                         <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
                         {{#if @root.editable}}
                             <div class="item-controls">
@@ -89,6 +93,8 @@
                                     {{{actionGlyph spell.system.time.value}}}
                                 </h4>
                             </div>
+
+                            <div class="defense">{{spell.defense.label}}</div>
 
                             <div class="spell-range">{{spell.system.range.value}}</div>
 

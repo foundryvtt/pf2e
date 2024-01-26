@@ -141,6 +141,10 @@ a.content-link {
     &:has(i.fa-sparkles) {
         font-style: italic;
     }
+
+    & > span.fa-stack {
+        width: 1.25em;
+    }
 }
 
 #tooltip a.content-link {
@@ -158,6 +162,11 @@ a.content-link {
 span[data-pf2-action] {
     @include inline-link;
     cursor: pointer;
+
+    &[data-secret] {
+        background: var(--blind-roll);
+        border-color: #720073;
+    }
 
     &[data-pf2-glyph]::before {
         font-family: "Pathfinder2eActions";
@@ -341,7 +350,8 @@ a[href]:hover {
 }
 
 // System theme Foundry tooltips
-#tooltip.pf2e {
+#tooltip.pf2e,
+aside.locked-tooltip.pf2e {
     @include corner-boxes;
     background: rgba(black, 0.9);
     font-size: var(--font-size-14);

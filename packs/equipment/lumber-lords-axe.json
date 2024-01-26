@@ -1,0 +1,129 @@
+{
+    "_id": "QNRa5r2I00YtEoIV",
+    "img": "icons/weapons/axes/axe-battle-black.webp",
+    "name": "Lumber Lord's Axe",
+    "system": {
+        "baseItem": "battle-axe",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "slashing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>This unassuming tool wouldn't look out of place on the belt of an industrious laborer. Grooves worn into the wooden handle over years of use and an irregularly sharpened blade give it the distinct impression of being cherished, and the potent scent of freshly chopped wood always clings to the axe's blade despite any attempt to clean it or remove the odor. A creature that holds or carries this <em>+2 striking cold iron fungus and plant bane battle axe</em> feels an obligation to tell the truth and receives a –4 status penalty to its attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Lie].</p>\n<p><strong>Activate</strong> 1 minute (Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You polish and sharpen the axe, after which its scent grows even more powerful and the axe's blade transforms into your choice of standard-grade adamantine or standard-grade dawnsilver for 1 hour; then after this duration, the woodcutter's axe reverts to cold iron.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Lumber Lord's Axe]</p>"
+        },
+        "group": "axe",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 900
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:effect:lumber-lords-axe"
+                    }
+                ],
+                "property": "materials",
+                "value": "cold-iron"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": -4
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:plant",
+                            "target:trait:fungus"
+                        ]
+                    }
+                ],
+                "selector": "{item|id}-damage"
+            }
+        ],
+        "runes": {
+            "potency": 2,
+            "property": [
+                "bane"
+            ],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 2,
+                "property": [
+                    "bane"
+                ],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "magical",
+                "sweep"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

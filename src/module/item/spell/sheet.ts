@@ -17,7 +17,7 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
+import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import type {
     SpellDamageSource,
     SpellHeighteningInterval,
@@ -74,22 +74,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             }))
             .sort((a, b) => a.sort - b.sort);
 
-        const passiveDefense = ((): string | null => {
-            const statistic = spell.system.defense?.passive?.statistic;
-            switch (statistic) {
-                case "ac":
-                    return "PF2E.Check.DC.Specific.armor";
-                case "fortitude-dc":
-                    return "PF2E.Check.DC.Specific.fortitude";
-                case "reflex-dc":
-                    return "PF2E.Check.DC.Specific.reflex";
-                case "will-dc":
-                    return "PF2E.Check.DC.Specific.will";
-                default:
-                    return null;
-            }
-        })();
-
         const damageKinds = R.mapValues(spell.system.damage, (damage, id) => {
             const healingDisabled = !["vitality", "void", "untyped"].includes(damage.type) || !!damage.category;
             const currentKinds = Array.from(spell.system.damage[id].kinds);
@@ -118,7 +102,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
-            passiveDefense,
+            passiveDefense: getPassiveDefenseLabel(spell.system.defense?.passive?.statistic ?? ""),
             variants,
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),

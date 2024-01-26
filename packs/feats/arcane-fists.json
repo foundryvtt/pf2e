@@ -26,34 +26,20 @@
         },
         "rules": [
             {
-                "baseType": "fist",
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d6"
-                    }
+                "fist": true,
+                "key": "Strike"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
                 },
-                "group": "brawling",
-                "img": "icons/skills/melee/unarmed-punch-fist.webp",
-                "key": "Strike",
-                "label": "PF2E.Strike.Fist.Label",
                 "predicate": [
-                    {
-                        "nor": [
-                            "feature:powerful-fist",
-                            "feat:martial-artist-dedication"
-                        ]
-                    }
+                    "item:category:unarmed",
+                    "item:damage:die:faces:4"
                 ],
-                "range": null,
-                "slug": "fist",
-                "traits": [
-                    "agile",
-                    "finesse",
-                    "nonlethal",
-                    "unarmed"
+                "selector": [
+                    "fist-base-damage"
                 ]
             },
             {
@@ -64,6 +50,18 @@
                 "mode": "add",
                 "property": "weapon-traits",
                 "value": "arcane"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:group:brawling",
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

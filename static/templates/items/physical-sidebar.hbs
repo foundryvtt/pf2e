@@ -1,8 +1,10 @@
 <div class="inventory-details">
-    <div class="form-group quantity">
-        <label for="{{fieldIdPrefix}}quantity">{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="number" name="system.quantity" id="{{fieldIdPrefix}}quantity" value="{{data.quantity}}" />
-    </div>
+    {{#unless item.parentItem}}
+        <div class="form-group quantity">
+            <label for="{{fieldIdPrefix}}quantity">{{localize "PF2E.QuantityLabel"}}</label>
+            <input type="number" name="system.quantity" id="{{fieldIdPrefix}}quantity" value="{{data.quantity}}" />
+        </div>
+    {{/unless}}
 
     {{#if (eq item.type "weapon")}}
         <div class="form-group">
@@ -96,11 +98,34 @@
         </div>
     {{/if}}
 
-    <ol class="item-tags tags">
-        {{#if otherTags}}
-            {{#each otherTags as |tag|}}
-                <li class="tag tag_transparent">{{tag.label}}</li>
-            {{/each}}
-        {{/if}}
-    </ol>
+    {{#if data.subitems}}
+        <div class="form-group subitems">
+            <label>{{localize "PF2E.Item.Physical.Attachments"}}</label>
+            <ul data-subitems>
+                {{#each data.subitems as |subitem|}}
+                    <li data-subitem-id="{{subitem._id}}">
+                        <span class="name"><img src="{{subitem.img}}" /> {{subitem.name}}</span>
+                        <span class="controls">
+                            <a class="detach" data-action="detach-subitem">
+                                <span class="fa-stack fa-fw fa-2xs">
+                                    <i class="fa-solid fa-paperclip fa-stack-2x"></i>
+                                    <i class="fa-solid fa-slash fa-stack-2x"></i>
+                                </span>
+                            </a>
+                            <a data-action="edit-subitem"><i class="fa-solid fa-fw fa-edit"></i></a>
+                            <a data-action="delete-subitem"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        </span>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+
+    {{#if otherTags}}
+        <ol class="item-tags tags">
+                {{#each otherTags as |tag|}}
+                    <li class="tag tag_transparent">{{tag.label}}</li>
+                {{/each}}
+        </ol>
+    {{/if}}
 </div>

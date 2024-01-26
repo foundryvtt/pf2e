@@ -1,0 +1,58 @@
+{
+    "_id": "eecIuD6sGPX0FJcT",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow-teal.webp",
+    "name": "Effect: Divine Infusion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Divine Infusion]</p>\n<p>The target deals additional damage with its melee weapons and unarmed attacks until the end of its next turn. The damage type is void if you cast <em>harm</em> and vitality if you cast <em>heal</em>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "damageType": "vitality",
+                "diceNumber": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "parent:trait:vitality"
+                ],
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "parent:trait:void"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

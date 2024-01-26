@@ -1,5 +1,5 @@
-import { EquipmentTrait } from "@item/equipment/data.ts";
-import {
+import type { EquipmentTrait } from "@item/equipment/data.ts";
+import type {
     BasePhysicalItemSource,
     PhysicalItemTraits,
     PhysicalSystemData,
@@ -14,9 +14,12 @@ interface BookSystemSource extends PhysicalSystemSource {
     category: "formula" | "spell";
     capacity: number;
     contents: ItemUUID[];
+    subitems?: never;
 }
 
-interface BookSystemData extends Omit<BookSystemSource, SourceOmission>, Omit<PhysicalSystemData, "traits"> {}
+interface BookSystemData
+    extends Omit<BookSystemSource, SourceOmission>,
+        Omit<PhysicalSystemData, "subitems" | "traits"> {}
 
 type SourceOmission =
     | "apex"

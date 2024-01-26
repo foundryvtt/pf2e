@@ -26,21 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:effect:panache",
-                    {
-                        "or": [
-                            "action:feint",
-                            "action:create-a-diversion"
-                        ]
-                    }
-                ],
-                "selector": "deception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.dec.rank",
@@ -56,33 +41,25 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    {
-                        "or": [
-                            "action:feint",
-                            "action:create-a-diversion"
-                        ]
-                    },
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "deception",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Fencer",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:create-a-diversion",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

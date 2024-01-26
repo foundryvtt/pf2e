@@ -167,13 +167,13 @@
 
                 .level-name,
                 .item-name {
-                    justify-self: start;
-                    display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    flex-wrap: nowrap;
-                    line-height: 1.5;
+                    display: flex;
                     flex-basis: 50%;
+                    flex-wrap: nowrap;
+                    justify-content: start;
+                    justify-self: start;
+                    line-height: 1.5;
 
                     h3 {
                         white-space: nowrap;
@@ -188,11 +188,11 @@
                     }
 
                     h4 {
-                        @include p-reset;
-                        margin-left: var(--space-8);
-                        line-height: 1;
-                        letter-spacing: -0.075em;
                         font-weight: 500;
+                        letter-spacing: -0.075em;
+                        line-height: 1;
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
 
                         &:hover {
                             color: var(--color-pf-secondary);
@@ -260,6 +260,7 @@
                 min-height: 2em;
 
                 > h4 {
+                    margin: 0;
                     opacity: 0.75;
                 }
 

@@ -159,15 +159,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     get handsFree(): ZeroToTwo {
-        const heldItems = this.inventory.filter((i) => i.isHeld);
-        return Math.clamped(
-            2 - R.sumBy(heldItems, (i) => (i.traits.has("free-hand") ? 0 : i.handsHeld)),
-            0,
-            2,
-        ) as ZeroToTwo;
+        const heldItems = this.inventory.filter((i) => i.isHeld && i.type !== "shield" && !i.traits.has("free-hand"));
+        return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
     }
 
-    /** The number of hands this PC "really" has free: this is, ignoring allowances for the Free Hand trait */
+    /** The number of hands this PC "really" has free, ignoring allowances for shields and the Free-Hand trait */
     get handsReallyFree(): ZeroToTwo {
         const heldItems = this.inventory.filter((i) => i.isHeld);
         return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
@@ -490,6 +486,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         for (const attribute of Object.values(this.system.abilities)) {
             attribute.mod = Math.trunc(attribute.mod) || 0;
+        }
+
+        // Indicate that the strength requirement of this actor's armor is met
+        const strengthRequirement = this.wornArmor?.system.strength;
+        if (typeof strengthRequirement === "number" && this.system.abilities.str.mod >= strengthRequirement) {
+            for (const selector of ["dex-skill-check", "str-skill-check"]) {
+                const rollOptions = (this.rollOptions[selector] ??= {});
+                rollOptions["armor:strength-requirement-met"] = true;
+            }
         }
 
         const build = this.system.build;
@@ -897,15 +902,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ];
             const modifiers: ModifierPF2e[] = [];
 
-            // Indicate that the strength requirement of this actor's armor is met
-            const strengthRequirement = wornArmor?.strength;
-            if (typeof strengthRequirement === "number" && system.abilities.str.mod >= strengthRequirement) {
-                for (const selector of ["skill-check", "initiative"]) {
-                    const rollOptions = (this.rollOptions[selector] ??= {});
-                    rollOptions["armor:strength-requirement-met"] = true;
-                }
-            }
-
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
                 const slug = "armor-check-penalty";
                 const armorCheckPenalty = new ModifierPF2e({
@@ -1147,13 +1143,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 this.itemTypes.shield
                     .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                     .map((s) => s.generateWeapon()),
+                this.inventory.flatMap((i) =>
+                    i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+                ),
             ].flat(),
         ) as WeaponPF2e<this>[];
 
-        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and finally
-        // move all readied strikes to beginning
+        // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and then move
+        // all readied strikes to beginning
         const handsReallyFree = this.handsReallyFree;
-        return weapons
+        const strikes = weapons
             .map((w) => this.prepareStrike(w, { categories: offensiveCategories, handsReallyFree, ammos }))
             .sort((a, b) =>
                 a.label
@@ -1164,6 +1163,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .sort((a, b) => (a.slug === "basic-unarmed" ? 1 : b.slug === "basic-unarmed" ? -1 : 0))
             .sort((a, b) => (a.item.isHeld === b.item.isHeld ? 0 : a.item.isHeld ? -1 : 1))
             .sort((a, b) => (a.ready === b.ready ? 0 : a.ready ? -1 : 1));
+
+        // Finally, position subitem weapons directly below their parents
+        for (const subitemStrike of strikes.filter((s) => s.item.parentItem)) {
+            const subitem = subitemStrike.item;
+            const parentStrike = strikes.find((s) => (s.item.shield ?? s.item) === subitem.parentItem);
+            if (parentStrike) {
+                strikes.splice(strikes.indexOf(subitemStrike), 1);
+                strikes.splice(strikes.indexOf(parentStrike) + 1, 0, subitemStrike);
+            }
+        }
+
+        return strikes;
     }
 
     /** Prepare a strike action from a weapon */
@@ -1296,9 +1307,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (weapon.system.traits.toggles.modular.options.length > 0) {
             auxiliaryActions.push(new WeaponAuxiliaryAction({ weapon, action: "interact", annotation: "modular" }));
         }
-        if (isRealItem && weapon.category !== "unarmed") {
+        if (isRealItem && weapon.category !== "unarmed" && !weapon.parentItem) {
             const traitsArray = weapon.system.traits.value;
-            const { usage } = weapon.system;
+            const usage = weapon.system.usage;
             const weaponAsShield = weapon.shield;
             const canWield2H =
                 usage.hands === 2 ||
@@ -1580,6 +1591,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     substitutions,
                     dosAdjustments,
                     mapIncreases: mapIncreases as ZeroToTwo,
+                    createMessage: params.createMessage ?? true,
                 };
 
                 if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
@@ -1643,6 +1655,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     options,
                     domains,
                     traits: context.traits,
+                    createMessage: params.createMessage ?? true,
                     ...eventToRollParams(params.event, { type: "damage" }),
                 };
 

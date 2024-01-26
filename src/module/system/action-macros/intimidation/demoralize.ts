@@ -33,6 +33,7 @@ function demoralize(options: SkillActionOptions): void {
 }
 
 const action = new SingleCheckAction({
+    cost: 1,
     description: "PF2E.Actions.Demoralize.Description",
     difficultyClass: "will",
     modifiers: [

@@ -10,12 +10,7 @@ import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
-import {
-    SpellcastingCategory,
-    SpellcastingEntry,
-    SpellcastingEntryPF2eCastOptions,
-    SpellcastingSheetData,
-} from "./types.ts";
+import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -80,6 +75,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     /** Ritual spellcasting is handled separately */
     get isRitual(): false {
+        return false;
+    }
+
+    get isEphemeral(): false {
         return false;
     }
 
@@ -224,7 +223,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         return this.actor?.itemTypes.spell.filter((i) => i.system.location.value === this.id) ?? [];
     }
 
-    /** Returns if the spell is valid to cast by this spellcasting entry */
+    /** Whether the spell is valid to cast by this spellcasting entry */
     canCast(spell: SpellPF2e, { origin }: { origin?: PhysicalItemPF2e } = {}): boolean {
         // For certain collection-less modes, the spell must come from an item
         if (this.system.prepared.value === "items") {
@@ -249,13 +248,14 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         return matchesTradition || isInSpellList;
     }
 
-    /** Casts the given spell as if it was part of this spellcasting entry */
-    async cast(spell: SpellPF2e<ActorPF2e>, options: SpellcastingEntryPF2eCastOptions = {}): Promise<void> {
+    /** Cast the given spell as if it was part of this spellcasting entry. */
+    async cast(spell: SpellPF2e<ActorPF2e>, options: CastOptions = {}): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const rank = options.rank ?? spell.rank;
         const valid = !consume || spell.atWill || (await this.consume(spell, rank, options.slotId));
         if (message && valid) {
+            spell.system.location.value ??= this.id;
             const castRank = spell.computeCastRank(rank);
             await spell.toMessage(null, { rollMode: options.rollMode, data: { castRank } });
         }
@@ -380,7 +380,8 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             isFlexible: this.isFlexible,
             isInnate: this.isInnate,
             isFocusPool: this.isFocusPool,
-            isRitual: this.isRitual,
+            isRitual: false,
+            isEphemeral: false,
             hasCollection: !!this.spells,
             usesSpellProficiency: !this.system.proficiency.slug,
             showSlotlessRanks: this.showSlotlessRanks,

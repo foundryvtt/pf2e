@@ -277,7 +277,7 @@ class WeaponDamagePF2e {
         const critSpecEffect = ((): CritSpecEffect => {
             // If an alternate critical specialization effect is available, apply it only if there is also a
             // qualifying non-alternate
-            const critSpecs = actor.synthetics.criticalSpecalizations;
+            const critSpecs = actor.synthetics.criticalSpecializations;
             const standard = critSpecs.standard.reduceRight(
                 (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
                 null,
@@ -361,6 +361,26 @@ class WeaponDamagePF2e {
                     critical: true,
                     enabled: true,
                     override: { dieSize },
+                }),
+            );
+        }
+
+        // Forceful trait
+        if (weaponTraits.some((t) => t === "forceful") && weapon.isOfType("weapon")) {
+            modifiers.push(
+                new ModifierPF2e({
+                    slug: "forceful-second",
+                    label: "PF2E.Item.Weapon.Forceful.Second",
+                    modifier: weapon._source.system.damage.dice + strikingDice,
+                    type: "circumstance",
+                    ignored: true,
+                }),
+                new ModifierPF2e({
+                    slug: "forceful-third",
+                    label: "PF2E.Item.Weapon.Forceful.Third",
+                    modifier: 2 * (weapon._source.system.damage.dice + strikingDice),
+                    type: "circumstance",
+                    ignored: true,
                 }),
             );
         }

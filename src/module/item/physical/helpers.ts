@@ -1,14 +1,14 @@
 import { ActorProxyPF2e } from "@actor";
-import type { ContainerPF2e } from "@item";
+import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ContainerBulkData } from "@item/container/data.ts";
 import { REINFORCING_RUNE_LOC_PATHS } from "@item/shield/values.ts";
 import { Rarity } from "@module/data.ts";
+import { ErrorPF2e, createHTMLElement, localizer } from "@util";
 import * as R from "remeda";
 import { Bulk, STACK_DEFINITIONS } from "./bulk.ts";
 import { CoinsPF2e } from "./coins.ts";
 import { BulkData } from "./data.ts";
-import type { PhysicalItemPF2e } from "./document.ts";
 import { getMaterialValuationData } from "./materials.ts";
 import { RUNE_DATA, getRuneValuationData } from "./runes.ts";
 
@@ -22,7 +22,8 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const materialData = getMaterialValuationData(item);
     const materialPrice = materialData?.price ?? 0;
     const heldOrStowedBulk = new Bulk(item.system.bulk.heldOrStowed);
-    const bulk = Math.max(heldOrStowedBulk.normal, 1);
+    // Shield prices don't vary by bulk
+    const bulk = item.isOfType("shield") ? 0 : Math.max(heldOrStowedBulk.normal, 1);
     const materialValue = item.isSpecific ? 0 : materialPrice + (bulk * materialPrice) / 10;
 
     const runesData = getRuneValuationData(item);
@@ -35,9 +36,9 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;
     const afterMaterialAndRunes = runeValue
         ? new CoinsPF2e({ gp: runeValue + materialValue })
-        : basePrice.add({ gp: materialValue });
+        : basePrice.plus({ gp: materialValue });
     const higher = afterMaterialAndRunes.copperValue > basePrice.copperValue ? afterMaterialAndRunes : basePrice;
-    const afterReinforcingRune = higher.add(new CoinsPF2e({ gp: reinforcingRuneValue }));
+    const afterReinforcingRune = higher.plus(new CoinsPF2e({ gp: reinforcingRuneValue }));
     const afterShoddy = item.isShoddy ? afterReinforcingRune.scale(0.5) : afterReinforcingRune;
 
     /** Increase the price if it is larger than medium and not magical. */
@@ -215,5 +216,44 @@ function prepareBulkData(item: PhysicalItemPF2e): BulkData | ContainerBulkData {
         : data;
 }
 
+/**
+ * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
+ * quantity of aan existing stack.
+ */
+async function detachSubitem(subitem: PhysicalItemPF2e, skipConfirm: boolean): Promise<void> {
+    const parentItem = subitem.parentItem;
+    if (!parentItem) throw ErrorPF2e("Subitem has no parent item");
+
+    const localize = localizer("PF2E.Item.Physical.Attach.Detach");
+    const confirmed =
+        skipConfirm ||
+        (await Dialog.confirm({
+            title: localize("Label"),
+            content: createHTMLElement("p", { children: [localize("Prompt", { attachable: subitem.name })] }).outerHTML,
+        }));
+
+    if (confirmed) {
+        const deletePromise = subitem.delete();
+        const createPromise = (async (): Promise<unknown> => {
+            // Find a stack match, cloning the subitem as worn so the search won't fail due to it being equipped
+            const stack = parentItem.actor?.inventory.findStackableItem(
+                subitem.clone({ "system.equipped.carryType": "worn" }),
+            );
+            return (
+                stack?.update({ "system.quantity": stack.quantity + 1 }) ??
+                Item.implementation.create(
+                    fu.mergeObject(subitem.toObject(), {
+                        _id: null,
+                        "system.containerId": parentItem.system.containerId,
+                    }),
+                    { parent: parentItem.actor },
+                )
+            );
+        })();
+
+        await Promise.all([deletePromise, createPromise]);
+    }
+}
+
 export { coinCompendiumIds } from "./coins.ts";
-export { CoinsPF2e, computeLevelRarityPrice, generateItemName, handleHPChange, prepareBulkData };
+export { CoinsPF2e, computeLevelRarityPrice, detachSubitem, generateItemName, handleHPChange, prepareBulkData };

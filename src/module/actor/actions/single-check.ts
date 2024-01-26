@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
 import { DC_SLUGS } from "@actor/values.ts";
@@ -16,6 +16,7 @@ import { CheckDC } from "@system/degree-of-success.ts";
 import { getActionGlyph, isObject, setHasElement } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
+import { TokenPF2e } from "@module/canvas/index.ts";
 
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & { selector?: string };
 function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
@@ -155,6 +156,16 @@ class SingleCheckActionVariant extends BaseActionVariant {
                     note.selector ||= selector; // treat empty selectors as always applicable to this check
                     return note;
                 }),
+            target: () => {
+                if (options.target instanceof ActorPF2e) {
+                    return { token: null, actor: options.target };
+                } else if (options.target instanceof TokenPF2e) {
+                    return options.target.actor
+                        ? { token: options.target.document, actor: options.target.actor }
+                        : null;
+                }
+                return null;
+            },
             traits: this.traits.concat(options?.traits ?? []),
         });
 

@@ -274,7 +274,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -687,7 +687,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -1104,7 +1104,7 @@ export class ClientBaseActiveEffect<
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -1462,7 +1462,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -1836,7 +1836,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -2193,7 +2193,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -2550,7 +2550,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -2907,7 +2907,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -3264,7 +3264,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -3621,7 +3621,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -3979,7 +3979,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -4336,7 +4336,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -4748,7 +4748,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -5105,7 +5105,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -5464,7 +5464,7 @@ export class ClientBaseItem<
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this | undefined>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -5821,7 +5821,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -6179,7 +6179,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -6536,7 +6536,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -6894,7 +6894,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -7311,7 +7311,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -7723,7 +7723,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -8081,7 +8081,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -8438,7 +8438,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -8795,7 +8795,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -9152,7 +9152,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -9510,7 +9510,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -9867,7 +9867,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -10279,7 +10279,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -10691,7 +10691,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -11048,7 +11048,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.

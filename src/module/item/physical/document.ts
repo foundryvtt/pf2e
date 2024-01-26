@@ -35,7 +35,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     private declare _container: ContainerPF2e<ActorPF2e> | null;
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
-    declare subitems: PhysicalItemPF2e<TParent>[];
+    declare subitems: Collection<PhysicalItemPF2e<TParent>>;
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: PhysicalItemConstructionContext<TParent> = {}) {
         super(data, context);
@@ -93,13 +93,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.equipped.carryType === "worn";
     }
 
+    /** Whether the item has an attached (or affixed, applied, etc.) usage */
+    get isAttachable(): boolean {
+        return false;
+    }
+
     get price(): Price {
         return this.system.price;
     }
 
     /** The monetary value of the entire item stack */
     get assetValue(): CoinsPF2e {
-        return CoinsPF2e.fromPrice(this.price, this.quantity);
+        const baseValue = CoinsPF2e.fromPrice(this.price, this.quantity);
+        return this.isSpecific
+            ? baseValue
+            : this.subitems.reduce((total, i) => total.plus(CoinsPF2e.fromPrice(i.price, i.quantity)), baseValue);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -183,7 +191,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Returns the bulk of this item and all sub-containers */
     get bulk(): Bulk {
-        const { per } = this.system.bulk;
+        const per = this.system.bulk.per;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
         // Only convert to actor-relative size if the actor is a creature
         // https://2e.aonprd.com/Rules.aspx?ID=258
@@ -209,6 +217,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         });
     }
 
+    /** Whether other items can be attached (or affixed, applied, etc.) to this item */
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    acceptsSubitem(): boolean {
+        return false;
+    }
+
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const rollOptions = super.getRollOptions(prefix);
@@ -230,6 +244,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this._container = null;
+        this.subitems ??= new Collection();
         super._initialize(options);
     }
 
@@ -271,21 +286,31 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        this.system.bulk = prepareBulkData(this);
-
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {
             this._container = null;
         }
 
         // Prepare doubly-embedded items if this is of an appropriate physical-item type
-        this.subitems =
-            "subitems" in this.system && Array.isArray(this.system.subitems)
-                ? this.system.subitems.map(
-                      (i) =>
-                          new ItemProxyPF2e(i, { parent: this.parent, parentItem: this }) as PhysicalItemPF2e<TParent>,
-                  )
-                : [];
+        for (const subitemSource of this.system.subitems ?? []) {
+            subitemSource.system.equipped = R.pick(this.system.equipped, ["carryType", "handsHeld"]);
+            const item =
+                this.subitems.get(subitemSource._id ?? "") ??
+                (new ItemProxyPF2e(subitemSource, {
+                    parent: this.parent,
+                    parentItem: this,
+                }) as PhysicalItemPF2e<TParent>);
+            item.updateSource(subitemSource);
+            this.subitems.set(item.id, item);
+        }
+
+        // Remove any items no longer in the subitem source
+        const subitemIds = this.system.subitems?.flatMap((i) => i._id ?? []) ?? [];
+        for (const subitem of this.subitems) {
+            if (!subitemIds.includes(subitem.id)) this.subitems.delete(subitem.id);
+        }
+
+        this.system.bulk = prepareBulkData(this);
 
         // Normalize apex data
         if (this.system.apex) {
@@ -442,7 +467,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             if (containerResolved && !isContainerCycle(this, containerResolved)) {
                 const carryType = containerResolved.stowsItems ? "stowed" : "worn";
                 const equipped = { carryType, handsHeld: 0, inSlot: false };
-                return { system: { containerId: containerResolved?.id, equipped } };
+                return { system: { containerId: containerResolved.id, equipped } };
             }
             // Move out of a container
             if (!containerResolved && this.isInContainer) {
@@ -500,11 +525,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return {
             name,
             img,
-            data: {
-                description: {
-                    value: description,
-                },
-            },
+            data: { description: { value: description } },
         };
     }
 
@@ -568,6 +589,44 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return traitData;
     }
 
+    /** Redirect subitem updates to the parent item */
+    override async update(
+        data: Record<string, unknown>,
+        context: DocumentModificationContext<TParent> = {},
+    ): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems = parentItem._source.system.subitems?.map((i) =>
+                i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
+            );
+            const parentContext = { ...context, diff: true, recursive: true };
+            const updated = await parentItem.update({ system: { subitems: newSubitems } }, parentContext);
+            if (updated) {
+                this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.update(data, context);
+    }
+
+    /** Redirect subitem deletes to parent-item updates */
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, context);
+            if (updated) {
+                this._onDelete(context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.delete(context);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -578,6 +637,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        if (!this.actor || this._source.system.containerId?.length !== 16) {
+            this._source.system.containerId = null;
+        }
+
         // Clear the apex selection in case this is an apex item being copied from a previous owner
         delete this._source.system.apex?.selected;
 

@@ -1,0 +1,62 @@
+{
+    "_id": "8WnFg5HMKX8JEDLl",
+    "img": "icons/weapons/axes/axe-battle-black.webp",
+    "name": "Effect: Lumber Lord's Axe",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Lumber Lord's Axe]</p>\n<p>The <em>lumber lord's axe's</em> blade transforms into your choice of standard-grade adamantine or standard-grade dawnsilver.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDawnsilver",
+                        "value": "dawnsilver"
+                    }
+                ],
+                "flag": "material",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Material"
+            },
+            {
+                "definition": [
+                    "item:slug:lumber-lords-axe"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "{item|flags.pf2e.rulesSelections.material}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

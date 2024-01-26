@@ -471,6 +471,9 @@
                 "Unrecoverable": "{value} hit points are currently unrecoverable."
             },
             "Inventory": {
+                "CarryType": {
+                    "OpenMenu": "Change Carry Type"
+                },
                 "DistributeCoins": "Distribute Coins",
                 "Encumbrance": "Encumbrance",
                 "ItemQuantity": {
@@ -742,6 +745,7 @@
         "ArmorPropertyRuneRockBraced": "Rock-Braced",
         "ArmorPropertyRuneShadow": "Shadow",
         "ArmorPropertyRuneSinisterKnight": "Sinister Knight",
+        "ArmorPropertyRuneSizeChanging": "Size-Changing",
         "ArmorPropertyRuneSlick": "Slick",
         "ArmorPropertyRuneSoaring": "Soaring",
         "ArmorPropertyRuneStanching": "Stanching",
@@ -847,6 +851,7 @@
         "BulkMaxLabel": "Max Bulk",
         "CapacityBarLabel": "Capacity",
         "CarryType": {
+            "attached": "Attached",
             "dropped": "Dropped",
             "held1": "Held 1H",
             "held2": "Held 2H",
@@ -1166,6 +1171,7 @@
                     "dazzled": "dazzled",
                     "deafened": "deafened",
                     "death-effects": "death effects",
+                    "detection": "detection",
                     "disease": "disease",
                     "djezet": "djezet",
                     "doomed": "doomed",
@@ -1581,6 +1587,17 @@
         "InitiativeHeader": "Initiative bonus",
         "InitiativeLabel": "Initiative",
         "InitiativeWithSkill": "Initiative: {skillName}",
+        "InlineAction": {
+            "Check": {
+                "DC": "DC {dc}",
+                "StatisticVsDefense": "{statistic} vs {defense}",
+                "VsDefense": "vs {defense}"
+            },
+            "Warning": {
+                "InvalidAction": "Invalid Action: {slug}",
+                "UnresolvableAction": "Unresolvable Action: {slug}"
+            }
+        },
         "InlineCheck": {
             "BasicWithSave": "Basic {save}",
             "DCWithName": "{name} DC",
@@ -2241,6 +2258,21 @@
                 "Hint": "Additional tags beyond traits to help classify an item"
             },
             "Physical": {
+                "Attach": {
+                    "CraftingCheck": "Crafting Check",
+                    "Detach": {
+                        "Label": "Detach Item",
+                        "Prompt": "Are you sure you want to detach {attachable}?"
+                    },
+                    "Outcome": {
+                        "Failure": "You were unable to attach {attachable}.",
+                        "Success": "{attachable} is now attached to {target}."
+                    },
+                    "PromptTitle": "Attach {item}",
+                    "NoEligibleItem": "No item was found that can accept {attachable} as an attachment.",
+                    "SidebarContextMenuOption": "Attach to Item"
+                },
+                "Attachments": "Attachments",
                 "Base": "Base",
                 "Broken": "Broken",
                 "BrokenThreshold": {
@@ -2354,8 +2386,11 @@
             },
             "Plural": "Items",
             "RefreshFromCompendium": {
+                "DifferentItemType": "The compendium source for {item} ({uuid}) is of a different type than what is present on this actor.",
                 "Label": "Refresh",
-                "SourceNotFound": "The compendium source for \"{item}\" (source ID: {sourceId}) was not found.",
+                "SourceNotFound": "The compendium source for {item} (source ID: {sourceId}) was not found.",
+                "SubitemFailure": "One or more subitems on {item} ({uuid}) were unable to be refreshed.",
+                "Success": "Item \"{item}\" has been refreshed.",
                 "Tooltip": {
                     "Disabled": "Item cannot be refreshed: contains data stored at time of adding to actor",
                     "Enabled": "Refresh this item's data with the latest from its originating compendium."
@@ -2425,6 +2460,7 @@
                     "success": "Counteract the target if its counteract rank is {rank} or less."
                 },
                 "Defense": {
+                    "BasicDefense": "basic {save}",
                     "BasicSave": "Basic",
                     "Label": "Defense"
                 },
@@ -2470,22 +2506,26 @@
                     "Hint": "Indicate that this weapon can be loaded into another weapon as ammunition."
                 },
                 "CriticalSpecialization": {
-                    "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
+                    "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its <em>striking rune</em>, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
                     "bomb": "Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
-                    "brawling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
-                    "club": "You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
-                    "firearm": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort (such as by being large enough that the missile would not be an impediment.)",
+                    "brawling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
+                    "club": "You knock the target up to 10 feet in a straight line away from you, in a direction of your choice. This is forced movement.",
+                    "firearm": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
                     "flail": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they success at a @Check[type:reflex|dc:resolve(@actor.attributes.classDC.value)|name:Flail Critical Specialization] save against your class DC.",
                     "hammer": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Hammer Critical Specialization] save against your class DC.",
                     "polearm": "The target is moved 5 feet in a direction of your choice. This is forced movement.",
                     "shield": "You knock the target back from you 5 feet. This is forced movement.",
-                    "sling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
-                    "spear": "The weapon pierces the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
+                    "sling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "spear": "Weapons of this type pierce the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
                     "sword": "The target is made off-balance by your attack, becoming @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn."
                 },
                 "Damage": {
                     "DiceNumber": "Dice Number"
+                },
+                "Forceful": {
+                    "Second": "Forceful 2nd Attack",
+                    "Third": "Forceful 3rd+ Attack"
                 },
                 "FromABP": "Automatic bonus progression has adjusted this weapon's {property} to {value}.",
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
@@ -3183,11 +3223,15 @@
                     },
                     "Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)",
                     "Rarities": {
-                        "CommonLanguages": "<rarity>Common</rarity> Languages",
+                        "Common": "<rarity>Common</rarity> Languages",
                         "Name": "Language Rarities",
-                        "RareLanguages": "<rarity>Rare</rarity> Languages",
-                        "SecretLanguages": "<rarity>Secret</rarity> Languages",
-                        "UncommonLanguages": "<rarity>Uncommon</rarity> Languages"
+                        "Rare": "<rarity>Rare</rarity> Languages",
+                        "Secret": "<rarity>Secret</rarity> Languages",
+                        "Unavailable": {
+                            "Hint": "Languages not available for use on any creature in this world",
+                            "Label": "Unavailable Languages"
+                        },
+                        "Uncommon": "<rarity>Uncommon</rarity> Languages"
                     }
                 },
                 "Name": "Homebrew Elements",
@@ -3904,6 +3948,7 @@
         "TraitDescriptionEsoterica": "The esoterica trait is present in many thaumaturge feats and class features that incorporate the various talismans, supernatural trinkets, and other objects you carry with you. Abilities that have the esoterica trait require you to be in possession of your esoterica to use them. Normally, you're assumed to always have your esoterica with you, but in some rare circumstances, you might either not have them on hand or have your gear stripped from you.",
         "TraitDescriptionEvolution": "Feats with this trait affect your eidolon instead of you, typically by granting it additional physical capabilities.",
         "TraitDescriptionExpandable": "An item with the expandable trait increases to a specific size when activated. Unless otherwise noted, this space must be adjacent to you and on the ground, and the item needs to have enough open space to expand into or else the activation has no effect. When the effect ends, the expanded item disintegrates if it's a consumable or shrinks back to its normal size if it's not a consumable.",
+        "TraitDescriptionExperiment": "An experimental cryptid has been purposefully altered through alchemy, engineering, magic, or ritual to contain some degree of construct components. Although powerful, the process is volatile and imperfect.",
         "TraitDescriptionExploration": "An activity with this trait takes more than a turn to use, and can usually be used only during exploration mode.",
         "TraitDescriptionExtradimensional": "This effect or item creates an extradimensional space. An extradimensional effect placed inside another extradimensional space ceases to function until it is removed.",
         "TraitDescriptionFatal": "The fatal trait includes a die size. On a critical hit, the weapon's damage die increases to that die size instead of the normal die size, and the weapon adds one additional damage die of the listed size.",
@@ -4051,6 +4096,7 @@
         "TraitDescriptionReach": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures. Weapons with this trait are long and can be used to attack creatures up to 10 feet away instead of only adjacent creatures. For creatures that already have reach with the limb or limbs that wield the weapon, the weapon increases their reach by 5 feet.",
         "TraitDescriptionReckless": "Actions with the reckless trait run the risk of the pilot losing control of a vehicle. When performing a reckless action, the pilot must first attempt an appropriate piloting check to keep control of the vehicle.",
         "TraitDescriptionRecovery": "Recovery weapons are thrown weapons designed to return to the thrower when they miss the target. When you make an unsuccessful thrown Strike with this weapon, it flies back to your hand after the Strike is complete, allowing you to try again. If your hands are full when the weapon returns, it falls to the ground in your space.",
+        "TraitDescriptionReincarnated": "This ancestry feat is available to any character who has reincarnated at least once, either as part of their backstory or because of a reincarnation that took place during play.",
         "TraitDescriptionReflection": "A creature with this trait has the reflection versatile heritage. Reflections are beings who are copies of living people, whether through cloning, planar duplication, or another mechanism. An ability with this trait can be used or selected only by reflections.",
         "TraitDescriptionRelic": "An item with the relic trait grows in power with its wielder.",
         "TraitDescriptionReload": "While all weapons need some amount of time to get into position, many ranged weapons also need to be loaded and reloaded. This entry indicates how many Interact actions it takes to reload such weapons. This can be 0 if drawing ammunition and firing the weapon are part of the same action. If an item takes 2 or more actions to reload, the GM determines whether they must be performed together as an activity, or you can spend some of those actions during one turn and the rest during your next turn.",
@@ -4195,6 +4241,7 @@
         "TraitEthereal": "Ethereal",
         "TraitEvolution": "Evolution",
         "TraitExpandable": "Expandable",
+        "TraitExperiment": "Experiment",
         "TraitExploration": "Exploration",
         "TraitExtradimensional": "Extradimensional",
         "TraitFatal": "Fatal",
@@ -4488,6 +4535,7 @@
         "TraitReckless": "Reckless",
         "TraitRecovery": "Recovery",
         "TraitReflection": "Reflection",
+        "TraitReincarnated": "Reincarnated",
         "TraitRelic": "Relic",
         "TraitReload": "Reload",
         "TraitReload0": "Reload 0",

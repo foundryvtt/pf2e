@@ -312,34 +312,20 @@ export default abstract class Document<
     ): Promise<TDocument[] | TDocument | undefined>;
 
     /**
-     * Update one or multiple existing entities using provided input data.
-     * Data may be provided as a single object to update one Document, or as an Array of Objects.
-     * @static
-     *
-     * @param data              A Data object or array of Data. Each element must contain the _id of an existing Document.
-     * @param options           Additional options which customize the update workflow
-     * @param [options.diff]    Difference the provided data against the current to eliminate unnecessary changes.
-     * @param [options.noHook]  Block the dispatch of preUpdate hooks for this operation.
-     *
-     * @return  The updated Document or array of Entities
-     *
-     * @example
-     * const data = {_id: "12ekjf43kj2312ds", name: "New Name"}};
-     * const updated = await Document.update(data); // Updated entity saved to the database
-     *
-     * @example
-     * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
-     * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
+     * Update this Document using incremental data, saving it to the database.
+     * @see {@link Document.updateDocuments}
+     * @param [data={}]    Differential update data which modifies the existing values of this document data
+     * @param [context={}] Additional context which customizes the update workflow
+     * @returns The updated Document instance
      */
-    update(data: Record<string, unknown>, options?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    update(data: Record<string, unknown>, context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
 
     /**
-                 * Delete the current Document.
-                 * @see {Document.delete}
-
-                 * @param context Options which customize the deletion workflow
-                 * @return The deleted Document
-                 */
+     * Delete the current Document.
+     * @see {Document.delete}
+     * @param context Options which customize the deletion workflow
+     * @return The deleted Document
+     */
     delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
 
     /* -------------------------------------------- */

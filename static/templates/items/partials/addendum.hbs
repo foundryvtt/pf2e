@@ -1,0 +1,9 @@
+<div class="addendum">
+    <h4>{{addendum.label}}</h4>
+    {{#each addendum.content as |paragraph|}}
+        <p>
+            {{#if paragraph.title}}<strong>{{localize paragraph.title}}</strong>{{/if}}
+            {{localize paragraph.text}}
+        </p>
+    {{/each}}
+</div>

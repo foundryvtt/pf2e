@@ -21,18 +21,18 @@ export function extendDragData(): void {
             const match = name.match(/[0-9]+/);
             if (match) data.value = Number(match[0]);
 
-            // Detect spell rank of containing element, if available
-            const containerElement = htmlClosest(target, "[data-cast-rank]");
-            const castRank = Number(containerElement?.dataset.castRank);
-            if (castRank > 0) data.level = castRank;
-
             const messageId = htmlClosest(target, "li.chat-message")?.dataset.messageId;
             const message = game.messages.get(messageId ?? "");
-            const originItem = message?.item;
+
+            // Detect spell rank of containing element, if available
+            const containerElement = htmlClosest(target, "[data-cast-rank]");
+            const castRank = Number(containerElement?.dataset.castRank) || message?.flags.pf2e.origin?.castRank || 0;
+            if (castRank > 0) data.level = castRank;
 
             if (message?.actor) {
                 const { actor, token, target } = message;
                 const roll = message.rolls.at(-1);
+                const originItem = message.item;
                 const spellcasting =
                     originItem?.isOfType("spell") && originItem.spellcasting
                         ? {

@@ -1,6 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ArmorTrait } from "@item/armor/types.ts";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ConsumableTrait } from "@item/consumable/data.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { ShieldTrait } from "@item/shield/types.ts";
@@ -10,10 +11,10 @@ import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
-import { UsageDetails } from "./usage.ts";
+import type { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import type { UsageDetails } from "./usage.ts";
 
-type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
+type ItemCarryType = (typeof ITEM_CARRY_TYPES)[number];
 
 type BasePhysicalItemSource<
     TType extends PhysicalItemType,
@@ -39,6 +40,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     usage?: { value: string };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
+    subitems?: PhysicalItemSource[];
 
     /**
      * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been

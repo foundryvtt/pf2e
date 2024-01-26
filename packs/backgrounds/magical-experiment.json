@@ -90,6 +90,31 @@
                 ]
             },
             {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Scent",
+                        "value": "scent"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
+                        "value": "thoughtsense"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Tremorsense",
+                        "value": "tremorsense"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Wavesense",
+                        "value": "wavesense"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses"
+                ],
+                "rollOption": "background:magical-experiment:enhanced-senses"
+            },
+            {
                 "adjustName": true,
                 "choices": [
                     {
@@ -134,6 +159,42 @@
                 ],
                 "type": "{item|flags.pf2e.rulesSelections.energy2}",
                 "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses:scent"
+                ],
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses:tremorsense"
+                ],
+                "range": 30,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses:thoughtsense"
+                ],
+                "range": 30,
+                "selector": "thoughtsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses:wavesense"
+                ],
+                "range": 30,
+                "selector": "wavesense"
             }
         ],
         "trainedLore": "Academia Lore",

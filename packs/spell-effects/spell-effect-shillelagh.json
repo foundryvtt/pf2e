@@ -24,13 +24,21 @@
             {
                 "choices": {
                     "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:group:club",
+                                "item:group:staff"
+                            ]
+                        }
+                    ],
                     "types": [
                         "weapon"
                     ]
                 },
                 "flag": "spellEffectShillelagh",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+                "prompt": "PF2E.SpecificRule.Prompt.Shillelagh"
             },
             {
                 "key": "WeaponPotency",
@@ -39,25 +47,24 @@
             },
             {
                 "key": "Striking",
-                "label": "Shillelagh",
                 "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
                 "value": 1
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Get third damage die from Shillelagh",
+                "label": "PF2E.SpecificRule.Shillelagh.RollOptionLabel",
                 "option": "shillelagh-third-die",
                 "toggleable": true
             },
             {
-                "key": "Striking",
-                "label": "Shillelagh bonus damage",
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Shillelagh.DamageDiceLabel",
                 "predicate": [
                     "shillelagh-third-die"
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
-                "value": 2
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage"
             }
         ],
         "start": {

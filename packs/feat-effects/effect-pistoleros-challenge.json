@@ -1,0 +1,65 @@
+{
+    "_id": "0kO3M46aK64a8ru8",
+    "img": "icons/weapons/guns/gun-pistol-flintlock-metal.webp",
+    "name": "Effect: Pistolero's Challenge",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Pistolero's Challenge]</p>\n<p>Both you and the opponent gain a +2 status bonus to damage rolls with Strikes made against each other. If you're a master in the skill you used for the check, the status bonus to damage rolls increases to +3, and if you're legendary, it increases to +4.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "pistoleros-challenge"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "@item.origin.system.skills.dec.rank"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "@item.origin.system.skills.itm.rank"
+                    }
+                ],
+                "flag": "pistolerosChallengeSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:pistoleros-challenge"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "max({item|flags.pf2e.rulesSelections.pistolerosChallengeSkill},2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

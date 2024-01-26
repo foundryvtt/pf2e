@@ -1,15 +1,15 @@
 {
     "_id": "W0tqTUmRE5lEhWUl",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/sundries/lights/lantern-iron-lit-yellow.webp",
     "name": "Midday Lantern (Major)",
     "system": {
         "baseItem": null,
         "bulk": {
             "value": 0.1
         },
-        "containerId": "null",
+        "containerId": null,
         "description": {
-            "value": "<p>This hooded lantern is made from brilliant, reinforced gold engraved with the image of the sun high in the sky. The lantern uses oil, as a standard lantern, except that any light the lantern emits is magical and similar to sunlight. The lantern doesn't emit dim light, instead only emitting bright light to its normal radius (20 feet for typical lights when using oil). This bright light is close enough to sunlight to open temple doors that require sunlight or similar light, but it doesn't shine direct sunlight, so it doesn't trigger effects such as a vampire's sunlight weakness.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You raise the lantern and unleash a blast of powerful sunlight. The blast has the effects of 8th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt]</em> using a spell attack roll of [[/r {1d20+32} #Midday Lantern (Major)]]{+32}, with its effect determined by the number of actions you used to activate the lantern.</p>"
+            "value": "<p>This hooded lantern is made from brilliant, reinforced gold engraved with the image of the sun high in the sky. The lantern uses oil, as a standard lantern, except that any light the lantern emits is magical and similar to sunlight. The lantern doesn't emit dim light, instead only emitting bright light to its normal radius (20 feet for typical lights when using oil). This bright light is close enough to sunlight to open temple doors that require sunlight or similar light, but it doesn't shine direct sunlight, so it doesn't trigger effects such as a vampire's sunlight weakness.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You raise the lantern and unleash a blast of powerful sunlight. The blast has the effects of 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.Blazing Bolt] using a spell attack roll of [[/r {1d20+32} #Midday Lantern (Major)]]{+32}, with its effect determined by the number of actions you used to activate the lantern.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,25 @@
             "title": "Pathfinder #172: Secrets of the Temple-City"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 20,
+                    "color": "#975335",
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "value": "icons/sundries/lights/lantern-iron-lit-yellow.webp"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

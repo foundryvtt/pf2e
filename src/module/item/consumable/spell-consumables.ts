@@ -112,7 +112,9 @@ async function createConsumableFromSpell(
 
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
-        consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+        consumableSource.system.spell = spell
+            .clone({ _id: fu.randomID(), "system.location.heightenedLevel": heightenedLevel }, { keepId: true })
+            .toObject();
     }
 
     if (mystified) {

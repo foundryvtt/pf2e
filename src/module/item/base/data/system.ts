@@ -80,6 +80,7 @@ type ItemSystemSource = {
     description: ItemDescriptionSource;
     traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
     rules: RuleElementSource[];
+    /** A non-unique but human-readable identifier for this item */
     slug: string | null;
 
     /** Information concerning the publication from which this item originates */
@@ -101,7 +102,8 @@ interface ItemSystemData extends ItemSystemSource {
 }
 
 interface ItemDescriptionData extends ItemDescriptionSource {
-    addenda: string[];
+    /** Additional text added by rule elements */
+    addenda: { label: string; content: { title: string | null; text: string }[] }[];
 }
 
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;

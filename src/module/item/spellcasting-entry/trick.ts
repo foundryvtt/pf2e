@@ -148,6 +148,10 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         return false;
     }
 
+    get isEphemeral(): true {
+        return true;
+    }
+
     /** Currently no checks for whether a magic item can be tricked */
     canCast(): boolean {
         return true;
@@ -174,6 +178,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             groups: [],
             usesSpellProficiency: false,
             prepList: null,
+            isEphemeral: true,
         };
     }
 }

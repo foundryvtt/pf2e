@@ -29,7 +29,7 @@ import type {
 } from "@actor/data/base.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import type { ActorAlliance, AttributeString, SaveType } from "@actor/types.ts";
+import type { ActorAlliance, SaveType } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
 import type { PublicationData } from "@module/data.ts";
 
@@ -203,7 +203,6 @@ interface NPCStrike extends StrikeData {
 
 /** Save data with an additional "base" value */
 interface NPCSaveData extends SaveData {
-    ability: AttributeString;
     base?: number;
     saveDetail: string;
 }

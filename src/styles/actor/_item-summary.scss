@@ -14,11 +14,34 @@
         .tag.property {
             margin-left: var(--space-2);
             border-width: var(--space-1);
-            height: 1.25em;
+            height: calc(1rem + var(--space-1));
         }
 
         .tag:not(.property) + .tag.property {
             margin-left: var(--space-4);
+        }
+    }
+
+    .description {
+        padding: 0 var(--space-2);
+
+        .addendum {
+            @include frame-elegant;
+            background: rgba($alt-dark, 0.1);
+            border-radius: 2px;
+            color: var(--color-pf-alternate-darker);
+            padding: var(--space-4);
+            margin: 0 0 var(--space-8);
+
+            h4 {
+                font-weight: 700;
+                margin-bottom: var(--space-6);
+                text-align: center;
+            }
+
+            p:first-of-type {
+                margin-top: 0;
+            }
         }
     }
 

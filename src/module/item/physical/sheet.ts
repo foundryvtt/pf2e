@@ -2,16 +2,10 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
-import { localizer, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
-import {
-    BasePhysicalItemSource,
-    CoinsPF2e,
-    ItemActivation,
-    MaterialValuationData,
-    PhysicalItemType,
-    PreciousMaterialGrade,
-} from "./index.ts";
+import { detachSubitem } from "./helpers.ts";
+import { CoinsPF2e, ItemActivation, MaterialValuationData, PreciousMaterialGrade } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -163,11 +157,34 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if (formData["system.quantity"] === null) {
-            formData["system.quantity"] = 0;
-        }
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        super.activateListeners($html);
+        const html = $html[0];
 
+        // Subitem management
+        htmlQuery(html, "ul[data-subitems]")?.addEventListener("click", async (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+            if (!anchor) return;
+
+            const item = this.item;
+            const subitemId = htmlClosest(anchor, "[data-subitem-id]")?.dataset.subitemId;
+            const subitem = item.subitems.get(subitemId, { strict: true });
+
+            switch (anchor.dataset.action) {
+                case "edit-subitem":
+                    return subitem.sheet.render(true);
+                case "detach-subitem":
+                    return detachSubitem(subitem, event.ctrlKey);
+                case "delete-subitem": {
+                    return event.ctrlKey ? subitem.delete() : subitem.deleteDialog();
+                }
+                default:
+                    throw ErrorPF2e("Unexpected control options");
+            }
+        });
+    }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Process precious-material selection
         const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
         const typeIsValid =
@@ -190,20 +207,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
-        // Normalize nullable fields for embedded actions
-        const expanded = fu.expandObject(formData) as DeepPartial<BasePhysicalItemSource<PhysicalItemType>>;
-        for (const action of Object.values(expanded.system?.activations ?? [])) {
-            // Ensure activation time is in a proper format
-            const actionCost = action.actionCost;
-            if (actionCost) {
-                const isAction = actionCost.type === "action";
-                if (!actionCost.value) {
-                    actionCost.value = isAction ? actionCost.value || 1 : null;
-                }
-            }
-        }
-
-        return super._updateObject(event, fu.flattenObject(expanded));
+        return super._updateObject(event, formData);
     }
 }
 
