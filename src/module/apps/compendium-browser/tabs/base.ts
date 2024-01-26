@@ -56,7 +56,9 @@ export abstract class CompendiumBrowserTab {
             fields: this.searchFields,
             idField: "uuid",
             processTerm: (t) =>
-                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null,
+                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t)
+                    ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "")
+                    : null,
             storeFields: this.storeFields,
             searchOptions: { combineWith: "AND", prefix: true },
         });
