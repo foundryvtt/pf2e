@@ -85,9 +85,9 @@ async function createConsumableFromSpell(
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
-    const consumableSource = { ...consumable.toObject(), _id: fu.randomID() };
+    const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
 
-    const traits = consumableSource.system.traits;
+    const { traits } = consumableSource.system;
     traits.value = R.uniq([...traits.value, ...spell.traits]);
     traits.rarity = spell.rarity;
     if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
@@ -112,7 +112,9 @@ async function createConsumableFromSpell(
 
     // Cantrip deck casts at level 1
     if (type !== "cantripDeck5") {
-        consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+        consumableSource.system.spell = spell
+            .clone({ _id: fu.randomID(), "system.location.heightenedLevel": heightenedLevel }, { keepId: true })
+            .toObject();
     }
 
     if (mystified) {

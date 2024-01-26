@@ -5,12 +5,12 @@
         {{#each spellcastingEntries as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
-                    {{#unless entry.isRitual}}
+                    {{#unless entry.isEphemeral}}
                         <a class="drag-handle"><i class="fa-solid fa-bars"></i></a>
                     {{/unless}}
 
                     <h3 class="item-name">
-                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
+                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isEphemeral}} readonly{{/if}} />
                     </h3>
                     {{#if @root.editable}}
                         <div class="item-controls">
@@ -27,7 +27,7 @@
                                     <i class="{{#if entry.showSlotlessRanks}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
                             {{/if}}
-                            {{#unless entry.isRitual}}
+                            {{#unless entry.isEphemeral}}
                                 <a data-action="spellcasting-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
                                 <a data-action="spellcasting-remove" data-tooltip="PF2E.RemoveSpellcastingEntryTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                             {{/unless}}
@@ -79,7 +79,9 @@
                             <span class="spell-tradition">{{localize entry.statistic.label}}</span>
                             <div class="spellcasting-prof button-group">
                                 <select
-                                    {{#if entry.usesSpellProficiency}}
+                                    {{#if entry.isEphemeral}}
+                                        class="skill-proficiency pf-rank readonly"
+                                    {{else if entry.usesSpellProficiency}}
                                         class="skill-proficiency pf-rank"
                                         data-action="{{#if entry.usesSpellProficiency}}update-spellcasting-rank{{/if}}"
                                     {{else}}

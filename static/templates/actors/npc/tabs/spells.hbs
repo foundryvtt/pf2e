@@ -8,7 +8,7 @@
                 {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}
             >
                 <div class="header">
-                    {{#unless entry.isRitual}}
+                    {{#unless entry.isEphemeral}}
                         <a class="drag-handle"><i class="fa-solid fa-fw fa-bars"></i></a>
                     {{/unless}}
                     {{#if entry.isPrepared}}
@@ -20,27 +20,29 @@
                     {{/if}}
 
                     <h4 class="name">
-                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" value="{{entry.name}}"{{#if entry.isRitual}} readonly{{/if}} />
+                        <input type="text" data-item-id="{{entry.id}}" data-item-property="name" value="{{entry.name}}"{{#if entry.isEphemeral}} readonly{{/if}} />
                     </h4>
                     {{#unless entry.isRitual}}
                         <div class="spellDC inline-field">
-                            <label title="{{entry.statistic.dc.breakdown}}">{{localize "PF2E.NPC.Spells.DCLabel"}}</label>
+                            <label data-tooltip="{{entry.statistic.dc.breakdown}}">{{localize "PF2E.NPC.Spells.DCLabel"}}</label>
                             <input type="number"
                                 class="dc-input modifier adjustable{{#if entry.adjustedHigher.dc}} adjusted-higher{{/if}}{{#if entry.adjustedLower.dc}} adjusted-lower{{/if}}"
+                                value="{{entry.statistic.dc.value}}"
+                                {{#if entry.isEphemeral}}readonly{{/if}}
+                                placeholder="0"
                                 data-display-value="{{entry.statistic.dc.value}}"
                                 data-base-property="data.items.{{eid}}.system.spelldc.dc"
-                                value="{{entry.statistic.dc.value}}"
-                                placeholder="0"
                             />
                         </div>
                         <div class="spellAttack inline-field">
                             <label class="rollable" title="{{entry.statistic.check.breakdown}}">{{localize "PF2E.NPC.Spells.AttackLabel"}}</label>
                             <input type="number"
                                 class="attack-input modifier adjustable{{#if entry.adjustedHigher.mod}} adjusted-higher{{/if}}{{#if entry.adjustedLower.mod}} adjusted-lower{{/if}}"
+                                value="{{numberFormat entry.statistic.check.mod decimals=0}}"
+                                {{#if entry.isEphemeral}}readonly{{/if}}
+                                placeholder="0"
                                 data-display-value="{{entry.statistic.check.mod}}"
                                 data-base-property="data.items.{{eid}}.system.spelldc.value"
-                                value="{{numberFormat entry.statistic.check.mod decimals=0}}"
-                                placeholder="0"
                             />
                         </div>
                         <div class="attribute inline-field">

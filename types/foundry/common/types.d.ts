@@ -4,7 +4,6 @@ declare global {
     interface DocumentConstructionContext<TParent extends Document | null>
         extends DataModelConstructionOptions<TParent> {
         pack?: string | null;
-        [key: string]: unknown;
     }
 
     interface DocumentModificationContext<TParent extends Document | null> {

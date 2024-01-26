@@ -50,7 +50,7 @@
                                         placeholder="0"
                                     />
                                 </span>
-                                <span class="slash"> / </span>
+                                <span class="slash">/</span>
                             {{/if}}
                             <span class="spell-max-input">
                                 <input
@@ -215,7 +215,7 @@
             {{/if}}
         {{/each}}
 
-        {{#if (and (eq entry.groups.length 0) @root.editable)}}
+        {{#if (and (eq entry.groups.length 0) (not entry.isEphemeral) @root.editable)}}
             <li class="spell">
                 <div class="item-name empty">
                     <div class="item-image framed"></div>
