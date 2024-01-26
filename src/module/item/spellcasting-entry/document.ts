@@ -16,7 +16,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
     implements SpellcastingEntry<TParent>
 {
-    declare spells: SpellCollection<NonNullable<TParent>, this> | null;
+    declare spells: SpellCollection<NonNullable<TParent>> | null;
 
     /** Spellcasting attack and dc data created during actor preparation */
     declare statistic: Statistic;
@@ -109,12 +109,14 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    override prepareSiblingData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
+    override prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
         if (!this.actor || this.system.prepared.value === "items") {
             this.spells = null;
         } else {
             this.spells = new SpellCollection(this);
-            const spells = this.actor.itemTypes.spell.filter((i) => i.system.location.value === this.id);
+            const spells = this.actor.itemTypes.spell.filter(
+                (i): i is SpellPF2e<NonNullable<TParent>> => i.system.location.value === this.id,
+            );
             for (const spell of spells) {
                 this.spells.set(spell.id, spell);
             }
@@ -123,7 +125,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         }
     }
 
-    override prepareActorData(this: SpellcastingEntryPF2e<ActorPF2e>): void {
+    override prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
         const actor = this.parent;
         if (!this.system.proficiency.slug && !this.isInnate && actor.isOfType("character")) {
             const spellProficiency = actor.system.proficiencies.spellcasting;
@@ -338,25 +340,29 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
      * or creating a new spell if its not.
      */
     async addSpell(
-        spell: SpellPF2e<TParent | null>,
+        spell: SpellPF2e<NonNullable<TParent>>,
         { groupId }: { groupId: Maybe<SpellSlotGroupId> },
     ): Promise<SpellPF2e<NonNullable<TParent>> | null> {
-        return this.spells?.addSpell(spell, { groupId }) ?? null;
+        const result = this.spells?.addSpell(spell, { groupId });
+        return result ? spell : null;
     }
 
     /** Saves the prepared spell slot data to the spellcasting entry  */
     async prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, spellSlot: number): Promise<Maybe<this>> {
-        return this.spells?.prepareSpell(spell, groupId, spellSlot) ?? null;
+        const result = this.spells?.prepareSpell(spell, groupId, spellSlot);
+        return result ? this : null;
     }
 
     /** Removes the spell slot and updates the spellcasting entry */
     async unprepareSpell(groupId: SpellSlotGroupId, slotId: number): Promise<Maybe<this>> {
-        return this.spells?.unprepareSpell(groupId, slotId) ?? null;
+        const result = this.spells?.unprepareSpell(groupId, slotId);
+        return result ? this : null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
     async setSlotExpendedState(groupId: SpellSlotGroupId, slotId: number, value: boolean): Promise<Maybe<this>> {
-        return this.spells?.setSlotExpendedState(groupId, slotId, value) ?? null;
+        const result = this.spells?.setSlotExpendedState(groupId, slotId, value);
+        return result ? this : null;
     }
 
     /** Returns rendering data to display the spellcasting entry in the sheet */
