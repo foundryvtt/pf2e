@@ -36,7 +36,7 @@
         <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}">
             {{localize "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.ShortLabel"}}
             <span class="action-glyph">{{action.actionCost}}</span>
-            {{numberFormat action.statistic.check.mod sign=true}}
+            {{#if melee}}{{action.maps.melee.map0}}{{else}}{{action.maps.ranged.map0}}{{/if}}
         </button>
         <button type="button" class="tag tag_secondary" data-action="roll-attack" data-melee="{{melee}}" data-map-increases="1">
             {{#if melee}}{{action.maps.melee.map1}}{{else}}{{action.maps.ranged.map1}}{{/if}}
