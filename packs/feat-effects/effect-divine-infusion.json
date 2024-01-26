@@ -1,6 +1,6 @@
 {
     "_id": "eecIuD6sGPX0FJcT",
-    "img": "icons/magic/life/cross-embers-glow-yellow-purple.webp",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow-teal.webp",
     "name": "Effect: Divine Infusion",
     "system": {
         "description": {
@@ -22,29 +22,24 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitVitality",
-                        "value": "vitality"
-                    },
-                    {
-                        "label": "PF2E.TraitVoid",
-                        "value": "void"
-                    }
-                ],
-                "flag": "effectDivineInfusion",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
-            },
-            {
-                "damageType": "{item|flags.pf2e.rulesSelections.effectDivineInfusion}",
+                "damageType": "vitality",
                 "diceNumber": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "item:melee"
+                    "parent:trait:vitality"
                 ],
-                "selector": "strike-damage"
+                "selector": "melee-strike-damage"
+            },
+            {
+                "damageType": "void",
+                "diceNumber": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "parent:trait:void"
+                ],
+                "selector": "melee-strike-damage"
             }
         ],
         "start": {
