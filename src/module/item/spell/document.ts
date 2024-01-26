@@ -712,6 +712,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(option);
         }
 
+        const actionCost = this.actionGlyph;
+        if (["1", "2", "3"].includes(actionCost ?? "")) {
+            spellOptions.add(`${prefix}:cast:actions:${actionCost}`);
+        }
+
         const rollOptions = super.getRollOptions(prefix);
         rollOptions.push(...spellOptions);
 
