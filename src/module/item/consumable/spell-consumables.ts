@@ -85,9 +85,9 @@ async function createConsumableFromSpell(
         throw ErrorPF2e("Failed to retrieve consumable item");
     }
 
-    const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
+    const consumableSource = { ...consumable.toObject(), _id: fu.randomID() };
 
-    const { traits } = consumableSource.system;
+    const traits = consumableSource.system.traits;
     traits.value = R.uniq([...traits.value, ...spell.traits]);
     traits.rarity = spell.rarity;
     if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
