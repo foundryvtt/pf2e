@@ -391,8 +391,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     override getRollOptions(prefix = "spellcasting"): string[] {
         return [
             `${prefix}:${this.attribute}`,
+            `${prefix}:attribute:${this.attribute}`,
+            `${prefix}:${this.category}`,
+            `${prefix}:category:${this.category}`,
             `${prefix}:${this.tradition}`,
-            `${prefix}:${this.system.prepared.value}`,
+            `${prefix}:tradition:${this.tradition}`,
         ];
     }
 
