@@ -169,10 +169,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 if (!(data.item instanceof ItemPF2e)) return;
-                data.item.system.description.addenda.push({
-                    label: this.rule.label,
-                    contents: validator.initialize(validator.clean(data.alteration)).value,
-                });
+                const contents = validator.initialize(validator.clean(data.alteration)).value;
+                if (this.mode === "override") {
+                    data.item.system.description.override = contents;
+                } else {
+                    data.item.system.description.addenda.push({ label: this.rule.label, contents });
+                }
                 return;
             }
             case "dex-cap": {

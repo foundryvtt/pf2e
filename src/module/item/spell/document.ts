@@ -5,7 +5,7 @@ import { SAVE_TYPES } from "@actor/values.ts";
 import type { ConsumablePF2e } from "@item";
 import { ItemPF2e } from "@item";
 import { processSanctification } from "@item/ability/helpers.ts";
-import { ItemSourcePF2e, ItemSummaryData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, RawItemChatData } from "@item/base/data/index.ts";
 import { SpellSlotGroupId } from "@item/spellcasting-entry/collection.ts";
 import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
@@ -783,7 +783,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this: SpellPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptionsPF2e = {},
         rollOptions: { castRank?: number | string; groupId?: SpellSlotGroupId } = {},
-    ): Promise<Omit<ItemSummaryData, "traits">> {
+    ): Promise<RawItemChatData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const groupNumber = spellSlotGroupIdToNumber(rollOptions.groupId) || this.rank;
         const castRank = Number(rollOptions.castRank) || this.computeCastRank(groupNumber);
@@ -820,7 +820,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             console.warn(
                 `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
-            return { ...systemData };
+            return { ...systemData, traits: this.traitChatData() };
         }
 
         const statistic = spellcasting?.statistic;
@@ -828,7 +828,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             console.warn(
                 `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
-            return { ...systemData };
+            return { ...systemData, traits: this.traitChatData() };
         }
 
         const statisticChatData = statistic?.getChatData({ item: this });
@@ -889,7 +889,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         return this.processChatData(htmlOptions, {
             ...systemData,
-            description: { value: description },
+            description: { ...this.system.description, value: description },
             isAttack: this.isAttack,
             isSave,
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,
