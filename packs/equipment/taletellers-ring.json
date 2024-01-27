@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Smiling faces are inscribed about this silver band. You become a fluent weaver of fictions, gaining a +2 item bonus to Deception checks to Lie, Deception DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive], and Performance checks for storytelling. Whenever you're under suspicion or being questioned by an authority figure, you find yourself compulsively spinning absurd, tall tales that are so unconvincing that they make you look guilty even when you're innocent. The ring's bonuses vanish, and any listener can quickly determine you're lying. Nevertheless, you're completely unable to be honest in such situations.</p>"
+            "value": "<p>Smiling faces are inscribed about this silver band. You become a fluent weaver of fictions, gaining a +2 item bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Lie], Deception DCs against @UUID[Compendium.pf2e.actionspf2e.Item.Sense Motive], and Performance checks for storytelling. Whenever you're under suspicion or being questioned by an authority figure, you find yourself compulsively spinning absurd, tall tales that are so unconvincing that they make you look guilty even when you're innocent. The ring's bonuses vanish, and any listener can quickly determine you're lying. Nevertheless, you're completely unable to be honest in such situations.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -32,7 +32,35 @@
             "title": "Pathfinder Dark Archive"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "storytelling"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-motive"
+                ],
+                "selector": "deception-dc",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
