@@ -889,7 +889,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         return this.processChatData(htmlOptions, {
             ...systemData,
-            description: { value: description, addenda: this.system.description.addenda },
+            description: { value: description },
             isAttack: this.isAttack,
             isSave,
             check: this.isAttack && statisticChatData ? statisticChatData.check : undefined,

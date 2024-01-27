@@ -412,9 +412,19 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const description = await (async (): Promise<string> => {
             const baseText = chatData.description.value;
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
-            const addenda = await Promise.all(
-                chatData.description.addenda.map((addendum) => renderTemplate(templatePath, { addendum })),
-            );
+            const addenda = await (async (): Promise<string[]> => {
+                if (this.system.description.addenda.length === 0) return [];
+                const rollOptions = R.compact([this.actor?.getRollOptions(), this.getRollOptions("item")].flat());
+                return Promise.all(
+                    this.system.description.addenda.map((unfiltered) => {
+                        const addendum = {
+                            label: unfiltered.label,
+                            contents: unfiltered.contents.filter((c) => c.predicate.test(rollOptions)),
+                        };
+                        return renderTemplate(templatePath, { addendum });
+                    }),
+                );
+            })();
             return R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
         })();
         chatData.description.value = await TextEditor.enrichHTML(description, { ...htmlOptions, async: true });
