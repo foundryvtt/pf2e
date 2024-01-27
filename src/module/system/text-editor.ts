@@ -345,7 +345,7 @@ class TextEditorPF2e extends TextEditor {
             }
 
             if (item) {
-                const itemTraits = (item as unknown).traits;
+                const itemTraits = item.system?.traits?.value;
                 params.templateData = JSON.stringify({
                     flags: {
                         pf2e: {
