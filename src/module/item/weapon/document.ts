@@ -5,7 +5,7 @@ import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ItemSourcePF2e, ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
 import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
 import { PhysicalItemConstructionContext } from "@item/physical/document.ts";
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
@@ -412,7 +412,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override async getChatData(
         this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         const rangeLabel = createActionRangeLabel(this.range);

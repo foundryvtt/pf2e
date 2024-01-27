@@ -106,12 +106,16 @@ interface ItemDescriptionData extends ItemDescriptionSource {
     /** Additional text added by rule elements */
     addenda: {
         label: string;
-        contents: {
-            title: string | null;
-            text: string;
-            predicate: PredicatePF2e;
-        }[];
+        contents: AlteredDescriptionContent[];
     }[];
+    override: AlteredDescriptionContent[] | null;
+}
+
+interface AlteredDescriptionContent {
+    title: string | null;
+    text: string;
+    divider: boolean;
+    predicate: PredicatePF2e;
 }
 
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
@@ -138,6 +142,7 @@ export type {
     Frequency,
     FrequencyInterval,
     FrequencySource,
+    ItemDescriptionData,
     ItemFlagsPF2e,
     ItemGrantData,
     ItemGrantDeleteAction,

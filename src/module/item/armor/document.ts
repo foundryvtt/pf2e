@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { UserPF2e } from "@module/user/index.ts";
@@ -122,14 +122,14 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     override async getChatData(
         this: ArmorPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
-        const properties = [
+    ): Promise<RawItemChatData> {
+        const properties = R.compact([
             CONFIG.PF2E.armorCategories[this.category],
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}`,
             `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ];
+        ]);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),

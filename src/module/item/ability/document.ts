@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
+import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { AbilityItemSource, AbilitySystemData } from "./data.ts";
@@ -60,7 +60,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...this.system,
             traits: this.traitChatData(CONFIG.PF2E.featTraits),
