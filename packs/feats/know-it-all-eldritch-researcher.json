@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your knowledge of abstruse topics is unparalleled. When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a Knowledge check, at the GM's discretion you might gain even more additional information or context than normal.</p>"
+            "value": "<p>Your knowledge of abstruse topics is unparalleled. When you succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you gain additional information or context. When you critically succeed at a Knowledge check, at the GM's discretion you might gain even more additional information or context than normal.</p>"
         },
         "level": {
             "value": 10
@@ -28,7 +28,21 @@
             "remaster": false,
             "title": "Pathfinder #164: Hands of the Devil"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "text": "PF2E.SpecificRule.AdjustDegreeOfSuccess.RecallKnowledge.SuccessBetterAdditionalInformation",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
