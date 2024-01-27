@@ -26,6 +26,15 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.swashbuckler.preciseStrike",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "value": "ceil(@actor.level/4) + 1"
+            },
+            {
                 "disabledIf": [
                     {
                         "not": "self:effect:panache"
@@ -121,7 +130,6 @@
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    "class:swashbuckler",
                     "self:effect:panache",
                     {
                         "or": [
@@ -147,40 +155,14 @@
                 ],
                 "selector": "strike-damage",
                 "slug": "precise-strike",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 2
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": 3
-                        },
-                        {
-                            "end": 12,
-                            "start": 9,
-                            "value": 4
-                        },
-                        {
-                            "end": 16,
-                            "start": 13,
-                            "value": 5
-                        },
-                        {
-                            "start": 17,
-                            "value": 6
-                        }
-                    ]
-                }
+                "value": "@actor.flags.pf2e.swashbuckler.preciseStrike"
             },
             {
                 "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "class:swashbuckler",
                     "self:effect:panache",
                     "finisher",
                     {
@@ -203,44 +185,7 @@
                     }
                 ],
                 "selector": "strike-damage",
-                "slug": "finisher",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "end": 12,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "end": 16,
-                            "start": 13,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        },
-                        {
-                            "start": 17,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        }
-                    ]
-                }
+                "slug": "finisher"
             }
         ],
         "traits": {
