@@ -300,7 +300,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, item:any, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?:ItemPF2e|null, itemData?: ItemSystemData): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -340,6 +340,7 @@ class TextEditorPF2e extends TextEditor {
             }
 
             if (item) {
+                const itemTraits = (item as any).traits;
                 params.templateData = JSON.stringify({
                     flags: {
                         pf2e: {
@@ -347,7 +348,7 @@ class TextEditorPF2e extends TextEditor {
                                 name: item.name,
                                 slug: item.slug,
                                 actor: item.actor?.uuid,
-                                traits: item.traits ? Array.from(item.traits) : [],
+                                traits: itemTraits ? Array.from(itemTraits) : [],
                                 type: item.type,
                                 uuid: item.uuid,
                             }
