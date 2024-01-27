@@ -6,12 +6,14 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import { SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
+import { PredicatePF2e } from "@system/predication.ts";
+import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type {
     ArrayField,
     DataField,
     DataFieldOptions,
+    ModelPropFromDataField,
     NumberField,
     SchemaField,
     SourcePropFromDataField,
@@ -185,7 +187,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         value: new fields.ArrayField<
             DescriptionElementField,
             SourcePropFromDataField<DescriptionValueField>,
-            SourcePropFromDataField<DescriptionValueField>,
+            ModelPropFromDataField<DescriptionValueField>,
             true,
             false,
             false
@@ -203,6 +205,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                     blank: false,
                     initial: undefined,
                 } as const),
+                predicate: new PredicateField({ required: false }),
             }) satisfies DescriptionElementField,
             { required: true, nullable: false, initial: undefined } as const,
         ) satisfies DescriptionValueField,
@@ -452,7 +455,7 @@ type PersistentDamageValueSchema = {
 type DescriptionValueField = ArrayField<
     DescriptionElementField,
     SourcePropFromDataField<DescriptionElementField>[],
-    { title: string | null; text: string }[],
+    { title: string | null; text: string; predicate: PredicatePF2e }[],
     true,
     false,
     false
@@ -460,6 +463,7 @@ type DescriptionValueField = ArrayField<
 type DescriptionElementField = SchemaField<{
     title: StringField<string, string, false, true, true>;
     text: StringField<string, string, true, false, false>;
+    predicate: PredicateField<false>;
 }>;
 
 export { ITEM_ALTERATION_VALIDATORS };

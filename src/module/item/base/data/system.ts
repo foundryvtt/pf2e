@@ -1,12 +1,13 @@
-import { CreatureTrait } from "@actor/creature/types.ts";
-import { ActionTrait } from "@item/ability/types.ts";
-import { KingmakerTrait } from "@item/campaign-feature/types.ts";
-import { NPCAttackTrait } from "@item/melee/data.ts";
-import { PhysicalItemTrait } from "@item/physical/data.ts";
-import { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { CreatureTrait } from "@actor/creature/types.ts";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { KingmakerTrait } from "@item/campaign-feature/types.ts";
+import type { NPCAttackTrait } from "@item/melee/data.ts";
+import type { PhysicalItemTrait } from "@item/physical/data.ts";
+import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
 import type * as fields from "types/foundry/common/data/fields.d.ts";
-import { ItemType } from "./index.ts";
+import type { ItemType } from "./index.ts";
 
 type BaseItemSourcePF2e<
     TType extends ItemType,
@@ -103,7 +104,14 @@ interface ItemSystemData extends ItemSystemSource {
 
 interface ItemDescriptionData extends ItemDescriptionSource {
     /** Additional text added by rule elements */
-    addenda: { label: string; content: { title: string | null; text: string }[] }[];
+    addenda: {
+        label: string;
+        contents: {
+            title: string | null;
+            text: string;
+            predicate: PredicatePF2e;
+        }[];
+    }[];
 }
 
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
