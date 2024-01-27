@@ -248,7 +248,7 @@ class TextEditorPF2e extends TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item, item?.system);
             default:
                 return null;
         }
@@ -300,7 +300,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item:any, itemData?: ItemSystemData): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -339,11 +339,31 @@ class TextEditorPF2e extends TextEditor {
                 });
             }
 
+            if (item) {
+                params.templateData = JSON.stringify({
+                    flags: {
+                        pf2e: {
+                            origin: {
+                                name: item.name,
+                                slug: item.slug,
+                                actor: item.actor?.uuid,
+                                traits: item.traits ? Array.from(item.traits) : [],
+                                type: item.type,
+                                uuid: item.uuid,
+                            }
+                        }
+                    }
+                });
+            }
+
             // Add the html elements used for the inline buttons
             const html = document.createElement("span");
             html.innerHTML = label;
             html.setAttribute("data-pf2-effect-area", params.type);
             html.setAttribute("data-pf2-distance", params.distance);
+            if (params.templateData) {
+                html.setAttribute("data-pf2-template-data", params.templateData);
+            }
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
             return html;

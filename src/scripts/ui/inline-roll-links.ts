@@ -308,7 +308,7 @@ export const InlineRollLinks = {
                 }
 
                 const flags: { pf2e: Record<string, unknown> } = {
-                    pf2e: {},
+                    pf2e: templateData.flags?.pf2e ?? {},
                 };
 
                 if (
@@ -328,7 +328,7 @@ export const InlineRollLinks = {
 
                 const actor = resolveActor(foundryDoc, link);
                 if (actor || pf2Traits) {
-                    const origin: Record<string, unknown> = {};
+                    const origin: Record<string, unknown> = flags.pf2e.origin as Record<string, unknown> ?? {};
                     if (actor) {
                         origin.actor = actor.uuid;
                     }
