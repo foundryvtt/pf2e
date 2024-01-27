@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor/base.ts";
 import type { SpellPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e } from "@item";
-import { ItemSummaryData, isItemSystemData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor } from "@util";
@@ -88,11 +88,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     /**
      * Called when an item summary is expanded and needs to be filled out.
      */
-    async renderItemSummary(container: HTMLElement, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
-        const description = isItemSystemData(chatData)
-            ? chatData.description.value
-            : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
-
+    async renderItemSummary(container: HTMLElement, item: ItemPF2e, chatData: RawItemChatData): Promise<void> {
+        const description = chatData.description.value;
         const isEffect = item instanceof AbstractEffectPF2e;
         const selfEffect =
             item.isOfType("action", "feat") && item.system.selfEffect

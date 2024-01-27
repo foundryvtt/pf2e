@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import { ItemChatData, itemIsOfType } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -19,16 +19,16 @@ import { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
 import { ItemInstances } from "../types.ts";
-import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
+import { isPhysicalData } from "./data/helpers.ts";
 import type {
     ConditionSource,
     EffectSource,
     FeatSource,
     ItemFlagsPF2e,
     ItemSourcePF2e,
-    ItemSummaryData,
     ItemSystemData,
     ItemType,
+    RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
@@ -249,6 +249,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         this.system.slug ||= null;
         this.system.description.addenda = [];
+        this.system.description.override = null;
 
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
@@ -399,46 +400,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected async processChatData<T extends ItemSummaryData>(
+    protected async processChatData(
         htmlOptions: EnrichmentOptionsPF2e = {},
-        data: T,
-    ): Promise<T> {
-        data.properties = data.properties?.filter((property) => property !== null) ?? [];
-        if (!isItemSystemData(data)) return data;
-
-        const chatData = fu.duplicate(data);
-        htmlOptions.rollData = fu.mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
-
-        const description = await (async (): Promise<string> => {
-            const baseText = chatData.description.value;
-            const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
-            const addenda = await (async (): Promise<string[]> => {
-                if (this.system.description.addenda.length === 0) return [];
-                const rollOptions = R.compact([this.actor?.getRollOptions(), this.getRollOptions("item")].flat());
-                return Promise.all(
-                    this.system.description.addenda.map((unfiltered) => {
-                        const addendum = {
-                            label: unfiltered.label,
-                            contents: unfiltered.contents.filter((c) => c.predicate.test(rollOptions)),
-                        };
-                        return renderTemplate(templatePath, { addendum });
-                    }),
-                );
-            })();
-            return R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
-        })();
-        chatData.description.value = await TextEditor.enrichHTML(description, { ...htmlOptions, async: true });
-
-        return chatData;
+        chatData: RawItemChatData,
+    ): Promise<RawItemChatData> {
+        return new ItemChatData({ item: this, data: chatData, htmlOptions }).process();
     }
 
     async getChatData(
         htmlOptions: EnrichmentOptionsPF2e = {},
         _rollOptions: Record<string, unknown> = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
-        const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
-        return this.processChatData(htmlOptions, fu.deepClone(systemData));
+        const data = fu.deepClone({ ...this.system, traits: this.traitChatData() });
+        return this.processChatData(htmlOptions, data);
     }
 
     protected traitChatData(

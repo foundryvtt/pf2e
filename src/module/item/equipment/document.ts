@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { objectHasKey } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
@@ -13,7 +13,7 @@ class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),

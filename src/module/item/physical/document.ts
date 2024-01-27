@@ -1,6 +1,6 @@
 import { type ActorPF2e } from "@actor";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
-import { ItemSourcePF2e, ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
@@ -529,7 +529,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         };
     }
 
-    override async getChatData(): Promise<ItemSummaryData> {
+    override async getChatData(): Promise<RawItemChatData> {
         const { type, grade } = this.system.material;
         const material =
             type && grade
@@ -549,7 +549,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         return {
             rarity,
-            description: { value: this.description },
+            description: this.system.description,
             material,
         };
     }
