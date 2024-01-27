@@ -14,7 +14,7 @@ export class Migration916PreciseStrikeFlag extends MigrationBase {
             const rule = {
                 key: "ActiveEffectLike",
                 mode: "override",
-                path: "flags.pf2e.swashbuckler.preciseStrike.value",
+                path: "flags.pf2e.swashbuckler.preciseStrike",
                 predicate: ["class:swashbuckler"],
                 value: "ceil(@actor.level/4) + 1",
             };
@@ -28,7 +28,7 @@ export class Migration916PreciseStrikeFlag extends MigrationBase {
                 const rule = {
                     key: "ActiveEffectLike",
                     mode: "override",
-                    path: "flags.pf2e.swashbuckler.preciseStrike.value",
+                    path: "flags.pf2e.swashbuckler.preciseStrike",
                     value: 1,
                 };
                 source.system.rules.push(rule);
