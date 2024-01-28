@@ -64,10 +64,12 @@ class ItemChatData {
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
                     const hr = line.divider ? document.createElement("hr") : null;
-                    const title = line.title ? createHTMLElement("strong", { children: [line.title] }) : null;
-                    const paragraph = createHTMLElement("p", {
-                        children: R.compact([title, title ? " " : "", line.text]),
-                    });
+                    const title = line.title
+                        ? createHTMLElement("strong", { children: [game.i18n.localize(line.title)] })
+                        : null;
+                    const whitespace = title ? " " : null;
+                    const text = /^[-.a-z0-9]+$/i.test(line.text) ? game.i18n.localize(line.text) : line.text;
+                    const paragraph = createHTMLElement("p", { children: R.compact([title, whitespace, text]) });
                     return R.compact([hr, paragraph].map((e) => e?.outerHTML));
                 })
                 .join("\n");
