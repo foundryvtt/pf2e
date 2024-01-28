@@ -805,9 +805,12 @@ class TextEditorPF2e extends TextEditor {
     /** Create roll options with information about the action being used */
     static #createActionOptions(item: Maybe<ItemPF2e>): string[] {
         if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
+        const slug = item.slug ?? sluggify(item.name);
         return R.compact([
-            `action:${item.slug ?? sluggify(item.name)}`,
+            `action:${slug}`,
+            `self:action:slug:${slug}`,
             item.actionCost.value ? `action:cost:${item.actionCost.value}` : null,
+            ...item.system.traits.value.map((t) => `self:action:trait:${t}`),
         ]);
     }
 }

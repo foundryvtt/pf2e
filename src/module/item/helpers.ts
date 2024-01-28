@@ -68,7 +68,7 @@ class ItemChatData {
                         ? createHTMLElement("strong", { children: [game.i18n.localize(line.title)] })
                         : null;
                     const whitespace = title ? " " : null;
-                    const text = /^[-.a-z0-9]+$/i.test(line.text) ? game.i18n.localize(line.text) : line.text;
+                    const text = game.i18n.localize(line.text);
                     const paragraph = createHTMLElement("p", { children: R.compact([title, whitespace, text]) });
                     return R.compact([hr, paragraph].map((e) => e?.outerHTML));
                 })
@@ -81,12 +81,15 @@ class ItemChatData {
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
                 data.description.addenda.map((unfiltered) => {
-                    for (const line of unfiltered.contents) {
-                        line.text = /^[-.a-z0-9]+$/i.test(line.text) ? game.i18n.localize(line.text) : line.text;
-                    }
                     const addendum = {
                         label: game.i18n.localize(unfiltered.label),
-                        contents: unfiltered.contents.filter((c) => c.predicate.test(rollOptions)),
+                        contents: unfiltered.contents
+                            .filter((c) => c.predicate.test(rollOptions))
+                            .map((line) => {
+                                line.title &&= game.i18n.localize(line.title);
+                                line.text = game.i18n.localize(line.text);
+                                return line;
+                            }),
                     };
                     return renderTemplate(templatePath, { addendum });
                 }),
@@ -96,7 +99,7 @@ class ItemChatData {
         const assembled = R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
-        return TextEditor.enrichHTML(assembled, { ...this.htmlOptions, ...rollData, async: true });
+        return TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true });
     }
 }
 
