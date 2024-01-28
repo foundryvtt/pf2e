@@ -32,7 +32,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
-    get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
+    get embeddedSpell(): SpellPF2e<NonNullable<TParent>> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 

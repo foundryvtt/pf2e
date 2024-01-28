@@ -470,8 +470,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
+                const collectionId = itemEl?.dataset.entryId;
+                const collection: Collection<ItemPF2e<TActor>> = collectionId
+                    ? this.actor.spellcasting.collections.get(collectionId, { strict: true })
+                    : this.actor.items;
                 const itemId = itemEl?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
+                const item = collection.get(itemId, { strict: true });
                 if (item.isOfType("spell")) {
                     const castRank = Number(itemEl?.dataset.castRank ?? NaN);
                     return item.toMessage(event, { data: { castRank } });

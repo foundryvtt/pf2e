@@ -69,20 +69,23 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
     protected async getItemFromElement(element: HTMLElement): Promise<ClientDocument | null> {
         const actor = this.sheet.actor;
         const { subitemId, itemId, itemUuid, itemType, actionIndex } = element.dataset;
-        const isFormula = !!itemUuid && element.dataset.isFormula !== undefined;
+        const isFormula = !!itemUuid && "isFormula" in element.dataset;
         const realItemId = subitemId ? htmlClosest(element, "[data-item-id]")?.dataset.itemId : itemId;
         const subitem = subitemId
             ? actor.inventory.get(realItemId, { strict: true }).subitems.get(subitemId, { strict: true })
             : null;
         if (subitem) return subitem;
+        if (isFormula) return fromUuid(itemUuid);
+        if (itemType === "spell") {
+            const collectionId = element.dataset.entryId;
+            return actor.spellcasting.collections.get(collectionId, { strict: true }).get(itemId, { strict: true });
+        }
 
-        return isFormula
-            ? fromUuid(itemUuid)
-            : itemType === "condition"
-              ? actor.conditions.get(itemId, { strict: true })
-              : actionIndex
-                ? actor.system.actions?.[Number(actionIndex)].item ?? null
-                : actor.items.get(realItemId ?? "") ?? null;
+        return itemType === "condition"
+            ? actor.conditions.get(itemId, { strict: true })
+            : actionIndex
+              ? actor.system.actions?.[Number(actionIndex)].item ?? null
+              : actor.items.get(realItemId ?? "") ?? null;
     }
 
     /**
