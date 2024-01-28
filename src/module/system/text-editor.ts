@@ -32,7 +32,7 @@ import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
 import { damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
+import { DamageFormulaData, DamageKind, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -185,12 +185,16 @@ class TextEditorPF2e extends TextEditor {
                           title: item.name,
                       })
                     : anchor.dataset.name;
+            const kinds = (anchor.dataset.kinds ?? "damage")
+                .split(",")
+                .filter((k): k is DamageKind => ["damage", "healing"].includes(k));
 
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
                 actor,
                 item,
                 domains,
+                kinds,
                 traits,
                 name,
                 extraRollOptions,
@@ -759,11 +763,16 @@ class TextEditorPF2e extends TextEditor {
             ...this.#createActionOptions(item),
         ]).sort();
 
+        const kinds = (params.kinds ?? "damage")
+            .split(",")
+            .filter((k): k is DamageKind => ["damage", "healing"].includes(k));
+
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
             actor,
             item,
             domains,
+            kinds,
             traits,
             name: params.name?.trim(),
             extraRollOptions,
@@ -894,17 +903,9 @@ function getCheckDC({
 /** Given a damage formula, augments it with modifiers and damage dice for inline rolls */
 async function augmentInlineDamageRoll(
     baseFormula: string,
-    args: {
-        skipDialog: boolean;
-        name?: string;
-        actor?: ActorPF2e | null;
-        item?: ItemPF2e | null;
-        traits?: string[];
-        domains?: string[];
-        extraRollOptions?: string[];
-    },
+    options: AugmentInlineDamageOptions,
 ): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
-    const { name, actor, item, traits, extraRollOptions } = args;
+    const { name, actor, item, kinds, traits, extraRollOptions } = options;
 
     try {
         // Retrieve roll data. If there is no actor, determine a reasonable "min level" for formula display
@@ -920,11 +921,11 @@ async function augmentInlineDamageRoll(
                 "inline-damage",
                 item ? `${item.id}-inline-damage` : null,
                 item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
-                args.domains,
+                options.domains,
             ].flat(),
         );
 
-        const options = new Set([
+        const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
             ...(traits ?? []),
@@ -935,7 +936,7 @@ async function augmentInlineDamageRoll(
         if (!firstBase) return null;
         // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
         if (actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
-            const value = options.has("item:frequency:limited") ? 4 : 2;
+            const value = rollOptions.has("item:frequency:limited") ? 4 : 2;
             firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
         }
         if (item?.isOfType("physical")) {
@@ -945,11 +946,11 @@ async function augmentInlineDamageRoll(
         const { modifiers, dice } = (() => {
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
 
-            const extractOptions = { test: options };
+            const extractOptions = { test: rollOptions };
             return processDamageCategoryStacking(base, {
                 modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
                 dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
-                test: options,
+                test: rollOptions,
             });
         })();
 
@@ -957,6 +958,7 @@ async function augmentInlineDamageRoll(
             base,
             modifiers,
             dice,
+            kinds: new Set(kinds),
             ignoredResistances: [],
         };
 
@@ -966,7 +968,7 @@ async function augmentInlineDamageRoll(
             sourceType: isAttack ? "attack" : "save",
             outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
             domains,
-            options,
+            options: rollOptions,
             self: actor
                 ? {
                       actor,
@@ -979,7 +981,7 @@ async function augmentInlineDamageRoll(
             traits: traits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [],
         };
 
-        if (!args.skipDialog) {
+        if (!options.skipDialog) {
             const rolled = await new DamageModifierDialog({ formulaData, context }).resolve();
             if (!rolled) return null;
         }
@@ -1054,6 +1056,17 @@ interface CreateSingleCheckOptions {
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
     inlineLabel?: string;
+}
+
+interface AugmentInlineDamageOptions {
+    skipDialog: boolean;
+    name?: string;
+    actor?: ActorPF2e | null;
+    item?: ItemPF2e | null;
+    kinds: DamageKind[];
+    traits?: string[];
+    domains?: string[];
+    extraRollOptions?: string[];
 }
 
 export { TextEditorPF2e, type EnrichmentOptionsPF2e };
