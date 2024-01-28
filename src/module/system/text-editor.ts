@@ -177,26 +177,38 @@ class TextEditorPF2e extends TextEditor {
             const extraRollOptions = R.compact(
                 [anchor.dataset.pf2RollOptions?.split(","), TextEditorPF2e.#createActionOptions(item)].flat(),
             );
-            const name =
-                item?.isOfType("action", "feat") && item.actionCost
-                    ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-                          glyph: getActionGlyph(item.actionCost),
-                          subtitle: game.i18n.localize("PF2E.Damage.Kind.Damage.Roll.Noun"),
-                          title: item.name,
-                      })
-                    : anchor.dataset.name;
-
-            const result = await augmentInlineDamageRoll(baseFormula, {
+            const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
                 actor,
                 item,
                 domains,
                 traits,
-                name,
+                name: anchor.dataset.name,
                 extraRollOptions,
             });
-            if (result) {
-                await DamagePF2e.roll(result.template, result.context);
+            if (args) {
+                const subtitle = ((): string | null => {
+                    if (anchor.dataset.name) return null;
+                    const damageKinds = args.template.damage.roll.kinds;
+                    const locKey =
+                        damageKinds.has("damage") && !damageKinds.has("healing")
+                            ? "Damage"
+                            : damageKinds.has("healing") && !damageKinds.has("damage")
+                              ? "Healing"
+                              : "Both";
+                    return game.i18n.localize(`PF2E.Damage.Kind.${locKey}.Roll.Noun`);
+                })();
+                const name =
+                    subtitle && item?.isOfType("action", "feat") && item.actionCost
+                        ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                              glyph: getActionGlyph(item.actionCost),
+                              subtitle,
+                              title: item.name,
+                          })
+                        : anchor.dataset.name ?? item?.name ?? actor?.name ?? "";
+                args.template.name = name;
+
+                await DamagePF2e.roll(args.template, args.context);
             }
 
             return;
