@@ -94,8 +94,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         options.scrollY.push(".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
         options.tabs = [
-            { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
-            { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+            { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
+            { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+            {
+                navSelector: "nav[data-group=spell-collections]",
+                contentSelector: "div[data-tab=spellcasting] > [data-panels]",
+                group: "spell-collections",
+                initial: "known-spells",
+            },
         ];
         return options;
     }
@@ -250,10 +256,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
               );
 
         // Spellcasting
+        const collectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]> = fu.mergeObject(
+            { "known-spells": [], rituals: [], activations: [] },
+            R.groupBy.strict(await this.prepareSpellcasting(), (a) => {
+                if (a.category === "items") return "activations";
+                if (a.category === "ritual") return "rituals";
+                return "known-spells";
+            }),
+        );
+
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some((s) => s.usesSpellProficiency);
+        sheetData.spellCollectionGroups = collectionGroups;
+        sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
+            (s) => s.usesSpellProficiency,
+        );
 
         // ensure saves are displayed in the following order:
         sheetData.data.saves = {
@@ -1573,6 +1590,7 @@ interface CraftingSheetData {
 }
 
 type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
+type SpellcastingTabSlug = "known-spells" | "rituals" | "activations";
 
 interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> extends CreatureSheetData<TActor> {
     abpEnabled: boolean;
@@ -1603,7 +1621,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     options: CharacterSheetOptions;
     preparationType: Object;
     showPFSTab: boolean;
-    spellcastingEntries: SpellcastingSheetData[];
+    spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {

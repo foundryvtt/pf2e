@@ -1,9 +1,11 @@
 import type { CreaturePF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import type { PhysicalItemPF2e, SpellPF2e } from "@item";
+import { MagicTradition } from "@item/spell/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import * as R from "remeda";
+import { SpellCollection, SpellCollectionData } from "./collection.ts";
 import type { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types.ts";
 
 /** An in-memory spellcasting entry for items-only spellcasting */
@@ -16,14 +18,17 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
 
     statistic: Statistic;
 
+    tradition: MagicTradition | null;
+
     /** A predicate to test against a physical item to determine whether its contained spell can be cast */
     castPredicate: PredicatePF2e;
 
-    constructor({ id, name, actor, statistic, castPredicate }: ItemsSpellcastingConstructorParams<TActor>) {
+    constructor({ id, name, actor, statistic, tradition, castPredicate }: ItemsSpellcastingConstructorParams<TActor>) {
         this.id = id;
         this.name = name;
         this.actor = actor;
         this.statistic = statistic;
+        this.tradition = tradition ?? null;
         this.castPredicate = castPredicate;
     }
 
@@ -33,10 +38,6 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
 
     get category(): "items" {
         return "items";
-    }
-
-    get tradition(): null {
-        return null;
     }
 
     get sort(): number {
@@ -93,11 +94,11 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
         }
     }
 
-    async getSheetData(): Promise<SpellcastingSheetData> {
+    async getSheetData({ spells }: { spells?: SpellCollection<TActor> } = {}): Promise<SpellcastingSheetData> {
+        const collectionData: SpellCollectionData = (await spells?.getSpellData()) ?? { groups: [], prepList: null };
+
         return {
             ...R.pick(this, [
-                "id",
-                "name",
                 "category",
                 "tradition",
                 "sort",
@@ -109,11 +110,12 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
                 "isSpontaneous",
                 "isEphemeral",
             ]),
+            ...collectionData,
+            id: spells?.id ?? this.id,
+            name: spells?.name ?? this.name,
             statistic: this.statistic.getChatData(),
-            hasCollection: false,
+            hasCollection: !!spells?.size,
             usesSpellProficiency: false,
-            groups: [],
-            prepList: null,
         };
     }
 }
@@ -123,6 +125,7 @@ interface ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> {
     name: string;
     actor: TActor;
     statistic: Statistic;
+    tradition?: Maybe<MagicTradition>;
     castPredicate: PredicatePF2e;
 }
 

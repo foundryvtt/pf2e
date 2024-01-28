@@ -1,8 +1,24 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
+    <nav class="spell-collections sub-nav" data-group="spell-collections">
+        <a data-tab="known-spells" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.KnownSpells"}}</a>
+        <a class="rituals" data-tab="rituals" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Rituals"}}</a>
+        <a data-tab="activations" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Activations"}}</a>
+    </nav>
+
     {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
 
+    <div class="spell-collections" data-panels>
+        {{#each spellCollectionGroups as |group tab|}}
+            <div class="tab {{tab}}" data-group="spell-collections" data-tab="{{tab}}">
+                {{> collectionGroup collections=group tab=tab}}
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+{{#*inline "collectionGroup"}}
     <ol class="spellcastingEntry-list directory-list" data-foundry-list>
-        {{#each spellcastingEntries as |entry|}}
+        {{#each collections as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
                     {{#unless entry.isEphemeral}}
@@ -101,13 +117,12 @@
                 {{/if}}
             </li>
         {{/each}}
+
+        {{#if (eq tab "known-spells")}}
+            <button type="button" class="blue create-entry" data-action="spellcasting-create">
+                <i class="fa-solid fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
+            </button>
+        {{/if}}
+
     </ol>
-
-
-    {{#if @root.editable}}
-        <button type="button" class="blue create-entry" data-action="spellcasting-create">
-            <i class="fa-solid fa-plus"></i>{{localize "PF2E.AddSpellcastingEntryTitle"}}
-        </button>
-    {{/if}}
-
-</div>
+{{/inline}}

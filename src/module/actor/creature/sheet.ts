@@ -24,13 +24,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
     override async getData(options?: Partial<ActorSheetOptions>): Promise<CreatureSheetData<TActor>> {
-        const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
+        const sheetData = await super.getData(options);
         const actor = this.actor;
 
-        // Languages for PCs are handled in the PC sheet subclass
         const unavailableLanguages: Set<string> = game.settings.get("pf2e", "homebrew.languageRarities").unavailable;
         const languages = actor.isOfType("character")
-            ? []
+            ? [] // Languages for PCs are handled in the PC sheet subclass
             : actor.system.details.languages.value
                   .filter((l) => l in CONFIG.PF2E.languages && !unavailableLanguages.has(l))
                   .map((slug) => ({ slug, label: game.i18n.localize(CONFIG.PF2E.languages[slug] ?? slug) }))
@@ -64,7 +63,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     }
 
     protected async prepareSpellcasting(): Promise<SpellcastingSheetData[]> {
-        const entries = await Promise.all(this.actor.spellcasting.map(async (entry) => entry.getSheetData()));
+        const entries = await Promise.all(
+            this.actor.spellcasting.collections.map((spells) => spells.entry.getSheetData({ spells })),
+        );
         return entries.filter((e) => e.hasCollection).sort((a, b) => a.sort - b.sort);
     }
 
@@ -137,7 +138,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const maybeCastRank = Number(spellRow?.dataset.castRank) || NaN;
             if (Number.isInteger(maybeCastRank) && maybeCastRank.between(1, 10)) {
                 const rank = maybeCastRank as OneToTen;
-                return collection.entry.cast(spell, { rank, slotId: Number(slotId) });
+                return spell.parentItem?.consume() ?? collection.entry.cast(spell, { rank, slotId: Number(slotId) });
             }
         };
 

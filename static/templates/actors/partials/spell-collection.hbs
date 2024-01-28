@@ -82,7 +82,7 @@
                         <button type="button" class="cast-spell blue invisible">{{localize "PF2E.Item.Spell.Cast"}}</button>
 
                         <div class="item-controls">
-                            {{#unless entry.isPrepared}}
+                            {{#unless (or (eq entry.category "prepared") (eq entry.category "items"))}}
                                 <a
                                     data-action="create-item"
                                     data-tooltip="PF2E.CreateSpellTitle"
@@ -176,7 +176,7 @@
                                             data-action="unprepare-spell"
                                             data-tooltip="PF2E.UnprepareItemTitle"
                                         ><i class="fa-solid fa-fw fa-trash"></i></a>
-                                    {{else}}
+                                    {{else if (ne entry.category "items")}}
                                         {{#if (and entry.isSpontaneous (ne group.id "cantrips"))}}
                                             <a
                                                 data-action="toggle-signature-spell"

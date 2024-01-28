@@ -14,7 +14,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     declare base: Statistic;
 
     /** All available spell lists on this actor */
-    collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
+    collections = new Collection<SpellCollection<TActor>>();
 
     /** Cache of trick magic item entries */
     #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};

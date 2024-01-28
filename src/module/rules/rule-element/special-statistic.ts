@@ -1,17 +1,19 @@
 import type { CharacterPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { MagicTradition } from "@item/spell/types.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
+import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { setHasElement, tupleHasValue } from "@util";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import type { SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "../index.ts";
 import type { RuleElementSchema } from "./data.ts";
 
 /** Create a special-purpose statistic for use in checks and as a DC */
-class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
-    static override defineSchema(): StatisticRESchema {
+class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema> {
+    static override defineSchema(): SpecialStatisticSchema {
         const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
@@ -41,7 +43,18 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
                 nullable: true,
                 initial: null,
             }),
-            itemCasting: new PredicateField({ required: false, nullable: true, initial: null }),
+            itemCasting: new fields.SchemaField(
+                {
+                    predicate: new PredicateField({ required: true, nullable: false }),
+                    tradition: new fields.StringField({
+                        required: false,
+                        nullable: true,
+                        choices: () => CONFIG.PF2E.magicTraditions,
+                        initial: null,
+                    }),
+                },
+                { required: false, nullable: false, initial: undefined },
+            ),
         };
     }
 
@@ -73,7 +86,8 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
                         name: this.label,
                         actor: this.actor,
                         statistic,
-                        castPredicate: this.itemCasting,
+                        castPredicate: this.itemCasting.predicate,
+                        tradition: this.itemCasting.tradition,
                     }),
                 );
             }
@@ -84,18 +98,30 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<StatisticRESchema> {
 }
 
 interface SpecialStatisticRuleElement
-    extends RuleElementPF2e<StatisticRESchema>,
-        Omit<ModelPropsFromSchema<StatisticRESchema>, "label"> {
+    extends RuleElementPF2e<SpecialStatisticSchema>,
+        Omit<ModelPropsFromSchema<SpecialStatisticSchema>, "label"> {
     slug: string;
 
     get actor(): CharacterPF2e;
 }
 
-type StatisticRESchema = RuleElementSchema & {
+type SpecialStatisticSchema = RuleElementSchema & {
     type: StringField<StatisticType, StatisticType, true, false, true>;
     extends: StringField<string, string, true, true, true>;
     attribute: StringField<AttributeString, AttributeString, false, true, true>;
-    itemCasting: PredicateField<false, true, true>;
+    itemCasting: SchemaField<
+        ItemCastingSchema,
+        { predicate: RawPredicate; tradition: MagicTradition | null },
+        { predicate: PredicatePF2e; tradition: MagicTradition | null },
+        false,
+        false,
+        false
+    >;
+};
+
+type ItemCastingSchema = {
+    predicate: PredicateField<true, false, false>;
+    tradition: StringField<MagicTradition, MagicTradition, false, true, true>;
 };
 
 type StatisticType = "simple" | "check" | "attack-roll";
