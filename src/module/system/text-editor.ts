@@ -32,7 +32,7 @@ import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
 import { damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { DamageFormulaData, DamageKind, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
+import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -185,16 +185,12 @@ class TextEditorPF2e extends TextEditor {
                           title: item.name,
                       })
                     : anchor.dataset.name;
-            const kinds = (anchor.dataset.kinds ?? "damage")
-                .split(",")
-                .filter((k): k is DamageKind => ["damage", "healing"].includes(k));
 
             const result = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
                 actor,
                 item,
                 domains,
-                kinds,
                 traits,
                 name,
                 extraRollOptions,
@@ -763,16 +759,11 @@ class TextEditorPF2e extends TextEditor {
             ...this.#createActionOptions(item),
         ]).sort();
 
-        const kinds = (params.kinds ?? "damage")
-            .split(",")
-            .filter((k): k is DamageKind => ["damage", "healing"].includes(k));
-
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
             actor,
             item,
             domains,
-            kinds,
             traits,
             name: params.name?.trim(),
             extraRollOptions,
@@ -910,7 +901,7 @@ async function augmentInlineDamageRoll(
     baseFormula: string,
     options: AugmentInlineDamageOptions,
 ): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
-    const { name, actor, item, kinds, traits, extraRollOptions } = options;
+    const { name, actor, item, traits, extraRollOptions } = options;
 
     try {
         // Retrieve roll data. If there is no actor, determine a reasonable "min level" for formula display
@@ -918,14 +909,16 @@ async function augmentInlineDamageRoll(
         rollData.actor ??= { level: (item && "level" in item ? item.level : null) ?? 1 };
 
         // Extract terms from formula
-        const base = extractBaseDamage(new DamageRoll(baseFormula, rollData));
+        const baseDamageRoll = new DamageRoll(baseFormula, rollData);
+        const base = extractBaseDamage(baseDamageRoll);
+        const kinds = Array.from(baseDamageRoll.kinds);
 
         const domains = R.compact(
             [
-                "damage",
-                "inline-damage",
-                item ? `${item.id}-inline-damage` : null,
-                item ? `${sluggify(item.slug ?? item.name)}-inline-damage` : null,
+                kinds,
+                kinds.map((k) => `inline-${k}`),
+                item ? kinds.map((k) => `${item.id}-inline-${k}`) : null,
+                item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
                 options.domains,
             ].flat(),
         );
@@ -1068,7 +1061,6 @@ interface AugmentInlineDamageOptions {
     name?: string;
     actor?: ActorPF2e | null;
     item?: ItemPF2e | null;
-    kinds: DamageKind[];
     traits?: string[];
     domains?: string[];
     extraRollOptions?: string[];
