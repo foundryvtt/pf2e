@@ -2024,7 +2024,7 @@
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
                 },
-                "DruidsCrown":{
+                "DruidsCrown": {
                     "AntlersLabel": "Antlers",
                     "FlowersLabel": "Flowers",
                     "LeavesLabel": "Leaves"
@@ -2094,7 +2094,7 @@
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
                 },
-                "ZuhrasGloves":{
+                "ZuhrasGloves": {
                     "WallOfMetalLabel": "Wall of Metal is Active"
                 }
             },
@@ -2131,8 +2131,8 @@
                 "PeerBeyond": {
                     "Note": "You can roll a Spirit Lore or Haunt Lore check for initiative if you know that an incorporeal undead or a haunt is present."
                 },
-                "RiskySurgery":{
-                    "Note":"When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
+                "RiskySurgery": {
+                    "Note": "When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
                 }
             },
             "Fetchling": {
@@ -2380,6 +2380,7 @@
                     "Construct": {
                         "Prompt": "Select a construct innovation."
                     },
+                    "MalfunctionDamage": "Malfunctioning Innovation",
                     "Prompt": "Select an innovation.",
                     "Weapon": {
                         "Prompt": "Select a weapon innovation."
@@ -2415,7 +2416,17 @@
                     "Vitriol": "Vitriol (Acid)"
                 },
                 "Overdrive": {
+                    "CriticalFailure": "Whoops! Something explodes. You take @Damage[@actor.level[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage, and you can't use Overdrive again for 1 minute as your gizmos cool down and reset.",
                     "DamageTypePrompt": "Deal fire damage with overdrive?"
+                },
+                "Unstable": {
+                    "FlatCheck": {
+                        "CriticalFailure": "The innovation becomes incapable of being used for further unstable actions, and you also take @Damage[@actor.level[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage.",
+                        "Failure": "The innovation becomes incapable of being used for further unstable actions.",
+                        "Label": "Unstable Check"
+                    },
+                    "Note": "When you take an unstable action, attempt a @Check[flat|dc:17|options:unstable-flat|name:PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Label]{flat check} immediately after applying its effects.",
+                    "Stable": "Stable"
                 }
             },
             "Investigator": {
@@ -2723,7 +2734,7 @@
                 "Mystery": {
                     "Prompt": "Select a mystery."
                 },
-               "MysteryConduit":{
+                "MysteryConduit": {
                     "Note": "When you cast a spell of 5th rank or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait."
                 }
             },
