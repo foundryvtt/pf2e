@@ -64,10 +64,12 @@ class ItemChatData {
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
                     const hr = line.divider ? document.createElement("hr") : null;
-                    const title = line.title ? createHTMLElement("strong", { children: [line.title] }) : null;
-                    const paragraph = createHTMLElement("p", {
-                        children: R.compact([title, title ? " " : "", line.text]),
-                    });
+                    const title = line.title
+                        ? createHTMLElement("strong", { children: [game.i18n.localize(line.title)] })
+                        : null;
+                    const whitespace = title ? " " : null;
+                    const text = game.i18n.localize(line.text);
+                    const paragraph = createHTMLElement("p", { children: R.compact([title, whitespace, text]) });
                     return R.compact([hr, paragraph].map((e) => e?.outerHTML));
                 })
                 .join("\n");
@@ -75,12 +77,19 @@ class ItemChatData {
 
         const addenda = await (async (): Promise<string[]> => {
             if (item.system.description.addenda.length === 0) return [];
+
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
                 data.description.addenda.map((unfiltered) => {
                     const addendum = {
-                        label: unfiltered.label,
-                        contents: unfiltered.contents.filter((c) => c.predicate.test(rollOptions)),
+                        label: game.i18n.localize(unfiltered.label),
+                        contents: unfiltered.contents
+                            .filter((c) => c.predicate.test(rollOptions))
+                            .map((line) => {
+                                line.title &&= game.i18n.localize(line.title);
+                                line.text = game.i18n.localize(line.text);
+                                return line;
+                            }),
                     };
                     return renderTemplate(templatePath, { addendum });
                 }),
@@ -90,7 +99,7 @@ class ItemChatData {
         const assembled = R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
-        return TextEditor.enrichHTML(assembled, { ...this.htmlOptions, ...rollData, async: true });
+        return TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true });
     }
 }
 

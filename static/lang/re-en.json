@@ -1463,6 +1463,9 @@
                         "SuccessBetter": "If you roll a success on an Athletics check to Climb you get a critical success instead."
                     }
                 },
+                "RecallKnowledge": {
+                    "SuccessBetterAdditionalInformation": "When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a Recall Knowledge check, at the GM's discretion you might gain even more additional information or context than normal."
+                },
                 "Squeeze": {
                     "CriticalFailureSuccessBetter": "When you roll a critical failure on a check to Squeeze, you get a failure instead, and when you roll a success, you get a critical success instead."
                 },
@@ -1584,6 +1587,9 @@
                 "MagicalResistance": {
                     "Prompt": "Select a type of energy damage."
                 }
+            },
+            "Azarketi": {
+                "PhosphorescentSpots": "Phosphorescent Spots"
             },
             "Barbarian": {
                 "Animal": {
@@ -2001,9 +2007,18 @@
                     "BowToAHigherPowerLabel": "Chaplain's Cudgel — Bow to a Higher Power",
                     "CastTwoActionSpellLabel": "Cast a divine spell that takes two or more actions"
                 },
+                "CoyoteCloak": {
+                    "Note": "If you critically succeed at your Survival check to Subsist, you can feed twice as many additional creatures.",
+                    "GreaterNote": "If you critically succeed at your Survival check to Subsist, you can feed four times as many additional creatures."
+                },
                 "DeckOfDestiny": {
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
+                },
+                "DruidsCrown":{
+                    "AntlersLabel": "Antlers",
+                    "FlowersLabel": "Flowers",
+                    "LeavesLabel": "Leaves"
                 },
                 "EagleEyeElixir": {
                     "Greater": {
@@ -2018,6 +2033,11 @@
                     "Moderate": {
                         "SecretLabel": "Moderate Eagle Eye Elixir (To Find Secret Doors or Traps)"
                     }
+                },
+                "EggCreamFizz": {
+                    "ChocolateLabel": "Chocolate",
+                    "StrawberryLabel": "Strawberry",
+                    "VanillaLabel": "Vanilla"
                 },
                 "Erraticannon": {
                     "Note": "Each time you attack with the weapon, roll to determine the damage type of the Strike. @UUID[Compendium.pf2e.equipment-effects.Item.wmrINlK6twqfbJjo]{Effect: Erraticannon}"
@@ -2054,11 +2074,19 @@
                     "CriticalHitNote": "On a critical hit, you cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.",
                     "StrikeLabel": "Sparkler"
                 },
+                "SoothingToddy": {
+                    "AmarettoLabel": "Amaretto",
+                    "LimoncelloLabel": "Limoncello",
+                    "WhiskeyLabel": "Whiskey"
+                },
                 "TacticiansHelm": {
                     "ReactiveStrikeNote": "On a successful @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{Reactive Strike}, add one charge: @UUID[Compendium.pf2e.equipment-effects.Item.nLwtvyLZZTZgFmKq]{Effect: Tactician's Helm Charges}"
                 },
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
+                },
+                "ZuhrasGloves":{
+                    "WallOfMetalLabel": "Wall of Metal is Active"
                 }
             },
             "ExemplaryFinisher": {
@@ -2091,7 +2119,10 @@
                 "Forager": {
                     "Note": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide for multiple creatures."
                 },
-                "RiskySurgery": {
+                "PeerBeyond": {
+                    "Note": "You can roll a Spirit Lore or Haunt Lore check for initiative if you know that an incorporeal undead or a haunt is present."
+                },
+                "RiskySurgery":{
                     "Note": "When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
                 }
             },
@@ -2678,6 +2709,9 @@
             "Oracle": {
                 "Mystery": {
                     "Prompt": "Select a mystery."
+                },
+               "MysteryConduit":{
+                    "Note": "When you cast a spell of 5th rank or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait."
                 }
             },
             "Orc": {
@@ -3219,6 +3253,7 @@
                     "Basic": "Basic",
                     "Bleeding": "Bleeding",
                     "Confident": "Confident",
+                    "ConfidentNote": "You deal half your @Damage[((@actor.flags.pf2e.swashbuckler.preciseStrike)d6[precision])[@item.system.damage.damageType]]{Precise Strike damage} to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.",
                     "Dual": "Dual",
                     "Impaling": "Impaling",
                     "Label": "Finisher",

@@ -1,0 +1,51 @@
+{
+    "_id": "jgNp0xehXyEp5CxY",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Elysian Dew",
+    "system": {
+        "description": {
+            "value": "<p>You and any ally that starts its turn in the emanation gain 5 temporary Hit Points, a +1 item bonus to saving throws, and a +1 item bonus to Acrobatics and Athletics checks until the start of your or the ally's next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "saving-throw"
+                ],
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "TempHP",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

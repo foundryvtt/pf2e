@@ -424,12 +424,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.self.modifiers].flat());
 
         // Get roll options and roll notes
-        const extraRollOptions = [
+        const extraRollOptions = R.compact([
             ...(args.extraRollOptions ?? []),
             ...(rollContext?.options ?? []),
             `check:statistic:${this.parent.slug}`,
             `check:type:${this.type.replace(/-check$/, "")}`,
-        ];
+            args.slug ? `check:slug:${args.slug}` : null,
+        ]);
         if (this.parent.base) {
             extraRollOptions.push(`check:statistic:base:${this.parent.base.slug}`);
         }
@@ -571,7 +572,9 @@ interface StatisticRollParameters {
     dc?: CheckDC | CheckDCReference | number | null;
     /** Optional override for the check modifier label */
     label?: string;
-    /** Optional override for the dialog's title. Defaults to label */
+    /** An optional identifying slug to give a specific check: propagated to roll options */
+    slug?: Maybe<string>;
+    /** Optional override for the dialog's title: defaults to label */
     title?: string;
     /** Any additional roll notes that should be used in the roll. */
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];

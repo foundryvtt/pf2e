@@ -34,7 +34,27 @@
             "title": "Pathfinder Rage of Elements"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:disarm",
+                    {
+                        "not": "wall-of-metal"
+                    }
+                ],
+                "selector": "reflex-dc",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "domain": "saving-throw",
+                "key": "RollOption",
+                "label": "PF2E.Equipment.ZuhrasGloves.WallOfMetalLabel",
+                "option": "wall-of-metal",
+                "toggleable": true
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

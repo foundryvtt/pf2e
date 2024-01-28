@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your blow inflicts profuse bleeding. Make a slashing or piercing Strike with a weapon or unarmed attack that allows you to add your precise strike damage.</p>\n<p>If you hit, the target also takes @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Bleed Damage} equal to your precise strike finisher damage.</p>"
+            "value": "<p>Your blow inflicts profuse bleeding. Make a slashing or piercing Strike with a weapon or unarmed attack that allows you to add your precise strike damage.</p>\n<p>If you hit, the target also takes @Damage[(@actor.flags.pf2e.swashbuckler.preciseStrike)d6[persistent,bleed]]{persistent bleed damage} equal to your precise strike finisher damage.</p>"
         },
         "level": {
             "value": 8
@@ -24,7 +24,43 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "bleed",
+                "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "finisher:bleeding",
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "item:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
