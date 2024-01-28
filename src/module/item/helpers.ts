@@ -80,7 +80,7 @@ class ItemChatData {
 
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
-                data.description.addenda.map((unfiltered) => {
+                data.description.addenda.flatMap((unfiltered) => {
                     const addendum = {
                         label: game.i18n.localize(unfiltered.label),
                         contents: unfiltered.contents
@@ -91,7 +91,7 @@ class ItemChatData {
                                 return line;
                             }),
                     };
-                    return renderTemplate(templatePath, { addendum });
+                    return addendum.contents.length > 0 ? renderTemplate(templatePath, { addendum }) : [];
                 }),
             );
         })();
