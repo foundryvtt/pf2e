@@ -1061,6 +1061,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     /**
+     * Update the aria-selected attribute on each tab after finishing the normal logic on tab change.
+     */
+    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+        super._onChangeTab(event, tabs, active);
+        for (const tab of htmlQueryAll(tabs._nav, "[data-tab][role=tab]:not([aria-selected=undefined])")) {
+            tab.setAttribute("aria-selected", String(tab.dataset.tab === active));
+        }
+    }
+
+    /**
      * Moves an item between two actors' inventories.
      * @param event         Event that fired this method.
      * @param sourceActorId ID of the actor who originally owns the item.
