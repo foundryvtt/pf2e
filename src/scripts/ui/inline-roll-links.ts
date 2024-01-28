@@ -127,6 +127,7 @@ export const InlineRollLinks = {
                     ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
                 ];
                 const eventRollParams = eventToRollParams(event, { type: "check" });
+                const checkSlug = link.dataset.slug ? sluggify(link.dataset.slug) : null;
 
                 switch (pf2Check) {
                     case "flat": {
@@ -140,7 +141,7 @@ export const InlineRollLinks = {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
                                 : null;
-                            flatCheck.roll({ ...eventRollParams, extraRollOptions, dc });
+                            flatCheck.roll({ ...eventRollParams, slug: checkSlug, extraRollOptions, dc });
                         }
                         break;
                     }
@@ -335,8 +336,8 @@ export const InlineRollLinks = {
     },
 
     makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
-        const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-        const showDC = target.attributes.getNamedItem("data-pf2-show-dc")?.value ?? defaultVisibility;
+        const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
+        const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
         return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
     },
 
