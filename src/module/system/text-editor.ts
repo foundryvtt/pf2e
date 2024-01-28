@@ -182,6 +182,7 @@ class TextEditorPF2e extends TextEditor {
                 item,
                 domains,
                 traits,
+                name: anchor.dataset.name,
                 extraRollOptions,
             });
             if (result) {
@@ -528,10 +529,13 @@ class TextEditorPF2e extends TextEditor {
               ? "all"
               : "gm";
 
+        const type = rawParams.type ?? "check";
+        const slug = rawParams.slug ? sluggify(rawParams.slug) : null;
         const params: CheckLinkParams = {
             ...rawParams,
-            type: rawParams.type,
-            basic: rawParams.basic !== undefined && ["true", ""].includes(rawParams.basic),
+            slug,
+            type,
+            basic: "basic" in rawParams,
             showDC,
             traits: (() => {
                 const traits: string[] = [];
@@ -599,17 +603,7 @@ class TextEditorPF2e extends TextEditor {
         }
     }
 
-    static #createSingleCheck({
-        params,
-        item,
-        actor,
-        inlineLabel,
-    }: {
-        params: CheckLinkParams;
-        item?: ItemPF2e | null;
-        actor?: ActorPF2e | null;
-        inlineLabel?: string;
-    }): HTMLSpanElement | null {
+    static #createSingleCheck({ params, item, actor, inlineLabel }: CreateSingleCheckOptions): HTMLSpanElement | null {
         // Get the icon
         const icon = ((): HTMLElement => {
             switch (params.type) {
@@ -627,7 +621,7 @@ class TextEditorPF2e extends TextEditor {
         })();
         icon.classList.add("icon");
 
-        const name = params.name ?? item?.name ?? params.type;
+        const name = game.i18n.localize(params.name ?? item?.name ?? params.type);
         const localize = localizer("PF2E.InlineCheck");
 
         // Get the label
@@ -673,6 +667,7 @@ class TextEditorPF2e extends TextEditor {
             classes: ["inline-check"],
             children: [icon, createLabel(label)],
             dataset: {
+                slug: params.slug,
                 pf2Traits: params.traits.toString() || null,
                 pf2RollOptions: params.extraRollOptions.toString() || null,
                 pf2RepostFlavor: name,
@@ -761,6 +756,7 @@ class TextEditorPF2e extends TextEditor {
             item,
             domains,
             traits,
+            name: params.name?.trim(),
             extraRollOptions,
         });
 
@@ -789,6 +785,7 @@ class TextEditorPF2e extends TextEditor {
                       ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
                       : null,
                 damageRoll: params.formula,
+                name: params.name,
                 pf2Domains: domains?.join(",") || null,
                 pf2BaseFormula: result ? params.formula : null,
                 pf2Traits: traits.toString() || null,
@@ -1027,6 +1024,7 @@ interface ConvertXMLNodeOptions {
 
 interface CheckLinkParams {
     type: string;
+    slug: string | null;
     dc?: string;
     defense?: string;
     basic: boolean;
@@ -1037,6 +1035,13 @@ interface CheckLinkParams {
     showDC: UserVisibility;
     immutable?: string;
     roller?: string;
+}
+
+interface CreateSingleCheckOptions {
+    params: CheckLinkParams;
+    item?: ItemPF2e | null;
+    actor?: ActorPF2e | null;
+    inlineLabel?: string;
 }
 
 export { TextEditorPF2e, type EnrichmentOptionsPF2e };
