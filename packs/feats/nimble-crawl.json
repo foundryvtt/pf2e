@@ -28,7 +28,29 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "nimble-suppress",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "skill:acr:rank:4"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "self:condition:prone",
+                    "self:condition:off-guard",
+                    "nimble-suppress"
+                ],
+                "selector": "ac",
+                "slug": "off-guard",
+                "suppress": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
