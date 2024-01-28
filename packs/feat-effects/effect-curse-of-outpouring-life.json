@@ -106,21 +106,41 @@
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
-                "predicate": [
-                    {
-                        "gte": [
-                            "parent:badge:value",
-                            2
-                        ]
-                    },
-                    {
-                        "not": "cantrip"
-                    }
-                ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.OracleCurses.Life.DescriptionModerate"
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "oracular-curse:stage",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "cantrip"
+                            }
+                        ],
+                        "text": "PF2E.OracleCurses.Life.DescriptionModerate",
+                        "title": "PF2E.OracleCurses.Label.Moderate"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "oracular-curse:stage",
+                                    3
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "item:rank",
+                                    5
+                                ]
+                            },
+                            "item:spell-slot"
+                        ],
+                        "text": "PF2E.OracleCurses.Life.DescriptionMajor",
+                        "title": "PF2E.OracleCurses.Label.Major"
                     }
                 ]
             }
