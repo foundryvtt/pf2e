@@ -791,10 +791,15 @@ class TextEditorPF2e extends TextEditor {
         // Get new damage roll. If the formula fails, replace with with a simple parse instead
         const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
         const formula = roll.formula;
+        const label =
+            "shortLabel" in params // A "short label" will omit all damage types and categories
+                ? roll.instances.map((i) => i.head.expression).join(" + ")
+                : args.inlineLabel ?? formula;
+        const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {
             classes: R.compact(["inline-roll", "roll", baseFormula && baseFormula !== formula ? "altered" : null]),
-            children: [damageDiceIcon(roll), args.inlineLabel ?? formula],
+            children: [damageDiceIcon(roll), labelEl],
             dataset: {
                 formula: roll._formula,
                 tooltip: args.inlineLabel
