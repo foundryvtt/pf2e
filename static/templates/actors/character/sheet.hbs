@@ -10,60 +10,60 @@
     {{> "systems/pf2e/templates/actors/character/partials/header.hbs"}}
 
     {{!-- SHEET NAVIGATION --}}
-    <nav class="sheet-navigation" data-group="primary" data-tooltip-direction="UP">
+    <nav class="sheet-navigation" data-group="primary" data-tooltip-direction="UP" role="tablist">
         <span class="panel-title">{{localize "PF2E.TabCharacterLabel"}}</span>
 
         {{!-- Character --}}
-        <a class="item{{#unless tabVisibility.character}} hidden{{/unless}}" data-tab="character" data-tooltip="{{localize "PF2E.TabCharacterLabel"}}">
+        <a class="item{{#unless tabVisibility.character}} hidden{{/unless}}" data-tab="character" data-tooltip="PF2E.TabCharacterLabel" role="tab" aria-label="{{localize "PF2E.TabCharacterLabel"}}" aria-selected="true">
             <i class="fa-solid fa-address-card"></i>
         </a>
 
         {{!-- Actions --}}
-        <a class="item{{#unless tabVisibility.actions}} hidden{{/unless}}" data-tab="actions" data-tooltip="PF2E.TabActionsLabel">
+        <a class="item{{#unless tabVisibility.actions}} hidden{{/unless}}" data-tab="actions" data-tooltip="PF2E.TabActionsLabel" role="tab" aria-label="{{localize "PF2E.TabActionsLabel"}}">
             <span class="action-glyph">1</span>
         </a>
 
         {{!-- Inventory --}}
-        <a class="item{{#unless tabVisibility.inventory}} hidden{{/unless}}" data-tab="inventory" data-tooltip="PF2E.TabInventoryLabel">
+        <a class="item{{#unless tabVisibility.inventory}} hidden{{/unless}}" data-tab="inventory" data-tooltip="PF2E.TabInventoryLabel" role="tab" aria-label="{{localize "PF2E.TabInventoryLabel"}}">
             <i class="fa-solid fa-box-open"></i>
         </a>
 
         {{!-- Spells --}}
-        <a class="item{{#unless tabVisibility.spellcasting}} hidden{{/unless}}" data-tab="spellcasting" data-tooltip="PF2E.TabSpellbookLabel">
+        <a class="item{{#unless tabVisibility.spellcasting}} hidden{{/unless}}" data-tab="spellcasting" data-tooltip="PF2E.TabSpellbookLabel" role="tab" aria-label="{{localize "PF2E.TabSpellbookLabel"}}">
             <i class="fa-solid fa-wand-magic-sparkles"></i>
         </a>
 
         {{!-- Crafting --}}
-        <a class="item{{#unless tabVisibility.crafting}} hidden{{/unless}}" data-tab="crafting" data-tooltip="PF2E.TabCraftingLabel">
+        <a class="item{{#unless tabVisibility.crafting}} hidden{{/unless}}" data-tab="crafting" data-tooltip="PF2E.TabCraftingLabel" role="tab" aria-label="{{localize "PF2E.TabCraftingLabel"}}">
             <i class="fa-solid fa-hammer"></i>
         </a>
 
         {{!-- Skills and Proficiencies --}}
-        <a class="item{{#unless tabVisibility.proficiencies}} hidden{{/unless}}" data-tab="proficiencies" data-tooltip="PF2E.TabSkillsLabel">
+        <a class="item{{#unless tabVisibility.proficiencies}} hidden{{/unless}}" data-tab="proficiencies" data-tooltip="PF2E.TabSkillsLabel" role="tab" aria-label="{{localize "PF2E.TabSkillsLabel"}}">
             <i class="fa-solid fa-hand-paper"></i>
         </a>
 
         {{!-- Feats and Features --}}
-        <a class="item{{#unless tabVisibility.feats}} hidden{{/unless}}" data-tab="feats" data-tooltip="PF2E.Item.Feat.Plural">
+        <a class="item{{#unless tabVisibility.feats}} hidden{{/unless}}" data-tab="feats" data-tooltip="PF2E.Item.Feat.Plural" role="tab" aria-label="{{localize "PF2E.Item.Feat.Plural"}}">
             <i class="fa-solid fa-medal"></i>
         </a>
 
         {{!-- Effects --}}
-        <a class="item{{#unless tabVisibility.effects}} hidden{{/unless}}" data-tab="effects" data-tooltip="PF2E.Item.Effect.Plural">
+        <a class="item{{#unless tabVisibility.effects}} hidden{{/unless}}" data-tab="effects" data-tooltip="PF2E.Item.Effect.Plural" role="tab" aria-label="{{localize "PF2E.Item.Effect.Plural"}}">
             <i class="fa-solid fa-person-rays"></i>
         </a>
 
         {{!-- Biography --}}
-        <a class="item{{#unless tabVisibility.biography}} hidden{{/unless}}" data-tab="biography" data-tooltip="PF2E.Biography">
+        <a class="item{{#unless tabVisibility.biography}} hidden{{/unless}}" data-tab="biography" data-tooltip="PF2E.Biography" role="tab" aria-label="{{localize "PF2E.Biography"}}">
             <i class="fa-solid fa-book-reader"></i>
         </a>
 
         {{!-- Pathfinder Society --}}
-        <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" data-tooltip="PF2E.TabPathfinderSociety">
+        <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" data-tooltip="PF2E.TabPathfinderSociety" role="tab" aria-label="{{localize "PF2E.TabPathfinderSociety"}}">
             {{> "systems/pf2e/templates/actors/character/icons/pfs.hbs"}}
         </a>
 
-        <a class="manage-tabs" data-action="manage-tabs" data-tooltip="PF2E.TabManageTabsLabel">
+        <a class="manage-tabs" data-action="manage-tabs" data-tooltip="PF2E.TabManageTabsLabel" aria-label="{{localize "PF2E.TabManageTabsLabel"}}">
             <i class="fa-solid fa-fw fa-ellipsis-v"></i>
         </a>
     </nav>
