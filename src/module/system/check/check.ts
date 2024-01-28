@@ -402,22 +402,30 @@ class CheckPF2e {
         const actor = game.actors.get(message.speaker.actor ?? "");
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
+            const rerollingActor = actor?.isOfType("familiar") ? actor?.master : actor;
+
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor?.isOfType("character")) {
-                const heroPointCount = actor.heroPoints.value;
+            if (rerollingActor?.isOfType("character")) {
+                const heroPointCount = rerollingActor?.heroPoints.value;
                 if (heroPointCount) {
-                    await actor.update({
-                        "system.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, actor.heroPoints.max),
+                    await rerollingActor.update({
+                        "system.resources.heroPoints.value": Math.clamped(
+                            heroPointCount - 1,
+                            0,
+                            rerollingActor.heroPoints.max,
+                        ),
                     });
-                    rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
+                    rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: rerollingActor.name });
                 } else {
-                    ui.notifications.warn(game.i18n.format("PF2E.RerollMenu.WarnNoHeroPoint", { name: actor.name }));
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.RerollMenu.WarnNoHeroPoint", { name: rerollingActor.name }),
+                    );
                     return;
                 }
-            } else {
-                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-                return;
             }
+        } else {
+            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+            return;
         }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
