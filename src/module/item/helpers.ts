@@ -77,11 +77,15 @@ class ItemChatData {
 
         const addenda = await (async (): Promise<string[]> => {
             if (item.system.description.addenda.length === 0) return [];
+
             const templatePath = "systems/pf2e/templates/items/partials/addendum.hbs";
             return Promise.all(
                 data.description.addenda.map((unfiltered) => {
+                    for (const line of unfiltered.contents) {
+                        line.text = /^[-.a-z0-9]+$/i.test(line.text) ? game.i18n.localize(line.text) : line.text;
+                    }
                     const addendum = {
-                        label: unfiltered.label,
+                        label: game.i18n.localize(unfiltered.label),
                         contents: unfiltered.contents.filter((c) => c.predicate.test(rollOptions)),
                     };
                     return renderTemplate(templatePath, { addendum });
