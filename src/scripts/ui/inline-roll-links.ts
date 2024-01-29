@@ -7,6 +7,7 @@ import { calculateDC } from "@module/dc.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, objectHasKey, sluggify, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
@@ -91,8 +92,17 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
-                link.dataset;
+            const {
+                pf2Check,
+                pf2Dc,
+                pf2Traits,
+                pf2Label,
+                pf2Defense,
+                pf2Adjustment,
+                pf2Roller,
+                pf2RollOptions,
+                overrideTraits,
+            } = link.dataset;
 
             if (!pf2Check) return;
 
@@ -228,6 +238,7 @@ export const InlineRollLinks = {
 
                             // Use a special header for checks against defenses
                             const itemIsEncounterAction =
+                                !overrideTraits &&
                                 !!(item?.isOfType("action", "feat") && item.actionCost) &&
                                 !["flat-check", "saving-throw"].includes(statistic.check.type);
                             if (itemIsEncounterAction) {
@@ -242,6 +253,7 @@ export const InlineRollLinks = {
                                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
                                     title: item.name,
                                 });
+                                extraRollOptions.push(...TextEditorPF2e.createActionOptions(item));
                             }
 
                             statistic.roll(args);

@@ -173,9 +173,10 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.pf2Traits?.split(",") ?? [];
+            const rollOptions = anchor.dataset.pf2RollOptions?.split(",") ?? [];
             const domains = anchor.dataset.pf2Domains?.split(",");
-            const extraRollOptions = R.compact(
-                [anchor.dataset.pf2RollOptions?.split(","), TextEditorPF2e.#createActionOptions(item)].flat(),
+            const extraRollOptions = R.uniq(
+                R.compact([traits, rollOptions, TextEditorPF2e.createActionOptions(item, traits)].flat()),
             );
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
@@ -552,10 +553,8 @@ class TextEditorPF2e extends TextEditor {
               : "gm";
 
         const type = rawParams.type ?? "check";
-        const slug = rawParams.slug ? sluggify(rawParams.slug) : null;
         const params: CheckLinkParams = {
             ...rawParams,
-            slug,
             type,
             basic: "basic" in rawParams,
             showDC,
@@ -647,7 +646,7 @@ class TextEditorPF2e extends TextEditor {
 
         // Get the label
         const label = (() => {
-            if (inlineLabel) return inlineLabel;
+            if (inlineLabel) return game.i18n.localize(inlineLabel);
 
             if (tupleHasValue(SAVE_TYPES, params.type)) {
                 const saveName = game.i18n.localize(CONFIG.PF2E.saves[params.type]);
@@ -688,7 +687,6 @@ class TextEditorPF2e extends TextEditor {
             classes: ["inline-check"],
             children: [icon, createLabel(label)],
             dataset: {
-                slug: params.slug,
                 pf2Traits: params.traits.toString() || null,
                 pf2RollOptions: params.extraRollOptions.toString() || null,
                 pf2RepostFlavor: name,
@@ -764,12 +762,9 @@ class TextEditorPF2e extends TextEditor {
             const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
             return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
-        })().sort();
+        })();
 
-        const extraRollOptions = R.compact([
-            ...(params.options?.split(",").map((t) => t.trim()) ?? []),
-            ...this.#createActionOptions(item),
-        ]).sort();
+        const extraRollOptions = R.compact([params.options?.split(",").map((t) => t.trim())].flat());
 
         const result = await augmentInlineDamageRoll(params.formula, {
             skipDialog: true,
@@ -829,14 +824,15 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create roll options with information about the action being used */
-    static #createActionOptions(item: Maybe<ItemPF2e>): string[] {
+    static createActionOptions(item: Maybe<ItemPF2e>, extra: string[] = []): string[] {
         if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
         const slug = item.slug ?? sluggify(item.name);
+        const traits = R.uniq([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
         return R.compact([
             `action:${slug}`,
             `self:action:slug:${slug}`,
             item.actionCost.value ? `action:cost:${item.actionCost.value}` : null,
-            ...item.system.traits.value.map((t) => `self:action:trait:${t}`),
+            ...traits.map((t) => `self:action:trait:${t}`),
         ]);
     }
 }
@@ -1048,7 +1044,6 @@ interface ConvertXMLNodeOptions {
 
 interface CheckLinkParams {
     type: string;
-    slug: string | null;
     dc?: string;
     defense?: string;
     basic: boolean;
