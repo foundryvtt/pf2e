@@ -31,7 +31,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             }),
             brackets: new ResolvableValueField({ required: false, nullable: true, initial: undefined }),
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
-            hideIfDisabled: new fields.BooleanField(),
+            hideIfDisabled: new fields.BooleanField({ required: false }),
         };
     }
 
