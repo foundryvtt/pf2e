@@ -1,0 +1,80 @@
+{
+    "_id": "sZPXKQACna6YDsVX",
+    "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
+    "name": "Effect: Sanguine Mutagen (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Mutagen (Moderate)]</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Fortitude and Reflex saves. This bonus improves to +3 when you attempt a save against an effect that has the disease trait, poison trait, or would give you the <a class=\"content-link\" draggable=\"true\" data-uuid=\"Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw\" data-id=\"HL2l2VRSaQHu9lUw\" data-type=\"Item\" data-pack=\"pf2e.conditionitems\" data-tooltip=\"Condition Item\">Fatigued</a> condition.</p>\n<p><strong>Drawback</strong> Whenever you take piercing or slashing damage, you take <a class=\"inline-roll roll\" draggable=\"true\" data-formula=\"{1d6[bleed,persistent]}\" data-base-formula=\"1d6[bleed]\" data-damage-roll=\"1d6[bleed]\" data-traits=\"alchemical,consumable,elixir,mutagen,polymorph\" data-item-id=\"eSrMw2thqHGUMneF\" data-persistent=\"true\">1d6 bleed</a>.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.Mutagens.SanguineMutagen.ModerateVariantSaveLabel",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "Whenever you take piercing or slashing damage, you take @Damage[1d6[bleed]].",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
