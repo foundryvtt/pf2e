@@ -50,6 +50,7 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
+    effectTraits,
     elementTraits,
     equipmentTraits,
     featTraits,
@@ -427,7 +428,6 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
-    elementTraits,
     materialDamageEffects,
     resistanceTypes,
 
@@ -600,38 +600,37 @@ export const PF2ECONFIG = {
         "worn-under-armor": "PF2E.TraitWornUnderArmor",
     },
 
+    magicTraditions,
+    deityDomains,
+
+    otherArmorTags,
+    otherConsumableTags,
+    otherWeaponTags,
+
+    actionTraits,
+    ancestryTraits,
+    armorTraits,
+    classTraits,
+    consumableTraits,
+    creatureTraits,
+    effectTraits,
+    elementTraits,
+    equipmentTraits,
+    featTraits,
+    hazardTraits,
+    kingmakerTraits,
+    npcAttackTraits,
+    shieldTraits,
+    spellTraits,
+    vehicleTraits,
+    weaponTraits,
+
     rarityTraits: {
         common: "PF2E.TraitCommon",
         uncommon: "PF2E.TraitUncommon",
         rare: "PF2E.TraitRare",
         unique: "PF2E.TraitUnique",
     },
-
-    magicTraditions,
-    classTraits,
-    ancestryTraits,
-    deityDomains,
-
-    weaponTraits,
-    otherWeaponTags,
-
-    armorTraits,
-    otherArmorTags,
-
-    equipmentTraits,
-
-    consumableTraits,
-    otherConsumableTags,
-
-    actionTraits,
-    shieldTraits,
-    spellTraits,
-    featTraits,
-    creatureTraits,
-    kingmakerTraits,
-    npcAttackTraits,
-    hazardTraits,
-    vehicleTraits,
 
     traitsDescriptions: traitDescriptions,
 
