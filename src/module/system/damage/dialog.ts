@@ -36,7 +36,7 @@ class DamageModifierDialog extends Application {
 
     /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
     #originallyEnabled: Set<ModifierPF2e>;
-    #orignallyEnabledDice: Set<DamageDicePF2e>
+    #orignallyEnabledDice: Set<DamageDicePF2e>;
 
     constructor(params: DamageDialogParams) {
         super();
