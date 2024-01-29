@@ -36,7 +36,7 @@ class DamageModifierDialog extends Application {
 
     /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
     #originallyEnabled: Set<ModifierPF2e>;
-    #orignallyEnabledDice: Set<DamageDicePF2e>;
+    #originallyEnabledDice: Set<DamageDicePF2e>;
 
     constructor(params: DamageDialogParams) {
         super();
@@ -47,7 +47,7 @@ class DamageModifierDialog extends Application {
         this.degree = DEGREE_OF_SUCCESS_STRINGS.indexOf(this.context.outcome ?? "success") as DegreeOfSuccessIndex;
 
         this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
-        this.#orignallyEnabledDice = new Set(this.formulaData.dice.filter((d) => d.enabled));
+        this.#originallyEnabledDice = new Set(this.formulaData.dice.filter((d) => d.enabled));
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -162,7 +162,7 @@ class DamageModifierDialog extends Application {
                 category: d.category,
                 damageType: d.damageType,
                 typeLabel: this.#getTypeLabel(d.damageType, d.category),
-                hideIfDisabled: !this.#orignallyEnabledDice.has(d) && d.hideIfDisabled,
+                hideIfDisabled: !this.#originallyEnabledDice.has(d) && d.hideIfDisabled,
                 diceLabel:
                     d.diceNumber && d.dieSize
                         ? `${d.diceNumber}${d.dieSize}`
@@ -183,7 +183,7 @@ class DamageModifierDialog extends Application {
                     label: d.label,
                     category: d.category,
                     damageType: d.override.damageType ?? d.damageType,
-                    hideIfDisabled: !this.#orignallyEnabledDice.has(d) && d.hideIfDisabled,
+                    hideIfDisabled: !this.#originallyEnabledDice.has(d) && d.hideIfDisabled,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
                     diceLabel: R.compact([
                         d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
