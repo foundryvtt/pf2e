@@ -71,7 +71,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
 
         if (this.containsItems) {
             if (this.selectMenu) {
-                const itemInfoAnchor = htmlQuery(html, "a.item-info");
+                const itemInfoAnchor = htmlQuery(html, "a[data-action=view-item]");
                 if (!itemInfoAnchor) return;
 
                 const updateAnchor = (disable: boolean, value = ""): void => {
@@ -104,7 +104,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
                     }
                 });
             } else {
-                for (const anchor of htmlQueryAll(html, "a.item-info")) {
+                for (const anchor of htmlQueryAll(html, "a[data-action=view-item]")) {
                     anchor.addEventListener("click", (event) => {
                         renderItemSheet(this.getSelection(event));
                     });
