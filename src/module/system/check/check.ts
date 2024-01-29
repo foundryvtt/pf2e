@@ -399,7 +399,7 @@ class CheckPF2e {
             return;
         }
 
-        const actor = game.actors.get(message.speaker.actor ?? "");
+        const actor = message.actor;
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             const rerollingActor = actor?.isOfType("familiar") ? actor?.master : actor;
