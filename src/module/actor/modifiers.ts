@@ -639,6 +639,7 @@ class DamageDicePF2e {
     enabled: boolean;
     custom: boolean;
     predicate: PredicatePF2e;
+    hideIfDisabled: boolean;
 
     constructor(params: DamageDiceParameters) {
         if (params.selector) {
@@ -672,6 +673,7 @@ class DamageDicePF2e {
 
         this.enabled = params.enabled ?? this.predicate.test([]);
         this.ignored = params.ignored ?? !this.enabled;
+        this.hideIfDisabled = params.hideIfDisabled ?? false;
     }
 
     /** Test the `predicate` against a set of roll options */
