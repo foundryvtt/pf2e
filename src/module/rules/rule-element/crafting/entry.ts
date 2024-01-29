@@ -136,6 +136,7 @@ type CraftingEntryRuleData = Omit<SourceFromSchema<CraftingEntryRuleSchema>, "pr
 interface CraftingEntryRuleSource extends RuleElementSource {
     selector?: unknown;
     name?: unknown;
+    batchSizes?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;

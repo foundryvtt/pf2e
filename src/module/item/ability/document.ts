@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { AbilityItemSource, AbilitySystemData } from "./data.ts";
+import { AbilitySource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { ActionTrait } from "./types.ts";
 
@@ -97,7 +97,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 }
 
 interface AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    readonly _source: AbilityItemSource;
+    readonly _source: AbilitySource;
     system: AbilitySystemData;
 }
 

@@ -1,4 +1,4 @@
-import type { AbilityItemSource } from "@item/ability/data.ts";
+import type { AbilitySource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
@@ -60,7 +60,7 @@ type PhysicalItemSource =
 
 type ItemSourcePF2e =
     | PhysicalItemSource
-    | AbilityItemSource
+    | AbilitySource
     | AfflictionSource
     | AncestrySource
     | BackgroundSource
@@ -106,7 +106,7 @@ export type {
 } from "./system.ts";
 
 export type {
-    AbilityItemSource,
+    AbilitySource,
     AncestrySource,
     ArmorSource,
     BackgroundSource,
