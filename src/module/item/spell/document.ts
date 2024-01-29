@@ -581,7 +581,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         const traits = this.system.traits;
-        traits.value = traits.value.filter((t) => t in CONFIG.PF2E.spellTraits);
 
         if (this.isRitual) {
             this.system.damage = {};

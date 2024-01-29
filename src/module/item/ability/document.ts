@@ -45,8 +45,6 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         if (this.system.actionType.value === "passive") {
             this.system.selfEffect = null;
         }
-
-        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.actionTraits);
     }
 
     override onPrepareSynthetics(this: AbilityItemPF2e<ActorPF2e>): void {
