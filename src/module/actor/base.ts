@@ -1456,7 +1456,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (breakdown.length || notes.length) {
                 return renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
                     breakdown,
-                    notes: RollNotePF2e.notesToHTML(notes),
+                    notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
                 });
             }
             return;
