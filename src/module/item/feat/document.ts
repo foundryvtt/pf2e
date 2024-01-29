@@ -19,6 +19,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     declare group: FeatGroup | null;
     declare grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
 
+    static override get validTraits(): Record<FeatTrait, string> {
+        return CONFIG.PF2E.featTraits;
+    }
+
     get category(): FeatOrFeatureCategory {
         return this.system.category;
     }

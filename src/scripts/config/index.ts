@@ -46,7 +46,6 @@ import {
     actionTraits,
     ancestryTraits,
     armorTraits,
-    backgroundTraits,
     classTraits,
     consumableTraits,
     creatureTraits,
@@ -752,13 +751,6 @@ export const PF2ECONFIG = {
         lore: "PF2E.SkillLore",
     },
 
-    spellComponents: {
-        V: "PF2E.SpellComponentV",
-        S: "PF2E.SpellComponentS",
-        M: "PF2E.SpellComponentM",
-        F: "PF2E.SpellComponentF",
-    },
-
     featCategories,
 
     actionTypes: {
@@ -1047,25 +1039,6 @@ export const PF2ECONFIG = {
             spellcastingEntry: SpellcastingEntryPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
-        },
-        traits: {
-            action: actionTraits,
-            affliction: actionTraits,
-            armor: armorTraits,
-            ancestry: creatureTraits,
-            background: backgroundTraits,
-            backpack: equipmentTraits,
-            book: equipmentTraits,
-            campaignFeature: kingmakerTraits,
-            consumable: consumableTraits,
-            equipment: equipmentTraits,
-            feat: featTraits,
-            heritage: featTraits,
-            kit: classTraits,
-            melee: npcAttackTraits,
-            shield: shieldTraits,
-            spell: spellTraits,
-            weapon: weaponTraits,
         },
     },
 

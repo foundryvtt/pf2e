@@ -78,6 +78,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.parentItem = context.parentItem ?? null;
     }
 
+    static override get validTraits(): Record<SpellTrait, string> {
+        return CONFIG.PF2E.spellTraits;
+    }
+
     /** The id of the override overlay that constitutes this variant */
     get variantId(): string | null {
         return this.original ? this.appliedOverlays?.get("override") ?? null : null;
