@@ -172,17 +172,14 @@ async function applyDamageFromMessage({
             breakdown.push(...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`));
         }
 
-        const hasDamage = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
-        const notes = (() => {
-            if (!hasDamage) return [];
-            return extractNotes(contextClone.synthetics.rollNotes, [domain])
-                .filter(
-                    (n) =>
-                        (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                        n.predicate.test(applicationRollOptions),
-                )
-                .map((note) => note.text);
-        })();
+        const hasDamageOrHealing = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
+        const notes = hasDamageOrHealing
+            ? extractNotes(contextClone.synthetics.rollNotes, [domain]).filter(
+                  (n) =>
+                      (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
+                      n.predicate.test(applicationRollOptions),
+              )
+            : [];
 
         await contextClone.applyDamage({
             damage,

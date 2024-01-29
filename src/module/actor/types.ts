@@ -6,6 +6,7 @@ import type { EffectTrait } from "@item/abstract-effect/index.ts";
 import type { ItemInstances } from "@item/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { CheckRollContextFlag } from "@module/chat-message/index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import type { ItemAlteration } from "@module/rules/rule-element/item-alteration/alteration.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import type { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
@@ -198,7 +199,7 @@ interface ApplyDamageParams {
     rollOptions?: Set<string>;
     shieldBlockRequest?: boolean;
     breakdown?: string[];
-    notes?: string[];
+    notes?: RollNotePF2e[];
 }
 
 type ImmunityType = keyof typeof immunityTypes;
