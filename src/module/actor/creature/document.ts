@@ -393,10 +393,6 @@ abstract class CreaturePF2e<
         const { attributes, rollOptions } = this;
 
         // Add creature-specific self: roll options
-        if (this.isSpellcaster) {
-            rollOptions.all["self:caster"] = true;
-        }
-
         if (this.hitPoints.negativeHealing) {
             rollOptions.all["self:negative-healing"] = true;
         }
