@@ -11,7 +11,6 @@ import * as R from "remeda";
 
 // Ancestry and heritage traits
 const ancestryTraits = {
-    aberration: "PF2E.TraitAberration",
     aiuvarin: "PF2E.TraitAiuvarin",
     anadi: "PF2E.TraitAnadi",
     android: "PF2E.TraitAndroid",
@@ -322,7 +321,6 @@ const spellTraits = {
     linguistic: "PF2E.TraitLinguistic",
     litany: "PF2E.TraitLitany",
     manipulate: "PF2E.TraitManipulate",
-    mindless: "PF2E.TraitMindless",
     misfortune: "PF2E.TraitMisfortune",
     morph: "PF2E.TraitMorph",
     move: "PF2E.TraitMove",
@@ -595,14 +593,12 @@ const featTraits = {
     injury: "PF2E.TraitInjury",
     lineage: "PF2E.TraitLineage",
     manipulate: "PF2E.TraitManipulate",
-    metamagic: "PF2E.TraitMetamagic",
     mindshift: "PF2E.TraitMindshift",
     modification: "PF2E.TraitModification",
     move: "PF2E.TraitMove",
     multiclass: "PF2E.TraitMulticlass",
     oath: "PF2E.TraitOath",
     olfactory: "PF2E.TraitOlfactory",
-    open: "PF2E.TraitOpen",
     overflow: "PF2E.TraitOverflow",
     "pervasive-magic": "PF2E.TraitPervasiveMagic",
     poison: "PF2E.TraitPoison",
