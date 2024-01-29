@@ -343,7 +343,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const actor = message.actor?.isOfType("familiar") ? message.actor.master : message.actor;
+            const messageActor = message.actor;
+            const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
