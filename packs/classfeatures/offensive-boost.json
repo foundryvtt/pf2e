@@ -56,15 +56,17 @@
                         "value": "acid"
                     }
                 ],
-                "flag": "damage",
+                "flag": "offensiveBoostDamage",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Inventor.OffensiveBoost.Prompt"
+                "prompt": "PF2E.SpecificRule.Inventor.OffensiveBoost.Prompt",
+                "rollOption": "offensive-boost"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "damageType": "{actor|flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Label",
                 "predicate": [
                     {
                         "or": [
@@ -88,8 +90,8 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.inventor.offensiveBoost.damageType",
-                "value": "{item|flags.pf2e.rulesSelections.damage}"
+                "path": "flags.pf2e.inventor.offensiveBoost",
+                "value": "{item|flags.pf2e.rulesSelections.offensiveBoostDamage}"
             }
         ],
         "traits": {
