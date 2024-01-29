@@ -36,10 +36,9 @@ class DamageModifierDialog extends Application {
 
     /** A set of originally enabled modifiers and dice to circumvent hideIfDisabled for manual disables */
     #originallyDisabled: {
-        modifiers: Set<ModifierPF2e>, 
-        dice: Set<DamageDicePF2e>
+        modifiers: Set<ModifierPF2e>;
+        dice: Set<DamageDicePF2e>;
     };
-
 
     constructor(params: DamageDialogParams) {
         super();
@@ -50,7 +49,7 @@ class DamageModifierDialog extends Application {
         this.degree = DEGREE_OF_SUCCESS_STRINGS.indexOf(this.context.outcome ?? "success") as DegreeOfSuccessIndex;
 
         this.#originallyDisabled = {
-            modifiers: new Set(this.formulaData.modifiers.filter((m) => m.enabled)), 
+            modifiers: new Set(this.formulaData.modifiers.filter((m) => m.enabled)),
             dice: new Set(this.formulaData.dice.filter((d) => d.enabled)),
         };
     }
