@@ -6,6 +6,10 @@ import { ErrorPF2e, sluggify } from "@util";
 import { HeritageSource, HeritageSystemData } from "./data.ts";
 
 class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    static override get validTraits(): Record<CreatureTrait, string> {
+        return CONFIG.PF2E.creatureTraits;
+    }
+
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }

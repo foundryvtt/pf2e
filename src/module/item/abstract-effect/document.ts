@@ -7,7 +7,7 @@ import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
-import { EffectBadge } from "./data.ts";
+import { EffectBadge, EffectTrait } from "./data.ts";
 import { calculateRemainingDuration } from "./helpers.ts";
 import { DURATION_UNITS } from "./values.ts";
 
@@ -20,6 +20,10 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     abstract increase(): Promise<void>;
     abstract decrease(): Promise<void>;
+
+    static override get validTraits(): Record<EffectTrait, string> {
+        return CONFIG.PF2E.actionTraits;
+    }
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {

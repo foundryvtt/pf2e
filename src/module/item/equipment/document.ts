@@ -5,6 +5,10 @@ import { objectHasKey } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
 
 class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    static override get validTraits(): Record<EquipmentTrait, string> {
+        return CONFIG.PF2E.equipmentTraits;
+    }
+
     override async getChatData(
         this: EquipmentPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},

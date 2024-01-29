@@ -10,6 +10,10 @@ import { ActionTrait } from "./types.ts";
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     range: RangeData | null = null;
 
+    static override get validTraits(): Record<ActionTrait, string> {
+        return CONFIG.PF2E.actionTraits;
+    }
+
     get traits(): Set<ActionTrait> {
         return new Set(this.system.traits.value);
     }
