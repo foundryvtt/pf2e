@@ -81,7 +81,7 @@ type RollNoteSchema = RuleElementSchema & {
     >;
 };
 
-interface RollNoteSource extends RuleElementSource {
+interface NoteRESource extends RuleElementSource {
     selector?: unknown;
     outcome?: unknown;
     title?: unknown;
@@ -89,4 +89,4 @@ interface RollNoteSource extends RuleElementSource {
     visibility?: unknown;
 }
 
-export { RollNoteRuleElement, type RollNoteSource };
+export { RollNoteRuleElement, type NoteRESource };

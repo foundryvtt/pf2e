@@ -10,7 +10,7 @@ import {
 import { OneToThree } from "@module/data.ts";
 import { ActionCategory, ActionTrait } from "./types.ts";
 
-type AbilityItemSource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
+type AbilitySource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
 
 interface AbilityTraits extends ItemTraitsNoRarity<ActionTrait> {}
 
@@ -46,4 +46,4 @@ interface SelfEffectReference extends SelfEffectReferenceSource {
     img?: Maybe<ImageFilePath>;
 }
 
-export type { AbilityItemSource, AbilitySystemData, AbilityTraits, SelfEffectReference, SelfEffectReferenceSource };
+export type { AbilitySource, AbilitySystemData, AbilityTraits, SelfEffectReference, SelfEffectReferenceSource };
