@@ -1,12 +1,8 @@
-import type { CreatureTrait } from "@actor/creature/types.ts";
-import type { ActionTrait } from "@item/ability/types.ts";
-import type { KingmakerTrait } from "@item/campaign-feature/types.ts";
-import type { NPCAttackTrait } from "@item/melee/data.ts";
-import type { PhysicalItemTrait } from "@item/physical/data.ts";
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type * as fields from "types/foundry/common/data/fields.d.ts";
+import type { ItemTrait } from "../types.ts";
 import type { ItemType } from "./index.ts";
 
 type BaseItemSourcePF2e<
@@ -16,9 +12,7 @@ type BaseItemSourcePF2e<
     flags: ItemSourceFlagsPF2e;
 };
 
-type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrait | KingmakerTrait;
-
-type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
+type ActionType = keyof typeof CONFIG.PF2E.actionTypes;
 
 interface ActionCost {
     type: Exclude<ActionType, "passive">;
