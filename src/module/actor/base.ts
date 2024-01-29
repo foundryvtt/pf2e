@@ -35,6 +35,7 @@ import { AppliedDamageFlag } from "@module/chat-message/index.ts";
 import { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import { RuleElementSynthetics } from "@module/rules/index.ts";
 import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
@@ -1443,7 +1444,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
-            notes,
             statements,
             persistent: R.compact(persistentCreated.map((p) => p.system.persistent?.damage.formula)),
             iwr: {
@@ -1456,7 +1456,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (breakdown.length || notes.length) {
                 return renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
                     breakdown,
-                    notes,
+                    notes: RollNotePF2e.notesToHTML(notes),
                 });
             }
             return;
