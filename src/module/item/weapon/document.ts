@@ -33,6 +33,10 @@ import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
 
+    static override get validTraits(): Record<NPCAttackTrait, string> {
+        return CONFIG.PF2E.npcAttackTraits;
+    }
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: WeaponConstructionContext<TParent> = {}) {
         super(data, context);
 

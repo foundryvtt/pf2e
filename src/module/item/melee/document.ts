@@ -18,6 +18,10 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     declare group: WeaponGroup | null;
     declare baseType: BaseWeaponType | null;
 
+    static override get validTraits(): Record<NPCAttackTrait, string> {
+        return CONFIG.PF2E.npcAttackTraits;
+    }
+
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
     }

@@ -31,6 +31,7 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
+import type { ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -40,6 +41,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
+    /** Traits an item of this type can have */
+    static get validTraits(): Partial<Record<ItemTrait, string>> {
+        return {};
     }
 
     /** Prepared rule elements from this item */
@@ -832,6 +838,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 }
 
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    constructor: typeof ItemPF2e;
     flags: ItemFlagsPF2e;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;
