@@ -1,14 +1,14 @@
 {
     "_id": "Hgs0mzN8lRHjcfAJ",
     "img": "systems/pf2e/icons/equipment/held-items/dragons-eye-charm.webp",
-    "name": "Effect: Dragon's Eye Charm (Sustained)",
+    "name": "Effect: Dragon's Eye Charm",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon's Eye Charm]</p>\n<p>Choice of:</p>\n<p>You can look through the charm to gain Darkvision for as long as you Sustain the Activation, to a maximum of 10 minutes.</p>\n<p>You can speak and understand Draconic as long as you Sustain the Activation, to a maximum of 10 minutes.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Dragon's Eye Charm]</p>\n<p>Choice of:</p>\n<p>You can look through the charm to gain Darkvision for as long as you Sustain the Activation, to a maximum of 10 minutes.</p>\n<p>You can speak and understand Draconic as long as you Sustain the Activation, to a maximum of 10 minutes.</p>\n<p>You gain fire resistance 5.</p>"
         },
         "duration": {
             "expiry": "turn-start",
-            "sustained": true,
+            "sustained": false,
             "unit": "minutes",
             "value": 10
         },
@@ -22,13 +22,6 @@
         },
         "rules": [
             {
-                "key": "Sense",
-                "predicate": [
-                    "dragon-charm:darkvision"
-                ],
-                "selector": "darkvision"
-            },
-            {
                 "choices": [
                     {
                         "label": "PF2E.Actor.Creature.Sense.Type.Darkvision",
@@ -37,10 +30,21 @@
                     {
                         "label": "PF2E.Actor.Creature.Language.draconic",
                         "value": "draconic"
+                    },
+                    {
+                        "label": "PF2E.RuleElement.Resistance",
+                        "value": "resistance"
                     }
                 ],
                 "key": "ChoiceSet",
                 "rollOption": "dragon-charm"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "dragon-charm:darkvision"
+                ],
+                "selector": "darkvision"
             },
             {
                 "key": "ActiveEffectLike",
@@ -53,6 +57,14 @@
                     "slug": "draconic",
                     "source": "{item|name}"
                 }
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "dragon-charm:resistance"
+                ],
+                "type": "fire",
+                "value": 5
             }
         ],
         "start": {
