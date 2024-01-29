@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ArmorTrait } from "@item/armor/types.ts";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -54,11 +54,11 @@ class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.S
         const forItemFailure = this.#validateForItem?.(item);
         if (forItemFailure) throw new validation.DataModelValidationError(forItemFailure);
 
-        if (!this.operableOnInstances && item instanceof ItemPF2e) {
+        if (!this.operableOnInstances && item instanceof foundry.abstract.Document) {
             throw new validation.DataModelValidationError("may only be applied to source data");
         }
 
-        if (!this.operableOnSource && !(item instanceof ItemPF2e)) {
+        if (!this.operableOnSource && !(item instanceof foundry.abstract.Document)) {
             throw new validation.DataModelValidationError("may only be applied to existing items");
         }
 

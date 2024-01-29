@@ -1,17 +1,12 @@
 import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ArmorTrait } from "@item/armor/types.ts";
 import { PhysicalItemSource } from "@item/base/data/index.ts";
-import { ConsumableTrait } from "@item/consumable/data.ts";
-import { EquipmentTrait } from "@item/equipment/data.ts";
-import { ShieldTrait } from "@item/shield/types.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
 import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
-import type { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
 import type { UsageDetails } from "./usage.ts";
 
 type ItemCarryType = (typeof ITEM_CARRY_TYPES)[number];
@@ -23,7 +18,7 @@ type BasePhysicalItemSource<
 
 interface PhysicalSystemSource extends ItemSystemSource {
     level: { value: number };
-    traits: PhysicalItemTraits;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     quantity: number;
     baseItem: string | null;
     bulk: {
@@ -72,7 +67,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     price: Price;
     bulk: BulkData;
     material: ItemMaterialData;
-    traits: PhysicalItemTraits;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;
@@ -124,8 +119,7 @@ type EquippedData = {
     invested?: boolean | null;
 };
 
-type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | ShieldTrait | WeaponTrait;
-interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends TraitsWithRarity<T> {
+interface PhysicalItemTraits<T extends PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
 }
 
