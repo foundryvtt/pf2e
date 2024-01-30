@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { MigrationBase } from "../base.ts";
 

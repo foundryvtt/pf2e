@@ -1,5 +1,6 @@
 import { ArmorSystemSource } from "@item/armor/data.ts";
-import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { IntegratedWeaponSource, SpecificShieldData } from "@item/shield/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { MigrationBase } from "../base.ts";
@@ -116,7 +117,7 @@ export class Migration899ArmorShieldToShieldShield extends MigrationBase {
     };
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (isPhysicalData(source) && source.type !== "backpack") {
+        if (itemIsOfType(source, "physical") && source.type !== "backpack") {
             // This only belongs in container items
             const system: { slug: string | null; "-=negateBulk"?: null } = source.system;
             if ("negateBulk" in system) system["-=negateBulk"] = null;

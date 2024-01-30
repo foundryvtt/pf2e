@@ -13,12 +13,12 @@ import {
     SaveType,
     UnaffectedType,
 } from "@actor/types.ts";
-import type { ArmorPF2e, ShieldPF2e } from "@item";
-import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
-import { AfflictionSource } from "@item/affliction/index.ts";
-import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } from "@item/base/data/index.ts";
-import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
+import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { AfflictionSource } from "@item/affliction/index.ts";
+import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
+import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -833,7 +833,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected prepareRuleElements(): RuleElementPF2e[] {
         // Ensure "temporary" items have their rule elements go last when priority is equal
-        return R.sortBy(this.items.contents, (i) => i instanceof AbstractEffectPF2e)
+        return R.sortBy(this.items.contents, (i) => i.isOfType("affliction", "condition", "effect"))
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
@@ -1565,11 +1565,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         containerId?: string,
         newStack = false,
     ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
-        if (!(item instanceof PhysicalItemPF2e)) {
+        if (!item.isOfType("physical")) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
         const container = targetActor.inventory.get(containerId ?? "");
-        if (!(!container || container instanceof ContainerPF2e)) {
+        if (!container?.isOfType("backpack")) {
             throw ErrorPF2e("containerId refers to a non-container");
         }
 
@@ -1612,7 +1612,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const newItemData = item.toObject();
         newItemData.system.quantity = quantity;
         newItemData.system.equipped.carryType = "worn";
-        if (hasInvestedProperty(newItemData)) {
+        if ("invested" in newItemData.system.equipped) {
             newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
         }
 

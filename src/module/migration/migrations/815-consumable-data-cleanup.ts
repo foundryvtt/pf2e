@@ -1,6 +1,6 @@
-import { ConsumableSystemSource } from "@item/consumable/data.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import { ConsumableSystemSource } from "@item/consumable/data.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Clean up entries of consumable system data */
@@ -49,7 +49,7 @@ export class Migration815ConsumableDataCleanup extends MigrationBase {
             if (!this.consumableKeys.has(key)) {
                 delete systemData[key];
                 systemData[`-=${key}`] = null;
-            } else if (isObject<string>(value) && "_deprecated" in value) {
+            } else if (R.isObject(value) && "_deprecated" in value) {
                 delete value["_deprecated"];
                 value[`-=_deprecated`] = null;
             }

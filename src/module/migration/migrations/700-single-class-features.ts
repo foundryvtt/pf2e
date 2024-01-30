@@ -1,6 +1,7 @@
 import { ABCFeatureEntryData } from "@item/abc/data.ts";
 import { ClassSource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Consolidate all class features with multiple instances for different levels to single items */
@@ -99,7 +100,7 @@ export class Migration700SingleClassFeatures extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            isObject<{ value: string }>(source.system.featType) &&
+            R.isObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }

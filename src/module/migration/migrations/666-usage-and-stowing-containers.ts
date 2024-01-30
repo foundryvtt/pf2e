@@ -1,5 +1,5 @@
-import { isPhysicalData } from "@item/base/data/helpers.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -50,7 +50,7 @@ export class Migration666UsageAndStowingContainers extends MigrationBase {
         // Delete old usage "traits":
         if (typeof traits.usage?.value === "string") {
             const traitUsage = traits.usage.value;
-            const isPhysical = isPhysicalData(source);
+            const isPhysical = itemIsOfType(source, "physical");
             const keepUsage = isPhysical && (traitUsage !== "held-in-one-hand" || source.system.usage?.value === "");
             if (isPhysical && keepUsage && source.system.usage) {
                 source.system.usage.value = traits.usage.value;
