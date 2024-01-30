@@ -1,6 +1,6 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data.ts";
-import { ItemSourcePF2e, MeleeSource, SpellSource, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, MeleeSource, SpellSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PublicationData } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -321,7 +321,7 @@ class PackExtractor {
 
                 delete (docSource.system as { slug?: unknown }).slug;
                 docSource.flags = {};
-                if (isPhysicalData(docSource)) {
+                if (itemIsOfType(docSource, "physical")) {
                     delete (docSource.system as { equipped?: unknown }).equipped;
                 } else if (docSource.type === "spell" || (docSource.type === "feat" && !docSource.system.location)) {
                     delete (docSource.system as { location?: unknown }).location;
@@ -513,7 +513,7 @@ class PackExtractor {
         const publication: Partial<PublicationData> = source.system.publication;
         if (!publication.authors?.trim()) delete publication.authors;
 
-        if (isPhysicalData(source)) {
+        if (itemIsOfType(source, "physical")) {
             delete (source.system as { identification?: unknown }).identification;
             if ("stackGroup" in source.system && !source.system.stackGroup) {
                 delete (source.system as { stackGroup?: unknown }).stackGroup;

@@ -5,7 +5,6 @@ import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
-import { isPhysicalData } from "@item/base/data/helpers.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -950,7 +949,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // mystify the item if the alt key was pressed
-        if (mystified && item.isOfType("physical") && isPhysicalData(itemSource)) {
+        if (mystified && item.isOfType("physical") && itemIsOfType(itemSource, "physical")) {
             itemSource.system.identification.unidentified = item.getMystifiedData("unidentified");
             itemSource.system.identification.status = "unidentified";
         }
@@ -1030,7 +1029,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return [item];
         }
 
-        if (isPhysicalData(itemSource)) {
+        if (itemIsOfType(itemSource, "physical")) {
             const containerId = htmlClosest(event.target, "li[data-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
