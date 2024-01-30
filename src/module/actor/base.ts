@@ -16,6 +16,7 @@ import {
 import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { ActionTrait } from "@item/ability/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { AfflictionSource } from "@item/affliction/index.ts";
 import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
@@ -1433,6 +1434,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 formula: deparenthesize(instance.head.expression),
                 damageType: instance.type,
                 dc: 15,
+            };
+            condition.system.traits = {
+                value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
+                    (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
+                ),
+                otherTags: [],
             };
             return condition;
         });
