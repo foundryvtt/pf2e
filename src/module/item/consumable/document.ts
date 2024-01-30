@@ -5,17 +5,21 @@ import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { RawItemChatData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
-import { ValueAndMax } from "@module/data.ts";
+import type { ValueAndMax } from "@module/data.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
-import { ConsumableSource, ConsumableSystemData } from "./data.ts";
-import { ConsumableCategory, OtherConsumableTag } from "./types.ts";
+import type { ConsumableSource, ConsumableSystemData } from "./data.ts";
+import type { ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
 import { DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    static override get validTraits(): Record<ConsumableTrait, string> {
+        return CONFIG.PF2E.consumableTraits;
+    }
+
     get otherTags(): Set<OtherConsumableTag> {
         return new Set(this.system.traits.otherTags);
     }
@@ -32,7 +36,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
-    get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
+    get embeddedSpell(): SpellPF2e<NonNullable<TParent>> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 

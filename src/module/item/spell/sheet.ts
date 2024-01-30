@@ -54,8 +54,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return baseId;
     }
 
-    protected override get validTraits(): Record<string, string> | null {
-        return R.omit(CONFIG.PF2E.Item.traits.spell, Array.from(MAGIC_TRADITIONS));
+    protected override get validTraits(): Record<string, string> {
+        return R.omit(this.item.constructor.validTraits, Array.from(MAGIC_TRADITIONS));
     }
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {

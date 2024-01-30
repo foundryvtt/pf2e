@@ -1,8 +1,8 @@
-import { MigrationBase } from "../base.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellPF2e } from "@item";
-import { UUIDUtils } from "@util/uuid.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { setHasElement } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Update the descriptions of several spells with new effect items */
 export class Migration720UpdateSpellDescriptions extends MigrationBase {

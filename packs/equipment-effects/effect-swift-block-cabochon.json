@@ -1,0 +1,47 @@
+{
+    "_id": "4IwCyYdSn2gUYAwL",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/swift-block-cabochon.webp",
+    "name": "Effect: Swift Block Cabochon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Swift Block Cabochon]</p>\n<p>Increase the shield's Hardness by 5 against the triggering attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hardness",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

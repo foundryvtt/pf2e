@@ -14,9 +14,8 @@ import { setActorShieldData } from "./helpers.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
-        if (this.isEquipped || item.isEquipped) return false;
-        return super.isStackableWith(item);
+    static override get validTraits(): Record<ShieldTrait, string> {
+        return CONFIG.PF2E.shieldTraits;
     }
 
     get baseType(): BaseShieldType | null {
@@ -52,6 +51,11 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.id === this.actor.attributes.shield.itemId &&
             this.actor.attributes.shield.raised
         );
+    }
+
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
     }
 
     override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {

@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Ensure predicates are wrapped in ensures following stricter validation */
 export class Migration840ArrayWrapPredicates extends MigrationBase {

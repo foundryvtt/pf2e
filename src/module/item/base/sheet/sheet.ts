@@ -24,7 +24,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    objectHasKey,
     sluggify,
     SORTABLE_BASE_OPTIONS,
     sortStringRecord,
@@ -83,11 +82,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
-    protected get validTraits(): Record<string, string> | null {
-        if (objectHasKey(CONFIG.PF2E.Item.traits, this.item.type)) {
-            return CONFIG.PF2E.Item.traits[this.item.type];
-        }
-        return null;
+    protected get validTraits(): Record<string, string> {
+        return this.item.constructor.validTraits;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */

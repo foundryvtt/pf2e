@@ -94,8 +94,9 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
+        const actor = this.actor;
         if (this.flags.pf2e.context?.type === "self-effect") {
-            const item = this.actor?.items.get(this.flags.pf2e.context.item);
+            const item = actor?.items.get(this.flags.pf2e.context.item);
             return item ?? null;
         }
 
@@ -104,7 +105,6 @@ class ChatMessagePF2e extends ChatMessage {
         if (strike?.item) return strike.item;
 
         const item = (() => {
-            const { actor } = this;
             const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 

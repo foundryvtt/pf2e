@@ -397,7 +397,9 @@
                 "Moderate": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d4)[persistent,piercing]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
                     "success": "<strong>Effect</strong> The bomb also deals [[/r 2d4[persistent,piercing]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
-                }
+                },
+                "Terrain": "Except on a critical failure, the bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
+                "TerrainMajor": "Except on a critical failure, the bomb's splash area is coated in vegetation, becoming difficult terrain for 1 minute."
             },
             "PeshspineGrenade": {
                 "Greater": {
@@ -608,6 +610,10 @@
         "Mutagens": {
             "BestialMutagen": {
                 "FeralPrompt": "Increase penalty to AC to increase damage dice size?"
+            },
+            "SanguineMutagen":{
+                "DamageNote":"Whenever you take piercing or slashing damage, you take @Damage[1d6[bleed]].",
+                "VariantSaveLabel": "{item} vs Disease, Poison, Fatigue"
             }
         },
         "NPCAbility": {
@@ -884,7 +890,8 @@
                 "Moderate": "Moderate"
             },
             "Life": {
-                "DescriptionModerate": "Whenever you finish casting a non-cantrip spell, you restore [[/r (@item.level)[healing,vitality]]]{Hit Points} equal to the spell rank to your choice of either one target of the spell or the creature nearest to you. You can't heal yourself in this way. This healing has the healing, necromancy, and vitality traits, as well as the tradition trait of the spell.",
+                "DescriptionModerate": "Whenever you finish casting a non-cantrip spell, you restore [[/r @item.level[healing]]] Hit Points to your choice of either one target of the spell or the creature nearest to you. You can't heal yourself in this way. This healing has the healing, necromancy, and vitality traits, as well as the tradition trait of the spell.",
+                "DescriptionMajor": "Each time you use a spell slot to cast a 5th-rank or higher spell that takes 2 or more actions to cast, you disperse vitality energy in a @Template[type:burst|distance:30] with the effects of a 3-action @UUID[Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs]{Heal} spell with a level 4 lower than that of the spell you cast. This healing occurs immediately after you finish @UUID[Compendium.pf2e.actionspf2e.aBQ8ajvEBByv45yz]{Casting the Spell}. You don't benefit from this healing. Instead, you lose double the number of Hit Points rolled for the heal spell.",
                 "ToggleLabel": "All targets of Heal are living creatures"
             },
             "Time": {
@@ -1739,6 +1746,9 @@
                 "Prompt": "Select a clan weapon."
             },
             "Cleric": {
+                "CommunalHealing": {
+                    "Note": "When you cast the <em>heal</em> spell to heal a single creature, choose another willing living creature within range of your <em>heal</em> to regain @Damage[@item.rank[vitality,healing]|shortLabel] Hit Points."
+                },
                 "CremateUndead": {
                     "Note": "When you use a <em>heal</em> spell to damage undead, each undead that takes damage also takes @Damage[(@item.rank)[persistent,fire]]."
                 },
@@ -1754,6 +1764,9 @@
                 },
                 "ReplenishmentOfWar": {
                     "Note": "When you damage a creature with a Strike using your deity's favored weapon, you gain a number of temporary Hit Points equal to half your level, or equal to your level if the Strike was a critical hit. @UUID[Compendium.pf2e.feat-effects.Item.BJc494USeyM011p3]{Effect: Replenishment of War}"
+                },
+                "SapLife": {
+                    "Note": "When you cast a <em>harm</em> spell and damage at least one living creature, you regain [[/r (@item.rank)[healing]]] Hit Points."
                 },
                 "SharedReplenishment": {
                     "Note": "You can grant the temporary Hit Points from Replenishment of War to an ally within 10 feet instead of gaining them yourself."
@@ -2015,7 +2028,7 @@
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
                 },
-                "DruidsCrown":{
+                "DruidsCrown": {
                     "AntlersLabel": "Antlers",
                     "FlowersLabel": "Flowers",
                     "LeavesLabel": "Leaves"
@@ -2085,7 +2098,7 @@
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
                 },
-                "ZuhrasGloves":{
+                "ZuhrasGloves": {
                     "WallOfMetalLabel": "Wall of Metal is Active"
                 }
             },
@@ -2122,7 +2135,7 @@
                 "PeerBeyond": {
                     "Note": "You can roll a Spirit Lore or Haunt Lore check for initiative if you know that an incorporeal undead or a haunt is present."
                 },
-                "RiskySurgery":{
+                "RiskySurgery": {
                     "Note": "When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
                 }
             },
@@ -2360,6 +2373,9 @@
                 "ToggleLabel": "In Combat"
             },
             "Inventor": {
+                "BoostModulation": {
+                    "Prompt": "Select an additional offensive boost"
+                },
                 "Innovation": {
                     "Armor": {
                         "AllowedDrops": "level-zero unique armor",
@@ -2368,6 +2384,7 @@
                     "Construct": {
                         "Prompt": "Select a construct innovation."
                     },
+                    "MalfunctionDamage": "Malfunctioning Innovation",
                     "Prompt": "Select an innovation.",
                     "Weapon": {
                         "Prompt": "Select a weapon innovation."
@@ -2395,6 +2412,7 @@
                     "Chill": "Chill (Cold)",
                     "Ignition": "Ignition (Fire)",
                     "Jolt": "Jolt (Electricity)",
+                    "Label": "Offensive Boost",
                     "Momentum": "Momentum (Bludgeoning)",
                     "Prompt": "Select an offensive boost.",
                     "Saws": "Saws (Slashing)",
@@ -2402,7 +2420,17 @@
                     "Vitriol": "Vitriol (Acid)"
                 },
                 "Overdrive": {
+                    "CriticalFailure": "Whoops! Something explodes. You take @Damage[@actor.level[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage, and you can't use Overdrive again for 1 minute as your gizmos cool down and reset.",
                     "DamageTypePrompt": "Deal fire damage with overdrive?"
+                },
+                "Unstable": {
+                    "FlatCheck": {
+                        "CriticalFailure": "The innovation becomes incapable of being used for further unstable actions, and you also take @Damage[@actor.level[@actor.flags.pf2e.inventor.explode]|immutable|name:PF2E.SpecificRule.Inventor.Innovation.MalfunctionDamage] damage.",
+                        "Failure": "The innovation becomes incapable of being used for further unstable actions.",
+                        "Label": "Unstable Check"
+                    },
+                    "Note": "When you take an unstable action, attempt a @Check[flat|dc:17|options:unstable-check|name:PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Label]{flat check} immediately after applying its effects.",
+                    "Stable": "Stable"
                 }
             },
             "Investigator": {
@@ -2710,7 +2738,7 @@
                 "Mystery": {
                     "Prompt": "Select a mystery."
                 },
-               "MysteryConduit":{
+                "MysteryConduit": {
                     "Note": "When you cast a spell of 5th rank or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait."
                 }
             },

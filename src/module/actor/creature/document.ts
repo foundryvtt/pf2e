@@ -8,6 +8,9 @@ import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
+import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
+import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
+import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
 import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
@@ -20,6 +23,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
@@ -271,6 +275,38 @@ abstract class CreaturePF2e<
             },
         });
 
+        // Add spell collections from spell consumables if a matching spellcasting ability is found
+        const spellConsumables = this.itemTypes.consumable.filter(
+            (c) => c.isEquipped && ["scroll", "wand"].includes(c.category),
+        );
+        for (const consumable of spellConsumables) {
+            const spell = consumable.embeddedSpell;
+            if (!spell?.id) continue;
+            const ability = this.spellcasting
+                .filter((e): e is SpellcastingEntry<this> => !!e.statistic && e.canCast(spell, { origin: consumable }))
+                .reduce(
+                    (best: SpellcastingEntry<this> | null, e) =>
+                        best === null ? e : e.statistic.dc.value > best.statistic.dc.value ? e : best,
+                    null,
+                );
+            if (ability) {
+                const collectionId = `${consumable.id}-casting`;
+                const itemCasting = new ItemSpellcasting({
+                    id: collectionId,
+                    name: consumable.name,
+                    actor: this,
+                    statistic: ability.statistic,
+                    tradition: ability.tradition ?? spell.traditions.first() ?? null,
+                    castPredicate: new PredicatePF2e([`item:id:${consumable.id}`, `spell:id:${spell.id}`]),
+                });
+                spell.system.location.value = itemCasting.id;
+                const collection = new SpellCollection(itemCasting);
+                collection.set(spell.id, spell);
+                this.spellcasting.set(itemCasting.id, itemCasting);
+                this.spellcasting.collections.set(collectionId, collection);
+            }
+        }
+
         for (const party of this.parties) {
             party.reset({ actor: true });
         }
@@ -357,10 +393,6 @@ abstract class CreaturePF2e<
         const { attributes, rollOptions } = this;
 
         // Add creature-specific self: roll options
-        if (this.isSpellcaster) {
-            rollOptions.all["self:caster"] = true;
-        }
-
         if (this.hitPoints.negativeHealing) {
             rollOptions.all["self:negative-healing"] = true;
         }

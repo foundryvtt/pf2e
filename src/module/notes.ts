@@ -35,7 +35,7 @@ class RollNotePF2e {
         if (notes.length === 0) return null;
         return createHTMLElement("ul", {
             classes: ["notes"],
-            children: notes.flatMap((n) => ["\n", n.toHTML()]).slice(1),
+            children: [...notes.flatMap((n) => ["\n", n.toHTML()]), "\n"],
         });
     }
 

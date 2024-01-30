@@ -19,6 +19,10 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     /** The item that granted this feature */
     granter: CampaignFeaturePF2e | null = null;
 
+    static override get validTraits(): Record<KingmakerTrait, string> {
+        return CONFIG.PF2E.kingmakerTraits;
+    }
+
     get category(): KingmakerCategory {
         return this.system.category;
     }

@@ -1,7 +1,7 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
-import { WeaponPF2e } from "@item";
-import { NPCAttackTrait } from "@item/melee/data.ts";
+import { ItemProxyPF2e, type WeaponPF2e } from "@item";
+import type { NPCAttackTrait } from "@item/melee/types.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import {
     BaseWeaponType,
@@ -314,7 +314,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             },
         });
 
-        return new WeaponPF2e(source, { parent: this.actor });
+        return new ItemProxyPF2e(source, { parent: this.actor }) as WeaponPF2e<this["actor"]>;
     }
 
     /** Toggle the modular or versatile trait of this strike's weapon */

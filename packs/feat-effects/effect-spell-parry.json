@@ -1,0 +1,67 @@
+{
+    "_id": "su2HbEdb4IYB7r5l",
+    "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+    "name": "Effect: Spell Parry",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Spell Parry]</p>\n<p>You raise your guard, gaining a +1 circumstance bonus to AC and to saving throws against spells that target you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    },
+                    "item:type:spell",
+                    "target:self"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

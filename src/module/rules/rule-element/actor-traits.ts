@@ -2,22 +2,19 @@ import type { ActorType } from "@actor/types.ts";
 import { ErrorPF2e } from "@util";
 import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ModelPropsFromRESchema } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementPF2e, RuleElementSchema } from "./index.ts";
 
 class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "vehicle"];
 
     static override defineSchema(): ActorTraitsRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
+            priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 51 }),
             add: new fields.ArrayField(new fields.StringField({ required: true, nullable: false, blank: false })),
             remove: new fields.ArrayField(new fields.StringField({ required: true, nullable: false, blank: false })),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super({ ...data, priority: 99 }, options);
     }
 
     get #traitsDictionary(): Record<string, string> {
@@ -35,7 +32,7 @@ class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
         }
     }
 
-    override beforePrepareData(): void {
+    override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
         if (this.actor.system.traits) {

@@ -32,6 +32,52 @@
         },
         "rules": [
             {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:1",
+                            {
+                                "or": [
+                                    "ancestral-influence:martial",
+                                    "ancestral-influence:skillful"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.OracleCurses.Ancestor.MinorFailure"
+                    },
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:2",
+                            "class:oracle",
+                            {
+                                "or": [
+                                    "ancestral-influence:martial",
+                                    "ancestral-influence:skillful"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.OracleCurses.Ancestor.ModerateFailure"
+                    },
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:3",
+                            "class:oracle",
+                            {
+                                "or": [
+                                    "ancestral-influence:martial",
+                                    "ancestral-influence:skillful"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.OracleCurses.Ancestor.MajorFailure"
+                    }
+                ]
+            },
+            {
                 "key": "Note",
                 "predicate": [
                     "parent:badge:value:1",
@@ -93,39 +139,6 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "parent:badge:value:1",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    }
-                ],
-                "selector": "spell-attack",
-                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "parent:badge:value:1",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    },
-                    {
-                        "not": "item:trait:attack"
-                    }
-                ],
-                "selector": "spell-damage",
-                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
                     "class:oracle",
                     "parent:badge:value:2",
                     {
@@ -188,41 +201,6 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "class:oracle",
-                    "parent:badge:value:2",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    }
-                ],
-                "selector": "spell-attack",
-                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "class:oracle",
-                    "parent:badge:value:2",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    },
-                    {
-                        "not": "item:trait:attack"
-                    }
-                ],
-                "selector": "spell-damage",
-                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
                     "parent:badge:value:3",
                     {
                         "or": [
@@ -276,39 +254,6 @@
                     }
                 ],
                 "selector": "perception",
-                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "parent:badge:value:3",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    }
-                ],
-                "selector": "spell-attack-roll",
-                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "parent:badge:value:3",
-                    {
-                        "or": [
-                            "ancestral-influence:martial",
-                            "ancestral-influence:skillful"
-                        ]
-                    },
-                    {
-                        "not": "item:trait:attack"
-                    }
-                ],
-                "selector": "spell-damage",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
                 "title": "{item|name}"
             },

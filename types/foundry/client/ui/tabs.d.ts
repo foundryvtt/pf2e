@@ -1,6 +1,7 @@
 declare interface TabsOptions {
     navSelector?: string;
     contentSelector?: string;
+    group?: string;
     initial?: string;
     callback?: Function;
 }

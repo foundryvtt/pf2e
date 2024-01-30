@@ -1,8 +1,8 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ConsumablePF2e } from "@item";
+import type { ConsumablePF2e } from "@item";
 import { EquipmentSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { KitEntryData } from "@item/kit/data.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { isObject } from "@util";
 import { MigrationBase } from "../base.ts";
 
 /** Convert rations to a consumable with seven uses */
@@ -11,7 +11,7 @@ export class Migration684RationsToConsumable extends MigrationBase {
 
     #rationsSourceId = "Compendium.pf2e.equipment-srd.L9ZV076913otGtiB";
 
-    #rationsPromise = fromUuid(this.#rationsSourceId);
+    #rationsPromise = fromUuid<ConsumablePF2e>(this.#rationsSourceId);
 
     #isOldRations(itemSource: ItemSourcePF2e | null): itemSource is EquipmentSource {
         return itemSource?.type === "equipment" && itemSource.flags.core?.sourceId === this.#rationsSourceId;
@@ -33,8 +33,8 @@ export class Migration684RationsToConsumable extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const oldRations = source.items.filter((i): i is EquipmentSource => this.#isOldRations(i));
         const rations = await this.#rationsPromise;
-        if (!(rations instanceof ConsumablePF2e)) {
-            throw ErrorPF2e("Unexpected error acquiring compendium item");
+        if (!rations) {
+            throw new Error("Unexpected error acquiring compendium item");
         }
 
         for (const oldRation of oldRations) {
