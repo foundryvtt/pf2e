@@ -101,16 +101,31 @@ export class Migration916NewPCToys extends MigrationBase {
                 },
                 {
                     key: "DamageDice",
-                    predicate: ["megaton:stable"],
+                    predicate: [
+                        "megaton:stable",
+                        {
+                            or: [
+                                { and: ["feature:weapon-innovation", "item:id:{actor|flags.pf2e.innovationId}"] },
+                                { and: ["feature:armor-innovation", "item:melee"] },
+                            ],
+                        },
+                    ],
                     selector: "strike-damage",
-                    value: "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
+                    diceNumber: "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 },
                 {
                     key: "DamageDice",
-                    label: "Unstable Megaton Strike",
-                    predicate: ["megaton:unstable"],
+                    predicate: [
+                        "megaton:unstable",
+                        {
+                            or: [
+                                { and: ["feature:weapon-innovation", "item:id:{actor|flags.pf2e.innovationId}"] },
+                                { and: ["feature:armor-innovation", "item:melee"] },
+                            ],
+                        },
+                    ],
                     selector: "strike-damage",
-                    value: "ternary(gte(@actor.level, 18), 4, ternary(gte(@actor.level, 10), 3, 2))",
+                    diceNumber: "ternary(gte(@actor.level, 18), 4, ternary(gte(@actor.level, 10), 3, 2))",
                 },
             ];
             source.system.rules = rules;
