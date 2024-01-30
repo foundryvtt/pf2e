@@ -1,10 +1,10 @@
 {
     "_id": "aKRo5TIhUtu0kyEr",
     "img": "icons/commodities/treasure/statuette-gargoyle-green-gold.webp",
-    "name": "Effect: Demonic Blood Magic (Self)",
+    "name": "Effect: Demonic Blood Magic",
     "system": {
         "description": {
-            "value": "<p>The corruption of sin makes you more imposing. You gain a +1 status bonus to Intimidation checks for 1 round.</p>"
+            "value": "<p>Either a target takes a -1 status penalty to AC for 1 round, or you gain a +1 status bonus to Intimidation checks for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,10 +22,26 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
                 "selector": "intimidation",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": -1
             }
         ],
         "start": {
