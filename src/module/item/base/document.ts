@@ -260,6 +260,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
+        const traits = this.system.traits;
+        if (traits.value) {
+            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
+        }
+
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
