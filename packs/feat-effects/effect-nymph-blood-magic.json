@@ -1,10 +1,10 @@
 {
     "_id": "SVGW8CLKwixFlnTv",
     "img": "systems/pf2e/icons/features/classes/nymph.webp",
-    "name": "Effect: Nymph Blood Magic (Self)",
+    "name": "Effect: Nymph Blood Magic",
     "system": {
         "description": {
-            "value": "<p>Nymph grace accentuates your movements and distracts your foes, granting you a +1 status bonus to Diplomacy checks for 1 round.</p>"
+            "value": "<p>Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,10 +22,26 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
                 "selector": "diplomacy",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": -1
             }
         ],
         "start": {

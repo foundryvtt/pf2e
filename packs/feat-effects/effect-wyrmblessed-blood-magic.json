@@ -1,7 +1,7 @@
 {
     "_id": "fILVhS5NuCtGXfri",
-    "img": "icons/creatures/eyes/lizard-single-slit-blue.webp",
-    "name": "Effect: Wyrmblessed Blood Magic (Status Bonus - Self)",
+    "img": "icons/commodities/biological/wing-lizard-yellow.webp",
+    "name": "Effect: Wyrmblessed Blood Magic",
     "system": {
         "description": {
             "value": "<p>Draconic might carries in your voice. You gain a +1 status bonus to Intimidation checks for 1 round.</p>"
@@ -22,10 +22,26 @@
         },
         "rules": [
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
                 "selector": "intimidation",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": -1
             }
         ],
         "start": {
