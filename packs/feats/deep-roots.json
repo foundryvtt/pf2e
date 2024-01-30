@@ -24,7 +24,28 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "item:tag:deep-roots",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:deep-roots"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.DeepRoots.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

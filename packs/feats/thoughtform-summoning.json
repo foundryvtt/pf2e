@@ -24,7 +24,32 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "thoughtform-summoning",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:summon",
+                    "thoughtform-summoning"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.ThoughtformSummoning.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Thoughtform Summoning]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
