@@ -36,6 +36,56 @@
                 "mode": "upgrade",
                 "path": "system.skills.nat.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:charm",
+                                            "item:slug:calm",
+                                            "item:slug:animal-vision",
+                                            "item:slug:vital-beacon",
+                                            "item:slug:wave-of-despair",
+                                            "item:slug:repulsion",
+                                            "item:slug:unfettered-pack",
+                                            "item:slug:moment-of-renewal",
+                                            "item:slug:overwhelming-presence"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Nymph",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Self)]"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Target)]"
+                    }
+                ]
             }
         ],
         "traits": {

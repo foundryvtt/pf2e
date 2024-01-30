@@ -262,6 +262,56 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "feature:bloodline:wyrmblessed:{item|flags.pf2e.rulesSelections.dragon.slug}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:mystic-armor",
+                                            "item:slug:resist-energy",
+                                            "item:slug:haste",
+                                            "item:slug:reflective-scales",
+                                            "item:slug:cloak-of-colors",
+                                            "item:slug:repulsion",
+                                            "item:slug:mask-of-terrors",
+                                            "item:slug:divine-inspiration",
+                                            "item:slug:overwhelming-presence"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Wyrmblessed",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Wyrmblessed Blood Magic (Status Bonus - Self)]"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Wyrmblessed Blood Magic (Status Penalty - Target)]"
+                    }
+                ]
             }
         ],
         "traits": {

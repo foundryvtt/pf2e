@@ -36,6 +36,50 @@
                 "mode": "upgrade",
                 "path": "system.skills.occ.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:illusory-disguise",
+                                            "item:slug:stupefy",
+                                            "item:slug:blindness",
+                                            "item:slug:outcasts-curse",
+                                            "item:slug:mariners-curse",
+                                            "item:slug:cursed-metamorphosis",
+                                            "item:slug:warp-mind",
+                                            "item:slug:spiritual-epidemic",
+                                            "item:slug:natures-enmity"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Hag",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    }
+                ]
             }
         ],
         "traits": {

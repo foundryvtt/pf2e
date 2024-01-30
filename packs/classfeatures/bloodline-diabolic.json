@@ -36,6 +36,53 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:charm",
+                                            "item:slug:floating-flame",
+                                            "item:slug:enthrall",
+                                            "item:slug:suggestion",
+                                            "item:slug:wave-of-despair",
+                                            "item:slug:truesight",
+                                            "item:slug:divine-decree",
+                                            "item:slug:divine-aura",
+                                            "item:slug:falling-stars"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Diabolic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Diabolic Blood Magic (Self)]"
+                    }
+                ]
             }
         ],
         "traits": {

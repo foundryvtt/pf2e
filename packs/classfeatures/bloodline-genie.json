@@ -53,16 +53,124 @@
                     },
                     {
                         "label": "PF2E.SpecificRule.Genie.Faydhaan",
-                        "slug": "faydhaan"
+                        "value": "faydhaan"
                     },
                     {
                         "label": "PF2E.SpecificRule.Genie.Janni",
-                        "slug": "janni"
+                        "value": "janni"
                     }
                 ],
                 "flag": "genie",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Genie.Prompt"
+                "prompt": "PF2E.SpecificRule.Genie.Prompt",
+                "rollOption": "genie"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:illusory-disguise",
+                                            "item:slug:enthrall",
+                                            "item:slug:creation",
+                                            "item:slug:truesight",
+                                            "item:slug:energy-aegis",
+                                            "item:slug:resplendent-mansion",
+                                            {
+                                                "and": [
+                                                    "genie:janni",
+                                                    {
+                                                        "or": [
+                                                            "item:slug:create-food",
+                                                            "item:slug:banishment",
+                                                            "item:slug:scintillating-pattern"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "genie:jaathoom",
+                                                    {
+                                                        "or": [
+                                                            "item:slug:invisibility",
+                                                            "item:slug:illusory-scene",
+                                                            "item:slug:punishing-winds"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "genie:ifrit",
+                                                    {
+                                                        "or": [
+                                                            "item:slug:enlarge",
+                                                            "item:slug:elemental-form",
+                                                            "item:slug:quandary"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "genie:faydhaan",
+                                                    {
+                                                        "or": [
+                                                            "item:slug:water-walk",
+                                                            "item:slug:control-water",
+                                                            "item:slug:desiccate"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "genie:jabali",
+                                                    {
+                                                        "or": [
+                                                            "item:slug:revealing-light",
+                                                            "item:slug:wall-of-stone",
+                                                            "item:slug:earthquake"
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Genie",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Genie Blood Magic (Self)]"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Genie Blood Magic (Target)]"
+                    }
+                ]
             }
         ],
         "traits": {

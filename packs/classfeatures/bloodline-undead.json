@@ -36,6 +36,53 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:harm",
+                                            "item:slug:false-vitality",
+                                            "item:slug:bind-undead",
+                                            "item:slug:talking-corpse",
+                                            "item:slug:toxic-cloud",
+                                            "item:slug:vampiric-exsanguination",
+                                            "item:slug:execute",
+                                            "item:slug:desiccate",
+                                            "item:slug:wails-of-the-damned"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Undead",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Undead Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

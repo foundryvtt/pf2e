@@ -89,7 +89,7 @@
                     {
                         "or": [
                             "item:slug:produce-flame",
-                            "item:slug:burning-hands",
+                            "item:slug:breathe-fire",
                             "item:slug:fireball",
                             "item:slug:elemental-toss",
                             "item:slug:elemental-blast"
@@ -97,6 +97,53 @@
                     }
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "ancestral-blood-magic",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    {
+                                        "or": [
+                                            "item:slug:prismatic-wall",
+                                            "item:slug:breathe-fire",
+                                            "item:slug:resist-energy",
+                                            "item:slug:fireball",
+                                            "item:slug:unfettered-movement",
+                                            "item:slug:elemental-form",
+                                            "item:slug:repulsion",
+                                            "item:slug:energy-aegis",
+                                            "item:slug:storm-of-vengeance"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Elemental",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Elemental Blood Magic (Self)]"
+                    }
+                ]
             }
         ],
         "traits": {
