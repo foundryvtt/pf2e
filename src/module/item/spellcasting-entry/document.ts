@@ -135,6 +135,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 4,
             ) as OneToFour;
         }
+
+        if ((this.spells?.size ?? 0) > 0) {
+            actor.rollOptions.all["self:caster"] = true;
+            actor.rollOptions.all[`self:caster:tradition:${this.tradition}`] = true;
+        }
     }
 
     /** Prepares the statistic for this spellcasting entry */
