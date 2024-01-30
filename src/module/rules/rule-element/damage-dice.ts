@@ -31,6 +31,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             }),
             brackets: new ResolvableValueField({ required: false, nullable: true, initial: undefined }),
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
+            hideIfDisabled: new fields.BooleanField({ required: false }),
         };
     }
 
@@ -132,6 +133,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     predicate: this.predicate,
                     override: fu.deepClone(this.override),
                     enabled: testPassed,
+                    hideIfDisabled: this.hideIfDisabled,
                     ...resolvedBrackets,
                 });
             };
@@ -184,6 +186,7 @@ interface DamageDiceSource extends RuleElementSource {
     critical?: unknown;
     category?: unknown;
     damageCategory?: unknown;
+    hideIfDisabled?: unknown;
 }
 
 interface DamageDiceRuleElement
@@ -215,6 +218,8 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     brackets: ResolvableValueField<false, true, false>;
     /** Damage dice override data */
     override: ObjectField<DamageDiceOverride, DamageDiceOverride, false, true, false>;
+    /** Hide this dice change from breakdown tooltips if it is disabled */
+    hideIfDisabled: BooleanField<boolean, boolean, false, false, true>;
 };
 
 export { DamageDiceRuleElement };
