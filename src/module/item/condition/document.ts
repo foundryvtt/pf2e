@@ -38,7 +38,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Retrieve this condition's origin from its granting effect, if any */
     override get origin(): ActorPF2e | null {
         const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : null;
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : super.origin;
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
