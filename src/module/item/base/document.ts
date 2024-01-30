@@ -19,7 +19,6 @@ import { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
 import { ItemInstances } from "../types.ts";
-import { isPhysicalData } from "./data/helpers.ts";
 import type {
     ConditionSource,
     EffectSource,
@@ -330,7 +329,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             };
         }
 
-        if (this.isOfType("physical") && isPhysicalData(currentSource)) {
+        if (this.isOfType("physical") && itemIsOfType(currentSource, "physical")) {
             // Preserve basic physical data
             fu.mergeObject(updates, {
                 "system.containerId": currentSource.system.containerId,

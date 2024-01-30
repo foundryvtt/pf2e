@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Remove MAP property from weapon system data, transferring to a rule element if set. */
@@ -9,7 +9,7 @@ export class Migration864RemoveWeaponMAP extends MigrationBase {
     override async updateItem(source: MaybeWithMAPProperty): Promise<void> {
         if (source.type !== "weapon") return;
 
-        if (isObject<{ value: unknown }>(source.system.MAP)) {
+        if (R.isObject(source.system.MAP)) {
             const mapValue = -1 * Number(source.system.MAP.value);
             if (mapValue < 0 && mapValue !== -5) {
                 const rule = { key: "MultipleAttackPenalty", selector: "{item|id}-attack", value: mapValue };

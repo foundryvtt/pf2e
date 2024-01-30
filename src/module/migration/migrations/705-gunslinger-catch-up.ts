@@ -1,5 +1,5 @@
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Catch up Gunslinger class features with newly-included REs */
@@ -10,7 +10,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            isObject<{ value: string }>(source.system.featType) &&
+            R.isObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }

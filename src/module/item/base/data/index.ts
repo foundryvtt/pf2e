@@ -94,7 +94,6 @@ interface TraitChatData {
     excluded?: boolean;
 }
 
-export * from "./helpers.ts";
 export type {
     ActionCost,
     ActionType,

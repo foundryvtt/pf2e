@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { recursiveReplaceString, sluggify } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /** Convert weapons with the "crossbow" tag to the PC1 crossbow group */
 export class Migration886CrossbowGroup extends MigrationBase {
