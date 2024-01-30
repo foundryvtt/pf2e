@@ -2,18 +2,29 @@
     padding: 0;
     overflow-y: hidden;
 
-    nav.spell-collections {
-        a.rituals {
-            flex-basis: 20%;
-        }
+    nav.spell-collections a.rituals {
+        flex-basis: 20%;
     }
 
-    .tab {
-        padding: var(--space-10) 0 0 var(--space-6);
-        overflow-y: scroll;
+    ul.option-toggles {
+        margin: var(--space-8) var(--space-4);
+    }
 
-        &.rituals li.spellcasting-entry > .action-header {
-            display: none;
+    .spell-collections {
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        padding-right: var(--space-4);
+
+        > .tab {
+            padding: var(--space-10) 0 0 var(--space-4);
+
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &.rituals li.spellcasting-entry > .action-header {
+                display: none;
+            }
         }
     }
 
