@@ -262,6 +262,55 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "feature:bloodline:draconic:{item|flags.pf2e.rulesSelections.dragon.slug}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:arcane",
+                                    {
+                                        "or": [
+                                            "item:slug:sure-strike",
+                                            "item:slug:resist-energy",
+                                            "item:slug:haste",
+                                            "item:slug:spell-immunity",
+                                            "item:slug:chromatic-wall",
+                                            "item:slug:dragon-form",
+                                            "item:slug:mask-of-terror",
+                                            "item:slug:prismatic-wall",
+                                            "item:slug:overwhelming-presence"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {
