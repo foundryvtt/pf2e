@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import * as R from "remeda";
 
 function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
@@ -140,16 +141,21 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 
         if (this.object.id === null) {
             updateData.name = (() => {
-                const preparationType =
-                    game.i18n.localize(CONFIG.PF2E.preparationType[updateData.system.prepared.value]) ?? "";
+                const preparationType = game.i18n.localize(
+                    CONFIG.PF2E.preparationType[updateData.system.prepared.value],
+                );
                 const magicTraditions: Record<string, string> = CONFIG.PF2E.magicTraditions;
                 const traditionSpells = game.i18n.localize(magicTraditions[this.object.tradition ?? ""]);
-                if (this.object.isRitual || !traditionSpells) {
+                if (!traditionSpells) {
                     return preparationType;
                 } else {
                     return game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
                 }
             })();
+            updateData.system._migration = {
+                version: MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+                previous: null,
+            };
 
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
