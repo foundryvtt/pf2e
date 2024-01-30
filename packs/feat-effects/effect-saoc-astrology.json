@@ -3,6 +3,12 @@
     "img": "icons/magic/light/explosion-star-glow-blue.webp",
     "name": "Effect: Saoc Astrology",
     "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d8"
+        },
         "description": {
             "value": "<p>This effect grants you the selected circumstance bonus or penalty to skill checks.</p>"
         },
@@ -22,48 +28,11 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "-1 penalty",
-                        "value": -1
-                    },
-                    {
-                        "label": "+1 bonus",
-                        "predicate": [
-                            {
-                                "not": "heir-of-the-saoc"
-                            }
-                        ],
-                        "value": 1
-                    },
-                    {
-                        "label": "+2 bonus",
-                        "value": 2
-                    },
-                    {
-                        "label": "+3 bonus",
-                        "predicate": [
-                            "heir-of-the-saoc"
-                        ],
-                        "value": 3
-                    },
-                    {
-                        "label": "+4 bonus",
-                        "predicate": [
-                            "heir-of-the-saoc"
-                        ],
-                        "value": 4
-                    }
-                ],
-                "flag": "saocBonus",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Human.SaocAstrology.Prompt"
-            },
-            {
                 "key": "FlatModifier",
+                "removeAfterRoll": true,
                 "selector": "skill-check",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.saocBonus}"
+                "value": "ternary(gte(@item.badge.value,6),2,ternary(gte(@item.badge.value,3),1,ternary(eq(@item.badge.value,2),0,-1)))"
             }
         ],
         "start": {
