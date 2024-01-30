@@ -36,6 +36,55 @@
                 "mode": "upgrade",
                 "path": "system.skills.occ.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:occult",
+                                    {
+                                        "or": [
+                                            "item:slug:spider-sting",
+                                            "item:slug:stupefy",
+                                            "item:slug:vampiric-feast",
+                                            "item:slug:confusion",
+                                            "item:slug:black-tentacles",
+                                            "item:slug:never-mind",
+                                            "item:slug:warp-mind",
+                                            "item:slug:uncontrollable-dance",
+                                            "item:slug:spirit-song"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aberrant",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {
