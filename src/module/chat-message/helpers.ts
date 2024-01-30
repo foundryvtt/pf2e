@@ -97,6 +97,9 @@ async function applyDamageFromMessage({
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
     const messageItem = message.item;
+    const effectRollOptions = messageItem?.isOfType("affliction", "condition", "effect")
+        ? messageItem.getRollOptions("item")
+        : [];
 
     for (const token of tokens) {
         if (!token.actor) continue;
@@ -120,6 +123,7 @@ async function applyDamageFromMessage({
         const contextClone = token.actor.getContextualClone(originRollOptions, ephemeralEffects);
         const applicationRollOptions = new Set([
             ...messageRollOptions.filter((o) => !/^(?:self|target):/.test(o)),
+            ...effectRollOptions,
             ...originRollOptions,
             ...contextClone.getSelfRollOptions(),
         ]);
