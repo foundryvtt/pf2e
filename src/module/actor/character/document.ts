@@ -840,9 +840,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.system.runes.resilient && wornArmor.isInvested) {
-                const value = wornArmor.system.runes.resilient;
+                const slug = "resilient";
                 modifiers.push(
-                    new ModifierPF2e({ slug: "resilient", label: wornArmor.name, type: "item", modifier: value }),
+                    new ModifierPF2e({
+                        slug,
+                        type: "item",
+                        label: wornArmor.name,
+                        modifier: wornArmor.system.runes.resilient,
+                        adjustments: extractModifierAdjustments(this.synthetics.modifierAdjustments, selectors, slug),
+                    }),
                 );
             }
 
