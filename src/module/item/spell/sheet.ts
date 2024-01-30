@@ -33,7 +33,7 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     time: "PF2E.Item.Spell.Cast",
     target: "PF2E.SpellTargetLabel",
     area: "PF2E.AreaLabel",
-    range: "PF2E.SpellRangeLabel",
+    range: "PF2E.TraitRange",
     damage: "PF2E.DamageLabel",
 };
 
