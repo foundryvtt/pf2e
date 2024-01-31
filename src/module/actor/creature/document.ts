@@ -674,8 +674,12 @@ abstract class CreaturePF2e<
                 : ["speed", "all-speeds", `${movementType}-speed`];
             const rollOptions = this.getRollOptions(domains);
 
-            const label = game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]);
-            const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
+            const speed: LabeledSpeed = {
+                type: movementType,
+                label: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
+                value: fastest.value,
+                derivedFromLand: fastest.derivedFromLand,
+            };
             if (fastest.source) speed.source = fastest.source;
 
             this.rollOptions.all[`speed:${movementType}`] = true;
