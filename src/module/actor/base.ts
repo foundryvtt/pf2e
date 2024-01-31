@@ -1576,7 +1576,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
         const container = targetActor.inventory.get(containerId ?? "");
-        if (!container?.isOfType("backpack")) {
+        if (container && !container?.isOfType("backpack")) {
             throw ErrorPF2e("containerId refers to a non-container");
         }
 

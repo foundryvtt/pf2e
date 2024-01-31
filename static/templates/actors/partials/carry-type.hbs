@@ -30,7 +30,7 @@
         {{#if (and (eq item.system.equipped.carryType "worn") (or (not item.system.usage.where) (eq item.system.equipped.inSlot false)))}}class="selected"{{/if}}
         data-carry-type="worn"><i class="fa-solid fa-fw fa-tshirt"></i>{{localize "PF2E.CarryType.worn"}}</a>
 </li>
-{{#if @root.inventory.hasStowingContainers}}
+{{#if hasStowingContainers}}
     <li>
         <a
             {{#if (eq item.system.equipped.carryType "stowed")}}class="selected"{{/if}}
