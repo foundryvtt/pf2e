@@ -334,10 +334,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.traits.value,
                     data.alteration.value,
                 );
+                if (!newValue) return;
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                const traits = data.item.system.traits.value;
+                const traits: string[] = data.item.system.traits.value ?? [];
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {

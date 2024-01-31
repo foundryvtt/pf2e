@@ -24,7 +24,23 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "rapid-response",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "rapid-response"
+                ],
+                "selector": "speed",
+                "type": "circumstance",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

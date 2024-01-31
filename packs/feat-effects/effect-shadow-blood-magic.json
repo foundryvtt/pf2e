@@ -1,7 +1,7 @@
 {
     "_id": "Nv70aqcQgCBpDYp8",
     "img": "systems/pf2e/icons/features/classes/shadow.webp",
-    "name": "Effect: Shadow Blood Magic (Perception)",
+    "name": "Effect: Shadow Blood Magic",
     "system": {
         "description": {
             "value": "<p>Shadows grow deeper around you or one target, imposing a -1 status penalty to Perception for 1 round.</p>"
@@ -22,10 +22,38 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Shadow.PerceptionPenalty",
+                        "value": "perception"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Shadow.StealthBonus",
+                        "value": "stealth"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "shadow-blood-magic"
+            },
+            {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "shadow-blood-magic:perception"
+                ],
                 "selector": "perception",
                 "type": "status",
                 "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "shadow-blood-magic:stealth"
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": 1
             }
         ],
         "start": {

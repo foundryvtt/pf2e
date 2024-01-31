@@ -12,7 +12,7 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
 
     protected override optionReplacement = "target:condition:flat-footed";
 
-    #pathPattern = /^flags\.pf2e\.rollOptions\.([^.]+)\.([^.]+)$/;
+    pathPattern = /^flags\.pf2e\.rollOptions\.([^.]+)\.([^.]+)$/;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.rules = source.system.rules.map((r) => this.trimPredicates(r)) as RuleElementSource[];
@@ -21,7 +21,7 @@ export class Migration731TogglePropertyToRollOption extends Migration727TrimSelf
         for (const rule of [...rules]) {
             if (rule.key !== "ToggleProperty") continue;
 
-            const match = this.#pathPattern.exec(rule.property?.trim() ?? "");
+            const match = this.pathPattern.exec(rule.property?.trim() ?? "");
             if (!(match?.length === 3 && match[1].length >= 2 && match[2].length >= 1)) {
                 rules.splice(rules.indexOf(rule), 1);
                 continue;

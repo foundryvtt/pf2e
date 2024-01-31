@@ -1,7 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
-import { PhysicalItemSource } from "@item/base/data/index.ts";
+import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ItemFlagsPF2e } from "@item/base/data/system.ts";
-import {
+import type {
     BasePhysicalItemSource,
     Investable,
     ItemMaterialData,
@@ -13,8 +13,8 @@ import {
 } from "@item/physical/index.ts";
 import { ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
-import {
+import type { WeaponTraitToggles } from "./helpers.ts";
+import type {
     BaseWeaponType,
     MeleeWeaponGroup,
     OtherWeaponTag,

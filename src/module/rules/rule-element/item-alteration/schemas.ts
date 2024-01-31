@@ -1,6 +1,6 @@
-import { ItemPF2e } from "@item";
-import { ArmorTrait } from "@item/armor/types.ts";
+import type { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
+import type { ItemTrait } from "@item/base/types.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
@@ -26,7 +26,10 @@ const { fields, validation } = foundry.data;
 
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
-    #validateForItem?: (item: ItemPF2e | ItemSourcePF2e) => DataModelValidationFailure | void;
+    #validateForItem?: (
+        item: ItemPF2e | ItemSourcePF2e,
+        alteration: MaybeAlterationData,
+    ) => DataModelValidationFailure | void;
 
     operableOnInstances: boolean;
 
@@ -43,7 +46,7 @@ class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.S
      * A type-safe affirmation of full validity of an alteration _and_ its applicable to a particular item
      * Errors will bubble all the way up to the originating parent rule element
      */
-    isValid(data: { item: ItemPF2e | ItemSourcePF2e; alteration: { itemType: string } }): data is {
+    isValid(data: { item: ItemPF2e | ItemSourcePF2e; alteration: MaybeAlterationData }): data is {
         item: ItemOrSource<SourceFromSchema<TSchema>["itemType"]>;
         alteration: SourceFromSchema<TSchema>;
     } {
@@ -51,14 +54,14 @@ class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.S
         const failure = this.validate(alteration);
         if (failure) throw new validation.DataModelValidationError(failure);
         if (item.type !== alteration.itemType) return false;
-        const forItemFailure = this.#validateForItem?.(item);
+        const forItemFailure = this.#validateForItem?.(item, alteration);
         if (forItemFailure) throw new validation.DataModelValidationError(forItemFailure);
 
-        if (!this.operableOnInstances && item instanceof ItemPF2e) {
+        if (!this.operableOnInstances && item instanceof foundry.abstract.Document) {
             throw new validation.DataModelValidationError("may only be applied to source data");
         }
 
-        if (!this.operableOnSource && !(item instanceof ItemPF2e)) {
+        if (!this.operableOnSource && !(item instanceof foundry.abstract.Document)) {
             throw new validation.DataModelValidationError("may only be applied to existing items");
         }
 
@@ -70,14 +73,16 @@ type ItemOrSource<TItemType extends ItemType> =
     | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TItemType]>
     | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TItemType]>["_source"];
 
-const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): void => {
+type MaybeAlterationData = { mode: string; itemType: string; value: unknown };
+
+const itemHasCounterBadge = (item: ItemPF2e | ItemSourcePF2e): DataModelValidationFailure | void => {
     const hasBadge = itemIsOfType(item, "condition")
         ? typeof item.system.value.value === "number"
         : itemIsOfType(item, "effect")
           ? item.system.badge?.type === "counter"
           : false;
     if (!hasBadge) {
-        throw new foundry.data.validation.DataModelValidationError("effect lacks a badge");
+        return new validation.DataModelValidationFailure({ message: "effect lacks a badge" });
     }
 };
 
@@ -285,7 +290,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         {
             validateForItem(item): DataModelValidationFailure | void {
                 if (item.system.slug !== "persistent-damage") {
-                    return new foundry.data.validation.DataModelValidationFailure({
+                    return new validation.DataModelValidationFailure({
                         message: "item must be a persistent damage condition",
                     });
                 }
@@ -324,7 +329,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         {
             validateForItem(item): DataModelValidationFailure | void {
                 if (item.system.slug !== "persistent-damage") {
-                    return new foundry.data.validation.DataModelValidationFailure({
+                    return new validation.DataModelValidationFailure({
                         message: "item must be a persistent damage condition",
                     });
                 }
@@ -410,31 +415,46 @@ const ITEM_ALTERATION_VALIDATORS = {
             initial: undefined,
         } as const),
     }),
-    traits: new ItemAlterationValidator({
-        itemType: new fields.StringField({
-            required: true,
-            choices: ["armor"],
-        }),
-        mode: new fields.StringField({
-            required: true,
-            choices: ["add", "remove", "subtract"],
-        }),
-        value: new fields.StringField<ArmorTrait, ArmorTrait, true, false, false>({
-            required: true,
-            nullable: false,
-            choices: () => CONFIG.PF2E.armorTraits,
-            initial: undefined,
-        }),
-    }),
+    traits: new ItemAlterationValidator(
+        {
+            itemType: new fields.StringField({
+                required: true,
+                choices: () =>
+                    Object.entries(CONFIG.PF2E.Item.documentClasses)
+                        .filter(([, I]) => !R.isEmpty(I.validTraits))
+                        .map(([t]) => t as Exclude<ItemType, "deity" | "lore" | "spellcastingEntry">),
+            }),
+            mode: new fields.StringField({
+                required: true,
+                choices: ["add", "remove", "subtract"],
+            }),
+            value: new fields.StringField<ItemTrait, ItemTrait, true, false, false>({
+                required: true,
+                nullable: false,
+                initial: undefined,
+            }),
+        },
+        {
+            validateForItem: (item, alteration): DataModelValidationFailure | void => {
+                const documentClasses: Record<string, typeof ItemPF2e> = CONFIG.PF2E.Item.documentClasses;
+                const validTraits = documentClasses[item.type].validTraits;
+                const value = alteration.value;
+                if (typeof value !== "string" || !(value in validTraits)) {
+                    return new validation.DataModelValidationFailure({
+                        message: `${alteration.value} is not a valid choice`,
+                    });
+                }
+            },
+        },
+    ),
 };
 
 interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<AlterationSchema>>
     extends DataFieldOptions<TSourceProp, true, false, false> {
     validateForItem?: (
         item: ItemPF2e | ItemSourcePF2e,
-    ) => asserts item is
-        | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>
-        | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][TSourceProp["itemType"]]>["_source"];
+        alteration: MaybeAlterationData,
+    ) => DataModelValidationFailure | void;
     /** Whether this alteration can be used with an `ItemPF2e` instance */
     operableOnInstances?: boolean;
     /** Whether this alteration can be used with item source data */

@@ -7,12 +7,11 @@ import { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import { ArmorSource, ArmorSystemData } from "./data.ts";
-import { ArmorCategory, ArmorGroup, BaseArmorType } from "./types.ts";
+import { ArmorCategory, ArmorGroup, ArmorTrait, BaseArmorType } from "./types.ts";
 
 class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
-        if (this.isEquipped || item.isEquipped) return false;
-        return super.isStackableWith(item);
+    static override get validTraits(): Record<ArmorTrait, string> {
+        return CONFIG.PF2E.armorTraits;
     }
 
     get isBarding(): boolean {
@@ -72,6 +71,11 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         );
 
         return rollOptions;
+    }
+
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
     }
 
     override prepareBaseData(): void {

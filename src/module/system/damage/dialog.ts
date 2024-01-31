@@ -34,8 +34,11 @@ class DamageModifierDialog extends Application {
     /** Was the roll button pressed? */
     isRolled = false;
 
-    /** A set of originally enabled modifiers to circumvent hideIfDisabled for manual disables */
-    #originallyEnabled: Set<ModifierPF2e>;
+    /** A set of originally enabled modifiers and dice to circumvent hideIfDisabled for manual disables */
+    #originallyEnabled: {
+        modifiers: Set<ModifierPF2e>;
+        dice: Set<DamageDicePF2e>;
+    };
 
     constructor(params: DamageDialogParams) {
         super();
@@ -45,7 +48,10 @@ class DamageModifierDialog extends Application {
         this.baseDamageType = params.formulaData.base.at(0)?.damageType ?? "untyped";
         this.degree = DEGREE_OF_SUCCESS_STRINGS.indexOf(this.context.outcome ?? "success") as DegreeOfSuccessIndex;
 
-        this.#originallyEnabled = new Set(this.formulaData.modifiers.filter((m) => m.enabled));
+        this.#originallyEnabled = {
+            modifiers: new Set(this.formulaData.modifiers.filter((m) => m.enabled)),
+            dice: new Set(this.formulaData.dice.filter((d) => d.enabled)),
+        };
     }
 
     static override get defaultOptions(): ApplicationOptions {
@@ -146,7 +152,7 @@ class DamageModifierDialog extends Application {
                 category: m.category,
                 type: m.type,
                 modifier: m.modifier,
-                hideIfDisabled: !this.#originallyEnabled.has(m) && m.hideIfDisabled,
+                hideIfDisabled: !this.#originallyEnabled.modifiers.has(m) && m.hideIfDisabled,
                 damageType: m.damageType,
                 typeLabel: this.#getTypeLabel(m.damageType, m.damageCategory),
                 enabled: m.enabled,
@@ -160,6 +166,7 @@ class DamageModifierDialog extends Application {
                 category: d.category,
                 damageType: d.damageType,
                 typeLabel: this.#getTypeLabel(d.damageType, d.category),
+                hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
                 diceLabel:
                     d.diceNumber && d.dieSize
                         ? `${d.diceNumber}${d.dieSize}`
@@ -180,6 +187,7 @@ class DamageModifierDialog extends Application {
                     label: d.label,
                     category: d.category,
                     damageType: d.override.damageType ?? d.damageType,
+                    hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
                     diceLabel: R.compact([
                         d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,

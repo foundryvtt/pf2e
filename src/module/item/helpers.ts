@@ -15,10 +15,6 @@ function itemIsOfType<TParent extends ActorPF2e | null, TType extends ItemType>(
     item: ItemOrSource,
     ...types: TType[]
 ): item is ItemInstances<TParent>[TType] | ItemInstances<TParent>[TType]["_source"];
-function itemIsOfType<TParent extends ActorPF2e | null>(
-    item: ItemOrSource,
-    type: "physical",
-): item is PhysicalItemPF2e<TParent> | PhysicalItemPF2e["_source"];
 function itemIsOfType<TParent extends ActorPF2e | null, TType extends "physical" | ItemType>(
     item: ItemOrSource,
     ...types: TType[]
@@ -27,8 +23,15 @@ function itemIsOfType<TParent extends ActorPF2e | null, TType extends "physical"
     : TType extends ItemType
       ? ItemInstances<TParent>[TType] | ItemInstances<TParent>[TType]["_source"]
       : never;
+function itemIsOfType<TParent extends ActorPF2e | null>(
+    item: ItemOrSource,
+    type: "physical",
+): item is PhysicalItemPF2e<TParent> | PhysicalItemPF2e["_source"];
 function itemIsOfType(item: ItemOrSource, ...types: string[]): boolean {
-    return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, item.type) : item.type === t));
+    return (
+        typeof item.name === "string" &&
+        types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, item.type) : item.type === t))
+    );
 }
 
 /** Create a "reduced" item name; that is, one without an "Effect:" or similar prefix */

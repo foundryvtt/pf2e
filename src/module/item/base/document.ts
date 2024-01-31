@@ -19,7 +19,6 @@ import { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
 import { ItemInstances } from "../types.ts";
-import { isPhysicalData } from "./data/helpers.ts";
 import type {
     ConditionSource,
     EffectSource,
@@ -31,6 +30,7 @@ import type {
     RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
+import type { ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
@@ -40,6 +40,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
+    /** Traits an item of this type can have */
+    static get validTraits(): Partial<Record<ItemTrait, string>> {
+        return {};
     }
 
     /** Prepared rule elements from this item */
@@ -254,6 +259,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const flags = this.flags;
         flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
 
+        const traits = this.system.traits;
+        if (traits.value) {
+            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
+        }
+
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
@@ -319,7 +329,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             };
         }
 
-        if (this.isOfType("physical") && isPhysicalData(currentSource)) {
+        if (this.isOfType("physical") && itemIsOfType(currentSource, "physical")) {
             // Preserve basic physical data
             fu.mergeObject(updates, {
                 "system.containerId": currentSource.system.containerId,
@@ -832,6 +842,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 }
 
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    constructor: typeof ItemPF2e;
     flags: ItemFlagsPF2e;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;

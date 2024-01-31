@@ -1,9 +1,9 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
-import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject } from "@util";
+import { AELikeChangeMode } from "@module/rules/rule-element/ae-like.ts";
 import { BracketedValue } from "@module/rules/rule-element/data.ts";
+import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 /** Convert bracketed AE-like rule elements changing ability scores to instead change attribute modifiers */
 export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase {
@@ -15,11 +15,11 @@ export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
                 /^system\.abilities\..+\.value$/.test(r.path) &&
-                isObject<BracketedValue>(r.value) &&
+                R.isObject(r.value) &&
                 typeof r.value.field === "string" &&
                 /^actor\|system\.abilities\.[a-z]{3}\.value$/.test(r.value.field) &&
                 Array.isArray(r.value.brackets) &&
-                r.value.brackets.every((b) => isObject(b) && typeof b.value === "number"),
+                r.value.brackets.every((b) => R.isObject(b) && typeof b.value === "number"),
         );
 
         for (const aeLike of aeLikes) {

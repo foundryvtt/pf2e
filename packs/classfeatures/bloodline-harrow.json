@@ -36,6 +36,52 @@
                 "mode": "upgrade",
                 "path": "system.skills.prf.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:occult",
+                                    {
+                                        "or": [
+                                            "item:slug:ill-omen",
+                                            "item:slug:augury",
+                                            "item:slug:wanderers-guide",
+                                            "item:slug:suggestion",
+                                            "item:slug:shadow-siphon",
+                                            "item:slug:truesight",
+                                            "item:slug:retrocognition",
+                                            "item:slug:unrelenting-observation",
+                                            "item:slug:weird"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Harrow",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    }
+                ]
             }
         ],
         "traits": {

@@ -1,0 +1,96 @@
+{
+    "_id": "FtBfE4yrbg9fxtxr",
+    "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
+    "name": "Effect: Sanguine Mutagen (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Mutagen (Greater)]</p>\n<p><strong>Benefit</strong> You gain a +3 item bonus to Fortitude and Reflex saves. This bonus improves to +4 when you attempt a save against an effect that has the disease trait, poison trait, or would give you the Fatigued condition.</p>\n<p>When you roll a success on a save against a disease, poison, or effect that would give you the Fatigued condition, you get a critical success instead.</p>\n<p><strong>Drawback</strong> Whenever you take piercing or slashing damage, you take 1d6 bleed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.Mutagens.SanguineMutagen.VariantSaveLabel",
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.Mutagens.SanguineMutagen.DamageNote",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

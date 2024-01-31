@@ -1,4 +1,3 @@
-type EquipmentTrait = keyof ConfigPF2e["PF2E"]["equipmentTraits"];
-type OtherEquipmentTag = "implement";
+type EquipmentTrait = keyof typeof CONFIG.PF2E.equipmentTraits;
 
-export type { EquipmentTrait, OtherEquipmentTag };
+export type { EquipmentTrait };

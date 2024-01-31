@@ -3,11 +3,10 @@ import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { objectHasKey } from "@util";
 import { EquipmentSource, EquipmentSystemData, EquipmentTrait } from "./data.ts";
-import { OtherEquipmentTag } from "./types.ts";
 
 class EquipmentPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-    get otherTags(): Set<OtherEquipmentTag> {
-        return new Set(this.system.traits.otherTags);
+    static override get validTraits(): Record<EquipmentTrait, string> {
+        return CONFIG.PF2E.equipmentTraits;
     }
 
     override async getChatData(

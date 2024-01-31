@@ -54,67 +54,52 @@
                 "value": "unstable"
             },
             {
+                "diceNumber": "ternary(gte(@actor.level, 18), 3, ternary(gte(@actor.level, 10), 2, 1))",
                 "key": "DamageDice",
                 "predicate": [
-                    "megaton:stable"
+                    "megaton:stable",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "feature:weapon-innovation",
+                                    "item:id:{actor|flags.pf2e.innovationId}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feature:armor-innovation",
+                                    "item:melee"
+                                ]
+                            }
+                        ]
+                    }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             },
             {
+                "diceNumber": "ternary(gte(@actor.level, 18), 4, ternary(gte(@actor.level, 10), 3, 2))",
                 "key": "DamageDice",
-                "label": "Unstable Megaton Strike",
                 "predicate": [
-                    "megaton:unstable"
+                    "megaton:unstable",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "feature:weapon-innovation",
+                                    "item:id:{actor|flags.pf2e.innovationId}"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "feature:armor-innovation",
+                                    "item:melee"
+                                ]
+                            }
+                        ]
+                    }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 9,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 17,
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "start": 18,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             }
         ],
         "traits": {

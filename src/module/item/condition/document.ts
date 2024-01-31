@@ -11,7 +11,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, createHTMLElement, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
 import { ConditionKey, ConditionSlug } from "./types.ts";
@@ -38,7 +38,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Retrieve this condition's origin from its granting effect, if any */
     override get origin(): ActorPF2e | null {
         const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : null;
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : super.origin;
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
@@ -124,16 +124,27 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
-        const { actor } = this;
+        const actor = this.actor;
         const token = options?.token ?? actor?.token;
         if (!this.active || !actor) return;
 
         if (this.system.persistent) {
             const roll = this.system.persistent.damage.clone();
+            const flavor = await (async (): Promise<string> => {
+                const traits = this.system.traits.value;
+                if (traits.length === 0) {
+                    return createHTMLElement("strong", { children: [this.name] }).outerHTML;
+                }
+                return renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+                    action: { title: this.name },
+                    traits: traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.effectTraits)),
+                });
+            })();
             await roll.toMessage(
                 {
+                    flags: { pf2e: { origin: { uuid: this.uuid } } },
+                    flavor,
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                    flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "roll" },
             );

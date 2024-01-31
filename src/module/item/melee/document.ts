@@ -1,21 +1,26 @@
 import type { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { RangeData } from "@item/types.ts";
-import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
+import { ItemPF2e, type WeaponPF2e } from "@item";
+import type { RangeData } from "@item/types.ts";
+import type { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
+import type { MeleeFlags, MeleeSource, MeleeSystemData } from "./data.ts";
+import type { NPCAttackTrait } from "./types.ts";
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */
     declare category: WeaponCategory | null;
     declare group: WeaponGroup | null;
     declare baseType: BaseWeaponType | null;
+
+    static override get validTraits(): Record<NPCAttackTrait, string> {
+        return CONFIG.PF2E.npcAttackTraits;
+    }
 
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
@@ -124,8 +129,6 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.npcAttackTraits);
 
         // Set precious material (currently unused)
         this.system.material = { type: null, grade: null, effects: [] };

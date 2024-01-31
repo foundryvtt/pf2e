@@ -1,10 +1,10 @@
 {
-    "_id": "aKRo5TIhUtu0kyEr",
-    "img": "icons/commodities/treasure/statuette-gargoyle-green-gold.webp",
-    "name": "Effect: Demonic Blood Magic (Self)",
+    "_id": "RXhGjWqBqmQOlaRV",
+    "img": "systems/pf2e/icons/features/classes/phoenix.webp",
+    "name": "Effect: Phoenix Blood Magic",
     "system": {
         "description": {
-            "value": "<p>The corruption of sin makes you more imposing. You gain a +1 status bonus to Intimidation checks for 1 round.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Phoenix]</p>\n<p>Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's rank for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,14 +18,12 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "title": "Pathfinder #168: King of the Mountain"
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "intimidation",
-                "type": "status",
-                "value": 1
+                "key": "TempHP",
+                "value": "@item.level"
             }
         ],
         "start": {
@@ -36,7 +34,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

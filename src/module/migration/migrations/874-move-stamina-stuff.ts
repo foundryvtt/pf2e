@@ -1,7 +1,8 @@
 import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, recursiveReplaceString } from "@util";
+import { recursiveReplaceString } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Move stamina/resolve and update setting to be a boolean. */
@@ -17,7 +18,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
             game.settings.get("pf2e", "staminaVariant");
         const systemSource: PCSystemSourceWithOldStaminaData = source.system;
 
-        if (isObject<{ value: unknown }>(systemSource.attributes.sp)) {
+        if (R.isObject(systemSource.attributes.sp)) {
             const value = Math.floor(Number(systemSource.attributes.sp.value)) || 0;
             if (value > 0 && variantEnabled) systemSource.attributes.hp.sp = { value };
 
@@ -25,7 +26,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
             systemSource.attributes["-=sp"] = null;
         }
 
-        if (isObject<{ value: unknown }>(systemSource.attributes.resolve)) {
+        if (R.isObject(systemSource.attributes.resolve)) {
             const value = Math.floor(Number(systemSource.attributes.resolve.value)) || 0;
             if (value > 0 && variantEnabled) systemSource.resources.resolve = { value };
 

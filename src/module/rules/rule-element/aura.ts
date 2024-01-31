@@ -1,7 +1,7 @@
 import { userColorForActor } from "@actor/helpers.ts";
-import { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
+import type { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { EffectTrait } from "@item/abstract-effect/data.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import {
     DataUnionField,
     PredicateField,

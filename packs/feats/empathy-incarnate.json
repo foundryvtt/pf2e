@@ -24,7 +24,39 @@
             "remaster": false,
             "title": "Pathfinder #199: To Bloom Below the Web"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy"
+            }
+        ],
         "traits": {
             "rarity": "rare",
             "value": [
