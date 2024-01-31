@@ -1,6 +1,7 @@
 aside.locked-tooltip.pf2e.carry-type-menu {
     white-space: nowrap;
-    width: 7rem;
+    min-width: 7rem;
+    max-width: 12em;
 
     ul {
         display: flex;
@@ -13,14 +14,11 @@ aside.locked-tooltip.pf2e.carry-type-menu {
     }
 
     li {
-        align-items: center;
-        display: flex;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         a {
-            align-items: center;
             color: rgba(white, 0.5);
-            display: flex;
-            gap: var(--space-2);
 
             &:hover {
                 color: var(--color-pf-tertiary);
@@ -34,6 +32,10 @@ aside.locked-tooltip.pf2e.carry-type-menu {
                     cursor: default;
                     text-shadow: none;
                 }
+            }
+
+            i {
+                margin-right: var(--space-2);
             }
         }
     }
