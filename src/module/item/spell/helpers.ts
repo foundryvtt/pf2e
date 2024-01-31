@@ -23,7 +23,22 @@ async function createDescriptionPrepend(
               .sort((a, b) => a.localeCompare(b, game.i18n.lang))
               .join(", ")
         : null;
-    const durationLabel = ((): string => {
+
+    const defenseLabel = ((): string | null => {
+        const defense = spell.system.defense;
+        if (!defense) return null;
+        const passive = defense.passive ? getPassiveDefenseLabel(defense.passive.statistic, { localize: true }) : null;
+        const partialSaveLabel = defense.save ? game.i18n.localize(CONFIG.PF2E.saves[defense.save.statistic]) : null;
+        const save =
+            partialSaveLabel && defense.save?.basic
+                ? game.i18n.format("PF2E.Item.Spell.Defense.BasicDefense", { save: partialSaveLabel })
+                : partialSaveLabel;
+        return passive && save
+            ? game.i18n.format("PF2E.ListPartsAnd.two", { first: passive, second: save })
+            : passive ?? save;
+    })();
+
+    const durationLabel = ((): string | null => {
         const duration = spell.system.duration;
         const textDuration = duration.value.trim();
         if (duration.sustained) {
@@ -31,27 +46,40 @@ async function createDescriptionPrepend(
             const label = textDuration === "" ? localize("Label") : localize("Duration", { maximum: textDuration });
             return game.i18n.lang === "de" ? label : label.toLocaleLowerCase(game.i18n.lang);
         }
-        return textDuration;
+        return textDuration || null;
     })();
-    const templatePath = "systems/pf2e/templates/items/partials/spell-description-prepend.hbs";
-    const rendered = (await renderTemplate(templatePath, { duration: durationLabel, spell, traditions })).trim();
 
-    return rendered ? `${rendered}\n<hr />` : "";
+    const templatePath = "systems/pf2e/templates/items/partials/spell-description-prepend.hbs";
+    const formatArgs = {
+        traditions,
+        cast: spell.actionGlyph ? null : spell.system.time.value || null,
+        range: spell.system.range.value.trim() || null,
+        targets: spell.system.target.value.trim() || null,
+        area: spell.area?.label ?? null,
+        defense: defenseLabel,
+        duration: durationLabel,
+    };
+    const rendered = await renderTemplate(templatePath, formatArgs);
+
+    return rendered.trim();
 }
 
-function getPassiveDefenseLabel(statistic: string): string | null {
-    switch (statistic) {
-        case "ac":
-            return "PF2E.Check.DC.Specific.armor";
-        case "fortitude-dc":
-            return "PF2E.Check.DC.Specific.fortitude";
-        case "reflex-dc":
-            return "PF2E.Check.DC.Specific.reflex";
-        case "will-dc":
-            return "PF2E.Check.DC.Specific.will";
-        default:
-            return null;
-    }
+function getPassiveDefenseLabel(statistic: string, { localize = false } = {}): string | null {
+    const label = ((): string | null => {
+        switch (statistic) {
+            case "ac":
+                return "PF2E.Check.DC.Specific.armor";
+            case "fortitude-dc":
+                return "PF2E.Check.DC.Specific.fortitude";
+            case "reflex-dc":
+                return "PF2E.Check.DC.Specific.reflex";
+            case "will-dc":
+                return "PF2E.Check.DC.Specific.will";
+            default:
+                return null;
+        }
+    })();
+    return label && localize ? game.i18n.localize(label) : label;
 }
 
 export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };
