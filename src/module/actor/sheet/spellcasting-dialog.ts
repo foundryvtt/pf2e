@@ -1,38 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
-import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import * as R from "remeda";
-
-function createEmptySpellcastingEntry(actor: ActorPF2e): SpellcastingEntryPF2e<ActorPF2e> {
-    return new SpellcastingEntryPF2e(
-        {
-            name: "Untitled",
-            type: "spellcastingEntry",
-            system: {
-                ability: { value: "cha" },
-                spelldc: { value: 0, dc: 0 },
-                tradition: { value: "arcane" },
-                prepared: { value: "innate" },
-            },
-        },
-        { actor },
-    ) as SpellcastingEntryPF2e<ActorPF2e>;
-}
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
 class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<ActorPF2e>> {
-    private actor: ActorPF2e;
-
-    constructor(object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>, options: Partial<FormApplicationOptions>) {
-        super(
-            object instanceof ActorPF2e ? createEmptySpellcastingEntry(object) : object.clone({}, { keepId: true }),
-            options,
-        );
-        this.actor = object instanceof ActorPF2e ? object : object.actor;
-    }
-
     static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = "spellcasting-dialog";
@@ -46,8 +19,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     }
 
     override async getData(): Promise<SpellcastingCreateAndEditDialogSheetData> {
-        const { actor } = this;
-
+        const actor = this.object.actor;
         const extraStatistics = actor.synthetics.statistics.values();
         const classDCs = actor.isOfType("character")
             ? Object.values(actor.system.proficiencies.classDCs).filter((cdc) => cdc.rank > 0)
@@ -77,7 +49,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     /** Returns whether or not the spellcasting data can include an ability */
     #canSetAttribute(): boolean {
         const slug = this.object._source.system.proficiency.slug;
-        const baseStat = this.actor.isOfType("character") ? this.actor.getStatistic(slug) : null;
+        const actor = this.object.actor;
+        const baseStat = actor.isOfType("character") ? actor.getStatistic(slug) : null;
         return !slug || (!!baseStat && !baseStat.attribute);
     }
 
@@ -139,11 +112,12 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             delete updateData.system.prepared.flexible;
         }
 
+        const actor = this.object.actor;
+
         if (this.object.id === null) {
             updateData.name = (() => {
-                const preparationType = game.i18n.localize(
-                    CONFIG.PF2E.preparationType[updateData.system.prepared.value],
-                );
+                const locKey = CONFIG.PF2E.preparationType[updateData.system.prepared.value];
+                const preparationType = game.i18n.localize(locKey);
                 const magicTraditions: Record<string, string> = CONFIG.PF2E.magicTraditions;
                 const traditionSpells = game.i18n.localize(magicTraditions[this.object.tradition ?? ""]);
                 if (!traditionSpells) {
@@ -152,14 +126,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
                     return game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
                 }
             })();
-            updateData.system._migration = {
-                version: MigrationRunnerBase.LATEST_SCHEMA_VERSION,
-                previous: null,
-            };
 
-            await this.actor.createEmbeddedDocuments("Item", [updateData]);
+            await actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
-            const actualEntry = this.actor.spellcasting.get(this.object.id);
+            const actualEntry = actor.spellcasting.get(this.object.id);
             if (!(actualEntry instanceof SpellcastingEntryPF2e)) return;
 
             const system = R.pick(updateData.system, [
@@ -187,14 +157,26 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
     selectedAttribute: AttributeString;
 }
 
-export async function createSpellcastingDialog(
-    event: MouseEvent,
+async function createSpellcastingDialog(
     object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>,
 ): Promise<SpellcastingCreateAndEditDialog> {
-    const dialog = new SpellcastingCreateAndEditDialog(object, {
-        top: event.clientY - 80,
-        left: window.innerWidth - 710,
-        height: "auto",
-    });
-    return dialog.render(true);
+    const item =
+        "prototypeToken" in object
+            ? new SpellcastingEntryPF2e(
+                  {
+                      name: "Untitled",
+                      type: "spellcastingEntry",
+                      system: {
+                          ability: { value: "cha" },
+                          spelldc: { value: 0, dc: 0 },
+                          tradition: { value: "arcane" },
+                          prepared: { value: "innate" },
+                      },
+                  },
+                  { parent: object },
+              )
+            : object;
+    return new SpellcastingCreateAndEditDialog(item).render(true);
 }
+
+export { createSpellcastingDialog };

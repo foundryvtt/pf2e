@@ -509,7 +509,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const source of [...sources]) {
             source.effects = []; // Never
 
-            if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
+            if (source.type === "spellcastingEntry" || R.isEmpty(R.pick(source, ["flags", "system"]))) {
                 // The item has no migratable data: set schema version and skip
                 source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
