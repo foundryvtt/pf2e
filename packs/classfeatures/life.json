@@ -39,6 +39,87 @@
                     "class:oracle"
                 ],
                 "value": 10
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:cursebound",
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            {
+                                "not": "self:effect:curse-of-outpouring-life"
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.NoneToMinor"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "not": "self:effect:curse-of-outpouring-life"
+                            }
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of Outpouring Life]"
+                    },
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:1",
+                            "class:oracle"
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.MinorToModerate"
+                    },
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:2",
+                            "feature:major-curse"
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.ModerateToMajor"
+                    },
+                    {
+                        "predicate": [
+                            "oracular-curse:stage:3",
+                            "feature:extreme-curse"
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.MajorToExtreme"
+                    },
+                    {
+                        "predicate": [
+                            "class:oracle",
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "oracular-curse:stage:2",
+                                            {
+                                                "not": "feature:major-curse"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "oracular-curse:stage:3",
+                                            {
+                                                "not": "feature:extreme-curse"
+                                            }
+                                        ]
+                                    },
+                                    "oracular-curse:stage:4"
+                                ]
+                            }
+                        ],
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.Overwhelmed"
+                    }
+                ]
             }
         ],
         "traits": {
