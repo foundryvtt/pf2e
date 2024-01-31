@@ -78,7 +78,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         for (const font of systemData.font) {
-            actorRollOptions.all[`${prefix}:divine-font:${font}`] = true;
+            actorRollOptions.all[`${prefix}:font:${font}`] = true;
         }
 
         // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
