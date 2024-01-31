@@ -6,16 +6,21 @@ import * as R from "remeda";
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
 class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<ActorPF2e>> {
+    constructor(object: SpellcastingEntryPF2e<ActorPF2e>, options?: Partial<FormApplicationOptions>) {
+        super(object.clone({}, { keepId: true }), options);
+    }
+
     static override get defaultOptions(): FormApplicationOptions {
-        const options = super.defaultOptions;
-        options.id = "spellcasting-dialog";
-        options.classes = [];
-        options.title = game.i18n.localize("PF2E.SpellcastingSettings.Title");
-        options.template = "systems/pf2e/templates/actors/spellcasting-dialog.hbs";
-        options.width = 350;
-        options.submitOnChange = true;
-        options.closeOnSubmit = false;
-        return options;
+        return {
+            ...super.defaultOptions,
+            id: "spellcasting-dialog",
+            template: "systems/pf2e/templates/actors/spellcasting-dialog.hbs",
+            title: "PF2E.SpellcastingSettings.Title",
+            width: 350,
+            height: "auto",
+            closeOnSubmit: false,
+            submitOnChange: true,
+        };
     }
 
     override async getData(): Promise<SpellcastingCreateAndEditDialogSheetData> {
@@ -89,7 +94,6 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
         }
 
         this.object.updateSource(inputData);
-        this.object.reset();
 
         // If this wasn't a submit, only re-render and exit
         if (event.type !== "submit") {
@@ -102,11 +106,6 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 
     private async updateAndClose(): Promise<void> {
         const updateData = this.object.toObject();
-
-        if (this.object.isRitual) {
-            updateData.system.tradition.value = "";
-            updateData.system.ability.value = "";
-        }
 
         if (!this.object.isPrepared) {
             delete updateData.system.prepared.flexible;
@@ -149,10 +148,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     system: SpellcastingEntrySystemSource;
-    magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
+    magicTraditions: typeof CONFIG.PF2E.magicTraditions;
     statistics: { slug: string; label: string }[];
-    spellcastingTypes: Omit<ConfigPF2e["PF2E"]["preparationType"], "ritual">;
-    attributes: ConfigPF2e["PF2E"]["abilities"];
+    spellcastingTypes: Omit<typeof CONFIG.PF2E.preparationType, "ritual">;
+    attributes: typeof CONFIG.PF2E.abilities;
     isAttributeConfigurable: boolean;
     selectedAttribute: AttributeString;
 }
