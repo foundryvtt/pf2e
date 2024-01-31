@@ -406,7 +406,7 @@ class CheckPF2e {
 
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
-                const heroPointCount = rerollingActor?.heroPoints.value;
+                const heroPointCount = rerollingActor.heroPoints.value;
                 if (heroPointCount) {
                     await rerollingActor.update({
                         "system.resources.heroPoints.value": Math.clamped(
