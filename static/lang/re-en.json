@@ -2838,11 +2838,141 @@
                 "WeaponOrUnarmed": "Select a weapon or unarmed strike."
             },
             "Psychic": {
+                "Amp": {
+                    "AmpHeightenedLabel": {
+                        "AmpHeightenedPlusOne": "Amp Heightened (+1)",
+                        "AmpHeightenedPlusTwo": "Amp Heightened (+2)",
+                        "AmpHeightenedPlusThree": "Amp Heightened (+3)",
+                        "AmpHeightenedPlusFour": "Amp Heightened (+4)",
+                        "AmpHeightenedSecond": "Amp Heightened (2nd)",
+                        "AmpHeightenedThird": "Amp Heightened (3rd)",
+                        "AmpHeightenedFourth": "Amp Heightened (4th)",
+                        "AmpHeightenedFifth": "Amp Heightened (5th)",
+                        "AmpHeightenedSixth": "Amp Heightened (6th)",
+                        "AmpHeightenedSeventh": "Amp Heightened (7th)",
+                        "AmpHeightenedEighth": "Amp Heightened (8th)",
+                        "AmpHeightenedNinth": "Amp Heightened (9th)",
+                        "AmpHeightenedTenth": "Amp Heightened (10th)"
+                    },
+                    "AstralRain": "The area changes to a @Template[type:burst|distance:5], and you can Sustain the Spell up to 1 minute. The first time each round that you Sustain the Spell, you can move the burst up to 20 feet.",
+                    "ContagiousIdea": "You can choose to spread the thought from the second target to a third target, in the same manner as spreading it from the first target to the second. A pleasant thought grants twice as many temporary Hit Points (10, plus an additional 2 for each level heightened).",
+                    "DancingBlade": {
+                        "Base": "The weapon's attacks increase in strength, and your control is fine enough for advanced technique. The damage dice for the weapon's Strike change from d6s to d10s. When you Cast or Sustain the spell, you can choose from the following options in addition to the standard ones.",
+                        "Guard": {
+                            "Text": "Rather than attacking, the weapon grants a +2 circumstance bonus to AC against melee attacks to the creature it's following. The bonus lasts until the start of your next turn or until the weapon Changes Partners, whichever comes first.",
+                            "Title": "Guard"
+                        },
+                        "Push": {
+                            "Text": "(attack) The weapon attempts to Push its target, using your spell attack roll instead of an Athletics check to determine the results of the Push.",
+                            "Title": "Push"
+                        }
+                    },
+                    "Daze": {
+                        "Base": "Your spell cracks the target's mental defenses, leaving it susceptible to further psychic attack. The spell's damage changes to 1d10. If the target fails its Will save, until the end of its next turn, it gains weakness 1 to mental damage and takes a –1 status penalty to Will saves. On a critical failure, the weakness is 3 (in addition to the target being @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}). The weakness applies before daze deals damage.",
+                        "Heightened": "The spell's damage increases by 2d10, and the weakness on a failure or critical failure increases by 1."
+                    },
+                    "DetectMagic": {
+                        "Base": "Your pulse of detection magic helps you gain a sense of nearby magic's strengths or weaknesses. When you detect the presence of magic on an enemy or hazard, you gain a +1 status bonus to saves against magic originating from that enemy or hazard for 3 rounds. If you find magic from multiple sources with a single casting of detect magic, you get the bonus against all of them.",
+                        "Heightened": "The status bonus to saves against magic increases to +2."
+                    },
+                    "DistortionLens": "The lens can interfere with creatures as well as attacks. Once during a Medium or smaller ally's move action, the ally can move into and out of the lens's square without that square counting against the total distance moved. Conversely, the lens is difficult terrain for your enemies.",
+                    "EntropicWheel": "You gain two motes instead of one when you Cast the Spell and each time the wheel gains another mote.",
+                    "Figment": "When you amp the spell, you can create a particularly distracting illusion as part of its normal effects. Choose an unoccupied square within the spell's range. The illusion in that square provides flanking for a single melee attack made before the beginning of your next turn. If you Sustain the spell, the details of the illusion change and shift to keep your enemies unsettled; the flanking illusion's duration extends until the beginning of your next turn and you can move it to any unoccupied square in the spell's range. The flanking illusion can't provide its benefit against any creature who has disbelieved the figment.",
+                    "ForbiddenThought": "Your telepathic push is particularly shocking to those who resist it. If the target fails its save, it's also @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "ForeseeThePath": "The spell has the same result on a failure as on a success (but still no effect on a critical failure). Each time you Sustain the Spell, you can choose an additional ally to target, granting them the same benefit as the initial target ally.",
+                    "Frostbite": {
+                        "Base": "You drain thermal energy at a distance, using what you plunder to replenish yourself. The orb deals 3d4 cold damage. You gain temporary Hit Points equal to half the damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.",
+                        "Heightened": "The initial damage increases by 2d4 instead of 1d4. The weakness on a critical failure increases by 1."
+                    },
+                    "GhostlyShift": {
+                        "Base": "Your insubstantiality is complete enough that you can pass through other creatures, causing painful interference effects when you do so. Once each round when you Stride, Burrow, Swim, or Fly, you can pass through one creature's space during that action without needing to attempt a check to @UUID[Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8]{Tumble Through}, though you can't end your turn in its space. When you pass through a creature's space in this way, you deal 2d6 force damage to that creature, with a basic Fortitude save.",
+                        "Heightened": "Increase the damage dealt by phasing through a creature by 1d6."
+                    },
+                    "GlimpseWeakness": {
+                        "Base": "The additional precision damage is 1d4+1.",
+                        "Heightened": "The additional precision damage increases by 1d4+1."
+                    },
+                    "Guidance": {
+                        "Base": "You can project a flash of insight to your ally in the nick of time to save them from failure. Amped guidance doesn't cause a creature to become temporarily immune to guidance, and a creature can be targeted by amped guidance even if it is temporarily immune to guidance.",
+                        "BaseTwo": "You can cast an amped guidance spell as a reaction triggered when your ally fails or critically fails an attack roll, Perception check, saving throw, or skill check, and the bonus from guidance would change the failure to a success or the critical failure to a normal failure. The bonus from guidance applies retroactively to their check.",
+                        "Heightened": "The bonus from the spell increases to +2."
+                    },
+                    "HologramCage": "Force walls make the cage's barrier physical as well as visual. Each 10-foot-by-10-foot section of the cage's wall has AC 10, Hardness equal to double the spell's level, and HP equal to quadruple the spell's level. The spell is disrupted if any of its walls would pass through a creature when you cast it.",
+                    "HomingBeacon": "Choose one creature hit by the spell (if the spell has a spell attack roll) or that fails its save against the spell (if the spell requires a save). A psychic beacon emits from the creature's location, making it easier to notice the creature as the mind and attention of onlookers is subtly drawn to it. For 1 minute, if the target would be @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, it's instead merely @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, and if it would be concealed, it's no longer concealed.",
+                    "Ignite": {
+                        "Base": "You project pure heat that causes a target to combust. The initial damage changes to 1d10 fire damage plus 1 fire splash damage. When using amped ignition as a melee attack, increase the damage dice of the initial damage from d10s to d12s. You are not harmed by splash damage from amped ignition.",
+                        "Heightened": "Instead of using ignition’s normal heightened entry, the initial damage increases by 1d10 (1d12 for melee) and the splash damage increases by 1. The persistent fire damage on a critical hit increases by 1d4."
+                    },
+                    "ImaginaryWeapon": {
+                        "Base": "You form multiple force weapons to lash out at multiple foes. You make two imaginary weapon Strikes, each against a different target. Your multiple attack penalty doesn't increase until you've made both Strikes.",
+                        "Heightened": "The damage increases by 2d8 instead of 1d8."
+                    },
+                    "InertialBarrier": "You or one target of the spell gains resistance to physical damage equal to 2 + the spell's level until the start of your next turn.",
+                    "MentalBalm": "You or one ally within 30 feet gains a +2 status bonus to Will saves against emotion effects for 1 minute. You can also have the amped psi cantrip attempt to counteract one effect imposing the frightened condition on yourself or the chosen ally, or an effect imposing the stupefied condition that has a duration of 1 hour or less. If you successfully counteract the effect, you remove only the frightened and stupefied conditions, not any other part of the effect.",
+                    "Message": {
+                        "Base": "Your telepathic message allows you to coordinate your actions while you pass on information. The target of the message can immediately spend its reaction to Step or Stride.",
+                        "Heightened": "The target of the message can choose to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove}, Strike, or @UUID[Compendium.pf2e.actionspf2e.Item.ge56Lu1xXVFYUnLP]{Trip} with its reaction instead."
+                    },
+                    "OmnidirectionalScan": {
+                        "Base": "Your scans are so minute that you can project your foe's likely strengths and weaknesses. You learn which of the target enemy's saving throws is highest and which is lowest, and you and all allies within 30 feet gain a +1 circumstance bonus to attacks and damage against the creature.",
+                        "BaseTwo": "If you take the Aid reaction you prepared for and succeed at your roll, these bonuses increase to +2 on the attack you're Aiding. On a critical success, they increase to +3, or to +4 if you have legendary proficiency in spell attack rolls."
+                    },
+                    "PhaseBolt": {
+                        "Base": "Your bolt leaves phase completely, becoming invisible and intangible until it's already embedded in the target—giving the impression it simply teleported itself into place. The target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. Additionally, the bolt ignores an amount of Hardness or resistance to piercing damage equal to half the spell's level. On a critical success, the target can't be affected by teleportation effects until the start of your next turn.",
+                        "Heightened": "The bolt's damage increases by 2d4 instead of 1d4."
+                    },
+                    "RedistributePotential": {
+                        "Base": "You can affect the flow of energy on a much grander scale. Instead of two 5-foot squares, you create two @Template[type:burst|distance:10]{10-foot bursts}. They still must be adjacent to one another and can overlap. A creature in both areas can still be affected by only one of your choice. The spell's damage increases to 6d6. The conditions last for 1 minute.",
+                        "Heightened": "Increase the damage by 2d6 instead of 1d4."
+                    },
+                    "RemovePresence": "Choose one target of the spell or one creature in its area. If that enemy fails its save or the spell hits it, you become undetected by that creature, disappearing from its senses for 1 minute or until you use a hostile action. This is similar to being @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, but effects like see invisibility don't reveal you—you're affecting the target's mind, not its vision. True seeing can still see through this illusion if the counteract check succeeds.",
+                    "ShatterMind": "You increase the area of the spell to your choice of a @Template[type:cone|distance:30] or @Template[type:cone|distance:60], and the damage dice for the spell change to d10s. Creatures that fail are @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} until the start of your next turn (or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} on a critical failure).",
+                    "ShatterSpace": "You or one target of the spell are surrounded by a spiral of torn space. This is an aura, and you choose the radius of the emanation, up to 20 feet. A creature that starts its turn in the aura or enters the aura during its turn takes 1d6 slashing damage for every level of the amped psi cantrip, with a basic Reflex save against your spell DC. If the creature critically fails, the torn space throws it off balance and it falls @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. The aura lasts until the beginning of your next turn. You can choose whether the aura affects the creature emitting it.",
+                    "Shield": {
+                        "Base": "You create a layered barrier of three shields to improve your defenses. The duration increases to sustained up to 1 minute. The shield still lowers at the start of each of your turns, but you can raise it again when you Sustain the Spell.",
+                        "BaseTwo": "When you Shield Block with this spell, one of the three layers breaks and you cease to gain the bonus to AC, but the spell doesn't end. You can keep using the spell until the final layer breaks; once it does, the spell ends and you can't cast shield or amped shield again for 10 minutes. You can choose to break additional layers when you Shield Block with this spell to improve your defenses. If you break two layers instead of one, increase the Hardness to 1-1/2 × the normal amount (7 at 1st level, 15 at 3rd level, 22 at 5th level, 30 at 7th level, and 37 at 9th level). If you break all three layers, increase the Hardness to double the normal amount."
+                    },
+                    "TargetOfPsychicIre": "Choose one target of the spell. Psychic phenomena turn themselves on the target—typically, objects fling themselves at the creature. At the beginning of each of the target's turns, it takes 1d4 bludgeoning damage for each spell level of the psi cantrip this amp was added to, with a basic Reflex save. The target remains marked by psychic ire for 3 rounds. The effect persists even if you fall @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious} or leave the area.",
+                    "TelekineticHand": {
+                        "Base": "You create a multitude of telekinetic hands that grip onto a creature and move it about. Target a creature of Medium size or smaller with the amped spell instead of an object. You attempt to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove} the target in a direction of your choice, rolling a spell attack roll against its Fortitude DC instead of an Athletics check. The creature takes a –10-foot circumstance penalty to its Speeds until the spell ends. Starting the round after you Cast the Spell, the first time each round you Sustain the Spell, you can attempt to Shove the creature again.",
+                        "Heightened": "You can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Dt6B1slsBy8ipJu9]{Disarm} the creature instead of attempting to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove} it. If you knock an item out of the creature's grasp in this way, the mage hand immediately grabs it. Any effect of the mage hand on the creature ends, and the spell now carries the item, just like you had picked it up with an unamped mage hand."
+                    },
+                    "TelekineticProjectile": {
+                        "Base": "You fling objects with even more force, driving your opponents backwards in a hail of objects. On a success, you push the target 5 feet away from you, and on a critical success, you push the target 10 feet away from you in addition to dealing double damage.",
+                        "Heightened": "The damage increases by 2d6 instead of by 1d6."
+                    },
+                    "TelekineticRend": {
+                        "Base": "Your thoughts expand in scope and power. The bursts deal 1d6 bludgeoning damage and 1d6 slashing damage, instead of the usual damage. A creature that critically fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                        "Heightened": "Both types of damage increase by 1d6 instead of just one. Add a third non-overlapping @Template[type:burst|distance:5] to the area."
+                    },
+                    "TesseractTunnel": "Physical movement is no longer necessary to connect two points in space. When you cast tesseract tunnel, you simply create a tunnel that ends in a square within a range equal to your Speed; you can choose to immediately teleport to the space at the far end of the tunnel. Furthermore, the tunnel can be traversed in both directions, instead of only from entrance to exit. Finally, the spell's duration changes to 1 minute. You can Dismiss the spell.",
+                    "ThermalStasis": "The spell’s duration becomes 1 minute.",
+                    "Toggle": "Amp Spell",
+                    "VectorScreen": "Your screen persists for longer, and you can detonate it in an explosive counterattack. The duration of the spell increases to 1 minute. You can Dismiss the spell. If there are any projectiles trapped in the screen, you can cast telekinetic projectile to fire them at one creature as part of Dismissing the spell. Measure the range for the telekinetic projectile from where the vector screen was, instead of from you.",
+                    "WarpSpace": "Choose a square within 30 feet to which you have line of effect and line of sight. Determine your spell's line of effect and line of sight from there, as well as whether creatures have cover against the spell. The spell can exceed its normal range as measured from you, as long as it's within its normal range from the square you chose.",
+                    "WarpStep": {
+                        "Base": "Space contracts with hardly a thought, letting you Cast the Spell as a single action.",
+                        "Heightened": "You twist space so completely you don't need to travel the interposing distance. You can choose to instead teleport to a space within your line of sight and line of effect with a range equal to your double your Speed (after applying the status bonus from warp step). This grants the spell the teleportation trait."
+                    },
+                    "WhisperingSteps": "Choose one enemy who is a target of the spell. If that enemy fails its save or the spell hits it, you whisper in the creature's mind, forcing it to Step in a direction of your choosing; as this is forced movement, you can't force the creature to Step into hazardous terrain, off a ledge, or the like. After it Steps, the creature becomes temporarily immune to this amp for 24 hours."
+                },
                 "SpellModification": {
+                    "Daze": "You can daze from a great distance. The range increases to 120 feet.",
                     "DeepRoots": "When you Cast a Spell that imposes the @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{Controlled} condition or otherwise forces the target to take certain actions (such as @UUID[Compendium.pf2e.spells-srd.Item.aIHY2DArKFweIrpf]{Command}), you can choose one target that critically failed its save. When that target finishes fulfilling any commands issued by your spell, or when the spell is dispelled or counteracted, the target takes @Damage[(@item.level)1d6[mental]] damage.",
+                    "DetectMagic": "You have the kind of fine control that other spellcasters can only dream of. When you cast detect magic, you're aware of any creature in the emanation affected by a spell or carrying a magic item, and you determine the main location of magic within any magical hazard in the emanation (with the normal restrictions on detecting illusions). This typically manifests as an alteration to your vision, such as seeing a soft aura around the creature or hazard. Sensing these phenomena doesn't make it clear which spell is on a creature, nor which of its items are magical.",
+                    "Figment": "Your minor illusions shift and dance. The range of figment increases to 60 feet. When you Sustain the spell, you can move the apparent sound or vision up to 15 feet. You can then attempt to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion} as usual. Those creatures who disbelieved the illusion aren't affected by this diversion.",
+                    "Frostbite": "You can freeze people from even farther away. The range of your frostbite increases to 120 feet.",
+                    "Guidance": "You have eyes everywhere, allowing you to guide people from a great distance. The range of guidance increases to 120 feet.",
+                    "Ignition": "You can drastically increase the heat against targets at a distance. When using ignition as a ranged attack, increase the range to 60 feet. When using ignition as a melee attack, your reach increases by 5 feet.",
+                    "Message": "Your message is not so easily bound by obstacles. The spell can travel up to 120 feet to reach the target, bending around walls and obstacles; this means you don't need a straight line of effect or line of sight to cast message as long as you know the target's space and there is an unblocked path of 120 feet or less that can reach them.",
+                    "PhaseBolt": "Your phase bolt temporarily sends the target's cover out of phase if it hits. On a success, reduce the target's circumstance bonus to AC (if any) by 1 until the beginning of your next turn.",
                     "PsychicRapport": "After you Cast a Spell with the mental trait, until the start of your next turn, you gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks, and to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{Sense Motive}.",
+                    "Shield": "Your shield spell can be deployed on behalf of others. When you cast shield, you can choose a target ally within 30 feet to gain the benefits of the spell instead of you. The option to Shield Block with the spell is up to you and uses your reaction, not the target's.",
                     "StrainMind": "You add an amp that costs 1 Focus Point to the spell. Instead of paying the normal Focus Point cost, you lose Hit Points equal to four times the spell rank of the amped psi cantrip as you bleed from your nose or suffer some other visible sign of strain.",
-                    "ThoughtformSummoning": "Whenever you summon a creature, you can choose to instead create a psychic construct of that creature. This grants it resistance to physical damage equal to half its level, weakness 5 to force and mental damage, and the ability to pass through enemies' spaces without needing to @UUID[Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8]{Tumble Through} (though it can't end its turn in an occupied space)."
+                    "TelekineticHand": "Your mage hand can carry up to 1 Bulk instead of only light Bulk. If the spell is heightened to 3rd level or higher, its maximum Bulk is 2. If the spell is heightened to 7th level or higher, its maximum Bulk is 3.",
+                    "TelekineticProjectile": "Your telekinetic projectiles can fly much further away. Increase the range of telekinetic projectile to 60 feet.",
+                    "ThoughtformSummoning": "Whenever you summon a creature, you can choose to instead create a psychic construct of that creature. This grants it resistance to physical damage equal to half its level, weakness 5 to force and mental damage, and the ability to pass through enemies' spaces without needing to @UUID[Compendium.pf2e.actionspf2e.Item.21WIfSu7Xd7uKqV8]{Tumble Through} (though it can't end its turn in an occupied space).",
+                    "WarpStep": "You warp space more compactly, granting you a +10-foot status to your Speed instead of a +5-foot status bonus when you warp step."
                 },
                 "UnleashPsyche": {
                     "DamageLabel": "Casting a spell from Psychic Spellcasting"
