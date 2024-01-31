@@ -223,7 +223,8 @@ declare global {
             ItemDirectory<ItemPF2e<null>>,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
-            EncounterTrackerPF2e<EncounterPF2e | null>
+            EncounterTrackerPF2e<EncounterPF2e | null>,
+            HotbarPF2e
         >;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
