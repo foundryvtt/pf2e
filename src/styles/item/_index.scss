@@ -131,8 +131,9 @@
 
             > section.sidebar,
             > .sheet-body {
-                height: calc(100% - 10px);
+                height: calc(100% - var(--space-10));
                 overflow-y: auto;
+                scrollbar-gutter: stable;
             }
 
             @import "sidebar";
@@ -146,8 +147,9 @@
             flex-wrap: nowrap;
 
             .tab.active {
-                overflow: hidden scroll;
+                overflow: hidden auto;
                 padding-left: var(--space-8);
+                scrollbar-gutter: stable;
 
                 // DESCRIPTION
                 &.description {
