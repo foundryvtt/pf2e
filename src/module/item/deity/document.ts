@@ -77,6 +77,10 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
 
+        for (const font of systemData.font) {
+            actorRollOptions.all[`${prefix}:font:${font}`] = true;
+        }
+
         // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
         actorRollOptions.all[`self:deity:slug:${slug}`] = true;
     }
