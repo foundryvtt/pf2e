@@ -39,8 +39,9 @@
 
     .sheet-content {
         display: flex;
-        overflow: hidden scroll;
+        overflow: hidden auto;
         padding: 0 var(--space-3) 1em 0; // easier resize gripping
+        scrollbar-gutter: stable;
 
         ol.spell-list {
             height: fit-content;
@@ -87,6 +88,10 @@
                     input {
                         margin: 0;
                     }
+                }
+
+                .item-summary {
+                    padding: var(--space-4);
                 }
             }
 

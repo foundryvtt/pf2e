@@ -8,7 +8,6 @@
                     data-item-id="{{entry.id}}"
                     data-item-type="spell-slot-group"
                     data-group-id="{{group.id}}"
-                    data-tooltip-class="pf2e"
                 >
                     <div class="item-name">
                         <h3>{{localize group.label}}</h3>
@@ -164,7 +163,7 @@
 
                             {{#if @root.editable}}
                                 <button type="button" class="cast-spell blue" data-action="cast-spell">{{localize "PF2E.Item.Spell.Cast"}}</button>
-                                <div class="item-controls" data-tooltip-class="pf2e">
+                                <div class="item-controls">
                                     {{#if entry.isPrepared}}
                                         {{#unless (eq group.id "cantrips")}}
                                             <a
@@ -193,7 +192,8 @@
                             {{/if}}
                         </li>
                     {{else}}
-                        <li class="spell"
+                        <li
+                            class="spell"
                             data-item-id="{{index}}"
                             data-group-id="{{group.id}}"
                             data-item-type="spell-slot"

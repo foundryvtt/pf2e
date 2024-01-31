@@ -220,14 +220,14 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         // Spellcasting entries
 
         // Add, edit, and remove spellcasting entries
-        handlers["spellcasting-create"] = (event) => {
-            return createSpellcastingDialog(event, this.actor);
+        handlers["spellcasting-create"] = () => {
+            return createSpellcastingDialog(this.actor);
         };
         handlers["spellcasting-edit"] = (event): Promise<unknown> | void => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             const entry = this.actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {
-                return createSpellcastingDialog(event, entry);
+                return createSpellcastingDialog(entry);
             }
         };
         handlers["spellcasting-remove"] = async (event): Promise<ItemPF2e<TActor> | void> => {
