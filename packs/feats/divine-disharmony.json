@@ -24,7 +24,29 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:divine-disharmony",
+                    {
+                        "or": [
+                            "target:trait:cleric",
+                            "target:trait:fiend",
+                            "target:trait:monitor",
+                            "target:trait:celestial",
+                            "target:caster:tradition:divine"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "intimidation",
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
