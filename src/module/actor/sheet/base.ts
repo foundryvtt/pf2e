@@ -875,6 +875,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 };
             }
 
+            // ... a spell?
+            const collectionId = htmlClosest(previewElement, "[data-container-id]")?.dataset.containerId;
+            const groupId = previewElement?.dataset.groupId;
+            const slotIndex = Number(previewElement?.dataset.slotId);
+            if (collectionId && groupId && Number.isInteger(slotIndex)) {
+                return { spellFrom: { collectionId, groupId, slotIndex } };
+            }
+
             // ... something else?
             return null;
         })();
@@ -891,7 +899,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     protected override async _onDropItem(
         event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    ): Promise<ItemPF2e[]> {
         event.preventDefault();
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
@@ -938,12 +946,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e,
     ): Promise<Item<ActorPF2e | null>[]> {
-        const { actor } = this;
+        const actor = this.actor;
         const itemSource = item.toObject();
 
-        const mystified = game.user.isGM && event.altKey;
-
         // Set effect to unidentified if alt key is held
+        const mystified = game.user.isGM && event.altKey;
         if (mystified && itemSource.type === "effect") {
             itemSource.system.unidentified = true;
         }
