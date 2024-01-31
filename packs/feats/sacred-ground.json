@@ -38,12 +38,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "self:divine-font:heal"
+                    "divine-font:heal"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "@Damage[(@actor.level)[vitality,healing]]",
+                        "text": "@Damage[(@actor.level)[vitality,healing]|shortLabel]",
                         "title": "PF2E.SpecificRule.Cleric.DivineFont.Healing"
                     }
                 ]
@@ -53,12 +53,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "self:divine-font:harm"
+                    "divine-font:harm"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "@Damage[(@actor.level)[void,healing]]",
+                        "text": "@Damage[(@actor.level)[void,healing]|shortLabel]",
                         "title": "PF2E.SpecificRule.Cleric.DivineFont.Harmful"
                     }
                 ]
