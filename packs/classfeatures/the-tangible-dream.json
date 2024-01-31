@@ -30,6 +30,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "class:psychic",
+                    "spellcasting:tradition:occult",
                     {
                         "or": [
                             "item:slug:figment",
@@ -47,13 +49,19 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:figment",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Figment"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Figment"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Figment",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             },
@@ -63,15 +71,24 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:shield",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Shield.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Shield"
                     },
                     {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Shield.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Shield.BaseTwo"
                     }
                 ]
@@ -81,17 +98,16 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:imaginary-weapon",
                     "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "item:slug:imaginary-weapon"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ImaginaryWeapon.Base"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ImaginaryWeapon.Base",
+                        "title": "PF2E.TraitAmp"
                     },
                     {
-                        "divider": true,
                         "text": "PF2E.SpecificRule.Psychic.Amp.ImaginaryWeapon.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
                     }
@@ -102,14 +118,14 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:astral-rain",
                     "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "item:slug:astral-rain"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.AstralRain"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.AstralRain",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             },
@@ -119,58 +135,25 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:hologram-cage",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "amp-spell"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.HologramCage"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.HologramCage",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             },
             {
-                "diceNumber": "@item.level -1",
+                "diceNumber": "@spell.rank - 1",
                 "dieSize": "d8",
                 "key": "DamageDice",
                 "predicate": [
                     "item:slug:imaginary-weapon",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "amp-spell"
                 ],
                 "selector": "spell-damage"
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:figment",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Figment"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:shield",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Shield"
-                    }
-                ]
             }
         ],
         "traits": {
