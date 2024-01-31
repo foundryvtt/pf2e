@@ -96,6 +96,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         this.system.prepared.flexible ??= false;
         this.system.prepared.validItems ||= null;
 
+        for (const group of Object.values(this.system.slots)) {
+            group.prepared = Object.values(group.prepared).filter((s) => !!s.id);
+        }
+
         // Assign a default "invalid" statistic in case something goes wrong
         if (this.actor) {
             this.statistic = new Statistic(this.actor, {
