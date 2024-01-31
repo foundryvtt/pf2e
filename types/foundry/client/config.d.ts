@@ -280,6 +280,7 @@ declare global {
             darknessColor: number;
             darknessLightPenalty: number;
             daylightColor: number;
+            dragSpeedModifier: number;
             dispositionColors: {
                 HOSTILE: number;
                 NEUTRAL: number;

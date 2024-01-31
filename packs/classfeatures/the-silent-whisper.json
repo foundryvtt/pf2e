@@ -30,6 +30,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "class:psychic",
+                    "spellcasting:tradition:occult",
                     {
                         "or": [
                             "item:slug:daze",
@@ -47,16 +49,24 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:daze",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Daze"
                     },
                     {
-                        "divider": true,
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
                     }
@@ -68,93 +78,67 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:message",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Message.Base"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:forbidden-thought",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ForbiddenThought"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:shatter-mind",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ShatterMind"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:contagious-idea",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ContagiousIdea"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:daze",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Daze"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:message",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
                 "property": "description",
                 "value": [
                     {
                         "text": "PF2E.SpecificRule.Psychic.SpellModification.Message"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Message.Base",
+                        "title": "PF2E.TraitAmp"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:forbidden-thought"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ForbiddenThought",
+                        "title": "PF2E.TraitAmp"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:shatter-mind"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ShatterMind",
+                        "title": "PF2E.TraitAmp"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:contagious-idea"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ContagiousIdea",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             }

@@ -253,8 +253,9 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
         const item = this.actor.inventory.get(itemId, { strict: true });
-
-        const template = await renderTemplate("systems/pf2e/templates/actors/partials/carry-type.hbs", { item });
+        const hasStowingContainers = this.actor.itemTypes.backpack.some((i) => i.system.stowing && !i.isInContainer);
+        const templateArgs = { item, hasStowingContainers };
+        const template = await renderTemplate("systems/pf2e/templates/actors/partials/carry-type.hbs", templateArgs);
         const content = createHTMLElement("ul", { innerHTML: template });
 
         content.addEventListener("click", (event) => {

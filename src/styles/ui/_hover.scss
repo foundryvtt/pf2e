@@ -23,7 +23,6 @@
             .hover-content {
                 display: flex;
                 flex-direction: column;
-                line-height: 1;
                 max-width: fit-content;
                 min-width: 7.5rem;
                 padding: var(--space-4);
@@ -46,7 +45,7 @@
                     display: flex;
                     flex: 1 auto;
                     justify-content: space-between;
-                    margin: 0.25em 0 0.5em;
+                    margin: var(--space-2) 0 var(--space-8);
 
                     h2,
                     a {
@@ -68,15 +67,28 @@
                 }
 
                 &.select-shield {
-                    width: 160px;
+                    gap: var(--space-4);
+                    overflow: hidden;
+                    width: 14rem;
+
                     ul {
-                        li.item {
-                            .data {
-                                position: relative;
-                                top: -2px;
+                        line-height: normal;
+                        width: 100%;
+
+                        > li {
+                            display: flex;
+                            flex-basis: 100%;
+                            justify-content: space-between;
+
+                            .label {
+                                flex: 1;
+                                line-height: 1.125rem;
                             }
-                            .tag-legacy {
-                                width: auto;
+
+                            .data {
+                                justify-self: center;
+                                position: relative;
+                                top: calc(-1 * var(--space-1));
                             }
                         }
                     }
@@ -84,40 +96,27 @@
 
                 ul {
                     display: flex;
-                    flex-direction: column;
                     flex: 1 auto;
-                    gap: var(--space-6);
+                    flex-direction: column;
+                    gap: var(--space-8);
                     justify-content: center;
                     list-style: none;
                     margin: 0;
                     padding: 0;
 
-                    &.shield-options {
-                        width: 12rem;
-
-                        li {
-                            align-items: center;
-                            grid-template-columns: 1.5rem auto 5rem;
-                            justify-content: normal;
-
-                            .data {
-                                justify-self: center;
-                            }
-                        }
-                    }
-
                     input {
                         background: transparent;
-                        border-bottom: 1px solid rgba(white, 0.5);
                         border: none;
+                        border-bottom: 1px solid rgba(white, 0.5);
                         border-radius: 0;
                         color: var(--text-light);
                         font-family: var(--body-serif);
                         width: 100%;
 
                         &:focus {
+                            border-bottom: 1px solid var(--color-text-light-0);
                             box-shadow: none;
-                            border-bottom: 1px solid white;
+
                             &::placeholder {
                                 color: transparent;
                             }
@@ -142,14 +141,14 @@
 
                     select {
                         background: transparent;
-                        border-radius: 2px;
                         border: 1px solid var(--color-border-light-1);
+                        border-radius: 2px;
                         cursor: pointer;
                         height: 1.125rem;
 
                         option {
                             color: var(--text-dark);
-                            font-size: 0.8rem;
+                            font-size: var(--font-size-13);
                             min-height: 1rem;
                             text-transform: capitalize;
                         }
@@ -173,11 +172,11 @@
 
                     .item {
                         align-items: center;
-                        column-gap: var(--space-8);
+                        gap: var(--space-2) var(--space-8);
                         display: grid;
                         grid:
-                            "data label close" min-content
-                            "data type close" min-content
+                            "data label close" var(--space-12)
+                            "data type close" var(--space-12)
                             / 1.875rem 1fr;
                         justify-items: start;
 
@@ -206,7 +205,6 @@
 
                         .label {
                             grid-area: label;
-                            line-height: var(--space-14);
                         }
 
                         .data {
@@ -224,6 +222,7 @@
                         .data::placeholder {
                             color: rgba(white, 0.5);
                         }
+
                         .label {
                             text-decoration: line-through;
                         }

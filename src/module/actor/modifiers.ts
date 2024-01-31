@@ -532,7 +532,8 @@ class StatisticModifier {
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
-        const adjustments = modifier.adjustments.filter((a) => a.test([...rollOptions, ...modifier.getRollOptions()]));
+        const allRollOptions = [...rollOptions, ...modifier.getRollOptions()];
+        const adjustments = modifier.adjustments.filter((a) => a.test(allRollOptions));
         if (adjustments.some((a) => a.suppress)) {
             modifier.ignored = true;
             continue;

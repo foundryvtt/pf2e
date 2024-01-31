@@ -89,7 +89,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
                 ...heightenedUpdate,
             }) as Promise<SpellPF2e<TActor> | null>;
         } else {
-            const source = spell.clone({ "system.location.value": this.id, ...heightenedUpdate }).toObject();
+            const source = spell.clone({ sort: 0, "system.location.value": this.id, ...heightenedUpdate }).toObject();
             const created = (await actor.createEmbeddedDocuments("Item", [source])).shift();
 
             return created instanceof SpellPF2e ? created : null;
@@ -180,7 +180,9 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
 
         const groups: SpellcastingSlotGroup[] = [];
-        const spells = this.contents.sort((s1, s2) => (s1.sort || 0) - (s2.sort || 0));
+        const spells = this.contents
+            .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang))
+            .sort((a, b) => a.sort - b.sort);
         const isFlexible = this.entry.isFlexible;
         const maxCantripRank = Math.max(1, Math.ceil(actor.level / 2)) as OneToTen;
 
