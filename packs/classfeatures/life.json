@@ -81,26 +81,14 @@
                     {
                         "predicate": [
                             "oracular-curse:stage:2",
-                            "class:oracle",
-                            {
-                                "gte": [
-                                    "self:level",
-                                    11
-                                ]
-                            }
+                            "feature:major-curse"
                         ],
                         "text": "PF2E.SpecificRule.Oracle.CurseSeverity.ModerateToMajor"
                     },
                     {
                         "predicate": [
                             "oracular-curse:stage:3",
-                            "class:oracle",
-                            {
-                                "gte": [
-                                    "self:level",
-                                    17
-                                ]
-                            }
+                            "feature:extreme-curse"
                         ],
                         "text": "PF2E.SpecificRule.Oracle.CurseSeverity.MajorToExtreme"
                     },
@@ -113,10 +101,7 @@
                                         "and": [
                                             "oracular-curse:stage:2",
                                             {
-                                                "lt": [
-                                                    "self:level",
-                                                    11
-                                                ]
+                                                "not": "feature:major-curse"
                                             }
                                         ]
                                     },
@@ -124,10 +109,7 @@
                                         "and": [
                                             "oracular-curse:stage:3",
                                             {
-                                                "lt": [
-                                                    "self:level",
-                                                    17
-                                                ]
+                                                "not": "feature:extreme-curse"
                                             }
                                         ]
                                     },
