@@ -386,8 +386,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const origin = args.origin;
         const targetToken = origin
             ? null
-            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find(
-                  (t) => t.actor?.isOfType("army", "creature", "hazard"),
+            : (args.target?.getActiveTokens() ?? Array.from(game.user.targets)).find((t) =>
+                  t.actor?.isOfType("army", "creature", "hazard"),
               ) ?? null;
 
         // This is required to determine the AC for attack dialogs
