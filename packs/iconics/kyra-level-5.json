@@ -1588,7 +1588,7 @@
         {
             "_id": "56JUzOsJdjeF6GRF",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Font",
+            "name": "Divine Font (Healing)",
             "sort": 4800000,
             "system": {
                 "ability": {
@@ -4630,7 +4630,28 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "img": "icons/magic/life/cross-worn-green.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Healing",
+                                "value": "heal"
+                            },
+                            {
+                                "img": "systems/pf2e/icons/spells/harm.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Harmful",
+                                "value": "harm"
+                            }
+                        ],
+                        "flag": "divineFont",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Cleric.DivineFont.Prompt",
+                        "rollOption": "self:divine-font",
+                        "selection": "heal"
+                    }
+                ],
                 "slug": "divine-font",
                 "traits": {
                     "rarity": "common",
