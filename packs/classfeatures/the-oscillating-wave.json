@@ -30,10 +30,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "class:psychic",
+                    "spellcasting:tradition:occult",
                     {
                         "or": [
-                            "item:slug:ignition",
-                            "item:slug:frostbite"
+                            "item:slug:frostbite",
+                            "item:slug:ignition"
                         ]
                     }
                 ],
@@ -46,38 +48,25 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:ignition",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Base"
-                    },
-                    {
-                        "divider": true,
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Heightened",
-                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
                     "item:slug:frostbite",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Frostbite"
                     },
                     {
-                        "divider": true,
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
                     }
@@ -88,50 +77,26 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:thermal-stasis",
-                    "amp-spell",
+                    "item:slug:ignition",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ThermalStasis.Base"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:entropic-wheel",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.EntropicWheel.Base"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:redistribute-potential",
-                    "amp-spell",
-                    "item:tag:psi-cantrip"
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Ignition"
                     },
                     {
-                        "divider": true,
-                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Heightened",
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
                     }
                 ]
@@ -141,14 +106,15 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:ignition",
+                    "amp-spell",
+                    "item:slug:thermal-stasis",
                     "item:tag:psi-cantrip"
                 ],
-                "priority": 100,
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Ignition"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ThermalStasis",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             },
@@ -157,14 +123,36 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:frostbite",
+                    "amp-spell",
+                    "item:slug:entropic-wheel",
                     "item:tag:psi-cantrip"
                 ],
-                "priority": 100,
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Frostbite"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.EntropicWheel",
+                        "title": "PF2E.TraitAmp"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:redistribute-potential",
+                    "item:tag:psi-cantrip"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
                     }
                 ]
             }

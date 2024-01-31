@@ -30,7 +30,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellcasting:category:spontaneous",
+                    "class:psychic",
                     "spellcasting:tradition:occult",
                     {
                         "or": [
@@ -49,19 +49,26 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:telekinetic-hand",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticHand.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticHand"
                     },
                     {
                         "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticHand.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell",
                             {
                                 "gte": [
-                                    "item:level",
+                                    "item:rank",
                                     4
                                 ]
                             }
@@ -77,15 +84,24 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:telekinetic-projectile",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticProjectile"
                     },
                     {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
                     }
@@ -96,14 +112,14 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:telekinetic-rend",
                     "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "item:slug:telekinetic-rend"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticRend.Base"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticRend.Base",
+                        "title": "PF2E.TraitAmp"
                     },
                     {
                         "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticRend.Heightened",
@@ -116,14 +132,14 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:vector-screen",
                     "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "item:slug:vector-screen"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.VectorScreen"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.VectorScreen",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             },
@@ -132,14 +148,14 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:dancing-blade",
                     "amp-spell",
-                    "item:tag:psi-cantrip"
+                    "item:slug:dancing-blade"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Base"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Base",
+                        "title": "PF2E.TraitAmp"
                     },
                     {
                         "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Guard.Text",
@@ -152,47 +168,15 @@
                 ]
             },
             {
-                "diceNumber": "@item.level -1",
+                "diceNumber": "@spell.rank - 1",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "item:slug:telekinetic-projectile",
                     "amp-spell",
+                    "item:slug:telekinetic-projectile",
                     "item:tag:psi-cantrip"
                 ],
                 "selector": "spell-damage"
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:telekinetic-hand",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticHand"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:telekinetic-projectile",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticProjectile"
-                    }
-                ]
             }
         ],
         "traits": {

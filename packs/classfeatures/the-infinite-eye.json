@@ -30,6 +30,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "class:psychic",
+                    "spellcasting:tradition:occult",
                     {
                         "or": [
                             "item:slug:detect-magic",
@@ -47,20 +49,26 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:detect-magic",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.DetectMagic.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.DetectMagic"
                     },
                     {
-                        "divider": true,
                         "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DetectMagic.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell",
                             {
                                 "gte": [
-                                    "item:level",
+                                    "item:rank",
                                     7
                                 ]
                             }
@@ -76,23 +84,32 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:guidance",
-                    "amp-spell",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.Base"
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Guidance"
                     },
                     {
+                        "predicate": [
+                            "amp-spell"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "amp-spell"
+                        ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.BaseTwo"
                     },
                     {
-                        "divider": true,
                         "predicate": [
+                            "amp-spell",
                             {
                                 "gte": [
-                                    "item:level",
+                                    "item:rank",
                                     6
                                 ]
                             }
@@ -107,17 +124,17 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:glimpse-weakness",
                     "amp-spell",
+                    "item:slug:glimpse-weakness",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.GlimpseWeakness.Base"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.GlimpseWeakness.Base",
+                        "title": "PF2E.TraitAmp"
                     },
                     {
-                        "divider": true,
                         "text": "PF2E.SpecificRule.Psychic.Amp.GlimpseWeakness.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
                     }
@@ -128,14 +145,15 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:omnidirectional-scan",
                     "amp-spell",
+                    "item:slug:omnidirectional-scan",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.OmnidirectionalScan.Base"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.OmnidirectionalScan.Base",
+                        "title": "PF2E.TraitAmp"
                     },
                     {
                         "text": "PF2E.SpecificRule.Psychic.Amp.OmnidirectionalScan.BaseTwo"
@@ -147,46 +165,15 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:foresee-the-path",
                     "amp-spell",
+                    "item:slug:foresee-the-path",
                     "item:tag:psi-cantrip"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Psychic.Amp.ForeseeThePath"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:detect-magic",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.DetectMagic"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:guidance",
-                    "item:tag:psi-cantrip"
-                ],
-                "priority": 100,
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Guidance"
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ForeseeThePath",
+                        "title": "PF2E.TraitAmp"
                     }
                 ]
             }
