@@ -13,13 +13,17 @@
     .spell-collections {
         overflow-y: auto;
         scrollbar-gutter: stable;
-        padding-right: var(--space-4);
+        padding: var(--space-8) var(--space-4) 0;
 
         > .tab {
-            padding: var(--space-10) 0 0 var(--space-4);
+            padding: var(--space-10) 0 0;
 
             &:first-child {
                 padding-top: 0;
+            }
+
+            > ol {
+                gap: var(--space-12);
             }
 
             &.rituals li.spellcasting-entry > .action-header {
@@ -33,7 +37,6 @@
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 0.25em;
-        padding-bottom: 1em;
 
         &:first-child {
             .action-header {
@@ -152,6 +155,7 @@
 
     button.create-entry {
         font: 500 var(--font-size-14) var(--serif);
-        margin: 1rem 0;
+        margin: 1rem 0 1.25rem;
+        width: 100%;
     }
 }
