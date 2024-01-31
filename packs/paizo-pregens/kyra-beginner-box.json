@@ -2875,7 +2875,7 @@
                 }
             },
             "img": "icons/magic/fire/flame-burning-hand-white.webp",
-            "name": "Divine Font",
+            "name": "Divine Font (Healing)",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -2902,16 +2902,21 @@
                 },
                 "rules": [
                     {
-                        "adjustName": false,
                         "choices": [
                             {
                                 "img": "icons/magic/life/cross-worn-green.webp",
                                 "label": "PF2E.SpecificRule.Cleric.DivineFont.Healing",
+                                "predicate": [
+                                    "deity:primary:font:heal"
+                                ],
                                 "value": "heal"
                             },
                             {
                                 "img": "systems/pf2e/icons/spells/harm.webp",
                                 "label": "PF2E.SpecificRule.Cleric.DivineFont.Harmful",
+                                "predicate": [
+                                    "deity:primary:font:harm"
+                                ],
                                 "value": "harm"
                             }
                         ],
