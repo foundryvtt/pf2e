@@ -81,7 +81,7 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
         const rollOptions = new Set([
             ...this.actor.getRollOptions(),
             ...origin.getRollOptions("item"),
-            ...spell.getRollOptions("spell"),
+            ...spell.getRollOptions("spell", { includeVariants: true }),
         ]);
         return this.castPredicate.test(rollOptions);
     }
