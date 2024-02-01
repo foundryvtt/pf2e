@@ -8,11 +8,8 @@ export class Migration918DeitySkills extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         // return if item is not a deity
-        if (source.type !== "deity") {
-            return;
-        }
+        if (source.type !== "deity") return;
 
-        console.log("Made it past diety check");
         source.system.skill = R.compact(
             typeof source.system.skill === "string" ? [source.system.skill] : source.system.skill ?? [],
         );
