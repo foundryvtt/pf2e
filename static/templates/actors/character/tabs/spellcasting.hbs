@@ -5,9 +5,9 @@
         <a data-tab="activations" data-group="spell-collections">{{localize "PF2E.Actor.Character.Spellcasting.Tab.Activations"}}</a>
     </nav>
 
-    {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
-
     <div class="spell-collections" data-panels>
+        {{#if toggles.spellcasting}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.spellcasting}}{{/if}}
+
         {{#each spellCollectionGroups as |group tab|}}
             <div class="tab {{tab}}" data-group="spell-collections" data-tab="{{tab}}">
                 {{> collectionGroup collections=group tab=tab}}
