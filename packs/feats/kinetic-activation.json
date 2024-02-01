@@ -24,7 +24,58 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "extends": "kineticist",
+                "itemCasting": {
+                    "predicate": [
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "kinetic-gate:air",
+                                        "spell:trait:air"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "kinetic-gate:earth",
+                                        "spell:trait:earth"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "kinetic-gate:fire",
+                                        "spell:trait:fire"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "kinetic-gate:metal",
+                                        "spell:trait:metal"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "kinetic-gate:water",
+                                        "spell:trait:water"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "kinetic-gate:wood",
+                                        "spell:trait:wood"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "key": "SpecialStatistic",
+                "priority": 101,
+                "slug": "kinetic-activation"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
