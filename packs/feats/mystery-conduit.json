@@ -26,10 +26,39 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "mystery-conduit",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
+                    "mystery-conduit",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "priority": 119,
+                "property": "traits",
+                "value": "cursebound"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "mystery-conduit",
+                    "item:duration:0",
                     {
                         "lte": [
                             "item:rank",
