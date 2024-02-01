@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import { SpellcastingEntryPF2e, type ItemPF2e, type SpellPF2e } from "@item";
+import type { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
@@ -310,18 +310,15 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const entryId = dropContainerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const groupId = coerceToSpellGroupId(dropItemEl.dataset.groupId);
+            const slotId = Number(dropItemEl.dataset.slotId);
 
             if (dropSlotType === "spell-slot-group") {
                 const spell = await collection.addSpell(item, { groupId });
                 this.#openSpellPreparation(collection.id);
                 return [spell ?? []].flat();
-            } else if (dropItemEl.dataset.slotId) {
-                const slotId = Number(dropItemEl.dataset.slotId ?? NaN);
-
-                if (groupId && Number.isInteger(slotId)) {
-                    const allocated = await collection.prepareSpell(item, groupId, slotId);
-                    if (allocated instanceof SpellcastingEntryPF2e) return [allocated];
-                }
+            } else if (groupId && Number.isInteger(slotId)) {
+                const result = await collection.prepareSpell(item, groupId, slotId);
+                return result ? [item] : [];
             } else if (dropSlotType === "spell") {
                 const dropId = dropItemEl.dataset.itemId ?? "";
                 const target = this.actor.items.get(dropId);
