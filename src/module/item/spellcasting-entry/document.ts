@@ -274,13 +274,15 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             throw ErrorPF2e("Spellcasting entries require an actor");
         }
         const fpCost = spell.system.cast.focusPoints;
-        if (this.isRitual || (spell.isCantrip && fpCost === 0)) return true;
+        if (this.isRitual || ((spell.isFocusSpell || spell.isCantrip) && fpCost === 0)) {
+            return true;
+        }
         spell = spell.original ? spell.original : spell;
 
         if (actor.isOfType("character", "npc") && fpCost > 0) {
             const currentPoints = actor.system.resources.focus?.value ?? 0;
             if (currentPoints >= fpCost) {
-                await actor.update({ "system.resources.focus.value": currentPoints - 1 });
+                await actor.update({ "system.resources.focus.value": currentPoints - fpCost });
                 return true;
             } else {
                 ui.notifications.warn(game.i18n.localize("PF2E.Focus.NotEnoughFocusPointsError"));
