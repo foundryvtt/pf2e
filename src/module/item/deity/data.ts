@@ -15,7 +15,7 @@ type DeitySystemSource = ItemSystemSource & {
     };
     font: DivineFonts;
     attribute: AttributeString[];
-    skill: SkillAbbreviation | null;
+    skill: SkillAbbreviation[] | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
     level?: never;
