@@ -28,6 +28,7 @@ import { Migration913SpellSustainedText } from "@module/migration/migrations/913
 import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
 import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
 import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-toys.ts";
+import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration914MovePerceptionSenses(),
     new Migration915MoveLanguages(),
     new Migration916NewPCToys(),
+    new Migration917ScrollWandSpellIds(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
