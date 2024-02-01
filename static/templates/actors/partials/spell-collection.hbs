@@ -1,5 +1,5 @@
 {{#with entry as |entry|}}
-    <ol class="spell-list" data-category="{{entry.category}}" data-foundry-list>
+    <ol class="spell-list" data-category="{{entry.category}}"{{#unless (eq entry.category "items")}} data-foundry-list{{/unless}}>
         {{!-- Add section for each slot group --}}
         {{#each entry.groups as |group|}}
             {{#if (or (gt group.active.length 0) entry.showSlotlessRanks)}}
