@@ -161,8 +161,22 @@
                                 <div class="range">{{spell.system.range.value}}</div>
                             {{/if}}
 
+                            {{#if (eq spell.parentItem.isEquipped false)}}
+                                <button
+                                    type="button"
+                                    class="cast-spell blue"
+                                    data-action="draw-item"
+                                    data-item-id="{{spell.parentItem.id}}"
+                                >{{localize "PF2E.Actions.Interact.Draw.Title"}}</button>
+                            {{else}}
+                                <button
+                                    type="button"
+                                    class="cast-spell blue"
+                                    data-action="cast-spell"
+                                >{{localize "PF2E.Item.Spell.Cast"}}</button>
+                            {{/if}}
+
                             {{#if @root.editable}}
-                                <button type="button" class="cast-spell blue" data-action="cast-spell">{{localize "PF2E.Item.Spell.Cast"}}</button>
                                 <div class="item-controls">
                                     {{#if entry.isPrepared}}
                                         {{#unless (eq group.id "cantrips")}}
