@@ -117,13 +117,20 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
+        const actor = this.actor;
 
         handlers["perception-check"] = (event, anchor) => {
             const extraRollOptions = anchor.dataset.secret ? ["secret"] : [];
-            return this.actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
+            return actor.perception.roll({ ...eventToRollParams(event, { type: "check" }), extraRollOptions });
         };
 
-        handlers["recovery-check"] = (event) => this.actor.rollRecovery(event);
+        handlers["draw-item"] = (event) => {
+            const itemId = htmlClosest(event.target, "[data-item-id")?.dataset.itemId;
+            const item = actor.inventory.get(itemId, { strict: true });
+            return actor.changeCarryType(item, { carryType: "held", handsHeld: 1 });
+        };
+
+        handlers["recovery-check"] = (event) => actor.rollRecovery(event);
 
         handlers["open-carry-type-menu"] = (_, anchor) => this.#openCarryTypeMenu(anchor);
 
@@ -133,7 +140,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         handlers["cast-spell"] = (event): Promise<void> | void => {
             const spellRow = htmlClosest(event.target, "[data-item-id]");
             const { itemId, entryId, slotId } = spellRow?.dataset ?? {};
-            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const collection = actor.spellcasting.collections.get(entryId, { strict: true });
             const spell = collection.get(itemId, { strict: true });
             const maybeCastRank = Number(spellRow?.dataset.castRank) || NaN;
             if (Number.isInteger(maybeCastRank) && maybeCastRank.between(1, 10)) {
@@ -160,7 +167,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
             const slotId = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId ?? "";
-            const collection = this.actor.spellcasting.collections.get(entryId);
+            const collection = actor.spellcasting.collections.get(entryId);
             return collection?.unprepareSpell(groupId, slotId);
         };
 
@@ -173,21 +180,21 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const slotId = Number(row?.dataset.slotId) || 0;
             const entryId = row?.dataset.entryId ?? "";
             const expend = row?.dataset.slotExpended === undefined;
-            const collection = this.actor.spellcasting.collections.get(entryId);
+            const collection = actor.spellcasting.collections.get(entryId);
 
             return collection?.setSlotExpendedState(groupId, slotId, expend);
         };
 
         handlers["toggle-signature-spell"] = (event) => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const spell = this.actor.items.get(itemId, { strict: true });
+            const spell = actor.items.get(itemId, { strict: true });
             if (!spell?.isOfType("spell")) return;
             return spell.update({ "system.location.signature": !spell.system.location.signature });
         };
 
         handlers["toggle-show-slotless-ranks"] = (event) => {
             const collectionId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
-            const spellcastingEntry = this.actor.items.get(collectionId, { strict: true });
+            const spellcastingEntry = actor.items.get(collectionId, { strict: true });
             if (!spellcastingEntry.isOfType("spellcastingEntry")) {
                 throw ErrorPF2e("Tried to toggle visibility of slotless ranks on a non-spellcasting entry");
             }
@@ -198,7 +205,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         // Regenerating spell slots and spell uses
         handlers["reset-spell-slots"] = (event): Promise<unknown> | void => {
-            const actor = this.actor;
             const row = htmlClosest(event.target, "[data-item-id]");
             const itemId = row?.dataset.itemId;
             const item = actor.items.get(itemId, { strict: true });
@@ -221,18 +227,18 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         // Add, edit, and remove spellcasting entries
         handlers["spellcasting-create"] = () => {
-            return createSpellcastingDialog(this.actor);
+            return createSpellcastingDialog(actor);
         };
         handlers["spellcasting-edit"] = (event): Promise<unknown> | void => {
             const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const entry = this.actor.items.get(containerId, { strict: true });
+            const entry = actor.items.get(containerId, { strict: true });
             if (entry.isOfType("spellcastingEntry")) {
                 return createSpellcastingDialog(entry);
             }
         };
         handlers["spellcasting-remove"] = async (event): Promise<ItemPF2e<TActor> | void> => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            const item = this.actor.items.get(itemId, { strict: true });
+            const item = actor.items.get(itemId, { strict: true });
             const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
             const content = await renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs");
 
