@@ -24,7 +24,24 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "sheltering-slab",
+                "toggleable": true,
+                "value": false
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.offGuardable",
+                "value": false,
+                "predicate": [
+                    "sheltering-slab"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
