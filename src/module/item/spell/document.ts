@@ -662,7 +662,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         processSanctification(this);
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options: { includeVariants?: boolean } = {}): string[] {
         const { spellcasting } = this;
         const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
@@ -718,6 +718,16 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const actionCost = this.actionGlyph;
         if (["1", "2", "3"].includes(actionCost ?? "")) {
             spellOptions.add(`${prefix}:cast:actions:${actionCost}`);
+        }
+
+        // If include variants is set, include a minor subset of variant options
+        if (options.includeVariants) {
+            for (const variant of this.overlays.contents) {
+                const additionalTraits = variant.system?.traits?.value ?? [];
+                for (const trait of additionalTraits) {
+                    spellOptions.add(`${prefix}:trait:${trait}`);
+                }
+            }
         }
 
         const rollOptions = super.getRollOptions(prefix);
