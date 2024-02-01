@@ -1,3 +1,24 @@
+## 5.13.1
+
+### System Improvements
+
+-   (stwlam) Show worn scrolls/wands in activations subtab, add button to draw them if not already held
+
+### Bugfixes
+
+-   (stwlam) Fix moving items between actors, showing stowed option in carry-type menu
+-   (stwlam) Subtract focus-point cost amount instead of always one when consuming points before casting
+
+### Data Updates
+
+-   (Dire Weasel) Add noisy to Ghoul Hide when worn by an elf
+-   (DocSchlock) Add missing 1st Level Restrictions to some feats
+-   (Jesse) Fix styling regression in Kingdom sheet sub-nav header
+-   (Rigo) Automate Witch's Patron Familiar Ability notes upon casting a hex
+-   (Rigo) Fix Deep Roots localized inline damage roll
+-   (Rigo) Make some corrections to Blood Magic effect descriptions
+-   (stwlam) Automate Kinetic Activation and Scroll Thaumaturgy
+
 ## 5.13.0
 
 ### Highlights
