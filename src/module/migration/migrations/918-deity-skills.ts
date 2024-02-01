@@ -13,6 +13,5 @@ export class Migration918DeitySkills extends MigrationBase {
         source.system.skill = R.compact(
             typeof source.system.skill === "string" ? [source.system.skill] : source.system.skill ?? [],
         );
-        
     }
 }
