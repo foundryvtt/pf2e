@@ -122,6 +122,10 @@ interface GamePF2e
         TextEditor: typeof TextEditorPF2e;
         /** Cached values of frequently-checked settings */
         settings: {
+            automation: {
+                /** Flanking detection */
+                flanking: boolean;
+            };
             /** Campaign feat slots */
             campaign: {
                 enabled: boolean;

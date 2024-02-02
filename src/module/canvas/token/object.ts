@@ -106,7 +106,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking highlight) */
     canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
-        if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
+        const settingDisabled = !game.pf2e.settings.automation.flanking;
+        const oneIsGMHidden = this.document.hidden || flankee.document.hidden;
+        if (settingDisabled || oneIsGMHidden || this === flankee) {
             return false;
         }
 
@@ -195,9 +197,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
         if (!this.canFlank(flankee, context)) return [];
-
+        const ignoreFlankable = !!context.ignoreFlankable;
         return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
+            .filter((t) => t !== this && t.canFlank(flankee, { ignoreFlankable }))
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 

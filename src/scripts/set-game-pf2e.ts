@@ -103,6 +103,9 @@ export const SetGamePF2e = {
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
         game.pf2e.ConditionManager.initialize();
         game.pf2e.settings = {
+            automation: {
+                flanking: game.settings.get("pf2e", "automation.flankingDetection"),
+            },
             campaign: {
                 enabled: game.settings.get("pf2e", "campaignFeats"),
                 sections: game.settings.get("pf2e", "campaignFeatSections"),
