@@ -1,6 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 import * as R from "remeda";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
 
 /** Fix skills section of deities */
 export class Migration918DeitySkills extends MigrationBase {
@@ -11,7 +12,7 @@ export class Migration918DeitySkills extends MigrationBase {
         if (source.type !== "deity") return;
 
         source.system.skill = R.compact(
-            typeof source.system.skill === "string" ? [source.system.skill] : source.system.skill ?? [],
+            typeof source.system.skill === "string" ? [SKILL_DICTIONARY[source.system.skill]] : source.system.skill ?? [],
         );
     }
 }
