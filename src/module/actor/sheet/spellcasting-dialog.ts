@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
-import { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import type { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
 import * as R from "remeda";
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
@@ -44,7 +44,10 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
                 })),
             ],
             magicTraditions: CONFIG.PF2E.magicTraditions,
-            spellcastingTypes: R.omit(CONFIG.PF2E.preparationType, ["ritual"]),
+            spellcastingTypes: R.omit(
+                CONFIG.PF2E.preparationType,
+                R.compact(["ritual", actor.type === "character" ? "items" : null]),
+            ),
             attributes: CONFIG.PF2E.abilities,
             isAttributeConfigurable: this.#canSetAttribute(),
             selectedAttribute: selectedStatistic?.attribute ?? this.object.attribute,
@@ -150,7 +153,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
     system: SpellcastingEntrySystemSource;
     magicTraditions: typeof CONFIG.PF2E.magicTraditions;
     statistics: { slug: string; label: string }[];
-    spellcastingTypes: Omit<typeof CONFIG.PF2E.preparationType, "ritual">;
+    spellcastingTypes: Partial<typeof CONFIG.PF2E.preparationType>;
     attributes: typeof CONFIG.PF2E.abilities;
     isAttributeConfigurable: boolean;
     selectedAttribute: AttributeString;
