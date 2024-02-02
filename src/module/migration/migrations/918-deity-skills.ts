@@ -12,7 +12,9 @@ export class Migration918DeitySkills extends MigrationBase {
         if (source.type !== "deity") return;
 
         source.system.skill = R.compact(
-            typeof source.system.skill === "string" ? [SKILL_DICTIONARY[source.system.skill]] : source.system.skill ?? [],
+            typeof source.system.skill === "string"
+                ? [SKILL_DICTIONARY[source.system.skill]]
+                : source.system.skill ?? [],
         );
     }
 }
