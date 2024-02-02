@@ -1,3 +1,30 @@
+## 5.13.2
+
+### Bugfixes
+
+-   (stwlam) Disable flanking for GM-hidden tokens
+-   (stwlam) Prevent unidentified scrolls and wands from appearing in spell activations subtab
+-   (stwlam) Restore visiblity of manually-created items-only spellcasting entries
+-   (stwlam) Restore action roll options when generating inline damage labels
+-   (Supe) Prevent creation of new item casting entries on PCs
+-   (Supe) Support spell variants with elemental traits for kinetic activation
+
+### Data Updates
+
+-   (Chas) Brushup Sheltering Slab rule element
+-   (Dire Weasel) Add adamantine trait to Underworld Dragon claw attack
+-   (Dire Weasel) Add healing links to Sacred Ground predicated on Divine Font type
+-   (Dire Weasel) Replace lower-resolution system icons with identical core icons
+-   (Dire Weasel) Update description and formatting of Potion of Disguise
+-   (DocSchlock) Fix several feat max-takable values
+-   (rectulo) Fix description of Mysterious Breadth
+-   (Rigo) Add cursebound trait to spells cast while using Mystery Conduit
+-   (Rigo) Add upgrade notes to Halfling Luck
+-   (Rigo) Append aura shut off reminder note to overflow impulses
+-   (Rigo) Brush up Vision of Weakness spell effect
+-   (stwlam) Set primal tradition in Kinetic Activation spellcasting ability
+-   (Tikael) Add missing Season of Ghosts actor
+
 ## 5.13.1
 
 ### System Improvements
