@@ -66,7 +66,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const entries = await Promise.all(
             this.actor.spellcasting.collections.map((spells) => spells.entry.getSheetData({ spells })),
         );
-        return entries.filter((e) => e.hasCollection).sort((a, b) => a.sort - b.sort);
+        return entries.sort((a, b) => a.sort - b.sort);
     }
 
     /** Get the font-awesome icon used to display a certain level of skill proficiency */
