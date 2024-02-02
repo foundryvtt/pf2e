@@ -1,8 +1,8 @@
 import type { CreaturePF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
-import type { PhysicalItemPF2e, SpellPF2e } from "@item";
+import type { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import * as R from "remeda";
 import { SpellCollection, SpellCollectionData } from "./collection.ts";
@@ -23,13 +23,24 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
     /** A predicate to test against a physical item to determine whether its contained spell can be cast */
     castPredicate: PredicatePF2e;
 
-    constructor({ id, name, actor, statistic, tradition, castPredicate }: ItemsSpellcastingConstructorParams<TActor>) {
-        this.id = id;
-        this.name = name;
-        this.actor = actor;
-        this.statistic = statistic;
-        this.tradition = tradition ?? null;
-        this.castPredicate = castPredicate;
+    spells: SpellCollection<NonNullable<TActor>> | null = null;
+
+    constructor(options: ItemsSpellcastingConstructorParams<TActor>) {
+        this.id = options.id;
+        this.name = options.name;
+        this.actor = options.actor;
+        this.statistic = options.statistic;
+        this.tradition = options.tradition ?? null;
+        if ("castPredicate" in options) {
+            this.castPredicate = options.castPredicate;
+        } else {
+            const consumable = options.consumable;
+            const spell = options.spell;
+            spell.system.location.value = this.id;
+            this.spells = new SpellCollection(this);
+            this.spells.set(spell.id, spell);
+            this.castPredicate = new PredicatePF2e([`item:id:${consumable.id}`, `spell:id:${spell.id}`]);
+        }
     }
 
     get attribute(): AttributeString {
@@ -42,10 +53,6 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
 
     get sort(): number {
         return Math.max(0, ...this.actor.itemTypes.spellcastingEntry.map((e) => e.sort)) + 10;
-    }
-
-    get spells(): null {
-        return null;
     }
 
     get isFlexible(): false {
@@ -94,7 +101,8 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
         }
     }
 
-    async getSheetData({ spells }: { spells?: SpellCollection<TActor> } = {}): Promise<SpellcastingSheetData> {
+    async getSheetData({ spells }: { spells?: SpellCollection<TActor> | null } = {}): Promise<SpellcastingSheetData> {
+        spells ??= this.spells;
         const collectionData: SpellCollectionData = (await spells?.getSpellData()) ?? { groups: [], prepList: null };
 
         return {
@@ -120,13 +128,12 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
     }
 }
 
-interface ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> {
+type ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> = {
     id: string;
     name: string;
     actor: TActor;
     statistic: Statistic;
     tradition?: Maybe<MagicTradition>;
-    castPredicate: PredicatePF2e;
-}
+} & ({ consumable: ConsumablePF2e; spell: SpellPF2e<TActor> } | { castPredicate: PredicatePF2e });
 
 export { ItemSpellcasting };

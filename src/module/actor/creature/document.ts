@@ -8,7 +8,6 @@ import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
-import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
 import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -23,7 +22,6 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
@@ -297,13 +295,10 @@ abstract class CreaturePF2e<
                     actor: this,
                     statistic: ability.statistic,
                     tradition: ability.tradition ?? spell.traditions.first() ?? null,
-                    castPredicate: new PredicatePF2e([`item:id:${consumable.id}`, `spell:id:${spell.id}`]),
+                    consumable,
+                    spell,
                 });
-                spell.system.location.value = itemCasting.id;
-                const collection = new SpellCollection(itemCasting);
-                collection.set(spell.id, spell);
                 this.spellcasting.set(itemCasting.id, itemCasting);
-                this.spellcasting.collections.set(collectionId, collection);
             }
         }
 

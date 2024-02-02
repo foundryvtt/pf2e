@@ -378,9 +378,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const defaultData = { groups: [], prepList: null };
-        const collectionData =
-            this.category === "items" ? defaultData : (await this.spells?.getSpellData({ prepList })) ?? defaultData;
+        const collectionData = (await this.spells?.getSpellData({ prepList })) ?? { groups: [], prepList: null };
 
         return fu.mergeObject(collectionData, {
             id: this.id,
@@ -397,7 +395,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             isFocusPool: this.isFocusPool,
             isRitual: false,
             isEphemeral: false,
-            hasCollection: true,
+            hasCollection: !!this.spells && this.category !== "items",
             usesSpellProficiency: !this.system.proficiency.slug,
             showSlotlessRanks: this.showSlotlessRanks,
         });
