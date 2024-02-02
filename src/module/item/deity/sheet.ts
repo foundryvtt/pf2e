@@ -1,4 +1,3 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
@@ -7,6 +6,7 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DeitySanctification } from "./data.ts";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
+import { SkillLongForm } from "@actor/types.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -43,7 +43,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         return {
             ...sheetData,
             sanctifications,
-            skills: CONFIG.PF2E.skills,
+            skills: CONFIG.PF2E.skillList,
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
                 sheetData.data.font,
@@ -170,7 +170,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     sanctifications: { value: DeitySanctification | null; label: string }[];
-    skills: Record<SkillAbbreviation, string>;
+    skills: Record<SkillLongForm, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];
 }
