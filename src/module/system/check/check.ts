@@ -37,6 +37,7 @@ import { CheckRollContext } from "./types.ts";
 interface RerollOptions {
     heroPoint?: boolean;
     keep?: "new" | "higher" | "lower";
+    makeBlind?: boolean;
 }
 
 type CheckRollCallback = (
@@ -393,7 +394,7 @@ class CheckPF2e {
     /** Reroll a rolled check given a chat message. */
     static async rerollFromMessage(
         message: ChatMessagePF2e,
-        { heroPoint = false, keep = "new" }: RerollOptions = {},
+        { heroPoint = false, keep = "new", makeBlind = false }: RerollOptions = {},
     ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
@@ -402,6 +403,7 @@ class CheckPF2e {
 
         const actor = message.actor;
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
+
         if (heroPoint) {
             const rerollingActor = actor?.isOfType("familiar") ? actor.master : actor;
 
@@ -424,10 +426,11 @@ class CheckPF2e {
                     return;
                 }
             }
-        } else {
-            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-            return;
-        }
+            else {
+                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+                return;
+            }
+        } 
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
         const context = systemFlags.context;
@@ -435,6 +438,9 @@ class CheckPF2e {
 
         context.skipDialog = true;
         context.isReroll = true;
+
+        // if the request turned to blind mode, set the context rollMode as blind
+        if(makeBlind) context.rollMode = 'blindroll';
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
