@@ -110,7 +110,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     override prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
-        if (!this.actor || this.system.prepared.value === "items") {
+        if (!this.actor) {
             this.spells = null;
         } else {
             this.spells = new SpellCollection(this);
@@ -378,7 +378,9 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
 
-        const collectionData = (await this.spells?.getSpellData({ prepList })) ?? { groups: [], prepList: null };
+        const defaultData = { groups: [], prepList: null };
+        const collectionData =
+            this.category === "items" ? defaultData : (await this.spells?.getSpellData({ prepList })) ?? defaultData;
 
         return fu.mergeObject(collectionData, {
             id: this.id,
@@ -395,7 +397,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             isFocusPool: this.isFocusPool,
             isRitual: false,
             isEphemeral: false,
-            hasCollection: !!this.spells,
+            hasCollection: true,
             usesSpellProficiency: !this.system.proficiency.slug,
             showSlotlessRanks: this.showSlotlessRanks,
         });
