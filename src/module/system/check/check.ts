@@ -425,12 +425,11 @@ class CheckPF2e {
                     );
                     return;
                 }
-            }
-            else {
+            } else {
                 ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
                 return;
             }
-        } 
+        }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
         const context = systemFlags.context;
@@ -440,7 +439,7 @@ class CheckPF2e {
         context.isReroll = true;
 
         // if the request turned to blind mode, set the context rollMode as blind
-        if(makeBlind) context.rollMode = 'blindroll';
+        if (makeBlind) context.rollMode = "blindroll";
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
