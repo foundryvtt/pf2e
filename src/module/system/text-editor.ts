@@ -175,9 +175,8 @@ class TextEditorPF2e extends TextEditor {
             const traits = anchor.dataset.traits?.split(",") ?? [];
             const overrideTraits = "overrideTraits" in anchor.dataset;
             const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
-            const actionOptions = overrideTraits ? [] : TextEditorPF2e.createActionOptions(item, traits);
             const domains = anchor.dataset.domains?.split(",") ?? [];
-            const extraRollOptions = R.uniq(R.compact([traits, rollOptions, actionOptions].flat()));
+            const extraRollOptions = R.uniq(R.compact([...traits, ...rollOptions]));
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
                 actor,
@@ -832,12 +831,16 @@ class TextEditorPF2e extends TextEditor {
     /** Create roll options with information about the action being used */
     static createActionOptions(item: Maybe<ItemPF2e>, extra: string[] = []): string[] {
         if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
+
         const slug = item.slug ?? sluggify(item.name);
         const traits = R.uniq([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
+        const actionCost = item.actionCost.value;
+
         return R.compact([
             `action:${slug}`,
+            `action:cost:${actionCost}`,
             `self:action:slug:${slug}`,
-            item.actionCost.value ? `action:cost:${item.actionCost.value}` : null,
+            `self:action:cost:${actionCost}`,
             ...traits.map((t) => `self:action:trait:${t}`),
         ]);
     }
@@ -926,6 +929,7 @@ async function augmentInlineDamageRoll(
         const baseDamageRoll = new DamageRoll(baseFormula, rollData);
         const base = extractBaseDamage(baseDamageRoll);
         const kinds = Array.from(baseDamageRoll.kinds);
+        const actionOptions = options.overrideTraits ? [] : TextEditorPF2e.createActionOptions(item, traits);
 
         const domains = immutable
             ? []
@@ -944,6 +948,7 @@ async function augmentInlineDamageRoll(
             ...(item?.getRollOptions("item") ?? []),
             ...(traits ?? []),
             ...(extraRollOptions ?? []),
+            ...actionOptions,
         ]);
 
         const firstBase = base.at(0);
