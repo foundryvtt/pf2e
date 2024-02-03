@@ -274,7 +274,7 @@ export const InlineRollLinks = {
         } as const;
 
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
+            const { pf2EffectArea, pf2Distance, templateData: pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
             link.addEventListener("click", () => {
                 if (!canvas.ready) return;
 
@@ -328,7 +328,9 @@ export const InlineRollLinks = {
 
                 const actor = resolveActor(foundryDoc, link);
                 if (actor || pf2Traits) {
-                    const origin = (flags.pf2e.origin as Record<string, unknown>) ?? {};
+                    const origin: Record<string, unknown> = isRecord(templateData.flags?.pf2e?.origin) 
+                        ? templateData.flags?.pf2e?.origin 
+                        : {};
                     if (actor) {
                         origin.actor = actor.uuid;
                     }
@@ -423,4 +425,8 @@ function resolveActor(foundryDoc: ClientDocument | null, anchor: HTMLElement): A
     const itemUuid = anchor.dataset.itemUuid;
     const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
     return itemByUUID instanceof ItemPF2e ? itemByUUID.actor : null;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return !!value;
 }
