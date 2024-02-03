@@ -17,7 +17,7 @@
 </div>
 
 {{#*inline "collectionGroup"}}
-    <ol class="spellcastingEntry-list directory-list">
+    <ol class="spellcastingEntry-list directory-list"{{#unless (eq tab "activations")}} data-foundry-list{{/unless}}>
         {{#each collections as |entry|}}
             <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
@@ -28,9 +28,10 @@
                     <h3 class="item-name">
                         <input type="text" data-item-id="{{entry.id}}" data-item-property="name" class="item-name-input" value="{{entry.name}}"{{#if entry.isEphemeral}} readonly{{/if}} />
                     </h3>
+
                     {{#if @root.editable}}
                         <div class="item-controls">
-                            {{#if entry.isFocusPool}}
+                            {{#if (or entry.isFocusPool entry.isRitual)}}
                                 <a
                                     data-action="browse-spells"
                                     data-tooltip="PF2E.OpenSpellBrowserTitle"
