@@ -299,11 +299,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(
-        paramString: string,
-        label?: string,
-        item?: ItemPF2e | null,
-    ): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         const itemData = item?.system;
