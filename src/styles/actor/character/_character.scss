@@ -86,17 +86,19 @@
                 padding: 0;
             }
 
-            .deity.selected {
-                min-width: max-content;
+            .selected {
+                &.deity {
+                    min-width: max-content;
+
+                    h3 span.value {
+                        text-overflow: unset;
+                    }
+                }
 
                 h3 {
                     border-radius: 0 var(--space-12) var(--space-12) 0;
                     flex-basis: auto;
                     gap: var(--space-4);
-
-                    span.value {
-                        text-overflow: unset;
-                    }
 
                     .emblem {
                         flex: 0 0 1.75rem;
