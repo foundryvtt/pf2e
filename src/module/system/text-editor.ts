@@ -367,7 +367,7 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-effect-area", params.type);
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.templateData) {
-                html.dataset.templateData = params.templateData;
+                html.dataset.pf2TemplateData = params.templateData;
             }
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");

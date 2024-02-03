@@ -274,7 +274,7 @@ export const InlineRollLinks = {
         } as const;
 
         for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
-            const { pf2EffectArea, pf2Distance, templateData: pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
+            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
             link.addEventListener("click", () => {
                 if (!canvas.ready) return;
 
@@ -284,8 +284,7 @@ export const InlineRollLinks = {
                 }
 
                 const templateData: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(
-                    pf2TemplateData ?? "{}",
-                );
+                    pf2TemplateData ?? "{}");
                 templateData.distance ||= Number(pf2Distance);
                 templateData.fillColor ||= game.user.color;
                 templateData.t = templateConversion[pf2EffectArea];
@@ -307,15 +306,13 @@ export const InlineRollLinks = {
                     }
                 }
 
-                const flags: { pf2e: Record<string, unknown> } = {
-                    pf2e: templateData.flags?.pf2e ?? {},
-                };
+                const pf2e = templateData.flags?.pf2e ?? {};
 
                 if (
                     objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
                     objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
                 ) {
-                    flags.pf2e.areaType = pf2EffectArea;
+                    pf2e.areaType = pf2EffectArea;
                 }
 
                 const messageId =
@@ -323,25 +320,25 @@ export const InlineRollLinks = {
                         ? foundryDoc.id
                         : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
                 if (messageId) {
-                    flags.pf2e.messageId = messageId;
+                    pf2e.messageId = messageId;
                 }
 
                 const actor = resolveActor(foundryDoc, link);
-                if (actor || pf2Traits) {
-                    const origin: Record<string, unknown> = isRecord(templateData.flags?.pf2e?.origin) 
-                        ? templateData.flags?.pf2e?.origin 
-                        : {};
-                    if (actor) {
-                        origin.actor = actor.uuid;
-                    }
-                    if (pf2Traits) {
-                        origin.traits = pf2Traits.split(",");
-                    }
-                    flags.pf2e.origin = origin;
+                const origin = isRecord(pf2e.origin) ? pf2e.origin : {};
+                if (actor) {
+                    origin.actor = actor.uuid;
                 }
 
-                if (!R.isEmpty(flags.pf2e)) {
-                    templateData.flags = flags;
+                if (pf2Traits) {
+                    origin.traits = pf2Traits.split(",");
+                }
+
+                if (!R.isEmpty(pf2e)) {
+                    if (templateData.flags) {
+                        templateData.flags.pf2e = pf2e;
+                    } else {
+                        templateData.flags = { pf2e };
+                    }
                 }
 
                 canvas.templates.createPreview(templateData);
