@@ -116,6 +116,25 @@
         {{/each}}
     </ul>
 
+    {{!-- Saving Throws --}}
+    <header class="saving-throws">
+        {{localize "PF2E.Actor.Character.Proficiency.SavingThrow.Title"}}
+    </header>
+    <ul class="proficiencies-list combat-list">
+        {{#each data.saves as |save slug|}}
+            <li data-slug="{{slug}}">
+                <span class="modifier" data-tooltip="{{save.breakdown}}">{{numberFormat save.totalModifier decimals=0 sign=true}}</span>
+                <span class="name">{{localize save.label}}</span>
+                <div class="button-group stacked">
+                    <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
+                    <button type="button" class="hover" data-tooltip-content="#{{@root.options.id}}-{{slug}}-modifiers">
+                        {{localize "PF2E.ModifiersTitle"}}
+                    </button>
+                </div>
+            </li>
+        {{/each}}
+    </ul>
+
     {{!-- Spellcasting --}}
     {{#if hasNormalSpellcasting}}
         <header>{{localize "PF2E.Item.Spell.Plural"}}</header>
