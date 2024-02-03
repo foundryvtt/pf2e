@@ -81,7 +81,7 @@
                         <button type="button" class="cast-spell blue invisible">{{localize "PF2E.Item.Spell.Cast"}}</button>
 
                         <div class="item-controls">
-                            {{#unless (or (eq entry.category "prepared") (eq entry.category "items"))}}
+                            {{#unless (or entry.isPrepared (eq entry.category "items"))}}
                                 <a
                                     data-action="create-item"
                                     data-tooltip="PF2E.CreateSpellTitle"
@@ -89,13 +89,15 @@
                                     data-group-id="{{group.id}}"
                                     data-location="{{entry.id}}"
                                 ><i class="fa-solid fa-fw fa-plus"></i></a>
-                                <a
-                                    data-action="browse-spells"
-                                    data-tooltip="PF2E.OpenSpellBrowserTitle"
-                                    {{#if (eq group.id "cantrips")}}data-category="cantrip"{{/if}}
-                                    data-rank="{{group.maxRank}}"
-                                    data-location="{{entry.id}}"
-                                ><i class="fa-solid fa-fw fa-search"></i></a>
+                                {{#unless entry.isRitual}}
+                                    <a
+                                        data-action="browse-spells"
+                                        data-tooltip="PF2E.OpenSpellBrowserTitle"
+                                        {{#if (eq group.id "cantrips")}}data-category="cantrip"{{/if}}
+                                        data-rank="{{group.maxRank}}"
+                                        data-location="{{entry.id}}"
+                                    ><i class="fa-solid fa-fw fa-search"></i></a>
+                                {{/unless}}
                             {{/unless}}
                         </div>
                     {{/if}}
