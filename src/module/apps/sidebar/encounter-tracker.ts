@@ -48,10 +48,28 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return { label, tooltip };
         })();
 
+        const timing = ((): {label: string; tooltip: string } => {
+            // get the current round, multiply by 6 seconds and convert to string
+            const roundNumber = this.viewed?.current.round ?? 1;
+
+            // round minutes should generally be rare but can occur
+            const roundMinutes = Math.floor(roundNumber / 60);
+            const roundSeconds = (roundNumber-1) * 6 - roundMinutes * 60;
+
+            // use slice to get a nicely formatted string
+            const label = localize("Timing", {
+                minutes: ("0" + roundMinutes).slice(-2),
+                seconds: ("0" + roundSeconds).slice(-2),
+            });
+            const tooltip = String(roundNumber * 6);
+            return { label, tooltip };
+        })();
+
         const threatAward = parseHTML(
             await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", {
                 threat,
                 award,
+                timing,
             }),
         );
         const html = $html[0];
