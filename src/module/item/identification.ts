@@ -69,10 +69,8 @@ function getItemIdentificationDCs(
     const dc = adjustDCByRarity(baseDC, rarity);
     if (item.isMagical) {
         return getIdentifyMagicDCs(item, dc, notMatchingTraditionModifier);
-    } else if (item.isAlchemical) {
-        return { crafting: dc };
     } else {
-        return { dc: dc };
+        return { crafting: dc };
     }
 }
 
