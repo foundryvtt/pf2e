@@ -77,7 +77,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const encounterTitle = htmlQuery(html, "h3.encounter-title");
 
-        if(encounterTitle) encounterTitle.innerText += timing;
+        if(encounterTitle && game.pf2e.settings.showRoundTimer) encounterTitle.innerText += timing;
 
         return $(html);
     }

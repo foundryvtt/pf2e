@@ -149,6 +149,7 @@ interface GamePF2e
             };
             /** Rules-based vision */
             rbv: boolean;
+            showRoundTimer: boolean;
             tokens: {
                 /** Automatic scaling of tokens belong to small actor */
                 autoscale: boolean;
@@ -318,6 +319,7 @@ declare global {
         get(module: "pf2e", setting: "totmToggles"): boolean;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
+        get(module: "pf2e", setting: "showRoundTimer"): boolean;
     }
 
     interface ClientSettingsMap {

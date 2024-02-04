@@ -125,6 +125,7 @@ export const SetGamePF2e = {
                 results: game.settings.get("pf2e", "metagame_showResults"),
             },
             rbv: game.settings.get("pf2e", "automation.rulesBasedVision"),
+            showRoundTimer: game.settings.get("pf2e","showRoundTimer"),
             tokens: {
                 autoscale: game.settings.get("pf2e", "tokens.autoscale"),
                 nameVisibility: game.settings.get("pf2e", "metagame_tokenSetsNameVisibility"),

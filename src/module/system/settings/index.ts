@@ -173,6 +173,19 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "showRoundTimer", {
+        name: "PF2E.SETTINGS.ShowRoundTimer.Name",
+        hint: "PF2E.SETTINGS.ShowRoundTimer.Hint",
+        scope: "world",
+        config: true,
+        default: false,
+        requiresReload: true,
+        type: Boolean,
+        onChange: (choice) => {
+            game.pf2e.settings.showRoundTimer = !!choice;
+        },
+    });
+
     // Don't tell Nath
     game.settings.register("pf2e", "nathMode", {
         name: "PF2E.SETTINGS.NathMode.Name",
