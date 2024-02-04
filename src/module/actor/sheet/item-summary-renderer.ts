@@ -78,7 +78,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         if (isFormula) return fromUuid(itemUuid);
         if (itemType === "spell") {
             const collectionId = htmlClosest(element, "[data-entry-id]")?.dataset.entryId;
-            return actor.spellcasting.collections.get(collectionId, { strict: true }).get(itemId, { strict: true });
+            const collections = actor.spellcasting?.collections;
+            return collections?.get(collectionId, { strict: true }).get(itemId, { strict: true }) ?? null;
         }
 
         return itemType === "condition"

@@ -158,10 +158,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null {
+        const actor = this.actor;
         const spellcastingId = this.system.location.value;
-        return (this.actor?.spellcasting.get(spellcastingId ?? "") ?? null) as BaseSpellcastingEntry<
-            NonNullable<TParent>
-        > | null;
+        const ability = actor?.spellcasting?.get(spellcastingId ?? "") ?? null;
+        return ability as BaseSpellcastingEntry<NonNullable<TParent>> | null;
     }
 
     get isAttack(): boolean {
