@@ -241,11 +241,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             }
         }
 
-        // Assign Ability modifiers base on values
-        for (const ability of KINGDOM_ABILITIES) {
-            this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
-        }
-
         // Government skills
         if (build.government && build.government.skills.length > 0) {
             for (const skill of build.government.skills) {
@@ -372,6 +367,11 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     prepareDerivedData(): void {
         const { synthetics } = this.actor;
         const { consumption, resources } = this;
+
+        // Assign Ability modifiers base on values
+        for (const ability of KINGDOM_ABILITIES) {
+            this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
+        }
 
         // Autocompute resource dice
         resources.dice.number = Math.max(0, this.level + 4 + resources.dice.bonus - resources.dice.penalty);
