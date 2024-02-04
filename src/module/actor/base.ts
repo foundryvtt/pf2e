@@ -800,15 +800,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
 
-        this.spellcasting = ((): ActorSpellcasting<this> => {
-            const rituals = this.itemTypes.spell.filter((s) => s.isRitual).sort((a, b) => a.sort - b.sort);
-            const spellcastingEntries = [
-                this.itemTypes.spellcastingEntry,
-                rituals.length > 0 ? new RitualSpellcasting(this, rituals) : [],
-            ].flat();
-
-            return new ActorSpellcasting(this, spellcastingEntries);
-        })();
+        this.spellcasting = new ActorSpellcasting(this, [
+            ...this.itemTypes.spellcastingEntry,
+            new RitualSpellcasting(this),
+        ]);
 
         // Track all effects on this actor
         for (const effect of this.itemTypes.effect) {
