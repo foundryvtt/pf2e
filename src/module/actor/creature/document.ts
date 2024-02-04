@@ -152,7 +152,7 @@ abstract class CreaturePF2e<
     }
 
     get isSpellcaster(): boolean {
-        const { itemTypes } = this;
+        const itemTypes = this.itemTypes;
         return itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
     }
 
@@ -373,7 +373,7 @@ abstract class CreaturePF2e<
         }
 
         for (const changeEntries of Object.values(this.system.autoChanges)) {
-            changeEntries?.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+            changeEntries?.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
         }
 
         this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
