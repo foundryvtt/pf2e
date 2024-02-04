@@ -38,9 +38,9 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             const roundNumber = this.viewed?.current.round ?? 1;
             const roundNumberSeconds = (roundNumber - 1) * 6;
 
-            // round minutes should generally be rare but can occur
+            // round minutes with floor to only get the integer
             const roundMinutes = Math.max(0,Math.floor(roundNumberSeconds / 60));
-            // take seconds reduced by minutes
+            // take seconds from the remainder
             const roundSeconds = Math.max(0,roundNumberSeconds % 60)
 
             // use slice to get a nicely formatted string
@@ -55,12 +55,13 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         // get the encounter title
         const encounterTitle = htmlQuery(html, "h3.encounter-title");
 
-        // if we have the title and the setting and the combat is not pending start, push the time
+        // if we have the title and the setting is enabled, push the time
         if (encounterTitle && game.pf2e.settings.showRoundTimer) encounterTitle.innerText += timing;
 
         // don't show metrics to players so send back the altered html here if player
         if (!game.user.isGM) return $(html);
 
+        //otherwise continue to metric processing and display
         const localize = localizer("PF2E.Encounter.Metrics");
         const threat = ((): { label: string; tooltip: string } => {
             const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
