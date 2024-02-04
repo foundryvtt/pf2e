@@ -34,13 +34,23 @@ export class CheckModifiersDialog extends Application {
 
             const maybeWithHTML = context.title?.trim() || check.slug;
             if (!maybeWithHTML.includes("<"))
-                return actorName ? actorName + " - " + maybeWithHTML.trim() : maybeWithHTML.trim();
+                return actorName
+                    ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
+                          actorName,
+                          titleText: maybeWithHTML.trim(),
+                      })
+                    : maybeWithHTML.trim();
 
             const div = document.createElement("div");
             div.innerHTML = maybeWithHTML;
             div.querySelector(".action-glyph, .pf2-icon")?.remove();
 
-            return actorName ? actorName + " - " + div.innerText.trim() : div.innerText.trim();
+            return actorName
+                ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
+                      actorName,
+                      titleText: div.innerText.trim(),
+                  })
+                : div.innerText.trim();
         })();
 
         super({ title });
