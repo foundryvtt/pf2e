@@ -29,14 +29,18 @@ export class CheckModifiersDialog extends Application {
     ) {
         // The title often has HTML in it: get the base text
         const title = ((): string => {
+            // add actor name to title to differentiate rolls
+            const actorName = context.actor?.name.trim() ?? "";
+
             const maybeWithHTML = context.title?.trim() || check.slug;
-            if (!maybeWithHTML.includes("<")) return maybeWithHTML.trim();
+            if (!maybeWithHTML.includes("<"))
+                return actorName ? actorName + " - " + maybeWithHTML.trim() : maybeWithHTML.trim();
 
             const div = document.createElement("div");
             div.innerHTML = maybeWithHTML;
             div.querySelector(".action-glyph, .pf2-icon")?.remove();
 
-            return div.innerText.trim();
+            return actorName ? actorName + " - " + div.innerText.trim() : div.innerText.trim();
         })();
 
         super({ title });
