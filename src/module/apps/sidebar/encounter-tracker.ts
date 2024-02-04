@@ -61,7 +61,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         // don't show metrics to players so send back the altered html here if player
         if (!game.user.isGM) return $(html);
 
-        //otherwise continue to metric processing and display
+        // otherwise continue to metric processing and display
         const localize = localizer("PF2E.Encounter.Metrics");
         const threat = ((): { label: string; tooltip: string } => {
             const label = game.i18n.localize(`PF2E.Encounter.Budget.Threats.${metrics.threat}`);
