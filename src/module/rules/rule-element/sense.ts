@@ -15,10 +15,10 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  * @category RuleElement
  */
 class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
-    protected static override validActorTypes: ActorType[] = ["character", "familiar"];
+    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     static override defineSchema(): SenseRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, choices: [...SENSE_TYPES] }),
