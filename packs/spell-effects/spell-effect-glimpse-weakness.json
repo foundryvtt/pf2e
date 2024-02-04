@@ -22,10 +22,32 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.Amp.NotAmpedLabel",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.Amp.AmpedLabel",
+                        "value": 1
+                    }
+                ],
+                "flag": "amped",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Psychic.Amp.AmpPrompt"
+            },
+            {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "selector": "strike-damage",
                 "value": "1+@item.level"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "@item.flags.pf2e.rulesSelections.amped*@item.level",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": "strike-damage"
             }
         ],
         "start": {
