@@ -176,7 +176,7 @@ abstract class IWR<TType extends IWRType> {
                                     or: [
                                         "damage:material:cold-iron",
                                         "damage:material:sovereign-steel",
-                                        "damage:material:ice"
+                                        "damage:material:ice",
                                     ],
                                 },
                             ];
