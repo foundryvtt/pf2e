@@ -47,8 +47,8 @@ export class CheckModifiersDialog extends Application {
 
             return actorName && game.user.isGM
                 ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
-                      actorName,
-                      titleText: div.innerText.trim(),
+                      check: div.innerText.trim(),
+                      actor: actorName,
                   })
                 : div.innerText.trim();
         })();
