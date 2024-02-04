@@ -48,7 +48,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return { label, tooltip };
         })();
 
-        const timing = ((): {label: string; tooltip: string } => {
+
+        const timing = (() => {
             // get the current round, multiply by 6 seconds and convert to string
             const roundNumber = this.viewed?.current.round ?? 1;
 
@@ -61,19 +62,22 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 minutes: ("0" + roundMinutes).slice(-2),
                 seconds: ("0" + roundSeconds).slice(-2),
             });
-            const tooltip = String(roundNumber * 6);
-            return { label, tooltip };
+
+            return label;
         })();
 
         const threatAward = parseHTML(
             await renderTemplate("systems/pf2e/templates/sidebar/encounter-tracker/threat-award.hbs", {
                 threat,
                 award,
-                timing,
             }),
         );
         const html = $html[0];
         htmlQuery(html, "nav.encounters")?.after(threatAward);
+
+        const encounterTitle = htmlQuery(html, "h3.encounter-title");
+
+        if(encounterTitle) encounterTitle.innerText += timing;
 
         return $(html);
     }
