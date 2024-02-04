@@ -124,6 +124,23 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    ice: {
+        low: {
+            level: 2,
+            price: 40,
+            rarity: "common",
+        },
+        standard: {
+            level: 10,
+            price: 880,
+            rarity: "common",
+        },
+        high: {
+            level: 16,
+            price: 9000,
+            rarity: "common",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -383,6 +400,23 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
+    ice: {
+        low: {
+            level: 5,
+            price: 140,
+            rarity: "common",
+        },
+        standard: {
+            level: 11,
+            price: 1200,
+            rarity: "common",
+        },
+        high: {
+            level: 18,
+            price: 20000,
+            rarity: "common",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -602,6 +636,23 @@ const OBJECT_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 16,
             price: 6000,
             rarity: "uncommon",
+        },
+    },
+    ice: {
+        low: {
+            level: 2,
+            price: 20,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 250,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 4500,
+            rarity: "common",
         },
     },
     inubrix: {
@@ -846,6 +897,29 @@ const BUCKLER_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
+    ice: {
+        low: {
+            level: 2,
+            price: 30,
+            hardness: 3,
+            maxHP: 12,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 300,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5000,
+            hardness: 8,
+            maxHP: 32,
+            rarity: "common",
+        },
+    },
     inubrix: {
         low: null,
         standard: {
@@ -1039,6 +1113,29 @@ const SHIELD_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             hardness: 8,
             maxHP: 32,
             rarity: "uncommon",
+        },
+    },
+    ice: {
+        low: {
+            level: 2,
+            price: 34,
+            hardness: 5,
+            maxHP: 20,
+            rarity: "common",
+        },
+        standard: {
+            level: 7,
+            price: 340,
+            hardness: 7,
+            maxHP: 28,
+            rarity: "common",
+        },
+        high: {
+            level: 15,
+            price: 5500,
+            hardness: 10,
+            maxHP: 40,
+            rarity: "common",
         },
     },
     inubrix: {

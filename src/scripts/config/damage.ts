@@ -16,6 +16,7 @@ const materialDamageEffects = R.pick(preciousMaterials, [
     "dawnsilver",
     "djezet",
     "duskwood",
+    "ice",
     "inubrix",
     "keep-stone",
     "noqual",

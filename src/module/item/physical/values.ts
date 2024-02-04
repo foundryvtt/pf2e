@@ -17,6 +17,7 @@ const PRECIOUS_MATERIAL_TYPES = new Set([
     "djezet",
     "dragonhide",
     "grisantian-pelt",
+    "ice",
     "inubrix",
     "keep-stone",
     "dawnsilver",

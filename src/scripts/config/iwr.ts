@@ -4,6 +4,7 @@ import { materialDamageEffects } from "./damage.ts";
 const materialIWR = R.mapValues(
     // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
     R.omit(materialDamageEffects, [
+        "ice",
         "keep-stone",
         "peachwood",
         "sisterstone-dusk",
