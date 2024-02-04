@@ -39,9 +39,9 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             const roundNumberSeconds = (roundNumber - 1) * 6;
 
             // round minutes with floor to only get the integer
-            const roundMinutes = Math.max(0,Math.floor(roundNumberSeconds / 60));
+            const roundMinutes = Math.max(0, Math.floor(roundNumberSeconds / 60));
             // take seconds from the remainder
-            const roundSeconds = Math.max(0,roundNumberSeconds % 60)
+            const roundSeconds = Math.max(0, roundNumberSeconds % 60);
 
             // use slice to get a nicely formatted string
             const label = game.i18n.format("PF2E.Encounter.Timing", {
