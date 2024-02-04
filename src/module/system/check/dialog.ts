@@ -36,8 +36,8 @@ export class CheckModifiersDialog extends Application {
             if (!maybeWithHTML.includes("<"))
                 return actorName && game.user.isGM
                     ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
-                          actorName,
-                          titleText: maybeWithHTML.trim(),
+                          check: maybeWithHTML.trim(),
+                          actor: actorName,
                       })
                     : maybeWithHTML.trim();
 
