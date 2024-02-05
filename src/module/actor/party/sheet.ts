@@ -182,7 +182,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
     #prepareOverviewSummary(): PartySheetData["overviewSummary"] | null {
         const members = this.actor.members;
-        if (!members.length) return null;
+        if (members.length === 0) return null;
 
         const allLanguages = new Set(members.flatMap((m) => m.system.details.languages?.value ?? []));
         const baseKnowledgeSkills = [
