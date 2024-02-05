@@ -8,21 +8,14 @@ import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./typ
 export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellcastingEntry<TActor> {
     actor: TActor;
 
-    #spells: SpellCollection<TActor> | null = null;
+    spells: SpellCollection<TActor>;
 
     constructor(actor: TActor) {
         this.actor = actor;
-    }
-
-    get spells(): SpellCollection<TActor> {
-        if (this.#spells) return this.#spells;
-
-        this.#spells = new SpellCollection(this, this.name);
+        this.spells = new SpellCollection(this, this.name);
         for (const ritual of this.actor.itemTypes.spell.filter((s) => s.isRitual)) {
-            this.#spells.set(ritual.id, ritual);
+            this.spells.set(ritual.id, ritual);
         }
-
-        return this.#spells;
     }
 
     get id(): string {
