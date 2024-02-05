@@ -1047,6 +1047,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (this.isVariant && this.appliedOverlays) {
             flag.variant = { overlays: [...this.appliedOverlays.values()] };
         }
+        flag.rollOptions = R.compact(
+            [this.actor?.getSelfRollOptions("origin"), this.getRollOptions("origin:item")].flat(),
+        );
 
         return flag;
     }

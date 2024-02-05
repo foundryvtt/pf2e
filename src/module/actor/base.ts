@@ -497,6 +497,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         token: origin.token.uuid,
                         item: null,
                         spellcasting: null,
+                        rollOptions: [],
                     },
                     roll: null,
                 };
