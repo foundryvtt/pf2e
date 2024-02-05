@@ -50,6 +50,7 @@ export function extendDragData(): void {
                         token: token?.uuid ?? null,
                         item: originItem?.uuid ?? null,
                         spellcasting,
+                        rollOptions: message.flags.pf2e.origin?.rollOptions ?? [],
                     },
                     target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
                     roll: roll

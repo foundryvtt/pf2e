@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { EffectBadge, EffectBadgeSource } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
@@ -38,7 +38,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { system } = this;
+        const system = this.system;
         if (["unlimited", "encounter"].includes(system.duration.unit)) {
             system.duration.expiry = null;
         } else {
@@ -46,7 +46,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         }
         system.expired = this.remainingDuration.expired;
 
-        const { badge } = this.system;
+        const badge = system.badge;
         if (badge) {
             if (badge.type === "formula") {
                 badge.label = null;
@@ -107,7 +107,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
      * @returns The resulting value badge
      */
     private async evaluateFormulaBadge(badge: EffectBadgeFormulaSource): Promise<EffectBadgeValueSource> {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
         const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
