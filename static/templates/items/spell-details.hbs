@@ -90,12 +90,18 @@
     <fieldset class="defense">
         <legend>{{localize "PF2E.Item.Spell.Defense.Label"}}</legend>
 
-        {{#if passiveDefense}}
-            <div class="form-group passive">
-                <label>{{localize "PF2E.ActionTypePassive"}}</label>
-                <div class="value">{{localize passiveDefense}}</div>
-            </div>
-        {{/if}}
+        <div class="form-group">
+            <label>{{localize "PF2E.ActionTypePassive"}}</label>
+            <select data-property="system.defense.passive.statistic" data-nullable>
+                <option value=""></option>
+                {{#select item.system.defense.passive.statistic}}
+                    <option value="ac">{{localize "PF2E.Check.DC.Specific.armor"}}</option>
+                    <option value="fortitude-dc">{{localize "PF2E.Check.DC.Specific.fortitude"}}</option>
+                    <option value="reflex-dc">{{localize "PF2E.Check.DC.Specific.reflex"}}</option>
+                    <option value="will-dc">{{localize "PF2E.Check.DC.Specific.will"}}</option>
+                {{/select}}
+            </select>
+        </div>
 
         <div class="form-group save">
             <label>{{localize "PF2E.SavingThrow"}}</label>

@@ -284,7 +284,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             // Whether the value is a modifier and to be displayed with a sign
             const isModifier = input.classList.contains("modifier") || input.dataset.modifier !== undefined;
             // Whether the value is nullable: if so, allow the value to be cleared instead of coercing to a number
-            const isNullable = input.dataset.nullable !== undefined;
+            const isNullable = "nullable" in input.dataset;
 
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
@@ -469,11 +469,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return this.deleteItem(item, event);
             },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
+                const actor = this.actor;
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
                 const collection: Collection<ItemPF2e<TActor>> = collectionId
-                    ? this.actor.spellcasting.collections.get(collectionId, { strict: true })
-                    : this.actor.items;
+                    ? actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items
+                    : actor.items;
+
                 const itemId = itemEl?.dataset.itemId;
                 const item = collection.get(itemId, { strict: true });
                 if (item.isOfType("spell")) {

@@ -2,6 +2,7 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
+import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
@@ -10,6 +11,7 @@ import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
+import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
@@ -36,6 +38,9 @@ import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters 
 abstract class CreaturePF2e<
     TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends ActorPF2e<TParent> {
+    /** A separate collection of owned spellcasting entries for convenience */
+    declare spellcasting: ActorSpellcasting<this>;
+
     declare parties: Set<PartyPF2e>;
     /** A creature always has an AC */
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
@@ -152,7 +157,7 @@ abstract class CreaturePF2e<
     }
 
     get isSpellcaster(): boolean {
-        const { itemTypes } = this;
+        const itemTypes = this.itemTypes;
         return itemTypes.spellcastingEntry.length > 0 && itemTypes.spell.length > 0;
     }
 
@@ -373,10 +378,28 @@ abstract class CreaturePF2e<
         }
 
         for (const changeEntries of Object.values(this.system.autoChanges)) {
-            changeEntries?.sort((a, b) => (Number(a.level) > Number(b.level) ? 1 : -1));
+            changeEntries?.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
         }
 
         this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
+    }
+
+    protected override prepareDataFromItems(): void {
+        this.spellcasting = new ActorSpellcasting(this, [
+            ...this.itemTypes.spellcastingEntry,
+            new RitualSpellcasting(this),
+        ]);
+
+        // Base spellcasting proficiency (later extended to add attribute modifiers)
+        this.spellcasting.base = new Statistic(this, {
+            slug: "base-spellcasting",
+            label: "PF2E.Actor.Creature.Spellcasting.Label",
+            rank: this.isOfType("character") ? this.system.proficiencies.spellcasting.rank : 1,
+            domains: ["all", "spell-attack-dc"],
+            check: { type: "attack-roll" },
+        });
+
+        super.prepareDataFromItems();
     }
 
     override prepareDerivedData(): void {

@@ -46,6 +46,7 @@ import * as track from "./exploration/track.ts";
 import * as decipherWriting from "./general/decipher-writing.ts";
 import { identifyMagic } from "./general/identify-magic.ts";
 import { learnASpell } from "./general/learn-a-spell.ts";
+import { recallKnowledge } from "./general/recall-knowledge.ts";
 import * as subsist from "./general/subsist.ts";
 import * as coerce from "./intimidation/coerce.ts";
 import * as demoralize from "./intimidation/demoralize.ts";
@@ -209,6 +210,7 @@ export const SystemActions: Action[] = [
     pickALock.action,
     pointOut,
     ready,
+    recallKnowledge,
     release,
     reposition.action,
     request.action,

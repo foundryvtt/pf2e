@@ -464,7 +464,7 @@ class CompendiumBrowser extends Application {
 
         // Add to Roll Table button
         htmlQuery(html, "[data-action=add-to-roll-table]")?.addEventListener("click", async () => {
-            if (!game.tables.contents.length) return;
+            if (game.tables.contents.length === 0) return;
             currentTab.addToRollTable();
         });
 

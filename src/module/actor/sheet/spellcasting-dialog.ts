@@ -1,12 +1,12 @@
-import type { ActorPF2e } from "@actor";
+import type { CreaturePF2e } from "@actor";
 import type { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import type { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
 import * as R from "remeda";
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
-class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<ActorPF2e>> {
-    constructor(object: SpellcastingEntryPF2e<ActorPF2e>, options?: Partial<FormApplicationOptions>) {
+class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryPF2e<CreaturePF2e>> {
+    constructor(object: SpellcastingEntryPF2e<CreaturePF2e>, options?: Partial<FormApplicationOptions>) {
         super(object.clone({}, { keepId: true }), options);
     }
 
@@ -148,8 +148,8 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
     }
 }
 
-interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<ActorPF2e>> {
-    actor: ActorPF2e;
+interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<SpellcastingEntryPF2e<CreaturePF2e>> {
+    actor: CreaturePF2e;
     system: SpellcastingEntrySystemSource;
     magicTraditions: typeof CONFIG.PF2E.magicTraditions;
     statistics: { slug: string; label: string }[];
@@ -160,7 +160,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
 }
 
 async function createSpellcastingDialog(
-    object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>,
+    object: CreaturePF2e | SpellcastingEntryPF2e<CreaturePF2e>,
 ): Promise<SpellcastingCreateAndEditDialog> {
     const item =
         "prototypeToken" in object

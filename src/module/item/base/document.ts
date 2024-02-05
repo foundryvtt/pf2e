@@ -555,7 +555,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const preCreateDeletions = singularTypesToDelete.flatMap(
             (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
-        if (preCreateDeletions.length) {
+        if (preCreateDeletions.length > 0) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
@@ -565,7 +565,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             /** Internal function to recursively get all simple granted items */
             async function getSimpleGrants(item: ItemPF2e<ActorPF2e>): Promise<ItemPF2e<ActorPF2e>[]> {
                 const granted = (await item.createGrantedItems?.({ size: context.parent?.size })) ?? [];
-                if (!granted.length) return [];
+                if (granted.length === 0) return [];
                 const reparented = granted.map(
                     (i): ItemPF2e<ActorPF2e> =>
                         (i.parent

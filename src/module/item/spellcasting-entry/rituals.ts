@@ -10,10 +10,10 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
 
     spells: SpellCollection<TActor>;
 
-    constructor(actor: TActor, rituals: SpellPF2e<TActor>[]) {
+    constructor(actor: TActor) {
         this.actor = actor;
-        this.spells = new SpellCollection(this);
-        for (const ritual of rituals) {
+        this.spells = new SpellCollection(this, this.name);
+        for (const ritual of this.actor.itemTypes.spell.filter((s) => s.isRitual)) {
             this.spells.set(ritual.id, ritual);
         }
     }

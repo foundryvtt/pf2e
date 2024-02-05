@@ -28,7 +28,6 @@ import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -87,8 +86,8 @@ import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
 import { StatisticModifier } from "./modifiers.ts";
-import { ActorSheetPF2e } from "./sheet/base.ts";
-import { ActorSpellcasting } from "./spellcasting.ts";
+import type { ActorSheetPF2e } from "./sheet/base.ts";
+import type { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import { ActorType } from "./types.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
@@ -113,7 +112,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare armorClass: StatisticDifficultyClass<ArmorStatistic> | null;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    declare spellcasting: ActorSpellcasting<this>;
+    declare spellcasting: ActorSpellcasting<this> | null;
 
     /** Rule elements drawn from owned items */
     declare rules: RuleElementPF2e[];
@@ -498,6 +497,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         token: origin.token.uuid,
                         item: null,
                         spellcasting: null,
+                        rollOptions: [],
                     },
                     roll: null,
                 };
@@ -661,12 +661,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
+
         this._itemTypes = null;
-        this.rules = [];
-        this.initiative = null;
         this.armorClass = null;
-        this.conditions = new ActorConditions();
         this.auras = new Map();
+        this.conditions = new ActorConditions();
+        this.initiative = null;
+        this.rules = [];
+        this.spellcasting = null;
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
@@ -800,16 +802,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
 
-        this.spellcasting = ((): ActorSpellcasting<this> => {
-            const rituals = this.itemTypes.spell.filter((s) => s.isRitual).sort((a, b) => a.sort - b.sort);
-            const spellcastingEntries = [
-                this.itemTypes.spellcastingEntry,
-                rituals.length > 0 ? new RitualSpellcasting(this, rituals) : [],
-            ].flat();
-
-            return new ActorSpellcasting(this, spellcastingEntries);
-        })();
-
         // Track all effects on this actor
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.register(effect);
@@ -860,19 +852,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set traits as roll options */
     override prepareDerivedData(): void {
-        const { rollOptions } = this;
+        const rollOptions = this.flags.pf2e.rollOptions;
         for (const trait of this.traits) {
             rollOptions.all[`self:trait:${trait}`] = true;
         }
-
-        // Base spellcasting proficiency (later extended to add attribute modifiers)
-        this.spellcasting.base = new Statistic(this, {
-            slug: "base-spellcasting",
-            label: "PF2E.Actor.Creature.Spellcasting.Label",
-            rank: this.isOfType("character") ? this.system.proficiencies.spellcasting.rank : 0,
-            domains: ["all", "spell-attack-dc"],
-            check: { type: "attack-roll" },
-        });
     }
 
     /** Set defaults for this actor's prototype token */

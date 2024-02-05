@@ -110,18 +110,19 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     override prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
-        if (!this.actor) {
+        const actor = this.actor;
+        if (!actor) {
             this.spells = null;
         } else {
             this.spells = new SpellCollection(this);
-            const spells = this.actor.itemTypes.spell.filter(
-                (i): i is SpellPF2e<NonNullable<TParent>> => i.system.location.value === this.id,
+            const spells = actor.itemTypes.spell.filter(
+                (s): s is SpellPF2e<NonNullable<TParent>> => s.system.location.value === this.id,
             );
             for (const spell of spells) {
                 this.spells.set(spell.id, spell);
             }
 
-            this.actor.spellcasting.collections.set(this.spells.id, this.spells);
+            actor.spellcasting?.collections.set(this.spells.id, this.spells);
         }
     }
 
