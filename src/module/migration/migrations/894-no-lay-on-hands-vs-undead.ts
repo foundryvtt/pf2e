@@ -45,7 +45,7 @@ export class Migration894NoLayOnHandsVsUndead extends MigrationBase {
                                 type: "vitality",
                             },
                         },
-                        defense: { save: { basic: true, statistic: "fortitude" } },
+                        defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
                         heightening: { damage: { "37YW4ZGhxx7Y2mdI": "1d6" }, interval: 1, type: "interval" },
                     },
                 },
