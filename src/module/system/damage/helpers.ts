@@ -59,8 +59,7 @@ function applyDamageDiceOverrides(
     const overrideDice = dice.filter(
         (d): d is RequiredNonNullable<DamageDicePF2e, "override"> => !d.ignored && !!d.override,
     );
-
-    if (!overrideDice.length) return;
+    if (overrideDice.length === 0) return;
 
     for (const base of baseEntries) {
         const die = base.terms?.find((t): t is RequiredNonNullable<DamagePartialTerm, "dice"> => !!t.dice);
