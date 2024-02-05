@@ -246,8 +246,10 @@
                             display: flex;
                             gap: var(--space-4);
 
-                            input {
-                                @include p-reset;
+                            input[type="checkbox"] {
+                                height: 1.125rem;
+                                margin: 0;
+                                padding: 0;
                             }
 
                             .unchecked-disabled {
@@ -264,10 +266,10 @@
                 .directory-list {
                     > h3,
                     > li > h3 {
-                        @include p-reset;
                         color: var(--text-light);
                         font: 500 var(--font-size-16) / 1 var(--serif);
-                        margin-left: var(--space-8);
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
                     }
 
                     .action-header {
@@ -301,6 +303,7 @@
                             color: var(--text-light);
                             flex-basis: 0;
                             margin-right: 0.25em;
+
                             i {
                                 padding-top: 0.25em;
                             }
