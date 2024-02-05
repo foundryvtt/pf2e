@@ -142,12 +142,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     /** Use a consumable item, sending the result to chat */
     async consume(): Promise<void> {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor) return;
         const { value, max } = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
-            if (actor.spellcasting.canCastConsumable(this)) {
+            if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
@@ -215,9 +215,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         // Find the best spellcasting entry to cast this consumable
         const entry = ((): SpellcastingEntry<ActorPF2e> | null => {
             if (trickMagicItemData) return trickMagicItemData;
-            return actor.spellcasting
-                .filter((e): e is SpellcastingEntry<ActorPF2e> => !!e.statistic && e.canCast(spell, { origin: this }))
-                .reduce((best, e) => (e.statistic.dc.value > best.statistic.dc.value ? e : best));
+            type SpellcastingAbility = SpellcastingEntry<ActorPF2e>;
+
+            return (
+                actor.spellcasting
+                    ?.filter((e): e is SpellcastingAbility => !!e.statistic && e.canCast(spell, { origin: this }))
+                    .reduce((best, e) => (e.statistic.dc.value > best.statistic.dc.value ? e : best)) ?? null
+            );
         })();
 
         return entry?.cast(spell, { consume: false });

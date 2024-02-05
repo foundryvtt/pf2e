@@ -165,7 +165,7 @@ export const InlineRollLinks = {
 
                         for (const actor of actors) {
                             const statistic = ((): Statistic | null => {
-                                if (pf2Check in CONFIG.PF2E.magicTraditions) {
+                                if (pf2Check in CONFIG.PF2E.magicTraditions && actor.isOfType("creature")) {
                                     const bestSpellcasting =
                                         actor.spellcasting
                                             .filter((c) => c.tradition === pf2Check)
