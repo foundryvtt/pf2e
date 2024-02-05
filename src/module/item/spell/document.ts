@@ -590,10 +590,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         if (traits.value.includes("attack")) {
-            this.system.defense = fu.mergeObject(this.system.defense ?? {}, {
-                passive: { statistic: "ac" as const },
-                save: this.system.defense?.save ?? null,
-            });
+            const passive = { statistic: this.system.defense?.passive?.statistic ?? "ac" } as const;
+            const save = this.system.defense?.save ?? null;
+            this.system.defense = fu.mergeObject(this.system.defense ?? {}, { passive, save });
         }
 
         this.system.cast = {
@@ -1125,9 +1124,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
         ]);
         for (const system of systemChanges) {
-            // Wipe defense data if `defense.save.statistic` is set to empty string
-            const save: { statistic?: string; basic?: boolean } = system.defense?.save ?? {};
-            if (save.statistic === "") {
+            // Normalize defense data; wipe if both defenses are `null`
+            for (const defenseType of ["passive", "save"] as const) {
+                const defense: { statistic?: string | null } = system.defense?.[defenseType] ?? {};
+                if (defense.statistic === "") defense.statistic = null;
+            }
+            const newDefenses = fu.mergeObject(
+                this._source.system.defense ?? { passive: null, save: null },
+                system.defense ?? {},
+                { inplace: false },
+            );
+            if (!newDefenses.passive && !newDefenses.save) {
                 system.defense = null;
             }
 
