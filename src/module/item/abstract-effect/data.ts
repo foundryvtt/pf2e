@@ -66,7 +66,7 @@ interface EffectContextData {
         token: TokenDocumentUUID | null;
         item: ItemUUID | null;
         spellcasting: EffectContextSpellcastingData | null;
-        rollOptions: string[];
+        rollOptions?: string[];
     };
     target: {
         actor: ActorUUID;

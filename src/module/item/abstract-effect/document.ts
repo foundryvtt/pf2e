@@ -77,7 +77,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
     override getRollOptions(prefix = this.type): string[] {
         const originRollOptions =
-            this.system.context?.origin.rollOptions.map((o) => `${prefix}:${o}`) ??
+            this.system.context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
             ((): string[] => {
                 const origin = this.origin;
                 // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
