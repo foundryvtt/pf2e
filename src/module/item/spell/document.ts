@@ -1126,8 +1126,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         for (const system of systemChanges) {
             // Normalize defense data; wipe if both defenses are `null`
             for (const defenseType of ["passive", "save"] as const) {
-                const defense: { statistic?: string | null } = system.defense?.[defenseType] ?? {};
-                if (defense.statistic === "") defense.statistic = null;
+                const newValue = system.defense?.[defenseType];
+                if (system.defense && newValue?.statistic !== undefined && !newValue.statistic) {
+                    system.defense[defenseType] = null;
+                }
             }
             const newDefenses = fu.mergeObject(
                 this._source.system.defense ?? { passive: null, save: null },
