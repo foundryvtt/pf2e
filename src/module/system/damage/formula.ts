@@ -48,9 +48,7 @@ function createDamageFormula(
     }
 
     const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-    if (!damage.base.length) {
-        return null;
-    }
+    if (damage.base.length === 0) return null;
 
     // Apply damage dice increases and overrides first. These affect base damage, so must be done before
     applyDamageDiceOverrides(damage.base, damage.dice, { critical, maxIncreases: damage.maxIncreases });

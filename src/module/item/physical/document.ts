@@ -481,7 +481,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort((a, b) => a.sort - b.sort);
 
         // If there is nothing to sort, perform the normal update and end here
-        if (!sortBefore && !siblings.length && !!mainContainerUpdate) {
+        if (!sortBefore && siblings.length === 0 && !!mainContainerUpdate) {
             await this.update(mainContainerUpdate);
             return;
         }
