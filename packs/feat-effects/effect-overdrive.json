@@ -80,31 +80,21 @@
                 ]
             },
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
-                        "value": "normal"
-                    }
-                ],
-                "flag": "damageType",
-                "key": "ChoiceSet",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Overdrive.FireDamage",
+                "option": "overdrive-fire-damage",
                 "predicate": [
                     "feature:weapon-innovation"
                 ],
-                "prompt": "PF2E.SpecificRule.Inventor.Overdrive.DamageTypePrompt",
-                "rollOption": "weapon-innovation-overdrive-damage"
+                "selector": "strike-damage",
+                "toggleable": true
             },
             {
                 "damageType": "fire",
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
-                    "weapon-innovation-overdrive-damage:fire"
+                    "overdrive-fire-damage"
                 ],
                 "selector": "strike-damage",
                 "slug": "overdrive",
