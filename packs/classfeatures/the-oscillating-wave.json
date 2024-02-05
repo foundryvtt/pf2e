@@ -161,7 +161,8 @@
                 },
                 "predicate": [
                     "amp-spell",
-                    "item:slug:ignite"
+                    "item:slug:ignite",
+                    "item:tag:psi-cantrip"
                 ],
                 "selector": "spell-damage"
             },
@@ -170,7 +171,8 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "amp-spell",
-                    "item:slug:ignite"
+                    "item:slug:ignite",
+                    "item:tag:psi-cantrip"
                 ],
                 "selector": "spell-damage",
                 "value": "@spell.rank"
@@ -199,12 +201,10 @@
                     },
                     {
                         "label": "PF2E.SpecificRule.Psychic.OscillatingWave.RemoveEnergy",
-                        "selected": false,
                         "value": "cold"
                     }
                 ],
-                "toggleable": true,
-                "value": true
+                "toggleable": true
             },
             {
                 "key": "DamageDice",
@@ -212,17 +212,18 @@
                     "damageType": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
                 },
                 "predicate": [
+                    "spellcasting:tradition:occult",
                     {
                         "or": [
-                            "item:slug:ignition",
-                            "item:slug:frostbite",
                             "item:slug:breath-fire",
-                            "item:slug:heat-metal",
-                            "item:slug:fireball",
-                            "item:slug:fire-shield",
                             "item:slug:cone-of-cold",
-                            "item:slug:flame-vortex",
                             "item:slug:fiery-body",
+                            "item:slug:fire-shield",
+                            "item:slug:fireball",
+                            "item:slug:flame-vortex",
+                            "item:slug:frostbite",
+                            "item:slug:heat-metal",
+                            "item:slug:ignition",
                             "item:slug:polar-ray"
                         ]
                     }
