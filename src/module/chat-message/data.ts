@@ -19,6 +19,7 @@ export interface ItemOriginFlag {
     castRank?: number;
     messageId?: string;
     variant?: { overlays: string[] };
+    rollOptions?: string[];
 }
 
 type ChatMessageFlagsPF2e = ChatMessageFlags & {

@@ -76,20 +76,25 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     abstract decrease(): Promise<void>;
 
     override getRollOptions(prefix = this.type): string[] {
-        const { origin } = this;
-        // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
-        // has been initialized
-        const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
-        // If this effect came from another actor, get that actor's roll options as well
-        const originRollOptions = originIsInitialized
-            ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
-            : [];
-        const { badge } = this;
-        const itemOrigin = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
+        const originRollOptions =
+            this.system.context?.origin.rollOptions.map((o) => `${prefix}:${o}`) ??
+            ((): string[] => {
+                const origin = this.origin;
+                // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
+                // has been initialized
+                const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
+                // If this effect came from another actor, get that actor's roll options as well
+                return originIsInitialized
+                    ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
+                    : [];
+            })();
+
+        const grantingItem = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
+        const badge = this.badge;
 
         return [
             ...super.getRollOptions(prefix),
-            ...itemOrigin,
+            ...grantingItem,
             ...Object.entries({
                 [`badge:type:${badge?.type}`]: !!badge,
                 [`badge:value:${badge?.value}`]: !!badge,
