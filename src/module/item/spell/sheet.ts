@@ -17,7 +17,7 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
+import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
     SpellDamageSource,
     SpellHeighteningInterval,
@@ -102,7 +102,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
-            passiveDefense: getPassiveDefenseLabel(spell.system.defense?.passive?.statistic ?? ""),
             variants,
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
@@ -474,7 +473,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 }
 
 interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    passiveDefense: string | null;
     isVariant: boolean;
     variants: {
         name: string;
