@@ -236,7 +236,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
                 });
             }
 
-            if (normal.length) {
+            if (normal.length > 0) {
                 const active = normal.map((spell) => ({ spell }));
                 groups.push({
                     id: maxCantripRank,
@@ -253,7 +253,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
                 const data = this.entry.system.slots[`slot${rank}`];
                 const spells = spellsByRank.get(rank) ?? [];
-                if (alwaysShowHeader || spells.length) {
+                if (alwaysShowHeader || spells.length > 0) {
                     const uses =
                         this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
@@ -309,7 +309,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
 
             // If all spontaneous or flexible slots are spent for a given level, mark them as expended
             for (const group of groups) {
-                if (group.id !== "cantrips" && group.uses?.value === 0 && group.uses.max > 0) {
+                if (group.id !== "cantrips" && group.uses?.value === 0 && group.uses.max >= 0) {
                     for (const slot of group.active) {
                         if (slot) slot.expended = true;
                     }
