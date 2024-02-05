@@ -284,7 +284,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             // Whether the value is a modifier and to be displayed with a sign
             const isModifier = input.classList.contains("modifier") || input.dataset.modifier !== undefined;
             // Whether the value is nullable: if so, allow the value to be cleared instead of coercing to a number
-            const isNullable = input.dataset.nullable !== undefined;
+            const isNullable = "nullable" in input.dataset;
 
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
