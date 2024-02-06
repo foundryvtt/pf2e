@@ -138,7 +138,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     /** Generate a label without a leading title (such as "Effect:") */
     protected getReducedLabel(label = this.label): string {
-        return reduceItemName(label);
+        return label === this.parent.name ? reduceItemName(label) : label;
     }
 
     /** Include parent item's name and UUID in `DataModel` validation error messages */
