@@ -630,24 +630,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
-            // Versatile-damage toggles
-            const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
-                strikeElem,
-                "button[data-action=toggle-versatile]",
-            );
-            for (const button of versatileToggleButtons) {
-                button.addEventListener("click", () => {
-                    const weapon = this.getStrikeFromDOM(button)?.item;
-                    const baseType = weapon?.system.damage.damageType ?? null;
-                    const selection =
-                        button.classList.contains("selected") || button.value === baseType ? null : button.value;
-                    const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
-                    if (weapon && selectionIsValid) {
-                        toggleWeaponTrait({ trait: "versatile", weapon, selection });
-                    }
-                });
-            }
-
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -877,10 +859,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // ACTIONS
 
         // Versatile-damage toggles
-        handlers["toggle-versatile"] = async (button) => {
-            if (!(button instanceof HTMLButtonElement)) {
-                return;
-            }
+        handlers["toggle-versatile"] = async (_, button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
 
             const weapon = this.getStrikeFromDOM(button)?.item;
             const baseType = weapon?.system.damage.damageType ?? null;
