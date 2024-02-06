@@ -24,12 +24,42 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                        "value": "critical-success"
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "success"
                     },
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": "success"
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "critical-success"
                     }
                 ],
                 "flag": "baseDamage",
