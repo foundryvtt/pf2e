@@ -37,6 +37,33 @@
                     "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnlargedChassis",
                     "value": "enlarged-chassis"
                 }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "enhancement:enlarged-chassis"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             }
         ],
         "traits": {
