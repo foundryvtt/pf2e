@@ -24,6 +24,12 @@ export class DelegatedCollection<V> {
         return this.#data.get(key, options);
     }
 
+    getName<T extends V = V>(name: Maybe<string>, { strict }: { strict: true }): T;
+    getName<T extends V = V>(name: string, options?: CollectionGetOptions): T | undefined;
+    getName(name: string, options?: CollectionGetOptions): V | undefined {
+        return this.#data.getName(name, options);
+    }
+
     set(key: string, value: V): this {
         this.#data.set(key, value);
         return this;
