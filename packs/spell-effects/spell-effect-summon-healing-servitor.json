@@ -1,0 +1,41 @@
+{
+    "_id": "T3NbslG6huktyNRm",
+    "img": "systems/pf2e/icons/spells/summon-healing-servitor.webp",
+    "name": "Spell Effect: Summon Healing Servitor",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Summon Healing Servitor]</p>\n<p>All allies within 20 feet of the Servitor gain temporary Hit Points until the servitor departs.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ceil(@item.level/2)*8 -4"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
