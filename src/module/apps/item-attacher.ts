@@ -84,9 +84,11 @@ class ItemAttacher<TItem extends PhysicalItemPF2e> extends PickAThingPrompt<TIte
         }
         const subitems = targetSource.system.subitems;
         const attachmentSource = this.item.toObject();
-        attachmentSource._id = fu.randomID();
         attachmentSource.system.quantity = 1;
         attachmentSource.system.equipped = { carryType: "attached", handsHeld: 0 };
+        if (subitems.some((s) => s._id === attachmentSource._id)) {
+            attachmentSource._id = fu.randomID();
+        }
         subitems.push(attachmentSource);
 
         const newQuantity = this.item.quantity - 1;

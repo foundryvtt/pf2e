@@ -76,8 +76,9 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     abstract decrease(): Promise<void>;
 
     override getRollOptions(prefix = this.type): string[] {
+        const context = this.system.context;
         const originRollOptions =
-            this.system.context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
+            context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
             ((): string[] => {
                 const origin = this.origin;
                 // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
@@ -91,6 +92,10 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
 
         const grantingItem = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
         const badge = this.badge;
+        const rollContext = {
+            degree: context?.roll?.degreeOfSuccess,
+            total: context?.roll?.total,
+        };
 
         return [
             ...super.getRollOptions(prefix),
@@ -98,6 +103,8 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
             ...Object.entries({
                 [`badge:type:${badge?.type}`]: !!badge,
                 [`badge:value:${badge?.value}`]: !!badge,
+                [`context:check:outcome:${rollContext.degree}`]: typeof rollContext.degree === "number",
+                [`context:check:total:${rollContext.total}`]: typeof rollContext.total === "number",
                 "from-spell": this.fromSpell,
             })
                 .filter(([, isTrue]) => isTrue)

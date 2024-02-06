@@ -152,6 +152,16 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
 
                             const traits: string[] = weapon.system.traits.value;
 
+                            // If the weapon's base damage type is the same as a modular or versatile damage type, skip
+                            // adding the trait
+                            const damageType = weapon.isOfType("weapon") ? weapon.system.damage.damageType.at(0) : null;
+                            if (
+                                this.mode === "add" &&
+                                [`modular-${damageType}`, `versatile-${damageType}`].includes(change)
+                            ) {
+                                return;
+                            }
+
                             // If the weapon already has a trait of the same type but a different value, we need to check
                             // if the new trait is better than the existing one and, if it is, replace it
                             const annotatedTraitMatch = change.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
