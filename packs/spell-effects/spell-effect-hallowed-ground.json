@@ -1,0 +1,45 @@
+{
+    "_id": "yb9q5nVA1N0FfO6D",
+    "img": "icons/sundries/flags/banner-flag-blue.webp",
+    "name": "Spell Effect: Hallowed Ground",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Hallowed Ground]</p>\n<p>Undead creatures have weakness to vitality damage while in the area.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:mode:undead"
+                ],
+                "type": "vitality",
+                "value": "ceil(@item.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
