@@ -40,7 +40,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
             this.allowDuplicate = true;
         } else {
             if (this.reevaluateOnUpdate) this.allowDuplicate = false;
-            if (this.item.isOfType("physical")) {
+            if (this.parent.isOfType("physical")) {
                 this.failValidation("parent item must not be physical");
             }
         }
@@ -54,16 +54,20 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 ? fu.deepClone(data.preselectChoices)
                 : {};
 
-        this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
+        this.grantedId = this.parent.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
 
         if (this.track) {
-            const grantedItem = this.actor.inventory.get(this.grantedId ?? "") ?? null;
+            const grantedItem =
+                this.actor.inventory.get(this.grantedId ?? "") ??
+                this.actor.inventory.flatMap((i) => i.subitems.contents).find((i) => i.id === this.grantedId) ??
+                null;
+
             this.#trackItem(grantedItem);
         }
     }
 
     static override defineSchema(): GrantItemSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             uuid: new fields.StringField({
