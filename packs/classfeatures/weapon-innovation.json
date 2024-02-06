@@ -163,6 +163,27 @@
                     "class:inventor"
                 ],
                 "uuid": "{item|flags.pf2e.rulesSelections.initialModification}"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Overdrive.FireDamage",
+                "option": "overdrive-fire-damage",
+                "predicate": [
+                    "self:effect:overdrive"
+                ],
+                "selector": "strike-damage",
+                "toggleable": true
+            },
+            {
+                "damageType": "fire",
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "overdrive-fire-damage"
+                ],
+                "selector": "strike-damage",
+                "slug": "overdrive",
+                "value": 0
             }
         ],
         "traits": {
