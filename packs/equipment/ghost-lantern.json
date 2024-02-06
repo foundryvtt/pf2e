@@ -1,6 +1,6 @@
 {
     "_id": "pZhqdggB36MpDUwh",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/sundries/lights/lantern-steel.webp",
     "name": "Ghost Lantern",
     "system": {
         "baseItem": null,
@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Crafted from cold iron, this black hooded lantern has gray glass and lenses that emit a pale gray light when the lantern is lit. Anything this light falls on looks gray or desaturated. The lantern uses oil as a standard hooded lantern. The lantern's light shines within the Ethereal Plane as well as the Material Plane. On any other plane, the light functions as a normal hooded lantern.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The lantern's shutters are open</p>\n<hr />\n<p><strong>Effect</strong> You concentrate on the lantern's light to soften the boundary between the Ethereal and Material Plane. Any creature in the lantern's bright light on the Material Plane gains the effects of the @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune on all its weapons and unarmed attacks. If an affected weapon or attack is magical and already has the maximum number of property runes, the wielder can choose one to suppress to gain <em>ghost touch</em>. This benefit lasts for 5 minutes or until the shutters are closed, whichever comes first. It applies to a creature only while it's in the lantern's bright light, and if the creature leaves the light and returns it regains the benefit once more.</p>"
+            "value": "<p>Crafted from cold iron, this black hooded lantern has gray glass and lenses that emit a pale gray light when the lantern is lit. Anything this light falls on looks gray or desaturated. The lantern uses oil as a standard hooded lantern. The lantern's light shines within the Ethereal Plane as well as the Material Plane. On any other plane, the light functions as a normal hooded lantern.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The lantern's shutters are open</p>\n<p><strong>Effect</strong> You concentrate on the lantern's light to soften the boundary between the Ethereal and Material Plane. Any creature in the lantern's bright light on the Material Plane gains the effects of the @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune on all its weapons and unarmed attacks. If an affected weapon or attack is magical and already has the maximum number of property runes, the wielder can choose one to suppress to gain <em>ghost touch</em>. This benefit lasts for 5 minutes or until the shutters are closed, whichever comes first. It applies to a creature only while it's in the lantern's bright light, and if the creature leaves the light and returns it regains the benefit once more.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Ghost Lantern]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,27 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "flame"
+                    },
+                    "bright": 30,
+                    "color": "#808080",
+                    "dim": 60,
+                    "saturation": -0.9,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "value": "icons/sundries/lights/lantern-steel.webp"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
