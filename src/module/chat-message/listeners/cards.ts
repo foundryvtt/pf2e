@@ -90,11 +90,14 @@ class ChatCards {
             // Spell actions
             switch (action) {
                 case "spell-attack":
-                    return spell?.rollAttack(event);
+                    await spell?.rollAttack(event);
+                    return;
                 case "spell-attack-2":
-                    return spell?.rollAttack(event, 2);
+                    await spell?.rollAttack(event, 2);
+                    return;
                 case "spell-attack-3":
-                    return spell?.rollAttack(event, 3);
+                    await spell?.rollAttack(event, 3);
+                    return;
                 case "spell-damage":
                     spell?.rollDamage(event);
                     return;
