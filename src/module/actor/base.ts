@@ -886,7 +886,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : [null, null];
 
         const isAttackAction = ["attack", "attack-roll", "attack-damage"].some((d) => params.domains.includes(d));
-        const isMelee = !!(params.melee || (params.item?.isOfType("weapon", "melee") && params.item.isMelee));
+        const isMelee = !!(params.melee || (params.item?.isOfType("melee", "spell", "weapon") && params.item.isMelee));
         const reach =
             isMelee && params.item?.isOfType("action", "weapon", "melee")
                 ? this.getReach({ action: "attack", weapon: params.item })

@@ -47,6 +47,7 @@ import {
     htmlClosest,
     localizer,
     ordinalString,
+    sluggify,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
@@ -208,6 +209,30 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.overlays.size > 0;
     }
 
+    /**
+     * Attempt to parse out range data.
+     * @todo Migrate me.
+     */
+    get range(): RangeData | null {
+        const actor = this.actor;
+        if (this.isMelee) {
+            const reach = actor?.isOfType("creature") ? actor.system.attributes.reach.base : 5;
+            return { increment: null, max: reach };
+        }
+
+        const text = sluggify(this.system.range.value);
+        const rangeFeet = Math.floor(Math.abs(Number(/^(\d+)-f(?:t|eet)\b/.exec(text)?.at(1))));
+        return Number.isInteger(rangeFeet) ? { increment: null, max: rangeFeet } : null;
+    }
+
+    get isMelee(): boolean {
+        return sluggify(this.system.range.value) === "touch";
+    }
+
+    get isRanged(): boolean {
+        return !this.isMelee && !!this.range?.max;
+    }
+
     get area(): (SpellArea & { label: string }) | null {
         if (!this.system.area) return null;
 
@@ -216,11 +241,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const shape = game.i18n.localize(CONFIG.PF2E.areaTypes[this.system.area.type]);
         const label = game.i18n.format("PF2E.Item.Spell.Area", { size, unit, shape });
         return { ...this.system.area, label };
-    }
-
-    /** Dummy getter for interface alignment with weapons and actions */
-    get range(): RangeData | null {
-        return null;
     }
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
@@ -661,7 +681,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override getRollOptions(prefix = this.type, options: { includeVariants?: boolean } = {}): string[] {
-        const { spellcasting } = this;
+        const spellcasting = this.spellcasting;
         const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
         if (spellcasting?.tradition) {
@@ -671,6 +691,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const entryHasSlots = !!(spellcasting?.isPrepared || spellcasting?.isSpontaneous);
         if (entryHasSlots && !this.isCantrip && !this.parentItem) {
             spellOptions.add(`${prefix}:spell-slot`);
+        }
+
+        if (this.isMelee) {
+            spellOptions.add(`${prefix}:melee`);
+        } else if (this.isRanged) {
+            spellOptions.add(`${prefix}:ranged`);
         }
 
         if (!this.system.duration.value) {
@@ -928,25 +954,25 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         event: MouseEvent | JQuery.ClickEvent,
         attackNumber = 1,
         context: StatisticRollParameters = {},
-    ): Promise<void> {
-        const spellcasting = this.spellcasting;
-        const statistic = spellcasting?.statistic;
-        if (statistic) {
-            context.extraRollOptions = R.uniq(
-                R.compact(["action:cast-a-spell", "self:action:slug:cast-a-spell", context.extraRollOptions].flat()),
-            );
-            await statistic.check.roll({
-                ...eventToRollParams(event, { type: "check" }),
-                ...context,
-                action: "cast-a-spell",
-                item: this,
-                traits: R.uniq(R.compact([...this.traits, spellcasting.tradition])),
-                attackNumber,
-                dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
-            });
-        } else {
+    ): Promise<Rolled<CheckRoll> | null> {
+        const { statistic, tradition } = this.spellcasting ?? {};
+        if (!statistic) {
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
+
+        context.extraRollOptions = R.uniq(
+            R.compact(["action:cast-a-spell", "self:action:slug:cast-a-spell", context.extraRollOptions].flat()),
+        );
+
+        return statistic.check.roll({
+            ...eventToRollParams(event, { type: "check" }),
+            ...context,
+            action: "cast-a-spell",
+            item: this,
+            traits: R.uniq(R.compact([...this.traits, tradition])),
+            attackNumber,
+            dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
+        });
     }
 
     async rollDamage(
