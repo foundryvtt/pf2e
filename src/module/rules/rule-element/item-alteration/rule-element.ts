@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import * as R from "remeda";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeRuleElement } from "../ae-like.ts";
@@ -82,7 +83,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         }
     }
 
-    applyAlteration({ singleItem = null, additionalItems = [] }: ApplyAlterationOptions = {}): void {
+    applyAlteration({ additionalItems = [] }: ApplyAlterationOptions = {}): void {
         // Predicate testing is done per item among specified item type
         if (this.ignored) return;
 
@@ -90,15 +91,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         const actorRollOptions = predicate.length > 0 ? this.actor.getRollOptions() : [];
         const parentRollOptions = this.parent.getRollOptions("parent");
         try {
-            const items = ((): ItemPF2e<ActorPF2e>[] => {
-                const itemId = this.resolveInjectedProperties(this.itemId);
-                if (singleItem) return this.itemType === singleItem.type ? [singleItem] : [];
-                return itemId
-                    ? R.compact([this.actor.items.get(itemId)])
-                    : this.itemType === "condition"
-                      ? this.actor.conditions.contents
-                      : this.actor.itemTypes[this.itemType!];
-            })();
+            const items = this.#getItemsOfType();
             items.push(
                 ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );
@@ -115,6 +108,33 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         } catch (error) {
             if (error instanceof Error) this.failValidation(error.message);
         }
+    }
+
+    /** Get all items of the requested type (or `id`), searching subitems if necessary */
+    #getItemsOfType(): ItemPF2e<ActorPF2e>[] {
+        if (this.itemId) {
+            const itemId = this.resolveInjectedProperties(this.itemId);
+            const item =
+                this.actor.items.get(itemId) ??
+                this.actor.inventory.flatMap((i) => i.subitems.contents).find((i) => i.id === itemId);
+            return R.compact([item]);
+        }
+
+        if (this.itemType === "condition") {
+            return this.actor.conditions.contents;
+        }
+
+        if (this.itemType) {
+            const physicalItemTypes: Set<string> = PHYSICAL_ITEM_TYPES;
+            return physicalItemTypes.has(this.itemType)
+                ? [
+                      this.actor.itemTypes[this.itemType],
+                      this.actor.inventory.map((i) => i.subitems.filter((s) => s.type === this.itemType)),
+                  ].flat(2)
+                : this.actor.itemTypes[this.itemType];
+        }
+
+        return [];
     }
 }
 

@@ -3,8 +3,7 @@ import { ItemPF2e } from "@item";
 
 /** Check an item prior to its deletion for GrantItem on-delete actions */
 async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: ItemPF2e<ActorPF2e>[]): Promise<void> {
-    const { actor } = item;
-
+    const actor = item.actor;
     const granter = actor.items.get(item.flags.pf2e.grantedBy?.id ?? "");
     const parentGrant = Object.values(granter?.flags.pf2e.itemGrants ?? {}).find((g) => g.id === item.id);
     const grants = Object.values(item.flags.pf2e.itemGrants);
@@ -47,12 +46,7 @@ async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: It
         }
     }
 
-    // Finally, handle detachments, removing the grant data from granters `itemGrants` object
-    const [key] = Object.entries(granter?.flags.pf2e.itemGrants ?? {}).find(([, g]) => g === parentGrant) ?? [null];
-    if (granter && key && !pendingItems.includes(granter)) {
-        await granter.update({ [`flags.pf2e.itemGrants.-=${key}`]: null }, { render: false });
-    }
-
+    // Finally, handle detachments, removing the grant data from grantees' `grantedBy` objects
     for (const grant of grants) {
         const grantee = actor.items.get(grant.id);
         if (grantee?.flags.pf2e.grantedBy?.id !== item.id) continue;
