@@ -131,8 +131,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
-                    "item:slug:contagious-idea"
+                    "item:slug:contagious-idea",
+                    "item:tag:amped"
                 ],
                 "property": "description",
                 "value": [
@@ -141,6 +141,18 @@
                         "title": "PF2E.TraitAmp"
                     }
                 ]
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "2 * ceil(@spell.rank / 2) - 1",
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:daze",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage"
             }
         ],
         "traits": {
