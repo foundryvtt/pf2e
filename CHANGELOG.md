@@ -1,3 +1,58 @@
+## 5.13.3
+
+### System Improvements
+
+-   (nikolaj-a) Add recall knowledge action macro
+-   (stwlam) Allow Sense rule elements to apply to NPCs
+-   (stwlam) Automate addition of swarm condition immunities, update construct immunities to reflect GM Core
+-   (stwlam) Make passive spell defenses editable
+-   (stwlam) Attempt to parse out whether spells are melee/ranged and set roll options
+-   (Supe) Add create bonus feat button to kingdom sheet
+-   (Supe) Move kingdom ability modifier computation to later step so as to targetable by rule elements
+
+### Bugfixes
+
+-   (Grambles) Correct precision damage getting halved by critical success
+-   (nikolaj-a) Fix identification of mystified mundane items
+
+### Data Updates
+
+-   (Bryan Conrad) Fix duration of Soothing Words
+-   (Dire Weasel) Add effect for Hallowed Ground
+-   (Dire Weasel) Add ingested point immunity to Smog Giant
+-   (Dire Weasel) Add light automation and effect for Ghost Lantern
+-   (Dire Weasel) Add link to Invisibility from Mislead
+-   (Dire Weasel) Add note to Serpent Dagger
+-   (Dire Weasel) Brush up Darkside Mirrors, Elysian Dew descriptions
+-   (Dire Weasel) Fix automation for Man-Feller
+-   (Dire Weasel) Fix Celestial Staff and Hell Staff to be specific items
+-   (Dire Weasel) Fix Delay Affliction to deliver healing
+-   (Dire Weasel) Fix malformed links to Marvelous Mount in Staff of Summoning
+-   (Dire Weasel) Fix Occultism choice set option in Weight of Experience
+-   (Dire Weasel) Fix price of Bravery Baldric (Haste)
+-   (Dire Weasel) Fix rank of Life's Flowing River
+-   (Dire Weasel) Fix Shredskin immunity to critical hits (except slashing)
+-   (Dire Weasel) Fix Summon Healing Servitor to be both damage and healing and add effect
+-   (Dire Weasel) Refresh Shobhad Sniper's copy of Shobhad Longrifle
+-   (Dire Weasel) Remove damage partial from Life's Flowing River and add inline damage links
+-   (Dire Weasel) Standardize selector for Jabali's Dice
+-   (DocSchlock) Add Faerie Fire to Remaster Changes journal entry
+-   (DocSchlock) Add Magical Trait to Strikes granted by Morph spell effects
+-   (kromko) Change Nature's Bounty damage kind to healing
+-   (kromko) Update Geas description
+-   (mullr) Fix Wind Touch damage in Unshadowed Haibram
+-   (rectulo) Replace spell level with rank several spells and localized strings
+-   (Rigo) Add upgrade notes and predicated bonuses to Nanite Surge
+-   (stwlam) Change Overdrive damage choice set to toggle
+-   (stwlam) Correct passive defense of attack spells targeting fortitude DC
+-   (stwlam) Extend archer archetype feat support to weapons in crossbow group
+-   (stwlam) Move overdrive fire damage to weapon innovation class feature
+-   (stwlam) Remove class kits
+-   (stwlam) Replace note on Sticky Bomb feat with flat modifier
+-   (Tikael) Finish Psychic amp and spell modifications
+-   (Tikael) Grant Deadly Simplicity with Warpriest's First Doctrine
+-   (Tikael) Brush up automation of Enlarged Chassis and Scion Transformation
+
 ## 5.13.2
 
 ### Bugfixes
