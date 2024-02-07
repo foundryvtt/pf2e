@@ -177,6 +177,41 @@
                     "item:tag:psi-cantrip"
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": "ceil(@spell.rank/2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:telekinetic-rend",
+                    "item:damage:type:slashing"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": "ceil(@spell.rank/2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:telekinetic-rend",
+                    "item:damage:type:bludgeoning"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "amp-spell",
+                    "item:slug:dancing-blade"
+                ],
+                "selector": "spell-damage"
             }
         ],
         "traits": {
