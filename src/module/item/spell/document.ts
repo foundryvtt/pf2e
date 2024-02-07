@@ -512,7 +512,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Run some additional preparation since this spell exists outside the normal data-preparation cycle
         const rules = actor?.rules ?? [];
-        for (const alteration of rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration")) {
+        const alterations = rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
+        for (const alteration of alterations) {
             alteration.applyAlteration({ singleItem: variant as SpellPF2e<NonNullable<TParent>> });
         }
 
