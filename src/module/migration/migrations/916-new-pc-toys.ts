@@ -56,15 +56,33 @@ export class Migration916NewPCToys extends MigrationBase {
 
     #updateAbility(source: AbilitySource, slug: string): void {
         if (slug === "overdrive") {
-            const rule = {
-                key: "Note",
-                outcome: ["criticalFailure"],
-                predicate: ["self:action:slug:overdrive"],
-                selector: "crafting",
-                text: "PF2E.SpecificRule.Inventor.Overdrive.CriticalFailure",
-                title: "PF2E.Check.Result.Degree.Check.criticalFailure",
-            };
-            source.system.rules = [rule];
+            const rules = [
+                {
+                    key: "Note",
+                    title: "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                    selector: "crafting",
+                    predicate: ["self:action:slug:overdrive"],
+                    text: "PF2E.SpecificRule.Inventor.Overdrive.CriticalSuccess",
+                    outcome: ["criticalSuccess"],
+                },
+                {
+                    key: "Note",
+                    title: "PF2E.Check.Result.Degree.Check.success",
+                    selector: "crafting",
+                    predicate: ["self:action:slug:overdrive"],
+                    text: "PF2E.SpecificRule.Inventor.Overdrive.Success",
+                    outcome: ["success"],
+                },
+                {
+                    key: "Note",
+                    outcome: ["criticalFailure"],
+                    predicate: ["self:action:slug:overdrive"],
+                    selector: "crafting",
+                    text: "PF2E.SpecificRule.Inventor.Overdrive.CriticalFailure",
+                    title: "PF2E.Check.Result.Degree.Check.criticalFailure",
+                },
+            ];
+            source.system.rules = rules;
         }
     }
 
