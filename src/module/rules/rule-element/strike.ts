@@ -223,7 +223,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
         const damageType = this.resolveInjectedProperties(this.damage.base.damageType);
         if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-            return this.failValidation("Unrecognized damage type");
+            return this.failValidation(`Unrecognized damage type: ${damageType}`);
         }
 
         const dice = ((): number => {
