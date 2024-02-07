@@ -11,8 +11,8 @@ export class Migration905UnpersistUsage extends MigrationBase {
             if ("usage" in source.system) source.system["-=usage"] = null;
             return;
         }
-        if (itemIsOfType(source, "armor", "shield", "treasure") && "usage" in source.system) {
-            source.system["-=usage"] = null;
+        if (itemIsOfType(source, "armor", "shield", "treasure")) {
+            if ("usage" in source.system) source.system["-=usage"] = null;
         } else if (source.system.usage?.value === "") {
             source.system.usage.value = "carried";
         }
