@@ -157,10 +157,13 @@
             {
                 "key": "DamageDice",
                 "override": {
-                    "upgrade": true
+                    "dieSize": "d10"
                 },
                 "predicate": [
                     "amp-spell",
+                    {
+                        "not": "item:melee"
+                    },
                     "item:slug:ignition",
                     "item:tag:psi-cantrip"
                 ],
@@ -169,22 +172,11 @@
             {
                 "key": "DamageDice",
                 "override": {
-                    "upgrade": true
+                    "dieSize": "d12"
                 },
                 "predicate": [
                     "amp-spell",
-                    "item:slug:ignition",
-                    "item:tag:psi-cantrip"
-                ],
-                "selector": "spell-damage"
-            },
-            {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "predicate": [
-                    "amp-spell",
+                    "item:melee",
                     "item:slug:ignition",
                     "item:tag:psi-cantrip"
                 ],
