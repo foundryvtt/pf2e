@@ -58,14 +58,14 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped"
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped"
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -87,14 +87,14 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped"
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped"
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -106,9 +106,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
                     "item:slug:thermal-stasis",
-                    "item:tag:psi-cantrip"
+                    "item:tag:amped"
                 ],
                 "property": "description",
                 "value": [
@@ -123,8 +122,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
-                    "item:slug:entropic-wheel"
+                    "item:slug:entropic-wheel",
+                    "item:tag:amped"
                 ],
                 "property": "description",
                 "value": [
@@ -139,8 +138,8 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
-                    "item:slug:redistribute-potential"
+                    "item:slug:redistribute-potential",
+                    "item:tag:amped"
                 ],
                 "property": "description",
                 "value": [
@@ -157,28 +156,28 @@
             {
                 "key": "DamageDice",
                 "override": {
+                    "diceNumber": "@spell.rank",
                     "dieSize": "d10"
                 },
                 "predicate": [
-                    "amp-spell",
+                    "item:slug:ignition",
+                    "item:tag:amped",
                     {
                         "not": "item:melee"
-                    },
-                    "item:slug:ignition",
-                    "item:tag:psi-cantrip"
+                    }
                 ],
                 "selector": "spell-damage"
             },
             {
                 "key": "DamageDice",
                 "override": {
+                    "diceNumber": "@spell.rank",
                     "dieSize": "d12"
                 },
                 "predicate": [
-                    "amp-spell",
                     "item:melee",
                     "item:slug:ignition",
-                    "item:tag:psi-cantrip"
+                    "item:tag:amped"
                 ],
                 "selector": "spell-damage"
             },
@@ -186,9 +185,8 @@
                 "damageCategory": "splash",
                 "key": "FlatModifier",
                 "predicate": [
-                    "amp-spell",
                     "item:slug:ignition",
-                    "item:tag:psi-cantrip"
+                    "item:tag:amped"
                 ],
                 "selector": "spell-damage",
                 "value": "@spell.rank"
@@ -198,9 +196,8 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "predicate": [
-                    "amp-spell",
                     "item:slug:frostbite",
-                    "item:tag:psi-cantrip"
+                    "item:tag:amped"
                 ],
                 "selector": "spell-damage"
             },
