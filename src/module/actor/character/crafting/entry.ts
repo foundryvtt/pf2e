@@ -2,6 +2,8 @@ import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { ErrorPF2e } from "@util";
+import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingFormula } from "./formula.ts";
 
 class CraftingEntry implements CraftingEntryData {
@@ -99,9 +101,11 @@ class CraftingEntry implements CraftingEntryData {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
-        return this.preparedCraftingFormulas.reduce((total, formula) => {
-            return total + Math.ceil(formula.quantity / this.#batchSizeFor(formula));
-        }, 0);
+        return Math.ceil(
+            this.preparedCraftingFormulas.reduce((total, formula) => {
+                return total + formula.quantity / this.#batchSizeFor(formula);
+            }, 0),
+        );
     }
 
     static isValid(data: Maybe<Partial<CraftingEntryData>>): data is CraftingEntryData {
@@ -155,39 +159,22 @@ class CraftingEntry implements CraftingEntryData {
         return this.#updateRuleElement();
     }
 
-    async increaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
-        const formula = this.preparedFormulaData[index];
-        if (!formula || formula.itemUUID !== itemUUID) return;
-        formula.quantity = Math.max((formula.quantity ?? 0) + 1, 2);
-
-        return this.#updateRuleElement();
-    }
-
-    async decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
-        const formula = this.preparedFormulaData[index];
-        if (!formula || formula.itemUUID !== itemUUID) return;
-        formula.quantity = Math.max((formula.quantity ?? 0) - 1, 0);
-
-        if (formula.quantity <= 0) {
-            await this.unprepareFormula(index, itemUUID);
-            return;
-        }
-
-        return this.#updateRuleElement();
-    }
-
     async setFormulaQuantity(index: number, itemUUID: string, value: "increase" | "decrease" | number): Promise<void> {
+        if (!UUIDUtils.isItemUUID(itemUUID)) {
+            throw ErrorPF2e(`invalid item UUID: ${itemUUID}`);
+        }
         const data = this.preparedFormulaData[index];
         if (data?.itemUUID !== itemUUID) return;
+        const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(itemUUID) : null;
         const currentQuantity = data.quantity ?? 0;
-        const batchSize = this.#batchSizeFor(data);
+        const adjustment = this.fieldDiscovery?.test(item?.getRollOptions("item") ?? []) ? 1 : this.#batchSizeFor(data);
         const newQuantity =
             typeof value === "number"
                 ? value
                 : value === "increase"
-                  ? currentQuantity + batchSize
-                  : currentQuantity - batchSize;
-        data.quantity = Math.ceil(Math.clamped(newQuantity, batchSize, batchSize * 50) / batchSize) * batchSize;
+                  ? currentQuantity + adjustment
+                  : currentQuantity - adjustment;
+        data.quantity = Math.ceil(Math.clamped(newQuantity, adjustment, adjustment * 50) / adjustment) * adjustment;
 
         return this.#updateRuleElement();
     }
