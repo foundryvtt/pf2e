@@ -1,8 +1,20 @@
+## 5.13.4
+
+### Bugfixes
+
+-   (stwlam) Restore ability to create any combination of qualifying alchemical items using field discoveries
+-   (stwlam) Fix resolving damage dice number overrides that reference spells and weapons
+
+### Data Updates
+
+-   (Dire Weasel) Fix missing versatile piercing for Bestial Manifestation claw attack
+-   (Tikael) Add missing amp automation for Daze and fix Ignition's amp scaling
+-   (Wonton) Fix publication data and move spoiler text to GM notes for several rituals
+
 ## 5.13.3
 
 ### System Improvements
 
--   (nikolaj-a) Add recall knowledge action macro
 -   (stwlam) Allow Sense rule elements to apply to NPCs
 -   (stwlam) Automate addition of swarm condition immunities, update construct immunities to reflect GM Core
 -   (stwlam) Make passive spell defenses editable
@@ -17,7 +29,7 @@
 
 ### Data Updates
 
--   (Bryan Conrad) Fix duration of Soothing Words
+-   (bryanconrad) Correct duration for Soothing Words to match Player Core
 -   (Dire Weasel) Add effect for Hallowed Ground
 -   (Dire Weasel) Add ingested point immunity to Smog Giant
 -   (Dire Weasel) Add light automation and effect for Ghost Lantern
