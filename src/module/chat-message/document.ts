@@ -106,7 +106,11 @@ class ChatMessagePF2e extends ChatMessage {
 
         const item = (() => {
             const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
-            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
+            if (actor && embeddedSpell) {
+                const parentItemId = this.flags.pf2e.casting?.parentItemId;
+                const parentItem = parentItemId ? actor.items.get(parentItemId) : undefined;
+                return new ItemProxyPF2e(embeddedSpell, { parent: actor, parentItem });
+            }
 
             const origin = this.flags.pf2e?.origin ?? null;
             const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];

@@ -22,12 +22,19 @@ export interface ItemOriginFlag {
     rollOptions?: string[];
 }
 
+export interface ChatCastingFlag {
+    id: string;
+    tradition: MagicTradition;
+    embeddedSpell?: SpellSource;
+    parentItemId?: string;
+}
+
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
         context?: ChatContextFlag;
         origin?: ItemOriginFlag | null;
-        casting?: { id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
+        casting?: ChatCastingFlag | null;
         modifiers?: RawModifier[];
         dice?: RawDamageDice[];
         preformatted?: "flavor" | "content" | "both";
@@ -85,7 +92,7 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
     options: string[];
 }
 
-interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self" | "casting">> {
     actor: string | null;
     token: string | null;
     item?: string;
