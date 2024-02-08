@@ -879,7 +879,6 @@ function getCheckDC({
 
     if (base) {
         const getStatisticValue = (selectors: string[]): string => {
-            actor ??= item?.actor ?? null;
             if (actor && params.immutable !== "true") {
                 const { synthetics } = actor;
                 const modifier = new ModifierPF2e({
