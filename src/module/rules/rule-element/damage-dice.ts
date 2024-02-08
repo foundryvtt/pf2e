@@ -86,28 +86,24 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 }
 
                 if (this.override) {
-                    this.override.damageType &&= this.resolveInjectedProperties(
-                        this.override.damageType,
-                        resolveOptions,
-                    );
-                    if (
-                        "damageType" in this.override &&
-                        !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)
-                    ) {
+                    const override = this.override;
+                    override.damageType &&= this.resolveInjectedProperties(override.damageType, resolveOptions);
+                    if ("damageType" in override && !objectHasKey(CONFIG.PF2E.damageTypes, override.damageType)) {
                         if (testPassed) this.failValidation("Unrecognized damage type in override");
                         return null;
                     }
 
-                    this.override.diceNumber &&= Math.floor(
-                        Number(this.resolveValue(this.override.diceNumber, resolveOptions)),
+                    override.diceNumber &&= Math.floor(
+                        Number(this.resolveValue(override.diceNumber, NaN, resolveOptions)),
                     );
-                    if (typeof this.override.diceNumber === "number" && this.override.diceNumber < 0) {
+                    if (Number.isNaN(override.diceNumber)) return null;
+                    if (typeof override.diceNumber === "number" && override.diceNumber < 0) {
                         if (testPassed) this.failValidation("A dice number must resolve to at least zero");
                         return null;
                     }
 
-                    this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
-                    if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
+                    override.dieSize &&= this.resolveInjectedProperties(override.dieSize, resolveOptions);
+                    if ("dieSize" in override && !setHasElement(DAMAGE_DIE_FACES, override.dieSize)) {
                         if (testPassed) this.failValidation("Unrecognized die size in override");
                         return null;
                     }
