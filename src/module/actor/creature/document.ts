@@ -15,7 +15,7 @@ import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
-import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
+import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
@@ -382,13 +382,13 @@ abstract class CreaturePF2e<
         }
 
         this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
-    }
 
-    protected override prepareDataFromItems(): void {
-        this.spellcasting = new ActorSpellcasting(this, [
-            ...this.itemTypes.spellcastingEntry,
-            new RitualSpellcasting(this),
-        ]);
+        // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
+        // and spell DC statistics. At 12th level, these proficiencies increase to expert.
+        if (this.isOfType("character") && this.spellcasting.some((e) => e.isInnate)) {
+            const spellcasting = this.system.proficiencies.spellcasting;
+            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+        }
 
         // Base spellcasting proficiency (later extended to add attribute modifiers)
         this.spellcasting.base = new Statistic(this, {
@@ -398,6 +398,13 @@ abstract class CreaturePF2e<
             domains: ["all", "spell-attack-dc"],
             check: { type: "attack-roll" },
         });
+    }
+
+    protected override prepareDataFromItems(): void {
+        this.spellcasting = new ActorSpellcasting(this, [
+            ...this.itemTypes.spellcastingEntry,
+            new RitualSpellcasting(this),
+        ]);
 
         super.prepareDataFromItems();
     }
