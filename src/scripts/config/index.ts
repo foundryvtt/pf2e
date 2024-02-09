@@ -298,6 +298,29 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     10: "PF2E.Item.Weapon.Reload.OneMinute",
 };
 
+const levels: Record<number, string> = {
+    1: "PF2E.Level1",
+    2: "PF2E.Level2",
+    3: "PF2E.Level3",
+    4: "PF2E.Level4",
+    5: "PF2E.Level5",
+    6: "PF2E.Level6",
+    7: "PF2E.Level7",
+    8: "PF2E.Level8",
+    9: "PF2E.Level9",
+    10: "PF2E.Level10",
+    11: "PF2E.Level11",
+    12: "PF2E.Level12",
+    13: "PF2E.Level13",
+    14: "PF2E.Level14",
+    15: "PF2E.Level15",
+    16: "PF2E.Level16",
+    17: "PF2E.Level17",
+    18: "PF2E.Level18",
+    19: "PF2E.Level19",
+    20: "PF2E.Level20",
+};
+
 function notifyDeprecatedPath(configPath: string, locPath: string): void {
     fu.logCompatibilityWarning(
         `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
@@ -315,28 +338,7 @@ export const PF2ECONFIG = {
         conditions: tokenHUDConditions,
     },
 
-    levels: {
-        1: "PF2E.Level1",
-        2: "PF2E.Level2",
-        3: "PF2E.Level3",
-        4: "PF2E.Level4",
-        5: "PF2E.Level5",
-        6: "PF2E.Level6",
-        7: "PF2E.Level7",
-        8: "PF2E.Level8",
-        9: "PF2E.Level9",
-        10: "PF2E.Level10",
-        11: "PF2E.Level11",
-        12: "PF2E.Level12",
-        13: "PF2E.Level13",
-        14: "PF2E.Level14",
-        15: "PF2E.Level15",
-        16: "PF2E.Level16",
-        17: "PF2E.Level17",
-        18: "PF2E.Level18",
-        19: "PF2E.Level19",
-        20: "PF2E.Level20",
-    },
+    levels,
 
     abilities,
 

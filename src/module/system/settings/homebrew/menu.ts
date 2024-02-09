@@ -48,6 +48,7 @@ import {
 import {
     ReservedTermsRecord,
     isHomebrewCustomDamage,
+    isHomebrewCustomProficiency,
     isHomebrewFlagCategory,
     prepareCleanup,
     prepareReservedTerms,
@@ -315,6 +316,8 @@ class HomebrewElements extends SettingsMenuPF2e {
         this.#refreshSettings();
         this.#registerModuleTags();
         new DamageTypeManager().updateSettings();
+        new ProficienciesManager().updateSettings();
+        new LevelsManager().updateSettings();
     }
 
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
@@ -352,6 +355,8 @@ class HomebrewElements extends SettingsMenuPF2e {
 
             for (const recordKey of Object.keys(homebrew)) {
                 if (recordKey === "damageTypes") continue; // handled elsewhere
+                if (recordKey === "additionalLevels") continue;
+                if (recordKey === "proficiencyLevels") continue;
 
                 if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     const elements = homebrew[recordKey];
@@ -499,6 +504,80 @@ class DamageTypeManager {
             .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
         for (const data of customTypes) {
             this.addCustomDamage(data);
+        }
+    }
+}
+
+/**
+ * Hands the addition of new proficiencies
+ */
+class ProficienciesManager {
+    // All collections the proficiencies must be updated in
+    collections = {
+        // proficiencyLevels: proficiencyLevels as Record<string, string>,
+    };
+
+    updateSettings() {
+        const reservedTerms = HomebrewElements.reservedTerms;
+
+        // Read module proficiency ranks
+        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+        for (const [key, foundryModule] of activeModules) {
+            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
+            if (!R.isObject(homebrew) || !homebrew.proficiencyLevels) continue;
+
+            console.warn(ErrorPF2e("It works!").message);
+
+            const profs = homebrew.proficiencyLevels;
+            if (!isObject(profs) || !isHomebrewCustomProficiency(profs)) {
+                console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
+                continue;
+            }
+
+            console.warn(ErrorPF2e("Its not deformed!").message);
+
+            for (const [slug, data] of Object.entries(profs)) {
+                if (!reservedTerms.damageTypes.has(slug)) {
+                    this.addCustomDamage(data, { slug });
+                } else {
+                    console.warn(
+                        ErrorPF2e(
+                            `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
+                        ).message,
+                    );
+                    continue;
+                }
+            }
+        }
+    }
+}
+
+/** Handles all of the importing for additional levels
+ * Changes the max level to match the highest option among all active modules.
+ * Minimum is 0, so no level decreasing as that scares me
+ */
+class LevelsManager {
+    addAdditionalLevel(lvl: number, options: { slug?: string } = {}): void {
+        const slug = (options.slug ?? sluggify(lvl.toString())) as unknown as number;
+
+        CONFIG.PF2E.levels[slug] = game.i18n.format("PF2E.LevelN", { level: lvl });
+    }
+
+    updateSettings() {
+        let higherMax = 0;
+
+        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+        for (const [key, foundryModule] of activeModules) {
+            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
+            if (!R.isObject(homebrew) || !homebrew.additionalLevels) continue;
+            // Check the value is a number
+            if (!(typeof homebrew.additionalLevels === "number")) continue;
+            // If its value is higher than the current max, update the current max
+            if (homebrew.additionalLevels > higherMax) higherMax = homebrew.additionalLevels;
+        }
+
+        for (let i = 0; i < higherMax; i++) {
+            this.addAdditionalLevel(21 + i);
         }
     }
 }

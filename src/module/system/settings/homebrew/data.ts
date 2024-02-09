@@ -48,6 +48,11 @@ interface CustomDamageData {
     icon: string | null;
 }
 
+interface CustomProficiencyData {
+    label: string;
+    value: number;
+}
+
 interface HomebrewElementsSheetData extends MenuTemplateData {
     campaignSettings: Record<string, SettingsTemplateData>;
     traitSettings: Record<string, SettingsTemplateData>;
@@ -162,6 +167,7 @@ type RawLanguageRarities<TModel extends LanguageRaritiesData = LanguageRaritiesD
 export { HOMEBREW_TRAIT_KEYS, LanguageRaritiesData, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
+    CustomProficiencyData,
     HomebrewElementsSheetData,
     HomebrewKey,
     HomebrewTag,

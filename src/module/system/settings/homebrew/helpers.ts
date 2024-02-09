@@ -5,7 +5,7 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject } from "@util";
 import * as R from "remeda";
-import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
+import { CustomDamageData, CustomProficiencyData, HomebrewTraitKey } from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
@@ -24,6 +24,15 @@ function isHomebrewCustomDamage(value: object): value is Record<string, CustomDa
             isObject<CustomDamageData>(value) &&
             typeof value.label === "string" &&
             (!value.category || ["physical", "energy"].includes(value.category)),
+    );
+}
+
+function isHomebrewCustomProficiency(value: object): value is Record<string, CustomProficiencyData> {
+    return Object.values(value).every(
+        (value) =>
+            isObject<CustomProficiencyData>(value) &&
+            typeof value.label === "string" &&
+            typeof value.value === "number",
     );
 }
 
@@ -215,6 +224,7 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
 
 export {
     isHomebrewCustomDamage,
+    isHomebrewCustomProficiency,
     isHomebrewFlagCategory,
     prepareCleanup,
     prepareReservedTerms,
