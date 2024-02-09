@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe.</p>"
+            "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe.</p>"
         },
         "level": {
             "value": 1
@@ -25,16 +25,6 @@
             "title": "Pathfinder Advanced Player's Guide"
         },
         "rules": [
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:demoralize",
-                    "self:effect:panache"
-                ],
-                "selector": "intimidation",
-                "type": "circumstance",
-                "value": 1
-            },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
@@ -51,28 +41,20 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "action:demoralize",
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "intimidation",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Braggart",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    "action:demoralize"
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

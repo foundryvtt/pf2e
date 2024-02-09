@@ -14,7 +14,7 @@
             "value": 0.1
         },
         "category": "martial",
-        "containerId": "null",
+        "containerId": null,
         "damage": {
             "damageType": "poison",
             "dice": 2,
@@ -60,18 +60,13 @@
             {
                 "key": "Note",
                 "outcome": [
-                    "success"
+                    "success",
+                    "criticalSuccess",
+                    "failure"
                 ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.PerniciousSporeBomb.Moderate.success"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.PerniciousSporeBomb.Moderate.criticalSuccess"
+                "selector": "{item|id}-attack",
+                "text": "PF2E.BombNotes.PerniciousSporeBomb.Terrain",
+                "title": "{item|name}"
             }
         ],
         "runes": {
@@ -94,6 +89,7 @@
             ]
         },
         "usage": {
+            "canBeAmmo": false,
             "value": "held-in-one-hand"
         }
     },

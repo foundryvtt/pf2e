@@ -178,7 +178,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by <em>@UUID[Compendium.pf2e.spells-srd.Item.Peaceful Rest]</em> or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18 #Fist]]{+18}/[[/r 1d20+13 #Fist]]{+13}/[[/r 1d20+8 #Fist]]{+8} attack modifier that deals @Damage[2d8[bludgeoning],2d8[piercing]]{2d8 bludgeoning damage plus 2d8 piercing damage} and hellwasp venom. The hellwasp swarm gains [[/r 40 #Temporary Hit Points]]{40 temporary Hit Points} when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
+                    "value": "<p>The hellwasp swarm animates the corpse of a Small, Medium, or Large humanoid that protected by @UUID[Compendium.pf2e.spells-srd.Item.Peaceful Rest] or similar magic, crawling into its mouth and other orifices.</p>\n<p>Its size changes to that of the corpse and it loses its piercing and slashing resistances, fly Speed, and Hellwasp Stings.</p>\n<p>It gains a fist melee Strike with a [[/r 1d20+18 #Fist]]{+18}/[[/r 1d20+13 #Fist]]{+13}/[[/r 1d20+8 #Fist]]{+8} attack modifier that deals @Damage[2d8[bludgeoning],2d8[piercing]]{2d8 bludgeoning damage plus 2d8 piercing damage} and hellwasp venom. The hellwasp swarm gains [[/r 40 #Temporary Hit Points]]{40 temporary Hit Points} when it Infests a Corpse; when these temporary HP are depleted, the corpse falls apart and the swarm Abandons the Corpse automatically.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -326,12 +326,6 @@
                     "type": "swarm-mind"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -372,6 +366,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "diabolic"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -382,6 +382,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -399,20 +411,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "diabolic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

@@ -521,7 +521,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 5
@@ -712,7 +712,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double<em>Abyssal pact's</em>spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double<em>Abyssal pact's</em>spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1110,7 +1110,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A non-evil creature that ends its turn in the aura must attempt a @Check[type:fortitude|dc:35] save. If it fails, it's slowed 1 for 1 round, and if it critically fails, it is instead paralyzed for 1 round.</p>"
+                    "value": "<p>30 feet. A non-evil creature that ends its turn in the aura must attempt a @Check[type:fortitude|dc:35] save. If it fails, it's slowed 1 for 1 round, and if it critically fails, it is instead paralyzed for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1489,12 +1489,6 @@
                 "temp": 0,
                 "value": 350
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1521,6 +1515,14 @@
         },
         "details": {
             "blurb": "Male variant shemhazian",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1531,6 +1533,28 @@
                 "remaster": false,
                 "title": "Pathfinder #161: Belly of the Black Whale"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1553,19 +1577,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

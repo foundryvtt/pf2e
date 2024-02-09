@@ -2,15 +2,16 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HOMEBREW_TRAIT_KEYS, HomebrewTag } from "@system/settings/homebrew/index.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
     static override version = 0.674;
 
-    #homebrewKeys = deepClone(HOMEBREW_TRAIT_KEYS);
+    #homebrewKeys = fu.deepClone(HOMEBREW_TRAIT_KEYS);
 
     #homebrewTags = this.#homebrewKeys.reduce(
-        (settings, key) => mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
+        (settings, key) => fu.mergeObject(settings, { [key]: game.settings.get("pf2e", `homebrew.${key}`) }),
         {} as Record<(typeof HOMEBREW_TRAIT_KEYS)[number], HomebrewTag[]>,
     );
 
@@ -29,7 +30,10 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
 
         this.#updateDocumentTags(source.system.traits.traits.value);
         if (source.type === "character" || source.type === "npc") {
-            this.#updateDocumentTags(source.system.traits?.languages.value);
+            const traits: unknown = source.system.traits;
+            if (R.isObject(traits) && R.isObject(traits.languages) && Array.isArray(traits.languages.value)) {
+                this.#updateDocumentTags(traits.languages.value);
+            }
         }
     }
 

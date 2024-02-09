@@ -3,9 +3,9 @@ import { AttributeString } from "@actor/types.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { SpellPF2e } from "@item/spell/document.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { ZeroToTen } from "@module/data.ts";
+import { OneToTen } from "@module/data.ts";
 import { Statistic, StatisticChatData } from "@system/statistic/index.ts";
-import { SpellCollection } from "./collection.ts";
+import { SpellCollection, SpellCollectionData, SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySystemData } from "./data.ts";
 
 interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | null> {
@@ -21,17 +21,23 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     isPrepared: boolean;
     isRitual: boolean;
     isSpontaneous: boolean;
+    isEphemeral: boolean;
     statistic?: Statistic | null;
     tradition: MagicTradition | null;
-    spells: SpellCollection<NonNullable<TActor>, this> | null;
+    spells: SpellCollection<NonNullable<TActor>> | null;
     system?: SpellcastingEntrySystemData;
 
-    getSheetData(): Promise<SpellcastingSheetData>;
+    getSheetData(options?: GetSheetDataOptions<NonNullable<TActor>>): Promise<SpellcastingSheetData>;
     getRollOptions?(prefix: "spellcasting"): string[];
 
     canCast(spell: SpellPF2e, options?: { origin?: PhysicalItemPF2e }): boolean;
 
     cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
+}
+
+interface GetSheetDataOptions<TActor extends ActorPF2e> {
+    spells?: Maybe<SpellCollection<TActor>>;
+    prepList?: boolean;
 }
 
 interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellcastingEntry<TActor> {
@@ -42,15 +48,12 @@ interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellca
 type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 interface CastOptions {
-    slot?: number;
-    /** The spell level to consume to cast the spell at */
-    level?: number;
+    slotId?: number;
+    /** The rank at which to cast the spell */
+    rank?: OneToTen;
+    consume?: boolean;
     message?: boolean;
     rollMode?: RollMode;
-}
-
-interface SpellcastingEntryPF2eCastOptions extends CastOptions {
-    consume?: boolean;
 }
 
 type UnusedProperties = "actor" | "spells" | "getSheetData" | "cast" | "canCast";
@@ -58,12 +61,10 @@ type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepare
 
 /** Spell list render data for a `BaseSpellcastingEntry` */
 interface SpellcastingSheetData
-    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties> {
+    extends Omit<BaseSpellcastingEntry<ActorPF2e>, "statistic" | OptionalProperties | UnusedProperties>,
+        SpellCollectionData {
     statistic: StatisticChatData | null;
     hasCollection: boolean;
-    flexibleAvailable?: { value: number; max: number } | null;
-    levels: SpellcastingSlotRank[];
-    spellPrepList: Record<number, SpellPrepEntry[]> | null;
     isFlexible?: boolean;
     isFocusPool?: boolean;
     isInnate?: boolean;
@@ -74,10 +75,11 @@ interface SpellcastingSheetData
     showSlotlessLevels?: boolean;
 }
 
-interface SpellcastingSlotRank {
+interface SpellcastingSlotGroup {
+    id: SpellSlotGroupId;
     label: string;
-    level: ZeroToTen;
-    isCantrip: boolean;
+    /** The highest spell rank that can be present in this slot group */
+    maxRank: OneToTen;
 
     /**
      * Number of uses and max slots or spells.
@@ -89,22 +91,25 @@ interface SpellcastingSlotRank {
         max: number;
     };
 
+    /** The number corresponding with spellcasting entries' "slotN" object */
+    number?: number;
+
     active: (ActiveSpell | null)[];
 }
 
 interface SpellPrepEntry {
     spell: SpellPF2e<ActorPF2e>;
-    signature?: boolean;
+    signature: boolean;
 }
 
 interface ActiveSpell {
     spell: SpellPF2e<ActorPF2e>;
-    /** The level at which a spell is cast (if prepared or automatically heighted) */
-    castLevel?: number;
+    /** The rank at which a spell is cast (if prepared or automatically heighted) */
+    castRank?: number;
     expended?: boolean;
     /** Is this spell marked as signature/collection */
     signature?: boolean;
-    /** Is the spell not actually of this level? */
+    /** Is the spell not actually of this rank? */
     virtual?: boolean;
 }
 
@@ -115,7 +120,6 @@ export type {
     SpellPrepEntry,
     SpellcastingCategory,
     SpellcastingEntry,
-    SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
-    SpellcastingSlotRank,
+    SpellcastingSlotGroup,
 };

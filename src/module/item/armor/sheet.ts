@@ -20,13 +20,15 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         const adjustedBulkHint = armor.isEquipped || !armor.actor ? null : "PF2E.Item.Armor.UnequippedHint";
 
         // Armor property runes
-        const maxPropertySlots = getPropertyRuneSlots(armor);
-        const propertyRuneSlots: Record<`propertyRuneSlots${number}`, boolean> = {};
-        for (const slot of [1, 2, 3, 4]) {
-            if (slot <= maxPropertySlots) {
-                propertyRuneSlots[`propertyRuneSlots${slot}`] = true;
-            }
-        }
+        // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
+        const runes = armor.system.runes;
+        const propertyRuneSlots = Array.fromRange(
+            armor.isSpecific ? runes.property.length : getPropertyRuneSlots(armor),
+        ).map((i) => ({
+            slug: runes.property[i] ?? null,
+            label: RUNE_DATA.armor.property[runes.property[i]]?.name ?? null,
+            disabled: i > 0 && !runes.property[i - 1],
+        }));
 
         const specificMagicData = armor._source.system.specific ?? R.pick(armor._source.system, ["material", "runes"]);
 
@@ -39,6 +41,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             groups: CONFIG.PF2E.armorGroups,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
             preciousMaterials: this.getMaterialSheetData(armor, MATERIAL_DATA.armor),
+            propertyRuneSlots,
             runeTypes: RUNE_DATA.armor,
             specificMagicData,
         };
@@ -69,8 +72,15 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     groups: Record<ArmorGroup, string>;
     otherTags: SheetOptions;
     preciousMaterials: MaterialSheetData;
+    propertyRuneSlots: PropertyRuneSheetSlot[];
     runeTypes: typeof RUNE_DATA.armor;
     specificMagicData: SpecificArmorData;
+}
+
+interface PropertyRuneSheetSlot {
+    slug: string | null;
+    label: string | null;
+    disabled: boolean;
 }
 
 export { ArmorSheetPF2e };

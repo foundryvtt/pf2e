@@ -172,7 +172,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures other than yzobus or hobgoblins that enter or start their turn in the yzobu's aura must succeed at a @Check[type:fortitude|dc:14] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>10 feet. Creatures other than yzobus or hobgoblins that enter or start their turn in the yzobu's aura must succeed at a @Check[type:fortitude|dc:14] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -312,12 +312,6 @@
                 "temp": 0,
                 "value": 25
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 6
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -325,6 +319,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 1
             },
@@ -335,6 +333,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -352,18 +367,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "low-light vision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

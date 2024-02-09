@@ -23,10 +23,8 @@ const args = argv
                 default: true,
             })
             .example([
-                ["npm run $0 spells /path/to/foundryvtt/Config/options.json"],
-                ["npm run $0 spells C:\\Users\\me\\this\\way\\to\\options.json"],
-                ["npm run $0 spells # copy of config at ./foundryconfig.json or otherwise using dist/"],
-                ["npm run $0 all       # same"],
+                ["npm run $0 spells  # extract only spells, from packs in dist/"],
+                ["npm run $0 all     # as above, but extract everything"],
             ]);
     })
     .help(false)

@@ -1,4 +1,6 @@
 <fieldset class="basics">
+    {{> "systems/pf2e/templates/items/partials/apex.hbs"}}
+
     <div class="form-group">
         <label for="{{fieldIdPrefix}}category">{{localize "PF2E.Category"}}</label>
         <select name="system.category" id="{{fieldIdPrefix}}category">
@@ -70,7 +72,7 @@
 </fieldset>
 
 {{#unless isBomb}}
-    <fieldset>
+    <fieldset class="material-runes">
         <legend>{{localize "PF2E.Item.Physical.MaterialRunes.Label"}}</legend>
         <div class="form-group precious-material">
             <label for="{{fieldIdPrefix}}material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
@@ -129,7 +131,7 @@
                     name="system.runes.property.{{index}}"
                     id="{{../fieldIdPrefix}}runes-property-{{index}}"
                     {{disabled slot.disabled}}
-                    {{#if slot.readOnly}}class="readonly"{{/if}}
+                    {{#if @root.item.isSpecific}}class="readonly"{{/if}}
                 >
                     {{#select slot.slug}}
                         <option value=""></option>
@@ -249,7 +251,7 @@
         <i class="fa-solid fa-info-circle" data-tooltip="PF2E.WeaponCustomDamageTitle"></i>
     </legend>
     <div class="form-group">
-        <label>{{localize "PF2E.ItemDescription"}}</label>
+        <label>{{localize "Description"}}</label>
         <input type="text" name="system.property1.value" value="{{data.property1.value}}" />
     </div>
 

@@ -1,15 +1,16 @@
 &.crafting {
     .crafting-options {
+        @include frame-elegant;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: var(--space-4);
         margin: 0 1rem 1rem;
         padding: 0.5rem 1rem;
-        @include frame-elegant;
 
         .crafting-option {
             display: flex;
             align-items: center;
-            width: 100%;
+            flex-basis: 100%;
 
             label {
                 * {
@@ -23,8 +24,8 @@
         }
     }
 
-    .known-formulas,
-    .crafting-entry {
+    li.known-formulas,
+    li.crafting-entry {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
@@ -38,20 +39,22 @@
 
         &.alchemical-entry {
             margin-bottom: 0;
+
             &:last-child {
                 margin-bottom: 0.5em;
             }
         }
 
-        &:first-child .action-header {
-            margin-top: 0;
-        }
-
         .action-header {
+            color: var(--text-light);
+            font-size: var(--font-size-16);
+            font-weight: 500;
+            height: 1.75rem;
+
             .item-controls {
                 .toggle-free-crafting {
-                    display: flex;
                     align-items: center;
+                    display: flex;
                     justify-content: flex-end;
 
                     * {
@@ -66,32 +69,29 @@
             }
 
             &.alchemical-title {
-                background: var(--secondary);
+                background: var(--color-pf-secondary);
+                font-size: var(--font-size-14);
+                height: 1.5rem;
             }
         }
 
-        .formula-list {
+        ol.formula-list {
             @include p-reset;
-            width: 100%;
             flex-basis: 100%;
-            position: relative;
-            z-index: 1;
 
-            .formula-item {
-                &[data-expended-state="true"] {
-                    h4 {
-                        color: var(--color-disabled);
-                        text-decoration: line-through;
-                    }
+            .formula-item[data-expended-state="true"] {
+                h4 {
+                    color: var(--color-disabled);
+                    text-decoration: line-through;
+                }
 
-                    .toggle-formula-expended {
-                        color: var(--primary);
-                    }
+                .toggle-formula-expended {
+                    color: var(--color-pf-primary);
                 }
             }
 
-            .formula-level-header,
-            .formula-item {
+            li.formula-level-header,
+            li.formula-item {
                 display: grid;
                 grid:
                     "name dc price quantity controls" 1fr
@@ -110,71 +110,70 @@
                     background-color: rgba($alt-color, 0.1);
                 }
 
+                &:nth-child(even) .item-summary {
+                    background: none;
+                }
+
                 &:last-child {
                     border-bottom: 1px solid var(--sub);
-                    .item-image {
-                        margin-bottom: 0;
-                        margin-top: 2px;
-                    }
                 }
 
                 &.formula-level-header {
                     background: rgba($sub-color, 0.25);
                     border: 1px solid var(--sub);
-                    padding: 4px;
+                    padding: 0 var(--space-4);
                     color: var(--text-dark);
                     font: 600 var(--font-size-12) var(--sans-serif);
-                    line-height: 1;
-                    letter-spacing: 0.25px;
+                    height: 1.25rem;
                     margin: 0;
 
                     h3 {
                         text-transform: capitalize;
                         font-size: var(--font-size-12);
+                        font-weight: 500;
                         margin-left: 0;
-                        padding: 4px 0;
+                        padding: var(--space-4) 0;
                     }
 
                     .level-name {
                         line-height: 1;
                         gap: 0.5em;
+
                         h3 {
                             @include p-reset;
                         }
                     }
 
                     .formula-number {
-                        background: var(--alt);
-                        border: 1px solid var(--sub);
-                        border-radius: 3px;
-                        color: var(--text-light);
-                        font-size: var(--font-size-11);
-                        height: 14px;
-                        max-width: 22px;
-                        padding-top: 2px;
                         text-align: center;
-                        width: 22px;
                     }
 
                     input.formula-number {
-                        background: var(--alt-dark);
+                        background: var(--color-pf-alternate);
+                        height: unset;
+                        border-radius: 3px;
+                        border: 1px solid var(--sub);
+                        color: var(--text-light);
+                        font: var(--font-size-12) var(--sans-serif);
+                        text-align: center;
+                        width: 2em;
                     }
                 }
 
                 .item-name {
                     cursor: pointer;
-                    min-height: 28px;
+                    min-height: 2em;
                 }
 
                 .level-name,
                 .item-name {
-                    justify-self: start;
-                    display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    flex-wrap: nowrap;
-                    line-height: 1.5;
+                    display: flex;
                     flex-basis: 50%;
+                    flex-wrap: nowrap;
+                    justify-content: start;
+                    justify-self: start;
+                    line-height: 1.5;
 
                     h3 {
                         white-space: nowrap;
@@ -184,17 +183,19 @@
                     }
 
                     .item-image {
-                        margin: 2px 0;
-                        margin-left: 4px;
+                        margin: var(--space-2) 0;
+                        margin-left: var(--space-4);
                     }
 
                     h4 {
-                        @include p-reset;
-                        margin-left: 8px;
-                        line-height: 1;
+                        font-weight: 500;
                         letter-spacing: -0.075em;
+                        line-height: 1;
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
+
                         &:hover {
-                            color: var(--secondary);
+                            color: var(--color-pf-secondary);
                         }
                     }
 
@@ -207,23 +208,20 @@
                 .item-controls {
                     justify-self: end;
                     font-size: var(--font-size-12);
-                    margin-right: 4px;
-
-                    .item-control.disabled {
-                        opacity: 0.3;
-                    }
+                    margin-right: var(--space-4);
                 }
 
                 .item-summary {
                     grid-column: 1 / 6;
-                    padding: 8px;
+                    padding: var(--space-8);
                     border-bottom: 1px solid var(--sub);
                     border-top: 1px solid lighten($sub-color, 30);
-                    background-color: var(--bg);
+                    background-color: rgba($light-background-color, 0.5);
 
                     p {
                         margin-top: 0;
                     }
+
                     .item-buttons button {
                         display: none;
                     }
@@ -232,7 +230,7 @@
                 .quantity {
                     align-items: center;
                     display: flex;
-                    gap: 3px;
+                    gap: var(--space-3);
                     justify-content: center;
 
                     .adjust {
@@ -251,16 +249,29 @@
                 }
             }
 
+            li.formula-level-header.infused-reagents {
+                height: 1.75rem;
+            }
+
             .empty {
                 align-items: center;
                 display: flex;
                 justify-content: space-between;
-                min-height: 28px;
+                min-height: 2em;
+
+                > h4 {
+                    margin: 0;
+                    opacity: 0.75;
+                }
 
                 > * {
                     white-space: nowrap;
                 }
             }
         }
+    }
+
+    li.crafting-entry button.perform-daily {
+        width: 75%;
     }
 }

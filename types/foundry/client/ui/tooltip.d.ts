@@ -53,17 +53,6 @@ declare global {
          * Activate the tooltip for a hovered HTML element which defines a tooltip localization key.
          * @param element              The HTML element being hovered.
          * @param [options={}]         Additional options which can override tooltip behavior.
-         * @param [options.text]       Explicit tooltip text to display. If this is not provided the tooltip text is
-         *                             acquired from the elements data-tooltip attribute. This text will be
-         *                             automatically localized
-         * @param [options.direction]  An explicit tooltip expansion direction. If this
-         *                             is not provided the direction is acquired from the data-tooltip-direction
-         *                             attribute of the element or one of its parents.
-         * @param [options.cssClass]   An optional, space-separated list of CSS classes to apply to the activated
-         *                             tooltip. If this is not provided, the CSS classes are acquired from the
-         *                             data-tooltip-class attribute of the element or one of its parents.
-         * @param [options.locked]     An optional boolean to lock the tooltip after creation. Defaults to false.
-         * @param [options.content]    Explicit HTML content to inject into the tooltip rather than using tooltip text.
          */
         activate(element: HTMLElement, options?: TooltipActivationOptions): void;
 
@@ -133,10 +122,24 @@ declare global {
     type TooltipDirection = keyof (typeof TooltipManager)["TOOLTIP_DIRECTIONS"];
 
     interface TooltipActivationOptions {
+        /**
+         * Explicit tooltip text to display. If this is not provided the tooltip text is acquired from the elements
+         * data-tooltip attribute. This text will be automatically localized.
+         */
         text?: string;
+        /**
+         * An explicit tooltip expansion direction. If this is not provided the direction is acquired from the
+         * data-tooltip-direction attribute of the element or one of its parents.
+         */
         direction?: TooltipDirection;
+        /**
+         * An optional, space-separated list of CSS classes to apply to the activated tooltip. If this is not provided,
+         * the CSS classes are acquired from the data-tooltip-class attribute of the element or one of its parents.
+         */
         cssClass?: string;
+        /** An optional boolean to lock the tooltip after creation. Defaults to false. */
         locked?: boolean;
+        /** Explicit HTML content to inject into the tooltip rather than using tooltip text. */
         content?: HTMLElement;
     }
 

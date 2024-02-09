@@ -97,7 +97,7 @@
                 },
                 "items": {
                     "1v9gz": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Student of the Canon",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Student of the Canon"
@@ -854,7 +854,7 @@
         {
             "_id": "scUahGl4WmBwADl8",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Healing Font",
+            "name": "Divine Font (Healing)",
             "sort": 0,
             "system": {
                 "ability": {
@@ -1342,7 +1342,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1525,7 +1525,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1763,24 +1763,13 @@
             "name": "Chalk",
             "sort": 1000000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1AgG0EotkcRe7Q2E",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1820,6 +1809,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1894,24 +1888,13 @@
             "name": "Rations",
             "sort": 1300000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1AgG0EotkcRe7Q2E",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1950,6 +1933,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -2389,7 +2377,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Third Doctrine"
                     },
                     "vmpzh": {
-                        "img": "systems/pf2e/icons/features/classes/miraculous-spell.webp",
+                        "img": "icons/magic/symbols/star-rising-purple.webp",
                         "level": 19,
                         "name": "Miraculous Spell",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
@@ -2401,7 +2389,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -2810,7 +2798,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>"
+                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2887,7 +2875,7 @@
                 }
             },
             "img": "icons/magic/fire/flame-burning-hand-white.webp",
-            "name": "Divine Font",
+            "name": "Divine Font (Healing)",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -2912,7 +2900,33 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "img": "icons/magic/life/cross-worn-green.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Healing",
+                                "predicate": [
+                                    "deity:primary:font:heal"
+                                ],
+                                "value": "heal"
+                            },
+                            {
+                                "img": "systems/pf2e/icons/spells/harm.webp",
+                                "label": "PF2E.SpecificRule.Cleric.DivineFont.Harmful",
+                                "predicate": [
+                                    "deity:primary:font:harm"
+                                ],
+                                "value": "harm"
+                            }
+                        ],
+                        "flag": "divineFont",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Cleric.DivineFont.Prompt",
+                        "rollOption": "divine-font",
+                        "selection": "heal"
+                    }
+                ],
                 "slug": "divine-font",
                 "traits": {
                     "rarity": "common",
@@ -3059,7 +3073,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "img": "icons/equipment/chest/breastplate-helmet-metal.webp",
             "name": "Warpriest",
             "sort": 0,
             "system": {
@@ -3182,7 +3196,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/warpriest.webp",
+            "img": "icons/equipment/chest/breastplate-helmet-metal.webp",
             "name": "First Doctrine (Warpriest)",
             "sort": 0,
             "system": {
@@ -3209,24 +3223,6 @@
                     "title": "Pathfinder Player Core"
                 },
                 "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    },
                     {
                         "flag": "shieldBlock",
                         "key": "GrantItem",
@@ -3264,6 +3260,19 @@
                     }
                 ],
                 "slug": "first-doctrine-warpriest",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        },
+                        "light": {
+                            "rank": 1
+                        },
+                        "medium": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3286,9 +3295,6 @@
             "hp": {
                 "temp": 0,
                 "value": 21
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3324,6 +3330,7 @@
             },
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Kyra is a priestess of Sarenrae, the sun goddess who teaches her followers to heal the wounded and destroy evil. Kyra grew up admiring the beautiful stained glass of Sarenrae's temple and the graceful priestesses who practiced with their scimitars each dawn. When bandits attacked Kyra's village, those priestesses fought to the death to protect the villagers, but the bandits were too many and the village burned. Kyra was one of the few survivors, and on the smoking ruins of the beautiful temple she swore her life and sword arm to Sarenrae, promising to protect those who could not protect themselves and to slay those who would harm the innocent. Kyra has a fierce will and is proud of her faith and her skill with the scimitar.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -3332,6 +3339,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3358,6 +3366,12 @@
             "keyability": {
                 "value": "wis"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 1
@@ -3376,6 +3390,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3463,20 +3480,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

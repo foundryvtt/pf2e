@@ -13,6 +13,7 @@ import {
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
+    LanguageSelector,
     SELECTABLE_TAG_FIELDS,
     SelectableTagField,
     TagSelectorBasic,
@@ -23,7 +24,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    objectHasKey,
     sluggify,
     SORTABLE_BASE_OPTIONS,
     sortStringRecord,
@@ -82,11 +82,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         return this.item.toObject().system.rules[this.#editingRuleElementIndex] ?? null;
     }
 
-    protected get validTraits(): Record<string, string> | null {
-        if (objectHasKey(CONFIG.PF2E.Item.traits, this.item.type)) {
-            return CONFIG.PF2E.Item.traits[this.item.type];
-        }
-        return null;
+    protected get validTraits(): Record<string, string> {
+        return this.item.constructor.validTraits;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
@@ -158,7 +155,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                     types: sortStringRecord(
                         Object.keys(RuleElements.all).reduce(
                             (result: Record<string, string>, key) =>
-                                mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
+                                fu.mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
                             {},
                         ),
                     ),
@@ -169,7 +166,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                     })),
                 ),
             },
-            proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
+            proficiencyRanks: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
 
@@ -222,31 +219,27 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
         const selectorType = anchor.dataset.tagSelector ?? "";
-        if (selectorType !== "basic") {
+        if (!["basic", "languages"].includes(selectorType)) {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
-        const propertyIsFlat = anchor.dataset.flat === "true";
         const objectProperty = anchor.dataset.property ?? "";
-        const title = anchor.dataset.title;
         const configTypes = (anchor.dataset.configTypes ?? "")
             .split(",")
             .map((type) => type.trim())
             .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
-        const selectorOptions: BasicConstructorOptions = {
+        const options: BasicConstructorOptions = {
             objectProperty,
             configTypes,
-            title,
-            flat: propertyIsFlat,
+            title: anchor.dataset.title,
+            flat: anchor.dataset.flat === "true",
         };
 
-        const noCustom = anchor.dataset.noCustom === "true";
-        if (noCustom) {
-            selectorOptions.allowCustom = false;
-        } else if (this.actor && configTypes.includes("attackEffects")) {
-            selectorOptions.customChoices = this.getAttackEffectOptions();
+        if (this.actor && configTypes.includes("attackEffects")) {
+            options.customChoices = this.getAttackEffectOptions();
         }
 
-        new TagSelectorBasic(this.item, selectorOptions).render(true);
+        const SelectorClass = selectorType === "languages" ? LanguageSelector : TagSelectorBasic;
+        new SelectorClass(this.item, options).render(true);
     }
 
     /** Get NPC attack effect options */
@@ -258,7 +251,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             .reduce((options, item) => {
                 const key = item.slug ?? sluggify(item.name);
                 return { ...options, [key]: item.name };
-            }, deepClone(CONFIG.PF2E.attackEffects));
+            }, fu.deepClone(CONFIG.PF2E.attackEffects));
     }
 
     override async activateEditor(
@@ -332,7 +325,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             this.#selectedRuleElementType = ruleElementSelect.value;
         });
 
-        for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
@@ -456,7 +449,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         for (const input of modifiedPropertyFields) {
             const propertyPath = input.dataset.property ?? "";
             const baseValue =
-                input.dataset.valueBase ?? String(getProperty(this.item._source, propertyPath) ?? "").trim();
+                input.dataset.valueBase ?? String(fu.getProperty(this.item._source, propertyPath) ?? "").trim();
 
             input.addEventListener("focus", () => {
                 input.dataset.value = input.value;
@@ -560,10 +553,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { system?: { rules?: string[] } } = updateData
-            ? mergeObject(fd.object, updateData)
-            : expandObject(fd.object);
+            ? fu.mergeObject(fd.object, updateData)
+            : fu.expandObject(fd.object);
 
-        const flattenedData = flattenObject(data);
+        const flattenedData = fu.flattenObject(data);
         processTagifyInSubmitData(this.form, flattenedData);
         return flattenedData;
     }
@@ -610,7 +603,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
+        const expanded = fu.expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 
         // If the submission is coming from a rule element, update that rule element
         // This avoids updates from forms if that form has a problematic implementation
@@ -634,7 +627,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Remove rules from submit data, it should be handled by the previous check
         delete expanded.system?.rules;
 
-        return super._updateObject(event, flattenObject(expanded));
+        return super._updateObject(event, fu.flattenObject(expanded));
     }
 
     /** Overriden _render to maintain focus on tagify elements */
@@ -670,7 +663,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     enabledRulesUI: boolean;
     ruleEditing: boolean;
     rarity: Rarity | null;
-    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
+    rarities: typeof CONFIG.PF2E.rarityTraits;
     traits: SheetOptions | null;
     traitTagifyData: TraitTagifyEntry[] | null;
     rules: {
@@ -683,7 +676,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
         }[];
     };
     /** Lore only, will be removed later */
-    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
+    proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }
 
 interface ItemSheetOptions extends DocumentSheetOptions {

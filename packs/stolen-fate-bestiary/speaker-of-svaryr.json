@@ -459,7 +459,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure a poisonous fog. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em>, except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>You conjure a poisonous fog. This functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist], except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2346,12 +2346,6 @@
                 "temp": 0,
                 "value": 380
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 34
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -2371,6 +2365,13 @@
         },
         "details": {
             "blurb": "Variant female huldra",
+            "languages": {
+                "details": "speak with plants, tongues",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -2381,6 +2382,23 @@
                 "remaster": false,
                 "title": "Pathfinder #192: Worst of All Possible Worlds"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 34,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2398,21 +2416,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Speak With Plants, Tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "med"
             },

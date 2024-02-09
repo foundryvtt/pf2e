@@ -69,7 +69,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.GXcC6oVa5quzgNHD"
                 },
                 "description": {
-                    "value": "<p>You are a dedicated nocturnal avian, keeping watch and predating in the most lightless environments. You gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision].</p>"
+                    "value": "<p>You are a dedicated nocturnal avian, keeping watch and predating in the most lightless environments. You gain darkvision.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -126,7 +126,7 @@
                 },
                 "items": {
                     "cxx9n": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Multilingual",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Multilingual"
@@ -191,8 +191,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1055,7 +1081,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This elegant copper ring has miniature images of songbirds engraved around its circumference. You gain a +1 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Twisting the ring around your finger allows you to magically throw your voice, with the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism]</em> spell (DC 19).</p>"
+                    "value": "<p>This elegant copper ring has miniature images of songbirds engraved around its circumference. You gain a +1 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Twisting the ring around your finger allows you to magically throw your voice, with the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism] spell (DC 19).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1120,24 +1146,13 @@
             "name": "Bolts",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -1178,6 +1193,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1193,26 +1213,15 @@
             "name": "Black Adder Venom",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "poison"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "poison",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage (1 round)</p>"
+                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1255,6 +1264,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1270,24 +1284,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
@@ -1333,6 +1340,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1348,24 +1360,13 @@
             "name": "Antidote (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
                 },
@@ -1410,6 +1411,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1427,7 +1433,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1554,7 +1560,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Mastery"
                     },
                     "2xl4q": {
-                        "img": "systems/pf2e/icons/features/classes/master-tricks.webp",
+                        "img": "icons/weapons/swords/swords-short.webp",
                         "level": 13,
                         "name": "Master Tricks",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Tricks"
@@ -1572,7 +1578,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
                     },
                     "6ddtr": {
-                        "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
@@ -1602,7 +1608,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -2240,7 +2246,7 @@
                         "strix"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -2296,9 +2302,6 @@
                 "temp": 0,
                 "value": 44
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2326,6 +2329,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Zerryd grew up in western Cheliax but fled recently after a disastrous raid on his village by Chelaxian hunters. After settling in the ramshackle slums of Old Korvosa, he hopes someday to return to the south, armed with the knowledge and experience to fight back against the devil-worshippers. The more he travels with his new friends, however, the more the lifestyle of an adventurer agrees with him. He's particularly delighted that here in Varisia there is little evidence of the hatred he's endured from Chelaxian diabolists, and while he's continued his studies of that nation's reliance on devils and diabolism in hopes of using this lore against worshippers of Asmodeus, he has no plans to return to the south anytime soon.</p>\n<p>Zerryd has an imposing appearance, considering his tall and broad stature and the breadth of his wingspan. He has light blue skin and dark hair that matches the dark coloration of his raven-like wings. Zerryd has a charming personality that allows him to find friends easily-a trait that's served him well when attempting to put people he encounters at ease.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -2334,6 +2338,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2354,6 +2359,15 @@
             "keyability": {
                 "value": "dex"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic",
+                    "strix",
+                    "varisian"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2371,6 +2385,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2456,23 +2473,6 @@
             "thi": {
                 "rank": 2
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "diabolic",
-                    "strix",
-                    "varisian"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

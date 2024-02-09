@@ -40,8 +40,8 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
-        type ActionCollection = Record<string, Function> & Map<string, Action>;
-        const actions = new Map<string, Action>(
+        type ActionCollection = Record<string, Function> & Collection<Action>;
+        const actions = new Collection<Action>(
             SystemActions.map((action) => [action.slug, action]),
         ) as ActionCollection;
         // keep the old action functions around until everything has been converted
@@ -100,8 +100,54 @@ export const SetGamePF2e = {
             system: { generateItemName, moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
-        game.pf2e = mergeObject(game.pf2e ?? {}, initSafe);
+        game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
         game.pf2e.ConditionManager.initialize();
+        game.pf2e.settings = {
+            automation: {
+                flanking: game.settings.get("pf2e", "automation.flankingDetection"),
+            },
+            campaign: {
+                enabled: game.settings.get("pf2e", "campaignFeats"),
+                sections: game.settings.get("pf2e", "campaignFeatSections"),
+            },
+            critFumble: {
+                buttons: game.settings.get("pf2e", "critFumbleButtons"),
+                cards: game.settings.get("pf2e", "drawCritFumble"),
+            },
+            encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
+            gmVision: game.settings.get("pf2e", "gmVision"),
+            iwr: game.settings.get("pf2e", "automation.iwr"),
+            metagame: {
+                breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
+                dcs: game.settings.get("pf2e", "metagame_showDC"),
+                partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
+                partyVision: game.settings.get("pf2e", "metagame_partyVision"),
+                results: game.settings.get("pf2e", "metagame_showResults"),
+            },
+            rbv: game.settings.get("pf2e", "automation.rulesBasedVision"),
+            tokens: {
+                autoscale: game.settings.get("pf2e", "tokens.autoscale"),
+                nameVisibility: game.settings.get("pf2e", "metagame_tokenSetsNameVisibility"),
+                nathMode: game.settings.get("pf2e", "nathMode"),
+            },
+            totm: game.settings.get("pf2e", "totmToggles"),
+            variants: {
+                abp: game.settings.get("pf2e", "automaticBonusVariant"),
+                fa: game.settings.get("pf2e", "freeArchetypeVariant"),
+                gab: game.settings.get("pf2e", "gradualBoostsVariant"),
+                pwol: {
+                    enabled: game.settings.get("pf2e", "proficiencyVariant"),
+                    modifiers: [
+                        game.settings.get("pf2e", "proficiencyUntrainedModifier"),
+                        game.settings.get("pf2e", "proficiencyTrainedModifier"),
+                        game.settings.get("pf2e", "proficiencyExpertModifier"),
+                        game.settings.get("pf2e", "proficiencyMasterModifier"),
+                        game.settings.get("pf2e", "proficiencyLegendaryModifier"),
+                    ],
+                },
+                stamina: game.settings.get("pf2e", "staminaVariant"),
+            },
+        };
     },
 
     onSetup: (): void => {},

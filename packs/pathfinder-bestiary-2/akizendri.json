@@ -190,7 +190,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
+                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell rank to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -640,7 +640,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -705,7 +705,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -998,7 +998,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>An akizendri can anticipate the most likely location of a creature through their supernatural insight into the forces of chaotic probabilities and chance. This grants the akizendri the ability to sense creatures within the listed range. A creature under the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Veil of Privacy]</em> or that is otherwise shielded from divinations and predictions cannot be noticed via entropy sense.</p>"
+                    "value": "<p>An akizendri can anticipate the most likely location of a creature through their supernatural insight into the forces of chaotic probabilities and chance. This grants the akizendri the ability to sense creatures within the listed range. A creature under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Veil of Privacy] or that is otherwise shielded from divinations and predictions cannot be noticed via entropy sense.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1283,7 +1283,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the akizendri casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Secret Page]</em>, it can physically immerse itself in the text, changing the message of the text in the process. It can exit the book at any point by Dismissing <em>secret page</em>, at which point it appears in a space adjacent to the text. If it does so to begin combat, it rolls a Deception check for initiative. As long as it remains immersed in the text, the akizendri has no body. It can communicate telepathically with a creature as long as the creature touches the book or scroll that contains the secret page. It can sense nearby creatures using its entropy sense, but not in any other way, nor can it use any attack, manipulate, or move actions or speak aloud. If the object it is immersed in is destroyed, the akizendri reappears in an adjacent square and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>When the akizendri casts @UUID[Compendium.pf2e.spells-srd.Item.Secret Page], it can physically immerse itself in the text, changing the message of the text in the process. It can exit the book at any point by Dismissing <em>secret page</em>, at which point it appears in a space adjacent to the text. If it does so to begin combat, it rolls a Deception check for initiative. As long as it remains immersed in the text, the akizendri has no body. It can communicate telepathically with a creature as long as the creature touches the book or scroll that contains the secret page. It can sense nearby creatures using its entropy sense, but not in any other way, nor can it use any attack, manipulate, or move actions or speak aloud. If the object it is immersed in is destroyed, the akizendri reappears in an adjacent square and is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1523,12 +1523,6 @@
                 "temp": 0,
                 "value": 42
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 8
-            },
             "resistances": [
                 {
                     "type": "precision",
@@ -1557,6 +1551,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy (touch)",
+                "value": [
+                    "chthonian",
+                    "empyrean",
+                    "protean"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -1567,6 +1569,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "entropy sense (imprecise) 30 feet",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1589,22 +1603,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy (touch)",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "empyrean",
-                    "protean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, entropy sense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "sm"
             },

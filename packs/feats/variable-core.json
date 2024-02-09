@@ -24,7 +24,33 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    }
+                ],
+                "flag": "variableCore",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.inventor.explode",
+                "priority": 51,
+                "value": "{item|flags.pf2e.rulesSelections.variableCore}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

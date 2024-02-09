@@ -1,4 +1,3 @@
-import { AttributeString } from "@actor/types.ts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { PhysicalItemSheetData, PhysicalItemSheetPF2e } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
@@ -11,15 +10,11 @@ export class EquipmentSheetPF2e extends PhysicalItemSheetPF2e<EquipmentPF2e> {
 
         return {
             ...sheetData,
-            isApex: item._source.system.traits.value.includes("apex"),
-            attributes: CONFIG.PF2E.abilities,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, item.system.traits.otherTags),
         };
     }
 }
 
 interface EquipmentSheetData extends PhysicalItemSheetData<EquipmentPF2e> {
-    isApex: boolean;
-    attributes: Record<AttributeString, string>;
     otherTags: SheetOptions;
 }

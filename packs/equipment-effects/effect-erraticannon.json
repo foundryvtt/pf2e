@@ -1,0 +1,141 @@
+{
+    "_id": "wmrINlK6twqfbJjo",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/erraticannon.webp",
+    "name": "Effect: Erraticannon",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Acid",
+                "Cold",
+                "Electricity",
+                "Fire",
+                "Sonic",
+                "Bludgeoning",
+                "Piercing",
+                "Slashing"
+            ],
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d8"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Erraticannon]</p>\n<p>Each time you attack with the weapon, roll to determine the damage type of the Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #180: The Smoking Gun"
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "acid"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:1"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "cold"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:2"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "electricity"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:3"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "fire"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:4"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "sonic"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:5"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "bludgeoning"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:6"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "piercing"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:7"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "slashing"
+                },
+                "predicate": [
+                    "self:effect:erraticannon:8"
+                ],
+                "selector": "erraticannon-damage"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Erraticannon (Extra)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

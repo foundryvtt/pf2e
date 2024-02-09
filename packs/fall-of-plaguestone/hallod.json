@@ -310,24 +310,13 @@
             "name": "Bolts",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -369,6 +358,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -384,24 +378,17 @@
             "name": "Healing Potion (Lesser)",
             "sort": 600000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "2d8+5"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
@@ -447,6 +434,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -462,24 +454,13 @@
             "name": "Juggernaut Mutagen (Lesser)",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "mutagen"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "mutagen",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p>After you drink this mutagen, your body becomes thick and sturdy. You exhibit a healthy glow, though you tend to be ponderous and unobservant.</p>\n<p><strong>Benefit</strong> You gain a +1 item bonus to Fortitude saves and 5 temporary Hit Points. Whenever you are at maximum Hit Points for at least 1 full minute, you regain the temporary Hit Points.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Will saves, Perception checks and initiative rolls.</p>\n<p><strong>Duration</strong> 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Juggernaut Mutagen (Lesser)]</p>"
                 },
@@ -525,6 +506,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -738,7 +724,7 @@
                             "melee"
                         ],
                         "selector": "strike-damage",
-                        "text": "<div class='compact-text' data-visibility='gm'><p><strong>{item|name}</strong> <span class=\"pf2-icon\">F</span></p><p><strong>Trigger</strong> Hallod scores a critical hit with a melee attack.</p><p><strong>Effect</strong> Hallod can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the target of his attack. This uses the same multiple attack penalty as the attack, but it does not count as an additional attack for that penalty</p></div>"
+                        "text": "<div class='compact-text' data-visibility='gm'><p><strong>{item|name}</strong> <span class=\"action-glyph\">F</span></p><p><strong>Trigger</strong> Hallod scores a critical hit with a melee attack.</p><p><strong>Effect</strong> Hallod can attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the target of his attack. This uses the same multiple attack penalty as the attack, but it does not count as an additional attack for that penalty</p></div>"
                     }
                 ],
                 "slug": null,
@@ -994,12 +980,6 @@
                 "temp": 0,
                 "value": 44
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 9
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -1007,6 +987,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -1020,6 +1006,14 @@
             "rarity": {
                 "value": ""
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1037,17 +1031,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

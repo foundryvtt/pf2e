@@ -18,13 +18,15 @@ export class MockActor {
 
     readonly effects: MockCollection<ActiveEffectPF2e<ActorPF2e>> = new MockCollection();
 
+    prototypeToken = {};
+
     _itemGuid = 1;
 
     constructor(
         data: ActorSourcePF2e,
         public options: DocumentConstructionContext<null> = {},
     ) {
-        this._source = duplicate(data);
+        this._source = fu.duplicate(data);
         this._source.items ??= [];
         this.prepareData();
     }
@@ -52,7 +54,7 @@ export class MockActor {
         for (const source of this._source.items) {
             const item = this.items.get(source._id ?? "");
             if (item) {
-                (item as { _source: object })._source = duplicate(source);
+                (item as { _source: object })._source = fu.duplicate(source);
             } else {
                 this.items.set(
                     source._id ?? "",
@@ -65,7 +67,7 @@ export class MockActor {
     update(changes: Record<string, unknown>): void {
         delete changes.items;
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this._source, k, v);
+            fu.setProperty(this._source, k, v);
         }
         this.prepareData();
     }
@@ -80,14 +82,14 @@ export class MockActor {
 
             const itemUpdates = (update.items ?? []) as DeepPartial<ItemSourcePF2e>[];
             delete update.items;
-            mergeObject(actor._source, update);
+            fu.mergeObject(actor._source, update);
             for (const partial of itemUpdates) {
                 partial._id ??= "item1";
                 const source = actor._source.items.find(
                     (maybeSource: ItemSourcePF2e) => maybeSource._id === partial._id,
                 );
                 if (source) {
-                    mergeObject(source, partial);
+                    fu.mergeObject(source, partial);
                 } else {
                     actor.createEmbeddedDocuments("Item", [partial]);
                 }
@@ -101,7 +103,7 @@ export class MockActor {
         for (const changes of data) {
             if (type === "Item") {
                 const source = this._source.items.find((i) => i._id === changes._id);
-                if (source) mergeObject(source, changes);
+                if (source) fu.mergeObject(source, changes);
             }
         }
         this.prepareData();
@@ -130,6 +132,6 @@ export class MockActor {
     }
 
     toObject(): ActorSourcePF2e {
-        return duplicate(this._source);
+        return fu.duplicate(this._source);
     }
 }

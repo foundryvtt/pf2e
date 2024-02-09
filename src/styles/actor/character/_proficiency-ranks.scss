@@ -1,42 +1,41 @@
 .pf-rank {
     @include micro;
+    align-items: center;
     background: var(--color-proficiency-untrained);
-    border-radius: 2px;
     border: 1px solid rgba(black, 0.5);
-    box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+    border-radius: 2px;
+    box-shadow: inset 0 0 0 1px rgba(white, 0.15);
     color: var(--text-light);
+    display: flex;
     font-weight: 500;
-    padding: 2px 1px 1px 1px;
+    height: var(--font-size-16);
+    justify-content: center;
     width: 6.5em;
-    text-align-last: center;
 
     &.readonly {
         pointer-events: none;
     }
 
+    &[data-rank="0"],
     option[value="0"] {
         background: var(--color-proficiency-untrained);
     }
 
-    &.trained,
     &[data-rank="1"],
     option[value="1"] {
         background: var(--color-proficiency-trained);
     }
 
-    &.expert,
     &[data-rank="2"],
     option[value="2"] {
         background: var(--color-proficiency-expert);
     }
 
-    &.master,
     &[data-rank="3"],
     option[value="3"] {
         background: var(--color-proficiency-master);
     }
 
-    &.legendary,
     &[data-rank="4"],
     option[value="4"] {
         background: var(--color-proficiency-legendary);
@@ -45,10 +44,11 @@
 
 select.pf-rank {
     cursor: pointer;
-    height: 1rem;
-}
+    line-height: 0.9em;
+    padding: 0;
+    text-align: center;
 
-span.pf-rank {
-    min-width: 61px;
-    pointer-events: none;
+    &:disabled {
+        cursor: default;
+    }
 }

@@ -1,14 +1,14 @@
 <section class="tab main" data-group="primary" data-tab="main">
-    <!-- TOGGLES -->
+    {{!-- TOGGLES --}}
     <div class="toggles section-container headerless">
-        {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
+        {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
     </div>
     <div class="recall-knowledge section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
-            <button type="button" class="breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
+            <button type="button" class="breakdown" data-action="open-recall-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
         </div>
-        <div class="section-body" data-tooltip-class="pf2e">
+        <div class="section-body">
             {{#if identificationDCs.standard}}
                 <div class="tag-legacy identification-skills" data-tooltip="PF2E.Actor.NPC.Identification.Skills.Tooltip">
                     {{identificationDCs.standard}}
@@ -20,85 +20,125 @@
         </div>
     </div>
     <div class="top-sections">
-        <div class="ability-scores section-container">
+        <div class="attribute-modifiers section-container">
             <div class="section-header">
                 <h4>{{localize "PF2E.Actor.Creature.AttributeModifiers"}}</h4>
             </div>
-            <!-- ATTRIBUTE MODIFIERS -->
+            {{!-- ATTRIBUTE MODIFIERS --}}
             <div class="section-body">
                 <div class="list">
-                    {{#each data.abilities as |ability id|}}
-                        <div class="labelled-field" data-attribute="{{id}}">
-                            <a class="rollable">{{ability.localizedCode}}</a>
-                            <input class="modifier" type="text" data-property="system.abilities.{{id}}.mod" value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number" placeholder="0"/>
+                    {{#each data.abilities as |attribute slug|}}
+                        <div class="labeled-field" data-attribute="{{slug}}">
+                            <a data-action="roll-attribute">{{localize attribute.shortLabel}}</a>
+                            <input
+                                class="modifier"
+                                type="text"
+                                data-property="system.abilities.{{slug}}.mod"
+                                value="{{numberFormat attribute.mod decimals=0 sign=true}}"
+                                data-dtype="Number"
+                                placeholder="0"
+                            />
                         </div>
                     {{/each}}
                 </div>
             </div>
         </div>
-        <!-- SENSES -->
+
+        {{!-- PERCEPTION & SENSES --}}
         <div class="senses section-container">
             <div class="section-header">
                 <h4>{{localize "PF2E.NPC.SensesLabel"}}</h4>
+                {{#if editable}}
+                    <div class="controls">
+                        <a class="tag-selector" data-tag-selector="senses" data-tooltip="PF2E.NPC.EditSenses"><i class="fa-solid fa-edit"></i></a>
+                    </div>
+                {{/if}}
             </div>
             <div class="section-body">
-                <div class="perception labelled-field" data-attribute="perception">
-                    <a class="attribute-label rollable">{{localize "PF2E.PerceptionLabel"}}</a>
-                    {{#with data.attributes.perception as |perception|}}
-                        <input
-                            type="text"
-                            value="{{numberFormat perception.value decimals=0 sign=true}}"
-                            class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}}adjusted-lower{{/if}}"
-                            data-property="system.attributes.perception.value"
-                            data-dtype="Number"
-                            placeholder="0"
-                        />
-                    {{/with}}
+                <div class="perception labeled-field">
+                    <a
+                        class="attribute-label roll"
+                        data-action="roll-check"
+                        data-statistic="perception"
+                        data-tooltip="{{data.perception.breakdown}}"
+                    >{{localize "PF2E.PerceptionLabel"}}</a>
+                    <input
+                        type="text"
+                        value="{{numberFormat data.perception.mod decimals=0 sign=true}}"
+                        class="modifier adjustable{{#if perception.adjustedHigher}} adjusted-higher{{/if}}{{#if perception.adjustedLower}}adjusted-lower{{/if}}"
+                        data-property="system.perception.mod"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
                 </div>
-                {{# if options.editable}}
-                    <input name="system.traits.senses.value" type="text" value="{{data.traits.senses.value}}" title="{{data.traits.senses.value}}" placeholder="{{localize "PF2E.SpecialSensesLabel"}}" />
-                {{else}}
-                    <span>{{data.traits.senses.value}}</span>
-                {{/if}}
+                <ul class="senses comma-separated">
+                    {{~#each data.perception.senses as |sense|}}
+                        <li data-slug="{{sense.type}}">
+                            {{~#if sense.emphasizeLabel}}<em>{{sense.label}}</em>{{else}}{{sense.label}}{{/if~}}
+                        </li>
+                    {{/each~}}
+                    {{~#unless data.perception.vision}}<li>{{localize "PF2E.Actor.Creature.Sense.NoVision"}}</li>{{/unless}}
+                </ul>
+
+                <input
+                    type="text"
+                    name="system.perception.details"
+                    value="{{data.perception.details}}"
+                    placeholder="{{localize "PF2E.SpecialSensesLabel"}}"
+                />
             </div>
         </div>
     </div>
-    <!-- LANGUAGES -->
+
+    {{!-- LANGUAGES --}}
     <div class="languages section-container">
         <div class="section-header" data-attribute="languages" for="data.traits.languages">
-            <h4>{{localize "PF2E.Languages"}}</h4>
-            {{# if options.editable}}
+            <h4>{{localize "PF2E.Actor.Creature.Language.Plural"}}</h4>
+            {{# if editable}}
                 <div class="languages-controls controls">
-                    <a class="tag-selector edit" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.traits.languages" title="{{localize "PF2E.NPC.EditLanguages"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a
+                        class="tag-selector edit"
+                        data-tag-selector="languages"
+                        data-tooltip="PF2E.NPC.EditLanguages"><i class="fa-solid fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
         <div class="section-body">
-            {{#each languages as |language slug|}}
-                <div class="tag-legacy language" data-slug="{{slug}}">{{localize language.label}}</div>
-            {{/each}}
-            {{#if languageDetails}}<div class="tag-legacy language">{{localize languageDetails}}</div>{{/if}}
+            <ul class="comma-separated">
+                {{#each languages as |language|}}
+                    <li
+                        {{#if (and @last @root.data.details.languages.details)}}class="details-follow"{{/if}}
+                        data-slug="{{language.slug}}"
+                    >{{language.label}}</li>
+                {{/each}}
+                {{#if data.details.languages.details}}<li>{{data.details.languages.details}}</li>{{/if}}
+            </ul>
         </div>
     </div>
-    <!-- SKILLS -->
+
+    {{!-- SKILLS --}}
     <div class="skills section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.SkillsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="skills-controls controls" for="data.skills">
-                    <a class="skills-edit edit" data-options="skill" title="{{localize "PF2E.NPC.EditSkills"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a data-action="edit-skills" data-tooltip="PF2E.NPC.EditSkills"><i class="fa-solid fa-edit"></i></a>
                 </div>
             {{/if}}
         </div>
         <div class="section-body">
             <div class="list">
-                {{#each data.sortedSkills as |skill id|}}
+                {{#each data.sortedSkills as |skill slug|}}
                     {{#if skill.visible}}
-                        <div class="skill-entry tag-legacy" data-skill="{{id}}">
-                            <a class="rollable">{{skill.label}} <span class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}">{{numberFormat skill.value decimals=0 sign=true}}</span></a>
+                        <div class="skill-entry tag-legacy" data-statistic="{{skill.slug}}">
+                            <a class="roll" data-action="roll-check" data-tooltip="{{skill.breakdown}}">{{skill.label}}
+                                <span
+                                    class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}"
+                                >{{numberFormat skill.value sign=true}}</span>
+                            </a>
                             {{#if skill.variants}}
                                 {{#each skill.variants as |variant variantId|}}
-                                    <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{variant.label}})</a>
+                                    <a class="roll" data-action="roll-check" data-options="{{variant.options}}">({{variant.label}})</a>
                                 {{/each}}
                             {{/if}}
                         </div>
@@ -107,32 +147,39 @@
             </div>
         </div>
     </div>
-    <!-- ATTACKS -->
+
+    {{!-- ATTACKS --}}
     <div class="attacks section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.NPC.Attacks"}}</h4>
             {{#if options.editable}}
                 <div class="attacks-controls controls">
-                    <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
-                    <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
+                    <a data-action="create-item" data-type="melee" data-action-type="melee"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
+                    <a data-action="create-item" data-type="melee" data-action-type="ranged"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
                 </div>
             {{/if}}
         </div>
         <div class="section-body">
             <ol class="attacks-list strikes-list item-list">
                 {{#each data.actions as |attack index|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index isEditable=@root.options.editable}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index}}
                 {{/each}}
             </ol>
         </div>
     </div>
-    <!-- ACTIONS -->
+
+    {{!-- ACTIONS --}}
     <div class="actions section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.ActionActionsLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{localize "PF2E.NPC.AddAction"}}" data-type="action" data-action-type="action"><i class="fa-solid fa-plus"></i></a>
+                    <a
+                        data-action="create-item"
+                        data-tooltip="PF2E.NPC.AddAction"
+                        data-type="action"
+                        data-action-type="action"
+                    ><i class="fa-solid fa-plus"></i></a>
                 </div>
             {{/if}}
         </div>
@@ -144,13 +191,19 @@
             </ol>
         </div>
     </div>
-    <!-- PASSIVES -->
+
+    {{!-- PASSIVES --}}
     <div class="passives section-container">
         <div class="section-header">
             <h4>{{localize "PF2E.NPC.PassivesLabel"}}</h4>
             {{#if options.editable}}
                 <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{localize "PF2E.NPC.AddPassive"}}" data-type="action" data-action-type="passive"><i class="fa-solid fa-plus"></i></a>
+                    <a
+                        data-action="create-item"
+                        data-tooltip="PF2E.NPC.AddPassive"
+                        data-type="action"
+                        data-action-type="passive"
+                    ><i class="fa-solid fa-plus"></i></a>
                 </div>
             {{/if}}
         </div>

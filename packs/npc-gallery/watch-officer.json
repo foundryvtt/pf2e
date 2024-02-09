@@ -282,7 +282,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -467,24 +467,13 @@
             "name": "Bolts",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -526,6 +515,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -680,7 +674,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures in the aura who are the same or lower level than the watch officer take a -2 status penalty to their Will DC against the watch officer's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] them.</p>"
+                    "value": "<p>10 feet. Creatures in the aura who are the same or lower level than the watch officer take a -2 status penalty to their Will DC against the watch officer's attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] them.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1019,12 +1013,6 @@
                 "temp": 0,
                 "value": 45
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 8
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1032,6 +1020,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -1042,6 +1036,14 @@
                 "remaster": false,
                 "title": "Pathfinder Gamemastery Guide"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "(+9 to sense motive)",
+            "mod": 8,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1059,17 +1061,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "(+9 to Sense Motive)"
-            },
             "size": {
                 "value": "med"
             },

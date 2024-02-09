@@ -20,7 +20,7 @@ export class EffectsPanel extends Application {
      * Debounce and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
      * to properly wait for promises to resolve before refreshing the UI.
      */
-    refresh = foundry.utils.debounce(this.render, 100);
+    refresh = fu.debounce(this.render, 100);
 
     static override get defaultOptions(): ApplicationOptions {
         return {

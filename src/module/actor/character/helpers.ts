@@ -204,7 +204,7 @@ class WeaponAuxiliaryAction {
         const COVER_UUID = "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi";
 
         if (this.carryType) {
-            await actor.adjustCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
+            await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
             const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
             if (!updated) return;
@@ -282,14 +282,15 @@ class WeaponAuxiliaryAction {
 
 /** Make a PC Clumsy 1 when wielding an oversized weapon */
 function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
+    if (actor.conditions.clumsy) return;
+
     const wieldedOversizedWeapon = actor.itemTypes.weapon.find(
         (w) => w.isEquipped && w.isOversized && w.category !== "unarmed",
     );
-
     const compendiumCondition = game.pf2e.ConditionManager.getCondition("clumsy");
     const conditionSource =
         wieldedOversizedWeapon && actor.conditions.bySlug("clumsy").length === 0
-            ? mergeObject(compendiumCondition.toObject(), {
+            ? fu.mergeObject(compendiumCondition.toObject(), {
                   _id: "xxxxOVERSIZExxxx",
                   system: { slug: "clumsy", references: { parent: { id: wieldedOversizedWeapon.id } } },
               })
@@ -302,6 +303,7 @@ function imposeOversizedWeaponCondition(actor: CharacterPF2e): void {
     for (const rule of clumsyOne.prepareRuleElements()) {
         rule.beforePrepareData?.();
     }
+    actor.conditions.set(clumsyOne.id, clumsyOne);
 }
 
 interface CreateAttackModifiersParams {

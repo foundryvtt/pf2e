@@ -28,7 +28,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
     #DAMAGE_TYPES = new Set([...DAMAGE_TYPES, "good", "evil", "lawful", "chaotic"]);
 
     #ensureTraitsPresence(system: MaybeOldSpellSystemSource): { value: SpellTrait[] } {
-        return mergeObject({ value: [] }, system.traits ?? { value: [] });
+        return fu.mergeObject({ value: [] }, system.traits ?? { value: [] });
     }
 
     #migrateRule(rule: DeepPartial<RuleElementSource>): DeepPartial<RuleElementSource> | never[] {
@@ -154,6 +154,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
             tupleHasValue(SAVE_TYPES, system.save.value)
         ) {
             system.defense = {
+                passive: null,
                 save: { statistic: system.save.value, basic: !!system.save.basic },
             };
         }
@@ -161,7 +162,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         if ("save" in system) system["-=save"] = null;
 
         // Flatten `damage` object
-        const oldSpellDamage = deepClone(system.damage);
+        const oldSpellDamage = fu.deepClone(system.damage);
         if (isObject(oldSpellDamage) && R.isObject(oldSpellDamage?.value)) {
             system.damage = {};
             for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {

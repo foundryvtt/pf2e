@@ -1,5 +1,4 @@
-import type { ActorPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType } from "@actor";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -10,6 +9,7 @@ import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-f
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
+import { isBracketedValue } from "../helpers.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
 /**
@@ -138,7 +138,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     /** Generate a label without a leading title (such as "Effect:") */
     protected getReducedLabel(label = this.label): string {
-        return reduceItemName(label);
+        return label === this.parent.name ? reduceItemName(label) : label;
     }
 
     /** Include parent item's name and UUID in `DataModel` validation error messages */
@@ -239,7 +239,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         } else if (typeof source === "string") {
             return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
                 const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
-                const value = getProperty(data, prop);
+                const value = fu.getProperty(data, prop);
                 if (value === undefined) {
                     this.ignored = true;
                     if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
@@ -284,7 +284,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
         if (resolvedFromBracket instanceof Object) {
             return defaultValue instanceof Object
-                ? mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
+                ? fu.mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
                 : resolvedFromBracket;
         }
 
@@ -292,7 +292,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             const saferEval = (formula: string): number => {
                 try {
                     // If any resolvables were not provided for this formula, return the default value
-                    const unresolveds = formula.match(/@[a-z.]+/gi) ?? [];
+                    const unresolveds = formula.match(/@[a-z0-9.]+/gi) ?? [];
                     // Allow failure of "@target" and "@actor.conditions" with no warning
                     if (unresolveds.length > 0) {
                         const shouldWarn =
@@ -318,7 +318,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             const trimmed = resolvedFromBracket.trim();
             return (trimmed.includes("@") || /^-?\d+$/.test(trimmed)) && evaluate
-                ? saferEval(Roll.replaceFormulaData(trimmed, { actor: this.actor, item: this.item, ...resolvables }))
+                ? saferEval(
+                      Roll.replaceFormulaData(trimmed, {
+                          ...this.actor.getRollData(),
+                          item: this.item,
+                          ...resolvables,
+                      }),
+                  )
                 : trimmed;
         }
 
@@ -326,11 +332,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     protected isBracketedValue(value: unknown): value is BracketedValue {
-        return (
-            isObject<BracketedValue>(value) &&
-            Array.isArray(value.brackets) &&
-            (typeof value.field === "string" || !("fields" in value))
-        );
+        return isBracketedValue(value);
     }
 
     #resolveBracketedValue(
@@ -346,13 +348,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             switch (source) {
                 case "actor":
-                    return Number(getProperty(actor, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(actor, field.substring(separator + 1))) || 0;
                 case "item":
-                    return Number(getProperty(item, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(item, field.substring(separator + 1))) || 0;
                 case "rule":
-                    return Number(getProperty(this, field.substring(separator + 1))) || 0;
+                    return Number(fu.getProperty(this, field.substring(separator + 1))) || 0;
                 default:
-                    return Number(getProperty(actor, field.substring(0))) || 0;
+                    return Number(fu.getProperty(actor, field.substring(0))) || 0;
             }
         })();
         const brackets = value.brackets ?? [];

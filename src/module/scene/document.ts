@@ -5,10 +5,13 @@ import { TokenDocumentPF2e } from "./index.ts";
 import type { SceneConfigPF2e } from "./sheet.ts";
 
 class ScenePF2e extends Scene {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         if (!this.tokenVision) return false;
-        return this.flags.pf2e.rulesBasedVision ?? game.settings.get("pf2e", "automation.rulesBasedVision");
+        return this.flags.pf2e.rulesBasedVision ?? game.pf2e.settings.rbv;
     }
 
     get hearingRange(): number | null {
@@ -50,7 +53,14 @@ class ScenePF2e extends Scene {
         return (this.active && !soleUserIsGM) || (this.isView && soleUserIsGM);
     }
 
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
     override prepareData(): void {
+        if (this.initialized) return;
+        this.initialized = true;
         super.prepareData();
 
         Promise.resolve().then(() => {
@@ -62,7 +72,7 @@ class ScenePF2e extends Scene {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.flags.pf2e = mergeObject(
+        this.flags.pf2e = fu.mergeObject(
             {
                 hearingRange: null,
                 rulesBasedVision: null,
@@ -136,17 +146,6 @@ interface ScenePF2e extends Scene {
     readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;
-
-    createEmbeddedDocuments(
-        embeddedName: "Token",
-        data: PreCreate<foundry.documents.TokenSource>[],
-        context?: DocumentModificationContext<this>,
-    ): Promise<TokenDocumentPF2e<this>[]>;
-    createEmbeddedDocuments(
-        embeddedName: string,
-        data: object[],
-        context?: DocumentModificationContext<this>,
-    ): Promise<foundry.abstract.Document[]>;
 }
 
 // Added as debounced method

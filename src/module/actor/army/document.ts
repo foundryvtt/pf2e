@@ -1,10 +1,9 @@
 import { FeatGroup } from "@actor/character/feats.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { importDocuments } from "@actor/party/kingdom/helpers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
-import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
+import { type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { extractDamageDice, extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
@@ -22,10 +21,9 @@ import * as R from "remeda";
 import { ActorPF2e, type ActorUpdateContext, type HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
 import type { ArmyStrike } from "./types.ts";
-import { ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER } from "./values.ts";
+import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
     declare scouting: Statistic;
     declare maneuver: Statistic;
     declare morale: Statistic;
@@ -56,6 +54,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ARMY_STATS.maxTactics[this.level];
     }
 
+    override prepareData(): void {
+        super.prepareData();
+        this.kingdom?.notifyUpdate();
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -66,7 +69,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
-        this.system.traits.senses = [];
+        this.system.perception = { senses: [] };
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
@@ -90,9 +93,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.consumption = Math.max(0, this.system.consumption);
 
         if (this.itemTypes.campaignFeature.some((f) => f.slug === "darkvision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "darkvision" }));
+            const sense = new Sense({ type: "darkvision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         } else if (this.itemTypes.campaignFeature.some((f) => f.slug === "low-light-vision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "lowLightVision" }));
+            const sense = new Sense({ type: "low-light-vision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         }
 
         this.tactics = new FeatGroup(this, {
@@ -108,6 +113,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const expectedAC = ARMY_STATS.ac[this.level];
         const acAdjustment = this.system.ac.value - expectedAC;
         this.armorClass = new ArmorStatistic(this, {
+            attribute: null,
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
@@ -169,7 +175,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             });
         }
 
-        this.initiative = new ActorInitiative(this, { statistic: "scouting" });
+        const tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
+        this.initiative = new ActorInitiative(this, { statistic: "scouting", tiebreakPriority });
         this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
             this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
         );
@@ -364,18 +371,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         };
     }
 
-    async importBasicActions({ skipDialog = false }: { skipDialog?: boolean } = {}): Promise<void> {
-        const pack = game.packs.get("pf2e.kingmaker-features");
-        const compendiumFeaturs = ((await pack?.getDocuments({ type: "campaignFeature" })) ?? []).filter(
-            (d): d is CampaignFeaturePF2e<null> => d instanceof ItemPF2e && d.isOfType("campaignFeature"),
-        );
-        const documents = compendiumFeaturs.filter(
-            (d) => d.system.category === "army-war-action" && d.folder?.id === BASIC_WAR_ACTIONS_FOLDER,
-        );
-
-        await importDocuments(this, documents, skipDialog);
-    }
-
     /** Updates the army's level, scaling all attributes that are intended to scale as the army levels up */
     updateLevel(newLevel: number): Promise<this | undefined> {
         newLevel = Math.clamped(newLevel, 1, 20);
@@ -434,14 +429,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return this.kingdom?.getStatistic(slug) ?? super.getStatistic(slug);
     }
 
-    // Import basic actions when first created
-    override _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onCreate(data, options, userId);
-        if (this.primaryUpdater === game.user) {
-            this.importBasicActions({ skipDialog: true });
-        }
-    }
-
     override _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: ActorUpdateContext<TParent>,
@@ -454,10 +441,16 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         return super._preUpdate(changed, options, user);
     }
+
+    override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+        this.kingdom?.reset();
+    }
 }
 
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: ArmySource;
+    armorClass: StatisticDifficultyClass<ArmorStatistic>;
     system: ArmySystemData;
 
     get hitPoints(): HitPointsSummary;

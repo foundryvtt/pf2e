@@ -24,7 +24,29 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:group:crossbow",
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:hands-held:2"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "parry"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -95,7 +95,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         // Restore wand charges
         const items = actor.itemTypes;
         const wands = items.consumable.filter((i) => i.category === "wand" && i.uses.value < i.uses.max);
-        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.charges.value": wand.uses.max })));
+        itemUpdates.push(...wands.map((wand) => ({ _id: wand.id, "system.uses.value": wand.uses.max })));
         const wandRecharged = itemUpdates.length > 0;
 
         // Restore reagents
@@ -132,7 +132,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         }
 
         // Stamina points
-        if (game.settings.get("pf2e", "staminaVariant")) {
+        if (game.pf2e.settings.variants.stamina) {
             const stamina = attributes.hp.sp ?? { value: 0, max: 0 };
             const resolve = resources.resolve ?? { value: 0, max: 0 };
             if (stamina.value < stamina.max) {
@@ -204,16 +204,12 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         );
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 
-        messages.push({ user: game.user.id, content, speaker: { alias: actor.name } });
-
-        // Re-render the actor's sheet after all writes have completed
-        await actor.sheet.render();
-
         // Call a hook for modules to do anything extra
         Hooks.callAll("pf2e.restForTheNight", actor);
+        messages.push({ user: game.user.id, content, speaker: ChatMessagePF2e.getSpeaker({ actor }) });
     }
 
-    return ChatMessagePF2e.createDocuments(messages);
+    return ChatMessagePF2e.createDocuments(messages, { restForTheNight: true });
 }
 
 interface ActorUpdates {

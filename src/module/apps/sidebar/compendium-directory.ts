@@ -11,7 +11,8 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static readonly searchEngine = new MiniSearch<CompendiumIndexData>({
         fields: ["name"],
         idField: "uuid",
-        processTerm: (t) => (t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null),
+        processTerm: (t) =>
+            t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "") : null,
         searchOptions: { combineWith: "AND", prefix: true },
         storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
     });
@@ -187,8 +188,11 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     }
 
     /** Replicate the functionality of dragging a compendium document from an open `Compendium` */
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
         const dragElement = event.currentTarget;
+        if (!(dragElement instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
         const { uuid } = dragElement.dataset;
         if (!uuid) return super._onDragStart(event);
 

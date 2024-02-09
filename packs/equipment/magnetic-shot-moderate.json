@@ -1,26 +1,15 @@
 {
     "_id": "5RJivM5SShjbqFf0",
-    "img": "systems/pf2e/icons/default-icons/consumable.svg",
+    "img": "icons/commodities/tech/bearing-steel-green.webp",
     "name": "Magnetic Shot (Moderate)",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": 0,
-            "value": 0
-        },
-        "consumableType": {
-            "value": "ammo"
-        },
-        "consume": {
-            "value": ""
-        },
+        "category": "ammo",
         "containerId": null,
+        "damage": null,
         "description": {
             "value": "<p><strong>Ammunition</strong> any</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command</p>\n<p>Shiny gray metal that slightly thrums when touched makes up the metal parts of a magnetic shot. When activated, the shot is more effective against a target wearing metal armor or made of metal. The activated ammunition grants a +1 circumstance bonus to attack rolls against such targets. Due to magnetic acceleration, the ammunition deals three additional weapon damage dice and is deadly d10.</p>"
         },
@@ -47,7 +36,28 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{item|_id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d10"
+            },
+            {
+                "diceNumber": 3,
+                "key": "DamageDice",
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|_id}-attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
@@ -58,6 +68,11 @@
         },
         "usage": {
             "value": "other"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

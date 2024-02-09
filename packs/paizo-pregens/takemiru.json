@@ -69,7 +69,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
                 },
                 "description": {
-                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals @Damage[1d6[piercing]] damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Pest Form]</em>.</p>"
+                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Pest Form].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -78,6 +78,7 @@
                 },
                 "rules": [
                     {
+                        "baseType": "jaws",
                         "category": "unarmed",
                         "damage": {
                             "base": {
@@ -141,7 +142,7 @@
                 },
                 "items": {
                     "wkfyj": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Intimidating Glare",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
@@ -1371,24 +1372,17 @@
             "name": "Biting Snare",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": "1",
-                    "value": "1"
-                },
-                "consumableType": {
-                    "value": "snare"
-                },
-                "consume": {
-                    "value": "5d6"
-                },
+                "category": "snare",
                 "containerId": null,
+                "damage": {
+                    "formula": "5d6",
+                    "kind": "damage",
+                    "type": "piercing"
+                },
                 "description": {
                     "value": "<p>The snare's jaws shut on the leg of a creature that steps on it. The snare deals 5d6 piercing damage to the first creature that enters its square; that creature must attempt a @Check[type:reflex|dc:18] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and takes a -10-foot status penalty to its Speed until it recovers at least 1 Hit Point.</p>"
                 },
@@ -1433,6 +1427,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1448,24 +1447,17 @@
             "name": "Trip Snare",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": "1",
-                    "value": "1"
-                },
-                "consumableType": {
-                    "value": "snare"
-                },
-                "consume": {
-                    "value": "1d6"
-                },
+                "category": "snare",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d6",
+                    "kind": "damage",
+                    "type": "bludgeoning"
+                },
                 "description": {
                     "value": "<p>You set a cunning wire to trip a creature. A Medium or smaller creature that enters this snare's square must attempt a @Check[type:reflex|dc:20] save.</p>\n<p>If you want to create a trip snare to trip a larger creature, you must create a group of contiguous snares of a length equal to the edge of that larger creature's space, and the creature must be moving such that it moves into the full set of snares. For example, three trip snares in a 15-foot-line can trip a Huge creature coming down a corridor into the line of snares.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is off-guard until the start of its next turn.</p>\n<p><strong>Failure</strong> The creature falls prone.</p>\n<p><strong>Critical Failure</strong> The creature falls prone and takes 1d6 bludgeoning damage.</p>"
                 },
@@ -1509,6 +1501,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1524,24 +1521,13 @@
             "name": "Warning Snare",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": "1",
-                    "value": "1"
-                },
-                "consumableType": {
-                    "value": "snare"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "snare",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Using materials specific to the area, you connect a sound-making component to a trip wire or a pressure plate. This snare is like an alarm snare, but its subtle sound blends into ambient noise. You can detect this sound as long as you're within 1,000 feet of the snare and aren't prevented from hearing it. Other creatures in that area who are searching might notice the sound if their Perception check result meets or exceeds your Craft DC.</p>"
                 },
@@ -1586,6 +1572,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1603,7 +1594,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1712,7 +1703,7 @@
                 "hp": 10,
                 "items": {
                     "07lzm": {
-                        "img": "systems/pf2e/icons/features/classes/masterful-hunter.webp",
+                        "img": "icons/weapons/bows/shortbow-recurve-yellow-blue.webp",
                         "level": 17,
                         "name": "Masterful Hunter",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Masterful Hunter"
@@ -1760,7 +1751,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "bv3vc": {
-                        "img": "systems/pf2e/icons/features/classes/swift-prey.webp",
+                        "img": "icons/creatures/invertebrates/spider-pink-purple.webp",
                         "level": 19,
                         "name": "Swift Prey",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Swift Prey"
@@ -1826,7 +1817,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Hunt Prey"
                     },
                     "upgl9": {
-                        "img": "systems/pf2e/icons/features/classes/ranger-expertise.webp",
+                        "img": "icons/skills/ranged/target-bullseye-arrow-yellow.webp",
                         "level": 9,
                         "name": "Ranger Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Ranger Expertise"
@@ -2077,15 +2068,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "iron-will",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2330,7 +2321,7 @@
                         "kitsune"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -2446,9 +2437,6 @@
                 "temp": 0,
                 "value": 56
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2505,6 +2493,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Takemiru's family hails from the Forest of Spirits on the other side of the world from Korvosa but traveled to Avistan through the frozen Path of Aganhei as part of a merchant caravan in hopes of making their fortune through trading. As he grew older, though, Takemiru realized his family members weren't the kind merchants they'd posed as but were part of a bandit crew that used mercantilism as a cover for their crimes. He abandoned his family and headed south, taking on the solo life of a wilderness hunter, eventually finding his way to the Korvosan hinterlands-and new friends. After spending so long alone in the wilds, he's grown quite fond of his new family. Someday he hopes to bring them back to Tian Xia to show them his homeland, but he's in no rush to return quite yet.</p>\n<p>Takemiru appears as a muscular, fox-like humanoid with red and white fur and bright blue eyes. His choice of weapons remains a playful vex to those who don't know him. Like the three-tined trident and sai he wields, he possesses three long fox tails. The fur on each tail lightens to white at the tip, and occasionally little wisps of smoke waft from the fur at the tip of his central tail as if it were on the verge of catching fire.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -2513,6 +2502,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2533,6 +2523,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2550,6 +2546,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2638,19 +2637,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

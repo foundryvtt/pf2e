@@ -7,7 +7,7 @@ function takeABreather(): void {
     let applyChanges = false;
     const actors = R.uniq(R.compact(game.user.getActiveTokens().map((t) => t.actor)));
     const pcs = actors.filter((a): a is CharacterPF2e => a.isOfType("character"));
-    if (!game.settings.get("pf2e", "staminaVariant")) {
+    if (!game.pf2e.settings.variants.stamina) {
         return;
     } else if (pcs.length === 0) {
         ui.notifications.error("PF2E.ErrorMessage.NoPCTokenSelected", { localize: true });

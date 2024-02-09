@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Made of waxed cotton or cork, earplugs give you a +1 item bonus to saves against effects with the auditory trait. The earplugs make it difficult to hear, however, imposing a -2 item penalty on Perception checks involving sound.</p>\n<p>Inserting or removing the earplugs requires an Interact action.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Earplugs]{Effect: Earplugs (PFS Guide)}</p>"
+            "value": "<p>Made of waxed cotton or cork, earplugs give you a +1 item bonus to saves against effects with the auditory trait. The earplugs make it difficult to hear, however, imposing a -2 item penalty on Perception checks involving sound.</p>\n<p>Inserting or removing the earplugs requires an Interact action.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,14 +34,33 @@
             "title": "Pathfinder Lost Omens: Pathfinder Society Guide"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "auditory"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": -2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         }
     },
     "type": "equipment"

@@ -23,7 +23,7 @@ export const DropCanvasData = {
                 const instances = roll.instances.filter((i) => i.persistent);
                 const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
                 const conditions = instances.map((i) =>
-                    mergeObject(baseConditionSource, {
+                    fu.mergeObject(baseConditionSource, {
                         system: {
                             persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
                         },

@@ -61,6 +61,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             actorRarities: CONFIG.PF2E.rarityTraits,
             actorRarity: CONFIG.PF2E.rarityTraits[this.actor.system.traits.rarity],
             ac: getAdjustedValue(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
+            frequencies: CONFIG.PF2E.frequencies,
             saves: {
                 fortitude: getAdjustedValue(
                     this.actor.saves.fortitude.mod,
@@ -102,6 +103,7 @@ interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
     actorSizes: typeof CONFIG.PF2E.actorSizes;
     actorSize: string;
     ac: AdjustedValue;
+    frequencies: typeof CONFIG.PF2E.frequencies;
     saves: { fortitude: AdjustedValue };
 }
 

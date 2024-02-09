@@ -1,147 +1,61 @@
 .inventory {
-    --border-color: var(--alt);
-
-    ul {
-        @include p-reset;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .notify {
-        @include requires-user-attention;
-    }
-
-    .item-name {
-        align-items: center;
-        display: flex;
-        flex: 2;
-        font-weight: 500;
-        gap: 0.25rem;
-        padding-right: 0.25rem;
-
-        h3,
-        h4 {
-            cursor: pointer;
-            font-weight: 500;
-            line-height: var(--font-size-12);
-            margin: auto auto auto 0;
-            padding: 2px;
-            word-break: break-word;
-
-            &:hover {
-                color: var(--primary);
-            }
-
-            i.fa-info-circle {
-                color: var(--text-dark);
-
-                &:hover {
-                    color: var(--text-dark);
-                }
-            }
-        }
-
-        h4:not(:hover) {
-            &.rarity-uncommon {
-                border-color: var(--color-rarity-uncommon);
-                color: var(--color-rarity-uncommon);
-            }
-
-            &.rarity-rare {
-                border-color: var(--color-rarity-rare);
-                color: var(--color-rarity-rare);
-            }
-
-            &.rarity-unique {
-                border-color: var(--color-rarity-unique);
-                color: var(--color-rarity-unique);
-            }
-        }
-
-        .size {
-            font-size: 0.8em;
-            color: var(--alt);
-            margin: 0;
-        }
-
-        .item-charges {
-            color: var(--sub);
-        }
-    }
+    --border-color: var(--color-pf-alternate);
 
     .inventory-list,
-    .inventory-items {
+    ul.items {
+        display: flex;
         flex-direction: column;
-        list-style-type: none;
         position: relative;
         width: 100%;
 
-        & > li:nth-of-type(even) {
-            background-color: rgba($alt-color, 0.1);
+        .item-name {
+            align-items: center;
+            display: flex;
+            flex: 2;
+            font-weight: 500;
+            gap: 0.25rem;
+            padding-right: 0.25rem;
         }
 
-        .list-row {
-            &:last-child {
-                .item-summary {
-                    border-bottom: none;
-                }
-            }
+        .price,
+        .quantity,
+        .bulk,
+        .item-controls {
+            align-items: center;
+            display: flex;
         }
 
-        .temporary-item {
-            background-color: #0005ff1d;
+        .price {
+            flex-basis: 4rem;
+        }
+
+        .quantity {
+            flex-basis: 4.25rem;
+        }
+
+        .bulk {
+            flex-basis: 2.5rem;
+        }
+
+        .item-controls {
+            flex-basis: 5.625rem;
+            font-size: var(--font-size-12);
+            gap: 1px;
+            justify-content: end;
         }
     }
 
     .inventory-list {
         overflow: hidden scroll;
-        display: flex;
         height: calc(100% - 60px);
         padding-right: 0.15rem;
     }
 
-    .quantity,
-    .bulk,
-    .item-controls,
-    .sell-value {
-        @include flex-center;
-        flex: 0 0 68px;
-    }
-
-    .sell-value {
-        justify-content: end;
-        padding-right: 3px;
-    }
-
-    .quantity {
-        justify-content: space-around;
-
-        .decrease,
-        .increase {
-            @include flex-center;
-            font-family: var(--sans-serif-monospace);
-            height: 100%;
-            text-align: center;
-            width: 18px;
-        }
-    }
-
-    .bulk {
-        flex: 0 0 36px;
-    }
-
-    .item-controls {
-        flex: 0 0 90px;
-        font-size: var(--font-size-12);
-        gap: 1px;
-        justify-content: end;
-    }
-
-    .inventory-header {
+    .inventory-list > header,
+    .total-bulk {
         @include button;
         align-items: center;
-        background-color: var(--alt);
+        background-color: var(--color-pf-alternate);
         color: var(--color-text-light-0);
         display: flex;
         font-family: var(--sans-serif);
@@ -149,8 +63,8 @@
         justify-content: end;
         letter-spacing: 0.05em;
         line-height: 1;
-        margin-top: 6px;
-        padding: 0.25rem;
+        margin-top: var(--space-6);
+        padding: var(--space-4);
         text-rendering: optimizeLegibility;
         text-transform: uppercase;
         width: 100%;
@@ -170,201 +84,314 @@
             }
         }
 
-        .item-name {
-            padding-left: 4px;
-        }
-
         .item-invested-total {
             flex: none;
             margin-right: 1em;
         }
 
         .item-controls {
-            gap: 0.25rem;
+            gap: var(--space-4);
         }
 
         .overinvested {
             color: orange;
-            text-shadow: 1px 1px 0px black;
+            text-shadow: 1px 1px 0 black;
         }
     }
 
-    .inventory-items {
-        border: 1px solid var(--border-color);
+    .inventory-list > header {
+        .item-name {
+            padding-left: var(--space-4);
+        }
+
+        > span {
+            justify-content: center;
+        }
+    }
+
+    ul.items {
         border-top: none;
-    }
-
-    .item {
+        border: 1px solid var(--border-color);
         display: flex;
-        flex-wrap: wrap;
-        font-size: var(--font-size-12);
-        justify-content: flex-start;
-        width: 100%;
+        flex-direction: column;
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-        .quantity,
-        .bulk,
-        .item-controls,
-        .sell-value {
-            border-left: 1px solid var(--alt);
-        }
-    }
-
-    .list-row {
-        width: 100%;
-
-        .item-controls {
-            color: var(--text-dark);
-            font-size: var(--font-size-13);
-
-            .item-control {
-                &.toggle-invested,
-                &.item-carry-type {
-                    color: rgba(black, 0.5);
-
-                    &.active {
-                        color: var(--secondary);
-                    }
-                }
-
-                &.item-carry-type {
-                    text-align: right;
-                }
-
-                // Hands-held with interior number
-                .fa-stack {
-                    margin: -3px -2px 0;
-
-                    .fa-1,
-                    .fa-2 {
-                        left: 1px;
-                        position: relative;
-                    }
-                }
-            }
-        }
-
-        &.drag-preview {
-            box-shadow: 0 0 6px inset var(--color-shadow-highlight);
-        }
-
-        // The gap left by an item being dragged to a new position
-        &.drag-gap {
-            visibility: hidden;
-        }
-    }
-
-    .container-metadata {
-        flex-basis: 100%;
-
-        .capacity {
-            @include micro;
-            position: relative;
-            background-color: rgba(black, 0.75);
-            box-shadow: inset 0 0 4px black;
-            color: var(--color-text-light-0);
-            display: flex;
+        > li {
             width: 100%;
 
-            .bar {
-                background-color: var(--secondary);
-                border-radius: 0 2px 2px 0;
-                box-shadow:
-                    inset 0 0 0 1px rgba(black, 0.5),
-                    inset 0 0 0 2px rgba(white, 0.1);
-                padding: 8px 0;
-            }
-
-            .label {
-                position: absolute;
-                height: 100%;
-                top: 0;
-                left: 0;
-                padding: 2px;
-            }
-            &.over-limit .container-capacity-bar {
-                background-color: var(--primary);
-            }
-        }
-
-        .container-held-items {
-            padding-left: 10px;
-            border-left: none;
-            border-right: none;
-
-            li:nth-of-type(even) {
+            &:nth-of-type(even) {
                 background-color: rgba($alt-color, 0.1);
             }
 
-            li:first-of-type .item::before {
-                height: 50%;
-                top: 0;
+            &:last-child .item-summary {
+                border-bottom: none;
             }
 
-            .item {
-                position: relative;
+            &.temporary-item {
+                background-color: #0005ff1d;
+            }
 
-                &::before,
-                &::after {
-                    position: absolute;
-                    border-left: 1px solid var(--alt);
-                    top: 0;
-                    height: 50%;
-                    left: -5px;
-                    width: 5px;
-                    content: "";
+            > .data {
+                display: flex;
+                flex-wrap: wrap;
+                font-size: var(--font-size-12);
+                justify-content: flex-start;
+                width: 100%;
+
+                &.drop-highlight {
+                    background: #b7f8c7;
                 }
 
-                &::before {
-                    border-bottom: 1px solid var(--alt);
-                    top: 0;
+                .item-name {
+                    h3,
+                    h4 {
+                        font-weight: 500;
+                        line-height: var(--font-size-12);
+                        margin: auto auto auto 0;
+                        padding: var(--space-2);
+                        word-break: break-word;
+
+                        a:hover {
+                            text-shadow: none;
+                        }
+
+                        &:hover {
+                            color: var(--color-pf-primary);
+                        }
+
+                        i.fa-info-circle {
+                            color: var(--text-dark);
+
+                            &:hover {
+                                color: var(--text-dark);
+                            }
+                        }
+                    }
+
+                    h4:not(:hover) {
+                        &.rarity-uncommon {
+                            border-color: var(--color-rarity-uncommon);
+                            color: var(--color-rarity-uncommon);
+                        }
+
+                        &.rarity-rare {
+                            border-color: var(--color-rarity-rare);
+                            color: var(--color-rarity-rare);
+                        }
+
+                        &.rarity-unique {
+                            border-color: var(--color-rarity-unique);
+                            color: var(--color-rarity-unique);
+                        }
+                    }
+
+                    .size {
+                        color: var(--color-pf-alternate);
+                        font-size: 0.8em;
+                        margin: 0;
+                    }
+
+                    .uses {
+                        color: var(--color-text-dark-3);
+                        margin-left: auto;
+                    }
                 }
 
-                &::after {
-                    top: 50%;
+                .price,
+                .quantity,
+                .bulk,
+                .item-controls {
+                    border-left: 1px solid var(--color-pf-alternate);
                 }
 
-                .item-summary {
-                    border-left: 1px solid var(--alt);
+                .price,
+                .bulk {
+                    justify-content: center;
+                    padding-right: 0.2em;
+                }
+
+                .quantity {
+                    justify-content: space-around;
+
+                    .decrease,
+                    .increase {
+                        @include flex-center;
+                        font-family: var(--sans-serif-monospace);
+                        height: 100%;
+                        text-align: center;
+                        width: 1.125rem;
+                    }
+                }
+
+                .item-controls {
+                    color: var(--text-dark);
+                    font-size: var(--font-size-13);
+
+                    > a {
+                        &.toggle-invested,
+                        &.item-carry-type {
+                            color: rgba(black, 0.5);
+
+                            &.active {
+                                color: var(--color-pf-secondary);
+                            }
+                        }
+
+                        &.item-carry-type {
+                            text-align: right;
+                        }
+
+                        // Hands-held with interior number
+                        .fa-stack {
+                            margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-2)) 0;
+
+                            .fa-1,
+                            .fa-2 {
+                                left: var(--space-1);
+                                position: relative;
+                            }
+                        }
+
+                        &.detach {
+                            font-size: 0.8em;
+                            margin: var(--space-1) var(--space-2) 0 0;
+                        }
+
+                        &.notify {
+                            @include requires-user-attention;
+                        }
+                    }
                 }
             }
 
-            // Add a connection line for nested containers
+            &.drag-preview {
+                box-shadow: 0 0 6px inset var(--color-shadow-highlight);
+            }
+
+            // The gap left by an item being dragged to a new position
+            &.drag-gap {
+                visibility: hidden;
+            }
+
+            .item-summary {
+                background: rgba(white, 0.333);
+                border-bottom: 1px solid var(--color-pf-alternate);
+                border-top: 1px solid var(--color-pf-alternate);
+                flex: 100%;
+                padding: var(--space-4) var(--space-8) var(--space-8);
+            }
+
             .container-metadata {
-                position: relative;
-                &::before {
-                    position: absolute;
-                    border-left: 1px solid var(--alt);
-                    top: 0;
-                    height: 100%;
-                    left: -5px;
-                    width: 0px;
-                    content: "";
+                flex-basis: 100%;
+
+                .capacity {
+                    @include micro;
+                    background-color: rgba(black, 0.75);
+                    box-shadow: inset 0 0 4px black;
+                    color: var(--color-text-light-0);
+                    display: flex;
+                    position: relative;
+                    width: 100%;
+
+                    .bar {
+                        background-color: var(--color-pf-secondary);
+                        border-radius: 0 2px 2px 0;
+                        box-shadow:
+                            inset 0 0 0 1px rgba(black, 0.5),
+                            inset 0 0 0 2px rgba(white, 0.1);
+                        padding: var(--space-8) 0;
+                    }
+
+                    .label {
+                        height: 100%;
+                        left: 0;
+                        padding: var(--space-2);
+                        position: absolute;
+                        top: 0;
+                    }
+
+                    &.over-limit .container-capacity-bar {
+                        background-color: var(--color-pf-primary);
+                    }
                 }
             }
 
-            // Ensure the final item's bracket ends in an L shape
-            li:last-of-type {
-                .item::after,
-                .container-metadata::before {
-                    border: none;
+            ul.container-contents,
+            ul.subitems {
+                border-left: none;
+                border-right: none;
+                padding-left: var(--space-10);
+
+                > li {
+                    position: relative;
+
+                    &:nth-of-type(even) {
+                        background-color: rgba($alt-color, 0.1);
+                    }
+
+                    &:first-of-type .item::before {
+                        height: 50%;
+                        top: 0;
+                    }
+
+                    &::before,
+                    &::after {
+                        border-left: 1px solid var(--color-pf-alternate);
+                        content: "";
+                        height: 50%;
+                        left: calc(-1 * var(--space-5));
+                        position: absolute;
+                        top: 0;
+                        width: var(--space-5);
+                    }
+
+                    &::before {
+                        border-bottom: 1px solid var(--color-pf-alternate);
+                        top: 0;
+                    }
+
+                    &::after {
+                        top: 50%;
+                    }
+
+                    .item-summary {
+                        border-left: 1px solid var(--color-pf-alternate);
+                    }
+                }
+
+                // Add a connection line for nested containers
+                .container-metadata {
+                    position: relative;
+
+                    &::before {
+                        border-left: 1px solid var(--color-pf-alternate);
+                        content: "";
+                        height: 100%;
+                        left: calc(-1 * var(--space-5));
+                        position: absolute;
+                        top: 0;
+                        width: 0;
+                    }
+                }
+
+                // Ensure the final item's bracket ends in an L shape
+                > li:last-of-type {
+                    .item::after,
+                    .container-metadata::before {
+                        border: none;
+                    }
                 }
             }
         }
-    }
-
-    .item-summary {
-        flex: 100%;
-        padding: 4px 8px 8px;
-        border-top: 1px solid var(--alt);
-        border-bottom: 1px solid var(--alt);
-        background: rgba(white, 0.333);
     }
 
     // Used in creature sheets
     .encumbrance {
         align-items: center;
         display: grid;
-        grid: "img bar overflow" min-content / 24px 1fr;
+        grid: "img bar overflow" min-content / 1.5rem 1fr;
         margin-top: auto;
 
         img {
@@ -376,92 +403,76 @@
         }
 
         .encumbrance-bar {
-            position: relative;
-            z-index: 2;
-            grid-area: bar;
-            height: 16px;
-            width: 100%;
-            background-color: var(--secondary);
+            background-color: var(--color-pf-secondary);
             box-shadow:
                 inset 0 0 0 1px rgba(black, 0.5),
                 inset 0 0 0 2px rgba(white, 0.2);
+            grid-area: bar;
+            height: 1rem;
+            position: relative;
+            width: 100%;
+            z-index: 2;
         }
+
+        &.over-limit .encumbrance-bar {
+            background-color: var(--color-pf-primary);
+        }
+
         .encumbrance-label {
-            position: relative;
-            z-index: 3;
-            grid-area: bar;
+            align-items: center;
             color: var(--text-light);
-            font-family: var(--serif);
-            font-size: var(--font-size-12);
-            font-weight: 500;
-            padding: 0 8px;
-            padding-top: 2px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            text-shadow: 0 0 2px black;
-        }
-        .encumbrance-light-bulk-overflow {
-            position: relative;
-            z-index: 3;
-            grid-area: overflow;
-            color: var(--text-dark);
-            font-family: var(--serif);
-            font-size: var(--font-size-12);
-            font-weight: 500;
-            padding: 0 8px;
-            padding-top: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            text-shadow: 0 0 2px white;
-        }
-        .bar-bg {
-            position: relative;
-            z-index: 1;
+            font: 500 var(--font-size-12) var(--serif);
             grid-area: bar;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-8) 0;
+            position: relative;
+            text-shadow: 0 0 2px black;
             width: 100%;
-            height: 16px;
+            z-index: 3;
+        }
+
+        .encumbrance-light-bulk-overflow {
+            align-items: center;
+            color: var(--text-dark);
+            display: flex;
+            font: 500 var(--font-size-12) var(--serif);
+            grid-area: overflow;
+            justify-content: space-between;
+            padding: var(--space-2) var(--space-8) 0;
+            position: relative;
+            text-shadow: 0 0 2px var(--color-text-light-0);
+            width: 100%;
+            z-index: 3;
+        }
+
+        .bar-bg {
             background-color: rgba(black, 0.5);
             border-radius: 0 2px 2px 0;
             box-shadow: inset 0 0 4px rgba(black, 0.75);
-        }
-
-        &.over-limit {
-            .encumbrance-bar {
-                background-color: var(--primary) !important;
-            }
+            grid-area: bar;
+            height: 1rem;
+            position: relative;
+            width: 100%;
+            z-index: 1;
         }
     }
 
     // Used in party and loot sheets
     .total-bulk {
-        align-items: center;
-        display: flex;
+        border-radius: 0;
         font-weight: 500;
-        gap: 0.25rem;
+        gap: var(--space-4);
         height: 1.5rem;
         justify-content: start;
-        margin-bottom: 0.7rem;
+        margin-bottom: var(--space-11);
+        padding-left: 0;
 
         img {
             @include frame-icon;
             height: 1.5rem;
             width: 1.5rem;
-            border-radius: 0;
             z-index: 1;
-        }
-
-        .bar {
-            justify-content: start;
-            margin-top: 0;
-            position: relative;
-            height: 1.25rem;
-            padding-left: 0.5rem;
-            left: -0.35rem;
-            z-index: 0;
         }
     }
 }

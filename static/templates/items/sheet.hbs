@@ -1,6 +1,6 @@
-<form class="{{cssClass}}" autocomplete="off">
-    <!-- ITEM SHEET HEADER -->
-    <header class="sheet-header" data-tooltip-class="pf2e">
+<form class="{{cssClass}}" autocomplete="off" data-tooltip-class="pf2e">
+    {{!-- ITEM SHEET HEADER --}}
+    <header class="sheet-header">
         {{!-- Source image in case of change during data preparation --}}
         <img src="{{item._source.img}}" data-edit="img" />
         <div class="details">
@@ -14,7 +14,11 @@
                 aria-label="{{localize "PF2E.ItemNamePlaceholder"}}"
             />
 
-            {{#if (or item.actionCost item.actionGlyph)}}{{{actionGlyph (coalesce item.actionCost item.actionGlyph)}}}{{/if}}
+            {{#if item.actionCost~}}
+                {{{actionGlyph item.actionCost}}}
+            {{~else if item.actionGlyph~}}
+                <span class="action-glyph">{{item.actionGlyph}}</span>
+            {{~/if}}
 
             {{#if itemType}}
                 <span class="level">
@@ -57,9 +61,9 @@
         {{/if}}
 
         <div class="tabs" data-tab-container="primary">
-            <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
-            <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
-            {{#if (and isPhysical user.isGM)}}
+            <a class="list-row" data-tab="description">{{localize "Description"}}</a>
+            <a class="list-row" data-tab="details">{{localize "PF2E.Details"}}</a>
+            {{#if (and isPhysical user.isGM (not item.parentItem))}}
                 <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
             {{/if}}
             {{#if (and enabledRulesUI (not isVariant))}}
@@ -68,19 +72,19 @@
         </div>
     </nav>
 
-    <!-- ITEM SHEET CONTENT -->
+    {{!-- ITEM SHEET CONTENT --}}
     <div class="sheet-content">
-        <!-- ITEM SHEET SIDEBAR -->
+        {{!-- ITEM SHEET SIDEBAR --}}
         {{#if sidebarTemplate}}
-            <section class="sidebar" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+            <section class="sidebar" data-tooltip-direction="UP">
                 {{> (lookup . "sidebarTemplate")}}
             </section>
         {{/if}}
 
-        <!-- ITEM SHEET BODY -->
+        {{!-- ITEM SHEET BODY --}}
         <div class="sheet-body">
-            <!-- Item Description -->
-            <section class="tab description" data-tab="description">
+            {{!-- Item Description --}}
+            <section class="tab description" data-tab="description" data-tooltip-class="">
                 {{#if user.isGM}}
                     <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
                         {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
@@ -101,7 +105,6 @@
             <section
                 class="tab details{{#unless sidebarTemplate}} no-sidebar{{/unless}}"
                 data-tab="details"
-                data-tooltip-class="pf2e"
                 data-tooltip-direction="UP"
             >
                 {{> (lookup . "detailsTemplate")}}
@@ -114,14 +117,14 @@
                 </fieldset>
             </section>
 
-            <!-- Mystification Details -->
             {{#if (and isPhysical user.isGM)}}
+                <!-- Mystification Details -->
                 {{> "systems/pf2e/templates/items/mystify-panel.hbs"}}
             {{/if}}
 
             <!-- Rules Elements -->
             {{#if (not isVariant)}}
-                <section class="tab rules" data-tab="rules" data-tooltip-class="pf2e" data-tooltip-direction="UP">
+                <section class="tab rules" data-tab="rules" data-tooltip-direction="UP">
                     {{!-- Use ~ so that text areas don't add further indentation --}}
                     {{~> systems/pf2e/templates/items/rules-panel.hbs item=item}}
                 </section>

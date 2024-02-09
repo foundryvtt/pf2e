@@ -466,7 +466,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:23]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:23]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -820,12 +820,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -842,6 +836,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals",
+                "value": [
+                    "common",
+                    "draconic",
+                    "fey",
+                    "gnomish",
+                    "halfling"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -852,6 +856,28 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -874,21 +900,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak With Animals",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "fey",
-                    "gnomish",
-                    "halfling"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, tremorsense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

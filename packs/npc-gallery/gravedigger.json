@@ -283,28 +283,17 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Du05UxCyCM0ZWH8z"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/oil.webp",
+            "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
             "name": "Oil (1 pint)",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "oil"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "oil",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5-foot square you target. You must succeed at a @Check[type:flat|dc:10] for the oil to ignite successfully when it hits. If the oil ignites, the target takes 1d6 fire damage.</p>"
                 },
@@ -344,6 +333,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -565,12 +559,6 @@
                 "temp": 0,
                 "value": 22
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 6
-            },
             "resistances": [
                 {
                     "type": "void",
@@ -584,6 +572,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -594,6 +588,14 @@
                 "remaster": false,
                 "title": "Pathfinder Gamemastery Guide"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -611,17 +613,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

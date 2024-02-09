@@ -31,7 +31,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
         // Add damage partial
         for (const button of htmlQueryAll(html, "a[data-action=add-partial]")) {
             button.addEventListener("click", () => {
-                const newKey = randomID();
+                const newKey = fu.randomID();
                 this.item.update({
                     [`system.damageRolls.${newKey}`]: { damage: "1d4", damageType: "bludgeoning" },
                 });

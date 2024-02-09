@@ -54,9 +54,9 @@ class RuleElementForm<
             (() => {
                 const RuleElementClass = RuleElements.all[String(this.rule.key)];
                 if (!RuleElementClass) return null as TObject;
-                const actor = new ActorProxyPF2e({ _id: randomID(), name: "temp", type: "character" });
+                const actor = new ActorProxyPF2e({ _id: fu.randomID(), name: "temp", type: "character" });
                 const item = new ItemProxyPF2e(this.item.toObject(), { parent: actor });
-                return new RuleElementClass(deepClone(this.rule), {
+                return new RuleElementClass(fu.deepClone(this.rule), {
                     parent: item,
                     strict: false,
                     suppressWarnings: true,
@@ -107,7 +107,7 @@ class RuleElementForm<
                 ? [game.i18n.localize("PF2E.RuleElement.Unrecognized"), false]
                 : [localized, true];
         })();
-        const mergedRule = mergeObject(this.getInitialValue(), this.rule);
+        const mergedRule = fu.mergeObject(this.getInitialValue(), this.rule);
 
         const validationFailures = ((): string[] => {
             const fieldFailures = this.object?.validationFailures.fields?.asError().getAllFailures() ?? {};
@@ -143,7 +143,7 @@ class RuleElementForm<
         const dropZoneTemplate = await getTemplate("systems/pf2e/templates/items/rules/partials/drop-zone.hbs");
 
         const getResolvableData = (property: string) => {
-            const value = getProperty(rule, property);
+            const value = fu.getProperty(rule, property);
             const mode = isBracketedValue(value) ? "brackets" : isObject(value) ? "object" : "primitive";
             return { value, mode, property, path: `${this.basePath}.${property}` };
         };
@@ -187,7 +187,7 @@ class RuleElementForm<
      */
     async updateItem(updates: Partial<TSource> | Record<string, unknown>): Promise<void> {
         const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
-        const result = mergeObject(this.rule, updates, { performDeletions: true });
+        const result = fu.mergeObject(this.rule, updates, { performDeletions: true });
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, result);
         }
@@ -217,7 +217,7 @@ class RuleElementForm<
         for (const button of htmlQueryAll(html, "[data-action=toggle-brackets]")) {
             button.addEventListener("click", () => {
                 const property = button.dataset.property ?? "value";
-                const value = getProperty(this.rule, property);
+                const value = fu.getProperty(this.rule, property);
                 if (isBracketedValue(value)) {
                     this.updateItem({ [property]: "" });
                 } else {
@@ -229,7 +229,7 @@ class RuleElementForm<
         for (const button of htmlQueryAll(html, "[data-action=add-bracket]")) {
             const property = button.dataset.property ?? "value";
             button.addEventListener("click", () => {
-                const value = getProperty(this.rule, property);
+                const value = fu.getProperty(this.rule, property);
                 if (isBracketedValue(value)) {
                     value.brackets.push({ value: "" });
                     this.updateItem({ [property]: value });
@@ -240,7 +240,7 @@ class RuleElementForm<
         for (const button of htmlQueryAll(html, "[data-action=delete-bracket]")) {
             const property = button.dataset.property ?? "value";
             button.addEventListener("click", () => {
-                const value = getProperty(this.rule, property);
+                const value = fu.getProperty(this.rule, property);
                 const idx = Number(htmlClosest(button, "[data-idx]")?.dataset.idx);
                 if (isBracketedValue(value)) {
                     value.brackets.splice(idx, 1);
@@ -311,7 +311,7 @@ class RuleElementForm<
             return;
         }
 
-        source = mergeObject(duplicate(this.rule), source);
+        source = fu.mergeObject(fu.duplicate(this.rule), source);
 
         // Prevent wheel events on the sliders from spamming updates
         for (const slider of htmlQueryAll<HTMLInputElement>(this.element, "input[type=range")) {

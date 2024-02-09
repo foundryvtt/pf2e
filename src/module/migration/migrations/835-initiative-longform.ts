@@ -9,10 +9,9 @@ export class Migration835InitiativeLongform extends MigrationBase {
     static override version = 0.835;
 
     override async updateActor(actor: ActorSourcePF2e): Promise<void> {
-        if (!("initiative" in actor.system.attributes)) return;
-
-        const initiative: InitiativeSourceOld | undefined = actor.system.attributes.initiative;
-        if (!initiative || !initiative.ability) return;
+        const attributes: OldAttributesSource = actor.system.attributes ?? {};
+        const initiative: OldInitiativeSource | undefined = attributes.initiative;
+        if (!initiative?.ability) return;
 
         const ability = initiative.ability;
         if (objectHasKey(SKILL_DICTIONARY, ability)) {
@@ -21,12 +20,16 @@ export class Migration835InitiativeLongform extends MigrationBase {
             initiative.statistic = "perception";
         }
 
-        delete initiative.ability;
         initiative["-=ability"] = null;
     }
 }
 
-interface InitiativeSourceOld extends Partial<CreatureInitiativeSource> {
+interface OldAttributesSource {
+    hp?: object;
+    initiative?: OldInitiativeSource;
+}
+
+interface OldInitiativeSource extends Partial<CreatureInitiativeSource> {
     statistic?: CreatureInitiativeSource["statistic"];
     ability?: SkillAbbreviation | "perception";
     "-=ability"?: null;

@@ -817,7 +817,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -863,7 +863,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes @Damage[4d6[poison]] damage (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. The dragon can see through this concealment.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Draconic Breath Weapon Aura]</p>"
+                    "value": "<p>20 feet. After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes @Damage[4d6[poison]] damage (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] and treats other creatures as concealed. The dragon can see through this concealment.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Draconic Breath Weapon Aura]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1417,12 +1417,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "details": "trackless step, woodland stride",
                 "otherSpeeds": [
@@ -1440,6 +1434,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "draconic",
+                    "elven",
+                    "fey",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1450,6 +1455,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1472,22 +1494,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "draconic",
-                    "elven",
-                    "fey",
-                    "jotun"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "grg"
             },

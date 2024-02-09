@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Impersonate";
 
-export function impersonate(options: SkillActionOptions): void {
+function impersonate(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:impersonate"];
     const modifiers = options?.modifiers;
@@ -25,3 +26,21 @@ export function impersonate(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:impersonate"],
+    section: "skill",
+    slug: "impersonate",
+    statistic: "deception",
+    traits: ["concentrate", "exploration", "manipulate", "secret"],
+});
+
+export { impersonate as legacy, action };

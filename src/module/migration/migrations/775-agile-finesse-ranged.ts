@@ -1,7 +1,7 @@
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { PredicateStatement } from "@system/predication.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Update features that require agile, finesse or ranged weapons to reflect current melee/ranged classification */
@@ -16,7 +16,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            isObject<{ value: string }>(source.system.featType) &&
+            R.isObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }
@@ -28,8 +28,8 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                     const damageDiceRE = this.#findDamageDiceRE(source);
                     // Skip NPCs with PFS's simplified sneak attack rule
                     if (
-                        isObject<{ predicate: OldRawPredicate }>(damageDiceRE) &&
-                        damageDiceRE.predicate &&
+                        R.isObject(damageDiceRE) &&
+                        R.isObject(damageDiceRE.predicate) &&
                         Array.isArray(damageDiceRE.predicate.all) &&
                         damageDiceRE.predicate.all.some((s) => s instanceof Object && "or" in s)
                     ) {

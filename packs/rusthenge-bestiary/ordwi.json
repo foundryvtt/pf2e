@@ -267,7 +267,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>\n<p>Bless can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Aura: Bless]</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>\n<p>Bless can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bane].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Aura: Bless]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -423,7 +423,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -746,7 +746,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -816,7 +816,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -1234,24 +1234,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 1500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
@@ -1297,6 +1290,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1312,24 +1310,13 @@
             "name": "Rations",
             "sort": 1600000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 5
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
-                "containerId": "null",
+                "category": "other",
+                "containerId": null,
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1369,6 +1356,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 5,
+                    "value": 5
                 }
             },
             "type": "consumable"
@@ -1436,7 +1428,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1658,12 +1650,6 @@
                 "temp": 0,
                 "value": 30
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 8
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1671,6 +1657,14 @@
         },
         "details": {
             "blurb": "Female human cleric of Cayden Cailean",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "thassilonian",
+                    "varisian"
+                ]
+            },
             "level": {
                 "value": 2
             },
@@ -1681,6 +1675,14 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Rusthenge"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1703,18 +1705,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": [
-                    "common",
-                    "thassilonian",
-                    "varisian"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

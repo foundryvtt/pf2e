@@ -1,10 +1,11 @@
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ActorTraitsSource } from "@actor/data/base.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ImmunitySource, ResistanceSource, WeaknessSource } from "@actor/data/iwr.ts";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, pick, setHasElement, sluggify } from "@util";
+import { setHasElement, sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Move IWR data to `actor.system.attributes` */
@@ -26,7 +27,7 @@ export class Migration812RestructureIWR extends MigrationBase {
             if (!("game" in globalThis)) delete traits.di;
             traits["-=di"] = null;
 
-            if (isObject(oldData) && "value" in oldData && Array.isArray(oldData.value) && oldData.value.length > 0) {
+            if (R.isObject(oldData) && "value" in oldData && Array.isArray(oldData.value) && oldData.value.length > 0) {
                 const immunities = oldData.value
                     .map((i: unknown) => this.#normalizeType(String(i)))
                     .filter((i): i is ImmunityType => setHasElement(IMMUNITY_TYPES, i))
@@ -43,7 +44,7 @@ export class Migration812RestructureIWR extends MigrationBase {
 
             if (Array.isArray(oldData) && oldData.length > 0) {
                 const weaknesses = this.#getWR(oldData, WEAKNESS_TYPES).map((data): WeaknessSource => {
-                    const weakness: WeaknessSource = pick(data, ["type", "value"]);
+                    const weakness: WeaknessSource = R.pick(data, ["type", "value"]);
 
                     // If parsable exceptions are found, add those as well
                     const parsed = this.#parseExceptions(String(data.exceptions ?? ""));
@@ -67,7 +68,7 @@ export class Migration812RestructureIWR extends MigrationBase {
 
             if (Array.isArray(oldData) && oldData.length > 0) {
                 const resistances = this.#getWR(oldData, RESISTANCE_TYPES).map((data): ResistanceSource => {
-                    const resistance: ResistanceSource = pick(data, ["type", "value"]);
+                    const resistance: ResistanceSource = R.pick(data, ["type", "value"]);
 
                     // If parsable exceptions and resistance-doubling are found, add those as well
                     const parsed = this.#parseExceptions(String(data.exceptions ?? ""));
@@ -143,9 +144,7 @@ export class Migration812RestructureIWR extends MigrationBase {
         return maybeWR
             .filter(
                 (r: unknown): r is { type: string; value: number; exceptions?: string } =>
-                    isObject<{ type: unknown; value: unknown }>(r) &&
-                    typeof r.type === "string" &&
-                    typeof r.value === "number",
+                    R.isObject(r) && typeof r.type === "string" && typeof r.value === "number",
             )
             .map((wr) => {
                 wr.type = this.#normalizeType(wr.type);

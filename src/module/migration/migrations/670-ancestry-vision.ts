@@ -37,11 +37,12 @@ export class Migration670AncestryVision extends MigrationBase {
         const features: Record<string, MaybeOldABCFeatureEntryData | null> = ancestry.system.items;
         for (const [key, value] of Object.entries(features)) {
             if (value?.id === this.LOWLIGHTVISION_ID) {
-                "game" in globalThis ? (features[`-=${key}`] = null) : delete features[key];
+                features[`-=${key}`] = null;
                 // Prefer darkvision if the ancestry item somehow has both features
-                ancestry.system.vision = ancestry.system.vision === "darkvision" ? "darkvision" : "lowLightVision";
+                const system: { vision: string } = ancestry.system;
+                system.vision = system.vision === "darkvision" ? "darkvision" : "lowLightVision";
             } else if (value?.id === this.DARKVISION_ID) {
-                "game" in globalThis ? (features[`-=${key}`] = null) : delete features[key];
+                features[`-=${key}`] = null;
                 ancestry.system.vision = "darkvision";
             }
         }

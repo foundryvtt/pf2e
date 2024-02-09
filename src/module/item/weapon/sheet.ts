@@ -22,18 +22,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const runes = weapon.system.runes;
-        const slotIndexes = ((): number[] => {
-            if (runes.potency === 0) return [];
-            if (weapon.isSpecific) return runes.property.map((_p, index) => index);
-            return Array.fromRange(getPropertyRuneSlots(weapon));
-        })();
-        const propertyRuneSlots = slotIndexes.map((i) => ({
+        const propertyRuneSlots = Array.fromRange(
+            weapon.isSpecific ? runes.property.length : getPropertyRuneSlots(weapon),
+        ).map((i) => ({
             slug: runes.property[i] ?? null,
             label: RUNE_DATA.weapon.property[runes.property[i]]?.name ?? null,
-            disabled:
-                runes.potency === 0 ||
-                ((i === 3 || runes.potency < 3) && i > 0 && (!runes.property[i - 1] || !weapon.isSpecific)),
-            readOnly: weapon.isSpecific,
+            disabled: i > 0 && !runes.property[i - 1],
         }));
 
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
@@ -72,7 +66,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Restrict the Implement tag to one-handed weapons
         const otherTags = ((): SheetOptions => {
-            const otherWeaponTags: Record<string, string> = deepClone(CONFIG.PF2E.otherWeaponTags);
+            const otherWeaponTags: Record<string, string> = fu.deepClone(CONFIG.PF2E.otherWeaponTags);
             if (weapon.hands !== "1") delete otherWeaponTags.implement;
             return createSheetTags(otherWeaponTags, sheetData.data.traits.otherTags);
         })();
@@ -167,7 +161,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Clamp damage dice to between zero and eight
         if ("system.damage.dice" in formData) {
-            formData["system.damage.dice"] = Math.clamped(Number(formData["system.damage.dice"]) || 0, 0, 8);
+            formData["system.damage.dice"] = Math.clamped(Number(formData["system.damage.dice"]) || 0, 0, 12);
         }
 
         // Ensure melee usage is absent if not a combination weapon
@@ -192,7 +186,6 @@ interface PropertyRuneSheetSlot {
     slug: string | null;
     label: string | null;
     disabled: boolean;
-    readOnly: boolean;
 }
 
 interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {

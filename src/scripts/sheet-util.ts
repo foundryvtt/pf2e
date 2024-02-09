@@ -26,7 +26,7 @@ function eventToRollParams(
 
 /** Set roll mode from a user's input: used for messages that are not actually rolls. */
 function eventToRollMode(event: Maybe<Event>): RollMode | "roll" {
-    if (!isRelevantEvent(event) || !event.ctrlKey || !event.metaKey) return "roll";
+    if (!isRelevantEvent(event) || !(event.ctrlKey || event.metaKey)) return "roll";
     return game.user.isGM ? "gmroll" : "blindroll";
 }
 

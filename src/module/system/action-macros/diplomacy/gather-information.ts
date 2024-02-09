@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.GatherInformation";
 
-export function gatherInformation(options: SkillActionOptions): void {
+function gatherInformation(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:gather-information"];
     const modifiers = options?.modifiers;
@@ -24,3 +25,26 @@ export function gatherInformation(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: `${PREFIX}.Description`,
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:gather-information"],
+    sampleTasks: {
+        untrained: `${PREFIX}.SampleTasks.Untrained`,
+        trained: `${PREFIX}.SampleTasks.Trained`,
+        expert: `${PREFIX}.SampleTasks.Expert`,
+        master: `${PREFIX}.SampleTasks.Master`,
+        legendary: `${PREFIX}.SampleTasks.Legendary`,
+    },
+    section: "skill",
+    slug: "gather-information",
+    statistic: "diplomacy",
+    traits: ["exploration", "secret"],
+});
+
+export { gatherInformation as legacy, action };

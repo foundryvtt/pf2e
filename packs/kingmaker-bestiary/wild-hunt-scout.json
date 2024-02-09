@@ -484,7 +484,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "primal",
                         "revelation"
                     ]
                 }
@@ -626,8 +625,7 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "plant",
-                        "primal"
+                        "plant"
                     ]
                 }
             },
@@ -689,8 +687,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -1059,8 +1056,7 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -1231,7 +1227,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:500] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A wild hunt scout grants other wild hunt creatures the scout's @UUID[Compendium.pf2e.classfeatures.Item.Deny Advantage].</p>"
+                    "value": "<p>500 feet. A wild hunt scout grants other wild hunt creatures the scout's @UUID[Compendium.pf2e.classfeatures.Item.Deny Advantage].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1343,7 +1339,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Those who meet the gaze of a wild hunt scout come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:37] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt scout can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>30 feet. Those who meet the gaze of a wild hunt scout come face-to-face with the hunt's fearful power and find it difficult to act in the face of such a legendary legacy. When a creature ends its turn in the aura, it must succeed at a @Check[type:will|dc:37] save to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (@UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure). The wild hunt scout can deactivate or activate this aura by using a single action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1823,12 +1819,6 @@
                 "temp": 0,
                 "value": 380
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
@@ -1842,6 +1832,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals; speak with plants",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1852,6 +1850,23 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "greensight",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1869,19 +1884,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "speak with animals; speak with plants",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, greensight, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "med"
             },

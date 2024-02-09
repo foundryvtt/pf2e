@@ -57,10 +57,10 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     }
 
     #prepareProficiencyRanks(): SelectData[] {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
+        const pwol = game.pf2e.settings.variants.pwol.enabled;
         return PROFICIENCY_RANKS.map((value) => ({
             value,
-            label: `${value} (${calculateSimpleDC(value, { proficiencyWithoutLevel })})`,
+            label: `${value} (${calculateSimpleDC(value, { pwol })})`,
         }));
     }
 
@@ -174,20 +174,19 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     }
 
     #getDC(html: HTMLElement): number | null {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
-
         const dc = ((): number => {
+            const pwol = game.pf2e.settings.variants.pwol.enabled;
             const activeDCTab = htmlQuery(html, "section.dc-content section.tab.active");
             if (activeDCTab?.dataset.tab === "set-dc") {
                 return Number(htmlQuery<HTMLInputElement>(html, "input#check-prompt-dc")?.value || NaN);
             } else if (activeDCTab?.dataset.tab === "simple-dc") {
                 const profRank = htmlQuery<HTMLInputElement>(html, "select#check-prompt-simple-dc")?.value;
                 if (tupleHasValue(PROFICIENCY_RANKS, profRank)) {
-                    return calculateSimpleDC(profRank, { proficiencyWithoutLevel });
+                    return calculateSimpleDC(profRank, { pwol });
                 }
             } else if (activeDCTab?.dataset.tab === "level-dc") {
                 const level = Number(htmlQuery<HTMLInputElement>(html, "input#check-prompt-level-dc")?.value || NaN);
-                if (Number.isInteger(level)) return calculateDC(+level, { proficiencyWithoutLevel });
+                if (Number.isInteger(level)) return calculateDC(+level, { pwol });
             }
             return NaN;
         })();

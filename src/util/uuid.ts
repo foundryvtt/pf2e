@@ -3,11 +3,11 @@ import * as R from "remeda";
 class UUIDUtils {
     /** Retrieve multiple documents by UUID */
     static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]> {
-        const resolvedUUIDs = R.uniq(uuids).flatMap((u) => foundry.utils.parseUuid(u, options).uuid ?? []);
+        const resolvedUUIDs = R.uniq(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
 
         // These can't be retrieved via `fromUuidSync`: separate and retrieve directly via `fromUuid`
         const packEmbeddedLinks = resolvedUUIDs.filter((u) => {
-            const parsed = foundry.utils.parseUuid(u, options);
+            const parsed = fu.parseUuid(u, options);
             return parsed.collection instanceof CompendiumCollection && parsed.embedded.length > 0;
         });
         const packEmbeddedDocs = R.compact(await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u))));
@@ -35,16 +35,16 @@ class UUIDUtils {
     }
 
     static isItemUUID(uuid: unknown): uuid is ItemUUID {
-        return typeof uuid === "string" && foundry.utils.parseUuid(uuid).documentType === "Item";
+        return typeof uuid === "string" && fu.parseUuid(uuid).documentType === "Item";
     }
 
     static isCompendiumUUID(uuid: unknown): uuid is CompendiumUUID {
-        return typeof uuid === "string" && foundry.utils.parseUuid(uuid).collection instanceof CompendiumCollection;
+        return typeof uuid === "string" && fu.parseUuid(uuid).collection instanceof CompendiumCollection;
     }
 
     static isTokenUUID(uuid: unknown): uuid is TokenDocumentUUID {
         if (typeof uuid !== "string") return false;
-        const parsed = foundry.utils.parseUuid(uuid);
+        const parsed = fu.parseUuid(uuid);
         return parsed.documentType === "Scene" && parsed.embedded[0] === "Token";
     }
 }

@@ -1,17 +1,18 @@
+import type { CharacterPF2e } from "@actor/character/document.ts";
+import * as R from "remeda";
 import {
-    calculateNormalizedCharacterSpeed,
-    calculateTravelDuration,
     DetectionMode,
     ExplorationActivities,
     ExplorationOptions,
+    Fraction,
     LengthUnit,
-    speedToVelocity,
     Terrain,
     TravelDuration,
     Trip,
+    calculateNormalizedCharacterSpeed,
+    calculateTravelDuration,
+    speedToVelocity,
 } from "./travel-speed.ts";
-import { Fraction, zip } from "@util";
-import { CharacterPF2e } from "@actor/character/document.ts";
 
 type DetectionModeData = "none" | "everything" | "before";
 type SpeedUnitData = "feet" | "miles";
@@ -78,7 +79,7 @@ interface FormActorData {
     speed: number;
 }
 
-interface TravelFormData {
+type TravelFormData = {
     actors: FormActorData[];
     hustleMinutes: number;
     distance: number;
@@ -88,7 +89,7 @@ interface TravelFormData {
     normalTerrainSlowdown: Fraction;
     difficultTerrainSlowdown: Fraction;
     greaterDifficultTerrainSlowdown: Fraction;
-}
+};
 
 interface SheetActorData extends FormActorData {
     explorationSpeed: number;
@@ -122,7 +123,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
     }
 
     async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
-        const data = expandObject(formData) as TravelFormData;
+        const data = fu.expandObject(formData) as TravelFormData;
         data.actors = toArray(data.actors);
         this.formData = data;
         this.render(true);
@@ -169,9 +170,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
                 },
             },
         ];
-        const actorFormData = zip(actors, data.actors, (actor, actorData) =>
-            this.actorFormToSheetData(actor, actorData),
-        );
+        const actorFormData = R.zipWith(actors, data.actors, (a, d) => this.actorFormToSheetData(a, d));
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
         return {
@@ -292,7 +291,7 @@ function parseExplorationOptions(actor: CharacterPF2e): ExplorationOptions {
         swiftSneak: hasFeat(actor, "swift-sneak"),
         legendarySneak: hasFeat(actor, "legendary-sneak"),
         expeditiousSearch: hasFeat(actor, "expeditious-search"),
-        expeditiousSearchLegendary: hasFeat(actor, "expeditious-search") && actor.attributes.perception.rank === 4,
+        expeditiousSearchLegendary: hasFeat(actor, "expeditious-search") && actor.perception.rank === 4,
     };
 }
 

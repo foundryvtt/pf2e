@@ -33,10 +33,9 @@ export class DamagePF2e {
                 ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
                 : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
             : null;
-        let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-            title: data.name,
-            subtitle,
-        });
+        let flavor = data.name.startsWith("<h4")
+            ? data.name
+            : await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", { title: data.name, subtitle });
 
         if (context.traits) {
             interface ToTagsParams {
@@ -51,7 +50,7 @@ export class DamagePF2e {
             ): string =>
                 slugs
                     .map((s) => ({ value: s, label: game.i18n.localize(labels[s] ?? "") }))
-                    .sort((a, b) => a.label.localeCompare(b.label))
+                    .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang))
                     .map((tag) => {
                         const description = descriptions[tag.value] ?? "";
 
@@ -135,20 +134,32 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
+        const showBreakdown =
+            data.damage.roll?.options.showBreakdown ??
+            (game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner);
         const breakdown = Array.isArray(data.damage.breakdown)
             ? data.damage.breakdown
             : data.damage.breakdown[outcome ?? "success"];
-        const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
-        flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
+        const breakdownTags = breakdown.map((b) =>
+            createHTMLElement("span", {
+                classes: ["tag", "tag_transparent"],
+                dataset: { visibility: showBreakdown ? null : "gm" },
+                children: [b],
+            }),
+        );
+        flavor +=
+            breakdownTags.length > 0
+                ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: breakdownTags }).outerHTML
+                : "";
 
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            if ("roll" in damage) {
+            if (damage.roll) {
                 return damage.roll.evaluate({ async: true });
             }
 
-            const formula = deepClone(damage.formula[outcome ?? "success"]);
+            const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
                 ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
                 return null;
@@ -169,6 +180,7 @@ export class DamagePF2e {
                 degreeOfSuccess,
                 critRule,
                 ignoredResistances: damage.ignoredResistances,
+                showBreakdown,
             };
 
             return new DamageRoll(formula, {}, options).evaluate({ async: true });
@@ -185,8 +197,7 @@ export class DamagePF2e {
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options),
         );
-        const notesList = RollNotePF2e.notesToHTML(notes);
-        flavor += notesList.outerHTML;
+        flavor += RollNotePF2e.notesToHTML(notes)?.outerHTML ?? "";
 
         const { self, target } = context;
         const item = self?.item ?? null;

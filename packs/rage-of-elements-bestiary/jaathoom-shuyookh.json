@@ -407,7 +407,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 2
@@ -527,7 +527,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.6ZIKB0151LUR19Rw"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ill-omen.webp",
+            "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
             "sort": 800000,
             "system": {
@@ -544,7 +544,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is struck with misfortune, which throws them off balance. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target rolls an attack roll or skill check, it must roll twice and take the worse result.</p>"
+                    "value": "<p>The target is struck with misfortune, which throws it off balance. The target must attempt a Will save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ill Omen]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -558,9 +558,9 @@
                     "value": "xVZDXMa9KUcC9QG9"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -611,7 +611,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
+                    "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-rank version, but the duration is unlimited.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1557,12 +1557,6 @@
                 "temp": 0,
                 "value": 150
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1570,6 +1564,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "can't speak any language; cloud of visions",
+                "value": [
+                    "common",
+                    "sussuran"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -1580,6 +1581,18 @@
                 "remaster": true,
                 "title": "Pathfinder Rage of Elements"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1597,18 +1610,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Can't Speak Any Language; Cloud Of Visions",
-                "selected": [],
-                "value": [
-                    "common",
-                    "sussuran"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

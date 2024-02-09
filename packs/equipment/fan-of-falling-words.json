@@ -1,0 +1,66 @@
+{
+    "_id": "MoXTxoH7IHgDGtXM",
+    "img": "icons/commodities/leather/fur-white.webp",
+    "name": "Fan of Falling Words",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This folding handheld paper fan appears blank when first found, but if the wielder unfolds its leaves as an Interact action, they display an ink-brush painting of the wielder's choice. The fan must be closed and opened again to display a different painting. While held, the <em>fan of falling words</em> grants you a +2 item bonus to Performance checks to act or perform comedy, orate, or sing.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You manifest the tapestry of your words, causing the image you depict on the fan to leap off its leaves. The fan casts @UUID[Compendium.pf2e.spells-srd.Item.Mirage] to your specifications (@Check[type:will|dc:27] save to disbelieve). While this only takes three actions to perform (as opposed to the spell's normal 10 minutes of casting), the effect has no range, and the @Template[type:burst|distance:50] it creates is centered on you.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 10
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 900
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:perform:comedy",
+                            "action:perform:oratory",
+                            "action:perform:singing"
+                        ]
+                    }
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}

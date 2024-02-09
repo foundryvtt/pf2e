@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You are friendly, clever, and full of humor, always knowing just what to say in any situation. Your witticisms leave foes unprepared for the skill and speed of your attacks.</p>\n<p>You are trained in Diplomacy and gain the @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot] skill feat. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
+            "value": "<p>You are friendly, clever, and full of humor, always knowing just what to say in any situation. Your witticisms leave foes unprepared for the skill and speed of your attacks.</p>\n<p>You are trained in Diplomacy and gain the @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot] skill feat. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
         },
         "level": {
             "value": 1
@@ -25,16 +25,6 @@
             "title": "Pathfinder Advanced Player's Guide"
         },
         "rules": [
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:bon-mot",
-                    "self:effect:panache"
-                ],
-                "selector": "diplomacy",
-                "type": "circumstance",
-                "value": 1
-            },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
@@ -58,28 +48,20 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "action:bon-mot",
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "diplomacy",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Wit",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    "action:bon-mot"
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

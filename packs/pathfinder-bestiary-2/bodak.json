@@ -135,7 +135,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Lifesense] starts its turn</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:fortitude|dc:23] save. If it fails, the bodak regains 5 Hit Points and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature within 30 feet that the bodak can perceive with its @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Lifesense] starts its turn</p>\n<hr />\n<p><strong>Effect</strong> The target must attempt a @Check[type:fortitude|dc:23] save. If it fails, the bodak regains [[/r 5[healing]]]{5 Hit Points} and the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -450,12 +450,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 17
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -469,6 +463,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -479,6 +480,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -496,21 +514,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, lifesense 60 feet"
-            },
             "size": {
                 "value": "med"
             },

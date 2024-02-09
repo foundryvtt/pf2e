@@ -1,0 +1,57 @@
+{
+    "_id": "0JvxhEv83bAD5PGv",
+    "img": "icons/magic/nature/tree-bare-glow-yellow.webp",
+    "name": "Effect: Familiar of Balanced Luck",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.familiar-abilities.Item.Familiar of Balanced Luck]</p>\n<p>When you Cast or Sustain a hex, one creature within 15 feet of your familiar gets your choice of either a +1 status bonus to its AC or a –1 status penalty to its AC until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.NegativeOne",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BonusLabel.PlusOne",
+                        "value": 1
+                    }
+                ],
+                "flag": "familiarOfBalancedLuck",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.familiarOfBalancedLuck}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

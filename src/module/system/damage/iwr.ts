@@ -11,7 +11,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         return { finalDamage: 0, applications: [], persistent: [] };
     }
 
-    if (!game.settings.get("pf2e", "automation.iwr")) {
+    if (!game.pf2e.settings.iwr) {
         return {
             finalDamage: roll.total,
             applications: [],
@@ -60,7 +60,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-            const critImmuneTotal = isCriticalSuccess ? instance.critImmuneTotal : instanceTotal;
+            const critImmuneTotal = critImmunity && isCriticalSuccess ? instance.critImmuneTotal : instanceTotal;
 
             const instanceApplications: IWRApplication[] = [];
 

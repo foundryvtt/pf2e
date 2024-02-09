@@ -45,8 +45,8 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { deities } = this.actor.system.details;
         const systemData = this.system;
         deities.primary = {
-            skill: deepClone(systemData.skill),
-            weapons: deepClone(systemData.weapons),
+            skill: fu.deepClone(systemData.skill),
+            weapons: fu.deepClone(systemData.weapons),
         };
 
         // Set available domains from this deity
@@ -75,6 +75,10 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         for (const baseType of this.favoredWeapons) {
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
+        }
+
+        for (const font of systemData.font) {
+            actorRollOptions.all[`${prefix}:font:${font}`] = true;
         }
 
         // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities

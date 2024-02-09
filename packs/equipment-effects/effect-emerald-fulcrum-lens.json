@@ -1,0 +1,52 @@
+{
+    "_id": "vlTiBE0h2kyw5J9o",
+    "img": "systems/pf2e/icons/equipment/other/emerald-fulcrum-lenses.webp",
+    "name": "Effect: Emerald Fulcrum Lens",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Emerald Fulcrum Lens]</p>\n<p>You gain void healing and <em>harm</em> spells gain a +4 status bonus to the Hit Points they restore to you.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #165: Eyes of Empty Death"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:harm"
+                ],
+                "selector": "healing-received",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

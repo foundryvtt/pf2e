@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 export class Migration716StrikeDamageSelector extends MigrationBase {
@@ -19,12 +19,9 @@ export class Migration716StrikeDamageSelector extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (this.itemsToSkip.has(source.system.slug ?? "")) return;
 
-        const { rules } = source.system;
+        const rules: unknown[] = source.system.rules;
         for (const rule of rules) {
-            if (
-                isObject<{ selector?: unknown }>(rule) &&
-                ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))
-            ) {
+            if (R.isObject(rule) && ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))) {
                 rule.selector = "strike-damage";
             }
         }

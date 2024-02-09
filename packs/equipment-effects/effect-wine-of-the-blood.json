@@ -1,0 +1,53 @@
+{
+    "_id": "KkFk8PZ2ZZVUrdgj",
+    "img": "systems/pf2e/icons/equipment/consumables/potions/wine-of-the-blood.webp",
+    "name": "Effect: Wine of the Blood",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wine of the Blood]</p>\n<p>You gain a +1 status bonus to all Will saves, or a +2 status bonus against emotion effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "will",
+                "slug": "effect-wine-of-the-blood-emotion",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

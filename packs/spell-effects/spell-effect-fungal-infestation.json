@@ -1,0 +1,61 @@
+{
+    "_id": "6gRRjn0h0DAUh7nQ",
+    "img": "icons/consumables/mushrooms/umbontae-bumpy-purple.webp",
+    "name": "Spell Effect: Fungal Infestation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fungal Infestation]</p>\n<p>The target has weakness to fire and weakness to slashing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": 2
+                    }
+                ],
+                "flag": "fungalInfestation",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "fire",
+                    "slashing"
+                ],
+                "value": "floor(@item.level/2)*{item|flags.pf2e.rulesSelections.fungalInfestation}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

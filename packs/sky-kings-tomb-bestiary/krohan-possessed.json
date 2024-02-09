@@ -547,7 +547,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -759,7 +759,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -1009,7 +1009,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can Raise a Shield with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1568,24 +1568,13 @@
             "name": "Arrows",
             "sort": 2100000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -1627,6 +1616,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1642,24 +1636,13 @@
             "name": "Chalk",
             "sort": 2200000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "Jobvhe2YNBMYOVA8",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1699,6 +1682,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1714,24 +1702,13 @@
             "name": "Rations",
             "sort": 2300000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "Jobvhe2YNBMYOVA8",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1770,6 +1747,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -1785,24 +1767,17 @@
             "name": "Healing Potion (Lesser)",
             "sort": 2400000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "2d8+5"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
@@ -1847,6 +1822,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1862,24 +1842,13 @@
             "name": "Antidote (Lesser)",
             "sort": 2500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
                 },
@@ -1923,6 +1892,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2138,7 +2112,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A hostile spirit controls Krohan, which gives him the void healing ability and otherwise has the same effect as the <em>@UUID[Compendium.pf2e.spells-srd.Item.Possession]</em> spell. Krohan attempts a @Check[type:flat|dc:20] at the end of his turn; this is reduced to @Check[type:flat|dc:15] if the corrupted blade spirit is destroyed. If he succeeds, the possession effect is suppressed and he is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of his next turn, allowing him to act normally. If he critically succeeds, the possession effect ends.</p>"
+                    "value": "<p>A hostile spirit controls Krohan, which gives him the void healing ability and otherwise has the same effect as the @UUID[Compendium.pf2e.spells-srd.Item.Possession] spell. Krohan attempts a @Check[type:flat|dc:20] at the end of his turn; this is reduced to @Check[type:flat|dc:15] if the corrupted blade spirit is destroyed. If he succeeds, the possession effect is suppressed and he is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of his next turn, allowing him to act normally. If he critically succeeds, the possession effect ends.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2167,7 +2141,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Krohan's magic converts his pain into spellpower. After he casts an innate occult spell, he attempts a @Check[type:flat|dc:5], increasing the DC by twice the spell's level if it was not a cantrip. On a success, Krohan's Spirits Drawn to Suffering effect ends; he can reduce the value of one condition affecting him by 1, and he regains [[/r 2d6[healing]]]{2d6 Hit Points}.</p>"
+                    "value": "<p>Krohan's magic converts his pain into spellpower. After he casts an innate occult spell, he attempts a @Check[type:flat|dc:5], increasing the DC by twice the spell's rank if it was not a cantrip. On a success, Krohan's Spirits Drawn to Suffering effect ends; he can reduce the value of one condition affecting him by 1, and he regains [[/r 2d6[healing]]]{2d6 Hit Points}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2524,12 +2498,6 @@
                 "temp": 0,
                 "value": 52
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 9
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -2545,6 +2513,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "dwarven",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2555,6 +2531,18 @@
                 "remaster": false,
                 "title": "Pathfinder #193: Mantle of Gold"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2572,19 +2560,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "dwarven",
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

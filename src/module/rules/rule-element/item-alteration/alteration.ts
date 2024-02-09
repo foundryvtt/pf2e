@@ -1,9 +1,10 @@
 import type { ActorPF2e } from "@actor";
-import type { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { FrequencyInterval, ItemSourcePF2e, PhysicalItemSource } from "@item/base/data/index.ts";
 import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
+import { ZeroToThree } from "@module/data.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -21,16 +22,19 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "bulk",
         "category",
         "check-penalty",
+        "defense-passive",
+        "description",
         "dex-cap",
+        "focus-point-cost",
+        "frequency-max",
+        "frequency-per",
         "hardness",
         "hp-max",
         "material-type",
+        "other-tags",
         "pd-recovery-dc",
         "persistent-damage",
         "rarity",
-        "frequency-max",
-        "frequency-per",
-        "other-tags",
         "speed-penalty",
         "strength",
         "traits",
@@ -51,6 +55,10 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }),
             value: new ResolvableValueField(),
         };
+    }
+
+    get rule(): RuleElementPF2e {
+        return this.parent;
     }
 
     get actor(): ActorPF2e {
@@ -75,7 +83,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.parent.resolveValue(this.value)),
+                value: (this.value = this.resolveValue(this.value)),
             },
         };
         const { DataModelValidationFailure } = foundry.data.validation;
@@ -86,9 +94,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (!validator.isValid(data)) return;
                 const item = data.item;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, item.system.acBonus, data.alteration.value);
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 const itemBonus =
                     itemIsOfType(item, "armor") && this.mode === "override" ? item.system.runes.potency : 0;
                 item.system.acBonus = Math.max(newValue, 0) + itemBonus;
@@ -105,10 +110,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 }
 
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.max, data.alteration.value);
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
-
                 const hardMax = badge.labels?.length ?? newValue;
                 const min = badge.min ?? 0;
                 badge.max = Math.clamped(newValue, min, hardMax);
@@ -124,9 +125,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     : effect.system.badge ?? { value: 0 };
                 if (typeof badge.value !== "number") return;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 const max = "max" in badge ? badge.max ?? Infinity : Infinity;
                 const min = "min" in badge ? badge.min ?? 0 : 0;
                 badge.value = Math.clamped(newValue, min, max) || 0;
@@ -157,10 +155,26 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.checkPenalty,
                     data.alteration.value,
                 );
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 data.item.system.checkPenalty = Math.min(newValue, 0);
+                return;
+            }
+            case "defense-passive": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data) && data.item instanceof ItemPF2e && data.item.system.defense?.passive) {
+                    data.item.system.defense.passive.statistic = data.alteration.value;
+                }
+                return;
+            }
+            case "description": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!(data.item instanceof ItemPF2e)) return;
+                const contents = validator.initialize(validator.clean(data.alteration)).value;
+                if (this.mode === "override") {
+                    data.item.system.description.override = contents;
+                } else {
+                    data.item.system.description.addenda.push({ label: this.rule.label, contents });
+                }
                 return;
             }
             case "dex-cap": {
@@ -171,10 +185,19 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.dexCap,
                     data.alteration.value,
                 );
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 data.item.system.dexCap = Math.max(newValue, 0);
+                return;
+            }
+            case "focus-point-cost": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data)) return;
+                if (!(data.item instanceof ItemPF2e) || data.item.isRitual) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.cast.focusPoints,
+                    data.alteration.value,
+                );
+                data.item.system.cast.focusPoints = (Math.clamped(newValue, 0, 3) || 0) as ZeroToThree;
                 return;
             }
             case "hardness": {
@@ -183,9 +206,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const { system } = data.item;
                     const { value } = data.alteration;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
-                    if (newValue instanceof DataModelValidationFailure) {
-                        throw newValue.asError();
-                    }
                     system.hardness = Math.max(newValue, 0);
                     this.#adjustCreatureShieldData(data.item);
                 }
@@ -197,9 +217,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const { hp } = data.item.system;
                     const { value } = data.alteration;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, hp.max, value);
-                    if (newValue instanceof DataModelValidationFailure) {
-                        throw newValue.asError();
-                    }
                     hp.max = Math.max(Math.trunc(newValue), 1);
                     if ("brokenThreshold" in hp) {
                         hp.brokenThreshold = Math.floor(hp.max / 2);
@@ -245,9 +262,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (validator.isValid(data) && data.item.system.persistent) {
                     const { persistent } = data.item.system;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);
-                    if (newValue instanceof DataModelValidationFailure) {
-                        throw newValue.asError();
-                    }
                     persistent.dc = Math.max(newValue, 0);
                 }
                 return;
@@ -258,9 +272,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 data.item.system.frequency ??= { max: 1, per: "day" };
                 const frequency = data.item.system.frequency;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 frequency.max = newValue;
                 frequency.value = Math.clamped(frequency.value ?? newValue, 0, newValue);
                 return;
@@ -299,24 +310,20 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.speedPenalty,
                     data.alteration.value,
                 );
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
                 data.item.system.speedPenalty = Math.min(newValue, 0);
                 return;
             }
             case "strength": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                if (!validator.isValid(data)) return;
+                if (!validator.isValid(data) || data.item.system.strength === null) {
+                    return;
+                }
                 const newValue = AELikeRuleElement.getNewValue(
                     this.mode,
-                    data.item.system.strength ?? 0,
+                    data.item.system.strength,
                     data.alteration.value,
                 );
-                if (newValue instanceof DataModelValidationFailure) {
-                    throw newValue.asError();
-                }
-                data.item.system.strength = data.item.system.strength === null ? null : Math.max(newValue ?? 0, -2);
+                data.item.system.strength = Math.max(newValue, -2);
                 return;
             }
             case "traits": {
@@ -327,10 +334,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.traits.value,
                     data.alteration.value,
                 );
+                if (!newValue) return;
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                const traits = data.item.system.traits.value;
+                const traits: string[] = data.item.system.traits.value ?? [];
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {

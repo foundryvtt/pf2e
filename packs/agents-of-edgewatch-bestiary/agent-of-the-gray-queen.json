@@ -1095,7 +1095,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>An astradaemon draws power from the souls of the recently slain. If a Small or larger living creature dies within its aura, the astradaemon gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls for 1 round, unless the creature was slain by an astradaemon's Devour Soul ability.</p>\n<p>Incorporeal undead and living spirits traveling outside the body take @Damage[1d8[force]] damage each round within the daemon's aura from the spiritual pressure as the astradaemon pulls in fragments of their soul.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Soul Siphon]</p>"
+                    "value": "<p>30 feet. An astradaemon draws power from the souls of the recently slain. If a Small or larger living creature dies within its aura, the astradaemon gains 5 temporary Hit Points and a +1 status bonus to attack and damage rolls for 1 round, unless the creature was slain by an astradaemon's Devour Soul ability.</p>\n<p>Incorporeal undead and living spirits traveling outside the body take @Damage[1d8[force]] damage each round within the daemon's aura from the spiritual pressure as the astradaemon pulls in fragments of their soul.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Soul Siphon]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1172,7 +1172,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The astradaemon has killed a Large or smaller creature with Overtake Soul within the past 24 hours and that creature is within the daemon's reach</p>\n<hr />\n<p><strong>Effect</strong> The astradaemon takes over and wears the body of their victim. This automatically creates a disguise to allow the astradaemon to Impersonate the target creature. The body has a number of Hit Points equal to 3 times the level of the creature. Any damage targeting the astradaemon damages the body first. Once the body is reduced to 0 Hit Points, it's destroyed and forces the astradaemon out, back to the daemon's normal form. If the astradaemon takes any spirit damage while wearing the body, the damage is dealt to the astradaemon directly and it must succeed at a @Check[type:flat|dc:5] check or be forced out of the body. Additionally, <em>@UUID[Compendium.pf2e.spells-srd.Item.Disjunction]</em> and <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> can force the astradaemon out of the body with a successful counteract check against DC 41.</p>\n<p>While wearing the disguise, the astradaemon's attacks use the reach of the body it inhabits, and its size changes to match that of the creature whose soul it consumed. Additionally, the astradaemon is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} while wearing the disguise. (These penalties haven't been incorporated into this stat block.)</p>"
+                    "value": "<p><strong>Requirements</strong> The astradaemon has killed a Large or smaller creature with Overtake Soul within the past 24 hours and that creature is within the daemon's reach</p>\n<hr />\n<p><strong>Effect</strong> The astradaemon takes over and wears the body of their victim. This automatically creates a disguise to allow the astradaemon to Impersonate the target creature. The body has a number of Hit Points equal to 3 times the level of the creature. Any damage targeting the astradaemon damages the body first. Once the body is reduced to 0 Hit Points, it's destroyed and forces the astradaemon out, back to the daemon's normal form. If the astradaemon takes any spirit damage while wearing the body, the damage is dealt to the astradaemon directly and it must succeed at a @Check[type:flat|dc:5] check or be forced out of the body. Additionally, @UUID[Compendium.pf2e.spells-srd.Item.Disjunction] and @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] can force the astradaemon out of the body with a successful counteract check against DC 41.</p>\n<p>While wearing the disguise, the astradaemon's attacks use the reach of the body it inhabits, and its size changes to match that of the creature whose soul it consumed. Additionally, the astradaemon is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4} while wearing the disguise. (These penalties haven't been incorporated into this stat block.)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1454,12 +1454,6 @@
                     "type": "void"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1478,6 +1472,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -1488,6 +1489,28 @@
                 "remaster": false,
                 "title": "Pathfinder #162: Ruins of the Radiant Siege"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 30,
+                    "type": "lifesense"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1510,21 +1533,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, lifesense 30 feet, true seeing"
-            },
             "size": {
                 "value": "lg"
             },

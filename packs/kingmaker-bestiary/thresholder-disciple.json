@@ -322,24 +322,17 @@
             "name": "Elixir of Life (Major)",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "8d6+21"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "8d6+21",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (8d6+21)[healing]]]{8d6+21 Hit Points} and gain +3 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Major)]</p>"
                 },
@@ -383,6 +376,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -554,7 +552,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The removal of the eyes symbolized a Thresholder's abandonment of all they had seen before, and with the ritual's completion they gain something greater than mere vision: they gain the Unseen Sight. This is a precise sense that mimics darkvision yet functions even if the eye sockets themselves are covered. More importantly, the unseen sight allows a Thresholder to see the truth of the world, granting them the ability to see things as they actually are as if they were under the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Truesight]</em>, provided they are located within a region under the influence of Yog- Sothoth.</p>"
+                    "value": "<p>The removal of the eyes symbolized a Thresholder's abandonment of all they had seen before, and with the ritual's completion they gain something greater than mere vision: they gain the Unseen Sight. This is a precise sense that mimics darkvision yet functions even if the eye sockets themselves are covered. More importantly, the unseen sight allows a Thresholder to see the truth of the world, granting them the ability to see things as they actually are as if they were under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Truesight], provided they are located within a region under the influence of Yog- Sothoth.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1040,12 +1038,6 @@
                 "temp": 0,
                 "value": 255
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 26
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -1059,6 +1051,13 @@
         },
         "details": {
             "blurb": "Human cultist",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "hallit"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -1069,6 +1068,14 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "unseen sight",
+            "mod": 26,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1086,18 +1093,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "hallit"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "unseen sight"
-            },
             "size": {
                 "value": "med"
             },

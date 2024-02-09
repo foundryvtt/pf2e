@@ -24,15 +24,6 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
-/** Creates a sorting comparator that sorts by the numerical result of a mapping function */
-function sortBy<T, J>(mapping: (value: T) => J) {
-    return (a: T, b: T): number => {
-        const value1 = mapping(a);
-        const value2 = mapping(b);
-        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
-    };
-}
-
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -57,48 +48,6 @@ function mapValues<K extends string | number | symbol, V, R>(
         },
         {} as Record<K, R>,
     );
-}
-
-/**
- * Returns true if the string is null, undefined or only consists of 1..n spaces
- */
-function isBlank(text: Maybe<string>): text is null | undefined | "" {
-    return text === null || text === undefined || text.trim() === "";
-}
-
-/** Returns a formatted number string with a preceding + if non-negative */
-function addSign(number: number): string {
-    if (number < 0) {
-        return `${number}`;
-    }
-
-    return `+${number}`;
-}
-
-/**
- * No idea why this isn't built in
- */
-function sum(values: number[]): number {
-    return values.reduce((a, b) => a + b, 0);
-}
-
-/**
- * Zip to arrays together based on a given zip function
- * @param a
- * @param b
- * @param zipFunction
- */
-function zip<A, B, R>(a: A[], b: B[], zipFunction: (a: A, b: B) => R): R[] {
-    if (a.length > b.length) {
-        return b.map((elem, index) => zipFunction(a[index], elem));
-    } else {
-        return a.map((elem, index) => zipFunction(elem, b[index]));
-    }
-}
-
-interface Fraction {
-    numerator: number;
-    denominator: number;
 }
 
 /**
@@ -134,19 +83,6 @@ function tupleHasValue<const A extends readonly unknown[]>(array: A, value: unkn
 /** Check if an element is present in the provided set. Especially useful for checking against literal sets */
 function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is SetElement<T> {
     return set.has(value);
-}
-
-/** Returns a subset of an object with explicitly defined keys */
-function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Pick<T, K> {
-    return [...keys].reduce(
-        (result, key) => {
-            if (key in obj) {
-                result[key] = obj[key];
-            }
-            return result;
-        },
-        {} as Pick<T, K>,
-    );
 }
 
 let intlNumberFormat: Intl.NumberFormat;
@@ -368,7 +304,7 @@ function isObject(value: unknown): boolean {
 function sortLabeledRecord<T extends Record<string, { label: string }>>(record: T): T {
     return Object.entries(record)
         .sort((a, b) => a[1].label.localeCompare(b[1].label, game.i18n.lang))
-        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+        .reduce((copy, [key, value]) => fu.mergeObject(copy, { [key]: value }), {} as T);
 }
 
 /** Localize the values of a `Record<string, string>` and sort by those values */
@@ -402,7 +338,7 @@ function sortObjByKey(value: unknown): unknown {
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = Array.isArray(source) || R.isObject(source) ? deepClone(source) : source;
+    const clone = Array.isArray(source) || R.isObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
@@ -466,12 +402,14 @@ const SORTABLE_BASE_OPTIONS: Sortable.Options = {
     scroll: true,
     scrollSensitivity: 30,
     scrollSpeed: 15,
+
+    delay: 500,
+    delayOnTouchOnly: true,
 };
 
 export {
     ErrorPF2e,
     SORTABLE_BASE_OPTIONS,
-    addSign,
     applyNTimes,
     configFromLocalization,
     fontAwesomeIcon,
@@ -479,7 +417,6 @@ export {
     getActionIcon,
     getActionTypeLabel,
     groupBy,
-    isBlank,
     isImageFilePath,
     isImageOrVideoPath,
     isObject,
@@ -491,18 +428,13 @@ export {
     ordinalString,
     padArray,
     parseHTML,
-    pick,
     recursiveReplaceString,
     setHasElement,
     signedInteger,
     sluggify,
-    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
-    sum,
     tupleHasValue,
-    zip,
-    type Fraction,
     type SlugCamel,
 };

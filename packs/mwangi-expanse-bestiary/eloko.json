@@ -192,7 +192,7 @@
             "system": {
                 "baseItem": "blowgun",
                 "bonus": {
-                    "value": "0"
+                    "value": 0
                 },
                 "bonusDamage": {
                     "value": 0
@@ -368,24 +368,13 @@
             "name": "Blowgun Darts (Poisoned)",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These thin, light darts are typically made of hardwood and stabilized with fletching of down or fur. They are often hollow so they can be used to deliver poison.</p>"
                 },
@@ -427,6 +416,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -746,7 +740,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The eloko is affected by a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em> spell. This lasts for 1 minute, and the eloko can Dismiss the Spell.</p>"
+                    "value": "<p>The eloko is affected by a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] spell. This lasts for 1 minute, and the eloko can Dismiss the Spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1004,12 +998,6 @@
                 "temp": 0,
                 "value": 115
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -1017,6 +1005,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "fey",
+                    "mwangi"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1027,6 +1023,23 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: The Mwangi Expanse"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1049,19 +1062,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "fey",
-                    "mwangi"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "low-light vision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "sm"
             },

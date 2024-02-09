@@ -1,4 +1,4 @@
-<div class="sidebar" data-tooltip-class="pf2e">
+<div class="sidebar">
     <section>
         <div class="sidebar-title">
             <h2>{{localize "PF2E.DefensesLabel"}}</h2>
@@ -11,7 +11,7 @@
                     /
                     <input name="system.attributes.hp.max" class="max" type="number" value="{{data.attributes.hp.max}}" placeholder="0" />
                 </div>
-                <div class="armor-class valued-icon">
+                <div class="hardness valued-icon">
                     <input name="system.attributes.hardness" type="number" value="{{data.attributes.hardness}}" placeholder="0" />
                     {{localize "PF2E.Actor.Hardness.ShortLabel"}}
                 </div>
@@ -34,9 +34,17 @@
             <div>
                 <div class="initiative">
                     <div class="valued-icon">
-                        <input type="text" value="{{numberFormat data.attributes.stealth.value decimals=0 sign=true}}" data-property="system.attributes.stealth.value" data-dtype="Number" placeholder="N/A" />
+                        <input
+                            type="text"
+                            value="{{#if hasStealth}}{{numberFormat data.attributes.stealth.totalModifier sign=true}}{{/if}}"
+                            data-property="system.attributes.stealth.value"
+                            data-modifier
+                            data-nullable
+                            data-dtype="Number"
+                            placeholder="N/A"
+                        />
                     </div>
-                    <a class="roll-init{{#if @root.options.editable}} rollable{{/if}}" data-action="roll-initiative">
+                    <a class="roll-init {{#if (and hasStealth editable)}}rollable{{else}}disabled{{/if}}" data-action="roll-initiative">
                         <i class="fa-solid fa-dice-d20"></i>
                         {{localize "PF2E.StealthLabel"}}
                     </a>
@@ -53,14 +61,25 @@
             <div class="sidebar-saves">
                 {{#each saves as |save|}}
                     <div class="save">
-                        <h2 {{#if save.mod includeZero=true}}class="save-name{{#if @root.options.editable}} rollable{{/if}}" data-save="{{save.type}}"{{/if}}>
-                            {{#if save.mod includeZero=true}}
-                                <i class="fa-solid fa-dice-d20"></i>
-                            {{/if}}
-                            {{localize save.label}}
-                        </h2>
+                        {{#if save.mod includeZero=true~}}
+                            <a
+                                class="rollable"
+                                data-action="roll-check"
+                                data-statistic="{{save.type}}"
+                            ><i class="fa-solid fa-dice-d20"></i> {{save.label}}</a>
+                        {{else if ../editing}}
+                            <div>{{save.label}}</div>
+                        {{~/if}}
                         <span class="valued-icon">
-                            <input type="text" value="{{#if save.mod includeZero=true}}{{numberFormat save.mod decimals=0 sign=true}}{{/if}}" data-property="system.saves.{{save.type}}.value" data-dtype="Number" placeholder="N/A" />
+                            <input
+                                type="text"
+                                value="{{#if save.mod includeZero=true}}{{numberFormat save.mod sign=true}}{{/if}}"
+                                data-property="system.saves.{{save.type}}.value"
+                                data-modifier
+                                data-nullable
+                                data-dtype="Number"
+                                placeholder="N/A"
+                            />
                         </span>
                     </div>
                 {{/each}}
@@ -89,7 +108,7 @@
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
                 {{#if editing}}
-                    <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a data-action="edit-immunities" data-tooltip="PF2E.NPC.EditImmunities"><i class="fa-solid fa-edit"></i></a>
                 {{/if}}
             </div>
             <div class="tags">
@@ -103,7 +122,7 @@
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
                 {{#if editing}}
-                    <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a data-action="edit-weaknesses" data-tooltip="PF2E.NPC.EditWeaknesses"><i class="fa-solid fa-edit"></i></a>
                 {{/if}}
             </div>
             <div class="tags">
@@ -117,7 +136,7 @@
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
                 {{#if editing}}
-                    <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
+                    <a data-action="edit-resistances" data-tooltip="PF2E.NPC.EditResistances"><i class="fa-solid fa-edit"></i></a>
                 {{/if}}
             </div>
             <div class="tags">

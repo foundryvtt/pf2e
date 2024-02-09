@@ -39,6 +39,8 @@ import { AttributeString, AuraEffectData, DamageRollContextParams } from "./type
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
  * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
  * @param [options] Render options for actor sheets and tokens
+ * @param [options.sheets=true] Render actor sheets
+ * @param [options.tokens=false] Redraw tokens
  */
 async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRenderOptions = {}): Promise<void> {
     actors ??= [
@@ -46,6 +48,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
     actors = R.uniq(Array.from(actors));
+    options.sheets ??= true;
 
     for (const actor of actors) {
         actor.reset();
@@ -105,8 +108,8 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i?.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
-    const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
-    const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
+    const tokenDefaults = fu.deepClone(game.settings.get("core", "defaultToken"));
+    const actor = new ActorProxyPF2e(fu.mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();
@@ -242,14 +245,16 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 }
 
 /** Whether flanking puts this actor off-guard */
-function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
-    if (!target?.isOfType("creature")) return false;
+function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e, originRollOptions: string[]): boolean {
+    if (!target.isOfType("creature")) return false;
     const { flanking } = target.attributes;
-    return !flanking.flankable
-        ? false
-        : typeof flanking.offGuardable === "number"
-          ? origin.level > flanking.offGuardable
-          : flanking.offGuardable;
+    return (
+        flanking.flankable &&
+        (typeof flanking.offGuardable === "number" ? origin.level > flanking.offGuardable : flanking.offGuardable) &&
+        !target.attributes.immunities.some((i) =>
+            i.test(["item:type:condition", "item:slug:off-guard", ...originRollOptions]),
+        )
+    );
 }
 
 function getStrikeAttackDomains(
@@ -297,7 +302,7 @@ function getStrikeAttackDomains(
         const alternativeAttributeModifier = actor.isOfType("character")
             ? weaponTraits.has("finesse")
                 ? createAttributeModifier({ actor, attribute: "dex", domains })
-                : weaponTraits.has("brutal")
+                : weaponTraits.has("brutal") || weaponTraits.has("propulsive")
                   ? createAttributeModifier({ actor, attribute: "str", domains })
                   : null
             : null;
@@ -312,7 +317,7 @@ function getStrikeAttackDomains(
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
 
-    return R.uniq(domains).sort();
+    return R.uniq(domains);
 }
 
 function getStrikeDamageDomains(
@@ -321,18 +326,22 @@ function getStrikeDamageDomains(
 ): string[] {
     const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
     const slug = weapon.slug ?? sluggify(weapon.name);
-    const { actor, traits } = weapon;
+    const { actor, group, traits } = weapon;
+    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+    const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
-    const domains = [
+    const domains = R.compact([
         `${weapon.id}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-strike-damage`,
         `${meleeOrRanged}-damage`,
         `${unarmedOrWeapon}-damage`,
+        group ? `${group}-group-damage` : null,
+        baseType ? `${baseType}-base-damage` : null,
         "attack-damage",
         "strike-damage",
         "damage",
-    ];
+    ]);
 
     if (weapon.group) {
         domains.push(`${weapon.group}-weapon-group-damage`);
@@ -348,8 +357,6 @@ function getStrikeDamageDomains(
     }
 
     // Include selectors for "equivalent weapons": longbow for composite longbow, etc.
-    const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-    const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     if (baseType && !domains.includes(`${baseType}-damage`)) {
         domains.push(`${baseType}-damage`);
     }
@@ -373,7 +380,7 @@ function getStrikeDamageDomains(
         }
     }
 
-    return R.uniq(domains).sort();
+    return R.uniq(domains);
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
@@ -433,7 +440,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         adjustment.adjustTraits?.(item, actionTraits);
     }
 
-    const strike: NPCStrike = mergeObject(statistic, {
+    const strike: NPCStrike = fu.mergeObject(statistic, {
         label: item.name,
         type: "strike" as const,
         glyph: getActionGlyph({ type: "action", value: 1 }),
@@ -545,6 +552,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 rollTwice,
                 substitutions,
                 dosAdjustments,
+                createMessage: params.createMessage ?? true,
             };
             const roll = await CheckPF2e.roll(check, checkContext, params.event);
 
@@ -598,6 +606,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 options: context.options,
                 domains,
                 traits: context.traits,
+                createMessage: params.createMessage ?? true,
                 ...eventToRollParams(params.event, { type: "damage" }),
             };
 

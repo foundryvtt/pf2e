@@ -1,8 +1,7 @@
-import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
-import { WeaponPF2e } from "@item";
-import { NPCAttackTrait } from "@item/melee/data.ts";
+import { ItemProxyPF2e, type WeaponPF2e } from "@item";
+import type { NPCAttackTrait } from "@item/melee/types.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import {
     BaseWeaponType,
@@ -37,7 +36,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     declare graspingAppendage: boolean;
 
     constructor(source: StrikeSource, options: RuleElementOptions) {
-        source.img ??= source.fist ? "icons/skills/melee/unarmed-punch-fist.webp" : options.parent.img;
+        source.img ??= source.fist ? StrikeRuleElement.#defaultFistIcon : options.parent.img;
 
         super(source, options);
 
@@ -57,6 +56,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
               ? !!this.graspingAppendage
               : false;
     }
+
+    static #defaultFistIcon = "icons/skills/melee/unarmed-punch-fist.webp";
 
     static override defineSchema(): StrikeSchema {
         const { fields } = foundry.data;
@@ -187,7 +188,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             this.group = "brawling";
             this.baseType = "fist";
             this.traits = ["agile", "finesse", "nonlethal"];
-            this.traitToggles = mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
+            this.traitToggles = fu.mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
             this.otherTags = [];
             this.range = null;
             this.damage = {
@@ -222,7 +223,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
         const damageType = this.resolveInjectedProperties(this.damage.base.damageType);
         if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
-            return this.failValidation("Unrecognized damage type");
+            return this.failValidation(`Unrecognized damage type: ${damageType}`);
         }
 
         const dice = ((): number => {
@@ -234,6 +235,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
 
         if (predicatePassed) {
+            // Prefer a non-default fist icon if one is set
+            if (this.fist && this.img === StrikeRuleElement.#defaultFistIcon) {
+                this.img = this.actor.synthetics.strikes.get("fist")?.img ?? this.img;
+            }
+
             const weapon = this.#constructWeapon(damageType, dice);
             const slug = weapon.slug ?? sluggify(weapon.name);
             this.actor.synthetics.strikes.set(slug, weapon);
@@ -261,7 +267,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      */
     #constructWeapon(damageType: DamageType, dice: number): WeaponPF2e<ActorPF2e> {
         const actorIsNPC = this.actor.isOfType("npc");
-        const source: PreCreate<WeaponSource> = deepClone({
+        const source: PreCreate<WeaponSource> = fu.deepClone({
             _id: this.item.id,
             name: this.label,
             type: "weapon",
@@ -308,12 +314,12 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             },
         });
 
-        return new WeaponPF2e(source, { parent: this.actor });
+        return new ItemProxyPF2e(source, { parent: this.actor }) as WeaponPF2e<this["actor"]>;
     }
 
     /** Toggle the modular or versatile trait of this strike's weapon */
     async toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void> {
-        const ruleSources = deepClone(this.item._source.system.rules);
+        const ruleSources = fu.deepClone(this.item._source.system.rules);
         const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
         if (rule?.key === "Strike") {
             rule.traitToggles = { ...this.traitToggles, [trait]: selection };

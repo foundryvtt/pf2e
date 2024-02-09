@@ -1,4 +1,4 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
@@ -24,7 +24,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
     const medicineName = game.i18n.localize("PF2E.SkillMedicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
-    const domIdAppend = randomID(); // Attached to element id attributes for DOM uniqueness
+    const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
     const dialog = new Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `

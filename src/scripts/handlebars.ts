@@ -1,6 +1,7 @@
 import type { Coins, PartialPrice } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { getActionGlyph, ordinalString, signedInteger, sluggify } from "@util";
+import * as R from "remeda";
 
 export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("pad", (value: unknown, length: number, character: string): string => {
@@ -110,14 +111,15 @@ export function registerHandlebarsHelpers(): void {
         return new CoinsPF2e(value);
     });
 
-    Handlebars.registerHelper("includes", (arr: unknown, element: unknown): boolean => {
-        return Array.isArray(arr)
-            ? arr.includes(element)
-            : arr instanceof Set
-              ? arr.has(element)
-              : arr && typeof arr === "object"
-                ? (typeof element === "number" || typeof element === "string") && element in arr
-                : false;
+    Handlebars.registerHelper("includes", (data: unknown, element: unknown): boolean => {
+        if (Array.isArray(data)) return data.includes(element);
+        if (typeof data === "string") return data.includes(String(element));
+        if (data instanceof Set) return data.has(element);
+        if (R.isObject(data) && (typeof element === "number" || typeof element === "string")) {
+            return element in data;
+        }
+
+        return false;
     });
 
     // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented

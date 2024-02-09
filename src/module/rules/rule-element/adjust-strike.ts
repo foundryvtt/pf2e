@@ -1,4 +1,4 @@
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
@@ -151,6 +151,16 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                             }
 
                             const traits: string[] = weapon.system.traits.value;
+
+                            // If the weapon's base damage type is the same as a modular or versatile damage type, skip
+                            // adding the trait
+                            const damageType = weapon.isOfType("weapon") ? weapon.system.damage.damageType.at(0) : null;
+                            if (
+                                this.mode === "add" &&
+                                [`modular-${damageType}`, `versatile-${damageType}`].includes(change)
+                            ) {
+                                return;
+                            }
 
                             // If the weapon already has a trait of the same type but a different value, we need to check
                             // if the new trait is better than the existing one and, if it is, replace it

@@ -173,7 +173,15 @@
                 "Active": "Active",
                 "ActiveHeader": "Active Activities",
                 "Biography": {
-                    "ToggleVisibility": "Toggle visibility to other players"
+                    "Anathema": {
+                        "Add": "Add Anathema",
+                        "Delete": "Delete Anathema"
+                    },
+                    "ToggleVisibility": "Toggle visibility to other players",
+                    "Edicts": {
+                        "Add": "Add Edict",
+                        "Delete": "Delete Edict"
+                    }
                 },
                 "Blurb": "Level {level} {ancestry} {class}",
                 "ClassDC": {
@@ -190,10 +198,29 @@
                     "Title": "Configure Character"
                 },
                 "Crafting": {
-                    "Cost": "Cost"
+                    "Cost": "Cost",
+                    "Daily": {
+                        "Complete": {
+                            "OneConsumed": "Daily crafting complete: one reagent was consumed.",
+                            "NConsumed": "Daily crafting complete: {quantity} reagents were consumed.",
+                            "ZeroConsumed": "Daily crafting complete."
+                        },
+                        "Perform": "Perform Daily Crafting"
+                    }
                 },
+                "CreateFeat": "Create Feat",
                 "HandsOccupied": "Hands Occupied",
+                "Language": {
+                    "OverLimit": "This language is in excess of the number of languages this character can know.",
+                    "Unallocated": {
+                        "Label": "Unallocated",
+                        "Tooltip": "Select a language for this character to know."
+                    }
+                },
                 "Proficiency": {
+                    "SavingThrow": {
+                        "Title": "Saving Throws"
+                    },
                     "Attack": {
                         "Advanced": "Advanced Weapons",
                         "Martial": "Martial Weapons",
@@ -209,10 +236,18 @@
                         "Medium": "Medium Armor",
                         "Title": "Defenses",
                         "Unarmored": "Unarmored Defense"
-                    }
+                    },
+                    "HigherUpgrade": "{ability} has upgraded this proficiency's rank to {rank}."
                 },
                 "Rest": {
                     "Label": "Rest for the Night"
+                },
+                "Spellcasting": {
+                    "Tab": {
+                        "Activations": "Activations",
+                        "KnownSpells": "Known Spells",
+                        "Rituals": "Rituals"
+                    }
                 }
             },
             "Creature": {
@@ -231,6 +266,9 @@
                 },
                 "CriticalSpecialization": "Critical Specialization",
                 "Language": {
+                    "CommonLanguage": "Common ({language})",
+                    "DetailsPlaceholder": "Caveats, other unusual specifics",
+                    "Plural": "Languages",
                     "adlet": "Adlet",
                     "akitonian": "Akitonian",
                     "aklo": "Aklo",
@@ -352,27 +390,32 @@
                         "Precise": "Precise",
                         "Vague": "Vague"
                     },
-                    "Label": "Senses",
+                    "Label": "Sense",
                     "NoRangeLimit": "No Limit",
+                    "NoVision": "No Vision",
+                    "Plural": "Senses",
                     "RangeLabel": "Range",
                     "Type": {
                         "Darkvision": "Darkvision",
                         "Echolocation": "Echolocation",
                         "GreaterDarkvision": "Greater Darkvision",
                         "Hearing": "Hearing",
-                        "Heatsight": "Heatsight",
+                        "InfraredVision": "Infrared Vision",
                         "Lifesense": "Lifesense",
                         "LowLightVision": "Low-Light Vision",
-                        "Motionsense": "Motionsense",
+                        "MotionSense": "Motion Sense",
                         "Scent": "Scent",
                         "SeeInvisibility": "See Invisibility",
                         "Spiritsense": "Spiritsense",
                         "Thoughtsense": "Thoughtsense",
                         "Tremorsense": "Tremorsense",
+                        "Truesight": "Truesight",
+                        "Vision": "Vision",
                         "Wavesense": "Wavesense"
                     },
                     "WithAcuity": "{sense} ({acuity})",
-                    "WithAcuityAndRange": "{sense} ({acuity} {range} Ft)"
+                    "WithAcuityAndRange": "{sense} ({acuity}) {range} Feet",
+                    "WithRange": "{sense} {range} Feet"
                 },
                 "Shield": {
                     "ACBonus": "Shield AC Bonus (When Raised)",
@@ -399,6 +442,7 @@
                     "Label": "Spell Attack Modifiers & DCs",
                     "MagicItemTypesLabel": "Magic Item Types",
                     "Rituals": "Rituals",
+                    "ShortLabel": "Spellcasting",
                     "TraditionSpellcasting": "{tradition} Spellcasting",
                     "ValidItemTypes": {
                         "All": "All Magic Items",
@@ -434,6 +478,9 @@
                 "Unrecoverable": "{value} hit points are currently unrecoverable."
             },
             "Inventory": {
+                "CarryType": {
+                    "OpenMenu": "Change Carry Type"
+                },
                 "DistributeCoins": "Distribute Coins",
                 "Encumbrance": "Encumbrance",
                 "ItemQuantity": {
@@ -451,13 +498,31 @@
                 "Section": {
                     "WeaponsAndShields": "Weapons & Shields"
                 },
-                "TotalBulk": "Total Bulk: {bulk}"
+                "TotalBulk": "Total Bulk: {bulk}",
+                "UnitTitle": {
+                    "Bulk": "Unit Bulk",
+                    "Price": "Unit Price"
+                }
             },
             "IWREditor": {
                 "DoubleVs": "Double Vs.",
                 "Exceptions": "Exceptions",
                 "Title": "{actor}: {category}",
                 "Type": "Type"
+            },
+            "Speed": {
+                "BaseLabel": "Base {type} Speed",
+                "Plural": "Speeds",
+                "Label": "Speed",
+                "LabelFeet": "Speed (Feet)",
+                "Type": {
+                    "Burrow": "Burrow",
+                    "Climb": "Climb",
+                    "Fly": "Fly",
+                    "Label": "{type} Speed",
+                    "Land": "Land",
+                    "Swim": "Swim"
+                }
             },
             "NPC": {
                 "Configure": {
@@ -687,6 +752,7 @@
         "ArmorPropertyRuneRockBraced": "Rock-Braced",
         "ArmorPropertyRuneShadow": "Shadow",
         "ArmorPropertyRuneSinisterKnight": "Sinister Knight",
+        "ArmorPropertyRuneSizeChanging": "Size-Changing",
         "ArmorPropertyRuneSlick": "Slick",
         "ArmorPropertyRuneSoaring": "Soaring",
         "ArmorPropertyRuneStanching": "Stanching",
@@ -792,6 +858,7 @@
         "BulkMaxLabel": "Max Bulk",
         "CapacityBarLabel": "Capacity",
         "CarryType": {
+            "attached": "Attached",
             "dropped": "Dropped",
             "held1": "Held 1H",
             "held2": "Held 2H",
@@ -863,6 +930,7 @@
                 },
                 "Label": "Result: <unadjusted>{unadjusted}</unadjusted> <offset>by {offset}</offset>"
             },
+            "SetAsInitiative": "Set as {actor}'s initiative",
             "Specific": {
                 "Counteract": "Counteract Check",
                 "Perception": {
@@ -877,8 +945,6 @@
         "ClassFeatLevels": "Class Feat Levels",
         "ClassFeatures": "Class Features",
         "ClassHP": "Class HP",
-        "ClickToSetInitiative": "Click to set initiative to selected token(s).",
-        "ClickToSetInitiativeContext": "Set as Initiative",
         "ClipboardNotification": "Copied \"{clipText}\" to the clipboard.",
         "CompendiumBrowser": {
             "AddedItem": "Added {item} to the selected actor(s).",
@@ -983,19 +1049,6 @@
             "UseMulti": "Uses {name}, {current} remain",
             "UseSingle": "Uses {name}"
         },
-        "ConsumableTypeAmmo": "Ammunition",
-        "ConsumableTypeDrug": "Drug",
-        "ConsumableTypeElixir": "Elixir",
-        "ConsumableTypeMutagen": "Mutagen",
-        "ConsumableTypeOil": "Oil",
-        "ConsumableTypeOther": "Other",
-        "ConsumableTypePoison": "Poison",
-        "ConsumableTypePotion": "Potion",
-        "ConsumableTypeScroll": "Scroll",
-        "ConsumableTypeSnare": "Snare",
-        "ConsumableTypeTalisman": "Talisman",
-        "ConsumableTypeTool": "Tool",
-        "ConsumableTypeWand": "Wand",
         "CoreSkillsHeader": "Core Skills",
         "Counteractable": "Counteractable",
         "CraftDCTitle": "DC",
@@ -1125,6 +1178,7 @@
                     "dazzled": "dazzled",
                     "deafened": "deafened",
                     "death-effects": "death effects",
+                    "detection": "detection",
                     "disease": "disease",
                     "djezet": "djezet",
                     "doomed": "doomed",
@@ -1302,7 +1356,7 @@
         "DeleteSpellcastEntryTitle": "Delete Spellcasting",
         "DeleteSpellcastEntryWarning": "WARNING: All spells in this spellcasting entry will also be deleted.",
         "DenominationLabel": "Denomination",
-        "DetailsHeading": "Details",
+        "Details": "Details",
         "DragDropFeats": "Drag & Drop feats to add",
         "Duration": {
             "P1M": "month",
@@ -1342,7 +1396,6 @@
             },
             "RemoveToolTip": "[Right Click] Remove effect",
             "RollDamageToolTip": "[Left Click] Roll damage",
-            "Sustained": "Sustained?",
             "Unidentified": "Unidentified",
             "UnlimitedDuration": "Unlimited duration",
             "UntilEncounterEnds": "Until encounter ends"
@@ -1541,6 +1594,17 @@
         "InitiativeHeader": "Initiative bonus",
         "InitiativeLabel": "Initiative",
         "InitiativeWithSkill": "Initiative: {skillName}",
+        "InlineAction": {
+            "Check": {
+                "DC": "DC {dc}",
+                "StatisticVsDefense": "{statistic} vs {defense}",
+                "VsDefense": "vs {defense}"
+            },
+            "Warning": {
+                "InvalidAction": "Invalid Action: {slug}",
+                "UnresolvableAction": "Unresolvable Action: {slug}"
+            }
+        },
         "InlineCheck": {
             "BasicWithSave": "Basic {save}",
             "DCWithName": "{name} DC",
@@ -1567,6 +1631,7 @@
         "InvestedLabel": "Invested",
         "Item": {
             "ABC": {
+                "Features": "Features",
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
             "Action": {
@@ -1617,6 +1682,7 @@
                 "StageLabel": "Stage"
             },
             "Ancestry": {
+                "DropFeatures": "Drop ancestry features here.",
                 "Vision": {
                     "Label": "Vision",
                     "Normal": "Normal Vision"
@@ -1665,6 +1731,11 @@
                     "heavy-barding": "Heavy Barding",
                     "light-barding": "Light Barding"
                 },
+                "Rune": {
+                    "Resilient": {
+                        "Label": "Resilient Rune"
+                    }
+                },
                 "Specific": {
                     "Hint": "Marking this armor as <i>specific magic armor</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades.",
                     "Label": "Specific Magic Armor"
@@ -1676,6 +1747,9 @@
             },
             "CannotAddType": "{type} items cannot be added to this actor.",
             "Condition": {
+                "Chat": {
+                    "Current": "Current Conditions"
+                },
                 "Flanked": "Off-Guard (Flanked)",
                 "PersistentDamage": {
                     "AssistedRecovery": "Roll Assisted Recovery",
@@ -1698,11 +1772,34 @@
                 }
             },
             "Consumable": {
+                "Damage": {
+                    "Add": "Add Damage/Healing",
+                    "Label": "Damage/Healing",
+                    "Remove": "Remove Damage/Healing"
+                },
+                "Category": {
+                    "ammo": "Ammunition",
+                    "catalyst": "Catalyst",
+                    "drug": "Drug",
+                    "elixir": "Elixir",
+                    "fulu": "Fulu",
+                    "gadget": "Gadget",
+                    "mutagen": "Mutagen",
+                    "oil": "Oil",
+                    "other": "Other",
+                    "poison": "Poison",
+                    "potion": "Potion",
+                    "scroll": "Scroll",
+                    "snare": "Snare",
+                    "talisman": "Talisman",
+                    "toolkit": "Toolkit",
+                    "wand": "Wand"
+                },
                 "Plural": "Consumables",
                 "Uses": {
-                    "AutoDestroy": "AutoDestroy",
+                    "AutoDestroy": "Destroy on Use",
                     "Label": "Uses",
-                    "None": "No Uses Remaining",
+                    "None": "No Uses Remain",
                     "Use": "Use"
                 }
             },
@@ -2101,21 +2198,37 @@
                 },
                 "Plural": "Effects",
                 "ShowTokenIcon": "Show token icon?",
-                "Sustained": "Sustained",
                 "Unidentified": "Unidentified?"
             },
             "Feat": {
                 "Info": {
                     "Added": "{item} was added to {category}."
                 },
-                "KeyAbilityOptions": {
-                    "Label": "Key Attribute Options",
-                    "Hint": "Key attribute options in addition to this provided by a class"
-                },
                 "LevelLabel": "Feat",
                 "LevelN": "Feat {level}",
                 "OnlyLevel1": "Must be taken at level 1",
                 "Plural": "Feats",
+                "Subfeatures": {
+                    "KeyAbilityOptions": {
+                        "Label": "Key Attribute Options",
+                        "Hint": "Key attribute options in addition to those provided by a class"
+                    },
+                    "Label": "Subfeatures",
+                    "Languages": {
+                        "OpenSlots": "Open Slots"
+                    },
+                    "Proficiencies": {
+                        "Label": "Proficiencies",
+                        "NoOptionSelected": "Select a statistic to which the increase will be applied."
+                    },
+                    "Senses": {
+                        "Darkvision": {
+                            "Ancestry": "Grant if the character's ancestry has low-light vision.",
+                            "LLV": "Grant if the character has low-light vision from any prior source.",
+                            "Second": "Grant if this feat is taken a second time."
+                        }
+                    }
+                },
                 "TakeMultiple": {
                     "Five": "Up to 5×",
                     "Four": "Up to 4×",
@@ -2152,6 +2265,21 @@
                 "Hint": "Additional tags beyond traits to help classify an item"
             },
             "Physical": {
+                "Attach": {
+                    "CraftingCheck": "Crafting Check",
+                    "Detach": {
+                        "Label": "Detach Item",
+                        "Prompt": "Are you sure you want to detach {attachable}?"
+                    },
+                    "Outcome": {
+                        "Failure": "You were unable to attach {attachable}.",
+                        "Success": "{attachable} is now attached to {target}."
+                    },
+                    "PromptTitle": "Attach {item}",
+                    "NoEligibleItem": "No item was found that can accept {attachable} as an attachment.",
+                    "SidebarContextMenuOption": "Attach to Item"
+                },
+                "Attachments": "Attachments",
                 "Base": "Base",
                 "Broken": "Broken",
                 "BrokenThreshold": {
@@ -2265,8 +2393,11 @@
             },
             "Plural": "Items",
             "RefreshFromCompendium": {
+                "DifferentItemType": "The compendium source for {item} ({uuid}) is of a different type than what is present on this actor.",
                 "Label": "Refresh",
-                "SourceNotFound": "The compendium source for \"{item}\" (source ID: {sourceId}) was not found.",
+                "SourceNotFound": "The compendium source for {item} (source ID: {sourceId}) was not found.",
+                "SubitemFailure": "One or more subitems on {item} ({uuid}) were unable to be refreshed.",
+                "Success": "Item \"{item}\" has been refreshed.",
                 "Tooltip": {
                     "Disabled": "Item cannot be refreshed: contains data stored at time of adding to actor",
                     "Enabled": "Refresh this item's data with the latest from its originating compendium."
@@ -2336,10 +2467,12 @@
                     "success": "Counteract the target if its counteract rank is {rank} or less."
                 },
                 "Defense": {
+                    "BasicDefense": "basic {save}",
                     "BasicSave": "Basic",
                     "Label": "Defense"
                 },
                 "LevelN": "Spell {level}",
+                "LineSplit": ";",
                 "MeasuredTemplate": {
                     "Clear": "Clear Placed Templates",
                     "Place": "Place {area}"
@@ -2356,8 +2489,12 @@
                     "SecondaryChecks": "Secondary Checks",
                     "SecondaryCasters": "Secondary Casters"
                 },
+                "Sustained": {
+                    "Duration": "Sustained for up to {maximum}",
+                    "Label": "Sustained"
+                },
                 "Variants": {
-                    "DeleteDialogText": "Are you sure you want to delete '{variantName}'?",
+                    "DeleteDialogText": "Are you sure you want to delete {variantName}?",
                     "DeleteDialogTitle": "Delete Spell Variant",
                     "LabelPlural": "Spell Variants",
                     "SelectOtherVariantLabel": "Select Other Variant",
@@ -2365,8 +2502,10 @@
                     "SheetTitle": "{originalName} (Variant)"
                 },
                 "Warning": {
-                    "InvalidLevel": "Attempted to add spell {name} at {targetLevel}, but spell is {baseLevel}.",
-                    "WrongSpellType": "Cannot add {spellType} spell to this casting entry."
+                    "CantripToRankedSlots": "{spell} is a cantrip and must be added to a cantrips list.",
+                    "InvalidRank": "{spell} is {spellRank}, but these slots are for {targetRank}.",
+                    "NonCantripToCantrips": "{spell} is not a cantrip and cannot be added to a cantrips list.",
+                    "WrongSpellType": "Cannot add {type} spell to this casting entry."
                 }
             },
             "Weapon": {
@@ -2375,22 +2514,26 @@
                     "Hint": "Indicate that this weapon can be loaded into another weapon as ammunition."
                 },
                 "CriticalSpecialization": {
-                    "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
+                    "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its <em>striking rune</em>, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
                     "bomb": "Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort",
-                    "brawling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
-                    "club": "You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.",
-                    "firearm": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort (such as by being large enough that the missile would not be an impediment.)",
+                    "brawling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
+                    "club": "You knock the target up to 10 feet in a straight line away from you, in a direction of your choice. This is forced movement.",
+                    "firearm": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
                     "flail": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they success at a @Check[type:reflex|dc:resolve(@actor.attributes.classDC.value)|name:Flail Critical Specialization] save against your class DC.",
                     "hammer": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Hammer Critical Specialization] save against your class DC.",
                     "polearm": "The target is moved 5 feet in a direction of your choice. This is forced movement.",
                     "shield": "You knock the target back from you 5 feet. This is forced movement.",
-                    "sling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
-                    "spear": "The weapon pierces the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
+                    "sling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "spear": "Weapons of this type pierce the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
                     "sword": "The target is made off-balance by your attack, becoming @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn."
                 },
                 "Damage": {
                     "DiceNumber": "Dice Number"
+                },
+                "Forceful": {
+                    "Second": "Forceful 2nd Attack",
+                    "Third": "Forceful 3rd+ Attack"
                 },
                 "FromABP": "Automatic bonus progression has adjusted this weapon's {property} to {value}.",
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
@@ -2429,7 +2572,7 @@
                     "Label": "Thrown Usage"
                 }
             },
-            "WorldItemWarning": "This is a World Item and will not work if saved in a compendium"
+            "WorldItemWarning": "This is a world item and will not work if saved to a compendium."
         },
         "ItemBonus0": "0",
         "ItemBonus1": "+1 Weapon Potency",
@@ -2438,9 +2581,6 @@
         "ItemBonusLabel": "Item Bonus",
         "ItemBonusMinus2": "Shoddy (-2)",
         "ItemBonusShortLabel": "Item",
-        "ItemDescription": "Description",
-        "ItemDescriptionHeader": "Description",
-        "ItemDetails": "Details",
         "ItemLevel": "{type} {level}",
         "ItemMystification": "Mystification",
         "ItemMystified": "Mystified",
@@ -2467,7 +2607,6 @@
         "KitItems": "Items",
         "KitWorldItem": "This item is not found in a Compendium and will not work in other worlds",
         "LackCastConsumableCapability": "{actor} lacks the proficiency to use {spell} and does not have the Trick Magic Item feat.",
-        "Languages": "Languages",
         "LanguagesAdditional": "Additional Languages",
         "Level1": "Level 1",
         "Level10": "Level 10",
@@ -2664,7 +2803,6 @@
             "Attacks": "Attacks",
             "Creature": "Creature",
             "Dead": "Dead",
-            "Edit": "Edit",
             "EditImmunities": "Edit Immunities",
             "EditLanguages": "Edit Languages",
             "EditResistances": "Edit Resistances",
@@ -2688,13 +2826,11 @@
             "PassivesLabel": "Passives",
             "PrivateNotes": "Private Notes",
             "PublicNotes": "Description",
-            "Remove": "Remove",
             "SavesExtraInfoLabelPlaceholder": "Bonus to all saves...",
-            "SendToChat": "Send to chat",
+            "SendToChat": "Send to Chat",
             "SensesLabel": "Senses",
             "SkillRollFlavor": "{skillName} Skill Check ({rank})",
             "SpeedExtraInfoLabelPlaceholder": "Speed details...",
-            "SpeedLabel": "Speed",
             "Spells": {
                 "AttackLabel": "Attack",
                 "DCLabel": "DC",
@@ -2868,7 +3004,7 @@
         "QuantityShortLabel": "Qty.",
         "RangePenalty": "Range Penalty",
         "Rarity": "Rarity",
-        "Reach": "Reach (feet)",
+        "Reach": "Reach (Feet)",
         "RecallKnowledge": {
             "Breakdown": "Attempts",
             "BreakdownTitle": "Identify Creature Attempts",
@@ -2916,9 +3052,6 @@
             },
             "WarnNoHeroPoint": "{name} has no Hero Points"
         },
-        "ResiliencyRuneLabel": "Resilient Rune",
-        "ResistancesExceptionLabel": "Except:",
-        "ResistancesExceptionPlaceholder": "e.g. except silver",
         "ResistancesLabel": "Resistances",
         "ResolvePointsShortLabel": "Resolve",
         "RestoreSpellTitle": "Restore Spell",
@@ -3017,8 +3150,8 @@
                 "Name": "Campaign Feats"
             },
             "CampaignType": {
-                "Hint": "Extended campaign rule type for parties",
-                "Name": "Campaign Type",
+                "Hint": "Extended campaign support for campaigns such as Kingmaker",
+                "Name": "Campaign-Specific Features",
                 "Choices": {
                     "none": "None",
                     "kingmaker": "Kingmaker"
@@ -3088,12 +3221,26 @@
                     "Hint": "Traits that can be applied to feats (e.g., Lineage, Monk) and actions",
                     "Name": "Feat Traits"
                 },
-                "Hint": "Add custom traits, languages, and other elements of a homebrew world.",
+                "Hint": "Add custom traits, weapon types, and other elements of a homebrew world.",
                 "Instructions": "These settings allow GMs to add traits, languages, and other elements to a homebrew world. To add such elements, simply type the desired terms in the appropriate fields, separated by commas or tab keystrokes. They will then appear in the appropriate places on actor and item sheets. To update a term, click it to make the desired changes.",
                 "Label": "Manage Homebrew Elements",
                 "Languages": {
+                    "CommonLanguage": {
+                        "Hint": "Select the language to be referred to as \"Common\" in this game world.",
+                        "Label": "The \"Common\" Language"
+                    },
                     "Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)",
-                    "Name": "Languages"
+                    "Rarities": {
+                        "Common": "<rarity>Common</rarity> Languages",
+                        "Name": "Language Rarities",
+                        "Rare": "<rarity>Rare</rarity> Languages",
+                        "Secret": "<rarity>Secret</rarity> Languages",
+                        "Unavailable": {
+                            "Hint": "Languages not available for use on any creature in this world",
+                            "Label": "Unavailable Languages"
+                        },
+                        "Uncommon": "<rarity>Uncommon</rarity> Languages"
+                    }
                 },
                 "Name": "Homebrew Elements",
                 "ReservedTerm": "\"{term}\" is a reserved term.",
@@ -3102,6 +3249,7 @@
                     "Name": "Spell Traits"
                 },
                 "Tabs": {
+                    "Campaign": "Campaign",
                     "Damage": "Damage Types",
                     "Traits": "Traits and Categories"
                 },
@@ -3132,28 +3280,32 @@
                 "Hint": "Limit what kinds of metagame information your players have access to.",
                 "Label": "Limit Metagame Information",
                 "Name": "Metagame Information",
-                "PartyVision": {
-                    "Hint": "If enabled, all players will mutually share token vision, regardless of permissions or token selection.",
-                    "Name": "Shared Party Vision"
+                "ShowDC": {
+                    "Hint": "Players can see DCs of checks made against NPCs and other non-player-owned sources.",
+                    "Name": "Show Check DCs"
+                },
+                "ShowResults": {
+                    "Hint": "Players can see the degree of success of checks made against NPCs and other non-player-owned sources.",
+                    "Name": "Show Check Outcomes"
+                },
+                "ShowBreakdowns": {
+                    "Hint": "Players can see the constituent and total modifiers of rolls made by NPCs and other non-player-owned actors.",
+                    "Name": "Show Roll Breakdowns"
                 },
                 "SecretCondition": {
-                    "Hint": "If enabled, only the GM will see the condition update and reminder messages that are generated for tokens not owned by a player.",
+                    "Hint": "Only the GM can see the condition update and reminder messages for NPCs and other non-player-owned actors.",
                     "Name": "Hide Condition Update Message"
                 },
                 "SecretDamage": {
-                    "Hint": "If enabled, only the GM will see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player.",
+                    "Hint": "Only the GM can see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player.",
                     "Name": "Hide Damage-Taken Message"
                 },
-                "ShowDC": {
-                    "Hint": "If enabled, players will see DCs of checks made against NPCs and other non-player-owned sources.",
-                    "Name": "Show DCs on Attacks and Saves"
-                },
-                "ShowResults": {
-                    "Hint": "If enabled, players will see the degree of success of checks made against NPCs and other non-player-owned sources.",
-                    "Name": "Show Results on Attacks and Saves"
+                "PartyVision": {
+                    "Hint": "Players mutually share token vision, regardless of permissions or token selection.",
+                    "Name": "Shared Party Vision"
                 },
                 "ShowPartyStats": {
-                    "Hint": "If enabled, players will see stats for their fellow party members in the party actor sheet",
+                    "Hint": "Players can see stats for their fellow party members in the party actor sheet",
                     "Name": "Show Party-Member Stats"
                 },
                 "TokenSetsNameVisibility": {
@@ -3208,14 +3360,14 @@
                     "Name": "Automatic Bonus Progression"
                 },
                 "FreeArchetype": {
-                    "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194",
+                    "Hint": "Grant additional feat slots for the free archetype variant from GM Core pg 84.",
                     "Name": "Free Archetype"
                 },
                 "Hint": "Enable and configure variant rules like Proficiency Without Level or the Stamina system.",
                 "Label": "Toggle Variant Rules",
                 "Name": "Variant Rules",
                 "Proficiency": {
-                    "Hint": "Play with the proficiency without level variant from Gamemastery Guide pg 198.",
+                    "Hint": "Play with the proficiency without level variant from GM Core pg 85.",
                     "ModifiersHint": "Set the modifier value for each proficiency rank.",
                     "Name": "Proficiency without Level"
                 },
@@ -3370,18 +3522,7 @@
         "SkillThievery": "Thievery",
         "SkillsLabel": "Skills",
         "Slug": "Slug",
-        "SpecialLabel": "Special",
         "SpecialSensesLabel": "Special Senses",
-        "Speed": "Speed",
-        "SpeedBaseLabel": "Base {type} Speed",
-        "SpeedFeet": "Speed (feet)",
-        "SpeedLabel": "{type} Speed",
-        "SpeedTypes": "Speed Types",
-        "SpeedTypesBurrow": "Burrow",
-        "SpeedTypesClimb": "Climb",
-        "SpeedTypesFly": "Fly",
-        "SpeedTypesLand": "Land",
-        "SpeedTypesSwim": "Swim",
         "SpellAbilityModLabel": "+ Mod",
         "SpellArea": "Area: {area}",
         "SpellAttackLabel": "Spell Attack",
@@ -3390,15 +3531,12 @@
         "SpellCastingFormat": "{traditionSpells} {preparationType} Spells",
         "SpellCollectionAdd": "Add to Spell Collection",
         "SpellCollectionRemove": "Remove from Spell Collection",
-        "SpellDurationLabel": "Duration",
         "SpellFlexibleAvailable": "Flexible: {value} / {max}",
         "SpellFlexibleLabel": "Flexible",
-        "SpellFocusLabel": "Focus",
         "SpellLevelBase": "Base: {level}",
         "SpellLevelHeightened": "Heightened: +{heightened}",
         "SpellLevelLabel": "Spell Rank",
         "SpellPreparedLabel": "Prepared",
-        "SpellRangeLabel": "Range",
         "SpellRequirementsLabel": "Requirements",
         "SpellScalingInterval": {
             "Add": "Add Heightening (Interval)",
@@ -3412,8 +3550,8 @@
             "Selection": "Heightened ({level})"
         },
         "SpellSlotEmpty": "Empty Slot (drag spell here)",
-        "SpellSlotExpendedError": "Cannot cast {name}: spell is already expended",
-        "SpellSlotNotEnoughError": "Cannot cast {name} at the {level}: not enough spell slots",
+        "SpellSlotExpendedError": "Cannot cast {spell}: slot is already expended.",
+        "SpellSlotNotEnoughError": "Cannot cast {spell} at {rank}: not enough spell slots.",
         "SpellTargetLabel": "Targets",
         "SpellTraditionsLabel": "Traditions",
         "SpellUnlimitedLabel": "Unlimited",
@@ -3440,7 +3578,6 @@
         "StaminaPointsShortLabel": "Stamina",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
-        "StatusEffects": "{name}'s conditions",
         "StealthLabel": "Stealth",
         "Strike": {
             "Combined": {
@@ -3479,7 +3616,6 @@
         "TabCharacterLabel": "Character",
         "TabCraftingLabel": "Crafting",
         "TabDescriptionLabel": "Description",
-        "TabDetailsLabel": "Details",
         "TabInventoryLabel": "Inventory",
         "TabManageTabsLabel": "Manage Tabs",
         "TabPathfinderSociety": "Pathfinder Society",
@@ -3774,7 +3910,7 @@
         "TraitDescriptionCompanion": "An item with this trait can be worn by an animal companion or similar creature. A companion can have up to two items invested.",
         "TraitDescriptionComplex": "A hazard with this trait takes turns in an encounter.",
         "TraitDescriptionComposite": "A composite impulse combines multiple elements. You can gain an impulse with the composite trait only if your kinetic elements include all the elements listed in the impulse's traits.",
-        "TraitDescriptionComposition": "To cast a composition cantrip or focus spell, you usually use a type of Performance. If the spell includes a verbal component, you must use an auditory performance, and if it includes a somatic component, you must use a visual one. The spell gains all the traits of the performance you used. You can cast only one composition spell each turn, and you can have only one active at a time. If you cast a new composition spell, any ongoing effects from your previous composition spell end immediately.",
+        "TraitDescriptionComposition": "To cast a composition cantrip or focus spell, you use a type of Performance. If the spell requires an auditory performance, you might recite a poem, sing a song, or perform a dramatic monologue. If the spell requires a visual performance, you might dance or pantomime. You can cast only one composition spell each turn, and you can have only one active at a time. If you cast a new composition spell, any ongoing effects from your previous composition spell end immediately.",
         "TraitDescriptionConcealable": "This weapon is designed to be inconspicuous or easily concealed. You gain a +2 circumstance bonus to Stealth checks and DCs to hide or conceal a weapon with this trait.",
         "TraitDescriptionConcentrate": "An action with this trait requires a degree of mental concentration and discipline.",
         "TraitDescriptionConcussive": "These weapons smash as much as puncture. When determining a creature's resistance or immunity to damage from this weapon, use the weaker of the target's resistance or immunity to piercing or to bludgeoning. For instance, if the creature were immune to piercing and had no resistance or immunity to bludgeoning damage, it would take full damage from a concussive weapon. Resistance or immunity to all physical damage, or all damage, applies as normal.",
@@ -3819,6 +3955,7 @@
         "TraitDescriptionEsoterica": "The esoterica trait is present in many thaumaturge feats and class features that incorporate the various talismans, supernatural trinkets, and other objects you carry with you. Abilities that have the esoterica trait require you to be in possession of your esoterica to use them. Normally, you're assumed to always have your esoterica with you, but in some rare circumstances, you might either not have them on hand or have your gear stripped from you.",
         "TraitDescriptionEvolution": "Feats with this trait affect your eidolon instead of you, typically by granting it additional physical capabilities.",
         "TraitDescriptionExpandable": "An item with the expandable trait increases to a specific size when activated. Unless otherwise noted, this space must be adjacent to you and on the ground, and the item needs to have enough open space to expand into or else the activation has no effect. When the effect ends, the expanded item disintegrates if it's a consumable or shrinks back to its normal size if it's not a consumable.",
+        "TraitDescriptionExperiment": "An experimental cryptid has been purposefully altered through alchemy, engineering, magic, or ritual to contain some degree of construct components. Although powerful, the process is volatile and imperfect.",
         "TraitDescriptionExploration": "An activity with this trait takes more than a turn to use, and can usually be used only during exploration mode.",
         "TraitDescriptionExtradimensional": "This effect or item creates an extradimensional space. An extradimensional effect placed inside another extradimensional space ceases to function until it is removed.",
         "TraitDescriptionFatal": "The fatal trait includes a die size. On a critical hit, the weapon's damage die increases to that die size instead of the normal die size, and the weapon adds one additional damage die of the listed size.",
@@ -3932,7 +4069,6 @@
         "TraitDescriptionOccult": "This magic comes from the occult tradition, calling upon bizarre and ephemeral mysteries. Anything with this trait is magical.",
         "TraitDescriptionOil": "Oils are magical gels, ointments, pastes, or salves that are typically applied to an object and are used up in the process.",
         "TraitDescriptionOlfactory": "An olfactory effect can affect only creatures that can smell it. This applies only to olfactory parts of the effect, as determined by the GM.",
-        "TraitDescriptionOpen": "These maneuvers work only as the first salvo on your turn. You can use an open only if you haven't used an action with the attack or open trait yet this turn.",
         "TraitDescriptionOracle": "This indicates abilities from the oracle class.",
         "TraitDescriptionOrc": "A creature with this trait is a member of the orc ancestry. A weapon with this trait is a weapon which orcs craft and use.",
         "TraitDescriptionOread": "A type of geniekin descended from a being from the Plane of Earth.",
@@ -3966,6 +4102,7 @@
         "TraitDescriptionReach": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures. Weapons with this trait are long and can be used to attack creatures up to 10 feet away instead of only adjacent creatures. For creatures that already have reach with the limb or limbs that wield the weapon, the weapon increases their reach by 5 feet.",
         "TraitDescriptionReckless": "Actions with the reckless trait run the risk of the pilot losing control of a vehicle. When performing a reckless action, the pilot must first attempt an appropriate piloting check to keep control of the vehicle.",
         "TraitDescriptionRecovery": "Recovery weapons are thrown weapons designed to return to the thrower when they miss the target. When you make an unsuccessful thrown Strike with this weapon, it flies back to your hand after the Strike is complete, allowing you to try again. If your hands are full when the weapon returns, it falls to the ground in your space.",
+        "TraitDescriptionReincarnated": "This ancestry feat is available to any character who has reincarnated at least once, either as part of their backstory or because of a reincarnation that took place during play.",
         "TraitDescriptionReflection": "A creature with this trait has the reflection versatile heritage. Reflections are beings who are copies of living people, whether through cloning, planar duplication, or another mechanism. An ability with this trait can be used or selected only by reflections.",
         "TraitDescriptionRelic": "An item with the relic trait grows in power with its wielder.",
         "TraitDescriptionReload": "While all weapons need some amount of time to get into position, many ranged weapons also need to be loaded and reloaded. This entry indicates how many Interact actions it takes to reload such weapons. This can be 0 if drawing ammunition and firing the weapon are part of the same action. If an item takes 2 or more actions to reload, the GM determines whether they must be performed together as an activity, or you can spend some of those actions during one turn and the rest during your next turn.",
@@ -4110,6 +4247,7 @@
         "TraitEthereal": "Ethereal",
         "TraitEvolution": "Evolution",
         "TraitExpandable": "Expandable",
+        "TraitExperiment": "Experiment",
         "TraitExploration": "Exploration",
         "TraitExtradimensional": "Extradimensional",
         "TraitFatal": "Fatal",
@@ -4273,7 +4411,6 @@
         "TraitOlfactory": "Olfactory",
         "TraitOni": "Oni",
         "TraitOoze": "Ooze",
-        "TraitOpen": "Open",
         "TraitOracle": "Oracle",
         "TraitOrc": "Orc",
         "TraitOread": "Oread",
@@ -4403,6 +4540,7 @@
         "TraitReckless": "Reckless",
         "TraitRecovery": "Recovery",
         "TraitReflection": "Reflection",
+        "TraitReincarnated": "Reincarnated",
         "TraitRelic": "Relic",
         "TraitReload": "Reload",
         "TraitReload0": "Reload 0",
@@ -4537,6 +4675,7 @@
         "TraitVersatileElectricity": "Versatile Electricity",
         "TraitVersatileFire": "Versatile Fire",
         "TraitVersatileForce": "Versatile Force",
+        "TraitVersatileMental": "Versatile Mental",
         "TraitVersatileP": "Versatile P",
         "TraitVersatilePoison": "Versatile Poison",
         "TraitVersatileS": "Versatile S",
@@ -4646,7 +4785,6 @@
             "None": "Full Speed",
             "NormalTerrain": "Normal Terrain Speed",
             "PartySpeed": "Party Speed",
-            "Speed": "Speed",
             "TerrainSlowdown": "Terrain Speed",
             "Title": "Travel Duration Calculator (Alpha)",
             "TravelDuration": "Travel Duration",
@@ -4674,7 +4812,6 @@
             "Label": "UUID",
             "SourceId": "Source ID"
         },
-        "UnitPriceLabel": "Unit price",
         "UnitedPaizoWorkers": {
             "PFSNote": "Note for Pathfinder Society players: In support of UPW, merchandise purchased from the union store will count in the Online PFS region for the <span class=\"hover\" title=\"When you use a Hero Point to reroll a check, add a +1 circumstance bonus to the reroll\">Promotional Vestments</a> boon.",
             "ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc - publisher of the Pathfinder and Starfinder roleplaying games - are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America's CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
@@ -4879,6 +5016,7 @@
                 "rapier": "Rapier",
                 "rapier-pistol": "Rapier Pistol",
                 "reinforced-wheels": "Reinforced Wheels",
+                "reinforced-stock": "Reinforced Stock",
                 "repeating-crossbow": "Repeating Crossbow",
                 "repeating-hand-crossbow": "Repeating Hand Crossbow",
                 "repeating-heavy-crossbow": "Repeating Heavy Crossbow",
@@ -5333,9 +5471,6 @@
                 "Note": {
                     "criticalSuccess": "On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
                 }
-            },
-            "speed": {
-                "Name": "Speed"
             },
             "spellStoring": {
                 "Name": "Spell-Storing"

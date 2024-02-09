@@ -19,10 +19,10 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Strength 14"
+                    "value": "Strength +2"
                 },
                 {
-                    "value": "Dexterity 14"
+                    "value": "Dexterity +2"
                 }
             ]
         },
@@ -36,12 +36,6 @@
                 "key": "ActiveEffectLike",
                 "mode": "add",
                 "path": "flags.pf2e.monkDedicationCount",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.unarmed.rank",
                 "value": 1
             },
             {
@@ -60,22 +54,28 @@
                         "value": "dex"
                     }
                 ],
-                "flag": "keyAbility",
+                "flag": "attribute",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "system.proficiencies.classDCs.monk",
-                "priority": 39,
-                "value": {
-                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
-                    "label": "PF2E.TraitMonk",
+                "path": "system.proficiencies.classDCs.monk.ability",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "monk": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "unarmed": {
                     "rank": 1
                 }
             }
-        ],
+        },
         "traits": {
             "rarity": "common",
             "value": [

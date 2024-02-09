@@ -853,7 +853,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A shield archon's hands can change into a <em>+1 @UUID[Compendium.pf2e.equipment-srd.Item.Holy] @UUID[Compendium.pf2e.equipment-srd.Item.Striking] spear</em> and a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Sturdy Shield (Lesser)]{Lesser Sturdy Shield}</em> or back into hands.</p>\n<p>Transforming does not restore any HP to the items, and if either the weapon or shield is fully destroyed, the archon loses that hand until it receives a <em>@UUID[Compendium.pf2e.spells-srd.Item.Regenerate]</em> spell or similar magic.</p>\n<p>If a shield archon is slain, its weapon and shield can be taken, but they fade into nothingness after 24 hours.</p>"
+                    "value": "<p>A shield archon's hands can change into a <em>+1 @UUID[Compendium.pf2e.equipment-srd.Item.Holy] @UUID[Compendium.pf2e.equipment-srd.Item.Striking] spear</em> and a <em>@UUID[Compendium.pf2e.equipment-srd.Item.Sturdy Shield (Lesser)]{Lesser Sturdy Shield}</em> or back into hands.</p>\n<p>Transforming does not restore any HP to the items, and if either the weapon or shield is fully destroyed, the archon loses that hand until it receives a @UUID[Compendium.pf2e.spells-srd.Item.Regenerate] spell or similar magic.</p>\n<p>If a shield archon is slain, its weapon and shield can be taken, but they fade into nothingness after 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1038,7 +1038,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Enemies that start their turn in the area or enter it must attempt a @Check[type:will|dc:27] save.</p>\n<p>On a failure, they take a -1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first.</p>\n<p>Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours.</p>"
+                    "value": "<p>30 feet. Enemies that start their turn in the area or enter it must attempt a @Check[type:will|dc:27] save.</p>\n<p>On a failure, they take a -1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first.</p>\n<p>Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1145,7 +1145,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Once per day, if an archon sees another creature cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em>, it can cast an innate <em>dimension door</em> (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's <em>dimension door</em>.</p>\n<p>If the archon's <em>dimension door</em> has enough distance, the archon appears the same distance and direction from the creature as before either used <em>dimension door</em>.</p>"
+                    "value": "<p>Once per day, if an archon sees another creature cast @UUID[Compendium.pf2e.spells-srd.Item.Translocate], it can cast an innate <em>dimension door</em> (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's <em>dimension door</em>.</p>\n<p>If the archon's <em>dimension door</em> has enough distance, the archon appears the same distance and direction from the creature as before either used <em>dimension door</em>.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1175,7 +1175,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a shield archon uses its <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em> innate spell, it can choose to move into the space of a willing ally it can see within range. If it does so, the ally switches places with the archon, appearing in the space the archon just vacated, as if it too had cast Dimension Door.</p>"
+                    "value": "<p>When a shield archon uses its @UUID[Compendium.pf2e.spells-srd.Item.Translocate] innate spell, it can choose to move into the space of a willing ally it can see within range. If it does so, the ally switches places with the archon, appearing in the space the archon just vacated, as if it too had cast Dimension Door.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1353,12 +1353,6 @@
                 "temp": 0,
                 "value": 125
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1377,6 +1371,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "diabolic",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -1387,6 +1389,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1409,19 +1423,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "diabolic",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

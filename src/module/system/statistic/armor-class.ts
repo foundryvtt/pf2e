@@ -84,8 +84,9 @@ class ArmorStatistic extends Statistic {
     override getTraceData(): ArmorClassTraceData {
         return {
             ...super.getTraceData({ value: "dc" }),
-            details: this.details,
             breakdown: this.dc.breakdown,
+            details: this.details,
+            slug: "ac",
         };
     }
 }
@@ -97,6 +98,7 @@ interface ArmorStatisticData extends StatisticData {
 
 interface ArmorClassTraceData extends StatisticTraceData {
     details: string;
+    slug: "ac";
 }
 
 export { ArmorStatistic, type ArmorClassTraceData };

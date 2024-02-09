@@ -205,7 +205,7 @@
                 },
                 "items": {
                     "lzyme": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Battle Medicine",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Battle Medicine"
@@ -504,7 +504,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Ki Strike]</em> ki spell and a focus pool of 1 Focus Point.</p>"
+                    "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Ki Strike] ki spell and a focus pool of 1 Focus Point.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -992,15 +992,16 @@
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 1
                     }
                 ],
                 "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1815,24 +1816,13 @@
             "name": "Antidote (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
                 },
@@ -1876,6 +1866,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1891,24 +1886,13 @@
             "name": "Bravo's Brew (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This flask of foaming beer grants courage. For the next hour after drinking this elixir, you gain a +1 item bonus to Will saves, or +2 when attempting Will saves against fear.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Bravo's Brew (Lesser)]</p>"
                 },
@@ -1952,6 +1936,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1967,24 +1956,13 @@
             "name": "Cat's Eye Elixir",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>After you consume this elixir, your vision sharpens and you become sensitive to even the most minute movements.</p>\n<p>For the next minute, you reduce the flat check to target hidden creatures to 5, and you don't need to attempt a flat check to target concealed creatures. These benefits apply only against creatures within 30 feet of you.</p>"
                 },
@@ -2027,6 +2005,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2042,24 +2025,13 @@
             "name": "Darkvision Elixir (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Darkvision Elixir (Lesser)]</p>"
                 },
@@ -2102,6 +2074,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2117,24 +2094,13 @@
             "name": "Juggernaut Mutagen (Moderate)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "mutagen"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "mutagen",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p>After you drink this mutagen, your body becomes thick and sturdy. You exhibit a healthy glow, though you tend to be ponderous and unobservant.</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Fortitude saves and 10 temporary Hit Points. Whenever you are at maximum Hit Points for at least 1 full minute, you regain the temporary Hit Points.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Will saves, Perception checks and initiative rolls.</p>\n<p><strong>Duration</strong> 10 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Juggernaut Mutagen (Moderate)]</p>"
                 },
@@ -2179,6 +2145,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2194,24 +2165,13 @@
             "name": "Monkey Pin",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "talisman"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "talisman",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Usage</strong> affixed to armor</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Climb</p>\n<p><strong>Requirements</strong> You are trained in Athletics</p>\n<p>This small brass pin is in the shape of a monkey climbing a tree. When you activate this talisman, use a Climb action. If you succeed, you move your full Speed during the Climb. If you roll a critical failure, you get a failure instead.</p>"
                 },
@@ -2254,6 +2214,11 @@
                 },
                 "usage": {
                     "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2271,7 +2236,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -2808,24 +2773,13 @@
             "name": "Sunrod",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "BDGNVkwZjq6Ip8aX",
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This 1-foot-long, gold-tipped rod glows after it's struck on a hard surface. For the next 6 hours, it sheds bright light in a 20-foot radius (and dim light to the next 40 feet).</p>"
                 },
@@ -2868,6 +2822,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3392,15 +3351,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3441,21 +3400,18 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "expert-strikes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3554,9 +3510,6 @@
                 "temp": 0,
                 "value": 80
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3591,6 +3544,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "<p>Trained as a doctor, Yacob readily turns his medical mastery into deadly unarmed strikes that disable foes, crossing impossible distances in an instant to execute surprised targets or patch his allies' wounds.</p>\n<p>As a field medic in Taldor's phalanx, Yacob Kress served under a dozen egotistical, short-lived nobles during Taldor's recent succession wars. Time and again, these nobles' arrogance and ambition got soldiers killed, and Yacob was left healing those unlucky enough to survive and burying the rest. He became so bitter that when a Red Mantis assassin killed Yacob's latest patron before his eyes, the medic didn't seek revenge; he sought training. Intrigued, the assassin accepted, taking Yacob to Mediogalti island to learn Achaekek's deadly arts. Several years later, Yacob finds grim catharsis every time he executes an arrogant fool, as if taking revenge against his old Taldan commanders-though he prefers not to harm bystanders whenever he can help it.</p>\n<p><strong>Eteleon:</strong> This is the very assassin who eviscerated Yacob's commander and introduced the medic to the Red Mantis. The stoic Eteleon has provided Yacob with invaluable mentorship, and this is their first mission together. Yacob is eager to prove what he's learned.</p>\n<p><strong>Kangir:</strong> Yacob only knows Kangir by reputation, specifically as one of the foul champions responsible for the succession wars' \"Temple Canyon Tragedy.\" Yacob suppresses any grudge for the incident; that was a lifetime ago.</p>\n<p><strong>Zeah:</strong> Yacob and Zeah trained together as assassins. Surviving that harrowing education has forged an unspoken respect, bond, and light rivalry between the two.</p>",
@@ -3599,6 +3553,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3619,6 +3574,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "dwarven",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -3636,6 +3598,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3722,21 +3687,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "dwarven",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "evil",
-                "lawful"
-            ]
         }
     },
     "type": "character"

@@ -316,7 +316,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "primal",
                         "teleportation"
                     ]
                 }
@@ -377,12 +376,12 @@
                     "traditions": [
                         "arcane",
                         "divine",
-                        "occult"
+                        "occult",
+                        "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -446,8 +445,7 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -555,7 +553,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1043,12 +1041,6 @@
                 "temp": 0,
                 "value": 440
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 36
-            },
             "speed": {
                 "details": "air walk",
                 "otherSpeeds": [],
@@ -1067,6 +1059,13 @@
         },
         "details": {
             "blurb": "Variant fetch stalker",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -1077,6 +1076,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 36,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1094,18 +1105,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

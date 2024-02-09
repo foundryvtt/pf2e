@@ -59,7 +59,7 @@ function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<numbe
 }
 
 function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DCOptions): number {
-    if (dcOptions.proficiencyWithoutLevel) {
+    if (dcOptions.pwol) {
         return getXPFromMap(partyLevel, npcLevel, xpVariantCreatureDifferences);
     } else {
         return getXPFromMap(partyLevel, npcLevel, xpCreatureDifferences);

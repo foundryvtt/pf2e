@@ -144,7 +144,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure a poisonous fog. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em>, except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>You conjure a poisonous fog. This functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist], except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1411,7 +1411,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1479,7 +1479,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -1631,7 +1631,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -1869,7 +1869,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -2143,7 +2143,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>An etioling in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by <em>@UUID[Compendium.pf2e.spells-srd.Item.Sanctified Ground]</em>, is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                    "value": "<p>An etioling in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by @UUID[Compendium.pf2e.spells-srd.Item.Sanctified Ground], is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2295,7 +2295,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The etioling drains nutrients from nearby plant and animal life. Each round a creature begins its turn in this aura, it takes @Damage[1d6[void]] damage and must succeed at a @Check[type:fortitude|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>All non-magical plant life in this aura instantly withers, removing any cover and concealment provided by trees and undergrowth.</p>"
+                    "value": "<p>20 feet. The etioling drains nutrients from nearby plant and animal life. Each round a creature begins its turn in this aura, it takes @Damage[1d6[void]] damage and must succeed at a @Check[type:fortitude|dc:27|traits:damaging-effect] save or become @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>All non-magical plant life in this aura instantly withers, removing any cover and concealment provided by trees and undergrowth.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2517,12 +2517,6 @@
                 "temp": 0,
                 "value": 150
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2530,6 +2524,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "gnomish",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -2540,6 +2543,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2562,23 +2577,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "gnomish",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

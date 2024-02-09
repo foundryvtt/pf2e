@@ -179,7 +179,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
+                    "value": "<p>5 feet. The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -329,12 +329,6 @@
                 "value": 17
             },
             "immunities": [],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 3
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -347,6 +341,12 @@
         },
         "details": {
             "blurb": "Variant homunculus",
+            "languages": {
+                "details": "can't speak any language; master link",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -357,6 +357,18 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: A Fistful of Flowers"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 3,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -374,17 +386,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Can't Speak Any Language; Master Link",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "tiny"
             },

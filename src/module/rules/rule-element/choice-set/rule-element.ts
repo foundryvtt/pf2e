@@ -304,7 +304,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     #choicesFromPath(path: string): PickableThing<string>[] {
-        const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
+        const choiceObject: unknown = fu.getProperty(CONFIG.PF2E, path) ?? fu.getProperty(this.actor, path) ?? {};
         if (
             Array.isArray(choiceObject) &&
             choiceObject.every((c) => R.isObject<{ value: string }>(c) && typeof c.value === "string")
@@ -439,10 +439,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
             .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
             .map((source) => {
-                const parsedUUID = foundry.utils.parseUuid(source.uuid);
+                const parsedUUID = fu.parseUuid(source.uuid);
                 const pack =
                     parsedUUID.collection instanceof CompendiumCollection ? parsedUUID.collection.metadata.id : null;
-                return new ItemProxyPF2e(deepClone(source), { pack });
+                return new ItemProxyPF2e(fu.deepClone(source), { pack });
             })
             .concat(game.items.filter((i) => i.type === itemType))
             .filter((i) => filter.test([...i.getRollOptions("item"), ...actorRollOptions]));

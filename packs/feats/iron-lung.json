@@ -28,7 +28,29 @@
             "remaster": false,
             "title": "Pathfinder #153: Life's Long Shadows"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.golemGrafter.featCount",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Exhale Poison"
+            },
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "poison",
+                    "inhaled"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

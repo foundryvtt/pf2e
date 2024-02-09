@@ -248,7 +248,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Moderate.success",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     },
                     {
                         "key": "Note",
@@ -257,7 +257,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Moderate.criticalSuccess",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     }
                 ],
                 "runes": {
@@ -364,24 +364,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]] Hit Points.</p>"
                 },
@@ -427,6 +420,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -442,24 +440,13 @@
             "name": "Sling Bullets",
             "sort": 600000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
@@ -501,6 +488,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1174,12 +1166,6 @@
                 "temp": 0,
                 "value": 104
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 14
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -1187,6 +1173,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1197,6 +1189,14 @@
                 "remaster": false,
                 "title": "Pathfinder Gamemastery Guide"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1214,17 +1214,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

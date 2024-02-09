@@ -1,13 +1,12 @@
-import type { ActorPF2e } from "@actor/base.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
+import type { ActorPF2e } from "@actor";
+import type { ActorSourcePF2e } from "@actor/data/index.ts";
 import type { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MacroPF2e } from "@module/macro.ts";
-import { MigrationBase } from "@module/migration/base.ts";
+import type { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { ScenePF2e } from "@scene/index.ts";
-import { TokenDocumentPF2e } from "@scene/token-document/index.ts";
+import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { Progress } from "@system/progress.ts";
 
 export class MigrationRunner extends MigrationRunnerBase {
@@ -37,7 +36,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         document.updateSource({ "system._migration.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
-        if ("items" in document && "token" in document) {
+        if ("items" in document && "prototypeToken" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
                     item.updateSource({ "system._migration.version": currentVersion });
@@ -57,7 +56,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
         for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
-            if (updateGroup.length === 50) {
+            if (updateGroup.length === 100) {
                 try {
                     await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
                     progress?.advance({ by: updateGroup.length });
@@ -68,7 +67,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 }
             }
             const updated =
-                "items" in document
+                "prototypeToken" in document
                     ? await this.#migrateActor(migrations, document, { pack })
                     : await this.#migrateItem(migrations, document);
             if (updated) updateGroup.push(updated);
@@ -85,12 +84,13 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     async #migrateItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
         const baseItem = item.toObject();
+
         try {
-            return this.getUpdatedItem(baseItem, migrations);
+            return await this.getUpdatedItem(baseItem, migrations);
         } catch (error) {
-            if (error instanceof Error) {
-                console.error(`Error thrown while migrating ${item.uuid}: ${error.message}`);
-            }
+            // Output the error, since this means a migration threw it
+            ui.notifications.error(`Error thrown while migrating ${item.name} (${item.uuid})`);
+            console.error(error);
             return null;
         }
     }
@@ -98,13 +98,14 @@ export class MigrationRunner extends MigrationRunnerBase {
     async #migrateActor(
         migrations: MigrationBase[],
         actor: ActorPF2e,
-        options: { pack?: string | null } = {},
+        options: { pack?: Maybe<string> } = {},
     ): Promise<ActorSourcePF2e | null> {
-        const { pack } = options;
+        const pack = options.pack;
         const baseActor = actor.toObject();
-        const updatedActor = await (() => {
+
+        const updatedActor = await (async () => {
             try {
-                return this.getUpdatedActor(baseActor, migrations);
+                return await this.getUpdatedActor(baseActor, migrations);
             } catch (error) {
                 // Output the error, since this means a migration threw it
                 if (error instanceof Error) {
@@ -146,7 +147,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updated = await this.getUpdatedJournalEntry(journalEntry.toObject(), migrations);
-            const changes = diffObject(journalEntry.toObject(), updated);
+            const changes = fu.diffObject(journalEntry.toObject(), updated);
             if (Object.keys(changes).length > 0) {
                 await journalEntry.update(changes, { noHook: true });
             }
@@ -160,7 +161,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
-            const changes = diffObject(macro.toObject(), updatedMacro);
+            const changes = fu.diffObject(macro.toObject(), updatedMacro);
             if (Object.keys(changes).length > 0) {
                 await macro.update(changes, { noHook: true });
             }
@@ -174,7 +175,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
-            const changes = diffObject(table.toObject(), updatedMacro);
+            const changes = fu.diffObject(table.toObject(), updatedMacro);
             if (Object.keys(changes).length > 0) {
                 table.update(changes, { noHook: true });
             }
@@ -191,7 +192,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
-            const changes = diffObject(token.toObject(), updatedToken);
+            const changes = fu.diffObject(token.toObject(), updatedToken);
 
             if (Object.keys(changes).length > 0) {
                 try {
@@ -213,7 +214,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
-            const changes = diffObject(user.toObject(), updatedUser);
+            const changes = fu.diffObject(user.toObject(), updatedUser);
             if (Object.keys(changes).length > 0) {
                 await user.update(changes, { noHook: true });
             }
@@ -240,14 +241,10 @@ export class MigrationRunner extends MigrationRunnerBase {
         /** A roughly estimated "progress max" to reach, for display in the progress bar */
         const progress = new Progress({
             label: game.i18n.localize("PF2E.Migrations.Running"),
-            max: Math.floor(
+            max:
                 game.actors.size +
-                    game.items.size +
-                    game.scenes
-                        .map((s) => s.tokens.contents)
-                        .flat()
-                        .filter((t) => t.actor?.isToken).length,
-            ),
+                game.items.size +
+                game.scenes.contents.flatMap((s) => s.tokens.contents).filter((t) => !t.actorLink).length,
         });
 
         // Migrate World Actors

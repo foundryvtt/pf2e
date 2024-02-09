@@ -197,7 +197,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -265,7 +265,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -495,26 +495,15 @@
             "name": "Black Adder Venom",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "poison"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "poison",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage (1 round)</p>"
+                    "value": "<p>Adder venom is a simple but effective way to enhance a weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Maximum Duration</strong> 3 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d8[poison]] damage (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d10[poison]] damage (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -556,6 +545,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -861,7 +855,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any creature affected by the <em>@UUID[Compendium.pf2e.spells-srd.Item.Bane]</em> spell is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Gwibble.</p>"
+                    "value": "<p>Any creature affected by the @UUID[Compendium.pf2e.spells-srd.Item.Bane] spell is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to Gwibble.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1163,12 +1157,6 @@
                 "temp": 0,
                 "value": 23
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 6
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1187,6 +1175,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -1197,6 +1191,23 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-02: The Mosquito Witch"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1219,17 +1230,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "sm"
             },

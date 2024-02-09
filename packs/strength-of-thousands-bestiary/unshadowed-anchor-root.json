@@ -410,7 +410,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 9
@@ -906,7 +906,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure a poisonous fog. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em>, except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>You conjure a poisonous fog. This functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist], except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1063,7 +1063,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A spell or magical effect deals damage.</p>\n<hr />\n<p>Exchanging material energy with that of the Shadow Plane, you transform the triggering spell into a partially illusory version of itself. Attempt to counteract the target spell. If the attempt is successful, any creatures that would be damaged by the spell instead take only half as much damage, but the spell otherwise works as normal. Treat shadow siphon's counteract level as 2 higher for this attempt.</p>"
+                    "value": "<p><strong>Trigger</strong> A spell or magical effect deals damage.</p>\n<hr />\n<p>Exchanging material energy with that of the Shadow Plane, you transform the triggering spell into a partially illusory version of itself. Attempt to counteract the target spell. If the attempt is successful, any creatures that would be damaged by the spell instead take only half as much damage, but the spell otherwise works as normal. Treat shadow siphon's counteract rank as 2 higher for this attempt.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1460,7 +1460,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em> except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
+                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist] except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2940,12 +2940,6 @@
                 "temp": 0,
                 "value": 270
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
             "resistances": [
                 {
                     "type": "acid",
@@ -2967,6 +2961,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "amurrun",
+                    "common",
+                    "fey",
+                    "iruxi",
+                    "kholo",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -2977,6 +2982,23 @@
                 "remaster": false,
                 "title": "Pathfinder #174: Shadows of the Ancients"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 33,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2994,22 +3016,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "amurrun",
-                    "common",
-                    "fey",
-                    "iruxi",
-                    "kholo",
-                    "necril"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "low-light vision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "sm"
             },

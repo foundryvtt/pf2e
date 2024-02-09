@@ -1263,7 +1263,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1553,7 +1553,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>Clouded Quartz is surrounded by a perpetual storm. The whirling winds impose a -2 circumstance penalty on ranged attack rolls using physical ammunition that target her or originate from her.</p>"
+                    "value": "<p>10 feet. Clouded Quartz is surrounded by a perpetual storm. The whirling winds impose a -2 circumstance penalty on ranged attack rolls using physical ammunition that target her or originate from her.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1729,7 +1729,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If exposed to direct sunlight, Clouded Quartz immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions or Trample. The slowed value increases by 1 each time she ends her turn in sunlight. If Clouded Quartz's actions are reduced to 0 in this way, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified] until she spends at least 1 minute in darkness. Spells like <em>@UUID[Compendium.pf2e.spells-srd.Item.Sunburst]</em> that create magical sunlight cannot petrify Clouded Quartz, but she is slowed 1 for [[/br 1d4 #rounds]]{1d4 rounds} after being exposed to such an effect.</p>"
+                    "value": "<p>If exposed to direct sunlight, Clouded Quartz immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions or Trample. The slowed value increases by 1 each time she ends her turn in sunlight. If Clouded Quartz's actions are reduced to 0 in this way, she becomes @UUID[Compendium.pf2e.conditionitems.Item.Petrified] until she spends at least 1 minute in darkness. Spells like @UUID[Compendium.pf2e.spells-srd.Item.Sunburst] that create magical sunlight cannot petrify Clouded Quartz, but she is slowed 1 for [[/br 1d4 #rounds]]{1d4 rounds} after being exposed to such an effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1990,12 +1990,6 @@
                     "type": "bleed"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 18
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -2024,6 +2018,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "jotun",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -2034,6 +2036,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #2-20: Breaking the Storm: Bastion in Embers"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "tempest sight",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -2051,22 +2065,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "jotun",
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, tempest sight"
-            },
             "size": {
                 "value": "lg"
             },

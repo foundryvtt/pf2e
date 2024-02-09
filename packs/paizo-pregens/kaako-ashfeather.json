@@ -63,7 +63,7 @@
                 },
                 "items": {
                     "78ses": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Underwater Marauder",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
@@ -214,7 +214,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>Wind and lightning have always been close friends to you. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</em> cantrip as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>"
+                    "value": "<p>Wind and lightning have always been close friends to you. You can cast the @UUID[Compendium.pf2e.spells-srd.Item.Electric Arc] cantrip as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -1514,7 +1514,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Guidance]</em> cantrip as an occult innate spell.</p>"
+                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the @UUID[Compendium.pf2e.spells-srd.Item.Guidance] cantrip as an occult innate spell.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1637,24 +1637,13 @@
             "name": "Potency Crystal",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "talisman"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "talisman",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Usage</strong> affixed to a weapon</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Envision</p>\n<p><strong>Trigger</strong> You make an attack with the affixed weapon, but you haven't rolled yet</p>\n<p>This fluorite crystal glows with a strange phosphorescence. When you activate the crystal, the weapon becomes a <em>+1 striking weapon</em> for the rest of the turn, gaining a +1 item bonus to the attack roll and increasing the damage on a hit to two weapon damage dice.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Potency Crystal]</p>"
                 },
@@ -1698,6 +1687,11 @@
                 },
                 "usage": {
                     "value": "affixed-to-weapon"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1713,24 +1707,13 @@
             "name": "Bolts",
             "sort": 800000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -1772,6 +1755,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1787,24 +1775,17 @@
             "name": "Healing Potion (Lesser)",
             "sort": 900000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "2d8+5"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
@@ -1850,6 +1831,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2101,24 +2087,13 @@
             "name": "Chalk",
             "sort": 1500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "WysrqFxe7NQPBCGb",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -2159,6 +2134,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2234,24 +2214,13 @@
             "name": "Rations",
             "sort": 1762500,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "WysrqFxe7NQPBCGb",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -2291,6 +2260,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -2638,7 +2612,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Mastery"
                     },
                     "2xl4q": {
-                        "img": "systems/pf2e/icons/features/classes/master-tricks.webp",
+                        "img": "icons/weapons/swords/swords-short.webp",
                         "level": 13,
                         "name": "Master Tricks",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Tricks"
@@ -2656,7 +2630,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
                     },
                     "6ddtr": {
-                        "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
@@ -2686,7 +2660,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -3186,12 +3160,6 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
                         "value": 2
                     },
@@ -3211,12 +3179,6 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
                         "value": 2
                     },
                     {
@@ -3251,6 +3213,16 @@
                     }
                 ],
                 "slug": "weapon-tricks",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3415,7 +3387,7 @@
                         "tengu"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -3495,9 +3467,6 @@
                 "temp": 0,
                 "value": 61
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3537,6 +3506,7 @@
             },
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Born on the storm-tossed seas, the life of a pirate is the only one Kaako has ever known. Hatched under an auspicious sign, Kaako's parents pronounced her a jinx-eater, one who might consume the ill fortune falling over the crew and bring them good luck. Unsurprisingly, the crew took an instant liking to her mischievous antics. Growing up aboard a ship, Kaako spent her formative years meeting all sorts of folks from the wider world, sailing up and down the coasts of Avistan and Garund. They were good years and ones that she looks back upon with fond nostalgia.</p>\n<p>Years later, Kaako left her parents to join the crew of Captain Renlock aboard the Brass Bird. For some time, she remained happy there. The crew of the Brass Bird made names for themselves as pirates aboard one of the most feared vessels to sail the coasts. When the Bird overtook a small merchant vessel off the coast of Varisia, Kaako encountered a jinx that even she could not prevent. Having no desire to take the ship or hostages, the Bird's crew raided the vessel for valuables before setting it free. One passenger-a Varisian witch-took umbrage to the theft and bestowed a curse upon the Bird and its crew. After that fateful day, the ship was continually beset by storms and bad winds. The Brass Bird constantly ran afoul of patrols of various navies ready to apprehend the ship. All this led to the fateful encounter with the Andoran navy. Chased back to the Shackles, the Brass Bird and its crew were finally overcome. Wanting no more bloodshed, Captain Renlock surrendered and the crew of the Brass Bird scattered.</p>\n<p>Fortunately, Kaako was released only a few months later and returned to a life on the open ocean. Though she joined crews aboard other ships, Kaako never truly found a home again. Five years later, Kaako still enjoys the life of a pirate, but grows weary of lining other peoples' pockets with gold while leaving little for herself. Then word came that Captain Renlock had passed away in prison. And his mysterious clockwork parrot, Cawlo, arrived at the window of Kaako's cabin to deliver a message…</p>\n<p><strong>Goals</strong> Kaako dreams of a future in which she might captain her own ship or at least find a crew that she can call a family. Life on the high seas can be tiring, especially when there is little to show for it after years of work.</p>\n<p><strong>Personality</strong> Kaako is inquisitive, but quick to startle. She has a penchant for dressing flamboyantly, adorning herself with shiny trinkets and baubles that she claims help her ward off foul spirits and curses. In reality, she just likes the way these accessories look. Kaako is not above playing up her \"mystical\" connection, despite not really having much control over such matters. Among friends though, she is much more laid back and can be a prankster.</p>\n<p><strong>Relationships</strong> Most see Kaako as a strange and mysterious person who has many secrets. As a result, few try to become close to her. Those who do get to know the young tengu find that she can be a caring friend, even though she tends to be a bit awkward around other humanoids.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -3545,6 +3515,7 @@
                 "campaignNotes": "<p><em>Elsir Syniras:</em> Kaako and Elsir used to be close friends and often went into port to get into trouble together. Kaako always found a way to cheer the sometimes-dour elven sorcerer up, and he in turn would leave her small magical baubles and trinkets. The two often spent long nights on the deck looking out at the stars, sharing a bottle, and dreaming of a rich and prosperous future.</p>\n<p><em>Jadren Tagar:</em> Jadren has always been a pain in Kaako's backside. The life of the party, daring first officer, and charming pirate was just more than Kaako could handle. It did not help that the hulking human fighter often gave Kaako condescending \"bird\" nicknames she didn't like.</p>\n<p><em>Lavanna Saltspray:</em> Kaako and Lavanna always got along, though the young halfling priestess sometimes disagreed about signs and portents, preferring to turn to Gozreh than trust Kaako's intuition. Lavanna often remained inseparable from Jadren, making it hard for Kaako to trust her entirely.</p>",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3571,6 +3542,13 @@
             "keyability": {
                 "value": "dex"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "tengu"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3589,6 +3567,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3677,21 +3658,6 @@
             "thi": {
                 "rank": 2
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "tengu"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

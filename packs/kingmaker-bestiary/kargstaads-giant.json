@@ -166,24 +166,13 @@
             "name": "Rock",
             "sort": 300000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": "uSYjobyszZcruEhr",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -221,6 +210,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -829,12 +823,6 @@
                     "type": "cold"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 27
-            },
             "speed": {
                 "details": "ice stride",
                 "otherSpeeds": [],
@@ -849,6 +837,13 @@
         },
         "details": {
             "blurb": "Variant frost giants",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -859,6 +854,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 27,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -876,18 +883,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "jotun"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "lg"
             },

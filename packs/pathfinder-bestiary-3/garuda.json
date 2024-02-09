@@ -477,24 +477,13 @@
             "name": "Arrows",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -536,6 +525,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -853,7 +847,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The garuda flaps their wings with intense force. This has the same effect as <em>@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]</em> (@Check[type:fortitude|dc:27]) but in a @Template[type:cone|distance:30].</p>\n<p>In an area with loose debris (at the GM's discretion), the gusts from the garuda's wings create a cloud that obscures vision, making any creature in the area @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and creatures outside the area are concealed to those within the area.</p>"
+                    "value": "<p>The garuda flaps their wings with intense force. This has the same effect as @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] (@Check[type:fortitude|dc:27]) but in a @Template[type:cone|distance:30].</p>\n<p>In an area with loose debris (at the GM's discretion), the gusts from the garuda's wings create a cloud that obscures vision, making any creature in the area @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and creatures outside the area are concealed to those within the area.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1058,12 +1052,6 @@
                 "temp": 0,
                 "value": 135
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1076,6 +1064,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "empyrean",
+                    "vudrani"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -1086,6 +1082,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1108,19 +1116,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "empyrean",
-                    "vudrani"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

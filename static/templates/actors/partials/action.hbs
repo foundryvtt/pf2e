@@ -1,8 +1,8 @@
 <li class="action item" data-item-id="{{action.id}}" data-item-summary-id="action-{{action.id}}">
-    <div class="icon item-image framed">
+    <a class="icon item-image framed" data-action="item-to-chat">
         <img src="{{action.img}}" />
         <i class="fa-solid fa-message"></i>
-    </div>
+    </a>
 
     <h4 class="name"><a data-action="toggle-summary">{{action.name}}</a></h4>
 
@@ -33,12 +33,12 @@
         </button>
     {{/if}}
 
-    <div class="item-controls" data-tooltip-class="pf2e" data-tooltip-direction="UP">
-        {{#if @root.options.editable}}
-            <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-            {{#unless action.feat}}
-                <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
-            {{/unless}}
+    <div class="item-controls" data-tooltip-direction="UP">
+        {{#if @root.editable}}
+            <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+            {{#unless action.feat~}}
+                <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+            {{~/unless}}
         {{/if}}
     </div>
 

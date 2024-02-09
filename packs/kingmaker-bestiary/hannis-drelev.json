@@ -400,24 +400,13 @@
             "name": "Bolts",
             "sort": 600000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -458,6 +447,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -473,24 +467,17 @@
             "name": "Healing Potion (Moderate)",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "3d8+10"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "3d8+10",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (3d8+10)[healing]]]{3d8+10 Hit Points}.</p>"
                 },
@@ -536,6 +523,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -767,7 +759,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to @UUID[Compendium.pf2e.action-macros.Macro.Disarm: Athletics]{Disarm} an opponent, he can choose to have the disarmed item fly [[/r {1d4}*5 #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[type:reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
+                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] an opponent, he can choose to have the disarmed item fly [[/r (1d4*5) #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[type:reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1153,12 +1145,6 @@
                 "temp": 0,
                 "value": 220
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 17
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1166,6 +1152,13 @@
         },
         "details": {
             "blurb": "Male human baron",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "skald"
+                ]
+            },
             "level": {
                 "value": 12
             },
@@ -1176,6 +1169,14 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1193,18 +1194,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "skald"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

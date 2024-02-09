@@ -312,7 +312,6 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "focus",
                         "manipulate",
                         "mental"
                     ]
@@ -425,7 +424,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -573,7 +572,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -687,7 +686,6 @@
                         "composition",
                         "concentrate",
                         "emotion",
-                        "focus",
                         "mental"
                     ]
                 }
@@ -754,7 +752,6 @@
                         "composition",
                         "concentrate",
                         "emotion",
-                        "focus",
                         "mental"
                     ]
                 }
@@ -1058,24 +1055,13 @@
             "name": "Arrows",
             "sort": 1500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -1117,6 +1103,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1580,7 +1571,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The satyr is holding a musical instrument.</p>\n<hr />\n<p><strong>Effect</strong> The satyr plays a melody on his instrument to cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Sleep]</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em> without expending the spell slot and using his music in place of providing the spell's component actions. The spell gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell is then temporarily immune from spells played from that satyr's pipes for 1 minute. Satyrs are immune to this music.</p>"
+                    "value": "<p><strong>Requirements</strong> The satyr is holding a musical instrument.</p>\n<hr />\n<p><strong>Effect</strong> The satyr plays a melody on his instrument to cast @UUID[Compendium.pf2e.spells-srd.Item.Charm], @UUID[Compendium.pf2e.spells-srd.Item.Fear], @UUID[Compendium.pf2e.spells-srd.Item.Sleep], or @UUID[Compendium.pf2e.spells-srd.Item.Suggestion] without expending the spell slot and using his music in place of providing the spell's component actions. The spell gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell is then temporarily immune from spells played from that satyr's pipes for 1 minute. Satyrs are immune to this music.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1821,12 +1812,6 @@
                 "temp": 0,
                 "value": 350
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -1840,6 +1825,13 @@
         },
         "details": {
             "blurb": "Variant male satyr",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1850,6 +1842,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 35,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1872,18 +1876,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "med"
             },

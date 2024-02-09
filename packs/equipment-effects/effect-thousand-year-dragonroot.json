@@ -1,0 +1,64 @@
+{
+    "_id": "p1pxUzwgWZ9l9jmD",
+    "img": "icons/consumables/vegetable/root-ginger-yellow.webp",
+    "name": "Effect: Thousand-Year Dragonroot",
+    "system": {
+        "description": {
+            "value": "<p>Your body shimmers with golden light, providing illumination as a torch. You gain a fly Speed of 40 feet and fire resistance 5.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": 40
+            },
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.35,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 2,
+                        "type": "torch"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#f0cf28",
+                    "dim": 40,
+                    "luminosity": 0.25,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

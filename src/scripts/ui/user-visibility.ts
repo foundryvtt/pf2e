@@ -39,7 +39,7 @@ class UserVisibilityPF2e {
 
         const hasOwnership = document?.isOwner ?? game.user.isGM;
         // Hide DC for explicit save buttons (such as in spell cards)
-        const dcSetting = game.settings.get("pf2e", "metagame_showDC");
+        const dcSetting = game.pf2e.settings.metagame.dcs;
         const saveButtons = htmlQueryAll(html, "button[data-action=save]");
         const hideDC = !document?.hasPlayerOwner && !hasOwnership && !dcSetting;
         if (hideDC) {
@@ -75,13 +75,13 @@ class UserVisibilityPF2e {
 
     static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
         // Hide the sender name from the card if it can't be seen from the canvas
-        if (!game.settings.get("pf2e", "metagame_tokenSetsNameVisibility")) return;
+        if (!game.pf2e.settings.tokens.nameVisibility) return;
         const token =
             message.token ?? (message.actor ? new TokenDocumentPF2e(message.actor.prototypeToken.toObject()) : null);
         if (token) {
             const sender = html.querySelector<HTMLElement>("h4.message-sender");
             const nameToHide = token.name.trim();
-            const shouldHideName = !token.playersCanSeeName && sender?.innerText.trim() === nameToHide;
+            const shouldHideName = !token.playersCanSeeName && sender?.innerText.includes(nameToHide);
             if (sender && shouldHideName) {
                 if (game.user.isGM) {
                     sender.dataset.visibility = "gm";
@@ -101,4 +101,4 @@ interface ProcessOptions {
     message?: ChatMessagePF2e | null;
 }
 
-export { USER_VISIBILITIES, type UserVisibility, UserVisibilityPF2e };
+export { USER_VISIBILITIES, UserVisibilityPF2e, type UserVisibility };

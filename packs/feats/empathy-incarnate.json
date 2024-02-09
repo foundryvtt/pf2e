@@ -1,0 +1,68 @@
+{
+    "_id": "9USZSLGG4zmdZquw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Empathy Incarnate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Reincarnation has given you a compassionate perspective and enabled you to relate to almost everyone you speak with, putting them at ease and quickly generating trust. Whenever you attempt a Diplomacy check to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] or @UUID[Compendium.pf2e.actionspf2e.Item.Request] something, the DC is reduced by 2, and if the creature you're speaking with is lower level than you, any success is a critical success. Whenever you attempt a Diplomacy check to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information], you can't critically fail.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "reincarnated"
+            ]
+        }
+    },
+    "type": "feat"
+}

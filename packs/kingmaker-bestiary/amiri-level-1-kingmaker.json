@@ -38,7 +38,7 @@
                 },
                 "items": {
                     "hy4x9": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Survey Wildlife",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Survey Wildlife"
@@ -736,24 +736,13 @@
             "name": "Chalk",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1xgbuOQrdM3cq0YB",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -793,6 +782,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -867,24 +861,13 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1xgbuOQrdM3cq0YB",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -923,6 +906,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -1197,7 +1185,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1251,24 +1239,17 @@
             "name": "Elixir of Life (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "3d6+6"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "3d6+6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
                 },
@@ -1312,6 +1293,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1804,7 +1790,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "blnv0": {
-                        "img": "systems/pf2e/icons/features/classes/heightened-senses.webp",
+                        "img": "icons/creatures/eyes/human-single-brown.webp",
                         "level": 17,
                         "name": "Heightened Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Heightened Senses"
@@ -2430,9 +2416,6 @@
                 "temp": 0,
                 "value": 22
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2461,6 +2444,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -2469,6 +2453,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2484,6 +2469,10 @@
             },
             "keyability": {
                 "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
             },
             "level": {
                 "value": 1
@@ -2507,6 +2496,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2582,15 +2574,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

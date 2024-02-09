@@ -199,7 +199,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 5
@@ -297,7 +297,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "occult",
                         "scrying"
                     ]
                 }
@@ -362,7 +361,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "occult",
                         "scrying"
                     ]
                 }
@@ -411,7 +409,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -546,7 +544,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -626,7 +624,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -747,8 +745,7 @@
                         "auditory",
                         "concentrate",
                         "illusion",
-                        "manipulate",
-                        "occult"
+                        "manipulate"
                     ]
                 }
             },
@@ -967,7 +964,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition.</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stench]</p>"
+                    "value": "<p>30 feet. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:34] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition.</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Stench]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1409,12 +1406,6 @@
                     "type": "stunned"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1431,6 +1422,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -1441,6 +1438,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1463,17 +1477,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "med"
             },

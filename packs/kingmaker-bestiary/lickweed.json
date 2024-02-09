@@ -254,7 +254,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
                 }
             },
-            "img": "icons/skills/melee/spear-tips-double-purple.webp",
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 300000,
             "system": {
@@ -367,7 +367,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -1486,26 +1486,15 @@
             "name": "Wand of Glitterdust (Level 2)",
             "sort": 1600000,
             "system": {
-                "autoDestroy": {
-                    "value": false
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "wand"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "wand",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -1537,7 +1526,7 @@
                 "size": "med",
                 "slug": "magic-wand-2nd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "57zmXc0qnYln5REO",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE"
@@ -1618,6 +1607,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": false,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1981,12 +1975,6 @@
                 "temp": 0,
                 "value": 65
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1994,6 +1982,15 @@
         },
         "details": {
             "blurb": "Male goblin druid",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "goblin",
+                    "wildsong"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -2004,6 +2001,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2026,20 +2035,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "goblin",
-                    "wildsong"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

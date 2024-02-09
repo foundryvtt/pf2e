@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>Crafters choose tattoos that represent their dedication and skill in their chosen field. Such tattoos might adorn the arm, fingers, or eyes, and they take the form of artistic patterns or depict tools of the trade, such as anvils, paintbrushes, or trowels. You gain a +3 item bonus to Crafting checks. Furthermore, when you roll a critical failure on a Crafting check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], treat it as a failure instead.</p>\n<p><strong>Activate</strong> 1 minute (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The tattoo casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Creation]</em>. You choose the item and its appearance, and whether the spell is 4th or 5th level. This spell's duration is unlimited but ends when you Activate the tattoo again.</p>"
+            "value": "<p>Crafters choose tattoos that represent their dedication and skill in their chosen field. Such tattoos might adorn the arm, fingers, or eyes, and they take the form of artistic patterns or depict tools of the trade, such as anvils, paintbrushes, or trowels. You gain a +3 item bonus to Crafting checks. Furthermore, when you roll a critical failure on a Crafting check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], treat it as a failure instead.</p>\n<p><strong>Activate</strong> 1 minute (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The tattoo casts @UUID[Compendium.pf2e.spells-srd.Item.Creation]. You choose the item and its appearance, and whether the spell is 4th or 5th level. This spell's duration is unlimited but ends when you Activate the tattoo again.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -40,6 +40,16 @@
                 "selector": "crafting",
                 "type": "item",
                 "value": 3
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "crafting"
             }
         ],
         "size": "med",

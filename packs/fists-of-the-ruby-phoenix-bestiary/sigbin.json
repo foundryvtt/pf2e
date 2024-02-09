@@ -221,7 +221,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:fortitude|dc:19] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is immune to all sigbins' stenches for 1 minute.</p>"
+                    "value": "<p>30 feet. A creature that enters the emanation must attempt a @Check[type:fortitude|dc:19] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is immune to all sigbins' stenches for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -456,12 +456,6 @@
                 "temp": 0,
                 "value": 75
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -469,6 +463,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -479,6 +479,23 @@
                 "remaster": false,
                 "title": "Pathfinder #166: Despair on Danger Island"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -496,20 +513,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "sm"
             },

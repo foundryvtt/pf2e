@@ -42,11 +42,12 @@ type KingdomSettlementData = ModelPropsFromSchema<typeof KINGDOM_SETTLEMENT_SCHE
 type FameType = "fame" | "infamy";
 
 export type {
+    FameType,
     KingdomAbility,
     KingdomAbilityData,
-    KingdomCommodity,
     KingdomCHG,
     KingdomCharter,
+    KingdomCommodity,
     KingdomData,
     KingdomGovernment,
     KingdomLeadershipData,
@@ -57,5 +58,4 @@ export type {
     KingdomSettlementType,
     KingdomSkill,
     KingdomSource,
-    FameType,
 };

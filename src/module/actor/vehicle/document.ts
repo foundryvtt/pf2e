@@ -85,7 +85,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         // Hit Points
         const { attributes } = this;
         const hitPoints = new HitPointsStatistic(this, { baseMax: attributes.hp.max });
-        attributes.hp = mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
+        attributes.hp = fu.mergeObject(hitPoints.getTraceData(), { brokenThreshold: Math.floor(hitPoints.max / 2) });
         setHitPointsRollOptions(this);
 
         // Prepare AC
@@ -131,7 +131,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         });
 
         this.saves = { fortitude };
-        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, fortitude.getTraceData());
+        this.system.saves.fortitude = fu.mergeObject(this.system.saves.fortitude, fortitude.getTraceData());
     }
 
     protected override async _preUpdate(
@@ -149,7 +149,7 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
                 length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
-            changed.prototypeToken = mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
+            changed.prototypeToken = fu.mergeObject(changed.prototypeToken ?? {}, tokenDimensions);
 
             if (canvas.scene) {
                 const updates = this.getActiveTokens()

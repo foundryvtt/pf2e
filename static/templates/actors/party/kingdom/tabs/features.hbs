@@ -23,11 +23,18 @@
         <section class="feat-section major" data-group-id="{{section.id}}">
             <header>
                 {{localize section.label}}
-                {{#if section.featFilter}}
-                    <button type="button" data-action="browse-feats">
-                        <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
-                    </button>
-                {{/if}}
+                <div class="controls">
+                    {{#if (eq section.id "bonus")}}
+                        <button type="button" data-action="create-feat">
+                            <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.Actor.Character.CreateFeat"}}
+                        </button>
+                    {{/if}}
+                    {{#if section.featFilter}}
+                        <button type="button" data-action="browse-feats">
+                            <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
+                        </button>
+                    {{/if}}
+                </div>
             </header>
             <ol class="actions-list directory-list" data-foundry-list>
                 {{#each section.feats as |featSlot|}}
@@ -50,7 +57,7 @@
         </div>
         <div class="item-controls">
             {{#if @root.editable}}
-                <a class="item-control item-edit" data-action="builder" data-tab="{{type}}" title="{{localize "PF2E.EditItemTitle"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
+                <a data-action="builder" data-tab="{{type}}" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
             {{/if}}
         </div>
         <div class="item-summary" hidden="hidden">

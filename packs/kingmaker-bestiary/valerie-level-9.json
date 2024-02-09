@@ -529,24 +529,13 @@
             "name": "Juggernaut Mutagen (Moderate)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "mutagen"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "mutagen",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p>After you drink this mutagen, your body becomes thick and sturdy. You exhibit a healthy glow, though you tend to be ponderous and unobservant.</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Fortitude saves and 10 temporary Hit Points. Whenever you are at maximum Hit Points for at least 1 full minute, you regain the temporary Hit Points.</p>\n<p><strong>Drawback</strong> You take a -2 penalty to Will saves, Perception checks and initiative rolls.</p>\n<p><strong>Duration</strong> 10 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Juggernaut Mutagen (Moderate)]</p>"
                 },
@@ -591,6 +580,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -606,24 +600,13 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "4JuIj0SwrZRWDuYj",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -662,6 +645,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -677,24 +665,13 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -736,6 +713,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1108,24 +1090,17 @@
             "name": "Elixir of Life (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "3d6+6"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "3d6+6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
                 },
@@ -1170,6 +1145,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2411,7 +2391,7 @@
                 "hp": 10,
                 "items": {
                     "0c3e5": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-legend.webp",
+                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
                         "level": 13,
                         "name": "Weapon Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
@@ -2435,19 +2415,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
                     },
                     "enizk": {
-                        "img": "systems/pf2e/icons/features/classes/improved-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 15,
                         "name": "Improved Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
                     },
                     "ij943": {
-                        "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+                        "img": "icons/environment/people/charge.webp",
                         "level": 7,
                         "name": "Battlefield Surveyor",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
                     },
                     "lakjk": {
-                        "img": "systems/pf2e/icons/features/classes/bravery.webp",
+                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
                         "level": 3,
                         "name": "Bravery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
@@ -2477,7 +2457,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
                     },
                     "txlgu": {
-                        "img": "systems/pf2e/icons/features/classes/combat-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 9,
                         "name": "Combat Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
@@ -2501,7 +2481,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "x98c2": {
-                        "img": "systems/pf2e/icons/features/classes/versatile-legend.webp",
+                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
                         "level": 19,
                         "name": "Versatile Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
@@ -2691,7 +2671,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.GJKJafDGuX4BeAeN"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/bravery.webp",
+            "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
             "name": "Bravery",
             "sort": 600,
             "system": {
@@ -2737,15 +2717,16 @@
                         ],
                         "selector": "will",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
                     }
                 ],
                 "slug": "bravery",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2851,7 +2832,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.TIvzBALymvb56L79"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+            "img": "icons/environment/people/charge.webp",
             "name": "Battlefield Surveyor",
             "sort": 2800,
             "system": {
@@ -2886,15 +2867,16 @@
                         "selector": "initiative",
                         "type": "circumstance",
                         "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "battlefield-surveyor",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2992,7 +2974,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.8g6HzARbhfcgilP8"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/combat-flexibility.webp",
+            "img": "icons/environment/settlement/target-dummy.webp",
             "name": "Combat Flexibility",
             "sort": 5400,
             "system": {
@@ -3079,15 +3061,16 @@
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "fortitude",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "juggernaut",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3278,9 +3261,6 @@
                 "temp": 0,
                 "value": 134
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3314,6 +3294,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -3322,6 +3303,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3337,6 +3319,10 @@
             },
             "keyability": {
                 "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
             },
             "level": {
                 "value": 9
@@ -3360,6 +3346,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3435,17 +3424,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": [
-                "lawful"
-            ]
         }
     },
     "type": "character"

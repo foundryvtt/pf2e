@@ -38,7 +38,7 @@
                 },
                 "items": {
                     "hy4x9": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Survey Wildlife",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Survey Wildlife"
@@ -736,24 +736,13 @@
             "name": "Chalk",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1xgbuOQrdM3cq0YB",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -793,6 +782,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -867,24 +861,13 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "1xgbuOQrdM3cq0YB",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -923,6 +906,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -1197,7 +1185,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1737,24 +1725,17 @@
             "name": "Elixir of Life (Moderate)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "5d6+12"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "5d6+12",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (5d6+12)[healing]]]{5d6+12 Hit Points} and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Moderate)]</p>"
                 },
@@ -1799,6 +1780,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2863,7 +2849,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "blnv0": {
-                        "img": "systems/pf2e/icons/features/classes/heightened-senses.webp",
+                        "img": "icons/creatures/eyes/human-single-brown.webp",
                         "level": 17,
                         "name": "Heightened Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Heightened Senses"
@@ -3248,24 +3234,6 @@
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
                         "key": "CriticalSpecialization",
                         "predicate": [
                             "self:effect:rage",
@@ -3274,6 +3242,19 @@
                     }
                 ],
                 "slug": "brutality",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 2
+                        },
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3333,15 +3314,16 @@
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "fortitude",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "juggernaut",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3463,15 +3445,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.reflex.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "lightning-reflexes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "reflex": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3556,15 +3538,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.classDCs.barbarian.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "mighty-rage",
+                "subfeatures": {
+                    "proficiencies": {
+                        "barbarian": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3903,9 +3885,6 @@
                 "temp": 0,
                 "value": 195
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3946,6 +3925,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -3954,6 +3934,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3969,6 +3950,10 @@
             },
             "keyability": {
                 "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
             },
             "level": {
                 "value": 11
@@ -3992,6 +3977,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4067,15 +4055,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

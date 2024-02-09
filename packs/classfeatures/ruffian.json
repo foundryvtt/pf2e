@@ -1,6 +1,6 @@
 {
     "_id": "3KPZ7svIO6kmmEKH",
-    "img": "systems/pf2e/icons/features/classes/ruffian.webp",
+    "img": "icons/skills/melee/strike-dagger-skull-white.webp",
     "name": "Ruffian",
     "system": {
         "actionType": {
@@ -84,14 +84,26 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.defenses.medium.rank",
+                "path": "system.skills.itm.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.itm.rank",
-                "value": 1
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:light-armor-expertise"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    "feature:light-armor-mastery"
+                ],
+                "value": 3
             },
             {
                 "key": "CriticalSpecialization",
@@ -105,12 +117,30 @@
                         ]
                     }
                 ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:condition:off-guard",
+                    "item:category:martial",
+                    {
+                        "lte": [
+                            "item:damage:die:faces",
+                            6
+                        ]
+                    }
+                ]
             }
         ],
         "subfeatures": {
             "keyOptions": [
                 "str"
-            ]
+            ],
+            "proficiencies": {
+                "medium": {
+                    "rank": 1
+                }
+            }
         },
         "traits": {
             "otherTags": [

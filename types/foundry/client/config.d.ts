@@ -146,6 +146,20 @@ declare global {
                 Anchor: string;
                 [key: string]: string;
             };
+            sheetClasses: Record<
+                string,
+                Record<
+                    string,
+                    {
+                        id: string;
+                        cls: typeof JournalSheet;
+                        default: boolean;
+                        label: string;
+                        canConfigure: boolean;
+                        canBeDefault: boolean;
+                    }
+                >
+            >;
             sidebarIcon: string;
         };
 
@@ -266,6 +280,7 @@ declare global {
             darknessColor: number;
             darknessLightPenalty: number;
             daylightColor: number;
+            dragSpeedModifier: number;
             dispositionColors: {
                 HOSTILE: number;
                 NEUTRAL: number;

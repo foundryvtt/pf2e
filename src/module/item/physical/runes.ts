@@ -94,7 +94,7 @@ function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdju
 function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeData = WEAPON_PROPERTY_RUNES[rune];
-        return deepClone(runeData.damage?.dice ?? []).map((data) => {
+        return fu.deepClone(runeData.damage?.dice ?? []).map((data) => {
             const dice = new DamageDicePF2e({
                 selector: "strike-damage",
                 slug: rune,
@@ -792,6 +792,14 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
         rarity: "uncommon",
         slug: "sinisterKnight",
         traits: ["illusion", "magical"],
+    },
+    sizeChanging: {
+        name: "PF2E.ArmorPropertyRuneSizeChanging",
+        level: 7,
+        price: 350,
+        rarity: "common",
+        slug: "sizeChanging",
+        traits: ["magical"],
     },
     slick: {
         name: "PF2E.ArmorPropertyRuneSlick",
@@ -2062,7 +2070,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     speed: {
         level: 16,
-        name: "PF2E.WeaponPropertyRune.speed.Name",
+        name: "PF2E.Actor.Speed.Label",
         price: 10_000,
         rarity: "rare",
         slug: "speed",

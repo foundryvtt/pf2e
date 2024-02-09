@@ -857,7 +857,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Leukodaemons radiate infection. All creatures within 30 feet of a leukodaemon take a -2 status penalty to saves against disease effects. If a creature within range contracts or progresses a disease, all adjacent creatures are exposed to the same disease, at the same DC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Infectious Aura]</p>"
+                    "value": "<p>30 feet. Leukodaemons radiate infection. All creatures within 30 feet of a leukodaemon take a -2 status penalty to saves against disease effects. If a creature within range contracts or progresses a disease, all adjacent creatures are exposed to the same disease, at the same DC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Infectious Aura]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1190,12 +1190,6 @@
                     "type": "disease"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1214,6 +1208,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -1224,6 +1225,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "plaguesense 60 feet",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1246,18 +1259,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, plaguesense 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

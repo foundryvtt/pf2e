@@ -968,7 +968,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:45]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1044,7 +1044,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Fafnheir exhales a cataclysmic firestorm laced with lightning and hurricane-strength winds, dealing @Damage[20d6[fire]] damage in a @Template[type:cone|distance:90] (@Check[type:reflex|dc:48|basic:true] save). Additionally, Fafnheir deals @Damage[10d6[electricity]]{10d6} additional electricity damage to one creature within the area of Blasting Breath of Fafnheir's choice, determined by the same basic Reflex save. Creatures in the area must also attempt a @Check[type:fortitude|dc:48|name:Resist Winds|traits:damaging-effect] save to resist the powerful winds and deafening thunderclaps of the breath. Creatures that fail experience the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]</em>, affecting Large or smaller creatures as normal. Finally, creatures that fail their Fortitude save become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute (permanently deafened on a critical failure).</p>"
+                    "value": "<p>Fafnheir exhales a cataclysmic firestorm laced with lightning and hurricane-strength winds, dealing @Damage[20d6[fire]] damage in a @Template[type:cone|distance:90] (@Check[type:reflex|dc:48|basic:true] save). Additionally, Fafnheir deals @Damage[10d6[electricity]]{10d6} additional electricity damage to one creature within the area of Blasting Breath of Fafnheir's choice, determined by the same basic Reflex save. Creatures in the area must also attempt a @Check[type:fortitude|dc:48|name:Resist Winds|traits:damaging-effect] save to resist the powerful winds and deafening thunderclaps of the breath. Creatures that fail experience the effects of @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind], affecting Large or smaller creatures as normal. Finally, creatures that fail their Fortitude save become @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute (permanently deafened on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1441,12 +1441,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 38
-            },
             "speed": {
                 "details": "freedom of movement",
                 "otherSpeeds": [
@@ -1471,6 +1465,16 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "draconic",
+                    "fey",
+                    "skald"
+                ]
+            },
             "level": {
                 "value": 24
             },
@@ -1481,6 +1485,28 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 38,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1498,21 +1524,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "draconic",
-                    "fey",
-                    "skald"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 120 feet, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

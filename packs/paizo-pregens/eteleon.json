@@ -107,7 +107,7 @@
                 },
                 "items": {
                     "zudho": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Quick Coercion",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Quick Coercion"
@@ -302,7 +302,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>The mordant power of your void energy grows. When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em>, you roll d10s instead of d8s.</p>"
+                    "value": "<p>The mordant power of your void energy grows. When you cast @UUID[Compendium.pf2e.spells-srd.Item.Harm], you roll d10s instead of d8s.</p>"
                 },
                 "level": {
                     "taken": 2,
@@ -365,7 +365,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p><strong>Cost</strong> Expend a <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell.</p>\n<hr />\n<p>You siphon the destructive energies of vitality or void energy through a melee attack and into your foe.</p>\n<p>Make a melee Strike and add the spell's damage to the Strike's damage.</p>\n<p>This is void damage if you expended a <em>harm</em> spell or vitality damage if you expended a <em>heal</em> spell. The spell is expended with no effect if your Strike fails or hits a creature that isn't damaged by that energy type (such as if you hit a non-undead creature with a <em>heal</em> spell).</p>"
+                    "value": "<p><strong>Cost</strong> Expend a @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell.</p>\n<hr />\n<p>You siphon the destructive energies of vitality or void energy through a melee attack and into your foe.</p>\n<p>Make a melee Strike and add the spell's damage to the Strike's damage.</p>\n<p>This is void damage if you expended a <em>harm</em> spell or vitality damage if you expended a <em>heal</em> spell. The spell is expended with no effect if your Strike fails or hits a creature that isn't damaged by that energy type (such as if you hit a non-undead creature with a <em>heal</em> spell).</p>"
                 },
                 "level": {
                     "taken": 4,
@@ -640,16 +640,16 @@
                         "path": "system.proficiencies.defenses.medium.rank",
                         "priority": 41,
                         "value": "min(1,@actor.system.proficiencies.defenses.light.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": 1
                     }
                 ],
                 "slug": "armor-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "light": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1130,7 +1130,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1877,7 +1877,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -2796,7 +2796,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This terrifying mask is crafted in the visage of a leering demon and grants a +1 item bonus to Intimidation checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mask casts a <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em> spell with a DC of 20.</p>"
+                    "value": "<p>This terrifying mask is crafted in the visage of a leering demon and grants a +1 item bonus to Intimidation checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The mask casts a @UUID[Compendium.pf2e.spells-srd.Item.Fear] spell with a DC of 20.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2867,7 +2867,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This elegant copper ring has miniature images of songbirds engraved around its circumference. You gain a +1 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Twisting the ring around your finger allows you to magically throw your voice, with the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism]</em> spell (DC 19).</p>"
+                    "value": "<p>This elegant copper ring has miniature images of songbirds engraved around its circumference. You gain a +1 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Twisting the ring around your finger allows you to magically throw your voice, with the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism] spell (DC 19).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2932,24 +2932,13 @@
             "name": "Antidote (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
                 },
@@ -2993,6 +2982,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3008,24 +3002,13 @@
             "name": "Sling Bullets",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
@@ -3066,6 +3049,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3081,24 +3069,13 @@
             "name": "Feather Step Stone",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "talisman"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "talisman",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>This stone, usually shaped as a cabochon, is a small chunk of amber with a bit of feather or a flying insect caught within it. When you activate the stone, you ignore the effects of any difficult terrain and greater difficult terrain you move through until the end of your turn.</p>\n<p><strong>Usage</strong> affixed to armor</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> Envision</p>\n<p><strong>Trigger</strong> You Stride or Step</p>\n<p><strong>Requirements</strong> You are an expert in Acrobatics</p>"
                 },
@@ -3141,6 +3118,11 @@
                 },
                 "usage": {
                     "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3156,26 +3138,15 @@
             "name": "Hunting Spider Venom",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "poison"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "poison",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and off-guard (1 round)</p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, and off-guard (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, clumsy 2, and off-guard (1 round)</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3217,6 +3188,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3232,26 +3208,15 @@
             "name": "Scroll of Faerie Fire (Level 2)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "scroll"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "scroll",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3283,7 +3248,7 @@
                 "size": "med",
                 "slug": "scroll-of-2nd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "O1CG2OYYAnyzbp0B",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.HRb2doyaLtaoCfi3"
@@ -3363,6 +3328,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3378,26 +3348,15 @@
             "name": "Scroll of Heal (Level 2)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "scroll"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "scroll",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3429,7 +3388,7 @@
                 "size": "med",
                 "slug": "scroll-of-2nd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "AzUL2yGConHSGIyU",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
@@ -3468,7 +3427,7 @@
                             }
                         },
                         "description": {
-                            "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                            "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                         },
                         "duration": {
                             "sustained": false,
@@ -3655,6 +3614,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3670,26 +3634,15 @@
             "name": "Scroll of Remove Fear (Level 2)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "scroll"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "scroll",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Clear Mind]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Clear Mind]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3721,7 +3674,7 @@
                 "size": "med",
                 "slug": "scroll-of-2nd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "NFnMLOWzdBQKmXJU",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.EfFMLVbmkBWmzoLF"
@@ -3810,6 +3763,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3825,26 +3783,15 @@
             "name": "Scroll of Resist Energy (Level 2)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "scroll"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "scroll",
                 "containerId": null,
+                "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</em></p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3876,7 +3823,7 @@
                 "size": "med",
                 "slug": "scroll-of-2nd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "Bspj5qGKD2PPWXeh",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.Fr58LDSrbndgld9n"
@@ -3969,6 +3916,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3986,7 +3938,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -4411,7 +4363,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Third Doctrine"
                     },
                     "vmpzh": {
-                        "img": "systems/pf2e/icons/features/classes/miraculous-spell.webp",
+                        "img": "icons/magic/symbols/star-rising-purple.webp",
                         "level": 19,
                         "name": "Miraculous Spell",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
@@ -4423,7 +4375,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -4693,7 +4645,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>"
+                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4737,7 +4689,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality energy or its counterforce, void energy. When you prepare your spells each day, you can prepare additional <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
+                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality energy or its counterforce, void energy. When you prepare your spells each day, you can prepare additional @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4781,7 +4733,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -4966,15 +4918,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5269,15 +5221,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -5370,7 +5322,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         }
@@ -5382,9 +5334,6 @@
             "hp": {
                 "temp": 0,
                 "value": 60
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -5420,6 +5369,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "<p>Eteleon is a living conduit for the mantis god's vengeance, channeling divine wrath into his sword strikes and numbing enemies with his fearsome gaze and spells.</p>\n<p>Left in the Crimson Citadel's care as a baby, Eteleon grew up indoctrinated in Achaekek's faith. However, the child never passed the grueling physical tests to become like the assassins who raised him, and once he became an adult, the leaders sent him to Thuvia to serve as a contact and spy. Eteleon served faithfully, and when he overheard a mercenary bragging about a stolen sawtooth saber, he stalked, confronted, disarmed, and killed the thief by using that serrated blade. Returning to the Crimson Citadel, Eteleon presented the blade to the assassins, insisting it belonged only in the hands of Achaekek's faithful. At this proclamation, the sword glowed with the favor of He Who Walks in Blood, and the Red Mantis assassins welcomed Eteleon as one of their own.</p>\n<p>Eteleon serves with unshakable faith, taking special pride in defending Achaekek's reputation through fear. He also remembers the pain of being cast out into a world without anyone to guide him, and over the past decade, he's become the recruiter and mentor for many of the newest Red Mantis assassins. Occasionally, a hint of Eteleon's heartfelt kindhearted pride shows through his fearsomely stoic demeanor.</p>\n<p><strong>Kangir:</strong> Eteleon knows Kangir only by reputation. Might such a notoriously bloodthirsty soul be fit to serve Achaekek? She wouldn't be the strangest disciple Eteleon's mentored...</p>\n<p><strong>Teskorbito, Yacob, and Zeah:</strong> Eteleon recruited and mentored all three assassins- Teskorbito in Varisia, Yacob in Taldor, and Zeah in Rahadoum. By all reports, they've become accomplished assassins since. However, Eteleon's never partnered with them on an official mission before, and he's eager to witness and support their exploits firsthand.</p>",
@@ -5428,6 +5378,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -5448,6 +5399,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "osiriani"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -5465,6 +5422,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -5553,20 +5513,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "osiriani"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "evil",
-                "lawful"
-            ]
         }
     },
     "type": "character"

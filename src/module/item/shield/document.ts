@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { ItemProxyPF2e, type WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, RUNE_DATA, getMaterialValuationData } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponMaterialSource, WeaponSource, WeaponSystemSource, WeaponTraitsSource } from "@item/weapon/data.ts";
@@ -14,9 +14,8 @@ import { setActorShieldData } from "./helpers.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
-        if (this.isEquipped || item.isEquipped) return false;
-        return super.isStackableWith(item);
+    static override get validTraits(): Record<ShieldTrait, string> {
+        return CONFIG.PF2E.shieldTraits;
     }
 
     get baseType(): BaseShieldType | null {
@@ -54,6 +53,20 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
+    }
+
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        return (
+            candidate.isOfType("weapon") &&
+            candidate.system.traits.value.some((t) => t === "attached-to-shield") &&
+            !this.system.traits.integrated &&
+            !this.subitems.some((i) => i.isOfType("weapon"))
+        );
+    }
+
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "armor"): string[] {
         const reinforcingRune = this.system.runes.reinforcing;
@@ -63,17 +76,17 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             [`rune:reinforcing:${reinforcingSlug}`]: !!reinforcingRune,
         };
 
-        return [
-            super.getRollOptions(prefix),
-            Object.entries({
+        const rollOptions = super.getRollOptions(prefix);
+        rollOptions.push(
+            ...Object.entries({
                 [`base:${this.baseType}`]: !!this.baseType,
                 ...reinforcingOptions,
             })
-                .filter(([, isTrue]) => !!isTrue)
-                .map(([key]) => `${prefix}:${key}`),
-        ]
-            .flat()
-            .sort();
+                .filter((e) => !!e[1])
+                .map((e) => `${prefix}:${e[0]}`),
+        );
+
+        return rollOptions;
     }
 
     override prepareBaseData(): void {
@@ -90,7 +103,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         }
 
         if (this.system.traits.integrated) {
-            this.system.traits.integrated.runes = mergeObject(
+            this.system.traits.integrated.runes = fu.mergeObject(
                 { potency: 0, striking: 0, property: [] } satisfies IntegratedWeaponData["runes"],
                 this.system.traits.integrated.runes,
             );
@@ -137,16 +150,15 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const mainDamageType = damageTypeMap[traitParts.at(2) ?? ""] ?? "slashing";
             const versatileDamageType = isVersatileWeapon ? damageTypeMap[traitParts.at(-1) ?? ""] : null;
             if (this.system.traits.integrated && versatileDamageType) {
-                this.system.traits.integrated.versatile = mergeObject(
+                this.system.traits.integrated.versatile = fu.mergeObject(
                     { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
-                this.system.traits.integrated.versatile.options;
             } else if (this.system.traits.integrated) {
                 this.system.traits.integrated.versatile = null;
             }
 
-            this.system.traits.integrated = mergeObject(
+            this.system.traits.integrated = fu.mergeObject(
                 {
                     damageType: mainDamageType,
                     runes: { potency: 0, striking: 0, property: [] },
@@ -165,6 +177,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareActorData(this: ShieldPF2e<ActorPF2e>): void {
+        super.prepareActorData();
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         setActorShieldData(this);
@@ -178,11 +191,11 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override async getChatData(
         this: ShieldPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
-        const properties = [
+    ): Promise<RawItemChatData> {
+        const properties = R.compact([
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ];
+        ]);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
@@ -207,7 +220,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
         };
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
-        const baseData: BaseWeaponData = deepClone({
+        const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
             system: {
@@ -248,7 +261,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (integratedWeaponRunes?.potency || integratedWeaponRunes?.striking) {
                 additionalData.name = this._source.name;
             }
-            const combinedData = mergeObject(baseData, additionalData);
+            const combinedData = fu.mergeObject(baseData, additionalData);
 
             return new ItemProxyPF2e(combinedData, { parent: this.parent, shield: this }) as WeaponPF2e<TParent>;
         }

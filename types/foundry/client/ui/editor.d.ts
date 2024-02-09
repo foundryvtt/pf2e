@@ -167,24 +167,24 @@ declare global {
          * Begin a Drag+Drop workflow for a dynamic content link
          * @param event The originating drag event
          */
-        protected static _onDragContentLink(event: ElementDragEvent): void;
+        protected static _onDragContentLink(event: DragEvent): void;
 
         /**
          * Handle dropping of transferred data onto the active rich text editor
          * @param event  The originating drop event which triggered the data transfer
          * @param editor The TinyMCE editor instance being dropped on
          */
-        protected static _onDropEditorData(event: ElementDragEvent, editor: TinyMCE.Editor): Promise<void>;
+        protected static _onDropEditorData(event: DragEvent, editor: TinyMCE.Editor): Promise<void>;
 
         /**
          * Extract JSON data from a drag/drop event.
          * @param event The drag event which contains JSON data.
          * @returns The extracted JSON data. The object will be empty if the DragEvent did not contain JSON-parseable data.
          */
-        static getDragEventData(event: ElementDragEvent): object;
+        static getDragEventData(event: DragEvent): object;
 
         /** Given a Drop event, returns a Content link if possible such as @Actor[ABC123], else null */
-        static getContentLink(event: ElementDragEvent): Promise<string | null>;
+        static getContentLink(event: DragEvent): Promise<string | null>;
     }
 
     interface EnrichmentOptions {

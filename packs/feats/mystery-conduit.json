@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>The power of your mystery enables you to cast more than just revelation spells.</p>\n<p>When you cast a spell of 5th level or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait.</p>"
+            "value": "<p>The power of your mystery enables you to cast more than just revelation spells.</p>\n<p>When you cast a spell of 5th rank or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait.</p>"
         },
         "level": {
             "value": 20
@@ -24,7 +24,59 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "mystery-conduit",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "mystery-conduit",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "priority": 119,
+                "property": "traits",
+                "value": "cursebound"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "mystery-conduit",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oracle.MysteryConduit.Note"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

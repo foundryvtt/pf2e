@@ -1,6 +1,6 @@
 import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { groupBy, signedInteger, sortBy, sum } from "@util";
+import { groupBy, signedInteger } from "@util";
 import * as R from "remeda";
 import { applyDamageDiceOverrides } from "./helpers.ts";
 import {
@@ -34,7 +34,7 @@ function createDamageFormula(
 ): AssembledFormula | null {
     damage = {
         // TODO: clone the modifiers as well, once ModifierPF2e.clone() can preserve adjustments
-        ...deepClone(R.omit(damage, ["dice"])),
+        ...fu.deepClone(R.omit(damage, ["dice"])),
         dice: damage.dice.map((d) => d.clone()),
     };
 
@@ -48,9 +48,7 @@ function createDamageFormula(
     }
 
     const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-    if (!damage.base.length) {
-        return null;
-    }
+    if (damage.base.length === 0) return null;
 
     // Apply damage dice increases and overrides first. These affect base damage, so must be done before
     applyDamageDiceOverrides(damage.base, damage.dice, { critical, maxIncreases: damage.maxIncreases });
@@ -291,14 +289,17 @@ function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
     const constantTerm: DamagePartialTerm | null = modifier ? { dice: null, modifier } : null;
 
     // Group dice by number of faces
-    const dice = terms
-        .filter((p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0)
-        .sort(sortBy((t) => -t.dice.faces));
+    const dice = R.sortBy(
+        terms.filter(
+            (p): p is DamagePartial & { dice: NonNullable<DamagePartial["dice"]> } => !!p.dice && p.dice.number > 0,
+        ),
+        (t) => -t.dice.faces,
+    );
 
     const byFace = [...groupBy(dice, (t) => t.dice.faces).values()];
     const combinedDice = byFace.map((terms) => ({
         modifier: 0,
-        dice: { ...terms[0].dice, number: sum(terms.map((d) => d.dice.number)) },
+        dice: { ...terms[0].dice, number: R.sumBy(terms, (t) => t.dice.number) },
     }));
 
     const combined = R.compact([...combinedDice, constantTerm]);

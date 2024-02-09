@@ -1,0 +1,80 @@
+{
+    "_id": "eZximo6owpLhQPZ7",
+    "img": "icons/equipment/shield/heater-steel-worn.webp",
+    "name": "Evil-Reflecting Shield",
+    "system": {
+        "acBonus": 2,
+        "baseItem": "steel-shield",
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A bright, octagonal frame surrounds this circular dawnsilver shield, which itself is polished to a mirrorlike sheen that reflects clear and true. While you have this standard-grade dawnsilver shield (Hardness 5, HP 20, BT 10) raised, you gain its circumstance bonus to saving throws against spells with the unholy or void trait.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">r</span> command (fortune)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a saving throw against an effect with the unholy or void traits</p>\n<hr />\n<p><strong>Effect</strong> Your saving throw result is considered one degree better than the actual result. If this effect turns a success into a critical success, you can reflect some of the effect's power as a wave of magical backlash back to the source of the triggering effect, as long as the source is within 30 feet. When you do so, the target must succeed at a @Check[type:fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+        },
+        "hardness": 5,
+        "hp": {
+            "max": 20,
+            "value": 20
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": "standard",
+            "type": "dawnsilver"
+        },
+        "price": {
+            "value": {
+                "gp": 1250
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:shield-raised",
+                    "spell",
+                    {
+                        "or": [
+                            "unholy",
+                            "void"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "runes": {
+            "reinforcing": 0
+        },
+        "size": "med",
+        "specific": {
+            "integrated": null,
+            "material": {
+                "grade": "standard",
+                "type": "dawnsilver"
+            },
+            "runes": {
+                "reinforcing": 0
+            }
+        },
+        "speedPenalty": 0,
+        "traits": {
+            "integrated": null,
+            "rarity": "uncommon",
+            "value": [
+                "magical"
+            ]
+        }
+    },
+    "type": "shield"
+}

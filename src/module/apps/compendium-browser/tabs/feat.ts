@@ -1,6 +1,6 @@
 import { isObject, sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { CompendiumBrowserIndexData, FeatFilters, MultiselectData } from "./data.ts";
 
@@ -63,7 +63,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     // compatible support for unmigrated feats in non-system compendiums.
                     const categoryPaths = ["system.category", "system.featType.value"];
                     const nonCategoryPaths = indexFields.filter((f) => !categoryPaths.includes(f));
-                    const categoryPathFound = categoryPaths.some((p) => foundry.utils.hasProperty(featData, p));
+                    const categoryPathFound = categoryPaths.some((p) => fu.hasProperty(featData, p));
 
                     if (!this.hasAllIndexFields(featData, nonCategoryPaths) || !categoryPathFound) {
                         console.warn(

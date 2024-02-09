@@ -45,26 +45,30 @@
                 "uuid": "Compendium.pf2e.ancestryfeatures.Item.Basic Undead Benefits"
             },
             {
-                "baseType": "fist",
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "bludgeoning",
-                        "dice": 1,
-                        "die": "d6"
-                    }
+                "fist": true,
+                "key": "Strike"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
                 },
-                "group": "brawling",
-                "img": "icons/skills/melee/unarmed-punch-fist.webp",
-                "key": "Strike",
-                "label": "PF2E.Strike.Fist.Label",
-                "range": null,
-                "slug": "fist",
-                "traits": [
-                    "agile",
-                    "finesse",
-                    "unarmed"
+                "predicate": [
+                    "item:category:unarmed",
+                    "item:damage:die:faces:4"
+                ],
+                "selector": [
+                    "fist-base-damage"
                 ]
+            },
+            {
+                "definition": [
+                    "item:base:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "nonlethal"
             },
             {
                 "adjustName": true,

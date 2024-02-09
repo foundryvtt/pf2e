@@ -63,7 +63,7 @@
                 },
                 "items": {
                     "osb2w": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Crafter's Appraisal",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Crafter's Appraisal"
@@ -157,7 +157,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.sQfjTMDaZbT9DThq"
                 },
                 "description": {
-                    "value": "<p>Your family's teeth are formidable weapons. You gain a jaws unarmed attack that deals @Damage[1d6[piercing]] damage. Your jaws are in the brawling group and have the finesse and unarmed traits.</p>"
+                    "value": "<p>Your family's teeth are formidable weapons. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -824,7 +824,7 @@
                 "bulk": {
                     "value": 0.1
                 },
-                "containerId": "null",
+                "containerId": null,
                 "description": {
                     "value": "<p>This kit contains cleaning cloth, oil, small steel brushes, and other minor tools necessary for proper cleaning and maintenance of a firearm. Without a firearm cleaning kit, you can't perform the necessary tasks during your daily preparations to ensure that your firearm isn't at risk of misfiring under normal use conditions.</p>"
                 },
@@ -879,24 +879,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
@@ -942,6 +935,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -957,24 +955,13 @@
             "name": "Feather Token (Holly Bush)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Each feather token appears to be a simple feather from some exotic bird. The feather's shaft, dipped in gold, bears a single arcane rune. Activating a feather token causes it to transform into another object, which then can be used as normal for that object. Each feather can be activated only once, with most of them permanently becoming the item in their description.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>When this feather is activated, it immediately transforms into a living holly bush, filling a single square. This bush can provide standard cover. In addition, the bush has 2d4 bright-red berries. While holly berries are usually poisonous, these berries are infused with beneficial magic. You can pick and eat a berry as an Interact action to recover 1 Hit Point. Once plucked from the bush, a berry becomes non-magical after a few seconds, so it doesn't heal you if you don't eat it within the span of your Interact action.</p>\n<p>If activated on soil, the plant continues to grow and thrive (although it doesn't produce any more healing berries). If activated elsewhere, it withers and dies within [[/r 1d4 #days]]{1d4 days}.</p>"
                 },
@@ -1017,6 +1004,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1032,24 +1024,13 @@
             "name": "Cutlery",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
-                "containerId": "null",
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Ammunition for the @UUID[Compendium.pf2e.equipment-srd.Item.Spoon Gun]</p>\n<p>Users typically upend the entire contents of their cutlery drawer into the gun, aim it in the general direction of the foe, and hope it hits something.</p>"
                 },
@@ -1091,6 +1072,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1108,7 +1094,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1164,7 +1150,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1668,15 +1654,15 @@
                     "remaster": false,
                     "title": "Pathfinder Guns & Gears"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "stubborn",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1781,7 +1767,7 @@
                         "key": "Note",
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
-                        "title": "<span class=\"pf2-icon\">F</span> {item|name}"
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}"
                     }
                 ],
                 "slug": "ten-paces",
@@ -1988,9 +1974,6 @@
                 "temp": 0,
                 "value": 39
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2019,6 +2002,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "<p>Growing up on the streets of Absalom, Zakzak was raised on stories of the heroic goblins of the Crookedtoes tribe. Zakzak relentlessly pestered anyone who might tell him more about those fabled goblins who bravely battled the undead hordes of the Whispering Tyrant. These goblins rescued the hapless humans of Lastwall and escorting them to Absalom, where the humans gratefully rewarded the goblins by giving them the glorious Puddles district, a region of the city already filled with sturdy houses and even a castle for the goblins and their newly proclaimed king. Surrounded by such stories of goblin glory, Zakzak pushed himself constantly, crafting a firearm of unparalleled might in the form of his flingflenser, forged from scraps he scrounged himself from Absalom's back alleys.</p>\n<p>But even a mighty goblin with an even-mightier weapon needs an adventure before he can make his name. Hearing the stories of the gunslingers of Alkenstar, Zakzak boarded a ship for the port of Quantium, hoping to find passage from there on to Alkenstar. During the journey, Zakzak made an unlikely friend: an elven sniper named Zindarel. Despite the Jinin elf's best efforts to discourage the goblin, Zakzak knew a loner in need of a friend if ever he saw one. By the time their ship reached port the two had forged a bond that Zakzak knew was a lifelong friendship and that Zindarel found surprisingly tolerable. Together, the two traveled on to Alkenstar in search of adventure and opportunity.</p>",
@@ -2027,6 +2011,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2047,6 +2032,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 3
             },
@@ -2064,6 +2053,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2148,18 +2140,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

@@ -14,19 +14,17 @@
     </div>
 </div>
 {{{form.resolvableBrackets "value"}}}
-<div class="form-group">
-    {{#if (eq rule.type "regeneration")}}
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>
-            <input type="text" class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" data-dtype="JSON"/>
-        </div>
-    {{else}}
-        <div class="form-group">
-            <label class="short">{{localize "PF2E.DetailsHeading"}}</label>
-            <input type="text" class="details" name="system.rules.{{index}}.details" value="{{rule.details}}"/>
-        </div>
-    {{/if}}
-</div>
+{{#if (eq rule.type "regeneration")}}
+    <div class="form-group">
+        <label class="short">{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>
+        <input type="text" class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" data-dtype="JSON"/>
+    </div>
+{{else}}
+    <div class="form-group">
+        <label class="short">{{localize "PF2E.Details"}}</label>
+        <input type="text" class="details" name="system.rules.{{index}}.details" value="{{rule.details}}"/>
+    </div>
+{{/if}}
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
     <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />

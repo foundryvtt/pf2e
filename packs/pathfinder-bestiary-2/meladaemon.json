@@ -912,7 +912,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A meladaemon emanates an aura of intense hunger. Each round a creature begins its turn in the aura, it must attempt a @Check[type:fortitude|dc:27|traits:damaging-effect] save. On a failure, the creature takes @Damage[1d6[void]] damage (@Damage[2d6[void]] damage on a critical failure) and becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. This fatigue ends as soon as the creature eats any food.</p>"
+                    "value": "<p>20 feet. A meladaemon emanates an aura of intense hunger. Each round a creature begins its turn in the aura, it must attempt a @Check[type:fortitude|dc:27|traits:damaging-effect] save. On a failure, the creature takes @Damage[1d6[void]] damage (@Damage[2d6[void]] damage on a critical failure) and becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. This fatigue ends as soon as the creature eats any food.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1262,12 +1262,6 @@
                     "type": "death-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1286,6 +1280,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "common",
+                    "daemonic"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -1296,6 +1297,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1323,21 +1341,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "daemonic"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, lifesense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

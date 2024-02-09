@@ -8,6 +8,11 @@ import { CheckType } from "./types.ts";
 class CheckRoll extends Roll {
     static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/roll.hbs";
 
+    constructor(formula: string, data?: Record<string, unknown>, options?: CheckRollDataPF2e) {
+        super(formula, data, options);
+        this.options.showBreakdown ??= true;
+    }
+
     get roller(): UserPF2e | null {
         return game.users.get(this.options.rollerId ?? "") ?? null;
     }
@@ -33,28 +38,37 @@ class CheckRoll extends Roll {
         const { isPrivate, flavor, template } = options;
         const { type, identifier, action, damaging } = this.options;
         const canRollDamage = !!(damaging && identifier && (this.roller === game.user || game.user.isGM));
-        const limitCueVisibility = !game.settings.get("pf2e", "metagame_showResults");
+        const showBreakdown = this.options.showBreakdown;
+        const showDamageCue = canRollDamage && game.pf2e.settings.metagame.results;
+        const tooltip = isPrivate || !(showBreakdown || game.user.isGM) ? "" : await this.getTooltip();
 
         const chatData: Record<string, unknown> = {
             formula: isPrivate ? "???" : this._formula,
             flavor: isPrivate ? null : flavor,
-            user: game.user.id,
-            tooltip: isPrivate ? "" : await this.getTooltip(),
+            user: game.user,
+            tooltip,
             total: isPrivate ? "?" : Math.round(this.total * 100) / 100,
             type,
             identifier,
             action,
             degree: this.degreeOfSuccess,
             canRollDamage,
-            limitCueVisibility,
+            showBreakdown,
+            showDamageCue,
         };
 
         return renderTemplate(template ?? CheckRoll.CHAT_TEMPLATE, chatData);
     }
+
+    override async getTooltip(): Promise<string> {
+        const tooltip = await super.getTooltip();
+        if (this.options.showBreakdown) return tooltip;
+        return tooltip.replace('"dice-tooltip"', '"dice-tooltip" data-visibility="gm"');
+    }
 }
 
 interface CheckRoll extends Roll {
-    options: CheckRollDataPF2e;
+    options: CheckRollDataPF2e & { showBreakdown: boolean };
 }
 
 /** A legacy class kept to allow chat messages to reconstruct rolls */

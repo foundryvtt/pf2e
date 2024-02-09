@@ -71,7 +71,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const predicate = new PredicatePF2e(this.resolveInjectedProperties(deepClone([...this.predicate])));
+        const predicate = new PredicatePF2e(this.resolveInjectedProperties(fu.deepClone([...this.predicate])));
 
         const adjustment: ModifierAdjustment = {
             slug: this.slug,
@@ -82,9 +82,9 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
             getNewValue: (current: number): number => {
                 if (this.value === null) return current;
 
-                const change = Number(this.resolveValue(this.value));
-                if (Number.isNaN(change)) {
-                    this.failValidation("value does not resolve to a number");
+                const change = this.resolveValue(this.value);
+                if (typeof change !== "number" || Number.isNaN(change)) {
+                    this.failValidation("value: must resolve to a number");
                     return current;
                 } else if (this.ignored) {
                     return current;
@@ -95,12 +95,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
                     this.ignored = true;
                 }
 
-                const newValue = AELikeRuleElement.getNewValue(this.mode, current, change);
-                if (newValue instanceof foundry.data.validation.DataModelValidationFailure) {
-                    this.failValidation(newValue.asError().message);
-                    return current;
-                }
-                return newValue;
+                return Math.trunc(AELikeRuleElement.getNewValue(this.mode, current, change));
             },
             getDamageType: (current: DamageType | null): DamageType | null => {
                 if (!this.damageType) return current;

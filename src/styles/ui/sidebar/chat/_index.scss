@@ -4,23 +4,47 @@
     @import "action", "check", "damage", "reroll";
 
     .message-header .flavor-text {
-        display: block;
+        .modifiers .tag[data-visibility="gm"] {
+            background: var(--visibility-gm-bg);
+            border-radius: 4px;
+            box-shadow: none;
+        }
+
+        .modifiers:has(.tag[data-visibility="gm"]) {
+            // Enlarge gap and bottom margin by a pixel due to `[data-visibility]` elements having outlines instead of
+            // borders
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+        }
 
         ul.notes {
-            display: block;
-            line-height: 1.5em;
+            display: flex;
+            flex-direction: column;
+            font-family: var(--sans-serif);
+            gap: var(--space-4);
             list-style: none;
             margin: 0;
-            padding: 0;
+            padding: var(--space-4) 0;
 
             li {
                 display: block;
-                line-height: 1.5em;
+                line-height: 1.25em;
             }
         }
     }
 
     > .message-content {
         @import "conditions";
+
+        .dice-roll {
+            .dice-result > [data-visibility="gm"] {
+                background: var(--visibility-gm-bg);
+                border: 1px dotted rgba(75, 74, 68, 0.5);
+            }
+
+            .dice-tooltip[data-visibility="gm"] {
+                padding: var(--space-2) var(--space-2) 0;
+            }
+        }
     }
 }

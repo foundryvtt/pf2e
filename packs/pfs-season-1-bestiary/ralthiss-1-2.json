@@ -276,7 +276,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract <em>@UUID[Compendium.pf2e.spells-srd.Item.Bless]</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract @UUID[Compendium.pf2e.spells-srd.Item.Bless].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Bane]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1450,24 +1450,13 @@
             "name": "Bolts",
             "sort": 1700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
@@ -1508,6 +1497,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1623,7 +1617,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Ralthiss casts a <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spell and damages at least one living creature, he regains Hit Points equal to the spell level of his <em>harm</em> spell.</p>"
+                    "value": "<p>When Ralthiss casts a @UUID[Compendium.pf2e.spells-srd.Item.Harm] spell and damages at least one living creature, he regains Hit Points equal to the spell rank of his <em>harm</em> spell.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1829,12 +1823,6 @@
                 "temp": 0,
                 "value": 27
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1842,6 +1830,14 @@
         },
         "details": {
             "blurb": "Male human cultist",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril",
+                    "varisian"
+                ]
+            },
             "level": {
                 "value": 2
             },
@@ -1852,6 +1848,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-03: Escaping the Grave"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1874,19 +1878,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril",
-                    "varisian"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

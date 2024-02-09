@@ -1,4 +1,5 @@
 <fieldset class="basics">
+    {{> "systems/pf2e/templates/items/partials/apex.hbs"}}
     <div class="form-group">
         <label for="{{fieldIdPrefix}}base">{{localize "PF2E.Item.Physical.Base"}}</label>
         <select id="{{fieldIdPrefix}}base" data-property="system.baseItem">
@@ -67,9 +68,9 @@
     </div>
 </fieldset>
 
-<fieldset>
+<fieldset class="material-runes">
     <legend>{{localize "PF2E.Item.Physical.MaterialRunes.Label"}}</legend>
-    <div class="form-group precious-material">
+    <div class="form-group">
         <label
             for="{{fieldIdPrefix}}material"
             {{#unless canChangeMaterial}}class="disabled"{{/unless}}

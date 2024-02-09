@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess.</p>\n<p>You are trained in Athletics. You gain @UUID[Compendium.pf2e.classfeatures.Item.Panache] during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a foe.</p>"
+            "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess.</p>\n<p>You are trained in Athletics. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Grapple], @UUID[Compendium.pf2e.actionspf2e.Item.Shove], or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a foe.</p>"
         },
         "level": {
             "value": 1
@@ -26,22 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:effect:panache",
-                    {
-                        "or": [
-                            "action:grapple",
-                            "action:shove",
-                            "action:trip"
-                        ]
-                    }
-                ],
-                "selector": "athletics",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.ath.rank",
@@ -49,28 +33,6 @@
                     "class:swashbuckler"
                 ],
                 "value": 1
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
-                    {
-                        "or": [
-                            "action:grapple",
-                            "action:shove",
-                            "action:trip"
-                        ]
-                    },
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "athletics",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
             },
             {
                 "hideIfDisabled": true,
@@ -90,6 +52,20 @@
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": "2* @weapon.system.damage.dice"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

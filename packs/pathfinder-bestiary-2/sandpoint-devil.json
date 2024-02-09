@@ -287,7 +287,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em> except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
+                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist] except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1102,12 +1102,6 @@
                     "type": "fear-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1126,6 +1120,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "chthonian",
+                    "varisian"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -1136,6 +1137,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1158,21 +1176,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "varisian"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "greater darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

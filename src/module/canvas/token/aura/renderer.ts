@@ -5,7 +5,6 @@ import { isVideoFilePath } from "@util";
 import type { EffectAreaSquare } from "../../effect-area-square.ts";
 import type { TokenPF2e } from "../index.ts";
 import { getAreaSquares } from "./util.ts";
-import { IDestroyOptions } from "pixi.js";
 
 /** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
@@ -41,8 +40,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.appearance = params.appearance;
         this.radius = params.radius;
         this.radiusPixels =
-            0.5 * this.token.mechanicalBounds.width +
-            (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
+            0.5 * this.token.mechanicalBounds.width + (this.radius / canvas.dimensions.distance) * canvas.grid.size;
         this.traits = params.traits;
         this.addChild(this.border);
     }
@@ -170,7 +168,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Add a numeric label and marker dot indicating the emanation radius */
     #drawLabel(): void {
         const style = CONFIG.canvasTextStyle.clone();
-        const gridSize = canvas.dimensions?.size ?? 100;
+        const gridSize = canvas.dimensions.size ?? 100;
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 
@@ -190,7 +188,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             .addChild(text);
     }
 
-    override destroy(options?: boolean | IDestroyOptions): void {
+    override destroy(options?: boolean | PIXI.IDestroyOptions): void {
         super.destroy(options);
 
         if (this.textureContainer) {

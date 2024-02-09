@@ -3,7 +3,8 @@ import { ItemSourcePF2e, WeaponSource } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSchema } from "@module/rules/rule-element/choice-set/data.ts";
 import { PredicateStatement } from "@system/predication.ts";
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Convert EffectTarget REs into ChoiceSets */
@@ -43,8 +44,8 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
                 all: ["item:equipped"],
                 any: ["item:base:club", "item:base:staff"],
             };
-        } else if (isObject(rule.predicate)) {
-            newRE.choices.predicate = deepClone(rule.predicate);
+        } else if (R.isObject(rule.predicate)) {
+            newRE.choices.predicate = fu.deepClone(rule.predicate);
         }
 
         return newRE;

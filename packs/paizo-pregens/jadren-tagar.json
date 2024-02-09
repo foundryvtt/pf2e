@@ -63,7 +63,7 @@
                 },
                 "items": {
                     "jpni5": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Pickpocket",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Pickpocket"
@@ -471,24 +471,6 @@
                     },
                     {
                         "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.heavy.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "flags.pf2e.championDedicationCount",
                         "value": 1
@@ -523,6 +505,19 @@
                     }
                 ],
                 "slug": "champion-dedication",
+                "subfeatures": {
+                    "proficiencies": {
+                        "heavy": {
+                            "rank": 1
+                        },
+                        "light": {
+                            "rank": 1
+                        },
+                        "medium": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -692,7 +687,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "system.attributes.initiative.tiebreakPriority",
+                        "path": "system.initiative.tiebreakPriority",
                         "predicate": [
                             {
                                 "or": [
@@ -912,7 +907,6 @@
                 },
                 "overlays": {
                     "a33QUFoKgoOprovO": {
-                        "_id": "a33QUFoKgoOprovO",
                         "name": "Lay on Hands (Vs. Undead)",
                         "overlayType": "override",
                         "sort": 2,
@@ -945,7 +939,6 @@
                         }
                     },
                     "uLuOg62dVyxvbW66": {
-                        "_id": "uLuOg62dVyxvbW66",
                         "name": "Lay on Hands (Healing)",
                         "overlayType": "override",
                         "sort": 1,
@@ -1279,93 +1272,6 @@
             "type": "weapon"
         },
         {
-            "_id": "KG3kWPnTs6MxBDlm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.dfum7DpOEkwxwTsT"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/shield-boss.webp",
-            "name": "Shield Boss",
-            "sort": 400000,
-            "system": {
-                "baseItem": "shield-boss",
-                "bonus": {
-                    "value": "0"
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
-                "description": {
-                    "value": "<p>Typically a round, convex, or conical piece of thick metal attached to the center of a shield, a shield boss increases the bludgeoning damage of a shield bash.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "group": "shield",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shield-boss",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attached-to-shield"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "weapon"
-        },
-        {
             "_id": "jVRNFBndnwnj0iws",
             "flags": {
                 "core": {
@@ -1480,9 +1386,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -1502,6 +1408,94 @@
                     }
                 },
                 "speedPenalty": 0,
+                "subitems": [
+                    {
+                        "_id": "ui2oYb6mfkSMHOzf",
+                        "flags": {
+                            "core": {
+                                "sourceId": "Compendium.pf2e.equipment-srd.Item.dfum7DpOEkwxwTsT"
+                            }
+                        },
+                        "img": "systems/pf2e/icons/equipment/weapons/shield-boss.webp",
+                        "name": "Shield Boss",
+                        "sort": 400000,
+                        "system": {
+                            "baseItem": "shield-boss",
+                            "bonus": {
+                                "value": 0
+                            },
+                            "bonusDamage": {
+                                "value": 0
+                            },
+                            "bulk": {
+                                "value": 0
+                            },
+                            "category": "martial",
+                            "containerId": null,
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6"
+                            },
+                            "description": {
+                                "value": "<p>Typically a round, convex, or conical piece of thick metal attached to the center of a shield, a shield boss increases the bludgeoning damage of a shield bash.</p>"
+                            },
+                            "equipped": {
+                                "carryType": "attached",
+                                "handsHeld": 0
+                            },
+                            "group": "shield",
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 0
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "value": {
+                                    "sp": 5
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Pathfinder Player Core"
+                            },
+                            "quantity": 1,
+                            "range": null,
+                            "reload": {
+                                "value": ""
+                            },
+                            "rules": [],
+                            "runes": {
+                                "potency": 0,
+                                "property": [],
+                                "striking": 0
+                            },
+                            "size": "med",
+                            "slug": "shield-boss",
+                            "splashDamage": {
+                                "value": 0
+                            },
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "attached-to-shield"
+                                ]
+                            },
+                            "usage": {
+                                "value": "held-in-one-hand"
+                            }
+                        },
+                        "type": "weapon"
+                    }
+                ],
                 "traits": {
                     "integrated": null,
                     "rarity": "common",
@@ -1590,24 +1584,17 @@
             "name": "Healing Potion (Lesser)",
             "sort": 800000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "2d8+5"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "2d8+5",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
@@ -1653,6 +1640,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1852,24 +1844,13 @@
             "name": "Chalk",
             "sort": 1300000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "aNfp9RPXRHE5IBNU",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1909,6 +1890,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1983,24 +1969,13 @@
             "name": "Rations",
             "sort": 1500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "aNfp9RPXRHE5IBNU",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -2039,6 +2014,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -2313,7 +2293,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -2471,7 +2451,7 @@
                 "hp": 10,
                 "items": {
                     "0c3e5": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-legend.webp",
+                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
                         "level": 13,
                         "name": "Weapon Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
@@ -2495,19 +2475,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
                     },
                     "enizk": {
-                        "img": "systems/pf2e/icons/features/classes/improved-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 15,
                         "name": "Improved Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
                     },
                     "ij943": {
-                        "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+                        "img": "icons/environment/people/charge.webp",
                         "level": 7,
                         "name": "Battlefield Surveyor",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
                     },
                     "lakjk": {
-                        "img": "systems/pf2e/icons/features/classes/bravery.webp",
+                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
                         "level": 3,
                         "name": "Bravery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
@@ -2537,7 +2517,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
                     },
                     "txlgu": {
-                        "img": "systems/pf2e/icons/features/classes/combat-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 9,
                         "name": "Combat Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
@@ -2561,7 +2541,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "x98c2": {
-                        "img": "systems/pf2e/icons/features/classes/versatile-legend.webp",
+                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
                         "level": 19,
                         "name": "Versatile Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
@@ -2751,7 +2731,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.GJKJafDGuX4BeAeN"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/bravery.webp",
+            "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
             "name": "Bravery",
             "sort": 600,
             "system": {
@@ -2797,15 +2777,16 @@
                         ],
                         "selector": "will",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
                     }
                 ],
                 "slug": "bravery",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3083,9 +3064,6 @@
                 "temp": 0,
                 "value": 73
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3125,6 +3103,7 @@
             },
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Jadren has lived a life in two acts. The first act began during his younger years, growing up on the streets in the Narrows district of Oppara. He led a gang of children that soon turned into a guild of pickpockets and minor thieves. Years later, a sweep by law enforcement rounded up half of his gang and Jadren remained sure his guildmates would finger him as the ringleader. He fled the city that evening, leaving behind the only place he had ever called home. For months he wandered from port to port, drinking and carousing until he woke one morning after having signed on with the pirate crew of the Brass Bird.</p>\n<p>At first, he had demonstrated no skill at sailing, but as the years passed, he learned just about every role aboard a ship, from cook to bosun. Jadren often found himself the life of every party, telling outlandish and ridiculous stories from his youth. As a result, Captain Renlock took a liking to him. Several good years passed and the captain promoted Jadren to first mate. Just after the promotion, everything went wrong.</p>\n<p>After chasing down a Varisian merchant vessel, the crew boarded the ship to search for loot. Taking what cargo they could find, the captain agreed to let the crew and ship go, but a Varisian witch onboard took umbrage to the theft and cursed the Brass Bird and her crew. Not two days later, the ship was beset by storms and bad wind. A week after that, the Andoran navy finally tracked the Bird down. For days, Jadren's crew sailed south, trying to get back to the Shackles. However, the Andoran navy did not relent in their pursuit. Captain Renlock desperately tried to return the Brass Bird to his secret port on a small island just to the north of the pirate nation, but the winds were against him.</p>\n<p>After a pitched battle in which Jadren was severely injured, Captain Renlock surrendered. And just like that, the first act of Jadren's life ended. Waking up in temple to Iomedae in Andoran was the first thing he remembered after the battle. The priest here tended to Jadren's wounds and helped set his bones. It was a long recovery, one that the priests wanted him to make on his own-without the aid of magic-so that he could see the full cost of the life he had chosen. After weeks of healing, the priests gave him a choice. He could go to prison for several months to serve his sentence, or he could stay on with them and help tend to the temple and serve the poor as penance.</p>\n<p>Since that sounded better than a prison cell, Jadren agreed. Over the next few months, Jadren learned a lot about himself and carefully considered his past. He had lived a life of greed, thinking only of himself and his own pleasure. Through helping others, the priests showed him the value of a life of service and humility. They also taught him discipline and trained him in martial skills. These priests' teachings also persuaded Jadren that giving one's life over to the greater good could provide a stronger sense of purpose.</p>\n<p>When the time came for him to leave, Jadren asked to stay and began training to become a champion of the faith. Now, several years later, Jadren has molded himself into a changed man. He is a staunch warrior dedicated to Iomedae, willing to lay down his life in service to others. He is especially keen to help those who have chosen a life of crime to see the error in their ways as he has. Unfortunately, he has learned it is too late for his previous friend and mentor, Captain Renlock. The captain's famous clockwork parrot, Cawlo, arrived at the temple just yesterday to tell Jadren of his passing. And Cawlo arrived bearing a cryptic request...</p>\n<p><strong>Goals</strong> Jadren seeks to atone for the harm he caused during his previous life. He would like nothing better than to change his past, despite that fact that this is likely impossible. Though he knows he might never redeem himself, he focuses on taking action that he believes can make the world better.</p>\n<p><strong>Personality:</strong> Jadren is warm and friendly, almost to a fault. While his demeanor was once accompanied by ribald humor and rousing toasts, it is now usually part of a sermon or parable about Iomedae. Those who know him now can't fathom the life he led before. Likewise, those from a past life would be shocked to see him today.</p>\n<p><strong>Relationships</strong> Those of the faith deeply appreciate Jadren and his dedication to Iomedae's teachings. To outsiders, he can come off as preachy and self-righteous.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -3133,6 +3112,7 @@
                 "campaignNotes": "<p><em>Elsir Syniras</em>: Jadren remembers little about Elsir, and continues to struggle to recall the sorcerer's name. To Jadren, Elsir always had a sour demeanor and kept to himself. Jadren thinks Elsir might have used magic in the past but isn't sure. In any case, Jadren is embarrassed that he doesn't remember more about those who served with him on the Brass Bird, and regrets having paid so little attention to others.</p>\n<p><em>Kaako Ashfeather: </em>Kaako and Jadren had a strained relationship. In his youth, Jadren used to invent nicknames for the tengu rogue, but he now looks back on them with embarrassment. She was skilled at her job and often kept the crew safe from curses. He realizes now that she didn't deserve to be teased.</p>\n<p><em>Lavanna Saltspray:</em> Jadren regards the halfling cleric of Gozreh highly. Even though his faith has taken a different course than hers, he can't help but reflect on their time together warmly. After all, she showed him the value of faith and conviction. Lavanna continually provided encouragement and laughter whenever he was down. For a time, Jadren even believed there might be something more to their relationship.</p>",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3159,6 +3139,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "halfling"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3177,6 +3164,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3265,22 +3255,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "halfling"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good",
-                "lawful"
-            ]
         }
     },
     "type": "character"

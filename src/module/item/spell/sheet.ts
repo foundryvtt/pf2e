@@ -33,7 +33,7 @@ const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     time: "PF2E.Item.Spell.Cast",
     target: "PF2E.SpellTargetLabel",
     area: "PF2E.AreaLabel",
-    range: "PF2E.SpellRangeLabel",
+    range: "PF2E.TraitRange",
     damage: "PF2E.DamageLabel",
 };
 
@@ -54,14 +54,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return baseId;
     }
 
-    protected override get validTraits(): Record<string, string> | null {
-        return R.omit(CONFIG.PF2E.Item.traits.spell, Array.from(MAGIC_TRADITIONS));
+    protected override get validTraits(): Record<string, string> {
+        return R.omit(this.item.constructor.validTraits, Array.from(MAGIC_TRADITIONS));
     }
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const spell = this.item;
-        const { isCantrip, isFocusSpell, isRitual } = spell;
 
         const descriptionPrepend = await createDescriptionPrepend(spell, { includeTraditions: true });
         sheetData.enrichedContent.description = `${descriptionPrepend}${sheetData.enrichedContent.description}`;
@@ -74,22 +73,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 actions: getActionGlyph(variant.system.time.value),
             }))
             .sort((a, b) => a.sort - b.sort);
-
-        const passiveDefense = ((): string | null => {
-            const statistic = spell.system.defense?.passive?.statistic;
-            switch (statistic) {
-                case "ac":
-                    return "PF2E.Check.DC.Specific.armor";
-                case "fortitude-dc":
-                    return "PF2E.Check.DC.Specific.fortitude";
-                case "reflex-dc":
-                    return "PF2E.Check.DC.Specific.reflex";
-                case "will-dc":
-                    return "PF2E.Check.DC.Specific.will";
-                default:
-                    return null;
-            }
-        })();
 
         const damageKinds = R.mapValues(spell.system.damage, (damage, id) => {
             const healingDisabled = !["vitality", "void", "untyped"].includes(damage.type) || !!damage.category;
@@ -119,10 +102,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         return {
             ...sheetData,
             itemType: createSpellRankLabel(this.item),
-            isCantrip,
-            isFocusSpell,
-            isRitual,
-            passiveDefense,
             variants,
             isVariant: this.item.isVariant,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
@@ -172,7 +151,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                     category: null,
                     materials: [],
                 };
-                this.item.update({ [`${baseKey}.damage.${randomID()}`]: emptyDamage });
+                this.item.update({ [`${baseKey}.damage.${fu.randomID()}`]: emptyDamage });
             });
         }
 
@@ -358,14 +337,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super._updateObject(event, formData);
     }
 
-    protected override _onDragStart(event: ElementDragEvent): void {
-        const id = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
-        event.dataTransfer.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
+    protected override _onDragStart(event: DragEvent): void {
+        const id = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
+        event.dataTransfer?.setData("text/plain", JSON.stringify({ action: "sort", data: { sourceId: id } }));
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
-        const transferString = event.dataTransfer.getData("text/plain");
+        const transferString = event.dataTransfer?.getData("text/plain");
         if (!transferString) return;
 
         const { action, data } = (JSON.parse(transferString) ?? {}) as { action?: string; data?: { sourceId: string } };
@@ -374,7 +353,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             case "sort": {
                 // Sort spell variants
                 const sourceId = data?.sourceId ?? "";
-                const targetId = event.target.closest<HTMLElement>(".variant")?.dataset.variantId ?? "";
+                const targetId = htmlClosest(event.target, ".variant")?.dataset.variantId ?? "";
                 if (sourceId && targetId && sourceId !== targetId) {
                     const sourceVariant = this.item.loadVariant({ overlayIds: [sourceId] });
                     const targetVariant = this.item.loadVariant({ overlayIds: [targetId] });
@@ -446,7 +425,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     #getDefaultProperty(property: string): unknown {
         const scaling = this.item.getHeightenLayers().reverse();
         const baseValue = (() => {
-            for (const entry of [...scaling, { system: this.item.system }]) {
+            for (const entry of [...scaling, { system: fu.deepClone(this.item._source.system) }]) {
                 if (objectHasKey(entry.system, property)) {
                     return entry.system[property];
                 }
@@ -494,10 +473,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 }
 
 interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    isCantrip: boolean;
-    isFocusSpell: boolean;
-    isRitual: boolean;
-    passiveDefense: string | null;
     isVariant: boolean;
     variants: {
         name: string;

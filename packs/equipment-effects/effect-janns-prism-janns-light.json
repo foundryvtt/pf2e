@@ -1,0 +1,166 @@
+{
+    "_id": "uJyFG2gxW29bXNfu",
+    "img": "icons/commodities/gems/gem-faceted-trillion-blue.webp",
+    "name": "Effect: Jann's Prism (Jann's Light)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Jann's Prism]</p>\n<p>You shed bright light in a 20-foot emanation (and dim light for the next 20 feet). You gain resistance 5 to two damage types.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "TokenLight",
+                "value": {
+                    "animation": {
+                        "intensity": 3,
+                        "speed": 3,
+                        "type": "radialrainbow"
+                    },
+                    "bright": 20,
+                    "color": "#969696",
+                    "dim": 40
+                }
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "jannsLightOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance",
+                "rollOption": "janns-light-one"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:force"
+                            }
+                        ],
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:mental"
+                            }
+                        ],
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:poison"
+                            }
+                        ],
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "janns-light-one:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "jannsLightTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.jannsLightOne}",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.jannsLightTwo}",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

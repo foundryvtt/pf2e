@@ -352,7 +352,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Cuetzmonquali's flesh burns as hot as flame. Creatures that end their turn in the emanation take @Damage[4d6[fire]] damage (@Check[type:fortitude|dc:35|basic:true] save).</p>"
+                    "value": "<p>5 feet. Cuetzmonquali's flesh burns as hot as flame. Creatures that end their turn in the emanation take @Damage[4d6[fire]] damage (@Check[type:fortitude|dc:35|basic:true] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -819,12 +819,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -848,6 +842,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "chthonian",
+                    "pyric",
+                    "razatlani",
+                    "requian"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -858,6 +861,23 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 32,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -875,20 +895,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "pyric",
-                    "razatlani",
-                    "requian"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "greater darkvision, scent (imprecise) 60 feet, smoke vision"
-            },
             "size": {
                 "value": "huge"
             },

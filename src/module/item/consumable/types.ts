@@ -1,8 +1,8 @@
-import { AMMO_STACK_GROUPS } from "./values.ts";
+import type { AMMO_STACK_GROUPS, CONSUMABLE_CATEGORIES } from "./values.ts";
 
+type AmmoStackGroup = SetElement<typeof AMMO_STACK_GROUPS>;
+type ConsumableCategory = SetElement<typeof CONSUMABLE_CATEGORIES>;
 type ConsumableTrait = keyof typeof CONFIG.PF2E.consumableTraits;
 type OtherConsumableTag = "herbal";
 
-type AmmoStackGroup = SetElement<typeof AMMO_STACK_GROUPS>;
-
-export type { AmmoStackGroup, ConsumableTrait, OtherConsumableTag };
+export type { AmmoStackGroup, ConsumableCategory, ConsumableTrait, OtherConsumableTag };

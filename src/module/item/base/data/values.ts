@@ -20,7 +20,7 @@ class MystifiedTraits {
     }
 }
 
-const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
+const ITEM_CARRY_TYPES = ["attached", "dropped", "held", "stowed", "worn"] as const;
 
 const RANGE_TRAITS = [
     "range-5",

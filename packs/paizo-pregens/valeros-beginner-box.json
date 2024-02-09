@@ -97,7 +97,7 @@
                 },
                 "items": {
                     "00b8b": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Assurance",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
@@ -667,7 +667,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Yr9yCuJiAlFh3QEB"
                 }
             },
-            "img": "icons/equipment/shield/heater-steel-boss-red.webp",
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Steel Shield",
             "sort": 500000,
             "system": {
@@ -678,7 +678,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>5</td>\n<td>20</td>\n<td>10</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -703,9 +703,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -793,24 +793,13 @@
             "name": "Arrows",
             "sort": 700000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -852,6 +841,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -869,7 +863,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1108,24 +1102,13 @@
             "name": "Chalk",
             "sort": 1200000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "YDtw1E9rD6VnjZnd",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1165,6 +1148,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1239,24 +1227,13 @@
             "name": "Rations",
             "sort": 1425000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "YDtw1E9rD6VnjZnd",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1295,6 +1272,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -1663,7 +1645,7 @@
                 "hp": 10,
                 "items": {
                     "0c3e5": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-legend.webp",
+                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
                         "level": 13,
                         "name": "Weapon Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
@@ -1687,19 +1669,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
                     },
                     "enizk": {
-                        "img": "systems/pf2e/icons/features/classes/improved-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 15,
                         "name": "Improved Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
                     },
                     "ij943": {
-                        "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+                        "img": "icons/environment/people/charge.webp",
                         "level": 7,
                         "name": "Battlefield Surveyor",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
                     },
                     "lakjk": {
-                        "img": "systems/pf2e/icons/features/classes/bravery.webp",
+                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
                         "level": 3,
                         "name": "Bravery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
@@ -1729,7 +1711,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
                     },
                     "txlgu": {
-                        "img": "systems/pf2e/icons/features/classes/combat-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 9,
                         "name": "Combat Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
@@ -1753,7 +1735,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "x98c2": {
-                        "img": "systems/pf2e/icons/features/classes/versatile-legend.webp",
+                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
                         "level": 19,
                         "name": "Versatile Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
@@ -2121,9 +2103,6 @@
                 "temp": 0,
                 "value": 24
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2158,6 +2137,7 @@
             },
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "<p>Valeros was a month away from an arranged marriage to a farmer's daughter when he realized he didn't want to be tied down to one place for his entire life. He left in the middle of the night with a change of clothes, some food, and an axe handle for a weapon. He fell in with mercenaries who taught him how to wield a sword and wear heavy armor, but his good heart made him not want to work for cheats, swindlers, and sadists. He became an adventurer, making his own decisions about whom he'd fight and why. Valeros is friendly and brave. Though he sometimes gets in over his head and throws himself into battle with too much gusto, he's smart and doesn't let people talk to him like he's a brute. He is loyal to his friends, fond of a good mug of ale, and happiest when in the company of women.</p>",
                 "attitude": "",
                 "backstory": "",
@@ -2166,6 +2146,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2192,6 +2173,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 1
@@ -2210,6 +2197,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2295,20 +2285,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

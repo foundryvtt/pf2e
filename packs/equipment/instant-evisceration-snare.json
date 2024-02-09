@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/instant-evisceration-snare.webp",
     "name": "Instant Evisceration Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": "1",
-            "value": "1"
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "24d8"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "24d8",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>When a creature enters the snare's square, the snare releases an unbelievable arsenal of blades, dealing 24d8 piercing damage (DC 45 basic Reflex).</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

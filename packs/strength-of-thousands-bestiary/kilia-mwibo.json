@@ -195,7 +195,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the emanation or starts its turn within it tumbles down a deep well of dread and must attempt a @Check[type:will|dc:33] save.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it's no longer frightened.</p>"
+                    "value": "<p>60 feet. A creature that enters the emanation or starts its turn within it tumbles down a deep well of dread and must attempt a @Check[type:will|dc:33] save.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it's no longer frightened.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -245,7 +245,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Akilia mwibocan sense nearby negative emotions. This is a precise sense against creatures who are under powerful emotion effects like rage, those who are frightened, or, at the GM's discretion, those who are in the grips of hatred, sadness, or other overwhelming negative emotions. Against all other creatures that possess emotions, this is an imprecise sense. A creature that has no emotions is effectively @UUID[Compendium.pf2e.conditionitems.Item.Invisible] to a kilia mwibo. A creature that knows about emotion sense can take precautions to Hide and Sneak from a kilia mwibo, in this case by suppressing feelings of negativity.</p>"
+                    "value": "<p>A kilia mwibo can sense nearby negative emotions. This is a precise sense against creatures who are under powerful emotion effects like rage, those who are frightened, or, at the GM's discretion, those who are in the grips of hatred, sadness, or other overwhelming negative emotions. Against all other creatures that possess emotions, this is an imprecise sense. A creature that has no emotions is effectively @UUID[Compendium.pf2e.conditionitems.Item.Invisible] to a kilia mwibo. A creature that knows about emotion sense can take precautions to Hide and Sneak from a kilia mwibo, in this case by suppressing feelings of negativity.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -490,12 +490,6 @@
                     "type": "precision"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 26
-            },
             "resistances": [
                 {
                     "type": "sonic",
@@ -519,6 +513,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 15
             },
@@ -529,6 +529,14 @@
                 "remaster": false,
                 "title": "Pathfinder #172: Secrets of the Temple-City"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "emotion sense 60 feet",
+            "mod": 26,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -546,17 +554,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Languages)",
-                "selected": [],
-                "value": [
-                    "fey"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "emotion sense 60 feet"
-            },
             "size": {
                 "value": "huge"
             },

@@ -1634,7 +1634,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2107,7 +2107,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A chyzaedu gains sustenance by feeding upon the metabolisms of organic victims. A living creature that ends its turn in the aura must attempt a @Check[type:will|dc:27] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature suffers a painful hunger pang, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> If possible, the creature spends its first 2 actions on its next turn eating or drinking (or spending actions to procure food or drink from its possessions or the surroundings, if necessary). The creature won't consume anything dangerous, but will eat things it normally has no appetite for.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature will eat or drink dangerous consumables, such as poison or rotten food, if other food or drink are not immediately available. The creature must spend its first 2 actions each round consuming for as long as it remains in the chyzaedu's aura plus 1 minute thereafter, but the creature can attempt a new saving throw at the end of its turn each round to end the effect early.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
+                    "value": "<p>30 feet. A chyzaedu gains sustenance by feeding upon the metabolisms of organic victims. A living creature that ends its turn in the aura must attempt a @Check[type:will|dc:27] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature suffers a painful hunger pang, becoming @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round.</p>\n<p><strong>Failure</strong> If possible, the creature spends its first 2 actions on its next turn eating or drinking (or spending actions to procure food or drink from its possessions or the surroundings, if necessary). The creature won't consume anything dangerous, but will eat things it normally has no appetite for.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature will eat or drink dangerous consumables, such as poison or rotten food, if other food or drink are not immediately available. The creature must spend its first 2 actions each round consuming for as long as it remains in the chyzaedu's aura plus 1 minute thereafter, but the creature can attempt a new saving throw at the end of its turn each round to end the effect early.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -2400,12 +2400,6 @@
                 "temp": 0,
                 "value": 135
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "resistances": [
                 {
                     "type": "acid",
@@ -2428,6 +2422,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "aklo",
+                    "chthonian",
+                    "common",
+                    "draconic",
+                    "protean",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -2438,6 +2443,23 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2460,25 +2482,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "chthonian",
-                    "common",
-                    "draconic",
-                    "protean",
-                    "sakvroth"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "grg"
             },

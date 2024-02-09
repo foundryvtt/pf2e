@@ -3,6 +3,9 @@
     "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
     "name": "Viper Rapier",
     "system": {
+        "apex": {
+            "attribute": "dex"
+        },
         "baseItem": "rapier",
         "bonus": {
             "value": 0
@@ -21,7 +24,7 @@
             "die": "d6"
         },
         "description": {
-            "value": "<p>Crafted from flawless jade, the guard of this rapier takes the form of a twisting serpent with the blade thrusting from its open mouth. This rapier functions as a <em>+3 greater striking speed</em> rapier. While wielding the rapier, your movement doesn't trigger reactions when you @UUID[Compendium.pf2e.actionspf2e.Item.Stride], @UUID[Compendium.pf2e.actionspf2e.Item.Balance], or @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]. When you invest the rapier, you either increase your Dexterity score by 2 or increase it to 18, whichever is higher.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail, but don't critically fail, an attack using the viper rapier</p>\n<p><strong>Effect</strong> The tip of the rapier briefly takes the form of a viper's head, and the blade twists and contorts, biting the target you missed. The target is affected as if successfully poisoned with @UUID[Compendium.pf2e.equipment-srd.Item.Purple Worm Venom] (DC 43).</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Trigger</strong> A creature misses or critically misses you with an attack</p>\n<p><strong>Effect</strong> With a slight, obviously mocking bow or curtsy, you Step.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You twirl your rapier in a serpentine pattern, causing your form to become a blur of motion. You're @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 1 minute or until you take a hostile action. While you're concealed, you also gain a +2 circumstance bonus to Reflex saving throws.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Viper Rapier]</p>"
+            "value": "<p>Crafted from flawless jade, the guard of this rapier takes the form of a twisting serpent with the blade thrusting from its open mouth. This rapier functions as a <em>+3 greater striking speed</em> rapier. While wielding the rapier, your movement doesn't trigger reactions when you @UUID[Compendium.pf2e.actionspf2e.Item.Stride], @UUID[Compendium.pf2e.actionspf2e.Item.Balance], or @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]. When you invest the rapier, you either increase your Dexterity modifier by 1 or increase it to +4, whichever is higher.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail, but don't critically fail, an attack using the viper rapier</p>\n<p><strong>Effect</strong> The tip of the rapier briefly takes the form of a viper's head, and the blade twists and contorts, biting the target you missed. The target is affected as if successfully poisoned with @UUID[Compendium.pf2e.equipment-srd.Item.Purple Worm Venom] (DC 43).</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> envision</p>\n<p><strong>Trigger</strong> A creature misses or critically misses you with an attack</p>\n<p><strong>Effect</strong> With a slight, obviously mocking bow or curtsy, you Step.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You twirl your rapier in a serpentine pattern, causing your form to become a blur of motion. You're @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 1 minute or until you take a hostile action. While you're concealed, you also gain a +2 circumstance bonus to Reflex saving throws.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Viper Rapier]</p>"
         },
         "group": "sword",
         "hardness": 0,
@@ -51,20 +54,7 @@
         "reload": {
             "value": ""
         },
-        "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.abilities.dex.mod",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.abilities.dex.mod",
-                "value": 4
-            }
-        ],
+        "rules": [],
         "runes": {
             "potency": 3,
             "property": [

@@ -189,7 +189,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the aura must succeed at a @Check[type:fortitude|dc:26] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}; on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened.</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>20 feet. A creature that enters the aura must succeed at a @Check[type:fortitude|dc:26] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}; on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened.</p>\n<p>A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -418,12 +418,6 @@
                     "type": "acid"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -437,6 +431,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -447,6 +447,23 @@
                 "remaster": false,
                 "title": "Pathfinder #164: Hands of the Devil"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -464,17 +481,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

@@ -7,6 +7,7 @@ import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import * as R from "remeda";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -165,13 +166,13 @@ class ModifierPF2e implements RawModifier {
         this.type = setHasElement(MODIFIER_TYPES, params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
-        this.adjustments = deepClone(params.adjustments ?? []);
+        this.adjustments = fu.deepClone(params.adjustments ?? []);
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
         this.predicate = new PredicatePF2e(params.predicate ?? []);
-        this.traits = deepClone(params.traits ?? []);
+        this.traits = fu.deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
 
@@ -245,7 +246,12 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return duplicate({ ...this, item: undefined });
+        return fu.deepClone({
+            ...this,
+            predicate: [...this.predicate],
+            rule: this.rule?.toObject(),
+            item: undefined,
+        });
     }
 
     toString(): string {
@@ -308,16 +314,10 @@ function createProficiencyModifier({
 }: CreateProficiencyModifierParams): ModifierPF2e {
     rank = Math.clamped(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
-    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant");
+    const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
     const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? [
-              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-              game.settings.get("pf2e", "proficiencyTrainedModifier"),
-              game.settings.get("pf2e", "proficiencyExpertModifier"),
-              game.settings.get("pf2e", "proficiencyMasterModifier"),
-              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-          ]
+        ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
     const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
@@ -532,7 +532,8 @@ class StatisticModifier {
 
 function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
     for (const modifier of [...modifiers].sort((a, b) => Math.abs(b.value) - Math.abs(a.value))) {
-        const adjustments = modifier.adjustments.filter((a) => a.test([...rollOptions, ...modifier.getRollOptions()]));
+        const allRollOptions = [...rollOptions, ...modifier.getRollOptions()];
+        const adjustments = modifier.adjustments.filter((a) => a.test(allRollOptions));
         if (adjustments.some((a) => a.suppress)) {
             modifier.ignored = true;
             continue;
@@ -576,11 +577,19 @@ class CheckModifier extends StatisticModifier {
      */
     constructor(
         slug: string,
-        statistic: { modifiers: readonly (ModifierPF2e | RawModifier)[] },
+        statistic: { modifiers: readonly ModifierPF2e[] },
         modifiers: ModifierPF2e[] = [],
         rollOptions: string[] | Set<string> = new Set(),
     ) {
-        const baseModifiers = statistic.modifiers.map((m) => ("clone" in m ? m.clone() : new ModifierPF2e(m)));
+        const baseModifiers = statistic.modifiers
+            .filter((modifier: unknown) => {
+                if (modifier instanceof ModifierPF2e) return true;
+                if (R.isObject(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
+                    ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
+                }
+                return false;
+            })
+            .map((m) => m.clone());
         super(slug, baseModifiers.concat(modifiers), rollOptions);
     }
 }
@@ -631,6 +640,7 @@ class DamageDicePF2e {
     enabled: boolean;
     custom: boolean;
     predicate: PredicatePF2e;
+    hideIfDisabled: boolean;
 
     constructor(params: DamageDiceParameters) {
         if (params.selector) {
@@ -664,6 +674,7 @@ class DamageDicePF2e {
 
         this.enabled = params.enabled ?? this.predicate.test([]);
         this.ignored = params.ignored ?? !this.enabled;
+        this.hideIfDisabled = params.hideIfDisabled ?? false;
     }
 
     /** Test the `predicate` against a set of roll options */
@@ -677,10 +688,7 @@ class DamageDicePF2e {
     }
 
     toObject(): RawDamageDice {
-        return {
-            ...this,
-            predicate: deepClone([...this.predicate]),
-        };
+        return fu.deepClone({ ...this, predicate: [...this.predicate] });
     }
 }
 

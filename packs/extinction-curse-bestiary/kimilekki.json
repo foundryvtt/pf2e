@@ -830,7 +830,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1432,7 +1432,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A glabrezu's lies sustain them, and the truth can destroy them.</p>\n<p>Whenever a revelation effect counteracts or reveals the glabrezu's illusions or the glabrezu fails a save against an effect that would prevent them from lying (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Ring of Truth]</em>), the demon takes @Damage[5d6[mental]] damage.</p>\n<p>They take this damage only once per effect, even if the effect reveals multiple illusions or prevents multiple lies.</p>"
+                    "value": "<p>A glabrezu's lies sustain them, and the truth can destroy them.</p>\n<p>Whenever a revelation effect counteracts or reveals the glabrezu's illusions or the glabrezu fails a save against an effect that would prevent them from lying (such as @UUID[Compendium.pf2e.spells-srd.Item.Ring of Truth]), the demon takes @Damage[5d6[mental]] damage.</p>\n<p>They take this damage only once per effect, even if the effect reveals multiple illusions or prevents multiple lies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1562,7 +1562,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A glabrezu's <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em> enables it to appear as a creature of any size.</p>"
+                    "value": "<p>A glabrezu's @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise] enables it to appear as a creature of any size.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1592,7 +1592,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Once per month, a glabrezu can grant a mortal humanoid the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Item.Miracle]</em> spell granted by an Abyssal patron, though the glabrezu always perverts the miracle according to their own treacherous nature.</p>"
+                    "value": "<p>Once per month, a glabrezu can grant a mortal humanoid the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Miracle] spell granted by an Abyssal patron, though the glabrezu always perverts the miracle according to their own treacherous nature.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1836,12 +1836,6 @@
                 "temp": 0,
                 "value": 380
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -1859,6 +1853,15 @@
         },
         "details": {
             "blurb": "Female variant glabrezu demon",
+            "languages": {
+                "details": "telepathy 100 feet, tongues",
+                "value": [
+                    "chthonian",
+                    "common",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1869,6 +1872,23 @@
                 "remaster": false,
                 "title": "Pathfinder #156: The Apocalypse Prophet"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1891,20 +1911,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet, Tongues",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "common",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "huge"
             },

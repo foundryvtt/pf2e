@@ -3,14 +3,12 @@ import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
 import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
-import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative.ts";
 import { MigrationList } from "@module/migration/index.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { activateSocketListener } from "@scripts/socket.ts";
 import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
 import { extendDragData } from "@scripts/system/dragstart-handler.ts";
-import { htmlQueryAll } from "@util";
 import * as R from "remeda";
 
 export const Ready = {
@@ -53,7 +51,7 @@ export const Ready = {
                 // Update the world system version
                 const previous = game.settings.get("pf2e", "worldSystemVersion");
                 const current = game.system.version;
-                if (foundry.utils.isNewerVersion(current, previous)) {
+                if (fu.isNewerVersion(current, previous)) {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }
 
@@ -69,8 +67,7 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.compatibility.verified, "10.312")),
+                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
                 for (const badModule of subV10Modules) {
@@ -80,10 +77,7 @@ export const Ready = {
                 }
             });
 
-            // Update chat messages to add set-as-initiative buttons to skill checks
-            for (const li of htmlQueryAll(document.body, "#chat-log > li.message")) {
-                SetAsInitiative.listen(li);
-            }
+            game.settings.get("pf2e", "homebrew.languageRarities").onReady();
 
             activateSocketListener();
 
@@ -95,8 +89,7 @@ export const Ready = {
                 canvas.ready &&
                 game.user.isGM &&
                 !game.modules.get("gm-vision")?.active &&
-                !game.modules.get("perfect-vision")?.active &&
-                game.settings.get("pf2e", "gmVision")
+                game.pf2e.settings.gmVision
             ) {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
                 canvas.colorManager.initialize();

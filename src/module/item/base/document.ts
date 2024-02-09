@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor/base.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import { ItemChatData, itemIsOfType } from "@item/helpers.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
@@ -12,31 +12,39 @@ import { processGrantDeletions } from "@module/rules/rule-element/grant-item/hel
 import type { UserPF2e } from "@module/user/document.ts";
 import { eventToRollMode } from "@scripts/sheet-util.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, htmlClosest, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, isObject, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionSource } from "../affliction/data.ts";
 import { PHYSICAL_ITEM_TYPES } from "../physical/values.ts";
 import { MAGIC_TRADITIONS } from "../spell/values.ts";
 import { ItemInstances } from "../types.ts";
-import { isItemSystemData, isPhysicalData } from "./data/helpers.ts";
 import type {
     ConditionSource,
     EffectSource,
     FeatSource,
     ItemFlagsPF2e,
     ItemSourcePF2e,
-    ItemSummaryData,
     ItemSystemData,
     ItemType,
+    RawItemChatData,
     TraitChatData,
 } from "./data/index.ts";
+import type { ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
+    }
+
+    /** Traits an item of this type can have */
+    static get validTraits(): Partial<Record<ItemTrait, string>> {
+        return {};
     }
 
     /** Prepared rule elements from this item */
@@ -88,8 +96,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const item = fromUuidSync(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
-                item._source.flags = mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
-                item.flags = mergeObject(item.flags, { core: { sourceId: item.uuid } });
+                item._source.flags = fu.mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
+                item.flags = fu.mergeObject(item.flags, { core: { sourceId: item.uuid } });
             }
         }
 
@@ -165,7 +173,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             options.unshift(`${prefix}:type:${itemType}`);
         }
 
-        return options.sort();
+        return options;
     }
 
     override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
@@ -178,8 +186,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: MouseEvent | JQuery.TriggeredEvent,
-        options: { rollMode?: RollMode; create?: boolean; data?: Record<string, unknown> } = {},
+        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
+        options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
@@ -223,26 +231,38 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
         this.rules = [];
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
+     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     */
     override prepareData(): void {
-        if (this.parent && !this.parent.flags?.pf2e) return;
-
-        super.prepareData();
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
     }
 
     /** Ensure the presence of the pf2e flag scope with default properties and values */
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { flags } = this;
-        flags.pf2e = mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
-
-        // Temporary measure until upstream issue is addressed (`null` slug is being set to empty string)
         this.system.slug ||= null;
+        this.system.description.addenda = [];
+        this.system.description.override = null;
+
+        const flags = this.flags;
+        flags.pf2e = fu.mergeObject(flags.pf2e ?? {}, { rulesSelections: {} });
+
+        const traits = this.system.traits;
+        if (traits.value) {
+            traits.value = traits.value.filter((t) => t in this.constructor.validTraits);
+        }
 
         // Set item grant default values: pre-migration values will be strings, so temporarily check for objectness
         if (isObject(flags.pf2e.grantedBy)) {
@@ -256,61 +276,50 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
     }
 
-    prepareRuleElements(
-        this: ItemPF2e<ActorPF2e>,
-        options: Omit<RuleElementOptions, "parent"> = {},
-    ): RuleElementPF2e[] {
+    prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElementPF2e[] {
         if (!this.actor) throw ErrorPF2e("Rule elements may only be prepared from embedded items");
-
         return (this.rules = this.actor.canHostRuleElements
-            ? RuleElements.fromOwnedItem({ ...options, parent: this })
+            ? RuleElements.fromOwnedItem({ ...options, parent: this as ItemPF2e<NonNullable<TParent>> })
             : []);
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(
-        options: { name?: boolean; notify?: boolean } = { name: true, notify: true },
-    ): Promise<void> {
-        if (!this.isOwned) {
-            throw ErrorPF2e("This utility may only be used on owned items");
+    async refreshFromCompendium(options: RefreshFromCompendiumParams = {}): Promise<this | null> {
+        if (this.uuid === this.sourceId) {
+            throw ErrorPF2e(`Item "${this.name}" (${this.uuid}) is its own source.`);
         }
         if (!this.sourceId?.startsWith("Compendium.")) {
-            throw ErrorPF2e(`Item "${this.name}" has no compendium source.`);
+            throw ErrorPF2e(`Item "${this.name}" (${this.uuid}) has no compendium source.`);
         }
 
         options.name ??= true;
-        options.notify ??= true;
+        options.update ??= true;
+        options.notify ??= options.update;
 
         const currentSource = this.toObject();
+        const localize = localizer("PF2E.Item.RefreshFromCompendium");
         if (
             currentSource.system.rules.some(
                 (r) => typeof r.key === "string" && ["ChoiceSet", "GrantItem"].includes(r.key),
             )
         ) {
-            ui.notifications.warn("PF2E.Item.RefreshFromCompendium.Tooltip.Disabled", { localize: true });
-            return;
+            ui.notifications.warn(localize("Tooltip.Disabled"));
+            return null;
         }
 
         const latestSource = (await fromUuid<this>(this.sourceId))?.toObject();
         if (!latestSource) {
-            ui.notifications.warn(
-                game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
-                    item: this.name,
-                    sourceId: this.sourceId,
-                }),
-            );
-            return;
+            ui.notifications.warn(localize("SourceNotFound", { item: this.name, sourceId: this.sourceId }));
+            return null;
         } else if (latestSource.type !== this.type) {
-            ui.notifications.error(
-                `The compendium source for "${this.name}" is of a different type than what is present on this actor.`,
-            );
-            return;
+            ui.notifications.error(localize("DifferentItemType", { item: this.name, uuid: this.uuid }));
+            return null;
         }
 
         const updates: Partial<foundry.documents.ItemSource> & { system: ItemSourcePF2e["system"] } = {
             name: options.name ? latestSource.name : currentSource.name,
             img: latestSource.img,
-            system: deepClone(latestSource.system),
+            system: fu.deepClone(latestSource.system),
         };
 
         if (updates.system.level && currentSource.type === "feat") {
@@ -320,28 +329,35 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             };
         }
 
-        if (isPhysicalData(currentSource)) {
+        if (this.isOfType("physical") && itemIsOfType(currentSource, "physical")) {
             // Preserve basic physical data
-            mergeObject(
-                updates,
-                expandObject({
-                    "system.containerId": currentSource.system.containerId,
-                    "system.equipped": currentSource.system.equipped,
-                    "system.material": currentSource.system.material,
-                    "system.quantity": currentSource.system.quantity,
-                    "system.size": currentSource.system.size,
-                }),
-            );
+            fu.mergeObject(updates, {
+                "system.containerId": currentSource.system.containerId,
+                "system.equipped": currentSource.system.equipped,
+                "system.material": currentSource.system.material,
+                "system.quantity": currentSource.system.quantity,
+                "system.size": currentSource.system.size,
+            });
 
             // Preserve runes
             if (itemIsOfType(currentSource, "armor", "shield", "weapon")) {
-                mergeObject(updates, expandObject({ "system.runes": currentSource.system.runes }));
+                fu.mergeObject(updates, { "system.runes": currentSource.system.runes });
             }
+
+            // Refresh subitems
+            const updatedSubitems = R.compact(
+                await Promise.all(this.subitems.map((i) => i.refreshFromCompendium({ ...options, update: false }))),
+            );
+            if (updatedSubitems.length < this.subitems.size) {
+                ui.notifications.error(localize("SubitemFailure", { item: this.name, uuid: this.uuid }));
+                return null;
+            }
+            fu.mergeObject(updates, { "system.subitems": updatedSubitems.map((i) => i.toObject()) });
 
             if (
                 currentSource.type === "consumable" &&
                 currentSource.system.spell?.system?.traits &&
-                tupleHasValue(["scroll", "wand"], currentSource.system.consumableType.value) &&
+                tupleHasValue(["scroll", "wand"], currentSource.system.category) &&
                 latestSource.type === "consumable" &&
                 !latestSource.system.spell
             ) {
@@ -350,34 +366,36 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 const refreshedSpell = await fromUuid(currentSource.system.spell.flags.core?.sourceId ?? "");
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
-                        type: currentSource.system.consumableType.value,
+                        type: currentSource.system.category,
                         heightenedLevel: currentSource.system.spell.system.location.heightenedLevel,
                     });
-                    mergeObject(updates, {
+                    fu.mergeObject(updates, {
                         name: spellConsumableData.name,
                         system: { spell: spellConsumableData.system.spell },
                     });
                 } else {
-                    ui.notifications.warn(
-                        game.i18n.format("PF2E.Item.RefreshFromCompendium.SourceNotFound", {
-                            item: currentSource.system.spell.name,
-                            sourceId: spellSourceId,
-                        }),
-                    );
-                    return;
+                    const formatArgs = { item: currentSource.system.spell.name, sourceId: spellSourceId };
+                    ui.notifications.warn(localize("SourceNotFound", formatArgs));
+                    return null;
                 }
             }
         } else if (itemIsOfType(currentSource, "campaignFeature", "feat", "spell")) {
             // Preserve feat and spellcasting entry location
-            mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
+            fu.mergeObject(updates, { "system.location": currentSource.system.location });
         }
 
         if (currentSource.type === "feat" && currentSource.system.level.taken) {
-            mergeObject(updates, expandObject({ "system.level.taken": currentSource.system.level.taken }));
+            fu.mergeObject(updates, { "system.level.taken": currentSource.system.level.taken });
         }
 
-        await this.update(updates, { diff: false, recursive: false });
-        if (options.notify) ui.notifications.info(`Item "${this.name}" has been refreshed.`);
+        if (options.update) {
+            await this.update(updates, { diff: false, recursive: false });
+        } else {
+            this.updateSource(updates, { diff: false, recursive: false });
+        }
+        if (options.notify) ui.notifications.info(localize("Success", { item: this.name }));
+
+        return this;
     }
 
     getOriginData(): ItemOriginFlag {
@@ -392,32 +410,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected async processChatData<T extends ItemSummaryData>(
+    protected async processChatData(
         htmlOptions: EnrichmentOptionsPF2e = {},
-        data: T,
-    ): Promise<T> {
-        data.properties = data.properties?.filter((property) => property !== null) ?? [];
-        if (isItemSystemData(data)) {
-            const chatData = duplicate(data);
-            htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
-            chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
-                ...htmlOptions,
-                async: true,
-            });
-
-            return chatData;
-        }
-
-        return data;
+        chatData: RawItemChatData,
+    ): Promise<RawItemChatData> {
+        return new ItemChatData({ item: this, data: chatData, htmlOptions }).process();
     }
 
     async getChatData(
         htmlOptions: EnrichmentOptionsPF2e = {},
         _rollOptions: Record<string, unknown> = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
-        const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
-        return this.processChatData(htmlOptions, deepClone(systemData));
+        const data = fu.deepClone({ ...this.system, traits: this.traitChatData() });
+        return this.processChatData(htmlOptions, data);
     }
 
     protected traitChatData(
@@ -503,9 +509,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         for (const source of [...sources]) {
             source.effects = []; // Never
 
-            if (!Object.keys(source).some((k) => k.startsWith("flags") || k.startsWith("system"))) {
+            if (source.type === "spellcastingEntry" || R.isEmpty(R.pick(source, ["flags", "system"]))) {
                 // The item has no migratable data: set schema version and skip
-                source.system = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                const migrationSource = { _migration: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                source.system = fu.mergeObject(source.system ?? {}, migrationSource);
                 continue;
             }
             const item = new CONFIG.Item.documentClass(source);
@@ -526,7 +533,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ["affliction", "condition", "effect"].includes(s.type),
         );
         for (const source of effectSources) {
-            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](deepClone(source), { parent: actor });
+            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](fu.deepClone(source), { parent: actor });
             const isUnaffected = effect.isOfType("condition") && !actor.isAffectedBy(effect);
             const isImmune = actor.isImmuneTo(effect);
             if (isUnaffected || isImmune) {
@@ -548,7 +555,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const preCreateDeletions = singularTypesToDelete.flatMap(
             (type): ItemPF2e<ActorPF2e>[] => actor.itemTypes[type],
         );
-        if (preCreateDeletions.length) {
+        if (preCreateDeletions.length > 0) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
@@ -558,7 +565,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             /** Internal function to recursively get all simple granted items */
             async function getSimpleGrants(item: ItemPF2e<ActorPF2e>): Promise<ItemPF2e<ActorPF2e>[]> {
                 const granted = (await item.createGrantedItems?.({ size: context.parent?.size })) ?? [];
-                if (!granted.length) return [];
+                if (granted.length === 0) return [];
                 const reparented = granted.map(
                     (i): ItemPF2e<ActorPF2e> =>
                         (i.parent
@@ -570,7 +577,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
             const items = sources.map((source): ItemPF2e<ActorPF2e> => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
-                    source._id = randomID();
+                    source._id = fu.randomID();
                 }
                 return new CONFIG.Item.documentClass(source, { parent: actor }) as ItemPF2e<ActorPF2e>;
             });
@@ -809,7 +816,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     }
                 }
                 if (itemUpdates.length > 0) {
-                    mergeObject(actorUpdates, { items: itemUpdates });
+                    fu.mergeObject(actorUpdates, { items: itemUpdates });
                 }
             } else {
                 // The above method of updating embedded items in an actor update does not work with synthetic actors
@@ -836,6 +843,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 }
 
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
+    constructor: typeof ItemPF2e;
     flags: ItemFlagsPF2e;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;
@@ -862,13 +870,23 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         _target,
         args: [source: PreCreate<ItemSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e | null>],
     ) {
+        const source = args[0];
         const type =
-            args[0]?.type === "armor" && (args[0].system?.category as string | undefined) === "shield"
+            source?.type === "armor" && (source.system?.category as string | undefined) === "shield"
                 ? "shield"
-                : args[0]?.type;
-        const ItemClass = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
+                : source?.type;
+        const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
         return new ItemClass(...args);
     },
 });
+
+interface RefreshFromCompendiumParams {
+    /** Whether to overwrite the name if it is different */
+    name?: boolean;
+    /** Whether to notify the user that the item has been refreshed */
+    notify?: boolean;
+    /** Whether to run the update: if false, a clone with updated source is returned. */
+    update?: boolean;
+}
 
 export { ItemPF2e, ItemProxyPF2e };

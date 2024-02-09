@@ -1,5 +1,5 @@
 import type { ActorSourcePF2e } from "@actor/data/index.ts";
-import { isPhysicalData, ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, MeleeSource } from "@item/base/data/index.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { SIZES } from "@module/data.ts";
@@ -9,7 +9,7 @@ import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValu
 import fs from "fs";
 import path from "path";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
-import "./core-helpers.ts";
+import "./foundry-utils.ts";
 import { getFilesRecursively, PackError } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
@@ -265,7 +265,7 @@ class CompendiumPack {
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 
-            if (isPhysicalData(docSource)) {
+            if (itemIsOfType(docSource, "physical")) {
                 docSource.system.equipped = { carryType: "worn" };
             } else if (docSource.type === "feat") {
                 const featCategory = docSource.system.category;

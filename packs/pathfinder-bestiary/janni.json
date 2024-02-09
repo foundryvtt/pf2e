@@ -619,24 +619,13 @@
             "name": "Arrows",
             "sort": 900000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -678,6 +667,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -947,7 +941,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per day.</p>\n<hr />\n<p><strong>Effect</strong> The janni changes a creature's size. This works as a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Shrink]</em> spell but can target an unwilling creature (@Check[type:fortitude|dc:21] save negates).</p>"
+                    "value": "<p><strong>Frequency</strong> Once per day.</p>\n<hr />\n<p><strong>Effect</strong> The janni changes a creature's size. This works as a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] or @UUID[Compendium.pf2e.spells-srd.Item.Shrink] spell but can target an unwilling creature (@Check[type:fortitude|dc:21] save negates).</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -1134,12 +1128,6 @@
                 "temp": 0,
                 "value": 60
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 11
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -1158,6 +1146,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "one elemental language (aquan auran ignan or terran), one planar language (abyssal celestial or infernal), telepathy 100 feet",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -1168,6 +1162,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1190,17 +1196,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "One elemental language (Aquan Auran Ignan or Terran), One planar language (Abyssal Celestial or Infernal), Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -127,7 +127,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</em>.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -266,7 +266,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as <em>@UUID[Compendium.pf2e.spells-srd.Item.Mist]</em> except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
+                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as @UUID[Compendium.pf2e.spells-srd.Item.Mist] except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it leaves the cloud.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -656,7 +656,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:25]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>30 feet. @Check[type:will|dc:25]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -989,12 +989,6 @@
                     "type": "poison"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1013,6 +1007,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -1023,6 +1025,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1050,22 +1064,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "lg"
             },

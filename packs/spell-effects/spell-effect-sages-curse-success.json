@@ -1,0 +1,60 @@
+{
+    "_id": "6SAUuqvptTeXtyfH",
+    "img": "systems/pf2e/icons/spells/savants-curse.webp",
+    "name": "Spell Effect: Sage's Curse (Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sage's Curse]</p>\n<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Abomination Vaults Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:arcana",
+                            "check:statistic:occultism",
+                            "check:statistic:society"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": false,
+                "selector": [
+                    "skill-check"
+                ]
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "lore-skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

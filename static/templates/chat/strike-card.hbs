@@ -4,7 +4,9 @@
         <h3>{{localize "PF2E.WeaponStrikeLabel"}}: {{strike.label}}</h3>
     </header>
 
-    <div class="card-content">{{{description}}}</div>
+    <div class="card-content">
+        {{{description}}}
+    </div>
 
     <div class="card-buttons" data-visibility="owner">
         <button type="button" data-action="strike-attack">{{strike.variants.0.label}}</button>
@@ -16,9 +18,9 @@
         </div>
     </div>
 
-    <footer class="card-footer">
+    <footer>
         {{#each strike.traits}}
-            <span title="{{localize this.description}}">{{localize this.label}}</span>
+            <span data-tooltip="{{localize this.description}}">{{localize this.label}}</span>
         {{/each}}
     </footer>
 </div>

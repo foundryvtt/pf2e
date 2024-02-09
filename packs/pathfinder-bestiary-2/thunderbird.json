@@ -316,7 +316,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The thunderbird is surrounded by a cyclone of wind and driving rain. This area is greater difficult terrain for flying creatures, who must successfully @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight] (DC 27) or be blown 30 feet away from the thunderbird. Creatures on the ground must succeed at a @Check[type:reflex|dc:27] save to perform any move action and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure.</p>\n<p>The driving rain in the storm aura imposes a -2 circumstance penalty on Perception checks and extinguishes smaller flames.</p>\n<p>A thunderbird can deactivate or activate the storm aura as a free action with the concentrate trait.</p>"
+                    "value": "<p>100 feet. The thunderbird is surrounded by a cyclone of wind and driving rain. This area is greater difficult terrain for flying creatures, who must successfully @UUID[Compendium.pf2e.actionspf2e.Item.Maneuver in Flight] (DC 27) or be blown 30 feet away from the thunderbird. Creatures on the ground must succeed at a @Check[type:reflex|dc:27] save to perform any move action and are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] on a critical failure.</p>\n<p>The driving rain in the storm aura imposes a -2 circumstance penalty on Perception checks and extinguishes smaller flames.</p>\n<p>A thunderbird can deactivate or activate the storm aura as a free action with the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -586,12 +586,6 @@
                     "type": "electricity"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "resistances": [
                 {
                     "type": "sonic",
@@ -610,6 +604,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "sussuran"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -620,6 +621,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "stormsight",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -647,21 +660,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "sussuran"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, stormsight"
-            },
             "size": {
                 "value": "grg"
             },

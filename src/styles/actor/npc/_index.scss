@@ -1,6 +1,6 @@
 $faded-color: #7a7971;
 
-@import "skills-editor";
+@import "recall-knowledge", "skills-editor";
 
 .actor.npc.sheet form {
     display: flex;
@@ -9,7 +9,7 @@ $faded-color: #7a7971;
 
     @import "../spell-collection";
 
-    .npc-sheet-header {
+    > .npc-body > header {
         display: flex;
         flex: 1 0 auto;
         flex-direction: column;
@@ -58,233 +58,55 @@ $faded-color: #7a7971;
         background: none;
     }
 
-    .sidebar {
-        flex: 10rem 0 0;
-        height: 100%;
-        overflow: hidden scroll;
-        padding-right: 0.25rem;
+    a.roll {
+        color: var(--color-pf-primary-darker);
 
-        .image-container {
-            img.actor-image {
-                border: none;
-                border-radius: 0.5rem;
-            }
+        .d20-svg {
+            height: var(--font-size-16);
+            position: relative;
+            top: var(--space-1);
+            width: var(--font-size-16);
         }
 
-        .armor-section {
-            .armor-value {
-                flex: 0;
-                text-align: right;
-                font-weight: 700;
-                padding-right: 0.25rem;
-            }
-        }
+        &:hover {
+            color: var(--color-pf-primary-light);
+            text-shadow: none;
 
-        .health-section,
-        .shield-section {
-            .hit-points {
-                display: flex;
-                flex-direction: row;
-                flex: 0;
-                margin-left: auto;
-
-                input.current {
-                    width: 2.25rem;
-                    text-align: right;
-                    padding-right: 3px;
-                }
-
-                .slash,
-                .max {
-                    align-items: center;
-                    display: flex;
-                }
-
-                .max {
-                    font-weight: 700;
-                    margin-right: 0.25rem;
-                    text-align: center;
-
-                    &.lt10 {
-                        width: 0.5rem;
-                    }
-                    &.lt100 {
-                        width: 1.5rem;
-                    }
-                    &.lt1000 {
-                        width: 2.25rem;
-                    }
-                }
-            }
-        }
-
-        .shield-section {
-            .hit-points {
-                .max {
-                    font-size: var(--font-size-16);
-                }
-            }
-
-            .shield-details {
-                display: flex;
-                flex: auto;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: baseline;
-
-                .label {
-                    flex: 0;
-                    font-weight: bold;
-                }
-
-                .value {
-                    flex: auto;
-                    font-weight: normal;
-                    margin-left: 0.375rem;
-                }
-            }
-
-            &.broken {
-                color: rgba(black, 0.4);
-
-                .shield-label {
-                    color: rgba(black, 0.4);
-
-                    h4 {
-                        text-decoration: line-through;
-                    }
-                }
-            }
-        }
-
-        .speed-section {
-            .land-speed {
-                &-value {
-                    flex: 0 0 1.5rem;
-                    text-align: right;
-                }
-
-                .speed-details {
-                    flex: 1;
-                }
-            }
-
-            .other-speeds {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: start;
-                width: 100%;
-            }
-        }
-
-        .saves {
-            display: flex;
-            flex-direction: row;
-            flex: 1 0 auto;
-            font-size: 1.1rem;
-            margin-top: 12px;
-            width: 100%;
-
-            .container {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-
-                label {
-                    font-weight: 600;
-                }
-
-                input.modifier {
-                    text-align: center;
-                    z-index: 1;
-                }
+            .d20-svg {
+                @include die-spin;
             }
         }
     }
 
-    .side-bar-section {
-        display: flex;
-        flex: auto;
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
+    ul.comma-separated {
+        display: inline;
+        list-style: none;
+        margin: 0 0 var(--space-3);
+        padding: 0;
 
-        .controls {
-            padding-right: 0.25rem;
-        }
+        li {
+            display: inline;
+            margin: 0;
 
-        &.initiative {
-            a.roll-init {
-                display: flex;
-                flex-wrap: nowrap;
-                font-weight: 700;
-                margin-bottom: 0.125rem;
-                margin-left: auto;
-                padding-right: 0.5em;
-
-                i.fa-dice-d20 {
-                    font-size: 1rem;
-                    margin-right: 0.2em;
-                }
+            &::after {
+                content: ",";
             }
 
-            select {
-                font-size: var(--font-size-11);
-                text-transform: unset;
+            &.details-follow::after {
+                content: ";";
+            }
+
+            &:last-child::after {
+                content: "";
             }
         }
 
-        //Used to grey out empty values on the simple sheet
-        .value0 {
-            color: darkgrey;
-            border-bottom: 1px darkgrey solid;
-            input {
-                color: darkgrey;
-            }
+        &.senses {
+            text-transform: lowercase;
         }
     }
 
-    .side-bar-section-content {
-        align-items: start;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: start;
-        padding-top: 0.125rem;
-        width: 100%;
-    }
-
-    .side-bar-section-header {
-        align-items: baseline;
-        border-bottom: 1px solid;
-        border-color: $faded-color;
-        display: flex;
-        font-size: 1rem;
-        margin-bottom: 0.125rem;
-        margin-top: var(--font-size-10);
-        width: 100%;
-
-        .side-bar-label {
-            align-items: center;
-            display: flex;
-            flex-direction: row;
-            flex: auto;
-
-            .fa-solid {
-                font-size: 0.8rem;
-            }
-
-            h4,
-            label {
-                font-size: 0.8rem;
-                margin-bottom: 0;
-                padding-left: 0.125rem;
-            }
-
-            input.modifier {
-                font-size: 0.9rem;
-            }
-        }
-    }
+    @import "sidebar";
 
     .sheet-body {
         flex: auto;
@@ -345,7 +167,7 @@ $faded-color: #7a7971;
     .trait {
         flex: auto 0 0;
         padding: 0.25rem;
-        background: var(--primary);
+        background: var(--color-pf-primary);
         border: 2px solid var(--color-border-trait);
         color: var(--color-text-trait);
         font-size: 0.9em;
@@ -361,7 +183,7 @@ $faded-color: #7a7971;
 
         .separator {
             border-left: 2px solid var(--color-rarity-common);
-            flex: 0 0 1px;
+            flex: 0 0 var(--space-1);
             height: 2rem;
             margin-right: 0.25rem;
         }
@@ -389,18 +211,19 @@ $faded-color: #7a7971;
         }
     }
 
-    .actions-options {
-        .actions-option {
-            display: flex;
-            align-items: center;
+    .section-container.toggles ul.option-toggles {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+        list-style: none;
+
+        > li {
             width: 100%;
 
             label {
-                width: 100%;
-
-                * {
-                    vertical-align: middle;
-                }
+                display: flex;
+                align-items: center;
+                gap: var(--space-4);
 
                 input {
                     margin: 0;
@@ -420,21 +243,20 @@ $faded-color: #7a7971;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
-        padding: 0.1rem 0.25rem;
 
         .action {
             width: 100%;
         }
     }
 
-    .labelled-field {
+    .labeled-field {
         display: flex;
         flex-direction: row;
         align-items: baseline;
 
-        label,
-        .rollable {
-            flex: 1;
+        a,
+        label {
+            flex: 0;
             font-weight: 600;
         }
 
@@ -442,10 +264,10 @@ $faded-color: #7a7971;
         input[type="number"] {
             flex: 0;
             font-weight: normal;
-            margin: 1px 0.25rem;
+            margin: var(--space-1) var(--space-4);
             margin-left: auto;
             min-width: 2.5em;
-            padding-right: 1px;
+            padding-right: var(--space-1);
             text-align: right;
         }
         &.hp-temp > label {
@@ -466,31 +288,25 @@ $faded-color: #7a7971;
 
         .senses {
             flex: 2;
-
-            .perception {
-                width: 100%;
-                label {
-                    flex-basis: 5em;
-                }
-                input {
-                    flex: 0 0 1.5rem;
-                    z-index: 1;
-                }
-            }
         }
 
-        .ability-scores {
-            flex: 2;
+        .attribute-modifiers {
+            flex: 1.75;
             flex-direction: column;
 
             .list {
                 display: grid;
                 padding-left: 0.75em;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
+
                 input {
                     flex: 0 0 1.5rem;
                     margin-right: 1em;
                     z-index: 1;
+                }
+
+                a:hover {
+                    text-shadow: none;
                 }
             }
         }
@@ -501,10 +317,6 @@ $faded-color: #7a7971;
 
         .section-body {
             padding: 0.25rem;
-        }
-
-        &.headerless .section-body {
-            border-radius: 3px;
         }
 
         &.skills > .section-body {
@@ -519,24 +331,20 @@ $faded-color: #7a7971;
                 align-items: center;
 
                 .breakdown {
-                    background: var(--secondary);
-                    border-radius: 3px;
+                    background: var(--color-pf-secondary);
                     border: none;
                     box-shadow:
-                        inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-                        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                        inset 0 0 0 1px rgba(black, 0.3),
+                        inset 0 0 0 2px rgba(white, 0.2);
                     color: var(--text-light);
-                    cursor: pointer;
-                    font-family: var(--sans-serif);
-                    font-size: var(--font-size-9);
-                    line-height: var(--font-size-15);
-                    padding: 2px 0.25rem 0;
+                    font: var(--font-size-9) / var(--font-size-15) var(--sans-serif);
+                    padding: var(--space-2) var(--space-4) 0;
                     text-transform: uppercase;
                     width: auto;
 
                     &:hover {
                         box-shadow: none;
-                        text-shadow: 0 0 2px white;
+                        text-shadow: 0 0 2px var(--color-text-light-0);
                     }
                 }
             }
@@ -551,7 +359,6 @@ $faded-color: #7a7971;
         flex: auto 0 0;
         padding: 0.25rem;
         height: auto;
-        font-weight: 500;
 
         option {
             color: var(--text-light);
@@ -566,7 +373,7 @@ $faded-color: #7a7971;
 
         .adjustment {
             &.active {
-                background-color: var(--primary);
+                background-color: var(--color-pf-primary);
                 color: var(--text-light);
             }
 
@@ -578,7 +385,7 @@ $faded-color: #7a7971;
     }
 
     .npc-body {
-        padding-left: 5px;
+        padding-left: var(--space-5);
         display: flex;
         flex: auto;
         flex-direction: column;
@@ -596,11 +403,8 @@ $faded-color: #7a7971;
         padding-right: 0.75rem;
 
         .notes-section {
-            display: flex;
-            flex-direction: column;
-
             > h4 {
-                color: var(--primary);
+                color: var(--color-pf-primary);
                 font: 700 var(--font-size-12) / 1em var(--sans-serif);
                 margin: 0 2px 0 0;
                 padding: 0.25rem;
@@ -621,7 +425,7 @@ $faded-color: #7a7971;
                     }
 
                     .editor-edit {
-                        background: var(--primary);
+                        background: var(--color-pf-primary);
                         color: var(--text-light);
                     }
 
@@ -676,6 +480,4 @@ $faded-color: #7a7971;
     }
 }
 
-.actor.npc.sheet.simple {
-    min-height: 500px;
-}
+@import "simple";

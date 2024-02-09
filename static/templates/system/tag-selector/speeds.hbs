@@ -1,17 +1,19 @@
-<form class="window flexcol" autocomplete="off">
-    <ol class="trait-list">
+<form autocomplete="off">
+    <ul class="speeds">
         {{#each choices as |choice key|}}
-        <li class="trait-item">
-            <div class="form-group form-fields">
-                <input type="checkbox" id="{{options.id}}-{{key}}" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
-                <label class="trait-label" for="{{options.id}}-{{key}}">{{choice.label}}</label>
+            <li>
+                <label>
+                    <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                    {{localize choice.label}}
+                </label>
                 <input type="number" name="{{key}}" value="{{choice.value}}" placeholder="0" {{disabled choice.disabled}} />
-            </div>
-        </li>
+            </li>
         {{/each}}
-    </ol>
+    </ul>
 
-    <button type="submit" class="trait-footer">
-        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
-    </button>
+    <footer>
+        <button type="submit" class="trait-footer">
+            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize documentType)}}
+        </button>
+    </footer>
 </form>

@@ -1,4 +1,4 @@
-import { ConditionSource } from "@item/base/data/index.ts";
+import type { ConditionSource } from "@item/base/data/index.ts";
 import { execSync } from "child_process";
 import esbuild from "esbuild";
 import fs from "fs-extra";
@@ -111,6 +111,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
         fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
     }
 
+    const reEscape = (s: string) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+
     return {
         base: command === "build" ? "./" : "/systems/pf2e/",
         publicDir: "static",
@@ -119,6 +121,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
+            fu: "foundry.utils",
         },
         esbuild: { keepNames: true },
         build: {
@@ -133,6 +136,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
                 fileName: "pf2e",
             },
             rollupOptions: {
+                external: new RegExp(
+                    [
+                        "(?:",
+                        reEscape("../../icons/weapons/"),
+                        "[-a-z/]+",
+                        reEscape(".webp"),
+                        "|",
+                        reEscape("../ui/parchment.jpg"),
+                        ")$",
+                    ].join(""),
+                ),
                 output: {
                     assetFileNames: ({ name }): string => (name === "style.css" ? "styles/pf2e.css" : name ?? ""),
                     chunkFileNames: "[name].mjs",

@@ -13,7 +13,6 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
-import { isObject, pick } from "@util";
 import * as R from "remeda";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
@@ -128,7 +127,7 @@ function extractRollSubstitutions(
     rollOptions: Set<string>,
 ): RollSubstitution[] {
     return domains
-        .flatMap((d) => deepClone(substitutions[d] ?? []))
+        .flatMap((d) => fu.deepClone(substitutions[d] ?? []))
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
@@ -136,11 +135,13 @@ function extractDegreeOfSuccessAdjustments(
     synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
     selectors: string[],
 ): DegreeOfSuccessAdjustment[] {
-    return Object.values(pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+    return Object.values(R.pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
 }
 
 function isBracketedValue(value: unknown): value is BracketedValue {
-    return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
+    return (
+        R.isObject(value) && Array.isArray(value.brackets) && (typeof value.field === "string" || !("fields" in value))
+    );
 }
 
 async function processPreUpdateActorHooks(

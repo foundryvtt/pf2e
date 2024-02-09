@@ -97,11 +97,11 @@ declare global {
 
         protected override _canDragStart(selector: string): boolean;
 
-        protected override _onDragStart(event: ElementDragEvent): void;
+        protected override _onDragStart(event: DragEvent): void;
 
         protected override _canDragDrop(selector: string): boolean;
 
-        protected override _onDrop(event: ElementDragEvent): Promise<void>;
+        protected override _onDrop(event: DragEvent): Promise<void>;
 
         /**
          * Get the Macro entity being dropped in the Hotbar. If the data comes from a non-World source, create the Macro

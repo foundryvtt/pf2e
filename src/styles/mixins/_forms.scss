@@ -16,11 +16,10 @@
     display: grid;
     grid-template:
         "title title title" 2fr
-        "authors license remaster" 3fr / 60% 20% 20%;
+        "authors license remaster" 3fr / 50% 25% 25%;
 
     label {
         font-weight: 500;
-        min-width: unset;
     }
 
     input[type="text"] {
@@ -29,7 +28,8 @@
 
     .title {
         grid-area: title;
-        margin-right: 0;
+        display: flex;
+        width: calc(100% - 0.5em);
     }
 
     .authors {
@@ -50,7 +50,9 @@
 
     .license,
     .remaster {
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         label {
             padding: 0;

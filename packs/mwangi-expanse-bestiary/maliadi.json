@@ -699,7 +699,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1115,7 +1115,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 100 feet of the maliadi that the maliadi can see Casts a Spell that targets the maliadi</p>\n<hr />\n<p><strong>Effect</strong> The maliadi casts one of its innate <em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire]</em> spells, with a duration of 1 round.</p>\n<p>If the spell that triggered this reaction passes through the wall of fire, the wall attempts to counteract it, with a counteract modifier of [[/r 1d20+28]]{+28}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 100 feet of the maliadi that the maliadi can see Casts a Spell that targets the maliadi</p>\n<hr />\n<p><strong>Effect</strong> The maliadi casts one of its innate @UUID[Compendium.pf2e.spells-srd.Item.Wall of Fire] spells, with a duration of 1 round.</p>\n<p>If the spell that triggered this reaction passes through the wall of fire, the wall attempts to counteract it, with a counteract modifier of [[/r 1d20+28]]{+28}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1217,7 +1217,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The maliadi takes on the form of a stretch of river, with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Migration]</em>, except the maliadi can only affect itself, appears as a section of a flowing river that takes up the same space as the maliadi, and can't leave the ground.</p>"
+                    "value": "<p>The maliadi takes on the form of a stretch of river, with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Migration], except the maliadi can only affect itself, appears as a section of a flowing river that takes up the same space as the maliadi, and can't leave the ground.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1510,12 +1510,6 @@
                     "type": "death-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1528,6 +1522,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "draconic",
+                    "mwangi"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1538,6 +1541,28 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: The Mwangi Expanse"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1560,20 +1585,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "draconic",
-                    "mwangi"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, true seeing"
-            },
             "size": {
                 "value": "grg"
             },

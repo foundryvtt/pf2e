@@ -5,7 +5,6 @@ import {
     DurationData,
     EffectAuraData,
     EffectContextData,
-    EffectTraits,
     TimeUnit,
 } from "@item/abstract-effect/index.ts";
 import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
@@ -24,7 +23,6 @@ type AfflictionFlags = ItemFlagsPF2e & {
 
 interface AfflictionSystemSource extends AbstractEffectSystemSource {
     level: { value: number };
-    traits: EffectTraits;
     save: {
         type: SaveType;
         value: number;
@@ -42,8 +40,8 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
 }
 
 interface AfflictionSystemData
-    extends Omit<AfflictionSystemSource, "fromSpell">,
-        Omit<AbstractEffectSystemData, "level" | "traits"> {}
+    extends Omit<AfflictionSystemSource, "description" | "fromSpell">,
+        Omit<AbstractEffectSystemData, "level"> {}
 
 interface AfflictionOnset {
     /** If true, the affliction is currently in its onset phase */

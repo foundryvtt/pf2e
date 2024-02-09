@@ -32,7 +32,7 @@ interface UpdateData {
 
 export class WorldClockSettings extends FormApplication {
     static override get defaultOptions(): FormApplicationOptions {
-        return mergeObject(super.defaultOptions, {
+        return fu.mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
             template: "systems/pf2e/templates/system/settings/world-clock/index.hbs",
@@ -89,7 +89,7 @@ export class WorldClockSettings extends FormApplication {
                 isDateTime: setting.type === String && !("choices" in setting),
             };
         });
-        return mergeObject(await super.getData(), { settings });
+        return fu.mergeObject(await super.getData(), { settings });
     }
 
     /** Register World Clock settings */

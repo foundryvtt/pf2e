@@ -3,7 +3,7 @@ import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
 import { maintainFocusInRender } from "@module/sheet/helpers.ts";
-import { ErrorPF2e, addSign, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, setHasElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 class AttributeBuilder extends Application {
@@ -49,7 +49,7 @@ class AttributeBuilder extends Application {
                 // Allow decimal values in manual mode (to track partial boosts)
                 const mod = build.manual ? actor._source.system.abilities?.[attribute].mod ?? 0 : value.base;
                 return {
-                    mod: addSign(Number(mod.toFixed(1))),
+                    mod: Number(mod.toFixed(1)).signedString(),
                     label: CONFIG.PF2E.abilities[attribute],
                 };
             }),
@@ -183,7 +183,7 @@ class AttributeBuilder extends Application {
             const mightBeForced = unselectedRestricted.includes(attribute);
             buttons[attribute].boost = {
                 selected,
-                disabled: !(selected || remaining) || (!!unselectedRestricted.length && !mightBeForced),
+                disabled: !(selected || remaining) || (unselectedRestricted.length > 0 && !mightBeForced),
             };
         }
 
@@ -316,7 +316,7 @@ class AttributeBuilder extends Application {
                 if (input.type === "number" && input.dataset.dtype === "Number") {
                     input.type = "text";
                     const newValue = Math.clamped(Number(input.value) || 0, -5, 10);
-                    input.value = addSign(newValue);
+                    input.value = signedInteger(newValue);
 
                     const propertyPath = input.dataset.property;
                     if (!propertyPath) throw ErrorPF2e("Empty property path");
@@ -473,7 +473,7 @@ class AttributeBuilder extends Application {
                     return;
                 }
 
-                const buildSource = mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
+                const buildSource = fu.mergeObject(actor.toObject().system.build ?? {}, { attributes: { boosts: {} } });
                 const boosts = (buildSource.attributes.boosts[level] ??= []);
                 if (boosts.includes(attribute)) {
                     boosts.splice(boosts.indexOf(attribute), 1);

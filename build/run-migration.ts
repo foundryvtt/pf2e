@@ -1,36 +1,18 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
+import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
+import { MigrationBase } from "@module/migration/base.ts";
+import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { sluggify } from "@util";
 import fs from "fs-extra";
 import { JSDOM } from "jsdom";
 import path from "path";
-import { populateFoundryUtilFunctions } from "../tests/fixtures/foundryshim.ts";
-import "./lib/core-helpers.ts";
+import * as R from "remeda";
+import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { MigrationBase } from "@module/migration/base.ts";
-import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-
-import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
-import { Migration876FeatLevelTaken } from "@module/migration/migrations/876-feat-level-taken.ts";
-import { Migration877PublicationData } from "@module/migration/migrations/877-publication-data.ts";
-import { Migration878TakeABreather } from "@module/migration/migrations/878-take-a-breather.ts";
-import { Migration879DeviseAStratagemAndFriends } from "@module/migration/migrations/879-devise-a-stratagem-and-friends.ts";
-import { Migration882SpellDataReorganization } from "@module/migration/migrations/882-spell-data-reorganization.ts";
-import { Migration884UnifiedSpellcasting } from "@module/migration/migrations/884-unified-spellcasting.ts";
-import { Migration886CrossbowGroup } from "@module/migration/migrations/886-crossbow-group.ts";
-import { Migration887RedirectSpellLinks } from "@module/migration/migrations/887-redirect-spell-links.ts";
-import { Migration888RemasterLanguagesHeritages } from "@module/migration/migrations/888-remaster-languages-heritages.ts";
-import { Migration889RemoveFocusMaxIncreases } from "@module/migration/migrations/889-remove-focus-max-increases.ts";
-import { Migration890RMClassItemClassDC } from "@module/migration/migrations/890-rm-class-item-class-dc.ts";
-import { Migration891DruidicToWildsong } from "@module/migration/migrations/891-druidic-to-wildsong.ts";
-import { Migration894NoLayOnHandsVsUndead } from "@module/migration/migrations/894-no-lay-on-hands-vs-undead.ts";
-import { Migration895FixVariantSpellTraits } from "@module/migration/migrations/895-fix-variant-spell-traits.ts";
-import { Migration896HealingDomains } from "@module/migration/migrations/896-healing-domains.ts";
-import { Migration897ClearLayOnHandsDamage } from "@module/migration/migrations/897-clear-lay-on-hands-damage.ts";
-import { Migration899ArmorShieldToShieldShield } from "@module/migration/migrations/899-armor-shields-to-shield-shields.ts";
-import { Migration900ClassSpellcastingProficiency } from "@module/migration/migrations/900-class-spellcasting-proficiency.ts";
 import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
 import { Migration902DuskwoodDawnsilver } from "@module/migration/migrations/902-duskwood-dawnsilver.ts";
 import { Migration903PhysicalNumericData } from "@module/migration/migrations/903-physical-numeric-data.ts";
@@ -38,6 +20,15 @@ import { Migration904UndercommonToSakvroth } from "@module/migration/migrations/
 import { Migration905UnpersistUsage } from "@module/migration/migrations/905-unpersist-usage.ts";
 import { Migration906LimitStackGroup } from "@module/migration/migrations/906-limit-stack-group.ts";
 import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migrations/907-restructure-armor-weapon-runes.ts";
+import { Migration909RefineConsumableData } from "@module/migration/migrations/909-refine-consumable-data.ts";
+import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
+import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
+import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
+import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
+import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
+import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
+import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-toys.ts";
+import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -47,24 +38,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration876FeatLevelTaken(),
-    new Migration877PublicationData(),
-    new Migration878TakeABreather(),
-    new Migration879DeviseAStratagemAndFriends(),
-    new Migration882SpellDataReorganization(),
-    new Migration884UnifiedSpellcasting(),
-    new Migration886CrossbowGroup(),
-    new Migration887RedirectSpellLinks(),
-    new Migration888RemasterLanguagesHeritages(),
-    new Migration889RemoveFocusMaxIncreases(),
-    new Migration890RMClassItemClassDC(),
-    new Migration891DruidicToWildsong(),
-    new Migration894NoLayOnHandsVsUndead(),
-    new Migration895FixVariantSpellTraits(),
-    new Migration896HealingDomains(),
-    new Migration897ClearLayOnHandsDamage(),
-    new Migration899ArmorShieldToShieldShield(),
-    new Migration900ClassSpellcastingProficiency(),
     new Migration901ReorganizeBulkData(),
     new Migration902DuskwoodDawnsilver(),
     new Migration903PhysicalNumericData(),
@@ -72,6 +45,15 @@ const migrations: MigrationBase[] = [
     new Migration905UnpersistUsage(),
     new Migration906LimitStackGroup(),
     new Migration907RestructureArmorWeaponRunes(),
+    new Migration909RefineConsumableData(),
+    new Migration910EdictsAnathemaArrays(),
+    new Migration911CoinBulk(),
+    new Migration912RmFocusTraitFocusCantrips(),
+    new Migration913SpellSustainedText(),
+    new Migration914MovePerceptionSenses(),
+    new Migration915MoveLanguages(),
+    new Migration916NewPCToys(),
+    new Migration917ScrollWandSpellIds(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
@@ -118,7 +100,7 @@ const isTableData = (docSource: CompendiumSource): docSource is foundry.document
     return "results" in docSource && Array.isArray(docSource.results);
 };
 
-function JSONstringifyOrder(obj: object): string {
+function jsonStringifyOrder(obj: object): string {
     const allKeys: Set<string> = new Set();
     const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
@@ -184,57 +166,46 @@ async function migrate() {
                 if (isActorData(source)) {
                     for (const embedded of source.items) {
                         embedded.flags ??= {};
+                        if (itemIsOfType(embedded, "armor", "equipment", "shield", "weapon")) {
+                            embedded.system.subitems ??= [];
+                        }
                     }
 
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                    delete (update.system as { _migrations?: object })._migrations;
-                    pruneFlags(source);
-                    pruneFlags(update);
-                    for (const item of source.items) {
-                        pruneFlags(item);
-                    }
+                    update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
 
-                    update.items = update.items.map((i) => mergeObject({}, i, { performDeletions: true }));
-                    for (const updatedItem of update.items) {
-                        delete (updatedItem.system as { _migrations?: object })._migrations;
-                        if (updatedItem.type === "consumable" && !updatedItem.system.spell) {
-                            delete (updatedItem.system as { spell?: object }).spell;
-                        }
-                        pruneFlags(updatedItem);
-                    }
+                    pruneDefaults(source);
+                    pruneDefaults(update);
 
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
                     source.system.slug = sluggify(source.name);
+                    if (itemIsOfType(source, "armor", "equipment", "shield", "weapon")) {
+                        source.system.subitems ??= [];
+                    }
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
-                    delete (source.system as { slug?: string }).slug;
-                    delete (update.system as { _migrations?: object })._migrations;
-                    delete (update.system as { slug?: string }).slug;
-                    if (update.type === "consumable" && !update.system.spell) {
-                        delete (update.system as { spell?: null }).spell;
-                    }
-                    pruneFlags(source);
-                    pruneFlags(update);
+                    pruneDefaults(source);
+                    pruneDefaults(update);
 
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isJournalEntryData(source)) {
                     const update = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    pruneDefaults(source);
+                    pruneDefaults(update);
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isMacroData(source)) {
                     const update = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    pruneDefaults(source);
+                    pruneDefaults(update);
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isTableData(source)) {
                     const update = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
-                    pruneFlags(source);
-                    pruneFlags(update);
-                    return mergeObject(source, update, { inplace: false, performDeletions: true });
+                    pruneDefaults(source);
+                    pruneDefaults(update);
+                    return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else {
-                    pruneFlags(source);
+                    pruneDefaults(source);
                     return source;
                 }
             } catch (error) {
@@ -243,13 +214,10 @@ async function migrate() {
             }
         })();
 
-        const origData = JSONstringifyOrder(source);
-        const outData = JSONstringifyOrder(updated);
-
-        if (outData !== origData) {
+        if (!R.equals(source, updated)) {
             console.log(`${filePath} is different. writing`);
             try {
-                await fs.writeFile(filePath, outData);
+                await fs.writeFile(filePath, jsonStringifyOrder(updated));
             } catch (error) {
                 if (error instanceof Error) {
                     throw { message: `File ${filePath} could not be parsed. Error: ${error.message}` };
@@ -259,15 +227,38 @@ async function migrate() {
     }
 }
 
-function pruneFlags(source: { flags?: Record<string, Record<string, unknown> | undefined> }): void {
+/** Prune several default properties from a document source that would otherwise bloat the compendium. */
+function pruneDefaults(
+    source: { type?: string; items?: ItemSourcePF2e[]; flags?: Record<string, Record<string, unknown> | undefined> },
+    { deleteSlug = true } = {},
+): void {
     if (source.flags && Object.keys(source.flags.pf2e ?? {}).length === 0) {
         delete source.flags.pf2e;
     }
     if (Object.keys(source.flags ?? {}).length === 0) {
-        delete (source as { flags?: object }).flags;
+        delete source.flags;
+    }
+
+    if ("system" in source && R.isObject(source.system)) {
+        if (deleteSlug) delete source.system.slug;
+        delete source.system._migrations;
+        if (source.type === "consumable" && !source.system.spell) {
+            delete source.system.spell;
+        }
+        if (
+            "subitems" in source.system &&
+            Array.isArray(source.system.subitems) &&
+            source.system.subitems.length === 0
+        ) {
+            delete source.system.subitems;
+        }
+    }
+
+    if (Array.isArray(source.items)) {
+        for (const item of source.items) {
+            pruneDefaults(item, { deleteSlug: false });
+        }
     }
 }
-
-populateFoundryUtilFunctions();
 
 migrate().catch((err) => console.error(err));

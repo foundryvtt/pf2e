@@ -1,16 +1,19 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
+import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
+import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ItemSourcePF2e, ItemSummaryData, MeleeSource } from "@item/base/data/index.ts";
-import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data.ts";
+import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
+import type { NPCAttackDamage } from "@item/melee/data.ts";
+import type { NPCAttackTrait } from "@item/melee/types.ts";
+import { PhysicalItemConstructionContext } from "@item/physical/document.ts";
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { RangeData } from "@item/types.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -29,6 +32,10 @@ import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
+
+    static override get validTraits(): Record<NPCAttackTrait, string> {
+        return CONFIG.PF2E.npcAttackTraits;
+    }
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: WeaponConstructionContext<TParent> = {}) {
         super(data, context);
@@ -52,14 +59,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         return super.isEquipped || (this.handsHeld === 1 && traits.value.some((t) => /^jousting-d\d{1,2}$/.test(t)));
     }
 
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
-        if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
-            return false;
-        }
-
-        const equippedButStackable = ["bomb", "dart"].includes(this.group ?? "");
-        if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
-        return super.isStackableWith(item);
+    /** Weapons may have "attached" traits instead of "attached" usages. */
+    override get isAttachable(): boolean {
+        return this.system.quantity > 0 && this.system.traits.value.some((t) => t.startsWith("attached"));
     }
 
     get baseType(): BaseWeaponType | null {
@@ -140,14 +142,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     get isOversized(): boolean {
         return (
             this.category !== "unarmed" &&
-            !!this.parent?.system.traits?.size.isSmallerThan(this.size, { smallIsMedium: true })
+            !!this.parent?.system.traits?.size?.isSmallerThan(this.size, { smallIsMedium: true })
         );
     }
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
         return {
-            ...deepClone(this.system.damage),
+            ...fu.deepClone(this.system.damage),
             // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
             // add options
             damageType:
@@ -175,11 +177,33 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
-        return ammo?.isOfType("consumable", "weapon") && ammo.quantity > 0 ? ammo : null;
+        return ammo?.isOfType("consumable", "weapon") ? ammo : null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {
         return new Set(this.system.traits.otherTags);
+    }
+
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        return (
+            candidate !== this &&
+            candidate.isOfType("weapon") &&
+            candidate.system.traits.value.some((t) => t === "attached-to-crossbow-or-firearm") &&
+            ["crossbow", "firearm"].includes(this.group ?? "") &&
+            !this.isAttachable &&
+            !this.system.traits.value.includes("combination") &&
+            !this.subitems.some((i) => i.isOfType("weapon"))
+        );
+    }
+
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+        if (this.category === "unarmed" || !item.isOfType("weapon") || item.category === "unarmed") {
+            return false;
+        }
+
+        const equippedButStackable = ["bomb", "dart"].includes(this.group ?? "");
+        if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
+        return super.isStackableWith(item);
     }
 
     /** Whether this weapon can serve as ammunition for another weapon */
@@ -189,7 +213,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
-        const { baseDamage } = this;
+        const { actor, baseDamage } = this;
         const damage = {
             category: DamageCategorization.fromDamageType(baseDamage.damageType),
             type: baseDamage.damageType,
@@ -198,7 +222,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 faces: Number(baseDamage.die?.replace(/^d/, "")),
             },
         };
-        const { actor } = this;
         const isDeityFavored = !!(
             this.baseType &&
             actor?.isOfType("character") &&
@@ -237,9 +260,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         })();
         const rangeIncrement = this.range?.increment;
 
-        return [
-            super.getRollOptions(prefix),
-            Object.entries({
+        const rollOptions = super.getRollOptions(prefix);
+        rollOptions.push(
+            ...Object.entries({
                 [`category:${this.category}`]: true,
                 [`group:${this.group ?? "none"}`]: true,
                 ...baseTypeRollOptions,
@@ -263,11 +286,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 ...propertyRunes,
                 ...ammunitionRollOptions,
             })
-                .filter(([, isTrue]) => isTrue)
-                .map(([key]) => `${prefix}:${key}`),
-        ]
-            .flat()
-            .sort();
+                .filter((e) => !!e[1])
+                .map((e) => `${prefix}:${e[0]}`),
+        );
+
+        return rollOptions;
     }
 
     override prepareBaseData(): void {
@@ -351,7 +374,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);
-        const { runes } = this.system;
+        const runes = this.system.runes;
         runes.effects = [];
         runes.property.length = Math.min(runes.property.length, getPropertyRuneSlots(this));
 
@@ -359,7 +382,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Only increase damage dice from ABP if the dice number is 1
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
-        const { actor } = this;
+        const actor = this.actor;
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
         const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         this.system.damage.dice =
@@ -387,14 +410,14 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override prepareSiblingData(): void {
         super.prepareSiblingData();
         // Set the default label to the ammunition item's name
-        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...deepClone(r) })) ?? [];
+        const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...fu.deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
     }
 
     override async getChatData(
         this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         const rangeLabel = createActionRangeLabel(this.range);
@@ -466,7 +489,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (this.isRanged || !thrownTrait) return null;
 
         const range = Number(/(\d{1,3})$/.exec(thrownTrait)?.at(1)) as WeaponRangeIncrement;
-        const newTraits = deepClone(traits);
+        const newTraits = fu.deepClone(traits);
         newTraits.splice(newTraits.indexOf(thrownTrait), 1, "thrown");
         const overlay: DeepPartial<WeaponSource> = {
             system: {
@@ -507,7 +530,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a melee item from this weapon for use by NPCs */
-    toNPCAttacks(this: WeaponPF2e<ActorPF2e>, { keepId = false } = {}): MeleePF2e<ActorPF2e>[] {
+    toNPCAttacks(this: WeaponPF2e<NonNullable<TParent>>, { keepId = false } = {}): MeleePF2e<NonNullable<TParent>>[] {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
@@ -648,18 +671,19 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()
                     .reduce(
-                        (rolls: Record<string, NPCAttackDamage>, roll) => mergeObject(rolls, { [randomID()]: roll }),
+                        (rolls: Record<string, NPCAttackDamage>, roll) =>
+                            fu.mergeObject(rolls, { [fu.randomID()]: roll }),
                         {},
                     ),
                 traits: {
                     value: toAttackTraits(this.system.traits.value),
                 },
-                rules: deepClone(this._source.system.rules),
+                rules: fu.deepClone(this._source.system.rules),
             },
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        const attack = new MeleePF2e(source, { parent: this.actor });
+        const attack = new ItemProxyPF2e(source, { parent: this.actor }) as MeleePF2e<NonNullable<TParent>>;
         // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
         // there will be no inventory weapon from which to pull the data.
         attack.category = this.category;
@@ -726,7 +750,7 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     get traits(): Set<WeaponTrait>;
 }
 
-interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
+interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends PhysicalItemConstructionContext<TParent> {
     shield?: ShieldPF2e<TParent>;
 }
 

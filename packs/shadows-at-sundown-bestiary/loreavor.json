@@ -269,7 +269,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "heightening": {
                     "levels": {
@@ -538,7 +538,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet attempts and fails to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] while stupefied</p>\n<hr />\n<p><strong>Effect</strong> The loreavor gains use of the failed spell as an occult innate spell. It can cast that spell once; if the spell is of a higher level than half the loreavor's level (5th level or higher for most loreavors), the loreavor must succeed at a flat check with a DC equal to 5 + the level of the spell it is attempting to cast; on a failure, the spell fails, and the loreavor becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. If the spell isn't cast within 24 hours, or if the loreavor uses Reconstruct Spell again before casting the spell, the spell is lost. No more than one loreavor can reconstruct a given spell this way.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet attempts and fails to @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] while stupefied</p>\n<hr />\n<p><strong>Effect</strong> The loreavor gains use of the failed spell as an occult innate spell. It can cast that spell once; if the spell is of a higher level than half the loreavor's level (5th level or higher for most loreavors), the loreavor must succeed at a flat check with a DC equal to 5 + the rank of the spell it is attempting to cast; on a failure, the spell fails, and the loreavor becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 minute. If the spell isn't cast within 24 hours, or if the loreavor uses Reconstruct Spell again before casting the spell, the spell is lost. No more than one loreavor can reconstruct a given spell this way.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -784,12 +784,6 @@
                 "temp": 0,
                 "value": 155
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -808,6 +802,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -818,6 +818,20 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Shadows at Sundown"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "thoughtsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -835,17 +849,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "thoughtsense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "sm"
             },

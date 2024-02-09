@@ -1,5 +1,5 @@
-import { TokenPF2e } from "../token/index.ts";
-import { HearingSource } from "./hearing-source.ts";
+import { TokenPF2e } from "../token/object.ts";
+import type { HearingSource } from "./hearing-source.ts";
 
 const darkvision = new VisionMode({
     id: "darkvision",
@@ -46,7 +46,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
+        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
     }
 }
 
@@ -78,7 +78,7 @@ class HearingDetectionMode extends DetectionMode {
         // Not if the target doesn't emit sound
         if (!target.actor?.emitsSound) return false;
 
-        if (!game.settings.get("pf2e", "automation.rulesBasedVision")) return true;
+        if (!game.pf2e.settings.rbv) return true;
 
         // Not if the target is unnoticed or undetected
         if (target.actor?.hasCondition("undetected", "unnoticed")) {
@@ -114,7 +114,7 @@ class HearingDetectionMode extends DetectionMode {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions!.maxR || super._testRange(visionSource, mode, target, test);
+        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
     }
 }
 

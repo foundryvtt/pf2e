@@ -26,8 +26,8 @@ class MeasuredTemplateDocumentPF2e<
 
         if (item?.isOfType("spell")) {
             const overlayIds = origin?.variant?.overlays;
-            const castRank = (origin?.castLevel ?? item.rank) as number;
-            const modifiedSpell = item.loadVariant({ overlayIds, castLevel: castRank });
+            const castRank = (origin?.castRank ?? item.rank) as number;
+            const modifiedSpell = item.loadVariant({ overlayIds, castRank: castRank });
             return modifiedSpell ?? item;
         }
 
@@ -50,7 +50,7 @@ class MeasuredTemplateDocumentPF2e<
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
         const areaType = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
-        initialized.flags.pf2e = mergeObject({ areaType }, initialized.flags.pf2e ?? {});
+        initialized.flags.pf2e = fu.mergeObject({ areaType }, initialized.flags.pf2e ?? {});
         return initialized;
     }
 

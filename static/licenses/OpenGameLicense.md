@@ -39,6 +39,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Gamemastery Guide © 2020, Paizo Inc.; Authors: Alexander Augunas, Jesse Benner, John Bennett, Logan Bonner, Clinton J. Boomer, Jason Bulmahn, James Case, Paris Crenshaw, Jesse Decker, Robert N. Emerson, Eleanor Ferron, Jaym Gates, Matthew Goetz, T.H. Gulliver, Kev Hamilton, Sasha Laranoa Harving, BJ Hensley, Vanessa Hoskins, Brian R. James, Jason LeMaitre, Lyz Liddell, Luis Loza, Colm Lundberg, Ron Lundeen, Stephen Radney-MacFarland, Jessica Redekop, Alistair Rigg, Mark Seifter, Owen K.C. Stephens, Amber Stewart, Christina Stiles, Landon Winkler, and Linda Zayas-Palmer.
     *  Pathfinder Advanced Player Guide © 2020, Paizo Inc.; Authors: Logan Bonner, Lyz Liddell, and Mark Seifter.
     *  Pathfinder Beginner Box © 2020, Paizo Inc.; Authors: Logan Bonner, Jason Bulmahn, Lyz Liddell, Mark Seifter
+	*  Pathfinder Player Core © 2023, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter. Authors: Alexander Augunas, Kate Baker, Logan Bonner, Jason Bulmahn, Carlos Cabrera, Calder CaDavid, James Case, Eleanor Ferron, Steven Hammond, Joan Hong, Vanessa Hoskins, James Jacobs, Jenny Jarzabski, Erik Keith, Dustin Knight, Lyz Liddell, Luis Loza, Patchen Mortimer, Dennis Muldoon, Stephen Radney-MacFarland, Mikhail Rekun, David N. Ross, Michael Sayre, Mark Seifter, Kendra Leigh, Speedling, Mark Thompson, Clark Valentine, Andrew White, Landon Winkler, and Linda Zayas-Palmer
+	*  Pathfinder GM Core © 2023, Paizo Inc.; Designers: Logan Bonner and Mark Seifter. Authors: Amirali Attar Olyaee, Logan Bonner, Creighton Broadhurst, Jason Bulmahn, James Case, Jesse Decker, Eleanor Ferron, Fabby Garza Marroquín, Jaym Gates, Matthew Goetz, James Jacobs, Brian R. James, Jenny Jarzabski, Dustin Knight, Jason LeMaitre, Lyz Liddell, Luis Loza, Ron Lundeen, Stephen Radney-MacFarland, David N. Ross, Michael Sayre, Mark Seifter, Owen K.C. Stephens, Amber Stewart, Clark Valentine, Landon Winkler, and Linda Zayas-Palmer
 
 * Bestiary
     *  Daemon, Guardian from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Ian McDowall.
@@ -111,7 +113,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 * Treasure Vault
     * Pathfinder Treasure Vault © 2023, Paizo Inc.; Authors: Michael Sayre, Mark Seifter, Kendra Leigh Speedling, Logan Bonner, Dan Cascone, Jessica Catalan, Kim Frandsen, Andrew Geels, Steven Hammond, Sen H.H.S., Joshua Kim, Dustin Knight, Luis Loza, Jacob W. Michaels, Matt Morris, Dave Nelson, Stephen Radney-McFarland, Jessica Redekop, Andrew Stoeckle, Mari Tokuda, and Andrew White.
-
+	
+* Howl of the Wild
+	* Pathfinder Howl of the Wild © 2023, Paizo Inc.; Authors: Kate Baker, Rigby Bendele, Chris Bissette, Jeremy Blum, Logan Bonner, Dan Cascone, James Case, Jessica Catalan, Brite Cheney, Rue Dickey, Caryn DiMarco, Matthew Fu, Leo Glass, Steven Hammond, Patrick Hurley, Michelle Y. Kim, Dustin Knight, Kendra Leigh Speedling, Christiana Lewis, Jessie "Aki" Lo, Luis Loza, Letterio Mammoliti, Jonathan "Ryomasa" Mendoza, Quinn Murphy, Dave Nelson, Mikhail Rekun, Kai Revius, Ember Rose, Simone D. Sallé, Michael Sayre, Shay Snow, Levi Steadman, Kyle Tam, Ruvaid Virk, and Andrew White.
 
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
@@ -125,7 +129,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Kingmaker Adventure Path © 2022, Paizo Inc.; Authors: Steven T. Helt, Tim Hitchcock, James Jacobs, Ron Lundeen, Rob McCreary, Jason Nelson, Richard Pett, Tom Phillips, Neil Spicer, and Greg A. Vaughan
 	*  Pathfinder Kingmaker Companion Guide © 2022, Paizo Inc.; Authors: Alex Augunas, Russ Brown, Jeremy Corff, Steven T. Helt, Eric Hindley, James Jacobs, Victoria Jaczko, Jeff Lee, Tom McQueen, Jason Nelson, Chris Perrin, Richard Pett, David N. Ross, and Mike Welham
 	*  Pathfinder Adventure: The Enmity Cycle © 2023, Paizo Inc.; Author: Brian Duckwitz.
-	*  Pathfinder Adventure: Rusthenge © 2023, Paizo Inc.; Author: Vanessa Hoskins.	
+	*  Pathfinder Adventure: Rusthenge © 2023, Paizo Inc.; Author: Vanessa Hoskins.
+	*  Pathfinder Adventure: Prey for Death © 2024, Paizo Inc.; Author: Vanessa Hoskins.
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -198,6 +203,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #198: With No Breath to Cry © 2023, Paizo Inc.; Authors: Dan Cascone and Eleanor Ferron.
 	*  Pathfinder Adventure Path #199: To Bloom below the Web © 2024, Paizo Inc.; Author: Liane Merciel.	
 	*  Pathfinder Adventure Path #200: The Seven Dooms of Sandpoint © 2024, Paizo Inc.; Author: James Jacobs.
+	*  Pathfinder Adventure Path #201: Pactbreaker © 2024, Paizo Inc.; Author: Andrew White.
+	*  Pathfinder Adventure Path #202: Severed at the Root © 2024, Paizo Inc.; Author: Jessica Catalan, John Compton, and Alexi Greer.
+	*  Pathfinder Adventure Path #203: Shepherd of Decay © 2024, Paizo Inc.; Author: Mike Kimmel with John Compton
+	*  Pathfinder Adventure Path #204: Stage Fright © 2024, Paizo Inc.; Author: Richard Pett, with Rue Dickey, Katrina Hennessy, and Isis Wozniakowska.
 
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
@@ -215,6 +224,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Quest #13: Falcons' Descent © 2020, Paizo Inc.; Author: Joshua Hennington.
 	* Pathfinder Society Quest #14: The Swordlord's Challenge © 2023, Paizo Inc.; Author: Tineke Bolleman.
 	* Pathfinder Society Quest #15: In the Footsteps of Horror © 2023, Paizo Inc.; Author: Shan Wolf.
+	* Pathfinder Society Quest #16: The Winter Queen's Dollhouse © 2023, Paizo Inc.; Author: Brite Cheney.
+	* Pathfinder Society Quest #17: Escorting a Mirage © 2024, Paizo Inc.; Author: Glen Parnell.
+	* Pathfinder Society Quest #18: Student Exchange © 2024, Paizo Inc.; Author: Jackson Wood.
 
     * Pathfinder Society Bounty #1: The Whitefang Wyrm © 2020, Paizo Inc.; Author: Michael Sayre
     * Pathfinder Society Bounty #2: Blood of the Beautiful © 2020, Paizo Inc.; Author: Thurston Hillman
@@ -344,6 +356,14 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #5-05: The Island of the Vibrant Dead © 2023, Paizo Inc.; Author: Joseph Blomquist
     * Pathfinder Society Scenario #5-06: Ukuja, The First Wall © 2023, Paizo Inc.; Author: Shan Wolf
     * Pathfinder Society Scenario #5-07: Sewer Dragon Crisis © 2023, Paizo Inc.; Author: Genevieve Olejnik
+    * Pathfinder Society Scenario #5-08: Protecting the Firelight © 2023, Paizo Inc.; Author: Jacob W. Michaels
+	* Pathfinder Society Scenario #5-09: Equal Exchanges - Skymetal Hoard © 2024, Paizo Inc.; Author: Ianara Natividad
+    * Pathfinder Society Scenario #5-10: The Crocodile's Smile © 2024, Paizo Inc.; Author: Ruvaid Virk
+	* Pathfinder Society Scenario #5-11: Equal Exchanges – The Hidden Current © 2024, Paizo Inc.; Author: Michael Bramnik
+	* Pathfinder Society Scenario #5-12: Mischief in the Maze © 2024, Paizo Inc.; Author: Mikko Kallio
+	* Pathfinder Society Scenario #5-13: Thick as Thieves © 2024, Paizo Inc.; Author: Caryn DiMarco
+	* Pathfinder Society Scenario #5-14: Poisonous Council © 2024, Paizo Inc.; Author: Tineke Bolleman
+	* Pathfinder Society Scenario #5-15: Cleansing the Flame © 2024, Paizo Inc.; Author: Isis Wozniakowska
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 

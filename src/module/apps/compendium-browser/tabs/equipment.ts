@@ -49,8 +49,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         const physicalItemFields = [...baseFields, "system.level.value"];
         const runedItemFields = [...physicalItemFields, "system.runes"];
         const armorAndWeaponFields = [...runedItemFields, "system.category", "system.group"];
-        const consumableFields = [...physicalItemFields, "system.consumableType"];
-        const indexFields = R.uniq([...armorAndWeaponFields, ...consumableFields]).sort();
+        const indexFields = R.uniq([...armorAndWeaponFields]).sort();
         const publications = new Set<string>();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -67,8 +66,6 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                             case "armor":
                             case "weapon":
                                 return !this.hasAllIndexFields(itemData, armorAndWeaponFields);
-                            case "consumable":
-                                return !this.hasAllIndexFields(itemData, consumableFields);
                             case "kit":
                                 return !this.hasAllIndexFields(itemData, baseFields);
                             case "shield":
@@ -131,12 +128,12 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.armorTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.armorCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.armorTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.armorGroups),
         );
         this.filterData.checkboxes.weaponTypes.options = this.generateCheckboxOptions(CONFIG.PF2E.weaponCategories);
-        mergeObject(
+        fu.mergeObject(
             this.filterData.checkboxes.weaponTypes.options,
             this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );

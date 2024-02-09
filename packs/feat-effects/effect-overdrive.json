@@ -24,12 +24,42 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
-                        "value": "critical-success"
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "success"
                     },
                     {
-                        "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": "success"
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "critical-success"
                     }
                 ],
                 "flag": "baseDamage",
@@ -78,37 +108,6 @@
                 "predicate": [
                     "overdrive:critical-success"
                 ]
-            },
-            {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
-                        "value": "normal"
-                    }
-                ],
-                "flag": "damageType",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "feature:weapon-innovation"
-                ],
-                "prompt": "PF2E.SpecificRule.Inventor.Overdrive.DamageTypePrompt",
-                "rollOption": "weapon-innovation-overdrive-damage"
-            },
-            {
-                "damageType": "fire",
-                "key": "AdjustModifier",
-                "mode": "add",
-                "predicate": [
-                    "weapon-innovation-overdrive-damage:fire"
-                ],
-                "selector": "strike-damage",
-                "slug": "overdrive",
-                "value": 0
             }
         ],
         "start": {

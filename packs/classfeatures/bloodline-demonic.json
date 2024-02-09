@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Demons debase all they touch. One of your ancestors fell victim to their corruption, and you are burdened by that sin.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Acid Splash]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Abyssal Plague]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Decree]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Aura]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Implosion]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Glutton's Jaw]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Swamp of Sloth]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Abyssal Wrath]</em></p>\n<p><strong>Blood Magic</strong> The corruption of sin weakens a target's defenses or makes you more imposing. Either a target takes a -1 status penalty to AC for 1 round, or you gain a +1 status bonus to Intimidation checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic (Self)], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic (Target)]</p>"
+            "value": "<p>Demons debase all they touch. One of your ancestors fell victim to their corruption, and you are burdened by that sin.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Acid Splash], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Fear], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Enlarge], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Slow], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Abyssal Plague], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Aura], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Implosion]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Glutton's Jaw], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Swamp of Sloth], greater: @UUID[Compendium.pf2e.spells-srd.Item.Abyssal Wrath]</p>\n<p><strong>Blood Magic</strong> The corruption of sin weakens a target's defenses or makes you more imposing. Either a target takes a -1 status penalty to AC for 1 round, or you gain a +1 status bonus to Intimidation checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,55 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:divine",
+                                    {
+                                        "or": [
+                                            "item:slug:fear",
+                                            "item:slug:enlarge",
+                                            "item:slug:slow",
+                                            "item:slug:divine-wrath",
+                                            "item:slug:abyssal-plague",
+                                            "item:slug:disintegrate",
+                                            "item:slug:divine-decree",
+                                            "item:slug:divine-aura",
+                                            "item:slug:implosion"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Demonic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Demonic Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

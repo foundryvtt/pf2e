@@ -91,7 +91,7 @@
         },
         {
             "_id": "zud8SIUSP9JFpUK6",
-            "img": "systems/pf2e/icons/equipment/consumables/talismans/sneaky-key.webp",
+            "img": "icons/sundries/misc/key-steel.webp",
             "name": "Key to Basement",
             "sort": 200000,
             "system": {
@@ -266,24 +266,13 @@
             "name": "Bestial Mutagen (Moderate)",
             "sort": 500000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "mutagen"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "mutagen",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<hr />\n<p>Your features transform into something bestial and you take on muscle mass, but your lumbering form is clumsy.</p>\n<p><strong>Benefit</strong> You gain a +2 item bonus to Athletics checks and unarmed attack rolls. You gain a claw unarmed attack (@Damage[1d6[slashing]] damage) with the agile trait and a jaws unarmed attack (@Damage[1d8[piercing]] damage).</p>\n<p><strong>Drawback</strong> You take a -1 penalty to AC and a -2 penalty to Reflex saves.</p>\n<p><strong>Duration</strong> 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Bestial Mutagen (Moderate)]</p>"
                 },
@@ -329,6 +318,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -734,12 +728,6 @@
                 "temp": 0,
                 "value": 45
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 7
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -747,6 +735,12 @@
         },
         "details": {
             "blurb": "Male human alchemist",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -757,6 +751,14 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: A Fistful of Flowers"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 7,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -774,17 +776,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

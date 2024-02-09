@@ -259,24 +259,13 @@
             "name": "Rations",
             "sort": 400000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 2
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
-                "containerId": "null",
+                "category": "other",
+                "containerId": null,
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -316,6 +305,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 2,
+                    "value": 2
                 }
             },
             "type": "consumable"
@@ -333,7 +327,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -689,12 +683,6 @@
                 "temp": 0,
                 "value": 8
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 2
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -702,6 +690,12 @@
         },
         "details": {
             "blurb": "Human bandits",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": -1
             },
@@ -712,6 +706,14 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 2,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -729,17 +731,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

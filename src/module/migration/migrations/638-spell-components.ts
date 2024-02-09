@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 const validComponents = ["material", "somatic", "verbal"] as const;
@@ -13,7 +13,7 @@ export class Migration638SpellComponents extends MigrationBase {
         if (source.type !== "spell") return;
 
         const components: ComponentsOld =
-            "components" in source.system && isObject(source.system.components)
+            "components" in source.system && R.isObject(source.system.components)
                 ? source.system.components
                 : { value: "" };
         const oldComponents = new Set(

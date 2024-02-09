@@ -44,7 +44,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
                 },
                 "description": {
-                    "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em> cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] and to @UUID[Compendium.pf2e.actionspf2e.Item.Decipher Writing] of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
+                    "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] cantrip as an arcane innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Identify Magic] and to @UUID[Compendium.pf2e.actionspf2e.Item.Decipher Writing] of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -253,7 +253,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>Your elven magic manifests as a simple arcane spell, even if you aren't formally trained in magic. Choose one cantrip from the arcane spell list. You can cast this cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>"
+                    "value": "<p>Your elven magic manifests as a simple arcane spell, even if you aren't formally trained in magic. Choose one cantrip from the arcane spell list. You can cast this cantrip as an arcane innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -529,7 +529,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -771,24 +771,17 @@
             "name": "Elixir of Life (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "1d6"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d6",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Minor)]</p>"
                 },
@@ -833,6 +826,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -850,7 +848,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -970,24 +968,13 @@
             "name": "Chalk",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "b3jpZ4GasqDXBSS2",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1028,6 +1015,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1569,7 +1561,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         }
@@ -1580,9 +1572,6 @@
             "hp": {
                 "temp": 0,
                 "value": 16
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -1611,6 +1600,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "<p>Many in the Mwangi Expanse believe Ekujae elves are dedicated isolationists, but they are actually close allies of the Magaambya. On a trip to deliver relics there, two Ekujae lore-bearers brought their daughter, Ekene. After concluding their business, they told Ekene that she was to stay and learn. Her first lonely night in the dormitory was also the first time the serious young elf ever wept.</p>\n<p>Ekene spent her youth training to be one of the Ekujae's defenders. She believed the warrior's road was her life's path, not that of a scholar. She works hard at her studies to make her parents proud, even though she still doesn't feel like she belongs. Ekene's traditional Ekujae paint markings have faded since her arrival and she has intentionally chosen not to reapply them. She hopes to have her family apply new markings upon her return that better represent the person she will become upon leaving the Magaambya, whether or not it's who they expect her to be.</p>\n<p>Ekene is generally amiable, but is particularly close with Muruwa, as the two share a love for climbing trees and spending time outdoors.</p>",
@@ -1619,6 +1609,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -1639,6 +1630,12 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "mwangi"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -1656,6 +1653,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -1728,20 +1728,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "mwangi"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good",
-                "lawful"
-            ]
         }
     },
     "type": "character"

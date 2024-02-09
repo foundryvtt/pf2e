@@ -227,7 +227,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 2
@@ -354,7 +354,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Effect: Shield Immunity]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -784,7 +784,7 @@
                 "bulk": {
                     "value": 0
                 },
-                "containerId": "null",
+                "containerId": null,
                 "description": {
                     "value": ""
                 },
@@ -838,24 +838,13 @@
             "name": "Arrows",
             "sort": 1100000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -897,6 +886,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1137,7 +1131,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When Kendley casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>, creatures controlled by the @UUID[Compendium.pf2e.extinction-curse-bestiary.Actor.Convergence Lattice] automatically fail their saving throws against the effect, but they can still use hostile actions against creatures who aren't @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the <em>convergence lattice</em>.</p>\n<p>Each time she Sustains the Spell, creatures affected by the spell are exposed to the <em>convergence lattice</em> as though they had been in conversation with her.</p>"
+                    "value": "<p>When Kendley casts @UUID[Compendium.pf2e.spells-srd.Item.Calm], creatures controlled by the @UUID[Compendium.pf2e.extinction-curse-bestiary.Actor.Convergence Lattice] automatically fail their saving throws against the effect, but they can still use hostile actions against creatures who aren't @UUID[Compendium.pf2e.conditionitems.Item.Controlled] by the <em>convergence lattice</em>.</p>\n<p>Each time she Sustains the Spell, creatures affected by the spell are exposed to the <em>convergence lattice</em> as though they had been in conversation with her.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1167,7 +1161,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Kendley's attacks (including <em>@UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile]</em>) deal an extra 4d8 damage to creatures within reach of one of her allies who has convergent tactics.</p>"
+                    "value": "<p>Kendley's attacks (including @UUID[Compendium.pf2e.spells-srd.Item.Telekinetic Projectile]) deal an extra 4d8 damage to creatures within reach of one of her allies who has convergent tactics.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1344,12 +1338,6 @@
                 "temp": 0,
                 "value": 440
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 35
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1358,6 +1346,15 @@
         },
         "details": {
             "blurb": "Female half-elf afflicted guard captain",
+            "languages": {
+                "details": "convergent link",
+                "value": [
+                    "common",
+                    "elven",
+                    "fey",
+                    "utopian"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -1368,6 +1365,14 @@
                 "remaster": false,
                 "title": "Pathfinder #156: The Apocalypse Prophet"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 35,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -1385,20 +1390,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Convergent Link",
-                "selected": [],
-                "value": [
-                    "common",
-                    "elven",
-                    "fey",
-                    "utopian"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

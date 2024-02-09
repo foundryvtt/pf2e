@@ -130,7 +130,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -318,7 +318,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The tips of a voidglutton's fingers and its seven eyes glow, casting bright light in the area and making it visible if it was @UUID[Compendium.pf2e.conditionitems.Item.Invisible].</p>"
+                    "value": "<p>30 feet. The tips of a voidglutton's fingers and its seven eyes glow, casting bright light in the area and making it visible if it was @UUID[Compendium.pf2e.conditionitems.Item.Invisible].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -374,7 +374,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The voidglutton casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Darkness]</em></p>\n<hr />\n<p><strong>Effect</strong> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed.</p>"
+                    "value": "<p><strong>Trigger</strong> The voidglutton casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness]</p>\n<hr />\n<p><strong>Effect</strong> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes @UUID[Compendium.pf2e.conditionitems.Item.Invisible] as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -511,7 +511,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A voidglutton is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Quandary]</em>, and spells with the light trait.</p>"
+                    "value": "<p>A voidglutton is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], @UUID[Compendium.pf2e.spells-srd.Item.Quandary], and spells with the light trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -694,12 +694,6 @@
                     "type": "magic"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 18
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -712,6 +706,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -722,6 +723,18 @@
                 "remaster": false,
                 "title": "Pathfinder #163: Ruins of Gauntlight"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -744,18 +757,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

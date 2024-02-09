@@ -1388,8 +1388,8 @@
                     "value": "<p>You summon an isolated blizzard of obscuring, scouring ice to follow your target. The target attempts a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[1d6[cold]] damage, and the spell ends.</p>\n<p><strong>Failure</strong> The target takes @Damage[1d6[cold]] damage and @Damage[1d6[persistent,cold]] damage. (The persistent damage automatically ends when the spell ends.) It is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] to other creatures, and other creatures are concealed to it.</p>\n<p><strong>Critical Failure</strong> As failure, but both the cold damage and the persistent cold damage increase to [[/r 2d6]].</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage and persistent cold damage increase by 1 (2 on a critical failure).</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -1785,7 +1785,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the rank of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1941,8 +1941,8 @@
                     "value": "<p>You call upon the elements to undermine your foe. When you Cast this Spell, choose air, earth, fire, or water. Each time the target takes damage from a spell or effect with the chosen trait, it takes an additional 2 damage of one damage type dealt by the spell or effect. If you chose fire or water, the target also takes this additional damage when taking fire or cold damage, respectively, from effects or spells without the chosen trait.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> Increase the additional damage by 1.</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": "Sustained up to 1 minute"
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -2335,7 +2335,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You temporarily bolster the target's vitality. The target gains fast healing equal to double the spell's level.</p>"
+                    "value": "<p>You temporarily bolster the target's vitality. The target gains fast healing equal to double the spell's rank.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3190,12 +3190,6 @@
                 "temp": 0,
                 "value": 240
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 27
-            },
             "resistances": [
                 {
                     "type": "cold",
@@ -3209,6 +3203,17 @@
         },
         "details": {
             "blurb": "Male halfling witch",
+            "languages": {
+                "details": "",
+                "value": [
+                    "goblin",
+                    "halfling",
+                    "orcish",
+                    "skald",
+                    "taldane",
+                    "tien"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -3219,6 +3224,14 @@
                 "remaster": false,
                 "title": "Pathfinder #167: Ready? Fight!"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "keen eyes",
+            "mod": 27,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -3241,22 +3254,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "goblin",
-                    "halfling",
-                    "orcish",
-                    "skald",
-                    "taldane",
-                    "tien"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "keen eyes"
-            },
             "size": {
                 "value": "sm"
             },

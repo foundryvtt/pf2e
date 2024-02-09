@@ -4,16 +4,16 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: var(--space-2);
     list-style-type: none;
-    margin-bottom: 2px;
+    margin-bottom: var(--space-2);
     padding-left: 0;
 
     .tag,
     .tag option {
         @include micro;
         align-items: center;
-        background-color: var(--primary);
+        background-color: var(--color-pf-primary);
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
         color: var(--color-text-trait);
@@ -22,15 +22,15 @@
         padding: 0.3em;
 
         &.tag_secondary {
-            background-color: var(--secondary);
+            background-color: var(--color-pf-secondary);
         }
 
         &.tag_tertiary {
-            background-color: var(--tertiary);
+            background-color: var(--color-pf-tertiary);
         }
 
         &.tag_alt {
-            background-color: var(--alt);
+            background-color: var(--color-pf-alternate);
         }
 
         &.ghost-touch {
@@ -38,7 +38,7 @@
         }
 
         &.tag_material {
-            background-color: var(--alt-dark);
+            background-color: var(--color-pf-alternate-dark);
         }
 
         &.tag_transparent {
@@ -46,8 +46,8 @@
             border-radius: 4px;
             box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
             color: var(--color-text-dark-secondary);
-            font-family: var(--font-primary);
-            line-height: 1.6em;
+            font-family: var(--sans-serif);
+            line-height: 1.5em;
             padding: 0 0.5em;
             text-transform: none;
         }
@@ -87,7 +87,6 @@
 // Tagify and non-tagify paizo style main traits row
 .tags.paizo-style {
     border: none;
-    border-radius: 3px;
     gap: 0;
     padding: 0.5em 0.05em;
 
@@ -96,6 +95,7 @@
     select.tag {
         background-color: var(--color-bg-trait);
         border: solid var(--color-border-trait);
+        border-radius: 0;
         box-shadow: none;
         margin: 0;
 
@@ -146,7 +146,7 @@
         border-radius: 0;
         display: flex;
         font: 500 var(--font-size-10) var(--sans-serif);
-        padding: 0 0.09rem 0 0.25rem;
+        padding: 0 0.09rem 0 var(--space-4);
 
         .tagify__tag-text {
             text-transform: uppercase;
@@ -155,7 +155,7 @@
 
     hr.vr {
         height: 1.25em;
-        margin: 1px 2px;
+        margin: var(--space-1) var(--space-2);
     }
 
     // Tone down disabled effects so we still see trait colors
@@ -173,12 +173,32 @@
     }
 }
 
+.tags.light > .tag,
+.tags > .tag.light {
+    --tag-color: var(--color-pf-alternate-dark);
+    align-items: center;
+    background: none;
+    border-radius: 2px;
+    border: 1px solid var(--tag-color);
+    box-shadow: none;
+    color: var(--tag-color);
+    display: flex;
+    font: 700 var(--font-size-14) / 1.5em var(--sans-serif);
+    font-variant: all-small-caps;
+    letter-spacing: normal;
+    height: 1.5em;
+    margin: 0;
+    padding: 0 var(--space-4);
+    white-space: nowrap;
+    width: auto;
+}
+
 .chat-message .tags {
     line-height: normal;
 }
 
 tags.tags.paizo-style {
-    background-color: rgba(0, 0, 0, 0.075);
+    background-color: rgba(black, 0.075);
     padding: 0;
 
     --tag-bg: var(--color-bg-trait);
@@ -247,34 +267,47 @@ tags.tags.paizo-style {
 
     // In lieu of remove button
     tag[readonly="true"] {
-        padding-right: 2px;
+        padding-right: var(--space-2);
     }
 }
 
 tags.tagify.pf2e-tagify {
     --tag-bg: var(--color-text-light-3);
+    --tag-pad: 0.125rem;
+    --tag-text-color: var(--text-dark);
     --tags-border-color: var(--color-border-light-2);
-    --tags-hover-border-color: var(--color-border-light-2);
+    --tags-disabled-bg: rgba(255, 255, 255, 0.5);
+    --tags-focus-border-color: var(--color-border-dark-1);
+    --tags-hover-border-color: var(--color-border-dark-1);
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(white, 0.5);
     border-radius: 3px;
-    gap: 3px;
-    padding: 2px;
+    gap: var(--space-3);
+    padding: var(--space-2);
+
+    &[disabled] {
+        --tag-text-color: var(--color-disabled);
+        opacity: 0.8;
+
+        &:not(.tagify--mix) > .tagify__input {
+            margin: 0;
+        }
+    }
 
     &:hover {
-        box-shadow: 0 0 10px #00005a;
+        box-shadow: 0 0 var(--space-4) var(--color-pf-secondary);
     }
 
     tag {
         margin: 0;
-        padding: 1px;
+        padding: var(--tag-pad);
 
         x {
             margin: 0;
         }
 
         > div {
-            padding: 2px;
+            padding: 0 var(--space-2);
 
             .tagify__tag-text {
                 font-weight: normal;
@@ -305,20 +338,20 @@ tags.tags.paizo-style {
 
 .damage-tag {
     white-space: nowrap;
-    margin: 0 1px 1px 0;
-    padding: 0 3px;
+    margin: 0 var(--space-1) var(--space-1) 0;
+    padding: 0 var(--space-3);
     font-size: var(--font-size-10);
-    line-height: 16px;
-    border: 1px solid #999;
+    line-height: 1rem;
+    border: 1px solid var(--color-border-light-2);
     border-radius: 3px;
 
     &-base {
         color: var(--text-light);
-        background: rgba(0, 0, 0, 0.45);
+        background: rgba(black, 0.45);
     }
 
     &-modifier {
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(black, 0.05);
     }
 }
 

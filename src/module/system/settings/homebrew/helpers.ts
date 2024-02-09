@@ -38,11 +38,19 @@ interface LabelAndDescription {
 
 function prepareReservedTerms(): ReservedTermsRecord {
     const universalReservedTerms = new Set([
-        ...Object.keys(CONFIG.PF2E.damageTypes),
+        ...Object.keys(CONFIG.PF2E.classTraits),
         ...Object.keys(CONFIG.PF2E.damageCategories),
+        ...Object.keys(CONFIG.PF2E.damageTypes),
         ...Object.keys(CONFIG.PF2E.immunityTypes),
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
+        ...Object.keys(CONFIG.PF2E.saves),
+        ...Object.keys(CONFIG.PF2E.skillList),
+        ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        "damage",
+        "healing",
+        "perception",
+        "spellcasting",
         "none",
         "null",
         "undefined",
@@ -76,13 +84,14 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
             switch (listKey) {
                 case "creatureTraits": {
                     const traits = source.system.traits;
+                    if (!traits) break;
                     traits.value = traits.value.filter(
                         (t) => HomebrewElements.reservedTerms.creatureTraits.has(t) || !deletions.includes(t),
                     );
                     break;
                 }
                 case "languages": {
-                    const languages = source.system.traits.languages;
+                    const languages = source.system.details.languages;
                     languages.value = languages.value.filter(
                         (l) => HomebrewElements.reservedTerms.languages.has(l) || !deletions.includes(l),
                     );

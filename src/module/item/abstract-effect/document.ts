@@ -1,14 +1,15 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
-import { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
-import { EffectSource, EffectSystemData } from "@item/effect/data.ts";
-import { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
+import type { AfflictionSource, AfflictionSystemData } from "@item/affliction/data.ts";
+import type { ConditionSource, ConditionSystemData } from "@item/condition/data.ts";
+import type { EffectSource, EffectSystemData } from "@item/effect/data.ts";
+import type { ShowFloatyEffectParams } from "@module/canvas/token/object.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
-import { EffectBadge } from "./data.ts";
+import type { EffectBadge } from "./data.ts";
 import { calculateRemainingDuration } from "./helpers.ts";
+import type { EffectTrait } from "./types.ts";
 import { DURATION_UNITS } from "./values.ts";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
@@ -16,15 +17,17 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     /** A normalized version of the slug that shows in roll options, removing certain prefixes */
     declare rollOptionSlug: string;
 
-    abstract get badge(): EffectBadge | null;
+    static override get validTraits(): Record<EffectTrait, string> {
+        return CONFIG.PF2E.effectTraits;
+    }
 
-    abstract increase(): Promise<void>;
-    abstract decrease(): Promise<void>;
+    abstract get badge(): EffectBadge | null;
 
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
         const originUUID = this.system.context?.origin.actor;
         if (!originUUID || originUUID === this.actor?.uuid) return this.actor;
+        if (originUUID.startsWith("Compendium.")) return null;
         // Acquire a synthetic actor with some caution: `TokenDocument#delta` is a getter that lazily constructs the
         // actor, and it may be in the middle of construction presently.
         if (originUUID.startsWith("Scene.")) {
@@ -35,9 +38,11 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
             return descriptor?.value instanceof ActorDelta ? descriptor.value.syntheticActor ?? null : null;
         }
 
-        const actor = fromUuidSync(originUUID);
+        return fromUuidSync<ActorPF2e>(originUUID);
+    }
 
-        return actor instanceof ActorPF2e ? actor : null;
+    get traits(): Set<EffectTrait> {
+        return new Set(this.system.traits.value);
     }
 
     /** If false, the AbstractEffect should be hidden from the user unless they are a GM */
@@ -67,24 +72,39 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         return calculateRemainingDuration(this, this.system.duration);
     }
 
+    abstract increase(): Promise<void>;
+    abstract decrease(): Promise<void>;
+
     override getRollOptions(prefix = this.type): string[] {
-        const { origin } = this;
-        // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
-        // has been initialized
-        const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
-        // If this effect came from another actor, get that actor's roll options as well
-        const originRollOptions = originIsInitialized
-            ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
-            : [];
-        const { badge } = this;
-        const itemOrigin = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
+        const context = this.system.context;
+        const originRollOptions =
+            context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
+            ((): string[] => {
+                const origin = this.origin;
+                // Safety check: this effect's owning actor may be getting initialized during game setup and before its origin
+                // has been initialized
+                const originIsInitialized = !!origin?.flags?.pf2e?.rollOptions;
+                // If this effect came from another actor, get that actor's roll options as well
+                return originIsInitialized
+                    ? origin.getSelfRollOptions("origin").map((o) => `${prefix}:${o}`) ?? []
+                    : [];
+            })();
+
+        const grantingItem = this.grantedBy?.getRollOptions(`${prefix}:granter`) ?? [];
+        const badge = this.badge;
+        const rollContext = {
+            degree: context?.roll?.degreeOfSuccess,
+            total: context?.roll?.total,
+        };
 
         return [
             ...super.getRollOptions(prefix),
-            ...itemOrigin,
+            ...grantingItem,
             ...Object.entries({
                 [`badge:type:${badge?.type}`]: !!badge,
                 [`badge:value:${badge?.value}`]: !!badge,
+                [`context:check:outcome:${rollContext.degree}`]: typeof rollContext.degree === "number",
+                [`context:check:total:${rollContext.total}`]: typeof rollContext.total === "number",
                 "from-spell": this.fromSpell,
             })
                 .filter(([, isTrue]) => isTrue)

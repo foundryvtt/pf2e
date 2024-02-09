@@ -110,7 +110,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -205,7 +205,7 @@
                 },
                 "items": {
                     "i5m1o": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Natural Medicine",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Natural Medicine"
@@ -842,15 +842,16 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.traits.languages.value",
-                        "value": "wildsong"
-                    }
-                ],
+                "rules": [],
                 "slug": "wildsong",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "wildsong"
+                        ],
+                        "slots": 0
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1532,7 +1533,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(somatic, verbal)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1574,6 +1575,7 @@
                                 "value": "2"
                             },
                             "traits": {
+                                "traditions": [],
                                 "value": [
                                     "concentrate",
                                     "druid",
@@ -2512,6 +2514,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2571,6 +2574,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2620,29 +2624,19 @@
             "name": "Chalk",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "BuP9fbZi4lhW9vhN",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2677,6 +2671,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2702,6 +2701,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2751,29 +2751,19 @@
             "name": "Rations",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "BuP9fbZi4lhW9vhN",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2807,6 +2797,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -2832,6 +2827,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2971,6 +2967,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3030,6 +3027,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3086,7 +3084,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -3142,29 +3140,19 @@
             "name": "Antidote (Lesser)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3203,6 +3191,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3218,29 +3211,23 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3280,6 +3267,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3295,29 +3287,19 @@
             "name": "Sling Bullets",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3353,6 +3335,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -3497,7 +3484,6 @@
                     "property": [],
                     "striking": 0
                 },
-                "selectedAmmoId": "wOQCPi4GTI8NJIQS",
                 "size": "med",
                 "slug": "sling",
                 "splashDamage": {
@@ -3625,6 +3611,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3678,9 +3665,6 @@
                 "temp": 0,
                 "value": 18
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3709,6 +3693,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -3717,6 +3702,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -3737,6 +3723,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 1
             },
@@ -3754,6 +3744,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3829,17 +3822,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "wildsong"
-                ]
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

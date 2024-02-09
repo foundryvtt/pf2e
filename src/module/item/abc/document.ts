@@ -4,7 +4,7 @@ import type { AncestrySource, AncestrySystemData } from "@item/ancestry/data.ts"
 import type { BackgroundSource, BackgroundSystemData } from "@item/background/data.ts";
 import type { ClassSource, ClassSystemData } from "@item/class/data.ts";
 import { Rarity } from "@module/data.ts";
-import { objectHasKey } from "@util";
+import { ErrorPF2e, objectHasKey } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
@@ -24,7 +24,7 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
     override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
         const entries = Object.values(this.system.items);
         const packEntries = entries.filter((entry) => !!entry.uuid);
-        if (!packEntries.length) return [];
+        if (packEntries.length === 0) return [];
 
         const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
         const level = options.level ?? this.parent?.level;
@@ -36,14 +36,14 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
                     item.updateSource({ "system.level.value": level });
                 }
 
-                if (level !== undefined && level < item.level) {
+                if (typeof level === "number" && level < item.level) {
                     return [];
                 }
 
                 item.updateSource({ system: { location: this.id } });
                 return item;
             } else {
-                console.error("PF2e System | Missing or invalid ABC item");
+                console.error(ErrorPF2e("Missing or invalid ABC item"));
                 return [];
             }
         });

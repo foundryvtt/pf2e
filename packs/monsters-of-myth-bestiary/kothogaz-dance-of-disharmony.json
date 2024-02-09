@@ -322,7 +322,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:41]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>300 feet. @Check[type:will|dc:41]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -398,7 +398,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters or begins its turn in the emanation must succeed at a @Check[type:fortitude|dc:41] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (sickened 3 on a critical failure).</p>"
+                    "value": "<p>120 feet. A creature that enters or begins its turn in the emanation must succeed at a @Check[type:fortitude|dc:41] save or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (sickened 3 on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -470,7 +470,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:120] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Kothogaz's heartbeat booms like a deity's drum. A creature that enters or begins its turn in the emanation must attempt a @Check[type:will|dc:41] save. On a failure, its next two actions must be move actions to move at least half its Speed away from Kothogaz. A creature that critically succeeds is temporarily immune to tympanic heartbeat for 1 minute.</p>"
+                    "value": "<p>120 feet. Kothogaz's heartbeat booms like a deity's drum. A creature that enters or begins its turn in the emanation must attempt a @Check[type:will|dc:41] save. On a failure, its next two actions must be move actions to move at least half its Speed away from Kothogaz. A creature that critically succeeds is temporarily immune to tympanic heartbeat for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -862,12 +862,6 @@
                     "type": "stupefied"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 41
-            },
             "resistances": [
                 {
                     "type": "sonic",
@@ -891,6 +885,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 21
             },
@@ -901,6 +901,23 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 41,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 120,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -918,17 +935,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 120 feet"
-            },
             "size": {
                 "value": "grg"
             },

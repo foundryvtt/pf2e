@@ -22,7 +22,7 @@ abstract class IWR<TType extends IWRType> {
 
     constructor(data: IWRConstructorData<TType>) {
         this.type = data.type;
-        this.exceptions = deepClone(data.exceptions ?? []);
+        this.exceptions = fu.deepClone(data.exceptions ?? []);
         this.definition = data.definition ?? null;
         this.source = data.source ?? null;
         this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
@@ -55,6 +55,7 @@ abstract class IWR<TType extends IWRType> {
             case "air":
             case "earth":
             case "metal":
+            case "olfactory":
             case "radiation":
             case "visual":
             case "water":
@@ -155,7 +156,7 @@ abstract class IWR<TType extends IWRType> {
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             case "unholy":
-                return [{ or: ["action:trait:unholy", "item:trait:unholy"] }];
+                return [{ or: ["origin:action:trait:unholy", "item:trait:unholy"] }];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
@@ -210,7 +211,7 @@ abstract class IWR<TType extends IWRType> {
     toObject(): Readonly<IWRDisplayData<TType>> {
         return {
             type: this.type,
-            exceptions: deepClone(this.exceptions),
+            exceptions: fu.deepClone(this.exceptions),
             source: this.source,
             label: this.label,
         };
@@ -308,7 +309,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     ) {
         super(data);
         this.value = data.value;
-        this.doubleVs = deepClone(data.doubleVs ?? []);
+        this.doubleVs = fu.deepClone(data.doubleVs ?? []);
     }
 
     get label(): string {
@@ -346,7 +347,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
         return {
             ...super.toObject(),
             value: this.value,
-            doubleVs: deepClone(this.doubleVs),
+            doubleVs: fu.deepClone(this.doubleVs),
         };
     }
 

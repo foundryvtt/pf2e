@@ -182,7 +182,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:13] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>10 feet. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:fortitude|dc:13] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it's sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -434,12 +434,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 5
-            },
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -448,6 +442,13 @@
         },
         "details": {
             "blurb": "Variant predatory rabbit",
+            "languages": {
+                "details": "can't speak any language",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": -1
             },
@@ -458,6 +459,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bounty #21: Against the Unliving"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "sense companion",
+            "mod": 5,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -475,18 +488,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "can't speak any languages",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, sense companion"
-            },
             "size": {
                 "value": "tiny"
             },

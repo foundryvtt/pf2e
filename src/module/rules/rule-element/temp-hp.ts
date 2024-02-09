@@ -1,4 +1,4 @@
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType } from "@actor/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { StrictSchemaField } from "@system/schema-data-fields.ts";
 import { isObject } from "@util";
@@ -37,7 +37,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored || !this.events.onCreate) return;
 
-        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
+        const updatedActorData = fu.mergeObject(this.actor._source, actorUpdates, { inplace: false });
         const value = Math.trunc(Number(this.resolveValue(this.value)));
 
         const rollOptions = Array.from(
@@ -54,9 +54,9 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             return this.failValidation("value: must resolve to a positive number");
         }
 
-        const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
+        const currentTempHP = Number(fu.getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
-            mergeObject(actorUpdates, {
+            fu.mergeObject(actorUpdates, {
                 "system.attributes.hp.temp": value,
                 "system.attributes.hp.tempsource": this.item.id,
             });
@@ -83,8 +83,8 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             return this.failValidation("value: must resolve to a number");
         }
 
-        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
-        const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
+        const updatedActorData = fu.mergeObject(this.actor._source, actorUpdates, { inplace: false });
+        const currentTempHP = Number(fu.getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             actorUpdates["system.attributes.hp.temp"] = value;
             this.broadcast(value, currentTempHP);
@@ -92,12 +92,10 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     }
 
     override onDelete(actorUpdates: Record<string, unknown>): void {
-        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
-        if (getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
-            mergeObject(actorUpdates, {
-                "system.attributes.hp.temp": 0,
-            });
-            const hpData = getProperty(actorUpdates, "system.attributes.hp");
+        const updatedActorData = fu.mergeObject(this.actor._source, actorUpdates, { inplace: false });
+        if (fu.getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
+            fu.mergeObject(actorUpdates, { "system.attributes.hp.temp": 0 });
+            const hpData = fu.getProperty(actorUpdates, "system.attributes.hp");
             if (isObject<{ "-=tempsource": unknown }>(hpData)) {
                 hpData["-=tempsource"] = null;
             }

@@ -13,40 +13,46 @@ import {
     SaveType,
     UnaffectedType,
 } from "@actor/types.ts";
-import type { ArmorPF2e, ShieldPF2e } from "@item";
-import { AbstractEffectPF2e, ContainerPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
-import { AfflictionSource } from "@item/affliction/index.ts";
-import { ItemSourcePF2e, ItemType, PhysicalItemSource, hasInvestedProperty } from "@item/base/data/index.ts";
-import { ConditionKey, ConditionSlug, ConditionSource, type ConditionPF2e } from "@item/condition/index.ts";
+import type { AbstractEffectPF2e, ArmorPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
+import type { AfflictionSource } from "@item/affliction/index.ts";
+import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
+import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
-import { isCycle } from "@item/container/helpers.ts";
-import { EffectFlags, EffectSource } from "@item/effect/data.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
+import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { AppliedDamageFlag } from "@module/chat-message/index.ts";
-import { Size } from "@module/data.ts";
+import type { AppliedDamageFlag } from "@module/chat-message/index.ts";
+import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { RollNotePF2e } from "@module/notes.ts";
 import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
-import { RuleElementSynthetics } from "@module/rules/index.ts";
-import { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
+import type { RuleElementSynthetics } from "@module/rules/index.ts";
+import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
+import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
-import { DamageType } from "@system/damage/types.ts";
-import { CheckDC } from "@system/degree-of-success.ts";
-import type { ArmorStatistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { DamageType } from "@system/damage/types.ts";
+import type { CheckDC } from "@system/degree-of-success.ts";
+import type {
+    ArmorStatistic,
+    PerceptionStatistic,
+    Statistic,
+    StatisticCheck,
+    StatisticDifficultyClass,
+} from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -62,7 +68,7 @@ import {
     RollOptionFlags,
     StrikeData,
 } from "./data/base.ts";
-import { ActorSourcePF2e, ActorType } from "./data/index.ts";
+import type { ActorSourcePF2e } from "./data/index.ts";
 import { Immunity, Resistance, Weakness } from "./data/iwr.ts";
 import { ActorSizePF2e } from "./data/size.ts";
 import {
@@ -76,13 +82,14 @@ import {
     isReallyPC,
     migrateActorSource,
 } from "./helpers.ts";
-import { ActorInitiative } from "./initiative.ts";
+import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
 import { StatisticModifier } from "./modifiers.ts";
-import { ActorSheetPF2e } from "./sheet/base.ts";
-import { ActorSpellcasting } from "./spellcasting.ts";
+import type { ActorSheetPF2e } from "./sheet/base.ts";
+import type { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
+import type { ActorType } from "./types.ts";
 import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
 
 /**
@@ -90,8 +97,8 @@ import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED
  * @category Actor
  */
 class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
-    /** Has this actor completed construction? */
-    constructed = true;
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
 
     /** A UUIDv5 hash digest of the foundry UUID */
     declare signature: string;
@@ -105,7 +112,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare armorClass: StatisticDifficultyClass<ArmorStatistic> | null;
 
     /** A separate collection of owned spellcasting entries for convenience */
-    declare spellcasting: ActorSpellcasting<this>;
+    declare spellcasting: ActorSpellcasting<this> | null;
 
     /** Rule elements drawn from owned items */
     declare rules: RuleElementPF2e[];
@@ -121,7 +128,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** A collection of this actor's conditions */
     declare conditions: ActorConditions<this>;
 
-    declare perception?: Statistic;
+    declare perception?: PerceptionStatistic;
 
     /** Skill checks for the actor if supported by the actor type */
     declare skills?: Partial<CreatureSkills>;
@@ -140,7 +147,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
             // Add debounced checkAreaEffects method
             checkAreaEffects: {
-                value: foundry.utils.debounce(checkAreaEffects, 50),
+                value: fu.debounce(checkAreaEffects, 50),
             },
         });
     }
@@ -222,7 +229,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get size(): Size {
-        return this.system.traits?.size.value ?? "med";
+        return this.system.traits?.size?.value ?? "med";
     }
 
     /**
@@ -318,7 +325,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => new TokenEffect(e));
 
-        return [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat();
+        return R.uniqBy(
+            [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
+            (e) => e.icon,
+        );
     }
 
     /** A means of checking this actor's type without risk of circular import references */
@@ -339,7 +349,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Whether this actor is immune to an effect of a certain type */
     isImmuneTo(effect: AbstractEffectPF2e | ConditionSource | EffectSource | ConditionSlug): boolean {
-        if (!game.settings.get("pf2e", "automation.iwr")) return false;
+        if (!game.pf2e.settings.iwr) return false;
 
         const item = typeof effect === "string" ? null : "parent" in effect ? effect : new ItemProxyPF2e(effect);
         const statements = new Set(item ? item.getRollOptions("item") : ["item:type:condition", `item:slug:${effect}`]);
@@ -425,7 +435,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         return this.clone(
             {
-                items: [deepClone(this._source.items), applicableEffects].flat(),
+                items: [fu.deepClone(this._source.items), applicableEffects].flat(),
                 flags: { pf2e: { rollOptions: { all: rollOptionsAll } } },
             },
             { keepId: true },
@@ -471,7 +481,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     },
                 };
 
-                const source = mergeObject(effect.toObject(), { flags });
+                const source = fu.mergeObject(effect.toObject(), { flags });
                 source.system.level.value = aura.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
@@ -487,6 +497,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         token: origin.token.uuid,
                         item: null,
                         spellcasting: null,
+                        rollOptions: [],
                     },
                     roll: null,
                 };
@@ -568,7 +579,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 linkable &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
-            const merged = mergeObject(source, {
+            const merged = fu.mergeObject(source, {
                 ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
@@ -590,6 +601,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.prototypeToken.actorLink = true;
                     merged.prototypeToken.sight = { enabled: true };
+                    break;
+                case "hazard":
+                    merged.prototypeToken.sight = { enabled: false };
                     break;
                 case "loot":
                     // Make loot actors linked and interactable
@@ -629,19 +643,36 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.updateDocuments(updates, context);
     }
 
+    /** Set module art if available */
+    protected override _initializeSource(
+        source: Record<string, unknown>,
+        options?: DocumentConstructionContext<TParent>,
+    ): this["_source"] {
+        const initialized = super._initializeSource(source, options);
+
+        if (options?.pack && initialized._id) {
+            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
+            return fu.mergeObject(initialized, art);
+        }
+
+        return initialized;
+    }
+
     protected override _initialize(options?: Record<string, unknown>): void {
-        this.constructed ??= false;
-        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+        this.initialized = false;
+
         this._itemTypes = null;
-        this.rules = [];
-        this.initiative = null;
         this.armorClass = null;
-        this.conditions = new ActorConditions();
         this.auras = new Map();
+        this.conditions = new ActorConditions();
+        this.initiative = null;
+        this.rules = [];
+        this.spellcasting = null;
 
         const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
-            criticalSpecalizations: { standard: [], alternate: [] },
+            criticalSpecializations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
             degreeOfSuccessAdjustments: {},
             dexterityModifierCaps: [],
@@ -665,7 +696,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             weaponPotency: {},
             preparationWarnings: {
                 add: (warning: string) => preparationWarnings.add(warning),
-                flush: foundry.utils.debounce(() => {
+                flush: fu.debounce(() => {
                     for (const warning of preparationWarnings) {
                         console.warn(warning);
                     }
@@ -681,24 +712,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /** Set module art if available */
-    protected override _initializeSource(
-        source: Record<string, unknown>,
-        options?: DocumentConstructionContext<TParent>,
-    ): this["_source"] {
-        const initialized = super._initializeSource(source, options);
-
-        if (options?.pack && initialized._id) {
-            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
-            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
-            return mergeObject(initialized, art);
-        }
-
-        return initialized;
-    }
-
-    /** Prepare token data derived from this actor, refresh Effects Panel */
+    /**
+     * Never prepare data except as part of `DataModel` initialization. If embedded, don't prepare data if the parent is
+     * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
+     */
     override prepareData(): void {
+        if (this.initialized) return;
+
+        // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
+        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+
+        if (this.parent && !this.parent.initialized) return;
+        this.initialized = true;
         super.prepareData();
 
         // Split spellcasting entry into those that extend a magic tradition and those that don't.
@@ -727,7 +752,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.preparePrototypeToken();
-        if (this.constructed && canvas.ready) {
+        if (this.initialized && canvas.ready) {
             // Work around `t.actor` potentially being a lazy getter for a synthetic actor (viz. this one)
             const thisTokenIsControlled = canvas.tokens.controlled.some(
                 (t) => t.document === this.parent || (t.document.actorLink && t.actor === this),
@@ -736,6 +761,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 game.pf2e.effectPanel.refresh();
             }
         }
+
+        this.conditions.finalize();
     }
 
     /** Prepare baseline ephemeral data applicable to all actor types */
@@ -746,7 +773,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, offGuardable: false };
 
         const { attributes, details } = this.system;
-        attributes.hp &&= mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
+        attributes.hp &&= fu.mergeObject(attributes.hp, { negativeHealing: false, unrecoverable: 0 });
         attributes.immunities = attributes.immunities?.map((i) => new Immunity(i)) ?? [];
         attributes.weaknesses = attributes.weaknesses?.map((w) => new Weakness(w)) ?? [];
         attributes.resistances = attributes.resistances?.map((r) => new Resistance(r)) ?? [];
@@ -756,7 +783,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options
-        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
+        this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, {
             rollOptions: {
                 all: {
                     [`self:type:${this.type}`]: true,
@@ -770,24 +797,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
-        // Perform full reset instead of upstream's double data preparation
-        // See https://github.com/foundryvtt/foundryvtt/issues/7987
-        for (const item of this.items) {
-            item.reset();
-        }
+        super.prepareEmbeddedDocuments();
 
         const physicalItems = this.items.filter((i): i is PhysicalItemPF2e<this> => i.isOfType("physical"));
         this.inventory = new ActorInventory(this, physicalItems);
-
-        this.spellcasting = ((): ActorSpellcasting<this> => {
-            const rituals = this.itemTypes.spell.filter((s) => s.isRitual).sort((a, b) => a.sort - b.sort);
-            const spellcastingEntries = [
-                this.itemTypes.spellcastingEntry,
-                rituals.length > 0 ? new RitualSpellcasting(this, rituals) : [],
-            ].flat();
-
-            return new ActorSpellcasting(this, spellcastingEntries);
-        })();
 
         // Track all effects on this actor
         for (const effect of this.itemTypes.effect) {
@@ -813,7 +826,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected prepareRuleElements(): RuleElementPF2e[] {
         // Ensure "temporary" items have their rule elements go last when priority is equal
-        return R.sortBy(this.items.contents, (i) => i instanceof AbstractEffectPF2e)
+        return R.sortBy(this.items.contents, (i) => i.isOfType("affliction", "condition", "effect"))
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
@@ -839,24 +852,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Set traits as roll options */
     override prepareDerivedData(): void {
-        const { rollOptions } = this;
+        const rollOptions = this.flags.pf2e.rollOptions;
         for (const trait of this.traits) {
             rollOptions.all[`self:trait:${trait}`] = true;
         }
-
-        // Base spellcasting proficiency (later extended to add attribute modifiers)
-        this.spellcasting.base = new Statistic(this, {
-            slug: "base-spellcasting",
-            label: "PF2E.Actor.Creature.Spellcasting.Label",
-            rank: this.isOfType("character") ? this.system.proficiencies.spellcasting.rank : 0,
-            domains: ["all", "spell-attack-dc"],
-            check: { type: "attack-roll" },
-        });
     }
 
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken(): void {
-        this.prototypeToken.flags = mergeObject(
+        this.prototypeToken.flags = fu.mergeObject(
             { pf2e: { linkToActorSize: SIZE_LINKABLE_ACTOR_TYPES.has(this.type) } },
             this.prototypeToken.flags,
         );
@@ -882,7 +886,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 : [null, null];
 
         const isAttackAction = ["attack", "attack-roll", "attack-damage"].some((d) => params.domains.includes(d));
-        const isMelee = !!(params.melee || (params.item?.isOfType("weapon", "melee") && params.item.isMelee));
+        const isMelee = !!(params.melee || (params.item?.isOfType("melee", "spell", "weapon") && params.item.isMelee));
         const reach =
             isMelee && params.item?.isOfType("action", "weapon", "melee")
                 ? this.getReach({ action: "attack", weapon: params.item })
@@ -993,6 +997,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ? [`origin:distance:${distance}`, `target:distance:${distance}`]
                 : [null, null];
 
+        const originMarkOption = ((): string | null => {
+            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
+            return tokenMark ? `origin:mark:${tokenMark}` : null;
+        })();
+        const originRollOptions =
+            selfToken && targetToken
+                ? R.compact(
+                      R.uniq([
+                          ...selfActor.getSelfRollOptions("origin"),
+                          ...actionTraits.map((t) => `origin:action:trait${t}`),
+                          ...(originDistance ? [originDistance] : []),
+                          originMarkOption,
+                      ]),
+                  )
+                : [];
+
         // Target roll options
         const getTargetRollOptions = (actor: Maybe<ActorPF2e>): string[] => {
             const targetOptions = actor?.getSelfRollOptions("target") ?? [];
@@ -1015,29 +1035,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         // Add an epehemeral effect from flanking
-        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor)) {
+        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor, originRollOptions)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
         }
 
-        const originMarkOption = ((): string | null => {
-            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
-            return tokenMark ? `origin:mark:${tokenMark}` : null;
-        })();
-
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
             : (params.target?.actor ?? targetToken?.actor)?.getContextualClone(
-                  R.compact([
-                      ...selfActor.getSelfRollOptions("origin"),
-                      ...actionTraits.map((t) => `origin:action:trait${t}`),
-                      ...params.options,
-                      ...itemOptions,
-                      ...(originDistance ? [originDistance] : []),
-                      originMarkOption,
-                  ]),
+                  R.compact([...params.options, ...itemOptions, ...originRollOptions]),
                   targetEphemeralEffects,
               ) ?? null;
 
@@ -1092,7 +1100,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const dcData = ((): CheckDC | null => {
             const { domains, defense } = params;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = targetActor?.getStatistic(defense)?.dc;
+            const statistic = targetActor?.getStatistic(defense.replace(/-dc$/, ""))?.dc;
             return statistic ? { scope, statistic, slug: defense, value: statistic.value } : null;
         })();
 
@@ -1135,19 +1143,20 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Backward compatibility
         value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
 
+        type MaybeRollOption = { key: string; domain?: unknown; option?: unknown };
         if (typeof itemId === "string") {
             // An item ID is provided: find the rule on the item
             const item = this.items.get(itemId, { strict: true });
             const rule = item.rules.find(
-                (r): r is RollOptionRuleElement =>
-                    r instanceof RollOptionRuleElement && r.domain === domain && r.option === option,
+                (r: MaybeRollOption): r is RollOptionRuleElement =>
+                    r.key === "RollOption" && r.domain === domain && r.option === option,
             );
             return rule?.toggle(value, suboption) ?? null;
         } else {
             // Less precise: no item ID is provided, so find the rule on the actor
             const rule = this.rules.find(
-                (r): r is RollOptionRuleElement =>
-                    r instanceof RollOptionRuleElement && r.domain === domain && r.option === option,
+                (r: MaybeRollOption): r is RollOptionRuleElement =>
+                    r.key === "RollOption" && r.domain === domain && r.option === option,
             );
             return rule?.toggle(value, suboption) ?? null;
         }
@@ -1410,6 +1419,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 damageType: instance.type,
                 dc: 15,
             };
+            condition.system.traits = {
+                value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
+                    (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
+                ),
+                otherTags: [],
+            };
             return condition;
         });
 
@@ -1420,7 +1435,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const canUndoDamage = !!(damageResult.totalApplied || shieldDamage || persistentCreated.length);
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
-            notes,
             statements,
             persistent: R.compact(persistentCreated.map((p) => p.system.persistent?.damage.formula)),
             iwr: {
@@ -1433,7 +1447,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (breakdown.length || notes.length) {
                 return renderTemplate("systems/pf2e/templates/chat/damage/damage-taken-flavor.hbs", {
                     breakdown,
-                    notes,
+                    notes: RollNotePF2e.notesToHTML(notes)?.outerHTML,
                 });
             }
             return;
@@ -1447,7 +1461,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   persistent: persistentCreated.map((c) => c.id),
                   updates: Object.entries(damageResult.updates)
                       .map(([path, newValue]) => {
-                          const preUpdateValue = getProperty(preUpdateSource, path);
+                          const preUpdateValue = fu.getProperty(preUpdateSource, path);
                           if (typeof preUpdateValue === "number") {
                               const difference = preUpdateValue - newValue;
                               if (difference === 0) {
@@ -1490,7 +1504,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
         for (const update of updates) {
-            const currentValue = getProperty(this, update.path);
+            const currentValue = fu.getProperty(this, update.path);
             if (typeof currentValue === "number") {
                 actorUpdates[update.path] = currentValue + update.value;
             }
@@ -1522,6 +1536,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Can a user loot this actor? Same as update modification permission but overridable by subclasses */
     isLootableBy(user: UserPF2e): boolean {
         return this.canUserModify(user, "update");
     }
@@ -1541,11 +1556,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         containerId?: string,
         newStack = false,
     ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
-        if (!(item instanceof PhysicalItemPF2e)) {
+        if (!item.isOfType("physical")) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
         const container = targetActor.inventory.get(containerId ?? "");
-        if (!(!container || container instanceof ContainerPF2e)) {
+        if (container && !container?.isOfType("backpack")) {
             throw ErrorPF2e("containerId refers to a non-container");
         }
 
@@ -1588,7 +1603,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const newItemData = item.toObject();
         newItemData.system.quantity = quantity;
         newItemData.system.equipped.carryType = "worn";
-        if (hasInvestedProperty(newItemData)) {
+        if ("invested" in newItemData.system.equipped) {
             newItemData.system.equipped.invested = item.traits.has("invested") ? false : null;
         }
 
@@ -1629,7 +1644,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 "system.equipped.handsHeld": 0,
                 "system.equipped.inSlot": false,
             });
-        } else if (!isCycle(item, container)) {
+        } else if (!isContainerCycle(item, container)) {
             const carryType = container.stowsItems ? "stowed" : "worn";
             await item.update({
                 "system.containerId": container.id,
@@ -1659,7 +1674,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         const appliedToSP = ((): number => {
-            const staminaEnabled = !!sp && game.settings.get("pf2e", "staminaVariant");
+            const staminaEnabled = !!sp && game.pf2e.settings.variants.stamina;
             if (!staminaEnabled || delta <= 0) return 0;
             const remaining = delta - appliedToTemp;
             const applied = Math.min(sp.value, remaining);
@@ -1702,11 +1717,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         for (const prop of ["abilities", "attributes", "details", "skills", "saves"] as const) {
             Object.defineProperty(rollData, prop, {
                 get: () => {
-                    foundry.utils.logCompatibilityWarning(`@${prop} is deprecated`, {
+                    fu.logCompatibilityWarning(`@${prop} is deprecated`, {
                         since: "5.0.1",
                         until: "6",
                     });
-                    return objectHasKey(this.system, prop) ? deepClone(this.system[prop]) : null;
+                    return objectHasKey(this.system, prop) ? fu.deepClone(this.system[prop]) : null;
                 },
             });
         }
@@ -1744,7 +1759,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * @param slugs Slug(s) of the queried condition(s)
      */
     hasCondition(...slugs: ConditionSlug[]): boolean {
-        return slugs.some((s) => this.conditions.bySlug(s, { active: true }).length > 0);
+        return slugs.some((s) => this.conditions.hasType(s));
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1896,7 +1911,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Remove the death overlay if present upon hit points being increased
         const currentHP = this.hitPoints?.value ?? 0;
         const hpChange = Number(changed.system?.attributes?.hp?.value) || 0;
-        if (currentHP > 0 && hpChange > 0 && this.isDead) {
+        if (currentHP > 0 && hpChange > 0 && this.isDead && game.user.id === userId) {
             const { combatant } = this;
             if (combatant) {
                 combatant.toggleDefeated({ to: false });
@@ -1970,7 +1985,7 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        options?: EmbeddedItemUpdateContext<this>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
@@ -1994,6 +2009,10 @@ interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends D
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
+}
+
+interface EmbeddedItemUpdateContext<TParent extends ActorPF2e> extends DocumentUpdateContext<TParent> {
+    checkHP?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */

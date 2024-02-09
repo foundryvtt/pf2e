@@ -229,7 +229,6 @@
                     "value": [
                         "concentrate",
                         "manipulate",
-                        "primal",
                         "teleportation"
                     ]
                 }
@@ -290,12 +289,12 @@
                     "traditions": [
                         "arcane",
                         "divine",
-                        "occult"
+                        "occult",
+                        "primal"
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -359,8 +358,7 @@
                     "value": [
                         "air",
                         "concentrate",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -389,7 +387,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 2
@@ -486,13 +484,13 @@
                     "rarity": "common",
                     "traditions": [
                         "arcane",
-                        "occult"
+                        "occult",
+                        "primal"
                     ],
                     "value": [
                         "concentrate",
                         "illusion",
                         "manipulate",
-                        "primal",
                         "visual"
                     ]
                 }
@@ -601,7 +599,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the rank of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1186,12 +1184,6 @@
                 "temp": 0,
                 "value": 350
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 30
-            },
             "speed": {
                 "details": "air walk",
                 "otherSpeeds": [],
@@ -1210,6 +1202,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -1220,6 +1219,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 30,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1237,18 +1248,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "tongues",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

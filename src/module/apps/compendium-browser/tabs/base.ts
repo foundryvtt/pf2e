@@ -56,13 +56,15 @@ export abstract class CompendiumBrowserTab {
             fields: this.searchFields,
             idField: "uuid",
             processTerm: (t) =>
-                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang) : null,
+                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t)
+                    ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "")
+                    : null,
             storeFields: this.storeFields,
             searchOptions: { combineWith: "AND", prefix: true },
         });
         this.searchEngine.addAll(this.indexData);
         // Set defaultFilterData for resets
-        this.defaultFilterData = deepClone(this.filterData);
+        this.defaultFilterData = fu.deepClone(this.filterData);
         // Initialization complete
         this.isInitialized = true;
     }
@@ -103,12 +105,12 @@ export abstract class CompendiumBrowserTab {
         if (!this.isInitialized) {
             await this.init();
         }
-        return deepClone(this.defaultFilterData);
+        return fu.deepClone(this.defaultFilterData);
     }
 
     /** Reset all filters */
     resetFilters(): void {
-        this.filterData = deepClone(this.defaultFilterData);
+        this.filterData = fu.deepClone(this.defaultFilterData);
     }
 
     /** Check this tabs type */
@@ -265,7 +267,7 @@ export abstract class CompendiumBrowserTab {
     /** Ensure all index fields are present in the index data */
     protected hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
         for (const field of indexFields) {
-            if (getProperty(data, field) === undefined && !/\.(?:source|publication)/.test(field)) {
+            if (fu.getProperty(data, field) === undefined && !/\.(?:source|publication)/.test(field)) {
                 return false;
             }
         }

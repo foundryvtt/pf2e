@@ -24,6 +24,13 @@ export function deepClone<T>(original: T): T;
 export function duplicate<T>(original: T): T;
 
 /**
+ * Test whether a value is empty-like; either undefined or a content-less object.
+ * @param value The value to test
+ * @returns Is the value empty-like?
+ */
+export function isEmpty(value: unknown): boolean;
+
+/**
  * Update a source object by replacing its keys and values with those from a target object.
  *
  * @param original     The initial object which should be updated with values from the target
@@ -111,7 +118,7 @@ export function flattenObject(obj: object, _d?: number): Record<string, unknown>
  * @param _d   Recursion depth, to prevent overflow
  * @return     An expanded object
  */
-export function expandObject<T extends object>(obj: object, _d?: number): T;
+export function expandObject<T extends Record<string, unknown>>(obj: object, _d?: number): T;
 
 /**
  * A simple function to test whether or not an Object is empty
@@ -321,31 +328,5 @@ declare global {
          * Control whether to perform deletions on the original object if deletion keys are present in the other object.
          */
         performDeletions?: boolean;
-    }
-
-    namespace globalThis {
-        /* eslint-disable no-var */
-        var deepClone: typeof foundry.utils.deepClone;
-        var diffObject: typeof foundry.utils.diffObject;
-        var duplicate: typeof foundry.utils.duplicate;
-        var expandObject: typeof foundry.utils.expandObject;
-        var flattenObject: typeof foundry.utils.flattenObject;
-        var getType: typeof foundry.utils.getType;
-        var getProperty: typeof foundry.utils.getProperty;
-        var isObjectEmpty: typeof foundry.utils.isObjectEmpty;
-        var mergeObject: typeof foundry.utils.mergeObject;
-        var setProperty: typeof foundry.utils.setProperty;
-        var randomID: typeof foundry.utils.randomID;
-        /* eslint-enable no-var */
-
-        /**
-         * Load a single texture and return a Promise which resolves once the texture is ready to use
-         * @param src       The requested texture source
-         * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
-         */
-        function loadTexture(
-            src: string,
-            { fallback }?: { fallback?: ImageFilePath },
-        ): Promise<PIXI.Texture | PIXI.Spritesheet | null>;
     }
 }

@@ -385,7 +385,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell level, two demons whose levels are each at least 2 less than double the spell level, or three demons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
+                    "value": "<p>You call in a favor from another demon whose level is no more than double <em>Abyssal pact's</em> spell rank, two demons whose levels are each at least 2 less than double the spell rank, or three demons whose levels are each at least 3 less than double the spell rank.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the demon or demons. They are eager to pursue the task, so they don't ask for a favor.</p>\n<p><strong>Success</strong> You conjure the demon or demons. They are not eager to pursue the task, so they require a favor in return.</p>\n<p><strong>Failure</strong> You don't conjure any demons.</p>\n<p><strong>Critical Failure</strong> The demon or demons are angry that you disturbed them. They appear before you, but they immediately attack you.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -714,7 +714,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>An animal or beast entering or starting its turn in the emanation must succeed at a @Check[type:will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (frightened 2 on a critical failure). Frightened animals within the emanation can't attack the roru. A creature that succeeds at a saving throw against predatory aura is immune for 24 hours.</p>"
+                    "value": "<p>30 feet. An animal or beast entering or starting its turn in the emanation must succeed at a @Check[type:will|dc:25] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (frightened 2 on a critical failure). Frightened animals within the emanation can't attack the roru. A creature that succeeds at a saving throw against predatory aura is immune for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -983,12 +983,6 @@
                 "temp": 0,
                 "value": 120
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
@@ -1007,6 +1001,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals, telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "draconic",
+                    "empyrean"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -1017,6 +1019,23 @@
                 "remaster": false,
                 "title": "Pathfinder #176: Lost Mammoth Valley"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1039,19 +1058,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak with Animals, Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "draconic",
-                    "empyrean"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet"
-            },
             "size": {
                 "value": "med"
             },

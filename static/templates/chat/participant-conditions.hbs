@@ -1,8 +1,11 @@
-<ul class="participant-conditions" data-tooltip-class="pf2e" data-tooltip-direction="LEFT">
-    {{#each conditions as |condition|}}
-        <li data-tooltip="{{condition.description}}">
-            <img src="{{condition.img}}" />
-            <span>{{condition.name}}</span>
-        </li>
-    {{/each}}
-</ul>
+<div class="participant-conditions">
+    <h4>{{localize "PF2E.Item.Condition.Chat.Current"}}</h4>
+    <ul data-tooltip-class="pf2e" data-tooltip-direction="LEFT">
+        {{#each conditions as |condition|}}
+            <li data-tooltip="{{condition.description}}">
+                <img src="{{condition.img}}" />
+                <span class="name">{{condition.name}}</span>
+            </li>
+        {{/each}}
+    </ul>
+</div>

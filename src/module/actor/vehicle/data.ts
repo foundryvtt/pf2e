@@ -30,7 +30,6 @@ interface VehicleSystemSource extends ActorSystemSource {
 interface VehicleAttributesSource extends ActorAttributesSource {
     ac: { value: number };
     hardness: number;
-    initiative?: never;
     immunities: ImmunitySource[];
 }
 

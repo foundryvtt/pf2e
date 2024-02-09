@@ -333,7 +333,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day\n<strong>Requirements</strong> The grave karina is adjacent to a creature that's casting a shadow</p><hr />\n<p><strong>Effect</strong> The grave karina drives a talon into a creature's shadow and attempts to manipulate it like a puppet with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em>(@Check[type:will|dc:27|traits:mental,incapacitation] save), except the duration is only 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day\n<strong>Requirements</strong> The grave karina is adjacent to a creature that's casting a shadow</p><hr />\n<p><strong>Effect</strong> The grave karina drives a talon into a creature's shadow and attempts to manipulate it like a puppet with the effects of @UUID[Compendium.pf2e.spells-srd.Item.Dominate](@Check[type:will|dc:27|traits:mental,incapacitation] save), except the duration is only 1 minute.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -535,12 +535,6 @@
                 "temp": 0,
                 "value": 240
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -559,6 +553,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -569,6 +570,18 @@
                 "remaster": false,
                 "title": "Pathfinder #172: Secrets of the Temple-City"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -586,18 +599,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "common",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, smoke vision"
-            },
             "size": {
                 "value": "lg"
             },

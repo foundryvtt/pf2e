@@ -1,7 +1,3 @@
-.hover {
-    cursor: pointer;
-}
-
 .hover-content {
     display: none;
 }
@@ -13,7 +9,8 @@
         overflow: visible;
 
         .tooltipster-content {
-            @include p-reset;
+            margin: 0;
+            padding: 0;
 
             .item-summary {
                 @include journal-styling;
@@ -25,16 +22,13 @@
 
             .hover-content {
                 display: flex;
-                min-width: 120px;
-                max-width: fit-content;
-                padding: 4px;
-                line-height: 1;
                 flex-direction: column;
+                max-width: fit-content;
+                min-width: 7.5rem;
+                padding: var(--space-4);
 
                 p {
-                    font-size: var(--font-size-14);
-                    font-family: var(--body-serif);
-                    font-weight: 400;
+                    font: 400 var(--font-size-14) var(--body-serif);
                 }
 
                 h1,
@@ -51,7 +45,7 @@
                     display: flex;
                     flex: 1 auto;
                     justify-content: space-between;
-                    margin: 0.25em 0 0.5em;
+                    margin: var(--space-2) 0 var(--space-8);
 
                     h2,
                     a {
@@ -73,112 +67,117 @@
                 }
 
                 &.select-shield {
-                    width: 160px;
+                    gap: var(--space-4);
+                    overflow: hidden;
+                    width: 14rem;
+
                     ul {
-                        li.item {
+                        line-height: normal;
+                        width: 100%;
+
+                        > li {
+                            display: flex;
+                            flex-basis: 100%;
+                            justify-content: space-between;
+
+                            .label {
+                                flex: 1;
+                                line-height: 1.125rem;
+                            }
+
                             .data {
+                                justify-self: center;
                                 position: relative;
-                                top: -2px;
+                                top: calc(-1 * var(--space-1));
                             }
-                            .tag-legacy {
-                                width: auto;
-                            }
-                        }
-                    }
-                }
-
-                a.item-location-option {
-                    color: rgba(white, 0.5);
-
-                    i {
-                        margin: 1px 4px 1px 0;
-                    }
-
-                    &.selected {
-                        color: var(--text-light);
-
-                        &:hover {
-                            cursor: default;
-                            text-shadow: none;
                         }
                     }
                 }
 
                 ul {
-                    list-style: none;
-                    @include p-reset;
+                    display: flex;
                     flex: 1 auto;
+                    flex-direction: column;
+                    gap: var(--space-8);
+                    justify-content: center;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+
                     input {
-                        color: var(--text-light);
-                        border: none;
-                        border-radius: 0;
                         background: transparent;
+                        border: none;
+                        border-bottom: 1px solid rgba(white, 0.5);
+                        border-radius: 0;
+                        color: var(--text-light);
                         font-family: var(--body-serif);
                         width: 100%;
-                        border-bottom: 1px solid rgba(white, 0.5);
+
                         &:focus {
+                            border-bottom: 1px solid var(--color-text-light-0);
                             box-shadow: none;
-                            border-bottom: 1px solid white;
+
                             &::placeholder {
                                 color: transparent;
                             }
                         }
+
                         &::placeholder {
                             color: rgba(white, 0.8);
                         }
+
                         &::-webkit-outer-spin-button,
                         &::-webkit-inner-spin-button {
                             -webkit-appearance: none;
                             appearance: none;
                             margin: 0;
                         }
+
                         &[type="number"] {
-                            appearance: textfield;
                             -moz-appearance: textfield;
+                            appearance: textfield;
                         }
                     }
 
                     select {
-                        border-radius: 2px;
-                        height: 18px;
-                        border: 1px solid white;
                         background: transparent;
+                        border: 1px solid var(--color-border-light-1);
+                        border-radius: 2px;
                         cursor: pointer;
+                        height: 1.125rem;
 
                         option {
-                            font-size: 0.8rem;
-                            min-height: 1rem;
                             color: var(--text-dark);
+                            font-size: var(--font-size-13);
+                            min-height: 1rem;
                             text-transform: capitalize;
                         }
                     }
 
                     label {
-                        display: flex;
                         align-items: center;
-                        text-align: left;
+                        display: flex;
                         font-family: var(--serif);
                         font-weight: 500;
+                        text-align: left;
                     }
 
                     .label,
                     .data {
-                        font-size: var(--font-size-12);
-                        font-family: var(--serif);
-                        font-weight: 400;
                         color: var(--text-light);
-                        @include p-reset;
+                        font: 400 var(--font-size-12) var(--serif);
+                        margin: 0;
+                        padding: 0;
                     }
 
                     .item {
+                        align-items: center;
+                        gap: var(--space-2) var(--space-8);
                         display: grid;
                         grid:
-                            "data label close" min-content
-                            "data type close" min-content
-                            / 30px 1fr;
-                        margin: 8px 0;
-                        align-items: center;
-                        column-gap: 8px;
+                            "data label close" var(--space-12)
+                            "data type close" var(--space-12)
+                            / 1.875rem 1fr;
                         justify-items: start;
 
                         &:first-child {
@@ -193,7 +192,7 @@
                         .tag-legacy {
                             @include micro;
                             @include flex-center;
-                            color: var(--tertiary);
+                            color: var(--color-pf-tertiary);
                             grid-area: type;
                             letter-spacing: 0.5px;
                             white-space: nowrap;
@@ -209,12 +208,11 @@
                         }
 
                         .data {
-                            grid-area: data;
-                            text-align: right;
                             font-size: var(--font-size-21);
+                            grid-area: data;
                             justify-self: right;
+                            text-align: right;
                             width: min-content;
-                            padding-top: 2px;
                         }
                     }
 
@@ -224,6 +222,7 @@
                         .data::placeholder {
                             color: rgba(white, 0.5);
                         }
+
                         .label {
                             text-decoration: line-through;
                         }
@@ -232,42 +231,42 @@
 
                 &.modifiers-tooltip {
                     .remove-modifier {
-                        grid-area: close;
-                        font-size: 0.8rem;
                         cursor: pointer;
+                        font-size: 0.8rem;
+                        grid-area: close;
                     }
 
                     .add-modifier {
                         border-top: 1px solid var(--sidebar-title);
-                        padding-top: 5px;
+                        align-items: baseline;
+                        font-size: 0.8rem;
+                        gap: var(--space-4) var(--space-8);
                         grid:
                             "value name name" 1fr
                             "type type btn" 1fr
-                            /42px 1fr 1fr;
-                        font-size: 0.8rem;
-                        gap: 0.25rem 0.5rem;
-                        align-items: baseline;
+                            / 2.625rem 1fr 1fr;
+                        padding-top: var(--space-5);
 
                         .add-modifier-value {
-                            grid-area: value;
-                            font-size: 1rem;
-                            text-align: right;
+                            align-items: center;
+                            column-gap: var(--space-4);
                             display: grid;
+                            font-size: 1rem;
                             grid:
                                 "input plus" 1fr
                                 "input minus" 1fr
-                                /1fr 10px;
-                            column-gap: 4px;
-                            align-items: center;
+                                / 1fr var(--space-10);
+                            grid-area: value;
+                            text-align: right;
 
                             input {
                                 grid-area: input;
                             }
 
                             .fa-solid {
-                                margin-top: 2px;
-                                font-size: var(--font-size-9);
                                 cursor: pointer;
+                                font-size: var(--font-size-9);
+                                margin-top: var(--space-2);
 
                                 &.fa-plus-circle {
                                     grid-area: plus;
@@ -285,11 +284,11 @@
 
                         .add-modifier-submit {
                             @include micro;
-                            grid-area: btn;
-                            white-space: nowrap;
-                            line-height: 1.5;
                             background-color: black;
-                            color: var(--tertiary);
+                            color: var(--color-pf-tertiary);
+                            grid-area: btn;
+                            line-height: 1.5;
+                            white-space: nowrap;
                         }
                     }
                 }
@@ -300,7 +299,7 @@
                             display: flex;
 
                             label {
-                                color: var(--tertiary);
+                                color: var(--color-pf-tertiary);
                                 flex-basis: 100%;
                             }
 
@@ -309,14 +308,6 @@
                                 min-width: 2em;
                             }
                         }
-                    }
-                }
-
-                &.carry-hover-content {
-                    white-space: nowrap;
-
-                    a.item-control i.fa-solid {
-                        min-width: 1.25em;
                     }
                 }
             }

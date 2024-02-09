@@ -4,7 +4,7 @@
     "name": "Effect: Offensive Boost",
     "system": {
         "description": {
-            "value": "<p>If your innovation is armor, the boost applies to your melee Strikes with one weapon you choose during daily preparations; if your innovation is a construct, the boost applies to your construct companion's Strikes; Choose one of the following boosts, with the damage type in parentheses.</p>\n<ul>\n<li><strong>Chill (Cold)</strong> Your innovation rapidly absorbs heat, creating an intense chill.</li>\n<li><strong>Ignition (Fire)</strong> Your innovation shoots out jets of searing flame.</li>\n<li><strong>Jolt (Electricity)</strong> Your innovation jolts foes with charges of electricity.</li>\n<li><strong>Momentum (Bludgeoning)</strong> Your innovation slams into foes with added momentum.</li>\n<li><strong>Saws (Slashing)</strong> Your innovation reveals spinning sawblades during your attacks.</li>\n<li><strong>Spike (Piercing)</strong> Your innovation reveals wicked spikes during your attacks.</li>\n<li><strong>Vitriol (Acid)</strong> Your innovation releases spurts of caustic acid.</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Offensive Boost]</p>\n<p>Your improvements make any Strikes that rely on your innovation deal an additional 1d6 damage, with a type determined by the boost you choose. If your innovation is armor, the boost applies to your melee Strikes with one weapon you choose during daily preparations; if your innovation is a construct, the boost applies to your construct companion's Strikes.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,44 +22,6 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Chill",
-                        "value": "cold"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Ignition",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Jolt",
-                        "value": "electricity"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Momentum",
-                        "value": "bludgeoning"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Saws",
-                        "value": "slashing"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Spike",
-                        "value": "piercing"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Inventor.OffensiveBoost.Vitriol",
-                        "value": "acid"
-                    }
-                ],
-                "flag": "damage",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "self:trait:minion"
-                ],
-                "prompt": "PF2E.SpecificRule.Inventor.OffensiveBoost.Prompt"
-            },
-            {
                 "choices": {
                     "ownedItems": true,
                     "types": [
@@ -74,7 +36,7 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
@@ -84,7 +46,7 @@
                 "selector": "strike-damage"
             },
             {
-                "damageType": "{actor|flags.pf2e.inventor.offensiveBoost.damageType}",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",

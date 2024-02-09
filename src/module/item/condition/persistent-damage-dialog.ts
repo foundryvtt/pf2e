@@ -1,10 +1,11 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { damageDiceIcon } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
-import { PersistentDamagePF2e } from "./document.ts";
+import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import * as R from "remeda";
+import type { PersistentDamagePF2e } from "./document.ts";
 
 class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> {
     constructor(
@@ -41,7 +42,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
                 id: c.id,
                 bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
                 active: c.active,
-                ...pick(c.system.persistent, ["formula", "damageType", "dc"]),
+                ...R.pick(c.system.persistent, ["formula", "damageType", "dc"]),
             }));
 
         return {
@@ -62,7 +63,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
             };
         });
 
-        return types.sort(sortBy((type) => type.label));
+        return types.sort((a, b) => a.label.localeCompare(b.label));
     }
 
     /** Determine whether an inputted formula is valid, reporting to the user if not. */
@@ -117,7 +118,7 @@ class PersistentDamageDialog extends Application<PersistentDamageDialogOptions> 
 
             if (this.#reportFormulaValidity(`(${formula})[${damageType}]`, elements.formula)) {
                 const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
-                const persistentSource = mergeObject(baseConditionSource, {
+                const persistentSource = fu.mergeObject(baseConditionSource, {
                     system: {
                         persistent: { formula, damageType, dc },
                     },

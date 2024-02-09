@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Change RE formula data replacement to operate at actor and item instance levels */
@@ -30,13 +30,9 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
             try {
                 if (typeof rule.value === "string") {
                     rule.value = this.raiseToInstanceLevel(rule.value);
-                } else if (
-                    isObject<Record<string, unknown>>(rule.value) &&
-                    "brackets" in rule.value &&
-                    Array.isArray(rule.value.brackets)
-                ) {
+                } else if (R.isObject(rule.value) && "brackets" in rule.value && Array.isArray(rule.value.brackets)) {
                     for (const bracket of rule.value.brackets) {
-                        if (isObject<{ value: unknown }>(bracket) && typeof bracket.value === "string") {
+                        if (R.isObject(bracket) && typeof bracket.value === "string") {
                             bracket.value = this.raiseToInstanceLevel(bracket.value);
                         }
                     }

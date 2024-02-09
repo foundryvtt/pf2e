@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you compound @UUID[Compendium.pf2e.classfeatures.Item.Panache] with even more derring-do, it somehow tends to work out.</p>\n<p>When you already have panache, you can roll twice and use the higher result on checks to which the circumstance bonus for having panache applies (@UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and any skill actions listed in your swashbuckler's style).</p>"
+            "value": "<p>When you compound @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} with even more derring-do, it somehow tends to work out.</p>\n<p>When you already have panache, you can roll twice and use the higher result on checks to which the circumstance bonus for having panache applies (@UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and any skill actions listed in your swashbuckler's style).</p>"
         },
         "level": {
             "value": 10
@@ -24,7 +24,17 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "self:effect:panache",
+                    "grants-panache"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

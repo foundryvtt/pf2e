@@ -1,0 +1,69 @@
+{
+    "_id": "fcalovjrB3bzpiDH",
+    "img": "icons/commodities/stone/stone-cratered-brown.webp",
+    "name": "Spell Effect: Swampcall",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Swampcall]</p>\n<p>The creature takes a circumstance penalty to its Speeds (except for its swim Speed, if any) and becomes off-guard.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #171: Hurricane's Howl"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": -10
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -15
+                    }
+                ],
+                "flag": "swampcallSpeed",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "burrow-speed",
+                    "climb-speed",
+                    "fly-speed",
+                    "land-speed"
+                ],
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.swampcallSpeed}"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

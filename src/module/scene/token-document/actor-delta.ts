@@ -57,8 +57,8 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
             const fakeUpdates: Partial<foundry.documents.TokenSource> = {};
             if (nameChanged) fakeUpdates.name = this.parent.name;
             if (sizeChanged) fakeUpdates.width = this.parent.width;
-            if (textureChanged) fakeUpdates.texture = deepClone(this.parent._source.texture);
-            if (lightChanged) fakeUpdates.light = deepClone(this.parent._source.light);
+            if (textureChanged) fakeUpdates.texture = fu.deepClone(this.parent._source.texture);
+            if (lightChanged) fakeUpdates.light = this.parent.light.toObject();
             this.parent.object?._onUpdate(fakeUpdates, { parent: this.parent.scene }, game.user.id);
         }
     }

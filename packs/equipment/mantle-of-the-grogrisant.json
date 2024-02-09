@@ -7,7 +7,7 @@
         "bulk": {
             "value": 0.1
         },
-        "containerId": "null",
+        "containerId": null,
         "description": {
             "value": "<p>This long, golden cloak is among the royal regalia of the emperors of Taldor. It was fashioned from the pelt of Grogrisant itself, after being slain by Taldaris, and Grogrisant's mane was fashioned into a thick fringe that runs all along the mantle's edges. The paws of the Grogrisant cross beneath the wearer's throat, giving you an imposing appearance. The <em>Mantle of the Grogrisant</em> grants you fire resistance 15 and physical resistance 5 (except bludgeoning).</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> envision, Interact (evocation, incapacitation, light, primal, visual)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You pull the hood of the mantle over your face, revealing the six eyes of Grogrisant. The mantle gives off a flash of blinding light in a @Template[type:emanation|distance:60]. All enemies within this area must attempt a @Check[type:fortitude|dc:38|name:Blinding Flash|traits:evocation,incapacitation,light,visual] saving throw. On a failure, they're @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute. On a critical failure, they're permanently blinded.</p>"
         },
@@ -34,7 +34,21 @@
             "title": "Pathfinder Lost Omens: Monsters of Myth"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "fire",
+                "value": 15
+            },
+            {
+                "exceptions": [
+                    "bludgeoning"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "unique",

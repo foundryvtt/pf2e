@@ -1,0 +1,55 @@
+{
+    "_id": "ENUkD70XmIP4Hekz",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Starsong Nectar",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Starsong Nectar]</p>\n<p>You gain a +3 status bonus to attack rolls, initiative rolls, Perception checks, saving throws, and skill checks, and you aren't off-guard against undetected creatures or when flanked.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "initiative",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

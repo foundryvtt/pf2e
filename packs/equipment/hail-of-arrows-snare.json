@@ -3,24 +3,17 @@
     "img": "systems/pf2e/icons/equipment/snares/hail-of-arrows-snare.webp",
     "name": "Hail of Arrows Snare",
     "system": {
-        "autoDestroy": {
-            "value": true
-        },
         "baseItem": null,
         "bulk": {
             "value": 0
         },
-        "charges": {
-            "max": 1,
-            "value": 1
-        },
-        "consumableType": {
-            "value": "snare"
-        },
-        "consume": {
-            "value": "18d6"
-        },
+        "category": "snare",
         "containerId": null,
+        "damage": {
+            "formula": "18d6",
+            "kind": "damage",
+            "type": "piercing"
+        },
         "description": {
             "value": "<p>When a creature enters the snare's square, it releases hundreds upon hundreds of carefully prepared arrows, blanketing a 20-foot radius around the snare's square with massive arrow fire that deals @Damage[18d6[piercing]] damage. Creatures in the area must attempt a @Check[type:reflex|dc:37|basic:true] saving throw.</p>"
         },
@@ -60,6 +53,11 @@
         },
         "usage": {
             "value": "held-in-one-hand"
+        },
+        "uses": {
+            "autoDestroy": true,
+            "max": 1,
+            "value": 1
         }
     },
     "type": "consumable"

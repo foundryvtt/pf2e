@@ -109,15 +109,8 @@ declare global {
             itemData: foundry.documents.ItemSource | foundry.documents.ItemSource[],
         ): Promise<Item<TActor>[]>;
 
-        /**
-         * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings
-         * @param  event
-         * @param itemData
-         */
-        protected _onSortItem(
-            event: DragEvent,
-            itemData: CollectionValue<TActor["items"]>["_source"],
-        ): Promise<CollectionValue<TActor["items"]>[]>;
+        /** Handle a drop event for an existing embedded Item to sort that Item relative to its siblings */
+        protected _onSortItem(event: DragEvent, itemData: TItem["_source"]): Promise<TItem[]>;
     }
 
     interface ActorSheetOptions extends DocumentSheetOptions {

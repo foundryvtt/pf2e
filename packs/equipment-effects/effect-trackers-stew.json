@@ -1,0 +1,51 @@
+{
+    "_id": "sAs4lPQ2wXEh2dPN",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Tracker's Stew",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Tracker's Stew]</p>\n<p>You gain a +1 item bonus to Survival checks to Cover Tracks and Track.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:track",
+                            "action:cover-tracks"
+                        ]
+                    }
+                ],
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

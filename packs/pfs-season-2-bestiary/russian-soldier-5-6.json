@@ -208,24 +208,17 @@
             "name": "Explosive Ammunition (Arrow)",
             "sort": 400000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": "6d6"
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": {
+                    "formula": "6d6",
+                    "kind": "damage",
+                    "type": "fire"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing @Damage[6d6[fire]] damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:25|basic:true] save.</p>"
                 },
@@ -276,6 +269,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -565,12 +563,6 @@
                 "temp": 0,
                 "value": 74
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -578,6 +570,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "russian"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -588,6 +587,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #2-08: A Frosty Mug"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -605,16 +612,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "russian"
-                ]
-            },
             "rarity": "rare",
-            "senses": [],
             "size": {
                 "value": "med"
             },

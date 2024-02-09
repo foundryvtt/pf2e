@@ -168,7 +168,7 @@
                 },
                 "items": {
                     "00b8b": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Assurance",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
@@ -407,7 +407,7 @@
                 "hp": 10,
                 "items": {
                     "0c3e5": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-legend.webp",
+                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
                         "level": 13,
                         "name": "Weapon Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
@@ -449,19 +449,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Battle Hardened"
                     },
                     "enizk": {
-                        "img": "systems/pf2e/icons/features/classes/improved-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 15,
                         "name": "Improved Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
                     },
                     "ij943": {
-                        "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+                        "img": "icons/environment/people/charge.webp",
                         "level": 7,
                         "name": "Battlefield Surveyor",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
                     },
                     "lakjk": {
-                        "img": "systems/pf2e/icons/features/classes/bravery.webp",
+                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
                         "level": 3,
                         "name": "Bravery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
@@ -473,7 +473,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Armor Mastery"
                     },
                     "txlgu": {
-                        "img": "systems/pf2e/icons/features/classes/combat-flexibility.webp",
+                        "img": "icons/environment/settlement/target-dummy.webp",
                         "level": 9,
                         "name": "Combat Flexibility",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
@@ -497,7 +497,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
                     },
                     "x98c2": {
-                        "img": "systems/pf2e/icons/features/classes/versatile-legend.webp",
+                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
                         "level": 19,
                         "name": "Versatile Legend",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
@@ -1073,6 +1073,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1182,24 +1183,13 @@
             "name": "Chalk",
             "sort": 200000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "T0wPTa6cZ5cGjmSL",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1240,6 +1230,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1315,24 +1310,13 @@
             "name": "Rations",
             "sort": 400000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 7,
-                    "value": 7
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": "T0wPTa6cZ5cGjmSL",
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -1372,6 +1356,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
                 }
             },
             "type": "consumable"
@@ -1727,6 +1716,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -1776,29 +1766,23 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -1838,6 +1822,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1999,7 +1988,6 @@
                     "property": [],
                     "striking": 0
                 },
-                "selectedAmmoId": "oAeupG1c0dIv5p7Y",
                 "size": "med",
                 "slug": "shortbow",
                 "splashDamage": {
@@ -2013,93 +2001,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-plus-hands"
-                }
-            },
-            "type": "weapon"
-        },
-        {
-            "_id": "pCbJ3f9zoT6Ayat3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.dfum7DpOEkwxwTsT"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/shield-boss.webp",
-            "name": "Shield Boss",
-            "sort": 0,
-            "system": {
-                "baseItem": "shield-boss",
-                "bonus": {
-                    "value": "0"
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "bulk": {
-                    "value": 0
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "dice": 1,
-                    "die": "d6"
-                },
-                "description": {
-                    "value": "<p>Typically a round, convex, or conical piece of thick metal attached to the center of a shield, a shield boss increases the bludgeoning damage of a shield bash.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "group": "shield",
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 5
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "quantity": 1,
-                "range": null,
-                "reload": {
-                    "value": ""
-                },
-                "rules": [],
-                "runes": {
-                    "potency": 0,
-                    "property": [],
-                    "striking": 0
-                },
-                "size": "med",
-                "slug": "shield-boss",
-                "splashDamage": {
-                    "value": 0
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "attached-to-shield"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "type": "weapon"
@@ -2122,7 +2023,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -2159,6 +2060,94 @@
                 "size": "med",
                 "slug": "wooden-shield",
                 "speedPenalty": 0,
+                "subitems": [
+                    {
+                        "_id": "E7WCARt148arnyLY",
+                        "flags": {
+                            "core": {
+                                "sourceId": "Compendium.pf2e.equipment-srd.Item.dfum7DpOEkwxwTsT"
+                            }
+                        },
+                        "img": "systems/pf2e/icons/equipment/weapons/shield-boss.webp",
+                        "name": "Shield Boss",
+                        "sort": 0,
+                        "system": {
+                            "baseItem": "shield-boss",
+                            "bonus": {
+                                "value": 0
+                            },
+                            "bonusDamage": {
+                                "value": 0
+                            },
+                            "bulk": {
+                                "value": 0
+                            },
+                            "category": "martial",
+                            "containerId": null,
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d6"
+                            },
+                            "description": {
+                                "value": "<p>Typically a round, convex, or conical piece of thick metal attached to the center of a shield, a shield boss increases the bludgeoning damage of a shield bash.</p>"
+                            },
+                            "equipped": {
+                                "carryType": "attached",
+                                "handsHeld": 0
+                            },
+                            "group": "shield",
+                            "hardness": 0,
+                            "hp": {
+                                "max": 0,
+                                "value": 0
+                            },
+                            "level": {
+                                "value": 0
+                            },
+                            "material": {
+                                "grade": null,
+                                "type": null
+                            },
+                            "price": {
+                                "value": {
+                                    "sp": 5
+                                }
+                            },
+                            "publication": {
+                                "license": "ORC",
+                                "remaster": true,
+                                "title": "Pathfinder Player Core"
+                            },
+                            "quantity": 1,
+                            "range": null,
+                            "reload": {
+                                "value": ""
+                            },
+                            "rules": [],
+                            "runes": {
+                                "potency": 0,
+                                "property": [],
+                                "striking": 0
+                            },
+                            "size": "med",
+                            "slug": "shield-boss",
+                            "splashDamage": {
+                                "value": 0
+                            },
+                            "traits": {
+                                "rarity": "common",
+                                "value": [
+                                    "attached-to-shield"
+                                ]
+                            },
+                            "usage": {
+                                "value": "held-in-one-hand"
+                            }
+                        },
+                        "type": "weapon"
+                    }
+                ],
                 "traits": {
                     "integrated": null,
                     "rarity": "common",
@@ -2178,24 +2167,13 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -2237,6 +2215,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -2254,14 +2237,15 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2424,9 +2408,6 @@
                 "temp": 0,
                 "value": 20
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2454,6 +2435,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -2462,6 +2444,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2482,6 +2465,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "goblin",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -2499,6 +2489,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2571,20 +2564,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "goblin",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

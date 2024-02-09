@@ -81,7 +81,7 @@
                 },
                 "items": {
                     "diizj": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Seasoned",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Seasoned"
@@ -927,24 +927,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
@@ -990,6 +983,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1001,28 +999,17 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Du05UxCyCM0ZWH8z"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/oil.webp",
+            "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
             "name": "Oil (1 pint)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "oil"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "oil",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>You can use oil to fuel lanterns, but you can also set a pint of oil aflame and throw it. You must first spend an Interact action preparing the oil, then throw it with another action as a ranged attack. If you hit, it splatters on the creature or in a single 5-foot square you target. You must succeed at a @Check[type:flat|dc:10] for the oil to ignite successfully when it hits. If the oil ignites, the target takes 1d6 fire damage.</p>"
                 },
@@ -1062,6 +1049,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1181,7 +1173,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "blnv0": {
-                        "img": "systems/pf2e/icons/features/classes/heightened-senses.webp",
+                        "img": "icons/creatures/eyes/human-single-brown.webp",
                         "level": 17,
                         "name": "Heightened Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Heightened Senses"
@@ -1556,7 +1548,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon's blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3-4: Dragon Instincts to be your instinct's dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Type</th>\n<th>Breath Weapon</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Chromatic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Chromatic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Chromatic</td>\n<td>Cone of Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Chromatic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Chromatic</td>\n<td>Cone of Cold</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Metallic</td>\n<td>Line of Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Metallic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Metallic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Metallic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Metallic</td>\n<td>Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon's breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing damage and the damage type of your dragon's breath weapon.</p>"
+                    "value": "<p>You summon the fury of a mighty dragon and manifest incredible abilities. Perhaps your culture reveres draconic majesty, or you gained your connection by drinking or bathing in dragon's blood or after watching a marauding wyrm burn your village. Select a type of dragon from Table 3-4: Dragon Instincts to be your instinct's dragon type. Chromatic dragons tend to be evil, and metallic dragons tend to be good.</p>\n<h2>Table 3-4: Dragon Instincts</h2>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Dragon</th>\n<th>Type</th>\n<th>Breath Weapon</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black</td>\n<td>Chromatic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Blue</td>\n<td>Chromatic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>Chromatic</td>\n<td>Cone of Poison</td>\n</tr>\n<tr>\n<td>Red</td>\n<td>Chromatic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>White</td>\n<td>Chromatic</td>\n<td>Cone of Cold</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>Metallic</td>\n<td>Line of Fire</td>\n</tr>\n<tr>\n<td>Bronze</td>\n<td>Metallic</td>\n<td>Line of Electricity</td>\n</tr>\n<tr>\n<td>Copper</td>\n<td>Metallic</td>\n<td>Line of Acid</td>\n</tr>\n<tr>\n<td>Gold</td>\n<td>Metallic</td>\n<td>Cone of Fire</td>\n</tr>\n<tr>\n<td>Silver</td>\n<td>Metallic</td>\n<td>Cone of Cold</td>\n</tr>\n</tbody>\n</table>\n<h2 class=\"title\">Anathema</h2>\n<p>Letting a personal insult against you slide is anathema to your instinct. Choose whether your character respects or abhors your dragon type. If you respect it, defying such a dragon is anathema, and if you abhor it, failing to defeat such a dragon you come across is anathema.</p>\n<h2 class=\"title\">Draconic Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 4 and change its damage type to match that of your dragon's breath weapon instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the arcane and evocation traits, as well as the trait matching the damage type.</p>\n<h2 class=\"title\">Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use draconic rage, you increase the additional damage from Rage from 4 to 8. If you have greater weapon specialization, instead increase the damage from Rage when using draconic rage from 8 to 16.</p>\n<h2 class=\"title\">Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing damage and the damage type of your dragon's breath weapon.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2012,7 +2004,7 @@
                         "plant"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -2068,9 +2060,6 @@
                 "temp": 0,
                 "value": 53
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2098,6 +2087,7 @@
             "alliance": "party",
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -2106,6 +2096,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2121,6 +2112,10 @@
             },
             "keyability": {
                 "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
             },
             "level": {
                 "value": 3
@@ -2139,6 +2134,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2210,17 +2208,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

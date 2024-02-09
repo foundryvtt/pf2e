@@ -76,7 +76,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             .filter((idx) => idx % 2 === 0);
 
         // Add free archetype (if active)
-        if (game.settings.get("pf2e", "freeArchetypeVariant")) {
+        if (game.pf2e.settings.variants.fa) {
             this.createGroup({
                 id: "archetype",
                 label: "PF2E.FeatArchetypeHeader",
@@ -111,7 +111,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         });
 
         // Add campaign feats if enabled
-        if (game.settings.get("pf2e", "campaignFeats")) {
+        if (game.pf2e.settings.campaign.enabled) {
             this.createGroup({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
         }
     }
@@ -360,7 +360,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
         // If this is a new feat, create a new feat item on the actor first
         if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
-            const source = mergeObject(feat.toObject(), { system: { location } });
+            const source = fu.mergeObject(feat.toObject(), { system: { location } });
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
             const label = game.i18n.localize(this.label);
             ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));

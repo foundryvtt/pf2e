@@ -69,7 +69,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     }
 
                     const isCantrip = spellData.system.traits.value.includes("cantrip");
-                    const isFocusSpell = spellData.system.traits.value.includes("focus");
+                    const isFocusSpell =
+                        spellData.system.traits.value.includes("focus") ||
+                        (isCantrip && (spellData.system.traits.traditions ?? []).length === 0);
                     const isRitual = !!spellData.system.ritual;
                     const isSpell = !isCantrip && !isFocusSpell && !isRitual;
                     const categories = R.compact([
@@ -78,6 +80,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         isFocusSpell ? "focus" : null,
                         isRitual ? "ritual" : null,
                     ]);
+
+                    // format casting time (before value is sluggified)
+                    const actionGlyph = getActionGlyph(spellData.system.time.value);
 
                     // recording casting times
                     const time: unknown = spellData.system.time.value;
@@ -88,9 +93,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         times.add(normalizedTime);
                         spellData.system.time.value = normalizedTime;
                     }
-
-                    // format casting time
-                    const actionGlyph = getActionGlyph(spellData.system.time.value);
 
                     // Prepare publication source
                     const { system } = spellData;

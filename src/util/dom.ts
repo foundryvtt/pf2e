@@ -109,7 +109,7 @@ function htmlClosest(child: MaybeHTML, selectors: string): HTMLElement | null {
 /** Create a reasonably specific selector for an HTML element */
 function htmlSelectorFor(element: HTMLElement): string {
     const nodeName = element.nodeName.toLowerCase();
-    const classes = element.className.split(" ");
+    const classes = R.compact(element.className.split(" "));
     const classesString = classes.length > 0 ? `.${classes.join(".")}` : "";
     const datasetEntries = Object.entries(element.dataset).map(([k, v]) => [
         k.replace(/([A-Z])/g, "-$1").toLowerCase(),

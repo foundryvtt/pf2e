@@ -1,8 +1,9 @@
-import { Language } from "@actor/creature/data.ts";
 import { CreatureTrait } from "@actor/creature/index.ts";
+import { Language } from "@actor/creature/types.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, recursiveReplaceString } from "@util";
+import { recursiveReplaceString } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Convert weapons with the "crossbow" tag to the PC1 crossbow group */
@@ -27,12 +28,15 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character" || source.type === "npc") {
-            const traits: { value: string[]; languages: { value: string[] } } = source.system.traits;
-            traits.value = traits.value.map((t) => this.#TRAITS_RENAMES[t] ?? t).sort();
-
-            const { languages } = traits;
-            if (isObject(languages) && Array.isArray(languages.value)) {
-                languages.value = languages.value.map((l) => this.#LANGUAGE_RENAMES[l] ?? l).sort();
+            const traits: unknown = source.system.traits;
+            if (R.isObject(traits)) {
+                if (Array.isArray(traits.value)) {
+                    traits.value = traits.value.map((t) => this.#TRAITS_RENAMES[t] ?? t).sort();
+                }
+                const languages = traits.languages;
+                if (R.isObject(languages) && Array.isArray(languages.value)) {
+                    languages.value = languages.value.map((l) => this.#LANGUAGE_RENAMES[l] ?? l).sort();
+                }
             }
         }
     }

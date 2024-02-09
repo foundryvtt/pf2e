@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Lie";
 
-export function lie(options: SkillActionOptions): void {
+function lie(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:lie"];
     const modifiers = options?.modifiers;
@@ -24,3 +25,20 @@ export function lie(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
+    ],
+    rollOptions: ["action:lie"],
+    section: "skill",
+    slug: "lie",
+    statistic: "deception",
+    traits: ["auditory", "concentrate", "linguistic", "mental", "secret"],
+});
+
+export { lie as legacy, action };

@@ -175,7 +175,11 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
     }
 
-    protected override _onDragStart(event: ElementDragEvent): void {
+    protected override _onDragStart(event: DragEvent): void {
+        if (!(event.target instanceof HTMLElement && event.dataTransfer)) {
+            return super._onDragStart(event);
+        }
+
         // Prevent drag drop for the other parties folder
         if (event.target.dataset.entryId === "otherParties") {
             event.preventDefault();
@@ -259,10 +263,10 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
     /** Include flattened update data so parent method can read nested update keys */
     protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
         // Create new reference in case other applications are using the same context object
-        context = deepClone(context);
+        context = fu.deepClone(context);
 
         if (context.action === "update" && context.documentType === "Actor" && context.data) {
-            context.data = context.data.map((d) => ({ ...d, ...flattenObject(d) }));
+            context.data = context.data.map((d) => ({ ...d, ...fu.flattenObject(d) }));
         }
 
         return super._render(force, context);

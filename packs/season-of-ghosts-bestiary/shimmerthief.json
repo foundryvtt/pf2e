@@ -194,7 +194,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -263,7 +263,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's rank or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Item.Concealed].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -569,7 +569,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The shimmerthief casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness] as a 2nd-level spell</p>\n<hr />\n<p><strong>Effect</strong> The duration of the shimmerthief's <em>darkness</em> increases to 24 hours.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The shimmerthief casts @UUID[Compendium.pf2e.spells-srd.Item.Darkness] as a 2nd-rank spell</p>\n<hr />\n<p><strong>Effect</strong> The duration of the shimmerthief's <em>darkness</em> increases to 24 hours.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -731,12 +731,6 @@
                     "type": "visual"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 15
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -744,6 +738,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "draconic"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -754,6 +754,20 @@
                 "remaster": false,
                 "title": "Pathfinder #198: No Breath to Cry"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "shimmervision",
+            "mod": 15,
+            "senses": [
+                {
+                    "acuity": "precise",
+                    "range": 120,
+                    "type": "echolocation"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -771,16 +785,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": [
-                    "draconic"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "echolocation 120 feet, shimmervision"
-            },
             "size": {
                 "value": "med"
             },

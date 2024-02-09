@@ -35,7 +35,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
         });
     }
 
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         const item = await (async (): Promise<ItemPF2e | null> => {
             try {
                 const dataString = event.dataTransfer?.getData("text/plain");

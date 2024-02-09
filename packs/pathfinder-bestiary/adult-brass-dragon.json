@@ -522,7 +522,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura] @Check[type:will|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[type:will|dc:28]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -647,7 +647,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon calls upon the desert wind. This has the same effect as <em>@UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind]</em> (@Check[type:fortitude|dc:30]) but in a @Template[type:cone|distance:60]{60-foot cone}.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until the end of its next turn (or for 1 minute on a critical failure).</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The dragon calls upon the desert wind. This has the same effect as @UUID[Compendium.pf2e.spells-srd.Item.Gust of Wind] (@Check[type:fortitude|dc:30]) but in a @Template[type:cone|distance:60]{60-foot cone}.</p>\n<p>A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until the end of its next turn (or for 1 minute on a critical failure).</p>"
                 },
                 "frequency": {
                     "max": 3,
@@ -915,12 +915,6 @@
                     "type": "sleep"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 21
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -937,6 +931,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "speak with animals",
+                "value": [
+                    "common",
+                    "draconic",
+                    "fey",
+                    "gnomish",
+                    "halfling",
+                    "sussuran"
+                ]
+            },
             "level": {
                 "value": 11
             },
@@ -947,6 +952,28 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 21,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -969,22 +996,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Speak With Animals",
-                "selected": [],
-                "value": [
-                    "common",
-                    "draconic",
-                    "fey",
-                    "gnomish",
-                    "halfling",
-                    "sussuran"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision, scent (imprecise) 60 feet, tremorsense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "lg"
             },

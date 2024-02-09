@@ -91,7 +91,7 @@
                         "plant"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -150,24 +150,13 @@
             "name": "Putrid Sack of Rotting Fruit",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "other"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "other",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Strike</p>\n<hr />\n<p>Each of these unassuming sacks contains enough rotting fruit to provide a fungus leshy with 1 week's worth of rations, along with clusters of stones to help press out the fruit's juices. Since their last adventure, Reaching Rings has refined their rations's ability to serve as a weapon in addition to delicious, flavorful sustenance.</p>\n<p>A sack of rotting fruit has a range increment of 20 feet. When you succeed at a ranged Strike on a creature by hurling a putrid sack of rotten fruit at them, the sack is consumed while the creature takes @Damage[2d6[bludgeoning]] damage and must attempt a @Check[type:fortitude|dc:17] save.</p>\n<p><strong>Success</strong> The creature is unaffected by the foul smell of the fruit.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>"
                 },
@@ -209,6 +198,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -230,7 +224,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.cdhgByGG1WtuaK73"
                 },
                 "description": {
-                    "value": "<p>Your body was made from fungi that grows in the shade of caves and trees, and you are at home in dark caverns and warrens. You gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision]. You lose the plant trait and gain the fungus trait.</p>"
+                    "value": "<p>Your body was made from fungi that grows in the shade of caves and trees, and you are at home in dark caverns and warrens. You gain darkvision. You lose the plant trait and gain the fungus trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -296,7 +290,7 @@
                 },
                 "items": {
                     "z8dne": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Dubious Knowledge",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge"
@@ -814,7 +808,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest level of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary.</p>\n<p>The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success</strong> You correctly recognize the spell.</p>\n<p><strong>Failure</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest rank of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary.</p>\n<p>The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success</strong> You correctly recognize the spell.</p>\n<p><strong>Failure</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
                 },
                 "level": {
                     "taken": 3,
@@ -1109,24 +1103,17 @@
             "name": "Healing Potion (Minor)",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": "1d8"
-                },
+                "category": "potion",
                 "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
                 "description": {
                     "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
                 },
@@ -1172,6 +1159,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1274,24 +1266,13 @@
             "name": "Arrows",
             "sort": 0,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "ammo",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
@@ -1333,6 +1314,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1765,7 +1751,7 @@
             "system": {
                 "baseItem": null,
                 "bulk": {
-                    "value": 0
+                    "value": 1
                 },
                 "containerId": null,
                 "description": {
@@ -1917,7 +1903,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Mastery"
                     },
                     "2xl4q": {
-                        "img": "systems/pf2e/icons/features/classes/master-tricks.webp",
+                        "img": "icons/weapons/swords/swords-short.webp",
                         "level": 13,
                         "name": "Master Tricks",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Tricks"
@@ -1935,7 +1921,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
                     },
                     "6ddtr": {
-                        "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
@@ -1965,7 +1951,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "hg9s4": {
-                        "img": "systems/pf2e/icons/features/classes/slippery-mind.webp",
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
                         "level": 17,
                         "name": "Slippery Mind",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
@@ -2509,9 +2495,6 @@
                 "temp": 0,
                 "value": 52
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2538,6 +2521,7 @@
             },
             "biography": {
                 "allies": "",
+                "anathema": [],
                 "appearance": "",
                 "attitude": "",
                 "backstory": "",
@@ -2546,6 +2530,7 @@
                 "campaignNotes": "",
                 "catchphrases": "",
                 "dislikes": "",
+                "edicts": [],
                 "enemies": "",
                 "likes": "",
                 "organizations": ""
@@ -2561,6 +2546,12 @@
             },
             "keyability": {
                 "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "gnomish"
+                ]
             },
             "level": {
                 "value": 4
@@ -2579,6 +2570,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2650,17 +2644,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "gnomish"
-                ]
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

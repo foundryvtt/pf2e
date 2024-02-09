@@ -329,10 +329,6 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "2RBdqJWosZEtVkwA": {
-                        "damage": "3d8",
-                        "damageType": "piercing"
-                    },
                     "BUyUo0zrj25lt5wl": {
                         "damage": "3d8+17",
                         "damageType": "slashing"
@@ -745,6 +741,13 @@
                 },
                 "rules": [
                     {
+                        "damageType": "piercing",
+                        "diceNumber": 3,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "glaive-damage"
+                    },
+                    {
                         "key": "Note",
                         "selector": "glaive-damage",
                         "text": "{item|system.description.value}",
@@ -847,12 +850,6 @@
                 "temp": 0,
                 "value": 430
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 31
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -860,12 +857,20 @@
             "weaknesses": [
                 {
                     "type": "fire",
-                    "value": 10
+                    "value": 20
                 }
             ]
         },
         "details": {
             "blurb": "Variant troll king",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "fey",
+                    "jotun"
+                ]
+            },
             "level": {
                 "value": 18
             },
@@ -876,6 +881,18 @@
                 "remaster": false,
                 "title": "Pathfinder Kingmaker"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -893,19 +910,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "fey",
-                    "jotun"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

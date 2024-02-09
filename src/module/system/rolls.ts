@@ -11,6 +11,8 @@ import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;
     totalModifier?: number;
+    /** Whether to show roll formula and tooltip to players */
+    showBreakdown?: boolean;
 }
 
 /** Possible parameters of a RollFunction */
@@ -25,6 +27,8 @@ interface RollParameters {
     callback?: (roll: Rolled<Roll>) => void;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
+    /** Whether to create a message from the roll */
+    createMessage?: boolean;
 }
 
 interface AttackRollParams extends RollParameters {

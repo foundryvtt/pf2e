@@ -12,9 +12,9 @@ async function repair(options: RepairActionOptions): Promise<void> {
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
     // ensure specified item is a valid crafting target
-    if (item && !(item instanceof PhysicalItemPF2e)) {
+    if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
-            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item.name ?? "" }),
+            game.i18n.format("PF2E.Actions.Repair.Warning.NotPhysicalItem", { item: item?.name ?? "" }),
         );
         return;
     }
@@ -27,10 +27,10 @@ async function repair(options: RepairActionOptions): Promise<void> {
         options.difficultyClass ??
         (() => {
             if (item) {
-                const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant");
+                const pwol = game.pf2e.settings.variants.pwol.enabled;
                 return {
                     label: game.i18n.format("PF2E.Actions.Repair.Labels.ItemLevelRepairDC", { level: item.level }),
-                    value: calculateDC(item.level, { proficiencyWithoutLevel }),
+                    value: calculateDC(item.level, { pwol }),
                     visibility: "all",
                 };
             }

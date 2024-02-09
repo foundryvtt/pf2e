@@ -23,8 +23,7 @@
             <div
                 class="tag tag_transparent"
                 data-tooltip="{{trait.description}}"
-                data-tooltip-direction="UP"
-                data-tooltip-class="text-left">{{localize trait.label}}</div>
+                data-tooltip-direction="UP">{{localize trait.label}}</div>
         {{/each}}
         {{#each action.additionalEffects as |effect|}}
             <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
@@ -32,9 +31,9 @@
     </h4>
 
     <div class="controls">
-        {{#if isEditable}}
-            <a class="item-edit edit" data-tooltip="{{localize "PF2E.NPC.Edit"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-            <a class="item-delete delete" data-tooltip="{{localize "PF2E.NPC.Remove"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+        {{#if @root.editable}}
+            <a data-action="edit-item" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-fw fa-edit"></i></a>
+            <a data-action="delete-item" data-tooltip="Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
         {{/if}}
     </div>
 

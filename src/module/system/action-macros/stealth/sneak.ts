@@ -38,6 +38,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:sneak"],
+    section: "skill",
     slug: "sneak",
     statistic: "stealth",
     traits: ["move", "secret"],

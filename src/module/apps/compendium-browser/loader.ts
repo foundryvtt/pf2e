@@ -84,7 +84,7 @@ class PackLoader {
                 sources.has(source) ||
                 (this.sourcesSettings.showUnknownSources && !!source && !knownSources.includes(source))
             ) {
-                filteredIndex.set(data._id, deepClone(data));
+                filteredIndex.set(data._id, fu.deepClone(data));
             }
         }
         return filteredIndex;

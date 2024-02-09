@@ -125,7 +125,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)]</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and the creature's reach increases by 10 feet (or 15 feet if the creature started out Tiny). The spell has no effect on a Huge or larger creature. @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)]</p>\n<p><strong>Heightened (6th)</strong> Choose either the 2nd-rank or 4th-rank version of this spell and apply its effects to 10 willing creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -672,7 +672,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This silver signet ring changes to match the insignia of a lord or organization you serve (or your own face, if you serve no one else). It grants you a +3 item bonus to Diplomacy checks and lets you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Message]</em> as an arcane innate spell at will.</p>\n<hr />\n<p><strong>Activate</strong> 1 minute (envision)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The ring casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Messenger]</em> to your specification. The animal is a magical creature that springs from the ring, and its appearance suits the iconography or heraldry of the lord or organization represented by the ring.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">T</span> command</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The ring casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Sending]</em> to your specifications.</p>"
+                    "value": "<p>This silver signet ring changes to match the insignia of a lord or organization you serve (or your own face, if you serve no one else). It grants you a +3 item bonus to Diplomacy checks and lets you cast @UUID[Compendium.pf2e.spells-srd.Item.Message] as an arcane innate spell at will.</p>\n<hr />\n<p><strong>Activate</strong> 1 minute (envision)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The ring casts @UUID[Compendium.pf2e.spells-srd.Item.Animal Messenger] to your specification. The animal is a magical creature that springs from the ring, and its appearance suits the iconography or heraldry of the lord or organization represented by the ring.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">3</span> command</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The ring casts @UUID[Compendium.pf2e.spells-srd.Item.Sending] to your specifications.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -730,24 +730,13 @@
             "name": "Infused Reagents",
             "sort": 1000000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0
                 },
-                "charges": {
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "value": ""
-                },
-                "containerId": "null",
+                "category": "potion",
+                "containerId": null,
+                "damage": null,
                 "description": {
                     "value": ""
                 },
@@ -785,6 +774,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -800,24 +794,13 @@
             "name": "Antidote (Major) [Infused]",
             "sort": 1100000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +4 item bonus to Fortitude saving throws against poisons for 6 hours, and when you drink the antidote, you can immediately attempt a saving throw against one poison of 14th level or lower affecting you. If you succeed, the poison is neutralized.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Major)]</p>"
                 },
@@ -861,6 +844,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -876,24 +864,17 @@
             "name": "Elixir of Life (Greater) [Infused]",
             "sort": 1200000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": "7d6+18"
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": {
+                    "formula": "7d6+18",
+                    "kind": "healing",
+                    "type": "untyped"
+                },
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature''s natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (7d6+18)[healing]]]{7d6+18 Hit Points} and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Greater)]</p>"
                 },
@@ -937,6 +918,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -952,24 +938,13 @@
             "name": "Comprehension Elixir (Greater)",
             "sort": 1300000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
                 "bulk": {
                     "value": 0.1
                 },
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "elixir"
-                },
-                "consume": {
-                    "value": ""
-                },
+                "category": "elixir",
                 "containerId": null,
+                "damage": null,
                 "description": {
                     "value": "<p>This bitter draught opens your mind to the potential of the written word. For the listed duration after drinking this elixir, you can understand any words you read, so long as they are written in a common language. This elixir doesn't automatically allow you to understand codes or extremely esoteric passages-you still need to attempt a skill check to Decipher Writing. The duration is 10 minutes.</p>"
                 },
@@ -1013,6 +988,11 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
                 }
             },
             "type": "consumable"
@@ -1846,12 +1826,6 @@
                 "temp": 0,
                 "value": 295
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "resistances": [
                 {
                     "type": "poison",
@@ -1865,6 +1839,15 @@
         },
         "details": {
             "blurb": "Female duergar seneschal",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "dwarven",
+                    "elven",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 16
             },
@@ -1875,6 +1858,18 @@
                 "remaster": false,
                 "title": "Pathfinder #155: Lord of the Black Sands"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1897,20 +1892,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "dwarven",
-                    "elven",
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },
