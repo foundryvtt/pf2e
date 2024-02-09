@@ -88,3 +88,4 @@ class GrappleAction extends SingleCheckAction {
 const action = new GrappleAction();
 
 export { grapple as legacy, action };
+
