@@ -24,7 +24,684 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:daze",
+                                "item:slug:detect-magic",
+                                "item:slug:figment",
+                                "item:slug:frostbite",
+                                "item:slug:guidance",
+                                "item:slug:ignition",
+                                "item:slug:message",
+                                "item:slug:phase-bolt",
+                                "item:slug:shield",
+                                "item:slug:telekinetic-hand",
+                                "item:slug:telekinetic-projectile",
+                                "item:slug:warp-step",
+                                "item:trait:psychic"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:psychic",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:psi-cantrip"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "item:slug:astral-rain"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.AstralRain",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:contagious-idea",
+                            "item:tag:amped"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ContagiousIdea",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:dancing-blade"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:dancing-blade"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Guard.Text",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Guard.Title"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:dancing-blade"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Push.Text",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.DancingBlade.Push.Title"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:daze"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Daze"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:daze"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:daze"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:detect-magic"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.DetectMagic"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:detect-magic"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DetectMagic.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            {
+                                "gte": [
+                                    "item:rank",
+                                    7
+                                ]
+                            },
+                            "item:slug:detect-magic"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DetectMagic.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedSeventh"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:distortion-lens"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.DistortionLens",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:entropic-wheel",
+                            "item:tag:amped"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.EntropicWheel",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:figment"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Figment"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:figment"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Figment",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:forbidden-thought"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ForbiddenThought",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:foresee-the-path"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ForeseeThePath",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:frostbite"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Frostbite"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:frostbite"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:frostbite"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:ghostly-shift"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.GhostlyShift.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:ghostly-shift"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.GhostlyShift.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:glimpse-weakness"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.GlimpseWeakness.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:glimpse-weakness"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.GlimpseWeakness.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:guidance"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Guidance"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:guidance"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:guidance"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.BaseTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            {
+                                "gte": [
+                                    "item:rank",
+                                    6
+                                ]
+                            },
+                            "item:slug:guidance"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedSixth"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:hologram-cage"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.HologramCage",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:ignition"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Ignition"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:ignition"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:ignition"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:imaginary-weapon"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ImaginaryWeapon.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:imaginary-weapon"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ImaginaryWeapon.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:message"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Message"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:message"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Message.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:omnidirectional-scan"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.OmnidirectionalScan.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:omnidirectional-scan"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.OmnidirectionalScan.BaseTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:phase-bolt"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.PhaseBolt"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:phase-bolt"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.PhaseBolt.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:phase-bolt"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.PhaseBolt.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:redistribute-potential",
+                            "item:tag:amped"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:redistribute-potential",
+                            "item:tag:amped"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.RedistributePotential.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:shatter-mind"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ShatterMind",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:shield"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.Shield"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:shield"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Shield.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:shield"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.Shield.BaseTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:telekinetic-hand"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticHand"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:telekinetic-hand"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticHand.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            {
+                                "gte": [
+                                    "item:rank",
+                                    4
+                                ]
+                            },
+                            "item:slug:telekinetic-hand"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticHand.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedFourth"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:telekinetic-projectile"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.TelekineticProjectile"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:telekinetic-projectile"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:telekinetic-projectile"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:telekinetic-rend"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticRend.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:telekinetic-rend"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticRend.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:tesseract-tunnel"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.TesseractTunnel",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:thermal-stasis",
+                            "item:tag:amped"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.ThermalStasis",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:vector-screen"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.VectorScreen",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:slug:warp-step"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.WarpStep"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            "item:slug:warp-step"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.WarpStep.Base",
+                        "title": "PF2E.TraitAmp"
+                    },
+                    {
+                        "predicate": [
+                            "item:tag:amped",
+                            {
+                                "gte": [
+                                    "item:rank",
+                                    4
+                                ]
+                            },
+                            "item:slug:warp-step"
+                        ],
+                        "text": "PF2E.SpecificRule.Psychic.Amp.WarpStep.Heightened",
+                        "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedFourth"
+                    }
+                ]
+            },
+            {
+                "diceNumber": "@spell.rank - 1",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:telekinetic-projectile",
+                    "item:tag:psi-cantrip"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": "ceil(@spell.rank/2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:telekinetic-rend",
+                    "item:damage:type:slashing"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "slashing",
+                "diceNumber": "ceil(@spell.rank/2)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:telekinetic-rend",
+                    "item:damage:type:bludgeoning"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:dancing-blade"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "@spell.rank",
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:slug:ignition",
+                    "item:tag:amped",
+                    {
+                        "not": "item:melee"
+                    }
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "@spell.rank",
+                    "dieSize": "d12"
+                },
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:melee",
+                    "item:slug:ignition",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageCategory": "splash",
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:slug:ignition",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage",
+                "value": "@spell.rank"
+            },
+            {
+                "diceNumber": "@spell.rank",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:slug:frostbite",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "2 * ceil(@spell.rank / 2) - 1",
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:slug:daze",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "diceNumber": "@spell.rank - 1",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:imaginary-weapon"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "diceNumber": "@spell.rank - 1",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.spell}",
+                    "item:tag:amped",
+                    "item:slug:phase-bolt",
+                    "item:tag:psi-cantrip"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
