@@ -30,6 +30,8 @@ interface PersistentSourceData {
     formula: string;
     damageType: DamageType;
     dc: number;
+    /** Whether this damage was multiplied due to a critical hit */
+    criticalHit?: boolean;
 }
 
 interface ConditionSystemData
