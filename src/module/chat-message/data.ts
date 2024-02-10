@@ -92,7 +92,7 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
     options: string[];
 }
 
-interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self" | "casting">> {
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
     actor: string | null;
     token: string | null;
     item?: string;

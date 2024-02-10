@@ -5,7 +5,6 @@ import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { BaseRollContext } from "@system/rolls.ts";
 import { DamageRoll } from "./roll.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
-import { ChatCastingFlag } from "@module/chat-message/data.ts";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
@@ -53,7 +52,6 @@ interface DamageRollContext extends BaseRollContext {
     domains: string[];
     /** The number of MAP increases from the preceding check */
     mapIncreases?: ZeroToTwo;
-    casting?: ChatCastingFlag | null;
 }
 
 interface DamageFormulaData {

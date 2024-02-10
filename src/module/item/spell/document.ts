@@ -1008,16 +1008,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             context.options.add(`map:increases:${mapIncreases}`);
         }
 
-        const spellcasting = this.spellcasting;
-        if (spellcasting?.statistic) {
-            const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
-            context.casting = { id: spellcasting.id, tradition };
-            if (this.parentItem) {
-                context.casting.parentItemId = this.parentItem.id;
-                context.casting.embeddedSpell = this.toObject();
-            }
-        }
-
         return DamagePF2e.roll(template, context);
     }
 

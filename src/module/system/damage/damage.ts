@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ChatCastingFlag, ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
@@ -246,6 +246,22 @@ export class DamagePF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
 
+        const casting: ChatCastingFlag | null = (() => {
+            if (!item?.isOfType("spell")) return null;
+
+            const spellcasting = item.spellcasting;
+            if (!spellcasting?.statistic) return null;
+
+            const tradition = spellcasting.tradition ?? item.traditions.first() ?? "arcane";
+            const casting: ChatCastingFlag = { id: spellcasting.id, tradition };
+            if (item.parentItem) {
+                casting.parentItemId = item.parentItem.id;
+                casting.embeddedSpell = item.toObject();
+            }
+
+            return casting;
+        })();
+
         const messageData: Omit<foundry.documents.ChatMessageSource, "rolls"> & { rolls: (string | RollJSON)[] } =
             await roll.toMessage(
                 {
@@ -255,11 +271,11 @@ export class DamagePF2e {
                         pf2e: {
                             context: contextFlag,
                             target: targetFlag,
-                            casting: context.casting ?? null,
                             modifiers: data.modifiers?.flatMap((m) => ("kind" in m ? m.toObject() : [])) ?? [],
                             dice: data.modifiers?.flatMap((m) => ("diceNumber" in m ? m.toObject() : [])) ?? [],
                             origin: item?.getOriginData(),
                             strike,
+                            casting,
                             preformatted: "both",
                         },
                     },
