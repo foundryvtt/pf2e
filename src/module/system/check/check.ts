@@ -409,7 +409,7 @@ class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
 
         if (heroPoint) {
-            const rerollingActor = actor?.isOfType("familiar") ? actor.master : actor;
+            const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
 
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
