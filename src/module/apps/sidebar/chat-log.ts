@@ -445,6 +445,15 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     CheckPF2e.rerollFromMessage(message, { keep: "higher" });
                 },
             },
+            {
+                name: "PF2E.RerollMenu.ChangeToBlind",
+                icon: fontAwesomeIcon("eye-slash").outerHTML,
+                condition: canReroll,
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
+                    CheckPF2e.rerollFromMessage(message, { makeBlind: true });
+                },
+            },
         );
 
         return options;
