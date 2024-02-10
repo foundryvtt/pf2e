@@ -508,13 +508,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
-
-        // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
-        // and spell DC statistics. At 12th level, these proficiencies increase to expert.
-        if (this.spellcasting.some((e) => e.isInnate)) {
-            const spellcasting = this.system.proficiencies.spellcasting;
-            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
-        }
     }
 
     /**

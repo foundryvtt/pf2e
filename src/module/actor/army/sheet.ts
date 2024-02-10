@@ -89,7 +89,10 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 (s) => s.label,
             ),
             basicWarActions: this.basicWarActions,
-            warActions: campaignFeatures.filter((f) => f.category === "army-war-action"),
+            warActions: [
+                ...campaignFeatures.filter((f) => f.category === "army-war-action"),
+                ...campaignFeatures.filter((f) => f.category === "army-tactic" && !!f.actionCost),
+            ],
         };
     }
 
