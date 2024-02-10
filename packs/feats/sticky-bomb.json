@@ -31,7 +31,7 @@
         },
         "rules": [
             {
-                "domain": "damage",
+                "domain": "alchemical-bomb-base-type-damage",
                 "key": "RollOption",
                 "option": "sticky-bomb",
                 "toggleable": true
@@ -40,9 +40,10 @@
                 "damageCategory": "persistent",
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:splash"
+                    "item:trait:splash",
+                    "sticky-bomb"
                 ],
-                "selector": "alchemical-bomb-damage",
+                "selector": "alchemical-bomb-base-type-damage",
                 "slug": "sticky-bomb",
                 "value": "@weapon.system.splashDamage.value"
             },
@@ -52,7 +53,17 @@
                 "predicate": [
                     "feat:calculated-splash"
                 ],
-                "selector": "alchemical-bomb-damage",
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@actor.abilities.int.mod"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "feat:expanded-splash"
+                ],
+                "selector": "alchemical-bomb-base-type-damage",
                 "slug": "sticky-bomb",
                 "value": "@actor.abilities.int.mod"
             }

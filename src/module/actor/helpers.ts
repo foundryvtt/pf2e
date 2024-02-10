@@ -336,16 +336,12 @@ function getStrikeDamageDomains(
         `${meleeOrRanged}-strike-damage`,
         `${meleeOrRanged}-damage`,
         `${unarmedOrWeapon}-damage`,
-        group ? `${group}-group-damage` : null,
+        group ? `${group}-weapon-group-damage` : null,
         baseType ? `${baseType}-base-damage` : null,
         "attack-damage",
         "strike-damage",
         "damage",
     ]);
-
-    if (weapon.group) {
-        domains.push(`${weapon.group}-weapon-group-damage`);
-    }
 
     if (weapon.baseType) {
         domains.push(`${weapon.baseType}-base-type-damage`);
