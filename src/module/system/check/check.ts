@@ -425,10 +425,7 @@ class CheckPF2e {
                     );
                     return;
                 }
-            } else {
-                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-                return;
-            }
+            } 
         }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
