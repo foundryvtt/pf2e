@@ -401,7 +401,13 @@ class CheckPF2e {
         }
 
         const actor = message.actor;
+        if (!actor) {
+            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+            return;
+        }
+
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
+
         if (heroPoint) {
             const rerollingActor = actor?.isOfType("familiar") ? actor.master : actor;
 
@@ -423,9 +429,6 @@ class CheckPF2e {
                     );
                     return;
                 }
-            } else {
-                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-                return;
             }
         }
 
