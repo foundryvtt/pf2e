@@ -425,7 +425,7 @@ class CheckPF2e {
                     );
                     return;
                 }
-            } 
+            }
         }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
