@@ -30,6 +30,21 @@
         },
         "rules": [
             {
+                "choices": {
+                    "filter": [
+                        "item:tag:bard-muse"
+                    ],
+                    "slugsAsValues": true
+                },
+                "flag": "dedicationMuse",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Bard.Muse.Prompt"
+            },
+            {
+                "key": "RollOption",
+                "option": "feature:{item|flags.pf2e.rulesSelections.dedicationMuse}"
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.prf.rank",
