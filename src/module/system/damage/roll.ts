@@ -564,7 +564,7 @@ class DamageInstance extends AbstractDamageRoll {
     /** Get the total of this instance without any doubling or tripling from a critical hit */
     get critImmuneTotal(): this["total"] {
         if (this.total === undefined) return undefined;
-        const { head } = this;
+        const head = this.head;
 
         // Get the total with all damage-doubling removed
         const undoubledTotal =
@@ -586,10 +586,11 @@ class DamageInstance extends AbstractDamageRoll {
             throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
         }
 
-        return deepFindTerms(this.head, { flavor: component }).reduce(
-            (total, t) => total + (Number(t.total) || 0) * Number(t.options.crit || 1),
-            0,
-        );
+        const terms = deepFindTerms(this.head, { flavor: component });
+        const rawTotal = terms.reduce((total, t) => total + (Number(t.total) || 0), 0);
+        const critMultiplier = Number(this.head.options.crit) || 1;
+
+        return rawTotal * critMultiplier;
     }
 
     /**
