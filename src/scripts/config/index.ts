@@ -321,6 +321,23 @@ const levels: Record<number, string> = {
     20: "PF2E.Level20",
 };
 
+// Proficiency Multipliers
+const proficiencyLevels = [
+    "PF2E.ProficiencyLevel0", // untrained
+    "PF2E.ProficiencyLevel1", // trained
+    "PF2E.ProficiencyLevel2", // expert
+    "PF2E.ProficiencyLevel3", // master
+    "PF2E.ProficiencyLevel4", // legendary
+];
+
+const proficiencyRanks: Record<string, string> = {
+    untrained: "PF2E.ProficiencyLevel0",
+    trained: "PF2E.ProficiencyLevel1",
+    expert: "PF2E.ProficiencyLevel2",
+    master: "PF2E.ProficiencyLevel3",
+    legendary: "PF2E.ProficiencyLevel4",
+};
+
 function notifyDeprecatedPath(configPath: string, locPath: string): void {
     fu.logCompatibilityWarning(
         `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
@@ -797,21 +814,8 @@ export const PF2ECONFIG = {
     },
 
     // Proficiency Multipliers
-    proficiencyLevels: [
-        "PF2E.ProficiencyLevel0", // untrained
-        "PF2E.ProficiencyLevel1", // trained
-        "PF2E.ProficiencyLevel2", // expert
-        "PF2E.ProficiencyLevel3", // master
-        "PF2E.ProficiencyLevel4", // legendary
-    ] as const,
-
-    proficiencyRanks: {
-        untrained: "PF2E.ProficiencyLevel0",
-        trained: "PF2E.ProficiencyLevel1",
-        expert: "PF2E.ProficiencyLevel2",
-        master: "PF2E.ProficiencyLevel3",
-        legendary: "PF2E.ProficiencyLevel4",
-    } as const,
+    proficiencyLevels,
+    proficiencyRanks,
 
     actorSizes: sizeTypes,
 

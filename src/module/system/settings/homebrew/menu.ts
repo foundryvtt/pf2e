@@ -34,6 +34,7 @@ import Sortable from "sortablejs";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
 import {
     CustomDamageData,
+    CustomProficiencyData,
     HOMEBREW_TRAIT_KEYS,
     HomebrewElementsSheetData,
     HomebrewKey,
@@ -53,6 +54,8 @@ import {
     prepareCleanup,
     prepareReservedTerms,
 } from "./helpers.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -150,6 +153,15 @@ class HomebrewElements extends SettingsMenuPF2e {
                     languageSelector?.render();
                 },
             },
+            profRanks: {
+                prefix: "homebrew.",
+                name: "PF2E.SETTINGS.Homebrew.ProfRanks.Name",
+                default: [],
+                type: Object,
+                onChange: () => {
+                    new ProficienciesManager().updateSettings();
+                },
+            },
         };
     }
 
@@ -206,6 +218,21 @@ class HomebrewElements extends SettingsMenuPF2e {
             });
         }
 
+        htmlQuery(html, "[data-action=prof-add]")?.addEventListener("click", async () => {
+            this.cache.profRanks.push({ label: "Legendarier", color: "FFFFFF", value: 10 });
+            this.render();
+        });
+
+        for (const element of htmlQueryAll(html, "[data-action=prof-delete]")) {
+            element.addEventListener("click", async (event) => {
+                const idy = htmlClosest(event.target, "[data-idy]")?.dataset.idy;
+                if (idy) {
+                    this.cache.profRanks.splice(Number(idy), 1);
+                }
+                this.render();
+            });
+        }
+
         this.languagesManager.activateListeners(html);
     }
 
@@ -223,6 +250,10 @@ class HomebrewElements extends SettingsMenuPF2e {
             languageRarities,
             damageCategories,
             customDamageTypes: (this.cache.damageTypes ?? []).map((customType) => ({
+                ...customType,
+                slug: sluggify(customType.label),
+            })),
+            customProfRanks: (this.cache.profRanks ?? []).map((customType) => ({
                 ...customType,
                 slug: sluggify(customType.label),
             })),
@@ -259,6 +290,13 @@ class HomebrewElements extends SettingsMenuPF2e {
                 type.category ||= null;
                 const sanitized = sluggify(type.icon ?? "");
                 type.icon = sanitized.startsWith("fa-") ? sanitized : null;
+            }
+        }
+
+        if ("profRanks" in data && !!data.profRanks && typeof data.profRanks === "object") {
+            data.profRanks = Object.values(data.profRanks);
+            for (const type of data.profRanks) {
+                type.color ||= "#FFFFFF";
             }
         }
 
@@ -356,7 +394,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             for (const recordKey of Object.keys(homebrew)) {
                 if (recordKey === "damageTypes") continue; // handled elsewhere
                 if (recordKey === "additionalLevels") continue;
-                if (recordKey === "proficiencyLevels") continue;
+                if (recordKey === "proficiencyRanks") continue;
 
                 if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     const elements = homebrew[recordKey];
@@ -514,40 +552,70 @@ class DamageTypeManager {
 class ProficienciesManager {
     // All collections the proficiencies must be updated in
     collections = {
-        // proficiencyLevels: proficiencyLevels as Record<string, string>,
+        prof_ranks: PROFICIENCY_RANKS as unknown as string[],
+        proficiencyRanksLocalization: CONFIG.PF2E.proficiencyRanks,
+        proficiencyRanks: CONFIG.PF2E.proficiencyLevels,
+        BASE_DAMAGE_TYPES_TO_CATEGORIES,
     };
+
+    addCustomRank(data: CustomProficiencyData, options: { slug?: string } = {}): void {
+        const collections = this.collections;
+        const slug = (options.slug ?? sluggify(data.label)) as ProficiencyRank;
+
+        collections.prof_ranks.push(slug);
+        collections.proficiencyRanksLocalization[slug] = data.label;
+        collections.prof_ranks.push(data.label);
+    }
 
     updateSettings() {
         const reservedTerms = HomebrewElements.reservedTerms;
+
+        // Delete all existing homebrew ranks types first
+        const ranksToDelete: Set<string> = new Set(
+            [...PROFICIENCY_RANKS].filter((t) => !reservedTerms.proficiencyRanks.has(t)),
+        );
+        for (const collection of Object.values(this.collections)) {
+            if (collection instanceof Set) {
+                const types = [...collection].filter((t) => ranksToDelete.has(t));
+                for (const rankType of types) collection.delete(rankType);
+            } else {
+                const types = Object.keys(collection).filter((t): t is keyof typeof collection => ranksToDelete.has(t));
+                for (const rankType of types) delete collection[rankType];
+            }
+        }
 
         // Read module proficiency ranks
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isObject(homebrew) || !homebrew.proficiencyLevels) continue;
+            if (!R.isObject(homebrew) || !homebrew.proficiencyRanks) continue;
 
-            console.warn(ErrorPF2e("It works!").message);
-
-            const profs = homebrew.proficiencyLevels;
+            const profs = homebrew.proficiencyRanks;
             if (!isObject(profs) || !isHomebrewCustomProficiency(profs)) {
-                console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
+                console.warn(ErrorPF2e(`Homebrew record proficiencyRanks is malformed in module ${key}`).message);
                 continue;
             }
 
-            console.warn(ErrorPF2e("Its not deformed!").message);
-
             for (const [slug, data] of Object.entries(profs)) {
                 if (!reservedTerms.damageTypes.has(slug)) {
-                    this.addCustomDamage(data, { slug });
+                    this.addCustomRank(data, { slug });
                 } else {
                     console.warn(
                         ErrorPF2e(
-                            `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
+                            `Homebrew proficiency rank "${slug}" from module ${foundryModule.title} is a reserved term.`,
                         ).message,
                     );
                     continue;
                 }
             }
+        }
+
+        // Read setting damage types
+        const customTypes = game.settings
+            .get("pf2e", "homebrew.profRanks")
+            .filter((t) => !reservedTerms.proficiencyRanks.has(sluggify(t.label)));
+        for (const data of customTypes) {
+            this.addCustomRank(data);
         }
     }
 }
@@ -762,6 +830,7 @@ class LanguagesManager {
 
 type HomebrewSubmitData = {
     damageTypes: CustomDamageData[];
+    profRanks: CustomProficiencyData[];
     languages: HomebrewTag<"languages">[];
     languageRarities: LanguageRaritiesData;
 } & Record<string, unknown> & { clear(): void };

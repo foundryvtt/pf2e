@@ -39,7 +39,7 @@ function labelSampleTasks(sampleTasks: Partial<Record<ProficiencyRank, string>>)
     for (rank in sampleTasks) {
         unlabeled.push({ rank, text: sampleTasks[rank]! });
     }
-    unlabeled.sort((t1, t2) => PROFICIENCY_RANKS.indexOf(t1.rank) - PROFICIENCY_RANKS.indexOf(t2.rank));
+    unlabeled.sort((t1, t2) => [...PROFICIENCY_RANKS].indexOf(t1.rank) - PROFICIENCY_RANKS.indexOf(t2.rank));
     return unlabeled.map((task) => ({ label: CONFIG.PF2E.proficiencyRanks[task.rank], text: task.text }));
 }
 

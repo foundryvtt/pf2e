@@ -7,6 +7,7 @@ import { isObject } from "@util";
 import * as R from "remeda";
 import { CustomDamageData, CustomProficiencyData, HomebrewTraitKey } from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
@@ -56,6 +57,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.skillList),
         ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        ...PROFICIENCY_RANKS,
         "damage",
         "healing",
         "perception",
@@ -72,6 +74,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...universalReservedTerms]),
         featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...universalReservedTerms]),
         languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...universalReservedTerms]),
+        proficiencyRanks: universalReservedTerms,
         spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...universalReservedTerms]),
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
@@ -79,7 +82,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
     };
 }
 
-type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes", Set<string>>;
+type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes" | "proficiencyRanks", Set<string>>;
 
 function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {

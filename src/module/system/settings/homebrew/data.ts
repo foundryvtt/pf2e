@@ -26,7 +26,7 @@ const TRAIT_PROPAGATIONS = {
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
-type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities";
+type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities" | "profRanks";
 type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 
 interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
@@ -51,6 +51,7 @@ interface CustomDamageData {
 interface CustomProficiencyData {
     label: string;
     value: number;
+    color: string;
 }
 
 interface HomebrewElementsSheetData extends MenuTemplateData {
@@ -59,6 +60,7 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
     languageRarities: LanguageRaritiesSheetData;
     damageCategories: Record<MainDamageCategories, string>;
     customDamageTypes: CustomDamageData[];
+    customProfRanks: CustomProficiencyData[];
 }
 
 interface LanguageRaritiesSheetData {
