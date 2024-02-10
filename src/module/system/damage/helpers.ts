@@ -237,7 +237,8 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
         return term.die ?? term;
     }
 
-    const shouldPreserve = (t: RollTerm) => !t.isDeterministic || t instanceof NumericTerm || isFlavoredArithmetic(t);
+    const shouldPreserve = (t: RollTerm) =>
+        !t.isDeterministic || t instanceof NumericTerm || isUnsimplifableArithmetic(t);
     if (shouldPreserve(term) || (term instanceof Grouping && shouldPreserve(term.term))) {
         return term;
     }
@@ -261,8 +262,11 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
     }
 }
 
-function isFlavoredArithmetic(term: RollTerm): boolean {
-    return term instanceof ArithmeticExpression && term.operands.some((o) => o.options.flavor);
+/** Is the passed term an arithmetic expression that shouldn't be simplified? */
+function isUnsimplifableArithmetic(term: RollTerm): boolean {
+    return (
+        term instanceof ArithmeticExpression && (term.operator === "*" || term.operands.some((o) => o.options.flavor))
+    );
 }
 
 /** Check whether a roll has dice terms associated with a damage roll */
@@ -305,8 +309,8 @@ export {
     damageDiceIcon,
     deepFindTerms,
     extractBaseDamage,
-    isFlavoredArithmetic,
     isSystemDamageTerm,
+    isUnsimplifableArithmetic,
     looksLikeDamageRoll,
     nextDamageDieSize,
     renderComponentDamage,
