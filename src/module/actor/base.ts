@@ -1209,7 +1209,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         breakdown = [],
         notes = [],
     }: ApplyDamageParams): Promise<this> {
-        const { hitPoints } = this;
+        const hitPoints = this.hitPoints;
         if (!hitPoints) return this;
 
         // Round damage and healing (negative values) toward zero
@@ -1220,7 +1220,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ? { finalDamage: damage.total, applications: [], persistent: [] }
                   : applyIWR(this, damage, rollOptions);
 
-        const { finalDamage } = result;
+        const finalDamage = result.finalDamage;
 
         // Calculate damage to hit points and shield
         const localize = localizer("PF2E.Actor.ApplyDamage");
@@ -1408,16 +1408,14 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             return tempElem.innerHTML;
         })();
 
-        const deparenthesize = (formula: string) => formula.replace(/^\(([^)]+)\)$/, "$1");
-
         // Apply persistent damage as conditions
         const persistentDamage = result.persistent.map((instance) => {
             const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
             condition.system.persistent = {
-                // Remove enclosing parentheses if present since it's no longer part of the original expression
-                formula: deparenthesize(instance.head.expression),
+                formula: instance.head.expression,
                 damageType: instance.type,
                 dc: 15,
+                criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
             };
             condition.system.traits = {
                 value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
