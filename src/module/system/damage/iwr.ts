@@ -15,7 +15,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         return {
             finalDamage: roll.total,
             applications: [],
-            persistent: roll.instances.filter((i) => i.persistent && !i.options.evaluatePersistent),
+            persistent: roll.instances.filter(
+                (i): i is Rolled<DamageInstance> => i.persistent && !i.options.evaluatePersistent,
+            ),
         };
     }
 
@@ -63,7 +65,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmuneTotal = instance.critImmuneTotal;
-            const critImmunityApplies = isCriticalSuccess && critImmunity && critImmuneTotal < instanceTotal;
+            const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
 
             // If the total was undoubled, log it as an immunity application
             if (critImmunityApplies) {
@@ -224,7 +226,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
-    persistent: DamageInstance[];
+    persistent: Rolled<DamageInstance>[];
 }
 
 interface UnaffectedApplication {
