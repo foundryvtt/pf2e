@@ -1,3 +1,16 @@
+## 5.13.6
+
+### Bugfixes
+
+-   (DocSchlock) Fix non-hero point rerolls
+
+### Data Updates
+
+-   (Abaddon) Fix reference to actor level in Thoughtform Summoning feat
+-   (Dire Weasel) Add roll links to Hide and Sneak actions
+-   (Simon Ward) Clean up formatting in Pitax Horde description
+-   (stwlam) Fix inclusion of crossbows in Singular Expertise
+
 ## 5.13.5
 
 ### Bugfixes
