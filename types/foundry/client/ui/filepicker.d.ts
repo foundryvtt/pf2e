@@ -116,8 +116,7 @@ declare class FilePicker extends Application<FilePickerOptions> {
         file: File,
         body?: object,
         options?: { notify?: boolean },
-    ): Promise<any>;
-
+    ): Promise<boolean>;
 
     /**
      * Create a subdirectory within a given source. The requested subdirectory path must not already exist.
