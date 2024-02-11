@@ -4,7 +4,6 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { EffectPF2e, ItemProxyPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
-import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -206,7 +205,7 @@ class WeaponAuxiliaryAction {
         if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
+            const updated = await weapon.system.traits.toggles.update({ trait: "modular", selection });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield
