@@ -1,4 +1,4 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
+import { SkillLongForm } from "@actor/types.ts";
 import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { BaseWeaponType } from "@item/weapon/types.ts";
@@ -15,7 +15,7 @@ type DeitySystemSource = ItemSystemSource & {
     };
     font: DivineFonts;
     attribute: AttributeString[];
-    skill: SkillAbbreviation | null;
+    skill: SkillLongForm[] | null;
     weapons: BaseWeaponType[];
     spells: Record<number, ItemUUID>;
     level?: never;
