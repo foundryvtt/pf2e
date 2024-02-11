@@ -64,7 +64,7 @@
         letter-spacing: 0.05em;
         line-height: 1;
         margin-top: var(--space-6);
-        padding: var(--space-4);
+        padding: var(--space-4) 0;
         text-rendering: optimizeLegibility;
         text-transform: uppercase;
         width: 100%;
@@ -101,7 +101,11 @@
 
     .inventory-list > header {
         .item-name {
-            padding-left: var(--space-4);
+            padding-left: var(--space-8);
+        }
+
+        > :last-child {
+            padding-right: var(--space-4);
         }
 
         > span {
@@ -200,20 +204,22 @@
                 }
 
                 .price,
-                .quantity,
-                .bulk,
-                .item-controls {
-                    border-left: 1px solid var(--color-pf-alternate);
-                }
-
-                .price,
                 .bulk {
                     justify-content: center;
                     padding-right: 0.2em;
                 }
 
                 .quantity {
-                    justify-content: space-around;
+                    justify-content: center;
+
+                    a {
+                        opacity: 0.85;
+                    }
+
+                    span {
+                        min-width: 2ch;
+                        text-align: center;
+                    }
 
                     .decrease,
                     .increase {
@@ -466,7 +472,6 @@
         height: 1.5rem;
         justify-content: start;
         margin-bottom: var(--space-11);
-        padding-left: 0;
 
         img {
             @include frame-icon;
