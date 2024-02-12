@@ -369,18 +369,32 @@
                         "damageType": "electricity",
                         "key": "FlatModifier",
                         "predicate": [
-                            "heavens-thunder"
+                            "heavens-thunder",
+                            {
+                                "or": [
+                                    "item:category:unarmed",
+                                    "item:trait:monk"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage",
+                        "slug": "heavens-thunder-electricity",
                         "value": 3
                     },
                     {
                         "damageType": "sonic",
                         "key": "FlatModifier",
                         "predicate": [
-                            "heavens-thunder"
+                            "heavens-thunder",
+                            {
+                                "or": [
+                                    "item:category:unarmed",
+                                    "item:trait:monk"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage",
+                        "slug": "heavens-thunder-sonic",
                         "value": 3
                     }
                 ],
@@ -416,7 +430,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sky-and-heaven-stance",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "sky-and-heaven-stance"
+                        ],
+                        "type": [
+                            "electricity",
+                            "sonic"
+                        ],
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
