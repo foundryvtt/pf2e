@@ -14,7 +14,7 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     actor: TActor;
     sort: number;
     category: SpellcastingCategory;
-    attribute?: AttributeString;
+    attribute?: Maybe<AttributeString>;
     isFlexible: boolean;
     isFocusPool: boolean;
     isInnate: boolean;
