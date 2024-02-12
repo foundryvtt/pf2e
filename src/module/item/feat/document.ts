@@ -4,6 +4,7 @@ import type { FeatGroup } from "@actor/character/feats.ts";
 import type { SenseData } from "@actor/creature/index.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
 import { normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
+import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
@@ -115,6 +116,8 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.system.onlyLevel1) {
             this.system.maxTakable = 1;
         }
+
+        this.system.traits.toggles = new AbilityTraitToggles(this);
 
         // Initialize frequency uses if not set
         if (this.actor && this.system.frequency) {
@@ -315,12 +318,22 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = "feat"): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
-        return R.compact([
+
+        const options = [
             ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
-            this.isFeat ? `${prefix}:rarity:${this.rarity}` : null,
-            this.frequency ? `${prefix}:frequency:limited` : null,
-        ]);
+        ];
+
+        if (this.isFeat) options.push(`${prefix}:rarity:${this.rarity}`);
+        if (this.frequency) options.push(`${prefix}:frequency:limited`);
+
+        for (const trait of this.system.traits.toggles.operableTraits) {
+            if (this.system.traits.toggles[trait]?.selected) {
+                options.push(`${prefix}:trait:${trait}:active`);
+            }
+        }
+
+        return options;
     }
 
     /* -------------------------------------------- */
