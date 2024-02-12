@@ -334,35 +334,18 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dockhand Interacts to either draw a bottle of alcohol or pick up a nearby unattended bottle of alcohol and drink the whole thing. For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>"
+                    "value": "<p>The dockhand Interacts to either draw a bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] or pick up a nearby unattended bottle of alcohol and drink the whole thing.</p>\n<p>For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "label": "Taken a swig of alcohol in past minute",
-                        "option": "swig",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Taken a swig of alcohol in past minute",
-                        "predicate": [
-                            "swig",
-                            {
-                                "not": "range"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "type": "item",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Swig",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Swig"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
