@@ -857,7 +857,7 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
-    const { type } = params;
+    const { type, traits } = params;
     const dc = params.dc;
     const base = (() => {
         if (dc?.startsWith("resolve") && (item || actor)) {
@@ -887,12 +887,16 @@ function getCheckDC({
                     modifier: base - 10,
                     adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
                 });
-                const stat = new Statistic(actor, {
-                    slug: type,
-                    label: name,
-                    domains: selectors,
-                    modifiers: [modifier],
-                });
+                const stat = new Statistic(
+                    actor,
+                    {
+                        slug: type,
+                        label: name,
+                        domains: selectors,
+                        modifiers: [modifier],
+                    },
+                    { extraRollOptions: traits },
+                );
 
                 return String(stat.dc.value);
             }
