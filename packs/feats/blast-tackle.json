@@ -28,7 +28,25 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "blast-tackle",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "blast-tackle"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
