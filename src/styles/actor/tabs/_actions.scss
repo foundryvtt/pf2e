@@ -37,8 +37,8 @@ ol.actions-list {
             $border-color: lighten($alt-color, 40);
             border: solid transparent;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
-            border-width: 0 0 1px;
-            padding: 4px;
+            border-width: 0 0 var(--space-1);
+            padding: var(--space-4);
             width: 100%;
 
             p:empty {
@@ -48,7 +48,7 @@ ol.actions-list {
             .item-name {
                 align-items: center;
                 display: flex;
-                gap: 0.5rem;
+                gap: var(--space-8);
                 grid-area: icon-name;
                 margin: 0;
 
@@ -119,7 +119,7 @@ ol.actions-list {
                     }
 
                     &:active {
-                        color: var(--primary);
+                        color: var(--color-pf-primary);
                     }
                 }
             }
@@ -132,18 +132,18 @@ ol.actions-list {
 
             .item-summary {
                 flex-basis: 100%;
-                margin: 0.5rem 0;
+                margin: var(--space-8) 0;
 
                 .title,
                 .framing {
-                    color: var(--primary);
+                    color: var(--color-pf-primary);
                     margin-top: 1em;
                     margin: 0;
                     padding: 0;
                 }
 
                 .framing {
-                    color: var(--secondary);
+                    color: var(--color-pf-secondary);
                     margin: 1em 0 0.25em;
                     strong {
                         font-weight: 500;
@@ -158,7 +158,7 @@ ol.actions-list {
                     vertical-align: middle;
 
                     &.actionlight {
-                        background: var(--alt);
+                        background: var(--color-pf-alternate);
                         vertical-align: middle;
                         border: 1px solid var(--text-dark);
                     }
@@ -192,7 +192,7 @@ ol.actions-list {
 
                 dd {
                     margin: 0;
-                    margin-bottom: 0.5rem;
+                    margin-bottom: var(--space-8);
                 }
 
                 .tag.tag_secondary {
@@ -207,7 +207,7 @@ ol.actions-list {
 
         &.action {
             align-items: center;
-            column-gap: 0.5rem;
+            column-gap: var(--space-8);
             display: grid;
             grid:
                 "icon    name    tracking controls" 1fr
@@ -217,16 +217,18 @@ ol.actions-list {
 
             > .icon {
                 grid-area: icon;
-                height: 32px;
-                width: 32px;
+                height: 2rem;
+                width: 2rem;
             }
 
             .name {
                 align-items: center;
-                grid-area: name;
                 display: flex;
+                gap: var(--space-4);
+                grid-area: name;
                 margin-bottom: 0;
                 text-align: left;
+                white-space: nowrap;
 
                 > a:hover {
                     color: var(--color-pf-primary);
@@ -237,7 +239,7 @@ ol.actions-list {
                 grid-area: buttons;
                 display: flex;
                 flex-wrap: wrap;
-                gap: 1px;
+                gap: var(--space-1);
             }
 
             .tracking {
