@@ -697,6 +697,7 @@ class TextEditorPF2e extends TextEditor {
                 pf2Label: localize("DCWithName", { name }),
                 pf2Adjustment: Number(params.adjustment) || null,
                 pf2Roller: params.roller || null,
+                pf2Target: params.target || null,
                 pf2Check: sluggify(params.type),
             },
         });
@@ -1074,6 +1075,7 @@ interface CheckLinkParams {
     /** Refrain from adding domains to the check. */
     immutable: boolean;
     roller?: string;
+    target?: string;
 }
 
 interface CreateSingleCheckOptions {
