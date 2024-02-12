@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>All your @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes } against a creature you have @UUID[Compendium.pf2e.actionspf2e.Item.Mark for Death]{Marked for Death} have the death trait, causing the mark to be instantly killed when reduced to 0 Hit Points.</p>\n<p>When killed in this way, attempts to communicate with it, return it to life, turn it into an undead, or otherwise disturb its afterlife fail unless the effect's counteract rank is higher than half your level when you killed the creature (rounded up), or originates from an artifact or a deity.</p>"
+            "value": "<p>All your Strikes against a creature you have @UUID[Compendium.pf2e.actionspf2e.Item.Mark for Death]{Marked for Death} have the death trait, causing the mark to be instantly killed when reduced to 0 Hit Points.</p>\n<p>When killed in this way, attempts to communicate with it, return it to life, turn it into an undead, or otherwise disturb its afterlife fail unless the effect's counteract rank is higher than half your level when you killed the creature (rounded up), or originates from an artifact or a deity.</p>"
         },
         "level": {
             "value": 10
@@ -28,7 +28,17 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "marked-for-death"
+                ],
+                "property": "traits",
+                "value": "death"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
