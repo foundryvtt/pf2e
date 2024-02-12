@@ -114,6 +114,7 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
             id: spells?.id ?? this.id,
             name: spells?.name ?? this.name,
             statistic: this.statistic.getChatData(),
+            attribute: this.statistic.attribute,
             hasCollection: !!spells?.size,
             usesSpellProficiency: false,
         };
