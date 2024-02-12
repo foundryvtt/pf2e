@@ -1,9 +1,9 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
-import { ItemProxyPF2e, type WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
-import { WeaponSource } from "@item/weapon/data.ts";
-import {
+import type { WeaponSource } from "@item/weapon/data.ts";
+import type {
     BaseWeaponType,
     OtherWeaponTag,
     WeaponCategory,
@@ -11,7 +11,7 @@ import {
     WeaponRangeIncrement,
     WeaponTrait,
 } from "@item/weapon/types.ts";
-import { DamageDieSize, DamageType } from "@system/damage/index.ts";
+import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { StrictBooleanField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
@@ -25,6 +25,7 @@ import type {
 } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { ItemAlterationRuleElement } from "./item-alteration/rule-element.ts";
 
 /**
  * Create an ephemeral strike on an actor
@@ -266,7 +267,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * @param damageType The resolved damage type for the strike
      */
     #constructWeapon(damageType: DamageType, dice: number): WeaponPF2e<ActorPF2e> {
-        const actorIsNPC = this.actor.isOfType("npc");
+        const actor = this.actor;
+        const actorIsNPC = actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = fu.deepClone({
             _id: this.item.id,
             name: this.label,
@@ -314,7 +316,13 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             },
         });
 
-        return new ItemProxyPF2e(source, { parent: this.actor }) as WeaponPF2e<this["actor"]>;
+        const weapon = new WeaponPF2e(source, { parent: actor });
+        const alterations = actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
+        for (const alteration of alterations) {
+            alteration.applyAlteration({ singleItem: weapon });
+        }
+
+        return weapon;
     }
 
     /** Toggle the modular or versatile trait of this strike's weapon */
