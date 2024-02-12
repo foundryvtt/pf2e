@@ -2,9 +2,10 @@ import type { CharacterPF2e } from "@actor";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
-import type { AbilityItemPF2e } from "@item";
+import { AbilityViewData } from "@actor/sheet/data-types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
+import { getActionGlyph, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 
@@ -60,7 +61,21 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             attributes: CONFIG.PF2E.abilities,
             familiarAbilities: {
                 value: familiarAbilities?.value ?? 0,
-                items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
+                items: R.sortBy(
+                    this.actor.itemTypes.action,
+                    (a) => a.name,
+                    (a) => a.sort,
+                ).map((item) => {
+                    const tags = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+                    const hasAura = item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura");
+                    return {
+                        _id: item.id,
+                        name: item.name,
+                        glyph: getActionGlyph(item.actionCost) || null,
+                        tags,
+                        hasAura,
+                    };
+                }),
             },
             master: this.actor.master,
             masters,
@@ -83,7 +98,7 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
     attributes: typeof CONFIG.PF2E.abilities;
     familiarAbilities: {
         value: number;
-        items: AbilityItemPF2e[];
+        items: AbilityViewData[];
     };
     master: CharacterPF2e | null;
     masters: CharacterPF2e[];

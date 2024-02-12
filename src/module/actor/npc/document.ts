@@ -250,7 +250,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // process strikes.
         const generatedMelee = Array.from(synthetics.strikes.values()).flatMap((w) => w.toNPCAttacks({ keepId: true }));
-        for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
+        const meleeItems = R.sortBy(
+            [this.itemTypes.melee, generatedMelee].flat(),
+            (m) => m.name,
+            (m) => m.sort,
+        );
+        for (const item of meleeItems) {
             system.actions.push(strikeFromMeleeItem(item));
         }
 
