@@ -716,7 +716,7 @@ class TextEditorPF2e extends TextEditor {
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             if (checkDC !== "@self.level") {
                 const dc = params.dc === "" ? NaN : Number(checkDC);
-                const displayedDC = !isNaN(dc) ? `${dc + Number(params.adjustment)}` : checkDC;
+                const displayedDC = Number.isNaN(dc) ? checkDC : `${dc + Number(params.adjustment)}`;
                 const text = anchor.innerText;
                 anchor.querySelector("span.label")?.replaceWith(
                     createLabel(
@@ -857,7 +857,7 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
-    const { type } = params;
+    const type = params.type;
     const dc = params.dc;
     const base = (() => {
         if (dc?.startsWith("resolve") && (item || actor)) {
@@ -874,42 +874,42 @@ function getCheckDC({
             };
             return Number(saferEval(value));
         }
-        return Number(dc) || undefined;
+        return Number(dc) || null;
     })();
 
-    if (base) {
-        const getStatisticValue = (selectors: string[]): string => {
-            if (actor && params.immutable === undefined) {
-                const { synthetics } = actor;
-                const modifier = new ModifierPF2e({
-                    slug: "base",
-                    label: "PF2E.ModifierTitle",
-                    modifier: base - 10,
-                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
-                });
-                const stat = new Statistic(actor, {
-                    slug: type,
-                    label: name,
-                    domains: selectors,
-                    modifiers: [modifier],
-                });
+    if (!base) return "0";
 
-                return String(stat.dc.value);
-            }
-            return base.toString();
-        };
+    const getStatisticValue = (selectors: string[]): string => {
+        if (actor && params.immutable === undefined) {
+            const { synthetics } = actor;
+            const modifier = new ModifierPF2e({
+                slug: "base",
+                label: "PF2E.ModifierTitle",
+                modifier: base - 10,
+                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
+            });
+            const stat = new Statistic(actor, {
+                slug: type,
+                label: name,
+                domains: selectors,
+                modifiers: [modifier],
+            });
 
-        const slugName = sluggify(name);
-        if (type === "flat") {
-            return params.immutable === "false"
-                ? getStatisticValue(["inline-dc", `${slugName}-inline-dc`])
-                : base.toString();
-        } else {
-            const selectors = ["all", "inline-dc", `${slugName}-inline-dc`];
-            return getStatisticValue(selectors);
+            return String(stat.dc.value);
         }
+        return base.toString();
+    };
+
+    const idDomain = item ? `${item.id}-inline-dc` : null;
+    const slugDomain = `${sluggify(name)}-inline-dc`;
+    if (type === "flat") {
+        return params.immutable === "false"
+            ? getStatisticValue(R.compact(["inline-dc", idDomain, slugDomain]))
+            : base.toString();
+    } else {
+        const selectors = R.compact(["all", "inline-dc", idDomain, slugDomain]);
+        return getStatisticValue(selectors);
     }
-    return "0";
 }
 
 /** Given a damage formula, augments it with modifiers and damage dice for inline rolls */
