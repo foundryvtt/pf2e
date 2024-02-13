@@ -352,7 +352,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
 }
 
 interface KingdomBuilder extends FormApplication<Kingdom> {
-    render(force?: boolean, options?: KingdomBuilderRenderOptions): this | Promise<this>;
+    render(force?: boolean, options?: KingdomBuilderRenderOptions): this;
 }
 
 interface KingdomBuilderRenderOptions extends RenderOptions {
