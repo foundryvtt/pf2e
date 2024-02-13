@@ -56,7 +56,7 @@ export const Ready = {
                 }
 
                 // These modules claim compatibility with V11 but are abandoned
-                const abandonedModules = new Set<string>([]);
+                const abandonedModules = new Set(["pf2e-rules-based-npc-vision"]);
 
                 // Nag the GM for running unmaintained modules
                 const subV10Modules = game.modules.filter(

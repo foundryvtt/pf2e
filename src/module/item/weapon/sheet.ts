@@ -16,6 +16,10 @@ import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
+    protected override get validTraits(): Record<string, string> {
+        return CONFIG.PF2E.weaponTraits;
+    }
+
     override async getData(options?: Partial<ItemSheetOptions>): Promise<WeaponSheetData> {
         const sheetData = await super.getData(options);
         const weapon = this.item;

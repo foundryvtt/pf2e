@@ -8,6 +8,7 @@ import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { Grouping } from "@system/damage/terms.ts";
 import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -198,16 +199,22 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
             const fullFormula = `(${formula})[persistent,${damageType}]`;
             const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
-            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule });
-
+            // If this damage came from a critical hit, create the evaluatable persistent damage as also having been so
+            const degreeOfSuccess = systemData.persistent.criticalHit ? 3 : null;
+            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule, degreeOfSuccess });
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
 
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
-            this.name = game.i18n.format(localizationKey, {
-                formula,
-                damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
-                dc,
-            });
+            const headTerm = roll.instances.at(0)?.head;
+            const shortFormula = headTerm instanceof Grouping ? headTerm.term.expression : headTerm?.expression;
+
+            this.name = shortFormula
+                ? game.i18n.format(localizationKey, {
+                      formula: shortFormula,
+                      damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
+                      dc,
+                  })
+                : this.name;
 
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;

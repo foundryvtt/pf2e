@@ -283,3 +283,4 @@ export { Migration914MovePerceptionSenses } from "./914-move-perception-senses.t
 export { Migration915MoveLanguages } from "./915-move-languages.ts";
 export { Migration916NewPCToys } from "./916-new-pc-toys.ts";
 export { Migration917ScrollWandSpellIds } from "./917-scroll-wand-spell-ids.ts";
+export { Migration918DeitySkills } from "./918-deity-skills.ts";

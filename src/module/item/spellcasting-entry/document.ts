@@ -4,14 +4,14 @@ import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToTen, PROF_MAX_VALUE, ZeroToTen } from "@module/data.ts";
+import { OneToTen, ZeroToTen } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
-import { ProficiencyValues, ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -94,9 +94,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Spellcasting abilities are always at least trained
-        this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as ProficiencyValuesMinusZero;
-
         this.system.prepared.flexible ??= false;
         this.system.prepared.validItems ||= null;
 
@@ -128,20 +125,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     }
 
     override prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
-        const actor = this.parent;
-
-        if (!this.system.proficiency.slug && !this.isInnate && actor.isOfType("character")) {
-            const spellProficiency = actor.system.proficiencies.spellcasting;
-            spellProficiency.rank = Math.clamped(
-                Math.max(spellProficiency.rank, this.system.proficiency.value),
-                1,
-                PROF_MAX_VALUE,
-            ) as ProficiencyValuesMinusZero;
-        }
-
         if ((this.spells?.size ?? 0) > 0) {
-            actor.rollOptions.all["self:caster"] = true;
-            actor.rollOptions.all[`self:caster:tradition:${this.tradition}`] = true;
+            const rollOptions = this.actor.flags.pf2e.rollOptions;
+            rollOptions.all["self:caster"] = true;
+            rollOptions.all[`self:caster:tradition:${this.tradition}`] = true;
         }
     }
 

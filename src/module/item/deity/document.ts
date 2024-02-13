@@ -27,7 +27,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.domains = { primary: [], alternate: [] };
             this.system.font = [];
             this.system.sanctification = null;
-            this.system.skill = null;
+            this.system.skill = [];
             this.system.spells = {};
             this.system.weapons = [];
         }

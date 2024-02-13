@@ -1,3 +1,37 @@
+## 5.13.6
+
+### Bugfixes
+
+-   (DocSchlock) Fix non-hero point rerolls
+
+### Data Updates
+
+-   (Abaddon) Fix reference to actor level in Thoughtform Summoning feat
+-   (Dire Weasel) Add roll links to Hide and Sneak actions
+-   (Simon Ward) Clean up formatting in Pitax Horde description
+-   (stwlam) Fix inclusion of crossbows in Singular Expertise
+
+## 5.13.5
+
+### Bugfixes
+
+-   (Drental) Fix handling of check DCs tied to inline roll links added directly to actor sheets
+-   (Jesse) Fix variable-cost action glyphs in Spell Compendium
+-   (stwlam) Fix processing of precision resistance
+-   (Supe) Fix rank of base spellcasting proficiency and innate spells
+
+### Data Updates
+
+-   (Dire Weasel) Clean up formatting in Luck Blades, Shatter Mind, and Splinter Faith
+-   (Dire Weasel) Fix bonus type for Nourishing Gate
+-   (Dire Weasel) Remove prerequisites from Rallying Anthem
+-   (kromko) Add missing area to Safe Passage description
+-   (putty) Fix Kingmaker skirmisher army level
+-   (stwlam) Fix sticky bomb applying when not toggled, account for expanded splash
+-   (Tikael) Automate Parallel Breakthrough feat
+-   (Tikael) Fix sources of Season of Ghosts rituals
+-   (TMun) Add Kingmaker Appendix armies along with unique tactics
+
 ## 5.13.4
 
 ### Bugfixes

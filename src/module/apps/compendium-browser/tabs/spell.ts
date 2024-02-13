@@ -81,6 +81,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         isRitual ? "ritual" : null,
                     ]);
 
+                    // format casting time (before value is sluggified)
+                    const actionGlyph = getActionGlyph(spellData.system.time.value);
+
                     // recording casting times
                     const time: unknown = spellData.system.time.value;
                     if (time && typeof time === "string") {
@@ -90,9 +93,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         times.add(normalizedTime);
                         spellData.system.time.value = normalizedTime;
                     }
-
-                    // format casting time
-                    const actionGlyph = getActionGlyph(spellData.system.time.value);
 
                     // Prepare publication source
                     const { system } = spellData;

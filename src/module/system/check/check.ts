@@ -401,9 +401,15 @@ class CheckPF2e {
         }
 
         const actor = message.actor;
+        if (!actor) {
+            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+            return;
+        }
+
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
+
         if (heroPoint) {
-            const rerollingActor = actor?.isOfType("familiar") ? actor.master : actor;
+            const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
 
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
             if (rerollingActor?.isOfType("character")) {
@@ -424,9 +430,6 @@ class CheckPF2e {
                     return;
                 }
             }
-        } else {
-            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-            return;
         }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);

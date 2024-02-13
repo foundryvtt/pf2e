@@ -310,12 +310,9 @@
             <ol class="item-list">
                 {{#each basicWarActions as |action|}}
                     <li class="item basic-war-action" data-slug="{{action.slug}}">
-                        <a class="icon item-image" data-action="use-basic-war-action">
-                            <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
-                            <i class="fa-solid fa-fw fa-message"></i>
-                        </a>
                         <h4 class="item-name">
                             <a data-action="toggle-basic-war-action-summary">{{action.name}}</a>
+                            {{{actionGlyph action.actionCost}}}
                         </h4>
                         <div class="item-summary" hidden></div>
                     </li>
@@ -330,7 +327,7 @@
                 </legend>
                 <ol class="item-list">
                     {{#each warActions as |action|}}
-                        {{> actionItem action=action}}
+                        {{> actionItem action=action locked=(or action.granter (eq action.category "army-tactic"))}}
                     {{/each}}
                 </ol>
             </fieldset>
@@ -343,7 +340,7 @@
             </legend>
             <ol class="item-list">
                 {{#each document.tactics.feats as |entry|}}
-                    {{> actionItem action=entry.feat slotId=entry.id}}
+                    {{> featItem action=entry.feat slotId=entry.id}}
                 {{/each}}
             </ol>
         </fieldset>
@@ -356,7 +353,7 @@
                 </legend>
                 <ol class="item-list">
                     {{#each document.bonusTactics.feats as |entry|}}
-                        {{> actionItem action=entry.feat slotId=entry.id}}
+                        {{> featItem action=entry.feat slotId=entry.id}}
                     {{/each}}
                 </ol>
             </fieldset>
@@ -365,6 +362,39 @@
 </form>
 
 {{#*inline "actionItem"}}
+    {{#if action}}
+        <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
+            <h4 class="item-name">
+                <a data-action="toggle-summary">{{action.name}}</a>
+                {{{actionGlyph action.actionCost}}}
+            </h4>
+            {{#if action.system.frequency}}
+                <section class="item-frequency">
+                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <span>
+                        /
+                        {{action.system.frequency.max}}
+                        {{localize "PF2E.Frequency.per"}}
+                        {{localize (lookup @root.frequencies action.system.frequency.per)}}
+                    </span>
+                </section>
+            {{/if}}
+            {{#if @root.editable}}
+                <div class="item-controls">
+                    <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                    {{#if locked}}
+                        <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
+                    {{else}}
+                        <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                    {{/if}}
+                </div>
+            {{/if}}
+            <div class="item-summary" hidden></div>
+        </li>
+    {{/if}}
+{{/inline}}
+
+{{#*inline "featItem"}}
     {{#if action}}
         <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
             <a class="icon item-image">
@@ -388,7 +418,7 @@
             {{#if @root.editable}}
                 <div class="item-controls">
                     <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-                    {{#if action.granter}}
+                    {{#if locked}}
                         <i class="fa-solid fa-lock fa-fw" data-tooltip="{{localize "PF2E.Kingmaker.GrantedBy" granter=action.granter.name}}"></i>
                     {{else}}
                         <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
@@ -400,7 +430,7 @@
     {{else}}
         <li class="item empty" {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
             <div class="item-icon"></div>
-            <div class="item-name">{{localize "PF2E.EmptySlot"}}</div>
+            <div class="item-name"><span>{{localize "PF2E.EmptySlot"}}</span></div>
         </li>
     {{/if}}
 {{/inline}}

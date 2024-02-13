@@ -23,7 +23,6 @@ import { ActionCost, Frequency, ItemSourcePF2e, ProficiencyValues } from "@item/
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
-import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
@@ -873,7 +872,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
             const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
             if (weapon && selectionIsValid) {
-                await toggleWeaponTrait({ trait: "versatile", weapon, selection });
+                await weapon.system.traits.toggles.update({ trait: "versatile", selection });
             }
         };
 

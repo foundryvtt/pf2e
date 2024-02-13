@@ -66,6 +66,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item. If a roll option is specified, assign that as well.
         this.item.flags.pf2e.rulesSelections[this.flag] = this.selection;
+        if (this.actorFlag) {
+            this.actor.flags.pf2e[this.flag] = this.selection;
+        }
+
         if (this.selection !== null) {
             this.#setRollOption(this.selection);
         } else if (!this.allowNoSelection && this.test()) {
@@ -130,6 +134,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 { required: false, nullable: true, initial: undefined },
             ),
             flag: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
+            actorFlag: new fields.BooleanField({ required: false }),
             rollOption: new fields.StringField({ required: false, blank: false, nullable: true, initial: null }),
             allowNoSelection: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
         };
@@ -184,29 +189,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             }).resolveSelection());
 
         if (selection) {
-            ruleSource.selection = selection.value;
-
-            // Change the name of the parent item
-            if (this.adjustName) {
-                const itemName = itemSource.name;
-                const label = game.i18n.localize(selection.label);
-                if (this.adjustName === true) {
-                    const newName = `${itemName} (${label})`;
-                    // Deduplicate if parenthetical is already present
-                    const pattern = ((): RegExp => {
-                        const escaped = RegExp.escape(label);
-                        return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
-                    })();
-                    itemSource.name = newName.replace(pattern, `(${label})`);
-                } else {
-                    itemSource.name = game.i18n.format(this.adjustName, {
-                        [this.flag]: game.i18n.localize(selection.label),
-                    });
-                }
-            }
+            this.selection = ruleSource.selection = selection.value;
+            itemSource.name = this.#adjustName(itemSource.name, selection);
 
             // Set the item flag in case other preCreate REs need it
             this.item.flags.pf2e.rulesSelections[this.flag] = selection.value;
+            if (this.actorFlag) {
+                this.actor.flags.pf2e[this.flag] = selection.value;
+            }
 
             // If the selection is an item UUID, retrieve the item's slug and use that for the roll option instead
             if (typeof ruleSource.rollOption === "string" && UUIDUtils.isItemUUID(selection.value)) {
@@ -481,6 +471,40 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // If the selection was a UUID, the roll option had its suffix appended at item creation
         const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
         this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
+    }
+
+    /**  Change the name of the parent item after a selection is made */
+    #adjustName(original: string, selection: { label: string }): string {
+        if (this.adjustName === true) {
+            const label = game.i18n.localize(selection.label);
+            const newName = `${original} (${label})`;
+            // Deduplicate if parenthetical is already present
+            const pattern = ((): RegExp => {
+                const escaped = RegExp.escape(label);
+                return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
+            })();
+            return newName.replace(pattern, `(${label})`);
+        } else if (typeof this.adjustName === "string") {
+            const priorChoiceSets = R.mapToObj(
+                this.item.rules.filter(
+                    (r): r is ChoiceSetRuleElement & { choices: { value: unknown; label: string }[] } =>
+                        r instanceof ChoiceSetRuleElement &&
+                        r !== this &&
+                        Array.isArray(r.choices) &&
+                        r.selection !== null,
+                ),
+                (cs) => [
+                    cs.flag,
+                    game.i18n.localize(Array.from(cs.choices).find((c) => c.value === cs.selection)?.label ?? ""),
+                ],
+            );
+            return game.i18n.format(this.adjustName, {
+                [this.flag]: game.i18n.localize(selection.label),
+                ...priorChoiceSets,
+            });
+        }
+
+        return original;
     }
 }
 

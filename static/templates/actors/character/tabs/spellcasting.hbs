@@ -95,21 +95,7 @@
                         <section class="spell-ability">
                             <span class="spell-tradition">{{localize entry.statistic.label}}</span>
                             <div class="spellcasting-prof button-group">
-                                <select
-                                    {{#if entry.isEphemeral}}
-                                        class="skill-proficiency pf-rank readonly"
-                                    {{else if entry.usesSpellProficiency}}
-                                        class="skill-proficiency pf-rank"
-                                        data-action="{{#if entry.usesSpellProficiency}}update-spellcasting-rank{{/if}}"
-                                    {{else}}
-                                        class="skill-proficiency pf-rank adjust-item-stat-select"
-                                        data-item-property="system.proficiency.value"
-                                    {{/if}}
-                                    data-rank="{{entry.statistic.rank}}"
-                                    style="background-color: {{lookup @root.profColors entry.statistic.rank}}"
-                                >
-                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" excludeUntrained=true proflevel=entry.statistic.rank profNames=@root.profNames profColors=@root.profColors}}
-                                </select>
+                                <span class="pf-rank" data-rank="{{entry.statistic.rank}}" style="background-color: {{lookup @root.profColors entry.statistic.rank}}">{{lookup @root.numberToRank entry.statistic.rank}}</span>
                             </div>
                         </section>
                     </div>
