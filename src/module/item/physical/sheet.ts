@@ -111,7 +111,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     }
 
     /** If the item is unidentified, prevent players from opening this sheet. */
-    override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
+    override render(force?: boolean, options?: RenderOptions): this {
         if (!this.item.isIdentified && !game.user.isGM) {
             ui.notifications.warn(this.item.description);
             return this;

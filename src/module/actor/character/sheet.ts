@@ -823,16 +823,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // SIDEBAR
 
         handlers["rest"] = async (event) => {
-            await game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+            return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
         };
 
         // MAIN TAB
 
-        handlers["edit-attribute-boosts"] = async () => {
+        handlers["edit-attribute-boosts"] = () => {
             const builder =
                 Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
                 new AttributeBuilder(this.actor);
-            await builder.render(true);
+            return builder.render(true);
         };
 
         handlers["select-apex-attribute"] = (event) => {
@@ -851,7 +851,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["open-compendium"] = (_, actionTarget) => {
-            game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
+            return game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
         };
 
         // ACTIONS

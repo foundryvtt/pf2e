@@ -79,7 +79,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         Object.assign(this.formDataCache, formData);
 
         if (event.type !== "submit") {
-            await this.render();
+            this.render();
             return;
         }
 

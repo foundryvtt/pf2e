@@ -20,7 +20,7 @@ declare class TokenConfig<
 
     override get title(): string;
 
-    override render(force?: boolean, options?: RenderOptions): Promise<this>;
+    override render(force?: boolean, options?: RenderOptions): this;
 
     protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
 
