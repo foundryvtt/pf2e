@@ -1,7 +1,7 @@
 import { HitPointsSummary } from "@actor/base.ts";
 import { AttributeString, SaveType, SkillLongForm } from "@actor/types.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { ZeroToFour } from "@module/data.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
@@ -9,7 +9,7 @@ interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryAddend: number;
 }
 
-type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AttributeString };
+type CharacterSkill = Statistic & { rank: ProficiencyValues; ability: AttributeString };
 
 type CharacterSkills = Record<SkillLongForm, CharacterSkill> & Partial<Record<string, CharacterSkill>>;
 

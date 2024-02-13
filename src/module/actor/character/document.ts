@@ -42,12 +42,12 @@ import type {
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
+import { ItemType, PhysicalItemSource, ProficiencyValues } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { PROF_MAX_VALUE, ZeroToTwo } from "@module/data.ts";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -418,7 +418,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Skills
         system.skills = R.mapToObj(SKILL_ABBREVIATIONS, (key) => {
-            const rank = Math.clamped(system.skills[key].rank || 0, 0, 4);
+            const rank = Math.clamped(system.skills[key].rank || 0, 0, PROF_MAX_VALUE);
             const attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
@@ -513,7 +513,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // and spell DC statistics. At 12th level, these proficiencies increase to expert.
         if (this.spellcasting.some((e) => e.isInnate)) {
             const spellcasting = this.system.proficiencies.spellcasting;
-            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ProficiencyValues;
         }
     }
 
@@ -784,7 +784,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Upgrade light barding proficiency to trained if this PC is somehow an animal
         this.system.proficiencies.defenses["light-barding"].rank ||=
             this.traits.has("animal") && !isReallyPC(this)
-                ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ZeroToFour)
+                ? (Math.max(this.system.proficiencies.defenses["light-barding"].rank, 1) as ProficiencyValues)
                 : 0;
 
         const modifiers: ModifierPF2e[] = [];
@@ -820,7 +820,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 return proficiency.definition?.test(wornArmor.getRollOptions("item")) ?? false;
             })
             .map(([_k, v]) => v)
-            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ZeroToFour });
+            .reduce((best, p) => (p.rank > best.rank ? p : best), { rank: 0 as ProficiencyValues });
 
         return new ArmorStatistic(this, {
             rank: proficiency.rank,
@@ -1224,7 +1224,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .filter((p) => !!p.definition?.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+        const proficiencyRank = Math.max(
+            categoryRank,
+            groupRank,
+            baseWeaponRank,
+            ...syntheticRanks,
+        ) as ProficiencyValues;
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const baseOptions = new Set([
             "action:strike",
@@ -1758,9 +1763,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             );
             for (const proficiency of linkedProficiencies) {
                 const category = proficiencies[proficiency.sameAs ?? ""];
-                proficiency.rank = ((): ZeroToFour => {
-                    const maxRankIndex = PROFICIENCY_RANKS.indexOf(proficiency.maxRank ?? "legendary");
-                    return Math.min(category?.rank ?? 0, maxRankIndex) as ZeroToFour;
+                proficiency.rank = ((): ProficiencyValues => {
+                    return Math.min(category?.rank ?? 0, PROF_MAX_VALUE) as ProficiencyValues;
                 })();
             }
 

@@ -1,14 +1,14 @@
 import type { ActorType, CharacterPF2e } from "@actor";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ProficiencyRank } from "@item/base/data/index.ts";
+import { ProficiencyRank, ProficiencyValues } from "@item/base/data/index.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { PredicateField, StrictStringField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import { PROF_MAX_VALUE } from "@module/data.ts";
 
 class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
@@ -48,7 +48,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
     override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
-        const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
+        const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, PROF_MAX_VALUE) as ProficiencyValues;
         const key = this.kind === "attack" ? "attacks" : "defenses";
         this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),

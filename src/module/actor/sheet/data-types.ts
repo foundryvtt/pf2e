@@ -58,6 +58,8 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     totalWealthGold: string;
     traits: SheetOptions;
     user: { isGM: boolean };
+    profNames: string[];
+    profColors: string[];
 }
 
 export interface ActorSheetRenderOptionsPF2e extends RenderOptions {

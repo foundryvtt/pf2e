@@ -8,11 +8,11 @@ import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
 import { SKILL_LONG_FORMS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ItemSourcePF2e, ProficiencyValues } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { PROF_MAX_VALUE, ValueAndMax } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
@@ -149,7 +149,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 bestSkills: Object.values(actor.skills ?? {})
                     .filter((s): s is Statistic => !!s?.proficient && !s.lore)
                     .sort((a, b) => (b.mod ?? 0) - (a.mod ?? 0))
-                    .slice(0, 4)
+                    .slice(0, PROF_MAX_VALUE)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 genderPronouns,
                 blurb,
@@ -538,7 +538,7 @@ interface SkillData {
     slug: string;
     label: string;
     mod: number;
-    rank?: ZeroToFour | null;
+    rank?: ProficiencyValues | null;
 }
 
 interface MemberBreakdown {

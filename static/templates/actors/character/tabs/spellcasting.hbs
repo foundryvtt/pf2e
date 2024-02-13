@@ -106,8 +106,9 @@
                                         data-item-property="system.proficiency.value"
                                     {{/if}}
                                     data-rank="{{entry.statistic.rank}}"
+                                    style="background-color: {{lookup @root.profColors entry.statistic.rank}}"
                                 >
-                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" excludeUntrained=true proflevel=entry.statistic.rank}}
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" excludeUntrained=true proflevel=entry.statistic.rank profNames=@root.profNames profColors=@root.profColors}}
                                 </select>
                             </div>
                         </section>

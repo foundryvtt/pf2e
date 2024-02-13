@@ -214,7 +214,7 @@
         <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
             {{numberFormat data.perception.value decimals=0 sign=true}}
         </a>
-        <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
+        <span class="pf-rank" data-rank="{{data.perception.rank}}" style="background-color: {{lookup @root.profColors data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
     </div>
     {{#if senses.length}}
         <ol class="tags senses">
@@ -264,7 +264,7 @@
     {{#each data.saves as |save slug|}}
         <li class="roll-data" data-save="{{slug}}">
             <h2 class="sidebar_label">{{localize save.label}}</h2>
-            <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
+            <span class="pf-rank" data-rank="{{save.rank}}" style="background-color: {{lookup @root.profColors save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
 
             <div class="save-roll">
                 <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">

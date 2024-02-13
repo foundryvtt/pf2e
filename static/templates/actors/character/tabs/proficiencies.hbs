@@ -18,8 +18,9 @@
                             data-property="system.skills.{{key}}.rank"
                             data-rank="{{skill.rank}}"
                             data-dtype="Number"
+                            style="background-color: {{lookup ../profColors skill.rank}}"
                         >
-                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank profNames=../profNames profColors=../profColors}}
                         </select>
                         <button type="button" class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
                             {{localize "PF2E.ModifiersTitle"}}
@@ -54,8 +55,8 @@
                     <a class="modifier" data-action="roll-check">{{numberFormat skill.value decimals=0 sign=true}}</a>
                     <input class="name" data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
                     <div class="skill-prof button-group skill-container">
-                        <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
-                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                        <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}" style="background-color: {{lookup ../profColors skill.rank}}">
+                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank profNames=../profNames profColors=../profColors}}
                         </select>
                         {{#if ../editable}}
                             <div class="item-controls">
@@ -92,8 +93,9 @@
                         data-property="system.proficiencies.attacks.{{key}}.rank"
                         data-rank="{{proficiency.rank}}"
                         data-dtype="Number"
+                        style="background-color: {{lookup ../profColors proficiency.rank}}"
                     >
-                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
+                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank profNames=../profNames profColors=../profColors}}
                     </select>
                 </div>
             </li>
@@ -110,7 +112,7 @@
                 <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                 <span class="name">{{localize proficiency.label}}</span>
                 <div class="button-group">
-                    <span class="pf-rank" data-rank="{{proficiency.rank}}">{{lookup @root.numberToRank proficiency.rank}}</span>
+                    <span class="pf-rank" data-rank="{{proficiency.rank}}" style="background-color: {{lookup ../profColors proficiency.rank}}">{{lookup @root.numberToRank proficiency.rank}}</span>
                 </div>
             </li>
         {{/each}}
@@ -126,16 +128,20 @@
                     <span class="name">{{localize spellcasting.label}}</span>
                     <div class="skill-prof button-group skill-container">
                         {{#if (gt actor.itemTypes.spellcastingEntry.length 0)}}
+                            {{log spellcasting}}
+                            {{log spellcasting.rank}}
+                            {{log @root.profColors}}
                             <select
                                 class="skill-proficiency pf-rank"
                                 data-action="update-spellcasting-rank"
                                 data-rank="{{spellcasting.rank}}"
+                                style="background-color: {{lookup @root.profColors spellcasting.rank}}"
                             >
-                                {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank excludeUntrained=true}}
+                                {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=spellcasting.rank excludeUntrained=true profNames=@root.profNames profColors=@root.profColors}}
                             </select>
                         {{else}}
                             <div class="button-group">
-                                <span class="pf-rank" data-rank="{{spellcasting.rank}}">{{lookup @root.numberToRank spellcasting.rank}}</span>
+                                <span class="pf-rank" data-rank="{{spellcasting.rank}}" style="background-color: {{lookup @root.profColors spellcasting.rank}}">{{lookup @root.numberToRank spellcasting.rank}}</span>
                             </div>
                         {{/if}}
                     </div>
@@ -153,7 +159,7 @@
                     <span class="dc" data-tooltip="{{classDC.breakdown}}">{{classDC.dc}}</span>
                     <span class="name">{{classDC.label}}</span>
                     <div class="button-group stacked">
-                        <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
+                        <span class="pf-rank" data-rank="{{classDC.rank}}" style="background-color: {{lookup ../profColors classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
                         <button type="button" class="hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers">
                             {{localize "PF2E.ModifiersTitle"}}
                         </button>

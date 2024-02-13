@@ -91,6 +91,10 @@ interface PublicationData {
 }
 
 export const PROFICIENCY_RANKS = ["untrained", "trained", "expert", "master", "legendary"] as const;
+export const PROFICIENCY_COLORS = ["#424242", "#171f69", "#3c005e", "#664400", "#5e0000"] as const;
+export const PROFICIENCY_VALUES = [0, 2, 4, 6, 8] as const;
+export const PROFICIENCY_NUMBERS = [0, 1, 2, 3, 4] as const;
+export const PROF_MAX_VALUE = PROFICIENCY_RANKS.length;
 
 export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "abs",

@@ -3,11 +3,11 @@ import type { HitPointsStatistic } from "@actor/data/base.ts";
 import type { MovementType, SaveType, SkillAbbreviation } from "@actor/types.ts";
 import type { AbilityItemPF2e, ItemPF2e } from "@item";
 import type { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
-import type { ZeroToFour } from "@module/data.ts";
 import type { TraitTagifyEntry } from "@module/sheet/helpers.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { NPCAttributes, NPCPerceptionData, NPCSaveData, NPCSkillData, NPCSystemData } from "./data.ts";
 import type { NPCPF2e, NPCStrike } from "./index.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 interface ActionsDetails {
     label: string;
@@ -36,7 +36,7 @@ interface VariantCloneParams {
     keepId?: boolean;
 }
 
-type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
+type WithRank = { icon?: string; hover?: string; rank: ProficiencyValues };
 type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 
 interface NPCSystemSheetData extends NPCSystemData {

@@ -1,8 +1,8 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
-import { OneToFour } from "@module/data.ts";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 import { BackgroundTrait } from "./types.ts";
+import { ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
 
 class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<BackgroundTrait> {
@@ -49,7 +49,7 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (trainedSkills.value.length === 1) {
             const key = trainedSkills.value[0];
             const skill = this.actor.system.skills[key];
-            skill.rank = Math.max(skill.rank, 1) as OneToFour;
+            skill.rank = Math.max(skill.rank, 1) as ProficiencyValuesMinusZero;
         }
     }
 }

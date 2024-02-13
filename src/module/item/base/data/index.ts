@@ -23,10 +23,12 @@ import type { SpellSource } from "@item/spell/data.ts";
 import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
-import type { PROFICIENCY_RANKS } from "@module/data.ts";
+import type { PROFICIENCY_NUMBERS, PROFICIENCY_RANKS } from "@module/data.ts";
 import { ItemDescriptionData } from "./system.ts";
 
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
+type ProficiencyValues = (typeof PROFICIENCY_NUMBERS)[number];
+type ProficiencyValuesMinusZero = Exclude<ProficiencyValues, 0>;
 
 type NonPhysicalItemType =
     | "action"
@@ -127,6 +129,8 @@ export type {
     NonPhysicalItemType,
     PhysicalItemSource,
     ProficiencyRank,
+    ProficiencyValues,
+    ProficiencyValuesMinusZero,
     RawItemChatData,
     ShieldSource,
     SpellSource,

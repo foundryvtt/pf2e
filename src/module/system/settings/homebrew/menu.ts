@@ -54,8 +54,9 @@ import {
     prepareCleanup,
     prepareReservedTerms,
 } from "./helpers.ts";
-import { PROFICIENCY_RANKS } from "@module/data.ts";
+import { PROFICIENCY_COLORS, PROFICIENCY_NUMBERS, PROFICIENCY_RANKS, PROFICIENCY_VALUES } from "@module/data.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
+import { PROFICIENCY_RANK_OPTION } from "@actor/modifiers.ts";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -553,9 +554,12 @@ class ProficienciesManager {
     // All collections the proficiencies must be updated in
     collections = {
         prof_ranks: PROFICIENCY_RANKS as unknown as string[],
+        prof_colors: PROFICIENCY_COLORS as unknown as string[],
+        prof_nums: PROFICIENCY_NUMBERS as unknown as number[],
+        prof_vals: PROFICIENCY_VALUES as unknown as number[],
+        prof_rank_options: PROFICIENCY_RANK_OPTION as unknown as string[],
         proficiencyRanksLocalization: CONFIG.PF2E.proficiencyRanks,
         proficiencyRanks: CONFIG.PF2E.proficiencyLevels,
-        BASE_DAMAGE_TYPES_TO_CATEGORIES,
     };
 
     addCustomRank(data: CustomProficiencyData, options: { slug?: string } = {}): void {
@@ -563,8 +567,12 @@ class ProficienciesManager {
         const slug = (options.slug ?? sluggify(data.label)) as ProficiencyRank;
 
         collections.prof_ranks.push(slug);
+        collections.prof_colors.push(data.color);
+        collections.prof_nums.push(collections.prof_nums.length);
+        collections.prof_vals.push(data.value);
+        collections.prof_rank_options.push(`proficiency:${slug}`);
         collections.proficiencyRanksLocalization[slug] = data.label;
-        collections.prof_ranks.push(data.label);
+        collections.proficiencyRanks.push(data.label);
     }
 
     updateSettings() {
@@ -575,22 +583,23 @@ class ProficienciesManager {
             [...PROFICIENCY_RANKS].filter((t) => !reservedTerms.proficiencyRanks.has(t)),
         );
         for (const collection of Object.values(this.collections)) {
-            if (collection instanceof Set) {
-                const types = [...collection].filter((t) => ranksToDelete.has(t));
-                for (const rankType of types) collection.delete(rankType);
+            if (Array.isArray(collection)) {
+                collection.splice(5);
             } else {
                 const types = Object.keys(collection).filter((t): t is keyof typeof collection => ranksToDelete.has(t));
-                for (const rankType of types) delete collection[rankType];
+                for (const rank of types) delete collection[rank];
             }
         }
 
         // Read module proficiency ranks
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
             if (!R.isObject(homebrew) || !homebrew.proficiencyRanks) continue;
 
             const profs = homebrew.proficiencyRanks;
+
             if (!isObject(profs) || !isHomebrewCustomProficiency(profs)) {
                 console.warn(ErrorPF2e(`Homebrew record proficiencyRanks is malformed in module ${key}`).message);
                 continue;

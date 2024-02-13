@@ -19,7 +19,7 @@ import type {
     PhysicalItemPF2e,
 } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
-import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ActionCost, Frequency, ItemSourcePF2e, ProficiencyValues } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
@@ -27,7 +27,6 @@ import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
@@ -76,6 +75,7 @@ import { ElementalBlast, ElementalBlastConfig } from "./elemental-blast.ts";
 import { FeatGroup } from "./feats.ts";
 import { PCSheetTabManager } from "./tab-manager.ts";
 import { CHARACTER_SHEET_TABS } from "./values.ts";
+import { PROFICIENCY_NUMBERS, PROF_MAX_VALUE } from "@module/data.ts";
 
 class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -121,9 +121,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
-        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
+        // CHANGE LATER
+        sheetData.numberToRank = R.mapToObj([...PROFICIENCY_NUMBERS] as const, (n) => [
             n,
-            game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
+            game.i18n.localize(CONFIG.PF2E.proficiencyLevels[n]),
         ]);
 
         sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
@@ -738,13 +739,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         for (const select of htmlQueryAll<HTMLSelectElement>(html, "select[data-action=update-spellcasting-rank]")) {
             select.addEventListener("change", () => {
                 const newRank = Number(select.value);
-                if (![1, 2, 3, 4].includes(newRank)) {
+                if (!PROFICIENCY_NUMBERS.includes(newRank as ProficiencyValues)) {
                     throw ErrorPF2e("Unexpected rank received while changing proficiency");
                 }
+
                 const autoChanges = (
                     this.actor.system.autoChanges["system.proficiencies.spellcasting.rank"] ?? []
                 ).filter((ac) => typeof ac.value === "number" && ac.mode === "upgrade");
+
                 const highestUpgrade = R.sortBy(autoChanges, (ac) => Number(ac.value)).at(-1);
+
                 if (typeof highestUpgrade?.value === "number" && highestUpgrade.value > newRank) {
                     const ranks: readonly string[] = CONFIG.PF2E.proficiencyLevels;
                     const rank = ranks[highestUpgrade.value];
@@ -757,10 +761,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     this.render();
                 } else {
                     const entries = this.actor.itemTypes.spellcastingEntry.filter((e) => !e.system.proficiency.slug);
+                    console.warn(entries);
                     this.actor.updateEmbeddedDocuments(
                         "Item",
                         entries.map((e) => ({ _id: e.id, "system.proficiency.value": newRank })),
                     );
+                    console.warn(entries);
                 }
             });
         }
@@ -1280,11 +1286,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const newValue = ((): number | undefined => {
             if (item.isOfType("spellcastingEntry")) {
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
+                    "system.proficiency.value": () => Math.clamped(selectedValue, 0, PROF_MAX_VALUE),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
-                return Math.clamped(selectedValue, 0, 4);
+                return Math.clamped(selectedValue, 0, PROF_MAX_VALUE);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -1313,12 +1319,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (item.isOfType("spellcastingEntry")) {
                 const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
+                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, PROF_MAX_VALUE),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
                 const currentRank = item.system.proficient.value;
-                return Math.clamped(currentRank + change, 0, 4);
+                return Math.clamped(currentRank + change, 0, PROF_MAX_VALUE);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -1580,7 +1586,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     attributeBoostsAllocated: boolean;
     biography: CharacterBiography;
     class: ClassPF2e<CharacterPF2e> | null;
-    numberToRank: Record<ZeroToFour, string>;
+    numberToRank: Record<ProficiencyValues, string>;
     classDCs: {
         dcs: ClassDCSheetData[];
         /** The slug of the character's primary class DC */

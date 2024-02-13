@@ -4,13 +4,14 @@ import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToFour, OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
+import { OneToTen, PROF_MAX_VALUE, ZeroToTen } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
+import { ProficiencyValues, ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -49,7 +50,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank(): ZeroToFour {
+    get rank(): ProficiencyValues {
         return this.system.proficiency.value ?? 0;
     }
 
@@ -94,7 +95,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         super.prepareBaseData();
 
         // Spellcasting abilities are always at least trained
-        this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as OneToFour;
+        this.system.proficiency.value = Math.max(1, this.system.proficiency.value) as ProficiencyValuesMinusZero;
 
         this.system.prepared.flexible ??= false;
         this.system.prepared.validItems ||= null;
@@ -128,13 +129,14 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     override prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
         const actor = this.parent;
+
         if (!this.system.proficiency.slug && !this.isInnate && actor.isOfType("character")) {
             const spellProficiency = actor.system.proficiencies.spellcasting;
             spellProficiency.rank = Math.clamped(
                 Math.max(spellProficiency.rank, this.system.proficiency.value),
                 1,
-                4,
-            ) as OneToFour;
+                PROF_MAX_VALUE,
+            ) as ProficiencyValuesMinusZero;
         }
 
         if ((this.spells?.size ?? 0) > 0) {
@@ -169,7 +171,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             if (!baseStat) return;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
-            this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
+            this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ProficiencyValues;
             this.statistic = baseStat.extend({
                 slug,
                 label:

@@ -1,9 +1,10 @@
 import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
+import { OneToTen, ZeroToTen } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 type SlotKey = `slot${ZeroToTen}`;
@@ -50,7 +51,7 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
     };
     proficiency: {
         slug: string;
-        value: ZeroToFour;
+        value: ProficiencyValues;
     };
     slots: Record<SlotKey, SpellSlotData>;
     autoHeightenLevel: {

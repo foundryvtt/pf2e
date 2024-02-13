@@ -2,11 +2,11 @@ import type { ActorPF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { ArmorPF2e } from "@item";
-import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { sluggify } from "@util";
 import * as R from "remeda";
 import { Statistic, StatisticData, StatisticTraceData } from "./index.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 class ArmorStatistic extends Statistic {
     details: string;
@@ -92,7 +92,7 @@ class ArmorStatistic extends Statistic {
 }
 
 interface ArmorStatisticData extends StatisticData {
-    rank?: ZeroToFour;
+    rank?: ProficiencyValues;
     details?: string;
 }
 

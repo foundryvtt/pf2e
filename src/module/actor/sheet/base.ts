@@ -60,6 +60,7 @@ import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts"
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
+import { PROFICIENCY_COLORS } from "@module/data.ts";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -163,6 +164,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             totalWealthGold,
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             user: { isGM: game.user.isGM },
+            profNames: [...CONFIG.PF2E.proficiencyLevels],
+            profColors: [...PROFICIENCY_COLORS],
         };
 
         await this.prepareItems?.(sheetData);

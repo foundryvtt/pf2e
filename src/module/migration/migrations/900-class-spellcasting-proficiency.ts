@@ -1,6 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ItemSourcePF2e, ProficiencyValues } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -24,12 +23,12 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
                 (r: MaybeAELike) => r.key === "ActiveEffectLike" && r.path === "system.proficiencies.spellcasting.rank",
             );
             if (aeLikeIncrease) {
-                source.system.spellcasting = Math.max(1, source.system.spellcasting ?? 0) as ZeroToFour;
+                source.system.spellcasting = Math.max(1, source.system.spellcasting ?? 0) as ProficiencyValues;
                 source.system.rules.splice(source.system.rules.indexOf(aeLikeIncrease), 1);
             } else if (["sorcerer", "summoner", "witch"].includes(source.system.slug ?? "")) {
                 source.system.spellcasting = 1;
             } else {
-                source.system.spellcasting = Math.max(0, source.system.spellcasting ?? 0) as ZeroToFour;
+                source.system.spellcasting = Math.max(0, source.system.spellcasting ?? 0) as ProficiencyValues;
             }
         }
 

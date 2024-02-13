@@ -1,11 +1,11 @@
 import type { CharacterPF2e } from "@actor";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { OneToFour } from "@module/data.ts";
 import { calculateDC } from "@module/dc.ts";
 import { DEGREE_OF_SUCCESS_STRINGS, DegreeOfSuccessIndex, RollBrief } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { EarnIncomeResult, earnIncome } from "./calculate.ts";
+import { ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -70,7 +70,7 @@ function calculateIncome({ actor, skill, rollBrief, level, days, dc }: Calculate
     const options = {
         useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && !!skill.lore,
     };
-    const proficiency = Math.max(1, skill.rank ?? 1) as OneToFour; // earn income is a trained check
+    const proficiency = Math.max(1, skill.rank ?? 1) as ProficiencyValuesMinusZero; // earn income is a trained check
     const result = earnIncome({ level, days, rollBrief, proficiency, options, dc });
 
     postToChat(skill.label, result);

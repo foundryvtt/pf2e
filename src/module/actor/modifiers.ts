@@ -1,6 +1,7 @@
 import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
-import { ZeroToFour } from "@module/data.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
+import { PROFICIENCY_VALUES, PROF_MAX_VALUE } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -312,20 +313,20 @@ function createProficiencyModifier({
     level,
     addLevel,
 }: CreateProficiencyModifierParams): ModifierPF2e {
-    rank = Math.clamped(rank, 0, 4) as ZeroToFour;
+    rank = Math.clamped(rank, 0, PROF_MAX_VALUE) as ProficiencyValues;
     addLevel ??= rank > 0;
     const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
-    const baseBonuses: [number, number, number, number, number] = pwolVariant
-        ? game.pf2e.settings.variants.pwol.modifiers
-        : [0, 2, 4, 6, 8];
+    const baseBonuses = pwolVariant
+        ? [...game.pf2e.settings.variants.pwol.modifiers, ...PROFICIENCY_VALUES.slice(5)]
+        : [...PROFICIENCY_VALUES];
 
     const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
         slug: "proficiency",
-        label: `PF2E.ProficiencyLevel${rank}`,
+        label: CONFIG.PF2E.proficiencyLevels[rank],
         modifier: bonus,
         type: "proficiency",
         adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "proficiency"),
@@ -334,7 +335,7 @@ function createProficiencyModifier({
 
 interface CreateProficiencyModifierParams {
     actor: ActorPF2e;
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
     domains: string[];
     /** If given, use this value instead of actor.level */
     level?: number;

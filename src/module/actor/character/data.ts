@@ -29,11 +29,11 @@ import {
 import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
-import { ProficiencyRank } from "@item/base/data/index.ts";
+import { ProficiencyRank, ProficiencyValues } from "@item/base/data/index.ts";
 import { DeitySystemData } from "@item/deity/data.ts";
 import { DeityDomain } from "@item/deity/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { ValueAndMax, ZeroToFour } from "@module/data.ts";
+import { ValueAndMax } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { CharacterPF2e } from "./document.ts";
@@ -84,7 +84,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
 }
 
 interface MartialProficiencySource {
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
     custom?: boolean;
 }
 
@@ -275,7 +275,7 @@ type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" |
 interface CharacterSkillData extends SkillData {
     attribute: AttributeString;
     /** The proficiency rank ("TEML") */
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
     /** Whether this skill is subject to an armor check penalty */
     armor: boolean;
     /** Is this skill a Lore skill? */
@@ -338,7 +338,7 @@ type CharacterAbilities = Record<AttributeString, CharacterAbilityData>;
 
 interface CharacterSaveData extends SaveData {
     /** The proficiency rank ("TEML") */
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
 }
 type CharacterSaves = Record<SaveType, CharacterSaveData>;
 
@@ -348,8 +348,8 @@ interface CharacterProficiency {
     value: number;
     /** Describes how the value was computed. */
     breakdown: string;
-    /** The proficiency rank (0 untrained - 4 legendary). */
-    rank: ZeroToFour;
+    /** The proficiency rank (0 untrained - 4 legendary). Now also includes custom values */
+    rank: ProficiencyValues;
 }
 
 /** A proficiency with a rank that depends on another proficiency */
@@ -374,7 +374,7 @@ type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
 interface ClassDCData extends Required<AttributeBasedTraceData> {
     label: string;
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
     primary: boolean;
 }
 
@@ -415,7 +415,7 @@ interface CharacterResources extends CreatureResources {
 }
 
 interface CharacterPerceptionData extends CreaturePerceptionData {
-    rank: ZeroToFour;
+    rank: ProficiencyValues;
 }
 
 interface CharacterDetails extends Omit<CharacterDetailsSource, "alliance">, CreatureDetails {
