@@ -100,7 +100,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
 
         // If this wasn't a submit, only re-render and exit
         if (event.type !== "submit") {
-            await this.render();
+            this.render();
             return;
         }
 

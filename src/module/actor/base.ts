@@ -1792,7 +1792,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<ConditionPF2e<this> | null> {
         // Persistent damage goes through a dialog instead
         if (conditionSlug === "persistent-damage") {
-            await new PersistentDialog(this).render(true);
+            new PersistentDialog(this).render(true);
             return null;
         }
 
