@@ -965,9 +965,12 @@ async function augmentInlineDamageRoll(
             if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
 
             const extractOptions = { test: rollOptions };
+            const fromTraits = item?.isOfType("action", "feat")
+                ? item.system.traits.toggles.getDamageModifications()
+                : { modifiers: [], dice: [] };
             return processDamageCategoryStacking(base, {
-                modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
-                dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
+                modifiers: [fromTraits.modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
+                dice: [fromTraits.dice, extractDamageDice(actor.synthetics.damageDice, domains, extractOptions)].flat(),
                 test: rollOptions,
             });
         })();

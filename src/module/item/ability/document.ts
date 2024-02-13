@@ -5,6 +5,7 @@ import { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { AbilitySource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
+import { AbilityTraitToggles } from "./trait-toggles.ts";
 import { ActionTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -40,6 +41,8 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
             this.system.frequency.value ??= this.system.frequency.max;
         }
 
+        this.system.traits.toggles = new AbilityTraitToggles(this);
+
         this.system.selfEffect ??= null;
         // Self effects are only usable with actions
         if (this.system.actionType.value === "passive") {
@@ -56,6 +59,12 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         if (this.frequency || this.system.deathNote) {
             options.push(`${prefix}:frequency:limited`);
         }
+        for (const trait of this.system.traits.toggles.operableTraits) {
+            if (this.system.traits.toggles[trait]?.selected) {
+                options.push(`${prefix}:trait:${trait}:active`);
+            }
+        }
+
         return options;
     }
 
