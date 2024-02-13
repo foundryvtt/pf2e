@@ -1,5 +1,5 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
-import { CreatureSaves, CreatureSkills, LabeledSpeed } from "@actor/creature/data.ts";
+import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
@@ -218,7 +218,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = Array.from(SKILL_ABBREVIATIONS).reduce((builtSkills, shortForm) => {
+        this.skills = SKILL_ABBREVIATIONS.reduce((builtSkills: Record<string, Statistic<this>>, shortForm) => {
             const longForm = SKILL_DICTIONARY[shortForm];
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acr", "ste"].includes(shortForm)) {
@@ -244,7 +244,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             this.system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), { attribute });
 
             return builtSkills;
-        }, {} as CreatureSkills);
+        }, {});
     }
 
     /* -------------------------------------------- */

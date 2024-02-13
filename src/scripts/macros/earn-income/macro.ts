@@ -1,5 +1,4 @@
-import { ActorPF2e } from "@actor";
-import { CharacterSkill } from "@actor/character/types.ts";
+import type { ActorPF2e } from "@actor";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import { askSkillPopupTemplate, runEarnIncome } from "./helpers.ts";
 
@@ -9,7 +8,7 @@ function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
         return;
     }
 
-    const skills = Object.values(actor.skills).filter((s): s is CharacterSkill => !!s?.proficient);
+    const skills = Object.values(actor.skills).filter((s) => s.proficient);
 
     new Dialog({
         title: "Earn Income",

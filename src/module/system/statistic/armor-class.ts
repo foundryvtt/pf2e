@@ -1,6 +1,7 @@
-import type { ActorPF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { createShoddyPenalty } from "@actor/character/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { AttributeString } from "@actor/types.ts";
 import type { ArmorPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
@@ -8,14 +9,14 @@ import { sluggify } from "@util";
 import * as R from "remeda";
 import { Statistic, StatisticData, StatisticTraceData } from "./index.ts";
 
-class ArmorStatistic extends Statistic {
+class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TActor> {
     details: string;
 
-    get item(): ArmorPF2e<ActorPF2e> | null {
+    get item(): ArmorPF2e<TActor> | null {
         return this.actor.isOfType("character") ? this.actor.wornArmor : null;
     }
 
-    constructor(actor: ActorPF2e, data: Omit<ArmorStatisticData, "domains" | "label" | "slug"> = {}) {
+    constructor(actor: TActor, data: Omit<ArmorStatisticData, "domains" | "label" | "slug"> = {}) {
         data.rank ??= 1;
         const attribute = actor.isOfType("creature") ? data.attribute ?? "dex" : null;
         const domains = attribute ? ["all", `${attribute}-based`] : ["all"];
@@ -81,6 +82,8 @@ class ArmorStatistic extends Statistic {
             : null;
     }
 
+    override getTraceData(this: ArmorStatistic<CreaturePF2e>): ArmorClassTraceData<AttributeString>;
+    override getTraceData(): ArmorClassTraceData;
     override getTraceData(): ArmorClassTraceData {
         return {
             ...super.getTraceData({ value: "dc" }),
@@ -96,7 +99,8 @@ interface ArmorStatisticData extends StatisticData {
     details?: string;
 }
 
-interface ArmorClassTraceData extends StatisticTraceData {
+interface ArmorClassTraceData<TAttribute extends AttributeString | null = AttributeString | null>
+    extends StatisticTraceData<TAttribute> {
     details: string;
     slug: "ac";
 }

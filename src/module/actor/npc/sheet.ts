@@ -1,5 +1,4 @@
 import type { NPCPF2e } from "@actor";
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
@@ -17,16 +16,15 @@ import {
     htmlQueryAll,
     localizeList,
     setHasElement,
+    sortLabeledRecord,
     tagify,
 } from "@util";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
-import { NPCSkillData } from "./data.ts";
 import {
     NPCActionSheetData,
     NPCIdentificationSheetData,
     NPCSheetData,
-    NPCSkillSheetData,
     NPCSpeedSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
@@ -78,34 +76,11 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
     }
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
-        // Prepare a list of skill IDs sorted by their localized name
-        // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(sheetSystemData.skills) as SkillAbbreviation[];
-
-        const skills = sheetSystemData.skills;
-        for (const shortForm of sortedSkillsIds) {
-            const skill = skills[shortForm as SkillAbbreviation];
+        for (const skill of Object.values(sheetSystemData.skills)) {
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
-
-        sortedSkillsIds.sort((a: SkillAbbreviation, b: SkillAbbreviation) => {
-            const skillA = skills[a];
-            const skillB = skills[b];
-
-            if (skillA.label < skillB.label) return -1;
-            if (skillA.label > skillB.label) return 1;
-
-            return 0;
-        });
-
-        const sortedSkills: Record<string, NPCSkillData> = {};
-
-        for (const skillId of sortedSkillsIds) {
-            sortedSkills[skillId] = skills[skillId];
-        }
-
-        sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
+        sheetSystemData.skills = sortLabeledRecord(sheetSystemData.skills);
     }
 
     #prepareSaves(systemData: NPCSystemSheetData): void {
