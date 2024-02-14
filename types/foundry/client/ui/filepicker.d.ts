@@ -103,11 +103,26 @@ declare class FilePicker extends Application<FilePickerOptions> {
     static upload(source: string, path: string, file: File, options: object): Promise<boolean>;
 
     /**
+     * A convenience function that uploads a file to a given package's persistent /storage/ directory
+     * @param packageId The id of the package to which the file should be uploaded. Only supports Systems and Modules.
+     * @param path      The relative path in the package's storage directory the file should be uploaded to
+     * @param file      The File object to upload
+     * @param body
+     * @param options   Additional options to configure how the method behaves
+     */
+    static uploadPersistent(
+        packageId: string,
+        path: string,
+        file: File,
+        body?: object,
+        options?: { notify?: boolean },
+    ): Promise<boolean>;
+
+    /**
      * Create a subdirectory within a given source. The requested subdirectory path must not already exist.
-     * @param {string} source     The source location in which to browse. See FilePicker#sources for details
-     * @param {string} target     The target within the source location
-     * @param {Object} options    Optional arguments which modify the request
-     * @return {Promise<Object>}
+     * @param source The source location in which to browse. See FilePicker#sources for details
+     * @param target   The target within the source location
+     * @param options Optional arguments which modify the request
      */
     static createDirectory(source: string, target: string, options: object): Promise<object>;
 
