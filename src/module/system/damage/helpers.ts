@@ -1,18 +1,27 @@
-import type { DamageDicePF2e } from "@actor/modifiers.ts";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement } from "@util";
+import type { ActorPF2e } from "@actor";
+import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import type { ItemPF2e } from "@item";
+import { extractDamageAlterations } from "@module/rules/helpers.ts";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { combinePartialTerms } from "./formula.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
-import {
+import type {
     BaseDamageData,
     DamageCategory,
     DamageCategoryUnique,
+    DamageDiceFaces,
     DamageDieSize,
     DamagePartialTerm,
     DamageType,
 } from "./types.ts";
-import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_SIZES } from "./values.ts";
+import {
+    BASE_DAMAGE_TYPES_TO_CATEGORIES,
+    DAMAGE_CATEGORIES_UNIQUE,
+    DAMAGE_DICE_FACES,
+    DAMAGE_DIE_SIZES,
+} from "./values.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
@@ -43,6 +52,58 @@ const DamageCategorization = {
         return new Set(types);
     },
 } as const;
+
+/** Create `DamageDicePF2e` and `ModifierPF2e` instances in order to apply damage alterations to base damage data. */
+function applyBaseDamageAlterations({ actor, item, base, domains, rollOptions }: ApplyDamageAlterationsParams): void {
+    const alterationsRecord = actor?.synthetics.damageAlterations ?? {};
+    const baseDamageAlterations = [
+        item?.isOfType("action", "feat") ? item.system.traits.toggles.getDamageAlterations() : [],
+        extractDamageAlterations(alterationsRecord, domains, "base"),
+    ].flat();
+
+    if (item && baseDamageAlterations.length > 0) {
+        for (const partial of base) {
+            for (const term of partial.terms ?? []) {
+                if (term.dice) {
+                    const damage = new DamageDicePF2e({
+                        selector: "inline-damage",
+                        slug: "base",
+                        damageType: partial.damageType,
+                        category: partial.category,
+                        diceNumber: term.dice.number,
+                        dieSize: `d${term.dice.faces}`,
+                    });
+                    for (const alteration of baseDamageAlterations) {
+                        alteration.applyTo(damage, { item, test: rollOptions });
+                    }
+                    partial.damageType = damage.damageType ?? partial.damageType;
+                    term.dice.number = damage.diceNumber;
+                    term.dice.faces = damage.dieSize ? damageDieSizeToFaces(damage.dieSize) : term.dice.faces;
+                } else if (term.modifier && baseDamageAlterations.some((a) => a.property === "damage-type")) {
+                    const modifier = new ModifierPF2e({
+                        label: "PF2E.ModifierTitle",
+                        slug: "base",
+                        modifier: term.modifier,
+                        damageCategory: partial.category,
+                        damageType: partial.damageType,
+                    });
+                    for (const alteration of baseDamageAlterations) {
+                        alteration.applyTo(modifier, { item, test: rollOptions });
+                    }
+                    partial.damageType = modifier.damageType ?? partial.damageType;
+                }
+            }
+        }
+    }
+}
+
+interface ApplyDamageAlterationsParams {
+    base: BaseDamageData[];
+    actor: ActorPF2e;
+    item: ItemPF2e<ActorPF2e>;
+    domains: string[];
+    rollOptions: string[] | Set<string>;
+}
 
 const FACES = [4, 6, 8, 10, 12];
 
@@ -79,7 +140,8 @@ function applyDamageDiceOverrides(
         for (let i = 0; i < Math.abs(delta); i++) {
             if (die) {
                 const direction = delta > 0 ? 1 : -1;
-                die.dice.faces = FACES[FACES.indexOf(die.dice.faces) + direction] ?? die.dice.faces;
+                const newFaces = FACES[FACES.indexOf(die.dice.faces) + direction];
+                die.dice.faces = tupleHasValue(DAMAGE_DICE_FACES, newFaces) ? newFaces : die.dice.faces;
             } else if (base.dieSize) {
                 base.dieSize =
                     delta > 0
@@ -101,7 +163,7 @@ function applyDamageDiceOverrides(
                 die.dice.number = adjustment.override.diceNumber ?? die.dice.number;
                 if (adjustment.override.dieSize) {
                     const faces = Number(/\d{1,2}/.exec(adjustment.override.dieSize)?.shift());
-                    if (Number.isInteger(faces)) die.dice.faces = faces;
+                    if (tupleHasValue(DAMAGE_DICE_FACES, faces)) die.dice.faces = faces;
                 }
             } else {
                 base.dieSize = adjustment.override.dieSize ?? base.dieSize;
@@ -142,7 +204,8 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
             if (typeof expression.number !== "number" || typeof expression.faces !== "number") {
                 throw ErrorPF2e("Unable to parse DamageRoll with non-deterministic intermediate expressions.");
             }
-            return [{ dice: { number: expression.number, faces: expression.faces }, modifier: 0, category }];
+            const faces = tupleHasValue(DAMAGE_DICE_FACES, expression.faces) ? expression.faces : 4;
+            return [{ dice: { number: expression.number, faces }, modifier: 0, category }];
         }
 
         // Resolve deterministic expressions and terms normally, everything is allowed
@@ -227,6 +290,13 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
     ].flat();
 }
 
+function damageDieSizeToFaces(size: DamageDieSize): DamageDiceFaces;
+function damageDieSizeToFaces(size: string): DamageDiceFaces | null;
+function damageDieSizeToFaces(size: string): DamageDiceFaces | null {
+    const maybeFaces = Number(size.replace(/^d/, ""));
+    return tupleHasValue(DAMAGE_DICE_FACES, maybeFaces) ? maybeFaces : null;
+}
+
 /**
  * Create or retrieve a simplified term from a more-complex one, given that it can be done without information loss.
  * @returns A simplified term, if possible, or otherwise the original
@@ -305,8 +375,10 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
 
 export {
     DamageCategorization,
+    applyBaseDamageAlterations,
     applyDamageDiceOverrides,
     damageDiceIcon,
+    damageDieSizeToFaces,
     deepFindTerms,
     extractBaseDamage,
     isSystemDamageTerm,

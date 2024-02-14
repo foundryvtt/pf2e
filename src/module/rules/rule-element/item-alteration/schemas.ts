@@ -6,7 +6,7 @@ import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/val
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
+import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type {
@@ -184,7 +184,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                 const hasBasicStructure = R.isObject(data) && "mode" in data && "value" in data;
                 if (!hasBasicStructure) return false;
 
-                const validFaces: readonly number[] = DAMAGE_DIE_FACES;
+                const validFaces: readonly number[] = DAMAGE_DICE_FACES;
                 const valueIsFaceNumber = typeof data.value === "number" && validFaces.includes(data.value);
                 if (data.mode === "override" && !valueIsFaceNumber) {
                     throw new validation.DataModelValidationError(

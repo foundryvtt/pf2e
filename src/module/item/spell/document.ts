@@ -29,7 +29,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
-import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageCategorization, applyBaseDamageAlterations } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -332,7 +332,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { attribute, isAttack } = this;
         const checkStatistic = spellcasting.statistic;
-        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
         const damageKinds = Array.from(this.damageKinds);
         const domains = R.compact(
             [
@@ -344,10 +343,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ].flat(),
         );
 
+        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition])).sort();
+        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
         const actionAndTraitOptions = new Set([
             "action:cast-a-spell",
             "self:action:slug:cast-a-spell",
-            ...spellTraits.map((t) => `self:action:trait:${t}`),
+            ...actionTraitOptions,
             ...spellTraits,
         ]);
         const contextData = await this.actor.getDamageRollContext({
@@ -380,17 +381,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const actor = contextData.self.actor;
         const { damageAlterations, modifierAdjustments } = actor.synthetics;
 
-        // Apply alterations to base damage
-        const alterations = extractDamageAlterations(damageAlterations, domains, "base");
-        for (const damage of base) {
-            for (const alteration of alterations) {
-                alteration.applyTo(damage, {
-                    item: this as SpellPF2e<NonNullable<TParent>>,
-                    test: contextData.options,
-                });
-            }
-        }
-
         if (actor.system.abilities) {
             const attributes = actor.system.abilities;
             const attributeModifiers = Object.entries(this.system.damage)
@@ -420,6 +410,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 dice: extractDamageDice(actor.synthetics.damageDice, extractOptions),
                 test: contextData.options,
             });
+
+            // Apply alterations to base damage
+            if (actor) {
+                const item = this as SpellPF2e<NonNullable<TParent>>;
+                applyBaseDamageAlterations({ actor, item, base, domains, rollOptions: context.options });
+            }
 
             // Apply alterations to damage synthetics
             for (const dice of extracted.dice) {
@@ -990,9 +986,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        context.extraRollOptions = R.uniq(
-            R.compact(["action:cast-a-spell", "self:action:slug:cast-a-spell", context.extraRollOptions].flat()),
-        );
+        const spellTraits = R.uniq(R.compact([...this.system.traits.value, tradition])).sort();
+        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
+        context.extraRollOptions = R.uniq([
+            "action:cast-a-spell",
+            "self:action:slug:cast-a-spell",
+            ...actionTraitOptions,
+            ...(context.extraRollOptions ?? []),
+        ]);
 
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
