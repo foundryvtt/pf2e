@@ -1,6 +1,6 @@
 {
     "_id": "SOZ7pMEzjVKbwxqe",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/equipment/waist/sash-cloth-teal.webp",
     "name": "Jaathoom's Scarf",
     "system": {
         "baseItem": null,
@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This scarf is made of fine silk that's the same shade of blue as a clear, cloudless sky. The short ends are edged with a fine gold fringe that seems to sway even in still weather as though touched by invisible winds. The long edges have exquisite embroidery in threads that vary from a blue identical to the silk to the deep gray of storm clouds during winter. Wearing this scarf grants a +2 item bonus to Performance checks to dance and to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>\n<hr />\n<p><strong>Activate—Vanish</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The scarf casts 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] on you.</p>\n<hr />\n<p><strong>Activate—Jaathoom's Rebuke</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You let the winds around you catch the edges of the <em>jaathoom's scarf</em>, and a jaathoom shuyookh appears with a sudden updraft. The winds force your enemies back, granting you some breathing room in battle. Each enemy in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:18] save or be pushed 10 feet. A creature that critically fails is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] after being moved. Creatures with the air trait are immune to all these effects.</p>"
+            "value": "<p>This scarf is made of fine silk that's the same shade of blue as a clear, cloudless sky. The short ends are edged with a fine gold fringe that seems to sway even in still weather as though touched by invisible winds. The long edges have exquisite embroidery in threads that vary from a blue identical to the silk to the deep gray of storm clouds during winter. Wearing this scarf grants a +2 item bonus to Performance checks to dance and to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape].</p>\n<hr />\n<p><strong>Activate—Vanish</strong> <span class=\"action-glyph\">2</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The scarf casts 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] on you.</p>\n<hr />\n<p><strong>Activate—Jaathoom's Rebuke</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You let the winds around you catch the edges of the <em>jaathoom's scarf</em>, and a jaathoom shuyookh appears with a sudden updraft. The winds force your enemies back, granting you some breathing room in battle. Each enemy in a @Template[type:emanation|distance:10] must succeed at a @Check[type:fortitude|dc:28] save or be pushed 10 feet. A creature that critically fails is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] after being moved. Creatures with the air trait are immune to all these effects.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -38,7 +38,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "dance"
+                    "action:perform:dance"
                 ],
                 "selector": "performance",
                 "type": "item",
@@ -57,7 +57,11 @@
         "size": "med",
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "air",
+                "invested",
+                "magical"
+            ]
         },
         "usage": {
             "value": "wornbelt"
