@@ -120,7 +120,7 @@ declare class FilePicker extends Application<FilePickerOptions> {
 
     /**
      * Create a subdirectory within a given source. The requested subdirectory path must not already exist.
-     * @param {string} source     The source location in which to browse. See FilePicker#sources for details
+     * @param source The source location in which to browse. See FilePicker#sources for details
      * @param {string} target     The target within the source location
      * @param {Object} options    Optional arguments which modify the request
      * @return {Promise<Object>}
