@@ -277,7 +277,7 @@ class CompendiumBrowser extends Application {
         // Settings tab
         if (tabName === "settings") {
             await this.packLoader.updateSources(this.loadedPacksAll());
-            await this.render(true);
+            this.render(true);
             return;
         }
 
@@ -292,7 +292,7 @@ class CompendiumBrowser extends Application {
             await currentTab.init();
         }
 
-        await this.render(true, { focus: true });
+        this.render(true);
     }
 
     loadedPacks(tab: TabName): string[] {

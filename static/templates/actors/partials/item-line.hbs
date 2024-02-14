@@ -2,6 +2,7 @@
     {{#if isSubitem}}data-subitem-id{{else}}data-item-id{{/if}}="{{item.id}}"
     {{#if isContainer}}data-is-container{{/if}}
     {{#if item.isInContainer}}data-item-type="{{item.type}}"{{/if}}
+    {{#if hidden}}class="hidden-item"{{/if}}
 >
     <div class="data{{#if item.isTemporary}} temporary-item{{/if}}">
         <div class="item-name{{#if (and (ne @root.actor.type "loot") (not @root.owner))}} long{{/if}}">

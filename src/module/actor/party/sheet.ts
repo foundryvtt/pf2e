@@ -472,12 +472,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    override async render(force?: boolean, options?: PartySheetRenderOptions): Promise<this> {
+    override render(force?: boolean, options?: PartySheetRenderOptions): this {
         if (options?.actors) {
-            const data = await this.getData();
-            this._saveScrollPositions(this.element);
-            await this.#renderRegions(this.element[0], data);
-            this._restoreScrollPositions(this.element);
+            this.getData().then(async (data) => {
+                this._saveScrollPositions(this.element);
+                await this.#renderRegions(this.element[0], data);
+                this._restoreScrollPositions(this.element);
+            });
             return this;
         } else {
             return super.render(force, options);

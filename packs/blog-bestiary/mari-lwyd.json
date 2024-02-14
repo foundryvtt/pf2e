@@ -147,7 +147,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mostly-harmless",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "mostly-harmless"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "nonlethal"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

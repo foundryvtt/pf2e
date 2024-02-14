@@ -55,18 +55,16 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         const linkToSizeButton = htmlQuery(html, "a[data-action=toggle-link-to-size]");
         linkToSizeButton?.addEventListener("click", async () => {
-            await this.token.update({
-                "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize,
-            });
+            await this.token.update({ "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize });
             this.#reestablishPrototype();
-            await this.render();
+            this.render();
         });
 
         const autoscaleButton = htmlQuery(html, "a[data-action=toggle-autoscale]");
         autoscaleButton?.addEventListener("click", async () => {
             await this.token.update({ "flags.pf2e.autoscale": !this.token.flags.pf2e.autoscale });
             this.#reestablishPrototype();
-            await this.render();
+            this.render();
         });
     }
 

@@ -121,7 +121,7 @@ declare global {
          *                is rendered in the DOM.
          * @returns The rendered Application instance
          */
-        render(force?: boolean, options?: RenderOptions): this | Promise<this>;
+        render(force?: boolean, options?: RenderOptions): this;
 
         /**
          * An asynchronous inner function which handles the rendering of the Application
