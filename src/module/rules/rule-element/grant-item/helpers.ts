@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 
 /** Check an item prior to its deletion for GrantItem on-delete actions */
 async function processGrantDeletions(item: ItemPF2e<ActorPF2e>, pendingItems: ItemPF2e<ActorPF2e>[]): Promise<void> {
