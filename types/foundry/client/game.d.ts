@@ -95,6 +95,8 @@ declare global {
         /** The global document index. */
         documentIndex: DocumentIndex;
 
+        documentTypes: Record<string, string[]>;
+
         /** Whether the Game is running in debug mode */
         debug: boolean;
 
