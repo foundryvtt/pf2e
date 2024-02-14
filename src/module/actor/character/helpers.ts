@@ -9,17 +9,9 @@ import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
-import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
+import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    objectHasKey,
-    setHasElement,
-    sluggify,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -40,7 +32,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                 case "jousting": {
                     if (weapon.handsHeld === 1) {
                         const die = /(d\d{1,2})$/.exec(trait)?.[1];
-                        if (setHasElement(DAMAGE_DIE_FACES, die)) {
+                        if (tupleHasValue(DAMAGE_DIE_SIZES, die)) {
                             weapon.system.damage.die = die;
                         }
                     }
