@@ -121,9 +121,8 @@ declare class FilePicker extends Application<FilePickerOptions> {
     /**
      * Create a subdirectory within a given source. The requested subdirectory path must not already exist.
      * @param source The source location in which to browse. See FilePicker#sources for details
-     * @param {string} target     The target within the source location
-     * @param {Object} options    Optional arguments which modify the request
-     * @return {Promise<Object>}
+     * @param target   The target within the source location
+     * @param options Optional arguments which modify the request
      */
     static createDirectory(source: string, target: string, options: object): Promise<object>;
 
