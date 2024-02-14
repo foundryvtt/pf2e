@@ -609,19 +609,6 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "subduing-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.NPCAbility.AbendegoJailer.SubduingAttack.Nonlethal",
-                        "option": "subduing-attack-nonlethal",
-                        "toggleable": true
-                    },
-                    {
                         "category": "precision",
                         "diceNumber": 3,
                         "dieSize": "d6",
@@ -637,19 +624,10 @@
                         "selector": "strike-damage"
                     },
                     {
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            "subduing-attack-nonlethal",
-                            {
-                                "or": [
-                                    "subduing-attack",
-                                    "target:condition:frightened"
-                                ]
-                            }
-                        ],
-                        "property": "weapon-traits",
-                        "value": "nonlethal"
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "subduing-attack",
+                        "toggleable": true
                     }
                 ],
                 "slug": null,
