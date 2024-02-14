@@ -909,7 +909,33 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "planar-workshop",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "force"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
