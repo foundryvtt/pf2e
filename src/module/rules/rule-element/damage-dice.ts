@@ -1,7 +1,7 @@
 import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
 import { DamageDieSize } from "@system/damage/types.ts";
-import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
-import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
+import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
+import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
@@ -103,14 +103,14 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     }
 
                     override.dieSize &&= this.resolveInjectedProperties(override.dieSize, resolveOptions);
-                    if ("dieSize" in override && !setHasElement(DAMAGE_DIE_FACES, override.dieSize)) {
+                    if ("dieSize" in override && !tupleHasValue(DAMAGE_DIE_SIZES, override.dieSize)) {
                         if (testPassed) this.failValidation("Unrecognized die size in override");
                         return null;
                     }
                 }
 
                 const dieSize = this.resolveInjectedProperties(this.dieSize, resolveOptions);
-                if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
+                if (dieSize !== null && !tupleHasValue(DAMAGE_DIE_SIZES, dieSize)) {
                     if (testPassed) {
                         this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
                     }
@@ -160,7 +160,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         if (!isObject<ResolvedBrackets>(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
         const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
-        const dieSizeIsValid = !("dieSize" in value) || setHasElement(DAMAGE_DIE_FACES, value.dieSize);
+        const dieSizeIsValid = !("dieSize" in value) || tupleHasValue(DAMAGE_DIE_SIZES, value.dieSize);
         const overrideIsValid = !("override" in value) || this.#isValidOverride(value.override);
         return keysAreValid && diceNumberIsValid && dieSizeIsValid && overrideIsValid;
     }

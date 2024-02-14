@@ -14,7 +14,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, setHasElement, sluggify } from "@util";
+import { mapValues, objectHasKey, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
@@ -27,7 +27,7 @@ import {
     WeaponBaseDamageData,
     WeaponDamageTemplate,
 } from "./types.ts";
-import { DAMAGE_DIE_FACES } from "./values.ts";
+import { DAMAGE_DIE_SIZES } from "./values.ts";
 
 class WeaponDamagePF2e {
     static async fromNPCAttack({
@@ -184,7 +184,7 @@ class WeaponDamagePF2e {
             const baseDieFaces = Number(baseDamage.die?.replace("d", "") ?? "NaN");
             const twoHandSize = weaponTraits.find((t) => t.startsWith("two-hand-"))?.replace("two-hand-", "");
             const twoHandFaces = Number(twoHandSize?.replace("d", "") ?? "NaN");
-            if (handsHeld === 2 && setHasElement(DAMAGE_DIE_FACES, twoHandSize) && twoHandFaces > baseDieFaces) {
+            if (handsHeld === 2 && tupleHasValue(DAMAGE_DIE_SIZES, twoHandSize) && twoHandFaces > baseDieFaces) {
                 baseDamage.die = twoHandSize;
             }
 

@@ -4,11 +4,11 @@ import { ZeroToTwo } from "@module/data.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { BaseRollContext } from "@system/rolls.ts";
 import { DamageRoll } from "./roll.ts";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_SIZES, DAMAGE_TYPES } from "./values.ts";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
-type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
+type DamageDieSize = (typeof DAMAGE_DIE_SIZES)[number];
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
 type DamageKind = "damage" | "healing";
 type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
