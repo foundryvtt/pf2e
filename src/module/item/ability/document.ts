@@ -59,11 +59,6 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         if (this.frequency || this.system.deathNote) {
             options.push(`${prefix}:frequency:limited`);
         }
-        for (const trait of this.system.traits.toggles.operableTraits) {
-            if (this.system.traits.toggles[trait]?.selected) {
-                options.push(`${prefix}:trait:${trait}:active`);
-            }
-        }
 
         return options;
     }

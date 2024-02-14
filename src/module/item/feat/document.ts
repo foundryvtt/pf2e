@@ -327,12 +327,6 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         if (this.isFeat) options.push(`${prefix}:rarity:${this.rarity}`);
         if (this.frequency) options.push(`${prefix}:frequency:limited`);
 
-        for (const trait of this.system.traits.toggles.operableTraits) {
-            if (this.system.traits.toggles[trait]?.selected) {
-                options.push(`${prefix}:trait:${trait}:active`);
-            }
-        }
-
         return options;
     }
 

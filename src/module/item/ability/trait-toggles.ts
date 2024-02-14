@@ -6,9 +6,17 @@ import * as R from "remeda";
 class AbilityTraitToggles {
     parent: AbilityItemPF2e | FeatPF2e;
 
+    mindshift: { selected: boolean } | null;
+
     constructor(item: AbilityItemPF2e | FeatPF2e) {
         this.parent = item;
         Object.defineProperty(this, "parent", { enumerable: false });
+
+        const selected = item._source.system.traits.toggles?.mindshift?.selected ?? false;
+        this.mindshift = item.system.traits.value.includes("mindshift") ? { selected } : null;
+        if (this.mindshift?.selected) {
+            item.system.traits.otherTags.push("mindshifted");
+        }
     }
 
     get item(): AbilityItemPF2e | FeatPF2e {
@@ -19,24 +27,14 @@ class AbilityTraitToggles {
         return this.item.system.traits.value.includes("mindshift") ? ["mindshift"] : [];
     }
 
-    get mindshift(): { selected: boolean } | null {
-        if (!this.operableTraits.includes("mindshift")) return null;
-
-        const selected = this.item._source.system.traits.toggles?.mindshift?.selected ?? false;
-
-        return { selected };
-    }
-
     getDamageModifications(): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
         if (!this.mindshift?.selected) {
             return { modifiers: [], dice: [] };
         }
 
-        const override = new DamageDicePF2e({
-            slug: "mindshift",
-            selector: `${this.item.id}-damage`,
-            override: { damageType: "mental" },
-        });
+        const selector = `${this.item.id}-damage`;
+        const damageType = "mental";
+        const override = new DamageDicePF2e({ selector, slug: "mindshift", override: { damageType } });
 
         return { modifiers: [], dice: [override] };
     }
