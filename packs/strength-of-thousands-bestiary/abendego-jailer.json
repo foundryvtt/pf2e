@@ -614,14 +614,18 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "subduing-attack"
+                            {
+                                "or": [
+                                    "subduing-attack",
+                                    "target:condition:frightened"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "label": "Target is frightened or in reach of an ally",
                         "option": "subduing-attack",
                         "toggleable": true
                     }
