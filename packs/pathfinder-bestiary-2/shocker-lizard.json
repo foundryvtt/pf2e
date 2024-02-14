@@ -178,13 +178,38 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "amplify-voltage",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:shock"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "remove",
+                        "predicate": [
+                            "amplify-voltage"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "nonlethal"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "amplify-voltage"
+                        ],
+                        "selector": "discharge-inline-dc",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "nonlethal"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
@@ -242,7 +267,46 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shocking-burst",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ShockerLizard.ShockingBurst.One",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ShockerLizard.ShockingBurst.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ShockerLizard.ShockingBurst.Three",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ShockerLizard.ShockingBurst.Four",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "diceNumber": "3*@item.flags.pf2e.rulesSelections.shockingBurst"
+                        },
+                        "selector": "{item|id}-inline-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "selector": "{item|id}-inline-dc",
+                        "value": "@item.flags.pf2e.rulesSelections.shockingBurst -1"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
