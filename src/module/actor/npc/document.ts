@@ -300,7 +300,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     private prepareSkills(): Record<string, Statistic<this>> {
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
-        // Internal function to create trace data, since NPCs still use the lore item type
         const trainedSkills = R.mapToObj(this.itemTypes.lore, (s) => [sluggify(s.name), s]);
         const coreSkillSlugs = Array.from(SKILL_LONG_FORMS);
         const skillOrNull = {
