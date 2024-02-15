@@ -29,7 +29,7 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate",
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate.Label",
                         "value": "dual-gate"
                     },
                     {
@@ -42,38 +42,25 @@
                 "rollOption": "kinetic-gate:initial"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "value": "wood"
-                    }
-                ],
+                "actorFlag": true,
+                "choices": "elementTraits",
                 "flag": "elementOne",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
                 "rollOption": "kinetic-gate"
             },
             {
+                "key": "GrantItem",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate"
+                ],
+                "preselectChoices": {
+                    "junction": "impulse"
+                },
+                "uuid": "Compendium.pf2e.classfeatures.Item.Gate Junction"
+            },
+            {
+                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate.Rename",
                 "choices": [
                     {
                         "label": "PF2E.TraitAir",
