@@ -30,7 +30,7 @@ import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@syste
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
 import * as R from "remeda";
-import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
+import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 
@@ -45,7 +45,7 @@ abstract class CreaturePF2e<
     /** A creature always has an AC */
     declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
     /** Skill checks for the creature, built during data prep */
-    declare skills: CreatureSkills;
+    declare skills: Record<string, Statistic<this>>;
     /** Saving throw rolls for the creature, built during data prep */
     declare saves: Record<SaveType, Statistic>;
 

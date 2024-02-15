@@ -1,13 +1,13 @@
-import type { ActorPF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import {
     CheckModifier,
-    createAttributeModifier,
-    createProficiencyModifier,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
 } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
@@ -40,7 +40,7 @@ import {
 } from "./data.ts";
 
 /** A Pathfinder statistic used to perform checks and calculate DCs */
-class Statistic extends BaseStatistic {
+class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TActor> {
     attribute: AttributeString | null = null;
 
     rank: ZeroToFour | null = null;
@@ -58,7 +58,7 @@ class Statistic extends BaseStatistic {
     #check?: StatisticCheck<this>;
     #dc?: StatisticDifficultyClass<this>;
 
-    constructor(actor: ActorPF2e, data: StatisticData, config: RollOptionConfig = {}) {
+    constructor(actor: TActor, data: StatisticData, config: RollOptionConfig = {}) {
         data.modifiers ??= [];
         const domains = (data.domains ??= []);
 
@@ -186,13 +186,21 @@ class Statistic extends BaseStatistic {
      * Extend this statistic into a new cloned statistic with additional data.
      * Combines all domains and modifier lists.
      */
+    extend<TThis extends Statistic<TActor>>(
+        this: TThis,
+        data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
+            dc?: Partial<StatisticDifficultyClassData>;
+            check?: Partial<StatisticCheckData>;
+            modifiers?: ModifierPF2e[];
+        },
+    ): TThis;
     extend(
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
             modifiers?: ModifierPF2e[];
         },
-    ): Statistic {
+    ): Statistic<TActor> {
         function maybeMergeArrays<T>(arr1: Maybe<T[]>, arr2: Maybe<T[]>) {
             if (!arr1 && !arr2) return undefined;
             return [...new Set([arr1 ?? [], arr2 ?? []].flat())];
@@ -244,6 +252,11 @@ class Statistic extends BaseStatistic {
     }
 
     /** Returns data intended to be merged back into actor data. By default the value is the DC */
+    getTraceData(
+        this: Statistic<CreaturePF2e>,
+        options?: { value?: "dc" | "mod" },
+    ): StatisticTraceData<AttributeString>;
+    getTraceData(options?: { value?: "dc" | "mod" }): StatisticTraceData;
     getTraceData(options: { value?: "dc" | "mod" } = {}): StatisticTraceData {
         const { check, dc } = this;
         const valueProp = options.value ?? "mod";
@@ -258,6 +271,7 @@ class Statistic extends BaseStatistic {
             value,
             totalModifier,
             dc: dc.value,
+            attribute: this.attribute,
             breakdown,
             modifiers: modifiers.map((m) => m.toObject()),
         };

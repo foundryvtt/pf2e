@@ -1013,7 +1013,8 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     /** Roll counteract check */
     async rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
         event = event instanceof Event ? event : event?.originalEvent;
-        if (!this.actor?.isOfType("character", "npc")) {
+        const actor: ActorPF2e | null = this.actor;
+        if (!actor?.isOfType("character", "npc")) {
             return null;
         }
 
@@ -1026,12 +1027,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
 
         // NPCs have neither a proficiency bonus nor specified attribute modifier: use their base attack roll modifier
-        const baseModifier = this.actor.isOfType("npc")
+        const baseModifier = actor.isOfType("npc")
             ? spellcasting.statistic.check.modifiers.find((m) => m.type === "untyped" && m.slug === "modifier")?.clone()
             : null;
 
         const localize = localizer("PF2E.Item.Spell.Counteract");
-        const statistic = new Statistic(this.actor, {
+        const statistic = new Statistic(actor, {
             slug: "counteract",
             label: localize("Label"),
             attribute: spellcasting.statistic.attribute,
