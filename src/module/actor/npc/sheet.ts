@@ -184,9 +184,12 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
-        // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
-        if (this.actor.limited || this.isLootSheet) {
-            sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
+        if (this.isLootSheet || this.actor.limited) {
+            const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
+            const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
+            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+
+            sheetData.actor.name = actorName;
         }
 
         // Identification DCs
@@ -233,11 +236,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         } else {
             sheetData.eliteState = "inactive";
             sheetData.weakState = "inactive";
-        }
-
-        // Data for lootable token-actor sheets
-        if (this.isLootSheet) {
-            sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
         const actorSource = this.actor._source;
