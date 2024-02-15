@@ -1,17 +1,18 @@
-import { HitPointsSummary } from "@actor/base.ts";
-import { AttributeString, SaveType, SkillLongForm } from "@actor/types.ts";
-import { MagicTradition } from "@item/spell/types.ts";
-import { ZeroToFour } from "@module/data.ts";
+import type { HitPointsSummary } from "@actor/base.ts";
+import type { SaveType, SkillLongForm } from "@actor/types.ts";
+import type { MagicTradition } from "@item/spell/types.ts";
+import type { ZeroToFour } from "@module/data.ts";
 import type { Statistic } from "@system/statistic/index.ts";
+import type { CharacterPF2e } from "./document.ts";
 
 interface CharacterHitPointsSummary extends HitPointsSummary {
     recoveryMultiplier: number;
     recoveryAddend: number;
 }
 
-type CharacterSkill = Statistic & { rank: ZeroToFour; ability: AttributeString };
+type CharacterSkill<TActor extends CharacterPF2e> = Statistic<TActor> & { rank: ZeroToFour };
 
-type CharacterSkills = Record<SkillLongForm, CharacterSkill> & Partial<Record<string, CharacterSkill>>;
+type CharacterSkills<TActor extends CharacterPF2e> = Record<string, CharacterSkill<TActor>>;
 
 /** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
 interface DexterityModifierCapData {

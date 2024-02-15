@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
@@ -540,8 +540,8 @@ interface ConvertedNPCDamage extends WeaponDamage {
 }
 
 interface WeaponDamageCalculateParams {
-    weapon: WeaponPF2e | MeleePF2e;
-    actor: CharacterPF2e | NPCPF2e | HazardPF2e;
+    weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
+    actor: ActorPF2e;
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
@@ -549,8 +549,8 @@ interface WeaponDamageCalculateParams {
 }
 
 interface NPCStrikeCalculateParams {
-    attack: MeleePF2e;
-    actor: NPCPF2e | HazardPF2e;
+    attack: MeleePF2e<ActorPF2e>;
+    actor: ActorPF2e;
     context: DamageRollContext;
 }
 

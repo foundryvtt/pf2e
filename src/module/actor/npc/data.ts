@@ -221,6 +221,7 @@ interface NPCHitPoints extends HitPointsStatistic {
 interface NPCSkillData extends AttributeBasedTraceData {
     base?: number;
     visible?: boolean;
+    mod: number;
     isLore?: boolean;
     itemID?: string;
     variants: { label: string; options: string }[];

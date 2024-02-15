@@ -58,7 +58,7 @@ import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasVa
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
-import { Abilities, CreatureSkills, VisionLevel, VisionLevels } from "./creature/data.ts";
+import { Abilities, VisionLevel, VisionLevels } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
 import {
     ActorFlagsPF2e,
@@ -131,7 +131,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     declare perception?: PerceptionStatistic;
 
     /** Skill checks for the actor if supported by the actor type */
-    declare skills?: Partial<CreatureSkills>;
+    declare skills?: Record<string, Statistic<this>>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private declare _itemTypes: EmbeddedItemInstances<this> | null;

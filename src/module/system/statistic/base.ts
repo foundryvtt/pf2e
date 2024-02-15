@@ -5,9 +5,9 @@ import * as R from "remeda";
 import { BaseStatisticData, BaseStatisticTraceData, StatisticData } from "./data.ts";
 
 /** Basic data forming any Pathfinder statistic */
-abstract class BaseStatistic {
+abstract class BaseStatistic<TActor extends ActorPF2e> {
     /** The actor to which this statistic belongs */
-    actor: ActorPF2e;
+    actor: TActor;
     /** A stable but human-readable identifier */
     slug: string;
     /** A display label */
@@ -19,7 +19,7 @@ abstract class BaseStatistic {
     /** Penalties, bonuses, and actual modifiers comprising a total modifier value */
     modifiers: ModifierPF2e[];
 
-    constructor(actor: ActorPF2e, data: BaseStatisticData) {
+    constructor(actor: TActor, data: BaseStatisticData) {
         this.actor = actor;
         this.slug = data.slug;
         this.label = game.i18n.localize(data.label).trim();
