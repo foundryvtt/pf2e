@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
@@ -173,7 +173,12 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.traits?.split(",") ?? [];
-            const overrideTraits = "overrideTraits" in anchor.dataset;
+            const overrideTraits =
+                typeof anchor.dataset.overrideTraits === "string" &&
+                ["true", ""].includes(anchor.dataset.overrideTraits);
+            const immutable =
+                typeof anchor.dataset.immutable === "string" && ["true", ""].includes(anchor.dataset.immutable);
+
             const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
             const domains = anchor.dataset.domains?.split(",") ?? [];
             const extraRollOptions = R.uniq(R.compact([...traits, ...rollOptions]));
@@ -183,9 +188,9 @@ class TextEditorPF2e extends TextEditor {
                 item,
                 domains,
                 traits,
-                name: anchor.dataset.name,
-                immutable: "immutable" in anchor.dataset,
                 overrideTraits,
+                name: anchor.dataset.name,
+                immutable,
                 extraRollOptions,
             });
             if (args) {
@@ -541,7 +546,8 @@ class TextEditorPF2e extends TextEditor {
         const rawParams = this.#parseInlineParams(paramString, { first: "type" });
         if (!rawParams) return null;
 
-        if (!rawParams.type) {
+        const type = rawParams.type?.trim();
+        if (!type) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
             return null;
         }
@@ -553,34 +559,30 @@ class TextEditorPF2e extends TextEditor {
               ? "all"
               : "gm";
 
-        const type = rawParams.type ?? "check";
+        const overrideTraits =
+            typeof rawParams.overrideTraits === "string" && ["true", ""].includes(rawParams.overrideTraits);
+        const immutable = typeof rawParams.immutable === "string" && ["true", ""].includes(rawParams.immutable);
+
+        const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
+        const traits = R.uniq(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
+        const basic = typeof rawParams.basic === "string" && ["true", ""].includes(rawParams.basic);
+
         const params: CheckLinkParams = {
             ...rawParams,
             type,
-            basic: "basic" in rawParams,
+            basic,
+            dc: rawParams.dc?.trim() || null,
+            defense: rawParams.defense?.trim() || null,
             showDC,
-            traits: (() => {
-                const traits: string[] = [];
-                // Set item traits
-                const itemTraits = item?.system.traits?.value ?? [];
-                if (rawParams.overrideTraits !== "true") {
-                    traits.push(...itemTraits);
-                }
-
-                // Add param traits
-                if (rawParams.traits) traits.push(...rawParams.traits.split(",").map((trait) => trait.trim()));
-
-                // Deduplicate traits
-                return Array.from(new Set(traits));
-            })(),
+            overrideTraits,
+            traits,
+            immutable,
             // Set action slug, damaging effect for basic saves, and any parameterized options
             extraRollOptions: R.compact([
-                ...(rawParams.basic === "true" ? ["damaging-effect"] : []),
+                ...(basic ? ["damaging-effect"] : []),
                 ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
             ]).sort(),
         };
-        if (rawParams.dc) params.dc = rawParams.dc;
-        if (rawParams.defense) params.defense = rawParams.defense;
 
         const types = params.type.split(",");
         let adjustments = params.adjustment?.split(",") ?? ["0"];
@@ -701,7 +703,7 @@ class TextEditorPF2e extends TextEditor {
 
         if (params.defense && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
-            anchor.dataset.invalid = "true";
+            anchor.dataset.invalid = "";
         }
 
         if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
@@ -743,15 +745,15 @@ class TextEditorPF2e extends TextEditor {
         rollData?: RollDataPF2e;
         inlineLabel?: string;
     }): Promise<HTMLElement | null> {
-        const params = this.#parseInlineParams(args.paramString, { first: "formula" });
-        if (!params || !params.formula) {
+        const rawParams = this.#parseInlineParams(args.paramString, { first: "formula" });
+        if (!rawParams || !rawParams.formula) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
             return null;
         }
 
-        const item = args.rollData?.item instanceof ItemPF2e ? args.rollData?.item : null;
-        const actor = (args.rollData?.actor instanceof ActorPF2e ? args.rollData?.actor : null) ?? item?.actor ?? null;
-        const domains = params.domains?.split(",") ?? [];
+        const item = args.rollData?.item ?? null;
+        const actor = args.rollData?.actor ?? item?.actor ?? null;
+        const domains = rawParams.domains?.split(",") ?? [];
 
         // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
         if (domains.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
@@ -759,23 +761,27 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
+        const immutable = typeof rawParams.immutable === "string" && ["true", ""].includes(rawParams.immutable);
+        const overrideTraits =
+            typeof rawParams.overrideTraits === "string" && ["true", ""].includes(rawParams.overrideTraits);
+
         const traits = ((): string[] => {
-            const fromParams = params.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
+            const fromParams = rawParams.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
-            return params.overrideTraits === "true" ? fromParams : R.uniq([...fromParams, ...fromItem]);
+            return overrideTraits ? fromParams : R.uniq([...fromParams, ...fromItem]);
         })();
 
-        const extraRollOptions = R.compact(params.options?.split(",").map((t) => t.trim()) ?? []);
+        const extraRollOptions = R.compact(rawParams.options?.split(",").map((t) => t.trim()) ?? []);
 
-        const result = await augmentInlineDamageRoll(params.formula, {
+        const result = await augmentInlineDamageRoll(rawParams.formula, {
             skipDialog: true,
-            immutable: "immutable" in params,
+            immutable,
             actor,
             item,
             domains,
             traits,
-            overrideTraits: "overrideTraits" in params,
-            name: params.name?.trim(),
+            overrideTraits,
+            name: rawParams.name?.trim(),
             extraRollOptions,
         });
 
@@ -783,17 +789,17 @@ class TextEditorPF2e extends TextEditor {
         const baseFormula = (() => {
             if (!actor) return null;
 
-            return new DamageRoll(params.formula, {
+            return new DamageRoll(rawParams.formula, {
                 ...(item?.getRollData() ?? {}),
                 actor: { level: (item && "level" in item ? item.level : null) ?? 1 },
             }).formula;
         })();
 
         // Get new damage roll. If the formula fails, replace with with a simple parse instead
-        const roll = result?.template.damage.roll ?? new DamageRoll(params.formula, args.rollData);
+        const roll = result?.template.damage.roll ?? new DamageRoll(rawParams.formula, args.rollData);
         const formula = roll.formula;
         const label =
-            "shortLabel" in params // A "short label" will omit all damage types and categories
+            "shortLabel" in rawParams // A "short label" will omit all damage types and categories
                 ? roll.instances.map((i) => i.head.expression).join(" + ")
                 : args.inlineLabel ?? formula;
         const labelEl = createHTMLElement("span", { children: [label] });
@@ -803,16 +809,16 @@ class TextEditorPF2e extends TextEditor {
             children: [damageDiceIcon(roll), labelEl],
             dataset: {
                 formula: roll._formula,
-                baseFormula: result ? params.formula : null,
+                baseFormula: result ? rawParams.formula : null,
                 tooltip: args.inlineLabel
                     ? formula
                     : baseFormula && baseFormula !== formula
                       ? game.i18n.format("PF2E.InlineDamage.Base", { formula: baseFormula })
                       : null,
-                damageRoll: params.formula,
-                name: params.name,
-                immutable: "immutable" in params ? "" : null,
-                overrideTraits: "overrideTraits" in params ? "" : null,
+                damageRoll: rawParams.formula,
+                name: rawParams.name,
+                immutable: immutable ? "" : null,
+                overrideTraits: overrideTraits ? "" : null,
                 domains: domains?.join(",") || null,
                 traits: traits.toString() || null,
                 rollOptions: extraRollOptions.toString() || null,
@@ -822,7 +828,7 @@ class TextEditorPF2e extends TextEditor {
 
         if (roll.instances.length > 0 && roll.instances.every((i) => i.persistent)) {
             element.draggable = true;
-            element.dataset.persistent = "true";
+            element.dataset.persistent = "";
         }
 
         return element;
@@ -857,11 +863,9 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
-    const type = params.type;
-    const dc = params.dc;
+    const { dc, type } = params;
     const base = (() => {
         if (dc?.startsWith("resolve") && (item || actor)) {
-            params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
@@ -880,7 +884,7 @@ function getCheckDC({
     if (!base) return "0";
 
     const getStatisticValue = (selectors: string[]): string => {
-        if (actor && params.immutable === undefined) {
+        if (actor && !params.immutable) {
             const { synthetics } = actor;
             const modifier = new ModifierPF2e({
                 slug: "base",
@@ -903,9 +907,7 @@ function getCheckDC({
     const idDomain = item ? `${item.id}-inline-dc` : null;
     const slugDomain = `${sluggify(name)}-inline-dc`;
     if (type === "flat") {
-        return params.immutable === "false"
-            ? getStatisticValue(R.compact(["inline-dc", idDomain, slugDomain]))
-            : base.toString();
+        return params.immutable ? base.toString() : getStatisticValue(R.compact(["inline-dc", idDomain, slugDomain]));
     } else {
         const selectors = R.compact(["all", "inline-dc", idDomain, slugDomain]);
         return getStatisticValue(selectors);
@@ -962,7 +964,7 @@ async function augmentInlineDamageRoll(
         }
 
         const { modifiers, dice } = (() => {
-            if (!(actor instanceof ActorPF2e)) return { modifiers: [], dice: [] };
+            if (!actor) return { modifiers: [], dice: [] };
 
             const extractOptions = { test: rollOptions };
             const fromTraits = item?.isOfType("action", "feat")
@@ -1059,15 +1061,18 @@ interface ConvertXMLNodeOptions {
 
 interface CheckLinkParams {
     type: string;
-    dc?: string;
-    defense?: string;
+    dc?: Maybe<string>;
+    defense?: Maybe<string>;
     basic: boolean;
     adjustment?: string;
     traits: string[];
+    /** Refrain from pulling traits from an action/feat item, or characterizing the chat card as an action.  */
+    overrideTraits: boolean;
     extraRollOptions: string[];
     name?: string;
     showDC: UserVisibility;
-    immutable?: string;
+    /** Refrain from adding domains to the check. */
+    immutable: boolean;
     roller?: string;
 }
 
@@ -1082,12 +1087,12 @@ interface AugmentInlineDamageOptions {
     skipDialog: boolean;
     /** Refrain from adding domains to the damage roll. */
     immutable: boolean;
-    /** Refrain from pulling traits from an action/feat item, or characterizing the chat card as an action.  */
-    overrideTraits: boolean;
     name?: string;
     actor?: ActorPF2e | null;
     item?: ItemPF2e | null;
     traits: string[];
+    /** Refrain from pulling traits from an action/feat item, or characterizing the chat card as an action.  */
+    overrideTraits: boolean;
     domains: string[];
     extraRollOptions: string[];
 }
