@@ -45,6 +45,31 @@
                 "uuid": "Compendium.pf2e.ancestryfeatures.Item.Basic Undead Benefits"
             },
             {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Arctic",
+                        "value": "arctic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Desert",
+                        "value": "desert"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Mountain",
+                        "value": "mountain"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Mummy.Terrain.Swamp",
+                        "value": "swamp"
+                    }
+                ],
+                "flag": "terrain",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Mummy.Terrain.Prompt",
+                "rollOption": "mummy:bound-terrain"
+            },
+            {
                 "fist": true,
                 "key": "Strike"
             },
@@ -71,37 +96,7 @@
                 "value": "nonlethal"
             },
             {
-                "adjustName": true,
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Mummy.Terrain.Arctic",
-                        "value": "arctic"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Mummy.Terrain.Desert",
-                        "value": "desert"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Mummy.Terrain.Mountain",
-                        "value": "mountain"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Mummy.Terrain.Swamp",
-                        "value": "swamp"
-                    }
-                ],
-                "flag": "terrain",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Mummy.Terrain.Prompt",
-                "rollOption": "mummy:bound-terrain"
-            },
-            {
                 "key": "Weakness",
-                "predicate": [
-                    {
-                        "not": "feat:sealed-poppet"
-                    }
-                ],
                 "type": "fire",
                 "value": "floor(@actor.level/2)"
             }
