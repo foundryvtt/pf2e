@@ -182,14 +182,19 @@ class WeaponAuxiliaryAction {
 
     get options(): SheetOptions | null {
         if (this.annotation === "modular") {
+            const toggles = this.weapon.system.traits.toggles;
             return createSheetOptions(
-                R.pick(CONFIG.PF2E.damageTypes, this.weapon.system.traits.toggles.modular.options),
-                [this.weapon.system.traits.toggles.modular.selection ?? []].flat(),
+                R.pick(CONFIG.PF2E.damageTypes, toggles.modular.options),
+                [toggles.modular.selected ?? []].flat(),
             );
         }
         return null;
     }
 
+    /**
+     * Execute an auxiliary action.
+     * [options.selection] A choice of some kind: currently only has meaning for modular trait toggling
+     */
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
         const COVER_UUID = "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi";
@@ -197,7 +202,7 @@ class WeaponAuxiliaryAction {
         if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            const updated = await weapon.system.traits.toggles.update({ trait: "modular", selection });
+            const updated = await weapon.system.traits.toggles.update({ trait: "modular", selected: selection });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield

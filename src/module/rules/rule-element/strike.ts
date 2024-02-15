@@ -302,8 +302,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     otherTags: this.otherTags,
                     rarity: "common",
                     toggles: {
-                        modular: { selection: this.traitToggles.modular },
-                        versatile: { selection: this.traitToggles.versatile },
+                        modular: { selected: this.traitToggles.modular },
+                        versatile: { selected: this.traitToggles.versatile },
                     },
                 },
                 options: { value: this.options },
@@ -326,11 +326,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     /** Toggle the modular or versatile trait of this strike's weapon */
-    async toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void> {
+    async toggleTrait({ trait, selected }: UpdateToggleParams): Promise<void> {
         const ruleSources = fu.deepClone(this.item._source.system.rules);
         const rule: StrikeSource | undefined = ruleSources.at(this.sourceIndex ?? NaN);
         if (rule?.key === "Strike") {
-            rule.traitToggles = { ...this.traitToggles, [trait]: selection };
+            rule.traitToggles = { ...this.traitToggles, [trait]: selected };
             await this.item.update({ "system.rules": ruleSources });
         }
     }
@@ -431,7 +431,7 @@ interface StrikeSource extends RuleElementSource {
 
 interface UpdateToggleParams {
     trait: "modular" | "versatile";
-    selection: DamageType | null;
+    selected: DamageType | null;
 }
 
 export { StrikeRuleElement };
