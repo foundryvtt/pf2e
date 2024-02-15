@@ -35,6 +35,7 @@ type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
         /** Whether this attack is compatible with a battle form */
         battleForm?: boolean;
+        /** Whether the weapon is a combination weapon in its melee form */
         comboMeleeUsage: boolean;
         /**
          * Used for NPC attacks generated from strike rule elements: if numeric, it will be used as the NPC attack's
@@ -43,6 +44,8 @@ type WeaponFlags = ItemFlagsPF2e & {
         fixedAttack?: number | null;
         /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
         attackItemBonus: number;
+        /** A tracking property of whether the damage die size has been upgraded */
+        damageDieUpgraded: boolean;
     };
 };
 

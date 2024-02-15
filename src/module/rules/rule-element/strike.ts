@@ -270,7 +270,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         const actor = this.actor;
         const actorIsNPC = actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = fu.deepClone({
-            _id: this.item.id,
+            _id: this.fist ? "xxxxxxFISTxxxxxx" : this.item.id,
             name: this.label,
             type: "weapon",
             img: this.img,

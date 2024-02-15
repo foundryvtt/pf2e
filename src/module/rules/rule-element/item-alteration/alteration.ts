@@ -5,6 +5,7 @@ import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { ZeroToThree } from "@module/data.ts";
+import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -22,6 +23,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "bulk",
         "category",
         "check-penalty",
+        "damage-dice-faces",
         "defense-passive",
         "description",
         "dex-cap",
@@ -86,7 +88,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 value: (this.value = this.resolveValue(this.value)),
             },
         };
-        const { DataModelValidationFailure } = foundry.data.validation;
+        const DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
         switch (this.property) {
             case "ac-bonus": {
@@ -156,6 +158,25 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.alteration.value,
                 );
                 data.item.system.checkPenalty = Math.min(newValue, 0);
+                return;
+            }
+            case "damage-dice-faces": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !(data.item instanceof ItemPF2e)) {
+                    return;
+                }
+
+                const item = data.item;
+                if (!item.system.damage.die) return;
+                if (this.mode === "upgrade" && !item.flags.pf2e.damageDieUpgraded) {
+                    item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
+                    item.flags.pf2e.damageDieUpgraded = true;
+                } else if (this.mode === "downgrade") {
+                    item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
+                } else if (this.mode === "override" && typeof data.alteration.value === "number") {
+                    item.system.damage.die = `d${data.alteration.value}`;
+                }
+
                 return;
             }
             case "defense-passive": {

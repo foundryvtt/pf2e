@@ -369,8 +369,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // object
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
-        // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
+        this.flags.pf2e.damageDieUpgraded = false;
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);
