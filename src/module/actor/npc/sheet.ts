@@ -184,7 +184,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
-        if(this.isLootSheet || this.actor.limited){
+        if (this.isLootSheet || this.actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
             const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
