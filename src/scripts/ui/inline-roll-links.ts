@@ -353,7 +353,10 @@ export const InlineRollLinks = {
         return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
     },
 
-    repostAction: (target: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
+    repostAction: async (
+        target: HTMLElement,
+        foundryDoc: ClientDocument | null = null,
+    ): Promise<ChatMessagePF2e | undefined> => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
@@ -386,11 +389,7 @@ export const InlineRollLinks = {
                   ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
                   : {};
 
-        ChatMessagePF2e.create({
-            speaker,
-            content,
-            flags,
-        });
+        return ChatMessagePF2e.create({ speaker, content, flags });
     },
 
     /** Give inline damage-roll links from items flavor text of the item name */
