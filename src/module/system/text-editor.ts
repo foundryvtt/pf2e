@@ -582,8 +582,8 @@ class TextEditorPF2e extends TextEditor {
                 ...(basic ? ["damaging-effect"] : []),
                 ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
             ]).sort(),
+    targetOwner: "targetOwner" in rawParams,
         };
-        params.targetOwner = "targetOwner" in rawParams;
 
         const types = params.type.split(",");
         let adjustments = params.adjustment?.split(",") ?? ["0"];
