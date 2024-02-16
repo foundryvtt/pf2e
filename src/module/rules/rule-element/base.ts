@@ -268,7 +268,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveValue(
         value: unknown,
-        defaultValue: Exclude<RuleValue, BracketedValue> = 0,
+        defaultValue: Exclude<RuleValue, BracketedValue> | null = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {},
     ): number | string | boolean | object | null {
         value ??= defaultValue ?? null;
@@ -337,8 +337,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     #resolveBracketedValue(
         value: BracketedValue,
-        defaultValue: Exclude<RuleValue, BracketedValue>,
-    ): Exclude<RuleValue, BracketedValue> {
+        defaultValue: Exclude<RuleValue, BracketedValue> | null,
+    ): Exclude<RuleValue, BracketedValue> | null {
         const bracketNumber = ((): number => {
             if (!value.field) return this.actor.level;
             const field = String(value.field);

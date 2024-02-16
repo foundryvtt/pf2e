@@ -10,7 +10,8 @@ import { MarkTargetPrompt } from "./prompt.ts";
 /** Remember a token for later referencing */
 class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
     static override defineSchema(): TokenMarkSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             slug: new SlugField({ required: true, nullable: false, initial: undefined }),

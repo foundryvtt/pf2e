@@ -63,7 +63,7 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     }
 
     static override defineSchema(): FlatModifierSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         return {
             ...super.defineSchema(),

@@ -27,7 +27,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
     }
 
     static override defineSchema(): AdjustModifierSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;

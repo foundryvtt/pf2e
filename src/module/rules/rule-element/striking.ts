@@ -8,7 +8,8 @@ class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): StrikingRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false }),

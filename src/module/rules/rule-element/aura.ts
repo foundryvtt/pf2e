@@ -41,7 +41,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 
     static override defineSchema(): AuraSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         const auraTraitField = new StrictStringField<EffectTrait, EffectTrait, true, false, false>({
             required: true,

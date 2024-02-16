@@ -15,7 +15,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): CritSpecRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         return {
             ...super.defineSchema(),

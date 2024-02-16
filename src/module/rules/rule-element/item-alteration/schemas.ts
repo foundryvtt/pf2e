@@ -499,7 +499,7 @@ interface AlterationFieldOptions<TSourceProp extends SourceFromSchema<Alteration
 type AlterationSchema = {
     itemType: StringField<ItemType, ItemType, true, false, false>;
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
-    value: DataField<JSONValue, unknown, true, boolean, boolean>;
+    value: DataField<Exclude<JSONValue, undefined>, Exclude<JSONValue, undefined>, true, boolean, boolean>;
 };
 
 type PersistentDamageValueSchema = {
