@@ -856,17 +856,29 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // ACTIONS
 
-        // Versatile-damage toggles
-        handlers["toggle-versatile"] = async (_, button) => {
+        // Toggle certain weapon traits: currently Double Barrel or Versatile
+        handlers["toggle-weapon-trait"] = async (_, button) => {
             if (!(button instanceof HTMLButtonElement)) return;
 
             const weapon = this.getStrikeFromDOM(button)?.item;
-            const baseType = weapon?.system.damage.damageType ?? null;
-            const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
-            const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
-            if (weapon && selectionIsValid) {
-                await weapon.system.traits.toggles.update({ trait: "versatile", selected: selection });
+            const trait = button.dataset.trait;
+            const errorMessage = "Unexpected failure while toggling weapon trait";
+
+            if (trait === "double-barrel") {
+                const selected = !weapon?.system.traits.toggles.doubleBarrel.selected;
+                if (!weapon?.traits.has("double-barrel")) throw ErrorPF2e(errorMessage);
+                return weapon.system.traits.toggles.update({ trait, selected });
+            } else if (trait === "versatile") {
+                const baseType = weapon?.system.damage.damageType ?? null;
+                const selected =
+                    button.classList.contains("selected") || button.value === baseType ? null : button.value;
+                const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selected) || selected === null;
+                if (weapon && selectionIsValid) {
+                    return weapon.system.traits.toggles.update({ trait, selected });
+                }
             }
+
+            throw ErrorPF2e(errorMessage);
         };
 
         handlers["toggle-trait"] = async (_, button) => {
