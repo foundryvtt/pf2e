@@ -1442,7 +1442,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             auxiliaryActions,
             versatileOptions: weapon.system.traits.toggles.versatile.options.map((o) => ({
                 value: o,
-                selected: weapon.system.traits.toggles.versatile.selection === o,
+                selected: weapon.system.traits.toggles.versatile.selected === o,
                 label: versatileLabel(o),
                 glyph: DAMAGE_TYPE_ICONS[o],
             })),
@@ -1451,7 +1451,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (action.versatileOptions.length > 0) {
             action.versatileOptions.unshift({
                 value: weapon.system.damage.damageType,
-                selected: weapon.system.traits.toggles.versatile.selection === null,
+                selected: weapon.system.traits.toggles.versatile.selected === null,
                 label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
                 glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
             });

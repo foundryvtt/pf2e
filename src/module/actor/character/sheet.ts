@@ -865,7 +865,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
             const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
             if (weapon && selectionIsValid) {
-                await weapon.system.traits.toggles.update({ trait: "versatile", selection });
+                await weapon.system.traits.toggles.update({ trait: "versatile", selected: selection });
             }
         };
 

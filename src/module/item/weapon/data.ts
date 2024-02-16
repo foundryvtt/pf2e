@@ -13,7 +13,7 @@ import type {
 } from "@item/physical/index.ts";
 import { ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
-import type { WeaponTraitToggles } from "./helpers.ts";
+import type { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -106,8 +106,8 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
-        modular?: { selection: DamageType | null };
-        versatile?: { selection: DamageType | null };
+        modular?: { selected: DamageType | null };
+        versatile?: { selected: DamageType | null };
     };
 }
 

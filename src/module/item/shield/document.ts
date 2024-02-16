@@ -5,7 +5,7 @@ import { PhysicalItemPF2e, RUNE_DATA, getMaterialValuationData } from "@item/phy
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponMaterialSource, WeaponSource, WeaponSystemSource, WeaponTraitsSource } from "@item/weapon/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger } from "@util";
 import * as R from "remeda";
@@ -133,9 +133,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort()).filter(
-            (t) => t in CONFIG.PF2E.shieldTraits,
-        );
+        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
 
         // Fill out integrated weapon data if applicable
         const integratedTrait = this.system.traits.value.find((t) => t.startsWith("integrated"));
@@ -151,7 +149,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const versatileDamageType = isVersatileWeapon ? damageTypeMap[traitParts.at(-1) ?? ""] : null;
             if (this.system.traits.integrated && versatileDamageType) {
                 this.system.traits.integrated.versatile = fu.mergeObject(
-                    { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
+                    { options: [mainDamageType, versatileDamageType], selected: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
             } else if (this.system.traits.integrated) {
@@ -246,7 +244,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
                 baseData.system.traits.value.push(versatileWeaponTrait);
                 baseData.system.traits.toggles = {
-                    versatile: { selection: this.system.traits.integrated.versatile?.selection ?? damageType },
+                    versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
                 };
             }
 
