@@ -12,7 +12,6 @@ import type {
     WeaponTrait,
 } from "@item/weapon/types.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
-import { PredicatePF2e } from "@system/predication.ts";
 import { StrictBooleanField } from "@system/schema-data-fields.ts";
 import { objectHasKey, sluggify } from "@util";
 import type {
@@ -37,14 +36,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     declare graspingAppendage: boolean;
 
     constructor(source: StrikeSource, options: RuleElementOptions) {
-        source.img ??= source.fist ? StrikeRuleElement.#defaultFistIcon : options.parent.img;
-
         super(source, options);
-
-        // Force a label of "Fist" if the `fist` shorthand is being used
-        if (this.fist) {
-            this.label = game.i18n.localize("PF2E.Weapon.Base.fist");
-        }
 
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);
@@ -58,10 +50,11 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
               : false;
     }
 
-    static #defaultFistIcon = "icons/skills/melee/unarmed-punch-fist.webp";
+    static #defaultFistIcon: ImageFilePath = "icons/skills/melee/unarmed-punch-fist.webp";
 
     static override defineSchema(): StrikeSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             category: new fields.StringField({
@@ -140,7 +133,8 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             img: new fields.FilePathField({
                 categories: ["IMAGE"],
                 nullable: false,
-                initial: () => "systems/pf2e/icons/default-icons/melee.svg",
+                initial: (data) =>
+                    data.fist ? StrikeRuleElement.#defaultFistIcon : "systems/pf2e/icons/default-icons/melee.svg",
             }),
             attackModifier: new fields.NumberField({ integer: true, positive: true, nullable: true, initial: null }),
             replaceAll: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
@@ -154,42 +148,22 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 initial: null,
             }),
             options: new fields.ArrayField(new fields.StringField(), { required: false, initial: undefined }),
-            fist: new fields.BooleanField({ required: false, nullable: false, initial: undefined }),
+            fist: new fields.BooleanField({ required: false, nullable: false }),
             graspingAppendage: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
-    /** Allow shorthand `fist` StrikeRuleElement data to pass `DataModel` validation */
-    override validate(options?: {
-        changes?: Record<string, unknown>;
-        clean?: boolean;
-        fallback?: boolean;
-        strict?: boolean;
-        fields?: boolean;
-        joint?: boolean;
-    }): boolean {
-        const source = options?.changes ?? this._source;
-        return source.fist === true ? true : super.validate(options);
-    }
-
-    /** Keep shorthand `fist` source data to its minimum form */
-    protected override _initializeSource(source: object, options: RuleElementOptions): this["_source"] {
-        return "fist" in source && source.fist === true
-            ? (source as this["_source"])
-            : super._initializeSource(source, options);
-    }
-
     protected override _initialize(options?: Record<string, unknown>): void {
-        if (this._source.fist) {
-            this.key = "Strike";
+        super._initialize(options);
+
+        if (this.fist) {
             this.priority = 99;
             this.slug = "fist";
-            this.img = this._source.img;
+            this.label = "PF2E.Weapon.Base.fist";
             this.category = "unarmed";
             this.group = "brawling";
             this.baseType = "fist";
             this.traits = ["agile", "finesse", "nonlethal"];
-            this.traitToggles = fu.mergeObject({ modular: null, versatile: null }, this._source.traitToggles ?? {});
             this.otherTags = [];
             this.range = null;
             this.damage = {
@@ -200,15 +174,12 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     modifier: 0,
                 },
             };
-
             this.battleForm = false;
-            this.fist = true;
             this.graspingAppendage = true;
             this.replaceAll = false;
             this.replaceBasicUnarmed = false;
-            this.predicate = new PredicatePF2e(Array.isArray(this._source.predicate) ? this._source.predicate : []);
-        } else {
-            super._initialize(options);
+        } else if (this.img === "systems/pf2e/icons/default-icons/melee.svg") {
+            this.img = this.parent.img;
         }
     }
 
@@ -407,7 +378,7 @@ type StrikeSchema = RuleElementSchema & {
     battleForm: BooleanField<boolean, boolean, false, false, true>;
     options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
-    fist: BooleanField<boolean, boolean, false, false, false>;
+    fist: BooleanField<boolean, boolean, false, false, true>;
     /** Whether the unarmed attack is a grasping appendage */
     graspingAppendage: StrictBooleanField<false, false, false>;
 };
