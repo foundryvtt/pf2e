@@ -100,7 +100,7 @@ export const InlineRollLinks = {
                 pf2Defense,
                 pf2Adjustment,
                 pf2Roller,
-                pf2TargetSelf,
+                targetOwner,
                 pf2RollOptions,
                 overrideTraits,
             } = link.dataset;
@@ -184,7 +184,7 @@ export const InlineRollLinks = {
                             }
 
                             const targetActor = pf2Defense
-                                ? pf2TargetSelf
+                                ? targetOwner
                                     ? parent
                                     : game.user.targets.first()?.actor
                                 : null;
