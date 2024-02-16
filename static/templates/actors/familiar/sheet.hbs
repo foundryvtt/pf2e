@@ -27,7 +27,7 @@
                     <select id="{{document.uuid}}-master" name="system.master.id">
                         {{#select master.id}}
                             <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
-                            {{#if limitedSheet}}
+                            {{#if document.limited}}
                                 {{#if master}}<option value="{{master.id}}" selected>{{master.name}}</option>{{/if}}
                             {{else}}
                                 {{#each masters as |eligible idx|}}
@@ -47,15 +47,11 @@
     </header>
     <hr>
     <div class="main-section">
-        <div class="skills-sidebar {{#if limitedSheet}}skills-sidebar-placeholder{{/if}}">
-            {{#unless limitedSheet}}
-                {{> skills }}
-            {{/unless}}
+        <div class="skills-sidebar{{#if document.limited}} skills-sidebar-placeholder{{/if}}">
+            {{#unless document.limited}}{{> skills}}{{/unless}}
         </div>
         <div class="main-container">
-            {{#unless limitedSheet}}
-                {{> details }}
-            {{/unless}}
+            {{#unless document.limited}}{{> details}}{{/unless}}
 
             {{!-- CONDITIONS --}}
             {{#if document.itemTypes.condition}}

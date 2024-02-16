@@ -64,7 +64,6 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             },
             master: this.actor.master,
             masters,
-            limitedSheet: this.actor.limited && !game.user.isGM,
             size,
             skills,
         };
@@ -86,7 +85,6 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
         value: number;
         items: AbilityItemPF2e[];
     };
-    limitedSheet: boolean;
     master: CharacterPF2e | null;
     masters: CharacterPF2e[];
     size: string;
