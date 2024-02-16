@@ -82,7 +82,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     static override defineSchema(): ChoiceSetSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         return {
             ...super.defineSchema(),
