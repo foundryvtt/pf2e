@@ -191,7 +191,6 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const actor = this.actor;
         const attributes = actor.attributes;
         if (attributes.polymorphed) {
-            actor.synthetics.preparationWarnings.add("PF2e System | You are already under a polymorph effect");
             this.ignored = true;
             return;
         }
