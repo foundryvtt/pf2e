@@ -27,6 +27,12 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/tabs/proficiencies.hbs",
         "systems/pf2e/templates/actors/character/tabs/spellcasting.hbs",
 
+        // Familiar Sheet Partials
+        "systems/pf2e/templates/actors/familiar/partials/abilities.hbs",
+        "systems/pf2e/templates/actors/familiar/partials/details.hbs",
+        "systems/pf2e/templates/actors/familiar/partials/header-details.hbs",
+        "systems/pf2e/templates/actors/familiar/partials/skills.hbs",
+
         // Hazard Sheets Partials
         "systems/pf2e/templates/actors/hazard/partials/header.hbs",
         "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs",

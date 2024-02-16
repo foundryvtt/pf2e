@@ -1,0 +1,49 @@
+<div class="hp-section">
+    <div class="label">
+        <i class="fa-solid fa-heart"></i>
+        <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
+    </div>
+    <div class="value">
+        <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
+            name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
+            data-dtype="Number" />
+        <div>/ </div>
+        <div class="total-hp" data-tooltip="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
+        <div class="temp-hp">
+            (+<input name="system.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />)
+        </div>
+    </div>
+    <div class="label">
+        <i class="fa-solid fa-heart-broken"></i>
+        <h4>{{localize "PF2E.condition.dying.name"}}</h4>
+    </div>
+    <div class="value dying-section">
+        {{#if data.attributes.dying.value}}
+            <a class="rollable roll-icon" data-action="recovery-check" data-tooltip="PF2E.Check.Specific.Recovery">
+                <i class="fa-solid fa-dice-d20"></i>
+            </a>
+        {{/if}}
+        <a
+            class="pips"
+            data-action="adjust-condition-value"
+            data-condition="dying"
+            data-tooltip="PF2E.condition.dying.summary"
+        >{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</a>
+    </div>
+</div>
+<div class="defenses-section">
+    {{#if data.master.id}}
+        <div class="defenses-list">
+            <div class="ac" data-tooltip="{{data.attributes.ac.breakdown}}">
+                <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
+                <div class="value"><i class="fa-solid fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+            </div>
+            {{#each data.saves as |save|}}
+                <a class="save" data-action="roll-check" data-statistic="{{save.slug}}" data-tooltip="{{save.breakdown}}">
+                    <div class="name">{{localize save.label}}</div>
+                    <div class="value">{{numberFormat save.value decimals=0 sign=true}}</div>
+                </a>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>

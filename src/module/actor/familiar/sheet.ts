@@ -27,8 +27,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
     }
 
     override get template(): string {
-        const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/familiar/${template}.hbs`;
+        return "systems/pf2e/templates/actors/familiar/sheet.hbs";
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
@@ -65,6 +64,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             },
             master: this.actor.master,
             masters,
+            limitedSheet: this.actor.limited && !game.user.isGM,
             size,
             skills,
         };
@@ -86,6 +86,7 @@ interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetDa
         value: number;
         items: AbilityItemPF2e[];
     };
+    limitedSheet: boolean;
     master: CharacterPF2e | null;
     masters: CharacterPF2e[];
     size: string;

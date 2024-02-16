@@ -1,0 +1,74 @@
+<div class="familiar-section section-container">
+    <div class="section-header">
+        <h4>{{localize "PF2E.Familiar.Familiar"}}</h4>
+    </div>
+    <div class="section-body">
+        <div class="familiar-content">
+            {{!-- Textual "creature type" --}}
+            <div class="familiar-species">
+                <div class="detail">
+                    <label for="{{document.uuid}}-creature">{{localize "PF2E.Familiar.CreatureType"}}</label>
+                    <input id="{{document.uuid}}-creature" type="text" name="system.details.creature.value"
+                        value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc." />
+                </div>
+            </div>
+
+            {{!-- Master Attribute --}}
+            {{#if data.master.id}}
+                <div class="familiar-modifier">
+                    <div class="detail">
+                        <label for="{{document.uuid}}-attribute">{{localize "PF2E.Familiar.MasterSpellcastingAbility"}}</label>
+                        <select id="{{document.uuid}}-attribute" name="system.master.ability">
+                            {{#select data.master.ability}}
+                                {{#each attributes as |label slug|}}
+                                    <option value="{{slug}}">{{localize label}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+        {{#if data.master.id}}
+            <div class="familiar-content">
+                <div class="detail">
+                    <label>{{localize "PF2E.Familiar.TotalNumberFamiliarAbilities"}}</label>
+                    <div>
+                        <h4>{{numberFormat familiarAbilities.value decimals=0}}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="familiar-content">
+                {{!-- Speed --}}
+                <div class="familiar-senses">
+                    <div class="detail">
+                        <label>{{localize "PF2E.Actor.Speed.Plural"}}</label>
+                        <ol class="tags speeds">
+                            {{#with data.attributes.speed as |landSpeed|}}
+                                <li class="tag tag_alt" data-tooltip="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
+                                    ({{landSpeed.total}})</li>
+                            {{/with}}
+                            {{#each data.attributes.speed.otherSpeeds as |speed k|}}
+                                <li class="tag tag_alt {{k}}" data-tooltip="{{speed.breakdown}}">
+                                    {{localize speed.label}} ({{speed.total}})
+                                </li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                </div>
+
+                {{!-- Senses --}}
+                <div class="familiar-senses">
+                    <div class="detail">
+                        <label>{{localize "PF2E.Senses"}}</label>
+                        <ol class="tags senses">
+                            {{#each data.perception.senses as |sense|}}
+                                <li class="tag tag_alt {{sense.slug}}">{{localize sense.label}}</li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</div>
