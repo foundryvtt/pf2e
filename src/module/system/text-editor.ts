@@ -173,15 +173,12 @@ class TextEditorPF2e extends TextEditor {
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
             const traits = anchor.dataset.traits?.split(",") ?? [];
-            const overrideTraits =
-                typeof anchor.dataset.overrideTraits === "string" &&
-                ["true", ""].includes(anchor.dataset.overrideTraits);
-            const immutable =
-                typeof anchor.dataset.immutable === "string" && ["true", ""].includes(anchor.dataset.immutable);
-
+            const overrideTraits = "overrideTraits" in anchor.dataset;
+            const immutable = "immutable" in anchor.dataset;
             const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
             const domains = anchor.dataset.domains?.split(",") ?? [];
             const extraRollOptions = R.uniq(R.compact([...traits, ...rollOptions]));
+
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
                 actor,
@@ -559,13 +556,10 @@ class TextEditorPF2e extends TextEditor {
               ? "all"
               : "gm";
 
-        const overrideTraits =
-            typeof rawParams.overrideTraits === "string" && ["true", ""].includes(rawParams.overrideTraits);
-        const immutable = typeof rawParams.immutable === "string" && ["true", ""].includes(rawParams.immutable);
-
+        const basic = "basic" in rawParams;
+        const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
         const traits = R.uniq(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
-        const basic = typeof rawParams.basic === "string" && ["true", ""].includes(rawParams.basic);
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -576,7 +570,7 @@ class TextEditorPF2e extends TextEditor {
             showDC,
             overrideTraits,
             traits,
-            immutable,
+            immutable: "immutable" in rawParams,
             // Set action slug, damaging effect for basic saves, and any parameterized options
             extraRollOptions: R.compact([
                 ...(basic ? ["damaging-effect"] : []),
@@ -763,10 +757,8 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
 
-        const immutable = typeof rawParams.immutable === "string" && ["true", ""].includes(rawParams.immutable);
-        const overrideTraits =
-            typeof rawParams.overrideTraits === "string" && ["true", ""].includes(rawParams.overrideTraits);
-
+        const immutable = "immutable" in rawParams;
+        const overrideTraits = "overrideTraits" in rawParams;
         const traits = ((): string[] => {
             const fromParams = rawParams.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
