@@ -354,7 +354,7 @@ type StrikeSchema = RuleElementSchema & {
             max: NumberField<number, number, false, true, true>;
         },
         { increment: number | null; max: number | null },
-        { increment: number | null; max: number | null } | null,
+        { increment: number | null; max: number | null },
         false,
         true,
         true
