@@ -315,6 +315,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
 
+        const commonLanguage = game.settings.get("pf2e", "homebrew.languageRarities").commonLanguage;
+
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
             const sourceLanguages = actor._source.system.details.languages.value.filter(
@@ -323,7 +325,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const isOverMax = languagesBuild.value > languagesBuild.max;
             const languages: LanguageSheetData[] = actor.system.details.languages.value
                 .map((language) => {
-                    const label = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
+                    const baseLanguage = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
+
+                    const label =
+                        commonLanguage && language === "common"
+                            ? game.i18n.format("PF2E.Actor.Character.Language.CommonLabel", {
+                                  common: baseLanguage,
+                                  linkedLanguage: game.i18n.localize(
+                                      CONFIG.PF2E.languages[commonLanguage] ?? commonLanguage,
+                                  ),
+                              })
+                            : baseLanguage;
+
                     const overLimit = isOverMax && sourceLanguages.indexOf(language) + 1 > languagesBuild.max;
                     const tooltip = overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null;
                     return { slug: language, label, tooltip, overLimit };
