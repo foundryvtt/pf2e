@@ -582,6 +582,7 @@ class TextEditorPF2e extends TextEditor {
                 ...(basic ? ["damaging-effect"] : []),
                 ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
             ]).sort(),
+            targetOwner: "targetOwner" in rawParams,
         };
 
         const types = params.type.split(",");
@@ -697,6 +698,7 @@ class TextEditorPF2e extends TextEditor {
                 pf2Label: localize("DCWithName", { name }),
                 pf2Adjustment: Number(params.adjustment) || null,
                 pf2Roller: params.roller || null,
+                targetOwner: params.targetOwner,
                 pf2Check: sluggify(params.type),
             },
         });
@@ -1074,6 +1076,7 @@ interface CheckLinkParams {
     /** Refrain from adding domains to the check. */
     immutable: boolean;
     roller?: string;
+    targetOwner: boolean;
 }
 
 interface CreateSingleCheckOptions {
