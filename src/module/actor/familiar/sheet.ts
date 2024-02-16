@@ -23,11 +23,8 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
+            template: "systems/pf2e/templates/actors/familiar/sheet.hbs",
         };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/familiar/sheet.hbs";
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
