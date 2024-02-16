@@ -92,18 +92,10 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const {
-                pf2Check,
-                pf2Dc,
-                pf2Traits,
-                pf2Label,
-                pf2Defense,
-                pf2Adjustment,
-                pf2Roller,
-                targetOwner,
-                pf2RollOptions,
-                overrideTraits,
-            } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+                link.dataset;
+            const overrideTraits = "overrideTraits" in link.dataset;
+            const targetOwner = "targetOwner" in link.dataset;
 
             if (!pf2Check) return;
 
