@@ -27,7 +27,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/familiar-sheet.hbs";
+        return "systems/pf2e/templates/actors/familiar/sheet.hbs";
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
