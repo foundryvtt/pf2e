@@ -219,21 +219,6 @@ class HomebrewElements extends SettingsMenuPF2e {
             });
         }
 
-        htmlQuery(html, "[data-action=prof-add]")?.addEventListener("click", async () => {
-            this.cache.profRanks.push({ label: "Legendarier", color: "FFFFFF", value: 10 });
-            this.render();
-        });
-
-        for (const element of htmlQueryAll(html, "[data-action=prof-delete]")) {
-            element.addEventListener("click", async (event) => {
-                const idy = htmlClosest(event.target, "[data-idy]")?.dataset.idy;
-                if (idy) {
-                    this.cache.profRanks.splice(Number(idy), 1);
-                }
-                this.render();
-            });
-        }
-
         this.languagesManager.activateListeners(html);
     }
 
@@ -617,14 +602,6 @@ class ProficienciesManager {
                     continue;
                 }
             }
-        }
-
-        // Read setting damage types
-        const customTypes = game.settings
-            .get("pf2e", "homebrew.profRanks")
-            .filter((t) => !reservedTerms.proficiencyRanks.has(sluggify(t.label)));
-        for (const data of customTypes) {
-            this.addCustomRank(data);
         }
     }
 }

@@ -4,7 +4,6 @@
         <a class="item" data-tab="campaign">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Campaign"}}</a>
         <a class="item" data-tab="traits">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Traits"}}</a>
         <a class="item" data-tab="damage">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Damage"}}</a>
-        <a class="item" data-tab="prof">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Prof"}}</a>
     </nav>
 
     <section class="tab" data-tab="languages"></div>
@@ -144,38 +143,6 @@
         {{/if}}
         <button type="button" data-action="damage-add">
             <i class="fa-regular fa-plus"></i>{{localize "PF2E.SETTINGS.Homebrew.DamageTypes.Add"}}
-        </button>
-    </section>
-
-    <section class="tab" data-tab="prof">
-        {{#if customProfRanks}}
-            <table class="proficiency-ranks">
-                <tr>
-                    <th>{{localize "PF2E.SETTINGS.Homebrew.ProfRanks.Label"}}</th>
-                    <th>{{localize "PF2E.Slug"}}</th>
-                    <th>{{localize "PF2E.SETTINGS.Homebrew.ProfRanks.Color"}}</th>
-                    <th>{{localize "PF2E.SETTINGS.Homebrew.ProfRanks.Value"}}</th>
-                    <th class="delete-cell"></th>
-                </tr>
-                {{#each customProfRanks as |type idy|}}
-                    <tr>
-                        <td>
-                            <input name="profRanks.{{idy}}.label" type="text" required minlength="3" value="{{type.label}}" />
-                        </td>
-                        <td>{{type.slug}}</td>
-                        <td>
-                            <input name="profRanks.{{idy}}.color" type="color" value="{{type.color}}" />
-                        </td>
-                        <td>
-                            <input name="profRanks.{{idy}}.value" type="number" maxlength="2" value="{{type.value}}" />
-                        </td>
-                        <td class="delete-cell"><i class="fa-solid fa-times" data-action="prof-delete" data-idy="{{idy}}"></i></td>
-                    </tr>
-                {{/each}}
-        </table>
-        {{/if}}
-        <button type="button" data-action="prof-add">
-            <i class="fa-regular fa-plus"></i>{{localize "PF2E.SETTINGS.Homebrew.ProfRanks.Add"}}
         </button>
     </section>
 
