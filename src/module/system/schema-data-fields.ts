@@ -61,7 +61,7 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
 /** A `StringField` that does not cast the source value */
 class StrictStringField<
     TSourceProp extends string,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = boolean,
@@ -74,7 +74,7 @@ class StrictStringField<
 /** A `NumberField` that does not cast the source value */
 class StrictNumberField<
     TSourceProp extends number,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = true,
     THasInitial extends boolean = true,
@@ -129,7 +129,7 @@ class StrictArrayField<
 
 class StrictObjectField<
     TSourceProp extends object,
-    TModelProp = TSourceProp,
+    TModelProp extends object = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
