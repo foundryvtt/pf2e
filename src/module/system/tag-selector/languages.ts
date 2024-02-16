@@ -57,7 +57,7 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
         }
 
         // disable the Common-linked language so players don't double-pick
-        if (languagesByRarity.commonLanguage) sheetData.choices[languagesByRarity.commonLanguage].disabled = true;
+        if (languagesByRarity.commonLanguage && !game.user.isGM) sheetData.choices[languagesByRarity.commonLanguage].disabled = true;
 
         const choices = R.mapValues(sheetData.choices, (data, key): ChoiceData => {
             const slug = key as Language;
