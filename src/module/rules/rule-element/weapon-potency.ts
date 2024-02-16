@@ -13,7 +13,8 @@ class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema> 
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): WeaponPotencyRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, blank: false }),

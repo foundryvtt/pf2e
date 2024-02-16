@@ -29,7 +29,8 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
     ] as const);
 
     static override defineSchema(): AdjustStrikeSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             mode: new fields.StringField({

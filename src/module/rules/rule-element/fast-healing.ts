@@ -15,7 +15,7 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     static override defineSchema(): FastHealingRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),

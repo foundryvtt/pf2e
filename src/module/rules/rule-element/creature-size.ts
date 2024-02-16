@@ -17,7 +17,8 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     static override defineSchema(): CreatureSizeRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),

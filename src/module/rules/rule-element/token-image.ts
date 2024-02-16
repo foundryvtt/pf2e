@@ -9,7 +9,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  */
 class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
     static override defineSchema(): TokenImageRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({

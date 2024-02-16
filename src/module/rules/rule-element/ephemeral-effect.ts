@@ -10,7 +10,8 @@ import { ItemAlteration } from "./item-alteration/alteration.ts";
 /** An effect that applies ephemerally during a single action, such as a strike */
 class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema> {
     static override defineSchema(): EphemeralEffectSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             affects: new fields.StringField({ required: true, choices: ["target", "origin"], initial: "target" }),

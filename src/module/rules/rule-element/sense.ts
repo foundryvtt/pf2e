@@ -19,6 +19,7 @@ class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
 
     static override defineSchema(): SenseRuleSchema {
         const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, choices: [...SENSE_TYPES] }),
