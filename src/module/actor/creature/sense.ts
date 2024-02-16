@@ -63,10 +63,11 @@ class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {
             case "greater-darkvision":
             case "low-light-vision":
             case "see-invisibility":
-                // Low-light vision, darkvision, and see invisibility are always precise with no range limit
+                // Most vision-dependent senses are always precise with no range limit
                 return buildLabel(this.type);
             case "echolocation":
-                // Echolocation is always precise
+            case "infrared-vision":
+                // Echolocation and infrared vision are always precise
                 return buildLabel(this.type, null, this.range);
             case "lifesense":
                 // Lifesense's acuity is omitted if precise
