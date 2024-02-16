@@ -8,8 +8,8 @@
 
         <div class="header-content">
             <div class="charname">
-                <input class=" charname-value" name="name" type="text" value="{{actor.name}}"
-                    placeholder="{{localize "PF2E.NPC.Familiar"}}" spellcheck="false" />
+                <input class="charname-value" name="name" type="text" value="{{actor.name}}"
+                    placeholder="{{localize "TYPES.Actor.familiar"}}" spellcheck="false" />
                 <label class="familiar-title">{{localize "TYPES.Actor.familiar"}}</label>
                 {{#if data.master.id}}
                     <label class="familiar-title"> {{data.details.level.value}}</label>
@@ -39,9 +39,7 @@
                 </div>
             </div>
             <section class="details-section">
-                {{#unless limitedSheet}}
-                    {{> headerDetails }}
-                {{/unless}}
+                {{#unless document.limited}}{{> headerDetails}}{{/unless}}
             </section>
         </div>
     </header>
@@ -253,7 +251,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each familiarAbilities.items as |action|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=../options.editable}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action}}
                 {{/each}}
             </ol>
         </div>
