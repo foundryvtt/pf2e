@@ -88,10 +88,14 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         if (this.ignored) return;
 
         const predicate = this.resolveInjectedProperties(this.predicate);
-        const actorRollOptions = predicate.length > 0 ? this.actor.getRollOptions() : [];
-        const parentRollOptions = this.parent.getRollOptions("parent");
+        const [actorRollOptions, parentRollOptions] =
+            predicate.length > 0 ? [this.actor.getRollOptions(), this.parent.getRollOptions("parent")] : [[], []];
         try {
-            const items = singleItem && singleItem.type === this.itemType ? [singleItem] : this.#getItemsOfType();
+            const items = singleItem
+                ? singleItem.id === this.itemId || singleItem.type === this.itemType
+                    ? [singleItem]
+                    : []
+                : this.#getItemsOfType();
             items.push(
                 ...additionalItems.filter((i) => (this.itemId && i.id === this.itemId) || this.itemType === i.type),
             );

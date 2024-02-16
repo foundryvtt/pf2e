@@ -1,5 +1,4 @@
 import type { NPCPF2e } from "@actor";
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
@@ -17,16 +16,15 @@ import {
     htmlQueryAll,
     localizeList,
     setHasElement,
+    sortLabeledRecord,
     tagify,
 } from "@util";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
-import { NPCSkillData } from "./data.ts";
 import {
     NPCActionSheetData,
     NPCIdentificationSheetData,
     NPCSheetData,
-    NPCSkillSheetData,
     NPCSpeedSheetData,
     NPCSpellcastingSheetData,
     NPCStrikeSheetData,
@@ -78,34 +76,11 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
     }
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
-        // Prepare a list of skill IDs sorted by their localized name
-        // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = Object.keys(sheetSystemData.skills) as SkillAbbreviation[];
-
-        const skills = sheetSystemData.skills;
-        for (const shortForm of sortedSkillsIds) {
-            const skill = skills[shortForm as SkillAbbreviation];
+        for (const skill of Object.values(sheetSystemData.skills)) {
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
-
-        sortedSkillsIds.sort((a: SkillAbbreviation, b: SkillAbbreviation) => {
-            const skillA = skills[a];
-            const skillB = skills[b];
-
-            if (skillA.label < skillB.label) return -1;
-            if (skillA.label > skillB.label) return 1;
-
-            return 0;
-        });
-
-        const sortedSkills: Record<string, NPCSkillData> = {};
-
-        for (const skillId of sortedSkillsIds) {
-            sortedSkills[skillId] = skills[skillId];
-        }
-
-        sheetSystemData.sortedSkills = sortedSkills as Record<SkillAbbreviation, NPCSkillSheetData>;
+        sheetSystemData.skills = sortLabeledRecord(sheetSystemData.skills);
     }
 
     #prepareSaves(systemData: NPCSystemSheetData): void {
@@ -184,9 +159,12 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
         const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
-        // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
-        if (this.actor.limited || this.isLootSheet) {
-            sheetData.actor.name = this.actor.token?.name ?? sheetData.actor.name;
+        if (this.isLootSheet || this.actor.limited) {
+            const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
+            const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
+            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+
+            sheetData.actor.name = actorName;
         }
 
         // Identification DCs
@@ -233,11 +211,6 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         } else {
             sheetData.eliteState = "inactive";
             sheetData.weakState = "inactive";
-        }
-
-        // Data for lootable token-actor sheets
-        if (this.isLootSheet) {
-            sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
         const actorSource = this.actor._source;

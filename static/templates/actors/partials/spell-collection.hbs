@@ -115,7 +115,6 @@
                             data-group-id="{{group.id}}"
                             {{#if entry.isPrepared}}data-slot-id="{{index}}"{{/if}}
                             {{#if slot.expended}}data-slot-expended{{/if}}
-                            data-item-summary-id="{{group.id}}-{{spell.id}}-{{index}}"
                         >
                             <div class="drag-handle item-name">
                                 <a class="item-image framed" data-action="item-to-chat">
@@ -178,8 +177,8 @@
                                 >{{localize "PF2E.Item.Spell.Cast"}}</button>
                             {{/if}}
 
-                            {{#if @root.editable}}
-                                <div class="item-controls">
+                            <div class="item-controls">
+                                {{#if @root.editable}}
                                     {{#if entry.isPrepared}}
                                         {{#unless (eq group.id "cantrips")}}
                                             <a
@@ -203,9 +202,9 @@
                                             <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                                         {{/unless}}
                                     {{/if}}
-                                </div>
-                                <div class="item-summary" hidden="hidden"></div>
-                            {{/if}}
+                                {{/if}}
+                            </div>
+                            <div class="item-summary" hidden></div>
                         </li>
                     {{else if (ne entry.category "items")}}
                         <li

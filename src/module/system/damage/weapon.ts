@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
@@ -14,7 +14,7 @@ import {
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, setHasElement } from "@util";
+import { mapValues, objectHasKey, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
@@ -27,7 +27,7 @@ import {
     WeaponBaseDamageData,
     WeaponDamageTemplate,
 } from "./types.ts";
-import { DAMAGE_DIE_FACES } from "./values.ts";
+import { DAMAGE_DIE_SIZES } from "./values.ts";
 
 class WeaponDamagePF2e {
     static async fromNPCAttack({
@@ -35,7 +35,7 @@ class WeaponDamagePF2e {
         actor,
         context,
     }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const { baseDamage } = attack;
+        const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
             .filter((d) => !R.equals(d, baseDamage));
@@ -47,7 +47,9 @@ class WeaponDamagePF2e {
             null: "",
             persistent: "",
             precision: "PF2E.Damage.Precision",
-            splash: "PF2E.WeaponSplashDamageLabel",
+            splash: attack.system.traits.value.some((t) => t.startsWith("scatter-"))
+                ? "PF2E.TraitScatter"
+                : "PF2E.TraitSplash",
         };
         for (const instance of secondaryInstances) {
             const { damageType } = instance;
@@ -142,14 +144,19 @@ class WeaponDamagePF2e {
         }
 
         // Splash damage
-        const splashDamage = weapon.isOfType("weapon") ? Number(weapon.system.splashDamage?.value) : 0;
+        const hasScatterTrait = weaponTraits.some((t) => t.startsWith("scatter-"));
+        const splashDamage = weapon.isOfType("weapon")
+            ? Number(weapon.system.splashDamage?.value) || (hasScatterTrait ? 1 : 0)
+            : 0;
         if (splashDamage > 0) {
+            const slug = hasScatterTrait ? "scatter" : "splash";
+            const label = `PF2E.Trait${sluggify(slug, { camel: "bactrian" })}`;
             const modifier = new ModifierPF2e({
-                slug: "splash",
-                label: "PF2E.WeaponSplashDamageLabel",
+                slug,
+                label,
                 modifier: splashDamage,
                 damageCategory: "splash",
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "splash"),
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, slug),
             });
             modifiers.push(modifier);
         }
@@ -177,21 +184,8 @@ class WeaponDamagePF2e {
             const baseDieFaces = Number(baseDamage.die?.replace("d", "") ?? "NaN");
             const twoHandSize = weaponTraits.find((t) => t.startsWith("two-hand-"))?.replace("two-hand-", "");
             const twoHandFaces = Number(twoHandSize?.replace("d", "") ?? "NaN");
-            if (handsHeld === 2 && setHasElement(DAMAGE_DIE_FACES, twoHandSize) && twoHandFaces > baseDieFaces) {
+            if (handsHeld === 2 && tupleHasValue(DAMAGE_DIE_SIZES, twoHandSize) && twoHandFaces > baseDieFaces) {
                 baseDamage.die = twoHandSize;
-            }
-
-            // Scatter damage
-            const scatterTrait = weaponTraits.find((t) => t.startsWith("scatter-"));
-            if (scatterTrait && baseDamage.die) {
-                const modifier = new ModifierPF2e({
-                    slug: "scatter",
-                    label: "PF2E.Damage.Scatter",
-                    modifier: baseDamage.dice,
-                    damageCategory: "splash",
-                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "scatter"),
-                });
-                modifiers.push(modifier);
             }
 
             // Bonus damage
@@ -546,8 +540,8 @@ interface ConvertedNPCDamage extends WeaponDamage {
 }
 
 interface WeaponDamageCalculateParams {
-    weapon: WeaponPF2e | MeleePF2e;
-    actor: CharacterPF2e | NPCPF2e | HazardPF2e;
+    weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
+    actor: ActorPF2e;
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
@@ -555,8 +549,8 @@ interface WeaponDamageCalculateParams {
 }
 
 interface NPCStrikeCalculateParams {
-    attack: MeleePF2e;
-    actor: NPCPF2e | HazardPF2e;
+    attack: MeleePF2e<ActorPF2e>;
+    actor: ActorPF2e;
     context: DamageRollContext;
 }
 

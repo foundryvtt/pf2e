@@ -380,18 +380,18 @@ function getStrikeDamageDomains(
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
 function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
-    const { actor, isMelee } = item;
-    if (!actor.isOfType("npc", "hazard")) {
+    const actor = item.actor;
+    if (!["hazard", "npc"].includes(actor.type)) {
         throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
     }
 
     // Conditions and Custom modifiers to attack rolls
-    const meleeOrRanged = isMelee ? "melee" : "ranged";
+    const meleeOrRanged = item.isMelee ? "melee" : "ranged";
     const baseOptions = new Set(R.compact(["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value]));
     const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
-    const { synthetics } = actor;
-    const modifiers: ModifierPF2e[] = [
+    const synthetics = actor.synthetics;
+    const modifiers = [
         new ModifierPF2e({
             slug: "base",
             label: "PF2E.ModifierTitle",
@@ -405,7 +405,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
-        const items: ItemPF2e<ActorPF2e>[] = actor.items.contents;
+        const items = actor.items.contents;
         const label = attackEffects[tag] ?? items.find((i) => (i.slug ?? sluggify(i.name)) === tag)?.name ?? tag;
         return { tag, label };
     });

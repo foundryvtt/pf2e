@@ -201,7 +201,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             sections,
             bulk: actor.inventory.bulk,
             showValueAlways: actor.isOfType("npc", "loot", "party"),
-            showUnitBulkPrice: actor.isOfType("loot"),
+            showUnitBulkPrice: false,
             hasStowingContainers: actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
             invested: actor.inventory.invested,
         };
@@ -219,12 +219,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const itemSize = new ActorSizePF2e({ value: item.size });
         const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
-        const canBeEquipped = !item.isInContainer;
-
         return {
             item,
-            canBeEquipped,
-            editable,
+            canBeEquipped: !item.isInContainer,
             hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
             heldItems,
             isContainer: item.isOfType("backpack"),
@@ -232,6 +229,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
+            hidden: false,
         };
     }
 
@@ -1313,7 +1311,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
 interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
-    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this>;
+    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this;
 }
 
 type SheetClickActionHandlers = Record<

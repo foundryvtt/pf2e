@@ -32,7 +32,7 @@ interface SpellPrepData {
 }
 
 interface SpellSlotData {
-    prepared: Record<number, SpellPrepData>;
+    prepared: SpellPrepData[];
     value: number;
     max: number;
 }

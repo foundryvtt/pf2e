@@ -16,7 +16,7 @@ type RuleElementSource = {
     removeUponCreate?: JSONValue;
 };
 
-type RuleValue = string | number | boolean | object | BracketedValue | null;
+type RuleValue = string | number | boolean | object | BracketedValue;
 
 interface Bracket<T extends object | number | string> {
     start?: number;
@@ -52,12 +52,12 @@ class ResolvableValueField<
     TNullable extends boolean,
     THasInitial extends boolean = false,
 > extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
-    protected override _validateType(value: unknown): boolean {
+    protected override _validateType(value: JSONValue): boolean {
         return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);
     }
 
     /** No casting is applied to this value */
-    protected _cast(value: unknown): unknown {
+    protected _cast(value: JSONValue): JSONValue {
         return value;
     }
 

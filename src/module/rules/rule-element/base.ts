@@ -45,7 +45,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         super(source, { parent: options.parent, strict: options.strict ?? true, fallback: false });
-        const { item } = this;
+        const item = this.parent;
 
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
         this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
@@ -58,14 +58,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             source.ignored = true;
         }
 
-        this.label =
-            typeof source.label === "string"
-                ? game.i18n.format(this.resolveInjectedProperties(source.label), {
-                      actor: item.actor.name,
-                      item: item.name,
-                      origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
-                  })
-                : item.name;
+        this.label = this.label
+            ? game.i18n.format(this.resolveInjectedProperties(this.label), {
+                  actor: item.actor.name,
+                  item: item.name,
+                  origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
+              })
+            : item.name;
 
         if (this.invalid) {
             this.ignored = true;
@@ -88,7 +87,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     static override defineSchema(): RuleElementSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             key: new fields.StringField({ required: true, nullable: false, blank: false, initial: undefined }),
             slug: new SlugField({ required: true, nullable: true, label: "PF2E.RuleEditor.General.Slug" }),
@@ -268,7 +268,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveValue(
         value: unknown,
-        defaultValue: Exclude<RuleValue, BracketedValue> = 0,
+        defaultValue: Exclude<RuleValue, BracketedValue> | null = 0,
         { evaluate = true, resolvables = {}, warn = true }: ResolveValueParams = {},
     ): number | string | boolean | object | null {
         value ??= defaultValue ?? null;
@@ -337,8 +337,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     #resolveBracketedValue(
         value: BracketedValue,
-        defaultValue: Exclude<RuleValue, BracketedValue>,
-    ): Exclude<RuleValue, BracketedValue> {
+        defaultValue: Exclude<RuleValue, BracketedValue> | null,
+    ): Exclude<RuleValue, BracketedValue> | null {
         const bracketNumber = ((): number => {
             if (!value.field) return this.actor.level;
             const field = String(value.field);

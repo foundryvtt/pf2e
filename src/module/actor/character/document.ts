@@ -122,7 +122,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** All class DCs, including the primary */
     declare classDCs: Record<string, Statistic>;
     /** Skills for the character, built during data prep */
-    declare skills: CharacterSkills;
+    declare skills: CharacterSkills<this>;
 
     declare initiative: ActorInitiative;
 
@@ -883,7 +883,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
     }
 
-    private prepareSkills(): CharacterSkills {
+    private prepareSkills(): CharacterSkills<this> {
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
@@ -940,7 +940,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 modifiers,
                 lore: false,
                 check: { type: "skill-check" },
-            }) as CharacterSkill;
+            }) as CharacterSkill<this>;
 
             system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), system.skills[shortForm]);
 
@@ -961,7 +961,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
-            }) as CharacterSkill;
+            }) as CharacterSkill<this>;
 
             skills[longForm as SkillLongForm] = statistic;
             system.skills[longForm as SkillAbbreviation] = {
@@ -1447,7 +1447,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             auxiliaryActions,
             versatileOptions: weapon.system.traits.toggles.versatile.options.map((o) => ({
                 value: o,
-                selected: weapon.system.traits.toggles.versatile.selection === o,
+                selected: weapon.system.traits.toggles.versatile.selected === o,
                 label: versatileLabel(o),
                 glyph: DAMAGE_TYPE_ICONS[o],
             })),
@@ -1456,7 +1456,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (action.versatileOptions.length > 0) {
             action.versatileOptions.unshift({
                 value: weapon.system.damage.damageType,
-                selected: weapon.system.traits.toggles.versatile.selection === null,
+                selected: weapon.system.traits.toggles.versatile.selected === null,
                 label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
                 glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
             });

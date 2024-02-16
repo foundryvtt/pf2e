@@ -13,39 +13,35 @@ class WeaponTraitToggles {
         Object.defineProperty(this, "parent", { enumerable: false });
     }
 
-    get weapon(): WeaponPF2e {
-        return this.parent;
-    }
-
     get actor(): ActorPF2e | null {
         return this.parent.actor;
     }
 
-    get modular(): { options: DamageType[]; selection: DamageType | null } {
-        const weapon = this.weapon;
+    get modular(): { options: DamageType[]; selected: DamageType | null } {
+        const weapon = this.parent;
         const options = this.#resolveOptions("modular");
-        const sourceSelection = weapon._source.system.traits.toggles?.modular?.selection;
-        const selection = tupleHasValue(options, sourceSelection)
+        const sourceSelection = weapon._source.system.traits.toggles?.modular?.selected;
+        const selected = tupleHasValue(options, sourceSelection)
             ? sourceSelection
             : // If the weapon's damage type is represented among the modular options, set the selection to it
               options.includes(weapon.system.damage.damageType)
               ? weapon.system.damage.damageType
               : null;
 
-        return { options, selection };
+        return { options, selected };
     }
 
-    get versatile(): { options: DamageType[]; selection: DamageType | null } {
+    get versatile(): { options: DamageType[]; selected: DamageType | null } {
         const options = this.#resolveOptions("versatile");
-        const sourceSelection = this.weapon._source.system.traits.toggles?.versatile?.selection ?? null;
-        const selection = tupleHasValue(options, sourceSelection) ? sourceSelection : null;
+        const sourceSelection = this.parent._source.system.traits.toggles?.versatile?.selected ?? null;
+        const selected = tupleHasValue(options, sourceSelection) ? sourceSelection : null;
 
-        return { options, selection };
+        return { options, selected };
     }
 
     /** Collect selectable damage types among a list of toggleable weapon traits */
     #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
-        const weapon = this.weapon;
+        const weapon = this.parent;
         const types = weapon.system.traits.value
             .filter((t) => t.startsWith(toggle))
             .flatMap((trait): DamageType | DamageType[] => {
@@ -76,25 +72,26 @@ class WeaponTraitToggles {
      * Update a modular or versatile weapon to change its damage type
      * @returns A promise indicating whether an update was made
      */
-    async update({ trait, selection }: ToggleWeaponTraitParams): Promise<boolean> {
-        const { weapon, actor } = this;
+    async update({ trait, selected }: ToggleWeaponTraitParams): Promise<boolean> {
+        const weapon = this.parent;
+        const actor = weapon.actor;
         if (!actor?.isOfType("character")) return false;
 
-        const current = weapon.system.traits.toggles[trait].selection;
-        if (current === selection) return false;
+        const current = this[trait].selected;
+        if (current === selected) return false;
 
         const item = actor.items.get(weapon.id);
         if (item?.isOfType("weapon") && item === weapon) {
-            await item.update({ [`system.traits.toggles.${trait}.selection`]: selection });
+            await item.update({ [`system.traits.toggles.${trait}.selected`]: selected });
         } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
-            item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selection });
+            item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selected });
         } else if (trait === "versatile" && item?.isOfType("shield")) {
-            item.update({ "system.traits.integrated.versatile.selection": selection });
+            item.update({ "system.traits.integrated.versatile.selected": selected });
         } else {
             const rule = item?.rules.find(
                 (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug,
             );
-            await rule?.toggleTrait({ trait, selection });
+            await rule?.toggleTrait({ trait, selected });
         }
 
         return true;
@@ -103,7 +100,7 @@ class WeaponTraitToggles {
 
 interface ToggleWeaponTraitParams {
     trait: "modular" | "versatile";
-    selection: DamageType | null;
+    selected: DamageType | null;
 }
 
 export { WeaponTraitToggles };

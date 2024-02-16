@@ -19,6 +19,7 @@ import type {
     PhysicalItemPF2e,
 } from "@item";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, ItemSourcePF2e, ProficiencyValues } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { MagicTradition } from "@item/spell/types.ts";
@@ -26,7 +27,6 @@ import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -469,14 +469,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             })();
 
             const traits = item.system.traits.value;
-            const traitDescriptions = item.isOfType("feat") ? CONFIG.PF2E.featTraits : CONFIG.PF2E.actionTraits;
 
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
                 img,
                 glyph: getActionGlyph(item.actionCost),
-                traits: createSheetTags(traitDescriptions, traits),
                 feat: item.isOfType("feat") ? item : null,
+                toggles: item.system.traits.toggles.getSheetData(),
                 hasEffect: !!item.system.selfEffect,
             };
 
@@ -830,16 +829,16 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // SIDEBAR
 
         handlers["rest"] = async (event) => {
-            await game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+            return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
         };
 
         // MAIN TAB
 
-        handlers["edit-attribute-boosts"] = async () => {
+        handlers["edit-attribute-boosts"] = () => {
             const builder =
                 Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
                 new AttributeBuilder(this.actor);
-            await builder.render(true);
+            return builder.render(true);
         };
 
         handlers["select-apex-attribute"] = (event) => {
@@ -858,7 +857,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         handlers["open-compendium"] = (_, actionTarget) => {
-            game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
+            return game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
         };
 
         // ACTIONS
@@ -872,8 +871,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
             const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
             if (weapon && selectionIsValid) {
-                await weapon.system.traits.toggles.update({ trait: "versatile", selection });
+                await weapon.system.traits.toggles.update({ trait: "versatile", selected: selection });
             }
+        };
+
+        handlers["toggle-trait"] = async (_, button) => {
+            const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.items.get(itemId, { strict: true });
+            if (!item.isOfType("action", "feat")) {
+                throw ErrorPF2e("Unexpected item retrieved while toggling trait");
+            }
+
+            const trait = button.dataset.trait;
+            if (trait !== "mindshift") {
+                throw ErrorPF2e("Unexpected trait received while toggling");
+            }
+            const toggle = item.system.traits.toggles[trait];
+            if (!toggle) {
+                throw ErrorPF2e("Unexpected failure to look up trait toggle");
+            }
+
+            return item.system.traits.toggles.update({ trait, selected: !toggle.selected });
         };
 
         handlers["toggle-exploration"] = async (event) => {
@@ -1647,7 +1665,7 @@ interface ActionSheetData {
     actionCost: ActionCost | null;
     frequency: Frequency | null;
     feat: FeatPF2e | null;
-    traits: SheetOptions;
+    toggles: TraitToggleViewData[];
     exploration?: {
         active: boolean;
     };

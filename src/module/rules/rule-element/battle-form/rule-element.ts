@@ -1,6 +1,5 @@
 import type { ActorType, CharacterPF2e } from "@actor";
 import { CharacterStrike } from "@actor/character/data.ts";
-import { CharacterSkill } from "@actor/character/types.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
@@ -367,7 +366,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             this.actor.skills[key] = currentSkill.extend({
                 modifiers: [baseMod],
                 filter: this.#filterModifier,
-            }) as CharacterSkill;
+            });
             this.actor.system.skills[skillShort] = fu.mergeObject(
                 this.actor.system.skills[skillShort],
                 this.actor.skills[key].getTraceData(),

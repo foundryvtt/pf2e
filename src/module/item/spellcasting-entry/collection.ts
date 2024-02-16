@@ -3,7 +3,6 @@ import { ItemPF2e, SpellPF2e, SpellcastingEntryPF2e } from "@item";
 import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, localizer, ordinalString } from "@util";
 import * as R from "remeda";
-import { SlotKey } from "./data.ts";
 import { spellSlotGroupIdToNumber } from "./helpers.ts";
 import { ActiveSpell, BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 
@@ -96,8 +95,26 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
     }
 
+    /** Swap positions of two spells in the same spell collection and slot group */
+    async swapSlotPositions(groupId: string, slotIndexA: number, slotIndexB: number): Promise<this | null> {
+        this.#assertEntryIsDocument(this.entry);
+        const groupNumber = spellSlotGroupIdToNumber(groupId);
+        if (typeof groupNumber !== "number") return null;
+        const prepared = this.entry.system.slots[`slot${groupNumber}`].prepared;
+        const slotA = prepared.at(slotIndexA);
+        const slotB = prepared.at(slotIndexB);
+        if (slotA && slotB) {
+            prepared[slotIndexA] = slotB;
+            prepared[slotIndexB] = slotA;
+            const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
+            return result ? this : null;
+        }
+
+        return null;
+    }
+
     /** Save the prepared spell slot data to the spellcasting entry  */
-    async prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, slotId: number): Promise<this | null> {
+    async prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
         this.#assertEntryIsDocument(this.entry);
 
         if ((groupId === "cantrips") !== spell.isCantrip) {
@@ -115,20 +132,10 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
 
         const groupNumber = spellSlotGroupIdToNumber(groupId);
-        const key = `system.slots.slot${groupNumber}.prepared.${slotId}`;
-        const updates: Record<string, unknown> = { [key]: { id: spell.id } };
+        const prepared = this.entry.system.slots[`slot${groupNumber}`].prepared;
+        prepared[slotIndex] = { id: spell.id };
+        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
 
-        const slot = this.entry.system.slots[`slot${groupNumber}`].prepared[slotId];
-        if (slot) {
-            if (slot.prepared !== undefined) {
-                updates[`${key}.-=prepared`] = null;
-            }
-            if (slot.name !== undefined) {
-                updates[`${key}.-=name`] = null;
-            }
-        }
-
-        const result = await this.entry.update(updates);
         return result ? this : null;
     }
 
@@ -143,30 +150,25 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             );
         }
 
-        const key = `system.slots.slot${groupNumber}.prepared.${slotId}`;
-        const result = await this.entry.update({
-            [key]: {
-                name: game.i18n.localize("PF2E.SpellSlotEmpty"),
-                id: null,
-                prepared: false,
-                expended: false,
-            },
-        });
+        const slots = this.entry.toObject().system.slots[`slot${groupNumber}`];
+        const prepared = slots.prepared;
+        prepared.splice(slotId, 1);
+        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
 
         return result ? this : null;
     }
 
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
-    setSlotExpendedState(
-        groupId: SpellSlotGroupId,
-        slotId: number,
-        value: boolean,
-    ): Promise<BaseSpellcastingEntry<TActor> | undefined> {
+    async setSlotExpendedState(groupId: SpellSlotGroupId, slotIndex: number, value: boolean): Promise<this | null> {
         this.#assertEntryIsDocument(this.entry);
 
         const groupNumber = spellSlotGroupIdToNumber(groupId);
-        const key = `system.slots.slot${groupNumber}.prepared.${slotId}.expended`;
-        return this.entry.update({ [key]: value });
+        const prepared = this.entry.system.slots[`slot${groupNumber}`].prepared;
+        const slot = prepared[slotIndex];
+        if (slot) slot.expended = value;
+        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
+
+        return result ? this : null;
     }
 
     async getSpellData({ prepList = false } = {}): Promise<SpellCollectionData> {
@@ -189,20 +191,20 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         if (this.entry.isPrepared && this.entry instanceof SpellcastingEntryPF2e) {
             // Prepared Spells. Active spells are what's been prepped.
             for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
-                const data = this.entry.system.slots[`slot${rank}` as SlotKey];
+                const group = this.entry.system.slots[`slot${rank}`];
                 // Detect which spells are active. If flexible, it will be set later via signature spells
                 const active: (ActiveSpell | null)[] = [];
-                const showRank = this.entry.showSlotlessRanks || data.max > 0;
+                const showRank = this.entry.showSlotlessRanks || group.max > 0;
                 if (showRank && (rank === 0 || !isFlexible)) {
-                    const maxPrepared = Math.max(data.max, 0);
+                    const maxPrepared = Math.max(group.max, 0);
                     active.push(...Array(maxPrepared).fill(null));
-                    for (const [key, value] of Object.entries(data.prepared)) {
-                        const spell = value.id ? this.get(value.id) : null;
+                    for (const [index, slot] of Object.entries(group.prepared)) {
+                        const spell = slot.id ? this.get(slot.id) : null;
                         if (spell) {
-                            active[Number(key)] = {
+                            active[Number(index)] = {
                                 castRank: spell.computeCastRank(rank),
                                 spell,
-                                expended: !!value.expended,
+                                expended: !!slot.expended,
                             };
                         }
                     }
@@ -215,8 +217,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
                         ? "PF2E.Actor.Creature.Spellcasting.Cantrips"
                         : game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) });
                 const uses = {
-                    value: rank > 0 && isFlexible ? data.value || 0 : undefined,
-                    max: data.max,
+                    value: rank > 0 && isFlexible ? group.value || 0 : undefined,
+                    max: group.max,
                 };
 
                 groups.push({ id: groupId, maxRank, label, uses, active, number: rank });

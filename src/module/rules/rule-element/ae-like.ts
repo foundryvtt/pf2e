@@ -12,7 +12,7 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
     static override defineSchema(): AELikeSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;

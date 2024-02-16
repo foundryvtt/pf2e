@@ -268,7 +268,7 @@ export type DataSchema = Record<string, DataField<JSONValue, unknown, boolean>>;
 export class SchemaField<
     TDataSchema extends DataSchema,
     TSourceProp extends SourceFromSchema<TDataSchema> = SourceFromSchema<TDataSchema>,
-    TModelProp = ModelPropsFromSchema<TDataSchema>,
+    TModelProp extends NonNullable<JSONValue> = ModelPropsFromSchema<TDataSchema>,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -370,7 +370,7 @@ type BooleanFieldOptions<
 /** A subclass of [DataField]{@link DataField} which deals with boolean-typed data. */
 export class BooleanField<
     TSourceProp extends boolean = boolean,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -403,7 +403,7 @@ interface NumberFieldOptions<
 /** A subclass of [DataField]{@link DataField} which deals with number-typed data. */
 export class NumberField<
         TSourceProp extends number = number,
-        TModelProp = TSourceProp,
+        TModelProp extends NonNullable<JSONValue> = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = true,
         THasInitial extends boolean = true,
@@ -445,7 +445,7 @@ interface StringFieldOptions<
 /** A subclass of `DataField` which deals with string-typed data. */
 export class StringField<
         TSourceProp extends string = string,
-        TModelProp = TSourceProp,
+        TModelProp extends NonNullable<JSONValue> = TSourceProp,
         TRequired extends boolean = false,
         TNullable extends boolean = false,
         THasInitial extends boolean = true,
@@ -480,7 +480,7 @@ type ObjectFieldOptions<
 /** A subclass of `DataField` which deals with object-typed data. */
 export class ObjectField<
         TSourceProp extends object,
-        TModelProp = TSourceProp,
+        TModelProp extends object = TSourceProp,
         TRequired extends boolean = true,
         TNullable extends boolean = false,
         THasInitial extends boolean = true,
@@ -855,7 +855,7 @@ interface FilePathFieldOptions<
 /** A special `StringField` which records a file path or inline base64 data. */
 export class FilePathField<
     TSourceProp extends FilePath = FilePath,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = true,
     THasInitial extends boolean = true,
@@ -918,7 +918,7 @@ export class DocumentOwnershipField extends ObjectField<{ [K in string]?: Docume
 
 /** A special [StringField]{@link StringField} which contains serialized JSON data. */
 export class JSONField<
-    TModelProp = object,
+    TModelProp extends NonNullable<JSONValue> = object,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = false,
@@ -944,7 +944,7 @@ export class JSONField<
  */
 export class HTMLField<
     TSourceProp extends string = string,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -990,7 +990,7 @@ type DocumentStatsSchema = {
 /** A subclass of `ObjectField` which supports a system-level data object. */
 export class TypeDataField<
     TSourceProp extends object = object,
-    TModelProp = TSourceProp,
+    TModelProp extends object = TSourceProp,
     TDocument extends abstract.Document = abstract.Document,
 > extends ObjectField<TSourceProp, TModelProp> {
     /**

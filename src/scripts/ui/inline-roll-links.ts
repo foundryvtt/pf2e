@@ -92,17 +92,10 @@ export const InlineRollLinks = {
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const {
-                pf2Check,
-                pf2Dc,
-                pf2Traits,
-                pf2Label,
-                pf2Defense,
-                pf2Adjustment,
-                pf2Roller,
-                pf2RollOptions,
-                overrideTraits,
-            } = link.dataset;
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+                link.dataset;
+            const overrideTraits = "overrideTraits" in link.dataset;
+            const targetOwner = "targetOwner" in link.dataset;
 
             if (!pf2Check) return;
 
@@ -182,7 +175,11 @@ export const InlineRollLinks = {
                                 continue;
                             }
 
-                            const targetActor = pf2Defense ? game.user.targets.first()?.actor : null;
+                            const targetActor = pf2Defense
+                                ? targetOwner
+                                    ? parent
+                                    : game.user.targets.first()?.actor
+                                : null;
 
                             const dcValue = (() => {
                                 const adjustment = Number(pf2Adjustment) || 0;
@@ -353,7 +350,10 @@ export const InlineRollLinks = {
         return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
     },
 
-    repostAction: (target: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
+    repostAction: async (
+        target: HTMLElement,
+        foundryDoc: ClientDocument | null = null,
+    ): Promise<ChatMessagePF2e | undefined> => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }
@@ -386,11 +386,7 @@ export const InlineRollLinks = {
                   ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
                   : {};
 
-        ChatMessagePF2e.create({
-            speaker,
-            content,
-            flags,
-        });
+        return ChatMessagePF2e.create({ speaker, content, flags });
     },
 
     /** Give inline damage-roll links from items flavor text of the item name */

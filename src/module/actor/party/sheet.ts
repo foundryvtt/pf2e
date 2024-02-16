@@ -18,7 +18,6 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import type { Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
@@ -147,8 +146,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 actor,
                 hasBulk: actor.inventory.bulk.encumberedAfter !== Infinity,
                 bestSkills: Object.values(actor.skills ?? {})
-                    .filter((s): s is Statistic => !!s?.proficient && !s.lore)
-                    .sort((a, b) => (b.mod ?? 0) - (a.mod ?? 0))
+                    .filter((s) => s.proficient && !s.lore)
+                    .sort((a, b) => b.mod - a.mod)
                     .slice(0, PROF_MAX_VALUE)
                     .map((s) => ({ slug: s.slug, mod: s.mod, label: s.label, rank: s.rank })),
                 genderPronouns,
@@ -198,7 +197,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const loreSkills = new Set(
             members
                 .flatMap((m) => Object.values(m.skills))
-                .filter((s): s is Statistic => !!s?.lore)
+                .filter((s) => s.lore)
                 .map((s) => s.slug),
         );
 
@@ -472,12 +471,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    override async render(force?: boolean, options?: PartySheetRenderOptions): Promise<this> {
+    override render(force?: boolean, options?: PartySheetRenderOptions): this {
         if (options?.actors) {
-            const data = await this.getData();
-            this._saveScrollPositions(this.element);
-            await this.#renderRegions(this.element[0], data);
-            this._restoreScrollPositions(this.element);
+            this.getData().then(async (data) => {
+                this._saveScrollPositions(this.element);
+                await this.#renderRegions(this.element[0], data);
+                this._restoreScrollPositions(this.element);
+            });
             return this;
         } else {
             return super.render(force, options);

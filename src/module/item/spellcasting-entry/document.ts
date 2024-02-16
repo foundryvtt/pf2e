@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
@@ -94,8 +94,13 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        this.spells = null;
         this.system.prepared.flexible ??= false;
         this.system.prepared.validItems ||= null;
+
+        for (const group of Object.values(this.system.slots)) {
+            group.prepared = Object.values(group.prepared).filter((s) => !!s.id);
+        }
 
         // Assign a default "invalid" statistic in case something goes wrong
         if (this.actor) {
@@ -109,19 +114,15 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     override prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
         const actor = this.actor;
-        if (!actor) {
-            this.spells = null;
-        } else {
-            this.spells = new SpellCollection(this);
-            const spells = actor.itemTypes.spell.filter(
-                (s): s is SpellPF2e<NonNullable<TParent>> => s.system.location.value === this.id,
-            );
-            for (const spell of spells) {
-                this.spells.set(spell.id, spell);
-            }
-
-            actor.spellcasting?.collections.set(this.spells.id, this.spells);
+        this.spells = new SpellCollection(this) as SpellCollection<NonNullable<TParent>>;
+        const spells = actor.itemTypes.spell.filter(
+            (s): s is SpellPF2e<NonNullable<TParent>> => s.system.location.value === this.id,
+        );
+        for (const spell of spells) {
+            this.spells.set(spell.id, spell);
         }
+
+        actor.spellcasting?.collections.set(this.spells.id, this.spells);
     }
 
     override prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void {
@@ -182,7 +183,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             const baseDC = Number(this.system?.spelldc?.dc ?? 0) + adjustment;
 
             // Assign statistic data to the spellcasting entry
-            this.statistic = new Statistic(actor, {
+            this.statistic = new Statistic(actor as CreaturePF2e, {
                 slug,
                 attribute: this.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],

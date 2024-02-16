@@ -12,13 +12,13 @@ import {
     DamagePartialTerm,
     DamageType,
 } from "./types.ts";
-import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES_TUPLE } from "./values.ts";
+import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_SIZES } from "./values.ts";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { downgrade: DamageDieSize }): DamageDieSize;
 function nextDamageDieSize(next: { upgrade: DamageDieSize } | { downgrade: DamageDieSize }): DamageDieSize {
     const [faces, direction] = "upgrade" in next ? [next.upgrade, 1] : [next.downgrade, -1];
-    return DAMAGE_DIE_FACES_TUPLE[DAMAGE_DIE_FACES_TUPLE.indexOf(faces) + direction] ?? faces;
+    return DAMAGE_DIE_SIZES[DAMAGE_DIE_SIZES.indexOf(faces) + direction] ?? faces;
 }
 
 /** Provides constants for typical damage categories */

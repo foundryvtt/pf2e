@@ -18,7 +18,7 @@ import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
+import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
     OtherWeaponTag,
@@ -153,8 +153,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             // Damage types from trait toggles are not applied as data mutations so as to delay it for rule elements to
             // add options
             damageType:
-                this.system.traits.toggles.versatile.selection ??
-                this.system.traits.toggles.modular.selection ??
+                this.system.traits.toggles.versatile.selected ??
+                this.system.traits.toggles.modular.selected ??
                 this.system.damage.damageType,
         };
     }
@@ -369,8 +369,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // object
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
-        // If the `comboMeleeUsage` flag is true, then this is a combination weapon in its melee form
         this.flags.pf2e.comboMeleeUsage ??= false;
+        this.flags.pf2e.damageDieUpgraded = false;
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);
@@ -507,8 +507,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
         const traitToggles = {
-            module: { selection: meleeUsage.traitToggles.modular },
-            versatile: { selection: meleeUsage.traitToggles.versatile },
+            module: { selected: meleeUsage.traitToggles.modular },
+            versatile: { selected: meleeUsage.traitToggles.versatile },
         };
 
         const overlay: DeepPartial<WeaponSource> = {

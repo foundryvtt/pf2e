@@ -8,7 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  */
 class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     static override defineSchema(): MAPRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({

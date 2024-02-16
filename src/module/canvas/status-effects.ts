@@ -229,7 +229,7 @@ export class StatusEffects {
         for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
             if (slug === "persistent-damage") {
-                await new PersistentDialog(actor).render(true);
+                new PersistentDialog(actor).render(true);
                 continue;
             }
 
