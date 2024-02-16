@@ -13,7 +13,8 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     static override defineSchema(): TempHPRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),

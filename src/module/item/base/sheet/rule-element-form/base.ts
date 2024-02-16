@@ -185,8 +185,8 @@ class RuleElementForm<
      * Helper to update the item with the new rule data.
      * This function exists because array updates in foundry are currently clunky
      */
-    async updateItem(updates: Partial<TSource> | Record<string, unknown>): Promise<void> {
-        const rules: Record<string, unknown>[] = this.item.toObject().system.rules;
+    async updateItem(updates: Partial<TSource> | Record<string, JSONValue>): Promise<void> {
+        const rules: Record<string, JSONValue>[] = this.item.toObject().system.rules;
         const result = fu.mergeObject(this.rule, updates, { performDeletions: true });
         if (this.schema) {
             cleanDataUsingSchema(this.schema.fields, result);
@@ -293,7 +293,7 @@ class RuleElementForm<
         }
     }
 
-    updateObject(source: TSource & Record<string, unknown>): void {
+    updateObject(source: TSource & Partial<Record<string, JSONValue>>): void {
         // If the entire thing is a string, this is a regular JSON textarea
         if (typeof source === "string") {
             try {
@@ -332,8 +332,8 @@ class RuleElementForm<
 }
 
 /** Recursively clean and remove all fields that have a default value */
-function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
-    const { fields } = foundry.data;
+function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, JSONValue | undefined>): void {
+    const fields = foundry.data.fields;
 
     // Removes the field if it is the initial value.
     // It may merge with the initial value to handle cases where the values where cleaned recursively
@@ -359,7 +359,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         if ("fields" in field) {
             const value = data[key];
             if (R.isObject(value)) {
-                cleanDataUsingSchema(field.fields as Record<string, DataField>, value);
+                cleanDataUsingSchema(field.fields as Record<string, DataField>, value as Record<string, JSONValue>);
                 deleteIfInitial(key, field);
                 continue;
             }

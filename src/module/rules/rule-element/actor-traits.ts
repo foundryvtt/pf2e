@@ -9,6 +9,7 @@ class ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema> {
 
     static override defineSchema(): ActorTraitsRuleSchema {
         const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             priority: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 51 }),

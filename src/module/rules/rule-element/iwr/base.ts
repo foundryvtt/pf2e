@@ -9,15 +9,14 @@ import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue
 
 /** @category RuleElement */
 abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
-    abstract value: RuleValue;
+    abstract value: RuleValue | null;
 
     static get dictionary(): Record<string, string | undefined> {
         return {};
     }
 
     static override defineSchema(): IWRRuleSchema {
-        const { fields } = foundry.data;
-        const { DataModelValidationFailure } = foundry.data.validation;
+        const { fields, validation } = foundry.data;
 
         return {
             ...super.defineSchema(),
@@ -25,7 +24,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
             type: new fields.ArrayField(new StrictStringField({ required: true, blank: false, initial: undefined }), {
                 validate: (v) =>
                     (Array.isArray(v) && v.length > 0) ||
-                    new DataModelValidationFailure({ message: "must have at least one" }),
+                    new validation.DataModelValidationFailure({ message: "must have at least one" }),
             }),
             definition: new PredicateField({ required: false, initial: undefined }),
             exceptions: this.createExceptionsField(),

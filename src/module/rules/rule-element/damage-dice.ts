@@ -8,7 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 
 class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
     static override defineSchema(): DamageDiceRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(

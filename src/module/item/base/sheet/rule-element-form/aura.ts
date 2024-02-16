@@ -156,7 +156,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         return super.updateItem(expanded);
     }
 
-    override updateObject(source: AuraRuleElementSource & Record<string, unknown>): void {
+    override updateObject(source: AuraRuleElementSource & Partial<Record<string, JSONValue>>): void {
         // Restore clobbered effects array and perform updates
         source.effects = this.#updateEffectsMap(source);
 
@@ -226,7 +226,7 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                     if (!type) {
                         deletions["-=save"] = null;
                     } else {
-                        updatedData.save.dc ||= null;
+                        updatedData.save.dc ||= 10;
                     }
                 }
 

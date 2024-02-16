@@ -19,6 +19,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
 
     static override defineSchema(): SpecialStatisticSchema {
         const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             slug: new SlugField({
