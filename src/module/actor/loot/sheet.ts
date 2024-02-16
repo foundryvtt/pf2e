@@ -59,6 +59,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
     protected override prepareInventory(): SheetInventory {
         const preparedInventory = super.prepareInventory();
+        preparedInventory.showUnitBulkPrice = this.actor.system.lootSheetType === "Merchant";
 
         // Hide empty sections for non-owners
         if (!this.actor.isOwner) {
