@@ -1,7 +1,7 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog.ts";
-import type { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, type SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
@@ -296,6 +296,38 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", content, locked: true });
     }
 
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+        event.preventDefault();
+
+        const spellFrom = data.spellFrom;
+        if (spellFrom) {
+            // Confirm whether this is a swap and execute if so
+            const { collectionId, groupId, slotIndex } = spellFrom;
+            const collection = this.actor.spellcasting.collections.get(spellFrom.collectionId, { strict: true });
+            const isPrepared = collection.entry.isPrepared;
+            const collectionEl = htmlClosest(event.target, "[data-container-id]");
+            const sameCollectionId = collectionId === collectionEl?.dataset.containerId;
+
+            const targetDataset = htmlClosest(event.target, "[data-item-id]")?.dataset ?? {};
+            const sameGroupId = groupId === targetDataset.groupId;
+            const targetIsEmpty = targetDataset.itemId?.length !== 16;
+
+            if (isPrepared && sameCollectionId && sameGroupId && targetIsEmpty) {
+                const draggedSpell = await ItemPF2e.fromDropData(data);
+                const dropTargetSpell: ItemPF2e = this.actor.items.get(targetDataset.itemId, { strict: true });
+                const actorsAreSame = draggedSpell?.actor === dropTargetSpell.actor;
+                if (!actorsAreSame || !draggedSpell?.isOfType("spell") || !dropTargetSpell.isOfType("spell")) {
+                    throw ErrorPF2e("Unexpected data received while swapping spells");
+                }
+                collection.swapSlotPositions(groupId, slotIndex, Number(targetDataset.slotId));
+
+                return [draggedSpell];
+            }
+        }
+
+        return super._onDropItem(event, data);
+    }
+
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
     protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const dropItemEl = htmlClosest(event.target, "[data-item-id]");
@@ -320,8 +352,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 this.#openSpellPreparation(collection.id);
                 return [spell ?? []].flat();
             } else if (groupId && Number.isInteger(slotId)) {
-                const result = await collection.prepareSpell(item, groupId, slotId);
-                return result ? [item] : [];
+                await collection.prepareSpell(item, groupId, slotId);
+                return [item];
             } else if (dropSlotType === "spell") {
                 const dropId = dropItemEl.dataset.itemId ?? "";
                 const target = this.actor.items.get(dropId);
@@ -387,8 +419,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         const containerEl = htmlClosest(event.target, "[data-container-type=spellcastingEntry]");
         if (containerEl && item.isOfType("spell") && !item.isRitual) {
-            const entryId = containerEl.dataset.containerId;
-            const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
+            const collectionId = containerEl.dataset.containerId;
+            const collection = this.actor.spellcasting.collections.get(collectionId, { strict: true });
             this.#openSpellPreparation(collection.id, event);
             const groupId = coerceToSpellGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
 
