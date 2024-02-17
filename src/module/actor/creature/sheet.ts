@@ -258,7 +258,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     async #openCarryTypeMenu(anchor: HTMLElement): Promise<void> {
         // Close the menu and return early if any carry-type menu is already open
         const menuOpen = !!document.body.querySelector("aside.locked-tooltip.carry-type-menu");
-        if (menuOpen) return game.tooltip.dismissLockedTooltips();
+        if (menuOpen) game.tooltip.dismissLockedTooltips();
 
         const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
         const item = this.actor.inventory.get(itemId, { strict: true });
