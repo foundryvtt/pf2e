@@ -107,6 +107,9 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         this.armorClass = armorStatistic.dc;
         this.system.attributes.ac = armorStatistic.getTraceData();
 
+        // Set whether this vehicle emits sound
+        attributes.emitsSound = !this.isDead;
+
         this.prepareSaves();
     }
 
