@@ -179,11 +179,10 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         const { name, uuid } = this.item;
         if (!this.suppressWarnings) {
             const ruleName = game.i18n.localize(`PF2E.RuleElement.${this.key}`);
-            this.actor.synthetics.preparationWarnings.add(
+            console.warn(
                 `PF2e System | ${ruleName} rules element on item ${name} (${uuid}) failed to validate: ${fullMessage}`,
             );
-            const { DataModelValidationFailure } = foundry.data.validation;
-            this.validationFailures.joint ??= new DataModelValidationFailure({
+            this.validationFailures.joint ??= new foundry.data.validation.DataModelValidationFailure({
                 message: fullMessage,
                 unresolved: true,
             });

@@ -48,12 +48,6 @@ interface RuleElementSynthetics {
             | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
-    preparationWarnings: {
-        /** Adds a new preparation warning to be printed when flushed. These warnings are de-duped. */
-        add: (warning: string) => void;
-        /** Prints all preparation warnings, but this printout is debounced to handle prep and off-prep cycles */
-        flush: () => void;
-    };
 }
 
 type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];

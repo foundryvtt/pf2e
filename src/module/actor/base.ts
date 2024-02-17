@@ -670,7 +670,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.rules = [];
         this.spellcasting = null;
 
-        const preparationWarnings: Set<string> = new Set();
         this.synthetics = {
             criticalSpecializations: { standard: [], alternate: [] },
             damageDice: { damage: [] },
@@ -694,22 +693,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             tokenEffectIcons: [],
             tokenOverrides: {},
             weaponPotency: {},
-            preparationWarnings: {
-                add: (warning: string) => preparationWarnings.add(warning),
-                flush: fu.debounce(() => {
-                    for (const warning of preparationWarnings) {
-                        console.warn(warning);
-                    }
-                    preparationWarnings.clear();
-                }, 10), // 10ms also handles separate module executions
-            },
         };
 
         super._initialize(options);
-
-        if (game._documentsReady) {
-            this.synthetics.preparationWarnings.flush();
-        }
     }
 
     /**
@@ -1940,13 +1926,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             game.pf2e.effectTracker.unregister(effect);
         }
         super._onDelete(options, userId);
-    }
-
-    protected override _onEmbeddedDocumentChange(): void {
-        super._onEmbeddedDocumentChange();
-
-        // Send any accrued warnings to the console
-        this.synthetics.preparationWarnings.flush();
     }
 }
 
