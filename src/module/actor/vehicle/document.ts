@@ -29,6 +29,11 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         return this.system.attributes.hardness;
     }
 
+    /** Whether the creature emits sound: overridable by AE-like */
+    override get emitsSound(): boolean {
+        return this.system.attributes.emitsSound;
+    }
+
     getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {
         return {
             width: Math.max(Math.round(dimensions.width / 5), 1),
@@ -101,6 +106,9 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         });
         this.armorClass = armorStatistic.dc;
         this.system.attributes.ac = armorStatistic.getTraceData();
+
+        // Set whether this vehicle emits sound
+        attributes.emitsSound = !this.isDead;
 
         this.prepareSaves();
     }
