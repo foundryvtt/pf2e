@@ -471,6 +471,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // If the selection was a UUID, the roll option had its suffix appended at item creation
         const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
         this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
+        this.parent.rollOptions.add(`${this.rollOption}${suffix}`);
     }
 
     /**  Change the name of the parent item after a selection is made */

@@ -38,6 +38,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
+    /** Additional item roll options set by rule elements */
+    declare rollOptions: Set<string>;
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
     }
@@ -154,6 +157,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:id:${this.id}`,
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
+            ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
@@ -233,6 +237,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     protected override _initialize(options?: Record<string, unknown>): void {
         this.initialized = false;
         this.rules = [];
+        this.rollOptions = new Set();
+
         super._initialize(options);
     }
 
