@@ -36,7 +36,7 @@ import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractEphemeralEffects, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
+import { extractEphemeralEffects, extractNotes, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
@@ -1208,6 +1208,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         shieldBlockRequest = false,
         breakdown = [],
         notes = [],
+        outcome = null,
     }: ApplyDamageParams): Promise<this> {
         const hitPoints = this.hitPoints;
         if (!hitPoints) return this;
@@ -1221,6 +1222,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   : applyIWR(this, damage, rollOptions);
 
         const finalDamage = result.finalDamage;
+
+        // Extract notes based on whether it is healing or damage
+        const domain = finalDamage < 0 ? "healing-received" : "damage-received";
+        const hasDamageOrHealing = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
+        const extractedNotes = hasDamageOrHealing
+            ? extractNotes(this.synthetics.rollNotes, [domain]).filter(
+                  (n) =>
+                      (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
+                      n.predicate.test(rollOptions),
+              )
+            : [];
+        notes.push(...extractedNotes);
 
         // Calculate damage to hit points and shield
         const localize = localizer("PF2E.Actor.ApplyDamage");
