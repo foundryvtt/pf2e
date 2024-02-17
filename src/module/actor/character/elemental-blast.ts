@@ -428,7 +428,8 @@ class ElementalBlast {
                 test: context.options,
                 resolvables: { blast: item },
             }),
-            dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
+            dice: extractDamageDice(context.self.actor.synthetics.damageDice, {
+                selectors: domains,
                 test: context.options,
                 resolvables: { blast: item, target: context.target?.actor ?? null },
             }),
