@@ -34,7 +34,23 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:mindshifted"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "parent:origin:item:tag:mindshifted"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "slug": "mindshift"
             }
         ],
         "start": {
