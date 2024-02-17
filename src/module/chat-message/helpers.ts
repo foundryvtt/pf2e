@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { applyStackingRules } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
-import { extractDamageDice, extractEphemeralEffects, extractModifiers, extractNotes } from "@module/rules/helpers.ts";
+import { extractDamageDice, extractEphemeralEffects, extractModifiers } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     ErrorPF2e,
@@ -176,15 +176,6 @@ async function applyDamageFromMessage({
             breakdown.push(...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`));
         }
 
-        const hasDamageOrHealing = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
-        const notes = hasDamageOrHealing
-            ? extractNotes(contextClone.synthetics.rollNotes, [domain]).filter(
-                  (n) =>
-                      (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                      n.predicate.test(applicationRollOptions),
-              )
-            : [];
-
         await contextClone.applyDamage({
             damage,
             token,
@@ -193,7 +184,7 @@ async function applyDamageFromMessage({
             rollOptions: applicationRollOptions,
             shieldBlockRequest,
             breakdown,
-            notes,
+            outcome,
         });
     }
     toggleOffShieldBlock(message.id);
