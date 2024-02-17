@@ -33,8 +33,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
         // Get all potential masters of the familiar (always include current master regardless of User permissions)
         const masters = game.actors.filter(
-            (a): a is CharacterPF2e<null> =>
-                a.type === "character" && (a.testUserPermission(game.user, "OWNER") || this.actor.master?.id === a.id),
+            (a): a is CharacterPF2e<null> => a.type === "character" && (a.isOwner || a.id === familiar.master?.id),
         );
 
         // list of abilities that can be selected as spellcasting ability
