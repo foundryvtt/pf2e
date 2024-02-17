@@ -157,7 +157,6 @@ class WeaponDamagePF2e {
                 label,
                 modifier: splashDamage,
                 damageCategory: "splash",
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, slug),
             });
             modifiers.push(modifier);
         }
@@ -171,11 +170,6 @@ class WeaponDamagePF2e {
                         slug: "kickback",
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: 1,
-                        adjustments: extractModifierAdjustments(
-                            actor.synthetics.modifierAdjustments,
-                            domains,
-                            "kickback",
-                        ),
                     }),
                 );
             }
@@ -195,6 +189,7 @@ class WeaponDamagePF2e {
                 modifiers.push(
                     new ModifierPF2e({
                         label: "PF2E.WeaponBonusDamageLabel",
+                        slug: "bonus",
                         modifier: bonusDamage,
                     }),
                 );
@@ -304,7 +299,6 @@ class WeaponDamagePF2e {
                 slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "backstabber"),
             });
             modifiers.push(modifier);
         }
@@ -334,7 +328,6 @@ class WeaponDamagePF2e {
                     selector: `${weapon.id}-damage`,
                     slug,
                     label: traitLabels[slug],
-                    damageType: baseDamage.damageType,
                     diceNumber,
                     dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? baseDamage.die) as DamageDieSize,
                     critical: true,
@@ -350,7 +343,6 @@ class WeaponDamagePF2e {
                     selector: `${weapon.id}-damage`,
                     slug: trait,
                     label: traitLabels[trait],
-                    damageType: baseDamage.damageType,
                     diceNumber: 1,
                     dieSize,
                     critical: true,
@@ -441,9 +433,17 @@ class WeaponDamagePF2e {
 
         const base = R.compact([baseUncategorized, basePersistent]);
 
+        const adjustmentsRecord = actor.synthetics.modifierAdjustments;
+        const alterationsRecord = actor.synthetics.damageAlterations;
+        for (const modifier of modifiers) {
+            modifier.domains = [...domains];
+            modifier.adjustments = extractModifierAdjustments(adjustmentsRecord, domains, modifier.slug);
+            modifier.alterations = extractDamageAlterations(alterationsRecord, domains, modifier.slug);
+        }
+
         // Collect damage alterations for non-synthetic damage
         for (const dice of damageDice) {
-            dice.alterations = extractDamageAlterations(actor.synthetics.damageAlterations, domains, dice.slug);
+            dice.alterations = extractDamageAlterations(alterationsRecord, domains, dice.slug);
         }
 
         // Synthetics
