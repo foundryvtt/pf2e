@@ -126,7 +126,7 @@ export class Migration812RestructureIWR extends MigrationBase {
 
         const adjustStrikeREs = source.system.rules.filter(
             (r): r is { key: string; property: string; value: string } =>
-                r.key === "AdjustStrike" && typeof r.value === "string",
+                r.key === "AdjustStrike" && "value" in r && typeof r.value === "string",
         );
         for (const rule of adjustStrikeREs) {
             rule.value =

@@ -147,7 +147,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         }
     }
 
-    #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
+    #isValidOverride(override: JSONValue): override is DamageDiceOverride | undefined {
         if (override === undefined) return true;
 
         return (
@@ -164,7 +164,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         );
     }
 
-    #resolvedBracketsIsValid(value: unknown): value is ResolvedBrackets {
+    #resolvedBracketsIsValid(value: JSONValue): value is ResolvedBrackets {
         if (!isObject<ResolvedBrackets>(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
         const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
@@ -181,16 +181,17 @@ interface ResolvedBrackets {
 }
 
 interface DamageDiceSource extends RuleElementSource {
-    selector?: unknown;
-    name?: unknown;
-    diceNumber?: unknown;
-    dieSize?: unknown;
-    override?: unknown;
-    damageType?: unknown;
-    critical?: unknown;
-    category?: unknown;
-    damageCategory?: unknown;
-    hideIfDisabled?: unknown;
+    selector?: JSONValue;
+    name?: JSONValue;
+    diceNumber?: JSONValue;
+    dieSize?: JSONValue;
+    override?: JSONValue;
+    value?: JSONValue;
+    damageType?: JSONValue;
+    critical?: JSONValue;
+    category?: JSONValue;
+    damageCategory?: JSONValue;
+    hideIfDisabled?: JSONValue;
 }
 
 interface DamageDiceRuleElement

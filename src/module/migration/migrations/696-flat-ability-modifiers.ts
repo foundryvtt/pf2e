@@ -1,7 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { setHasElement, sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -16,7 +16,7 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
     );
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: MaybeFlatAbilityRule[] = itemSource.system.rules;
+        const rules: FlatModifierSource[] = itemSource.system.rules;
         for (const rule of rules) {
             if (
                 typeof rule.key === "string" &&
@@ -46,10 +46,4 @@ export class Migration696FlatAbilityModifiers extends MigrationBase {
             });
         }
     }
-}
-
-interface MaybeFlatAbilityRule extends RuleElementSource {
-    selector?: string;
-    type?: string;
-    ability?: AttributeString;
 }
