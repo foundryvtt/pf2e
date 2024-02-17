@@ -1,0 +1,240 @@
+{
+    "_id": "X11Y3T1IzmtNqGMV",
+    "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+    "name": "Air",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<table class=\"pf2-table\">\n<thead>\n<tr>\n<th style=\"text-align:left\">Air Gate Junction</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> Push the target up to 10 feet.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> air, electricity</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Before or after the other effects of the impulse, you can either Stride up to half your Speed or Step. If you have a fly Speed, you can Fly up to half your fly Speed instead.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> You and any ally that starts its turn in the aura gets a +10-foot status bonus to land Speed until the end of that turn, and to fly Speed if applicable</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Stealth, @UUID[Compendium.pf2e.feats-srd.Item.Experienced Smuggler]</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "lte": [
+                                "item:level",
+                                "parent:level"
+                            ]
+                        },
+                        "item:trait:impulse",
+                        "item:trait:air"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        "item:trait:air"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:air"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:air"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "kinetic-gate:air"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elements",
+                "value": {
+                    "label": "PF2E.TraitAir",
+                    "value": "air"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateTwo",
+                "predicate": [
+                    "kinetic-gate:second-element:air"
+                ],
+                "value": "air"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateThree",
+                "predicate": [
+                    "kinetic-gate:first-threshold:fork:air"
+                ],
+                "value": "air"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateFour",
+                "predicate": [
+                    "kinetic-gate:second-threshold:fork:air"
+                ],
+                "value": "air"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateFive",
+                "predicate": [
+                    "kinetic-gate:third-threshold:fork:air"
+                ],
+                "value": "air"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateSix",
+                "predicate": [
+                    "kinetic-gate:fourth-threshold:fork:air"
+                ],
+                "value": "air"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:air:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ste.rank",
+                "predicate": [
+                    "junction:air:skill"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:air:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17),3, ternary(gte(@actor.level,10),2,1))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:air:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "air",
+                    "electricity"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:air:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "air",
+                    "electricity"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:air:critical",
+                    "item:trait:air"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Air",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "impulse",
+                    "junction:air:impulse",
+                    "air"
+                ],
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "kineticist-kinetic-gate"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

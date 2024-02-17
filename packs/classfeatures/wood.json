@@ -1,0 +1,223 @@
+{
+    "_id": "8X8db58vKx21L0Dr",
+    "img": "icons/magic/nature/root-vine-barrier-wall-brown.webp",
+    "name": "Wood",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<table class=\"pf2e\">\n<tbody>\n<tr>\n<th style=\"text-align:left\">Wood Gate Junction</th>\n</tr>\n</tbody>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> If the target of the critical hit is adjacent to a surface, roots entangle it. The target is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and must spend an Interact action to attempt a @Check[type:athletics|dc:10] check to pull itself free. The target doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> poison, wood</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> You gain temporary Hit Points equal to your level that last until the start of your next turn.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Life-giving blossoms spring up around you. Any ally that begins its turn in the aura gains 1 temporary Hit Point that lasts until the start of its next turn. This increases to 2 temporary Hit Points if you're 10th level or higher and to 3 temporary Hit Points if you're 15th level or higher.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Survival, @UUID[Compendium.pf2e.feats-srd.Item.Terrain Expertise]{Terrain Expertise (forest)}</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        {
+                            "lte": [
+                                "item:level",
+                                "parent:level"
+                            ]
+                        },
+                        "item:trait:impulse",
+                        "item:trait:wood"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:rarity:common",
+                        "item:level:1",
+                        "item:trait:impulse",
+                        "item:trait:wood"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:wood"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:wood"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "kinetic-gate:wood"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elements",
+                "value": {
+                    "label": "PF2E.Traitwood",
+                    "value": "wood"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateTwo",
+                "predicate": [
+                    "kinetic-gate:second-element:wood"
+                ],
+                "value": "wood"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateThree",
+                "predicate": [
+                    "kinetic-gate:first-threshold:fork:wood"
+                ],
+                "value": "wood"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateFour",
+                "predicate": [
+                    "kinetic-gate:second-threshold:fork:wood"
+                ],
+                "value": "wood"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateFive",
+                "predicate": [
+                    "kinetic-gate:third-threshold:fork:wood"
+                ],
+                "value": "wood"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gateSix",
+                "predicate": [
+                    "kinetic-gate:fourth-threshold:fork:wood"
+                ],
+                "value": "wood"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:wood:skill"
+                ],
+                "preselectChoices": {
+                    "terrain": "forest"
+                },
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Terrain Expertise"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "predicate": [
+                    "junction:wood:skill"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:wood:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "survival",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:wood:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "poison",
+                    "wood"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:wood:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "poison",
+                    "wood"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:wood:critical",
+                    "item:trait:wood"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Wood",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "kineticist-kinetic-gate"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}
