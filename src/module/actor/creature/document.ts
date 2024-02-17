@@ -725,7 +725,9 @@ abstract class CreaturePF2e<
                 },
                 breakdown: {
                     get(): string {
-                        return [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: speed.label })} ${speed.value}`]
+                        return [
+                            `${game.i18n.format("PF2E.Actor.Speed.BaseLabel", { type: speed.label })} ${speed.value}`,
+                        ]
                             .concat(
                                 stat.modifiers
                                     .filter((m) => m.enabled)
