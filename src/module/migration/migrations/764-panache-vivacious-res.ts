@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Remove rule elements from Panache class feature, add slugs to Vivacious Speed REs */
@@ -88,9 +88,4 @@ export class Migration764PanacheVivaciousREs extends MigrationBase {
             },
         ];
     }
-}
-
-interface FlatModifierSource extends RuleElementSource {
-    selector?: string;
-    type?: string;
 }

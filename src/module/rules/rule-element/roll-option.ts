@@ -1,5 +1,6 @@
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, isObject, sluggify } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
+import * as R from "remeda";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
@@ -301,7 +302,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (
             newSuboption &&
             Array.isArray(thisSource.suboptions) &&
-            thisSource.suboptions.every((o): o is Record<string, unknown> => isObject(o))
+            thisSource.suboptions.every((o): o is Record<string, JSONValue> => R.isPlainObject(o))
         ) {
             for (const suboption of thisSource.suboptions) {
                 suboption.selected = suboption.value === newSuboption;
@@ -406,14 +407,15 @@ type SuboptionData = {
 };
 
 interface RollOptionSource extends RuleElementSource {
-    domain?: unknown;
-    option?: unknown;
-    toggleable?: unknown;
-    suboptions?: unknown;
-    disabledIf?: unknown;
-    disabledValue?: unknown;
-    count?: unknown;
-    removeAfterRoll?: unknown;
+    domain?: JSONValue;
+    option?: JSONValue;
+    toggleable?: JSONValue;
+    suboptions?: JSONValue;
+    value?: JSONValue;
+    disabledIf?: JSONValue;
+    disabledValue?: JSONValue;
+    count?: JSONValue;
+    removeAfterRoll?: JSONValue;
 }
 
 export { RollOptionRuleElement };

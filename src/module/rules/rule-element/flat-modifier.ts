@@ -230,16 +230,17 @@ type FlatModifierSchema = RuleElementSchema & {
 };
 
 interface FlatModifierSource extends RuleElementSource {
-    selector?: unknown;
-    min?: unknown;
-    max?: unknown;
-    type?: unknown;
-    ability?: unknown;
-    force?: unknown;
-    damageType?: unknown;
-    damageCategory?: unknown;
-    critical?: unknown;
-    hideIfDisabled?: unknown;
+    selector?: JSONValue;
+    min?: JSONValue;
+    max?: JSONValue;
+    type?: JSONValue;
+    value?: JSONValue;
+    ability?: JSONValue;
+    force?: JSONValue;
+    damageType?: JSONValue;
+    damageCategory?: JSONValue;
+    critical?: JSONValue;
+    hideIfDisabled?: JSONValue;
 }
 
 export { FlatModifierRuleElement, type FlatModifierSource };

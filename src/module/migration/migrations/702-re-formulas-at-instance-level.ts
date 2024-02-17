@@ -25,7 +25,7 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: (RuleElementSource & { text?: string })[] = itemSource.system.rules;
+        const rules: (RuleElementSource & { value?: JSONValue; text?: string })[] = itemSource.system.rules;
         for (const rule of rules) {
             try {
                 if (typeof rule.value === "string") {
