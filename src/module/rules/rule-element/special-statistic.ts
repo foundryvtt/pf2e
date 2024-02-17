@@ -87,11 +87,11 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
         const checkType = this.type === "check" ? "check" : "attack-roll";
         const modCheckDC =
             this.baseModifier && actor.type === "npc"
-                ? R.mapValues(this.baseModifier, (value) => {
-                      const [slug, label] = ["base", "PF2E.ModifierTitle"];
-                      return typeof value === "number"
-                          ? [new ModifierPF2e({ slug, label, type: "untyped", modifier: value })]
-                          : [];
+                ? R.mapValues(this.baseModifier, (value, key) => {
+                      const slug = typeof this.baseModifier?.mod === "number" && key !== "mod" ? `base-${key}` : "base";
+                      const label = "PF2E.ModifierTitle";
+                      const modifier = typeof value === "number" && key === "dc" ? value - 10 : value;
+                      return typeof modifier === "number" ? [new ModifierPF2e({ slug, label, modifier })] : [];
                   })
                 : { mod: [], check: [], dc: [] };
 
