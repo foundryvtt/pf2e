@@ -1,6 +1,5 @@
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import * as R from "remeda";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RollOptionToggle } from "../synthetics.ts";
 import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
@@ -26,8 +25,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         // If no suboption has been selected yet, set the first as selected
         const firstSuboption = this.suboptions.at(0);
-        if (firstSuboption && this.suboptions.every((s) => !s.selected)) {
-            firstSuboption.selected = true;
+        if (firstSuboption && !this.selection) {
+            this.selection = firstSuboption.value;
         }
     }
 
@@ -68,7 +67,6 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                         initial: undefined,
                     }),
                     predicate: new PredicateField(),
-                    selected: new fields.BooleanField(),
                 }),
                 {
                     required: false,
@@ -84,6 +82,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 validate: (v) => ["boolean", "string"].includes(typeof v),
                 validationError: "must be a boolean, string, or otherwise omitted",
             }),
+            selection: new fields.StringField({ required: false, blank: false, nullable: false, initial: undefined }),
             toggleable: new DataUnionField(
                 [
                     new StrictStringField<"totm">({
@@ -165,12 +164,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             .replace(/-+/g, "-")
             .trim();
 
-        if (appendSuboption) {
-            const selectedSuboption = this.suboptions.find((o) => o.selected);
-            return selectedSuboption ? `${baseOption}:${selectedSuboption.value}` : baseOption;
-        } else {
-            return baseOption;
-        }
+        return appendSuboption && this.selection ? `${baseOption}:${this.selection}` : baseOption;
     }
 
     #setOptionAndFlag(): void {
@@ -197,12 +191,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (this.toggleable) {
             const suboptions = this.suboptions.filter((s) => s.predicate.test(optionSet));
-            if (suboptions.length > 0 && !suboptions.some((s) => s.selected)) {
+            if (suboptions.length > 0 && (!this.selection || !suboptions.some((s) => s.value === this.selection))) {
                 // If predicate testing eliminated the selected suboption, select the first and deselect the rest.
-                suboptions[0].selected = true;
-                for (const otherSuboption of this.suboptions) {
-                    if (otherSuboption !== suboptions[0]) otherSuboption.selected = false;
-                }
+                this.selection = suboptions[0].value;
             } else if (this.suboptions.length > 0 && suboptions.length === 0) {
                 // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
                 return;
@@ -214,7 +205,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 placement: this.placement ?? "actions",
                 domain: this.domain,
                 option: baseOption,
-                suboptions,
+                suboptions: suboptions.map((s) => ({ ...s, selected: s.value === this.selection })),
                 alwaysActive: !!this.alwaysActive,
                 checked: false,
                 enabled: true,
@@ -255,11 +246,10 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     }
 
     #setFlag(value: boolean): void {
-        const suboption = this.suboptions.find((o) => o.selected) ?? this.suboptions.at(0);
-        if (suboption) {
+        if (this.selection) {
             const flagKey = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
             if (value) {
-                const flagValue = /^\d+$/.test(suboption.value) ? Number(suboption.value) : suboption.value;
+                const flagValue = /^\d+$/.test(this.selection) ? Number(this.selection) : this.selection;
                 this.item.flags.pf2e.rulesSelections[flagKey] = flagValue;
             } else {
                 this.item.flags.pf2e.rulesSelections[flagKey] = null;
@@ -289,7 +279,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
      * Toggle the provided roll option (swapping it from true to false or vice versa).
      * @returns the new value if successful or otherwise `null`
      */
-    async toggle(newValue = !this.resolveValue(), newSuboption: string | null = null): Promise<boolean | null> {
+    async toggle(newValue = !this.resolveValue(), newSelection: string | null = null): Promise<boolean | null> {
         if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
         // Directly update the rule element on the item
@@ -298,16 +288,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             typeof this.sourceIndex === "number" ? rulesSource.at(this.sourceIndex) : null;
         if (!thisSource) return null;
         thisSource.value = newValue;
-
-        if (
-            newSuboption &&
-            Array.isArray(thisSource.suboptions) &&
-            thisSource.suboptions.every((o): o is Record<string, JSONValue> => R.isPlainObject(o))
-        ) {
-            for (const suboption of thisSource.suboptions) {
-                suboption.selected = suboption.value === newSuboption;
-            }
-        }
+        if (newSelection) thisSource.selection = newSelection;
 
         const result = await this.actor.updateEmbeddedDocuments("Item", [
             { _id: this.item.id, "system.rules": rulesSource },
@@ -367,9 +348,9 @@ type RollOptionSchema = RuleElementSchema & {
     /** Suboptions for a toggle, appended to the option string */
     suboptions: ArrayField<
         SchemaField<
-            SuboptionData,
-            SourceFromSchema<SuboptionData>,
-            ModelPropsFromSchema<SuboptionData>,
+            SuboptionSchema,
+            SourceFromSchema<SuboptionSchema>,
+            ModelPropsFromSchema<SuboptionSchema>,
             true,
             false,
             true
@@ -380,6 +361,8 @@ type RollOptionSchema = RuleElementSchema & {
      * `true` unless also `togglable`, in which case to `false`.
      */
     value: ResolvableValueField<false, false, true>;
+    /** A suboption selection */
+    selection: StringField<string, string, false, false, false>;
     /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
     toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
     /** If toggleable, the location to be found in an interface */
@@ -399,11 +382,10 @@ type RollOptionSchema = RuleElementSchema & {
     removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
 };
 
-type SuboptionData = {
+type SuboptionSchema = {
     label: StringField<string, string, true, false, false>;
     value: StringField<string, string, true, false, false>;
     predicate: PredicateField;
-    selected: BooleanField<boolean, boolean, true, false, true>;
 };
 
 interface RollOptionSource extends RuleElementSource {
@@ -412,6 +394,7 @@ interface RollOptionSource extends RuleElementSource {
     toggleable?: JSONValue;
     suboptions?: JSONValue;
     value?: JSONValue;
+    selection?: JSONValue;
     disabledIf?: JSONValue;
     disabledValue?: JSONValue;
     count?: JSONValue;
