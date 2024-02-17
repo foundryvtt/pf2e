@@ -1,5 +1,5 @@
 import type { DamageType } from "@system/damage/types.ts";
-import { DAMAGE_DIE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
+import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
 import { StrictArrayField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -70,7 +70,7 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
         const isValid = {
             "damage-type": typeof resolved === "string" && damageTypes.has(resolved),
             "dice-faces": typeof resolved === "number" && Number.isInteger(resolved) && resolved >= 0 && resolved < 100,
-            "dice-number": tupleHasValue(DAMAGE_DIE_FACES, resolved),
+            "dice-number": tupleHasValue(DAMAGE_DICE_FACES, resolved),
         };
 
         if (!isValid[this.property]) {
@@ -114,4 +114,5 @@ type DamageAlterationSchema = RuleElementSchema & {
 
 type DamageAlterationValue = DamageType | number;
 
-export { DamageAlterationRuleElement, type DamageAlterationValue };
+export { DamageAlterationRuleElement };
+export type { DamageAlterationProperty, DamageAlterationValue };
