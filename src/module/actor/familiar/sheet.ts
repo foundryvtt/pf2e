@@ -30,9 +30,11 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
         const sheetData = await super.getData(options);
         const familiar = this.actor;
-        // Get all potential masters of the familiar
+
+        // Get all potential masters of the familiar (always include current master regardless of User permissions)
         const masters = game.actors.filter(
-            (a): a is CharacterPF2e<null> => a.type === "character" && a.testUserPermission(game.user, "OWNER"),
+            (a): a is CharacterPF2e<null> =>
+                a.type === "character" && (a.testUserPermission(game.user, "OWNER") || this.actor.master?.id === a.id),
         );
 
         // list of abilities that can be selected as spellcasting ability

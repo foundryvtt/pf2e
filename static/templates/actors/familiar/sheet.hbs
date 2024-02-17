@@ -27,13 +27,9 @@
                     <select id="{{document.uuid}}-master" name="system.master.id">
                         {{#select master.id}}
                             <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
-                            {{#if document.limited}}
-                                {{#if master}}<option value="{{master.id}}" selected>{{master.name}}</option>{{/if}}
-                            {{else}}
-                                {{#each masters as |eligible idx|}}
-                                    <option value="{{eligible.id}}">{{eligible.name}}</option>
-                                {{/each}}
-                            {{/if}}
+                            {{#each masters as |eligible idx|}}
+                                <option value="{{eligible.id}}">{{eligible.name}}</option>
+                            {{/each}}
                         {{/select}}
                     </select>
                 </div>
