@@ -3275,7 +3275,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> 3 times per day</p>\n<hr />\n<p><strong>Effect</strong> If Grabble's next action is to cast a cantrip or a spell that is 6th level or lower and deals acid, cold, electricity, or fire damage, the spell deals poison damage rather than its normal damage type and gains the poison trait.</p>"
+                    "value": "<p><strong>Frequency</strong> 3 times per day</p>\n<hr />\n<p><strong>Effect</strong> If Grabble's next action is to cast a cantrip or a spell that is 6th rank or lower and deals acid, cold, electricity, or fire damage, the spell deals poison damage rather than its normal damage type and gains the poison trait.</p>"
                 },
                 "frequency": {
                     "max": 3,
@@ -3287,7 +3287,56 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "poison-conversion",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "poison"
+                        },
+                        "predicate": [
+                            "poison-conversion",
+                            {
+                                "or": [
+                                    "item:trait:cantrip",
+                                    {
+                                        "lte": [
+                                            "item:rank",
+                                            6
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "spell-damage"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "poison-conversion",
+                            {
+                                "or": [
+                                    "item:trait:cantrip",
+                                    {
+                                        "lte": [
+                                            "item:rank",
+                                            6
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "poison"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
