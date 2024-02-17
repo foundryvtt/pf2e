@@ -1,6 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Remove RuleElement implementation of armor speed penalties  */
@@ -16,7 +17,8 @@ export class Migration668ArmorSpeedPenalty extends MigrationBase {
                     typeof r.key === "string" &&
                     r.key.endsWith("FlatModifier") &&
                     r.selector === "speed" &&
-                    typeof r.value === "object" &&
+                    "value" in r &&
+                    R.isPlainObject(typeof r.value) &&
                     JSON.stringify(r.predicate ?? null) === JSON.stringify({ not: ["unburdened-iron"] }),
             );
             if (rule) rules.splice(rules.indexOf(rule), 1);

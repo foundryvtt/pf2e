@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ModifierType } from "@actor/modifiers.ts";
+import type { ModifierType } from "@actor/modifiers.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Convert experimental FlatModifier `ActiveEffect`s to Rule Elements */
@@ -63,9 +63,4 @@ interface ActiveEffectModifier {
     key: string;
     type: ModifierType;
     modifier: string | number;
-}
-
-interface FlatModifierSource extends RuleElementSource {
-    selector: string;
-    type?: ModifierType;
 }
