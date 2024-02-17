@@ -37,7 +37,7 @@ const DAMAGE_CATEGORIES = new Set([
 
 /** The standard damage die sizes (number of faces on a die) */
 const DAMAGE_DIE_SIZES = ["d4", "d6", "d8", "d10", "d12"] as const;
-const DAMAGE_DIE_FACES = [4, 6, 8, 10, 12] as const;
+const DAMAGE_DICE_FACES = [4, 6, 8, 10, 12] as const;
 
 const DAMAGE_TYPES = new Set([
     ...PHYSICAL_DAMAGE_TYPES,
@@ -119,7 +119,7 @@ export {
     CRITICAL_INCLUSION,
     DAMAGE_CATEGORIES,
     DAMAGE_CATEGORIES_UNIQUE,
-    DAMAGE_DIE_FACES,
+    DAMAGE_DICE_FACES,
     DAMAGE_DIE_SIZES,
     DAMAGE_TYPES,
     DAMAGE_TYPE_ICONS,

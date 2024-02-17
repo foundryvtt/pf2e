@@ -95,7 +95,7 @@ interface DeferredValueParams {
 }
 
 interface TestableDeferredValueParams extends DeferredValueParams {
-    test: Set<string>;
+    test: string[] | Set<string>;
 }
 
 interface DeferredDamageDiceOptions extends TestableDeferredValueParams {
@@ -710,13 +710,14 @@ class DamageDicePF2e {
 
     /** Get roll options for set of dice using a "dice:" prefix. */
     getRollOptions(): string[] {
+        const kind = this.selector.endsWith("healing") ? "healing" : "damage";
         return R.compact([
             `dice:slug:${this.slug}`,
             `dice:number:${this.diceNumber}`,
             `dice:faces:${this.dieSize}`,
-            `dice:kind:${this.selector.endsWith("damage") ? "damage" : "healing"}`,
-            this.category ? `dice:category:this.category` : null,
-            this.damageType ? `dice:type:${this.damageType}` : null,
+            `dice:${kind}`,
+            this.category ? `dice:${kind}:category:${this.category}` : null,
+            this.damageType ? `dice:${kind}:type:${this.damageType}` : null,
         ]);
     }
 
