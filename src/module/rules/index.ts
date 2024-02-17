@@ -14,6 +14,7 @@ import { CraftingEntryRuleElement } from "./rule-element/crafting/entry.ts";
 import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula.ts";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size.ts";
 import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
+import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice.ts";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap.ts";
 import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect.ts";
@@ -64,6 +65,7 @@ class RuleElements {
         CraftingFormula: CraftingFormulaRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
+        DamageAlteration: DamageAlterationRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
         EphemeralEffect: EphemeralEffectRuleElement,

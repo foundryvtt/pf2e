@@ -141,7 +141,8 @@ async function applyDamageFromMessage({
                 return {};
             })();
 
-            const damageDice = extractDamageDice(contextClone.synthetics.damageDice, [domain], {
+            const damageDice = extractDamageDice(contextClone.synthetics.damageDice, {
+                selectors: [domain],
                 resolvables,
                 test: applicationRollOptions,
             }).filter(

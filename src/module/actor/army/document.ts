@@ -303,7 +303,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             const { formula, breakdown } = createDamageFormula({
                 base: [{ modifier: outcome === "success" ? 1 : 2, damageType: "untyped", category: null }],
                 modifiers: extractModifiers(context.self.actor.synthetics, domains, { test: context.options }),
-                dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
+                dice: extractDamageDice(context.self.actor.synthetics.damageDice, {
+                    selectors: domains,
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },
                 }),

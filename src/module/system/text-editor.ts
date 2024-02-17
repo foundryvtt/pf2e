@@ -960,13 +960,13 @@ async function augmentInlineDamageRoll(
         const { modifiers, dice } = (() => {
             if (!actor) return { modifiers: [], dice: [] };
 
-            const extractOptions = { test: rollOptions };
+            const extractOptions = { selectors: domains, test: rollOptions };
             const fromTraits = item?.isOfType("action", "feat")
                 ? item.system.traits.toggles.getDamageModifications()
                 : { modifiers: [], dice: [] };
             return processDamageCategoryStacking(base, {
                 modifiers: [fromTraits.modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
-                dice: [fromTraits.dice, extractDamageDice(actor.synthetics.damageDice, domains, extractOptions)].flat(),
+                dice: [fromTraits.dice, extractDamageDice(actor.synthetics.damageDice, extractOptions)].flat(),
                 test: rollOptions,
             });
         })();
