@@ -88,14 +88,32 @@
                 "mode": "add",
                 "path": "flags.pf2e.kineticist.elements",
                 "value": {
-                    "label": "PF2E.Traitearth",
+                    "label": "PF2E.TraitEarth",
                     "value": "earth"
                 }
+            },
+                        {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "junction:earth:impulse",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:earth"
+                ]
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateTwo",
+                "path": "flags.pf2e.kineticist.gate.One",
+                "predicate": [
+                    "kinetic-gate:first-element:earth"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.Two",
                 "predicate": [
                     "kinetic-gate:second-element:earth"
                 ],
@@ -104,7 +122,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateThree",
+                "path": "flags.pf2e.kineticist.gate.Three",
                 "predicate": [
                     "kinetic-gate:first-threshold:fork:earth"
                 ],
@@ -113,7 +131,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateFour",
+                "path": "flags.pf2e.kineticist.gate.Four",
                 "predicate": [
                     "kinetic-gate:second-threshold:fork:earth"
                 ],
@@ -122,7 +140,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateFive",
+                "path": "flags.pf2e.kineticist.gate.Five",
                 "predicate": [
                     "kinetic-gate:third-threshold:fork:earth"
                 ],
@@ -131,7 +149,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateSix",
+                "path": "flags.pf2e.kineticist.gate.Six",
                 "predicate": [
                     "kinetic-gate:fourth-threshold:fork:earth"
                 ],
