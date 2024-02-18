@@ -127,7 +127,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const { actor } = this;
+        const actor = this.actor;
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
