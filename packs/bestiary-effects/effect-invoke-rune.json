@@ -77,13 +77,18 @@
             },
             {
                 "definition": [
-                    "item:slug:greatsword"
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}",
+                    {
+                        "or": [
+                            "item:slug:greatsword",
+                            "item:slug:rock"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "invoke-rune:rune:destruction",
-                    "invoke-rune:weapon:greatsword"
+                    "invoke-rune:rune:destruction"
                 ],
                 "property": "weapon-traits",
                 "value": "deadly-3d12"
@@ -100,19 +105,6 @@
                 ],
                 "property": "weapon-traits",
                 "value": "deadly-3d8"
-            },
-            {
-                "definition": [
-                    "item:slug:rock"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "invoke-rune:rune:destruction",
-                    "invoke-rune:weapon:rock"
-                ],
-                "property": "weapon-traits",
-                "value": "deadly-3d12"
             },
             {
                 "damageType": "fire",
