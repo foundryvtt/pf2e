@@ -53,12 +53,14 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         slug: string;
         value: ProficiencyValues;
     };
-    slots: Record<SlotKey, SpellSlotData>;
+    slots: SpellcastingEntrySlots;
     autoHeightenLevel: {
         value: OneToTen | null;
     };
     level?: never;
 }
+
+type SpellcastingEntrySlots = Record<SlotKey, SpellSlotData>;
 
 interface SpellCollectionTypeSource {
     value: SpellcastingCategory;
@@ -81,6 +83,7 @@ export type {
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
+    SpellcastingEntrySlots,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
     SpellcastingEntrySystemSource,

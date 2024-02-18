@@ -1,5 +1,5 @@
-import { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
-import { htmlQueryAll, signedInteger } from "@util";
+import { DamageDicePF2e, ModifierPF2e, RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import { createHTMLElement, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
 
 class RollInspector extends Application {
@@ -16,11 +16,16 @@ class RollInspector extends Application {
         };
     }
 
+    modifiers: RawModifier[];
+    dice: RawDamageDice[];
+
     constructor(
         private message: ChatMessagePF2e,
         options: Partial<ApplicationOptions> = {},
     ) {
         super(options);
+        this.modifiers = this.message.flags.pf2e.modifiers ?? [];
+        this.dice = this.message.flags.pf2e.dice ?? [];
     }
 
     override getData(): ChatRollDetailsData {
@@ -34,7 +39,7 @@ class RollInspector extends Application {
         })();
 
         const modifiers =
-            this.message.flags.pf2e.modifiers?.map((mod) => ({
+            this.modifiers.map((mod) => ({
                 ...mod,
                 value: signedInteger(mod.modifier),
                 critical:
@@ -44,7 +49,7 @@ class RollInspector extends Application {
             })) ?? [];
 
         const dice =
-            this.message.flags.pf2e.dice?.map((dice) => ({
+            this.dice.map((dice) => ({
                 ...dice,
                 value: `+${dice.diceNumber}${dice.dieSize}`,
                 critical:
@@ -60,6 +65,41 @@ class RollInspector extends Application {
             dice,
             rollOptions,
         };
+    }
+
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        const html = $html[0];
+
+        // Loops over all modifiers and dice
+        for (const element of htmlQueryAll(html, ".modifier")) {
+            const object = (() => {
+                const idx = Number(element.dataset.idx);
+                if (element.dataset.type === "modifier") {
+                    const raw = this.modifiers.at(idx);
+                    return raw ? new ModifierPF2e(raw) : null;
+                } else {
+                    const raw = this.dice.at(idx);
+                    return raw ? new DamageDicePF2e(raw) : null;
+                }
+            })();
+
+            if (!object) continue;
+
+            const rollOptions = object.getRollOptions();
+
+            htmlQuery(element, "h4 .fa-solid")?.addEventListener("pointerenter", () => {
+                const content = createHTMLElement("ul", {
+                    children: rollOptions.map((o) => createHTMLElement("li", { innerHTML: o })),
+                });
+                game.tooltip.dismissLockedTooltips();
+                game.tooltip.activate(element, {
+                    content,
+                    locked: true,
+                    direction: "RIGHT",
+                    cssClass: "pf2e roll-options",
+                });
+            });
+        }
     }
 
     /** Roll options search */

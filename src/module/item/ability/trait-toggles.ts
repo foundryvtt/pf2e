@@ -1,5 +1,5 @@
-import { DamageDicePF2e, type ModifierPF2e } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, FeatPF2e } from "@item";
+import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import * as R from "remeda";
 
 /** A helper class to handle toggleable ability traits */
@@ -27,16 +27,17 @@ class AbilityTraitToggles {
         return this.item.system.traits.value.includes("mindshift") ? ["mindshift"] : [];
     }
 
-    getDamageModifications(): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
-        if (!this.mindshift?.selected) {
-            return { modifiers: [], dice: [] };
-        }
-
-        const selector = `${this.item.id}-damage`;
-        const damageType = "mental";
-        const override = new DamageDicePF2e({ selector, slug: "mindshift", override: { damageType } });
-
-        return { modifiers: [], dice: [override] };
+    getDamageAlterations(): DamageAlteration[] {
+        return this.mindshift?.selected
+            ? [
+                  new DamageAlteration({
+                      mode: "override",
+                      property: "damage-type",
+                      slug: "mindshift",
+                      value: "mental",
+                  }),
+              ]
+            : [];
     }
 
     getSheetData(): TraitToggleViewData[] {

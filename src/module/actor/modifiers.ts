@@ -2,9 +2,11 @@ import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ProficiencyValues } from "@item/base/data/index.ts";
 import { PROFICIENCY_VALUES, PROF_MAX_VALUE } from "@module/data.ts";
+import type { ItemPF2e } from "@item";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
+import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
@@ -94,7 +96,11 @@ interface DeferredValueParams {
 }
 
 interface TestableDeferredValueParams extends DeferredValueParams {
-    test: Set<string>;
+    test: string[] | Set<string>;
+}
+
+interface DeferredDamageDiceOptions extends TestableDeferredValueParams {
+    selectors: string[];
 }
 
 type DeferredValue<T> = (options?: DeferredValueParams) => T | null;
@@ -113,6 +119,7 @@ class ModifierPF2e implements RawModifier {
     type: ModifierType;
     ability: AttributeString | null;
     adjustments: ModifierAdjustment[];
+    alterations: DamageAlteration[];
     force: boolean;
     enabled: boolean;
     ignored: boolean;
@@ -168,6 +175,7 @@ class ModifierPF2e implements RawModifier {
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
         this.adjustments = fu.deepClone(params.adjustments ?? []);
+        this.alterations = [params.alterations ?? []].flat();
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
@@ -215,6 +223,17 @@ class ModifierPF2e implements RawModifier {
             : signedInteger(this.modifier);
     }
 
+    /**
+     * Apply damage alterations: must be called externally by client code that knows this is a damage modifier.
+     * @param options.item An item (typically a weapon or spell) producing damage as part of an action
+     * @param options.test An `Array` or `Set` of roll options for use in predication testing
+     */
+    applyDamageAlterations(options: { item: ItemPF2e<ActorPF2e>; test: string[] | Set<string> }): void {
+        for (const alteration of this.alterations) {
+            alteration.applyTo(this, options);
+        }
+    }
+
     /** Return a copy of this ModifierPF2e instance */
     clone(options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
         const clone =
@@ -230,13 +249,20 @@ class ModifierPF2e implements RawModifier {
      * Get roll options for this modifier. The current data structure makes for occasional inability to distinguish
      * bonuses and penalties.
      */
-    getRollOptions(): Set<string> {
+    getRollOptions(): string[] {
         const options = (["slug", "type", "value"] as const).map((p) => `${this.kind}:${p}:${this[p]}`);
         if (this.type === "ability" && this.ability) {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        return new Set(options);
+        if (this.damageCategory) {
+            options.push(`${this.kind}:damage-category:${this.damageCategory}`);
+        }
+        if (this.damageType) {
+            options.push(`${this.kind}:damage-type:${this.damageType}`);
+        }
+
+        return options;
     }
 
     /** Sets the ignored property after testing the predicate */
@@ -247,12 +273,10 @@ class ModifierPF2e implements RawModifier {
     }
 
     toObject(): Required<RawModifier> {
-        return fu.deepClone({
-            ...this,
-            predicate: [...this.predicate],
-            rule: this.rule?.toObject(),
-            item: undefined,
-        });
+        return {
+            ...R.omit(this, ["alterations", "predicate", "rule"]),
+            predicate: this.predicate.toObject(),
+        };
     }
 
     toString(): string {
@@ -263,6 +287,7 @@ class ModifierPF2e implements RawModifier {
 interface ModifierObjectParams extends RawModifier {
     name?: string;
     rule?: RuleElementPF2e | null;
+    alterations?: DamageAlteration[];
 }
 
 type ModifierOrderedParams = [
@@ -639,8 +664,8 @@ class DamageDicePF2e {
     override: DamageDiceOverride | null;
     ignored: boolean;
     enabled: boolean;
-    custom: boolean;
     predicate: PredicatePF2e;
+    alterations: DamageAlteration[];
     hideIfDisabled: boolean;
 
     constructor(params: DamageDiceParameters) {
@@ -661,7 +686,7 @@ class DamageDicePF2e {
         this.damageType = params.damageType ?? null;
         this.category = params.category ?? null;
         this.override = params.override ?? null;
-        this.custom = params.custom ?? false;
+        this.alterations = [params.alterations ?? []].flat();
 
         this.category = tupleHasValue(["persistent", "precision", "splash"], params.category)
             ? params.category
@@ -684,12 +709,40 @@ class DamageDicePF2e {
         this.ignored = !this.enabled;
     }
 
+    /** Get roll options for set of dice using a "dice:" prefix. */
+    getRollOptions(): string[] {
+        const kind = this.selector.endsWith("healing") ? "healing" : "damage";
+        return R.compact([
+            `dice:slug:${this.slug}`,
+            `dice:number:${this.diceNumber}`,
+            `dice:faces:${this.dieSize}`,
+            `dice:${kind}`,
+            this.category ? `dice:${kind}:category:${this.category}` : null,
+            this.damageType ? `dice:${kind}:type:${this.damageType}` : null,
+        ]);
+    }
+
+    /**
+     * Apply damage alterations: must be called externally by client code that knows this is a damage modifier.
+     * @param options.item An item (typically a weapon or spell) producing damage as part of an action
+     * @param options.test An `Array` or `Set` of roll options for use in predication testing
+     */
+    applyAlterations(options: { item: ItemPF2e<ActorPF2e>; test: string[] | Set<string> }): void {
+        for (const alteration of this.alterations) {
+            alteration.applyTo(this, options);
+        }
+    }
+
     clone(): DamageDicePF2e {
         return new DamageDicePF2e(this);
     }
 
     toObject(): RawDamageDice {
-        return fu.deepClone({ ...this, predicate: [...this.predicate] });
+        return {
+            ...R.omit(this, ["alterations", "predicate"]),
+            alterations: [],
+            predicate: this.predicate.toObject(),
+        };
     }
 }
 
@@ -711,6 +764,7 @@ export {
 export type {
     DamageDiceOverride,
     DamageDiceParameters,
+    DeferredDamageDiceOptions,
     DeferredPromise,
     DeferredValue,
     DeferredValueParams,

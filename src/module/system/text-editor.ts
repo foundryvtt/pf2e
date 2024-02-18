@@ -30,7 +30,12 @@ import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
-import { damageDiceIcon, extractBaseDamage, looksLikeDamageRoll } from "./damage/helpers.ts";
+import {
+    applyBaseDamageAlterations,
+    damageDiceIcon,
+    extractBaseDamage,
+    looksLikeDamageRoll,
+} from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
 import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
@@ -948,6 +953,7 @@ async function augmentInlineDamageRoll(
 
         const firstBase = base.at(0);
         if (!firstBase) return null;
+
         // Increase or decrease the first instance of damage by 2 or 4 if elite or weak
         if (actor?.isOfType("npc") && (actor.isElite || actor.isWeak)) {
             const value = rollOptions.has("item:frequency:limited") ? 4 : 2;
@@ -960,16 +966,17 @@ async function augmentInlineDamageRoll(
         const { modifiers, dice } = (() => {
             if (!actor) return { modifiers: [], dice: [] };
 
-            const extractOptions = { test: rollOptions };
-            const fromTraits = item?.isOfType("action", "feat")
-                ? item.system.traits.toggles.getDamageModifications()
-                : { modifiers: [], dice: [] };
+            const extractOptions = { selectors: domains, test: rollOptions };
             return processDamageCategoryStacking(base, {
-                modifiers: [fromTraits.modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
-                dice: [fromTraits.dice, extractDamageDice(actor.synthetics.damageDice, domains, extractOptions)].flat(),
+                modifiers: extractModifiers(actor.synthetics, domains, extractOptions),
+                dice: extractDamageDice(actor.synthetics.damageDice, extractOptions),
                 test: rollOptions,
             });
         })();
+
+        if (actor && item?.actor) {
+            applyBaseDamageAlterations({ actor, item: item as ItemPF2e<ActorPF2e>, base, domains, rollOptions });
+        }
 
         const formulaData: DamageFormulaData = {
             base,

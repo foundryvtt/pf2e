@@ -1,8 +1,9 @@
-import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
+import { DamageDiceOverride, DamageDicePF2e, DeferredDamageDiceOptions } from "@actor/modifiers.ts";
 import { DamageDieSize } from "@system/damage/types.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { extractDamageAlterations } from "../helpers.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
@@ -56,8 +57,9 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
 
         for (const selector of this.resolveInjectedProperties(this.selector)) {
             if (selector === "null") continue;
+            const { actor, parent } = this;
 
-            const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
+            const deferredDice = (options: DeferredDamageDiceOptions): DamageDicePF2e | null => {
                 const label = this.getReducedLabel();
 
                 // If this rule element's predicate would have passed without all fields being resolvable, send out a
@@ -65,10 +67,10 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 const testPassed =
                     this.predicate.length === 0 ||
                     this.resolveInjectedProperties(this.predicate).test([
-                        ...(params.test ?? this.actor.getRollOptions(["damage"])),
-                        ...this.item.getRollOptions("parent"),
+                        ...(options.test ?? actor.getRollOptions(options.selectors)),
+                        ...parent.getRollOptions("parent"),
                     ]);
-                const resolveOptions = { ...params, warn: testPassed };
+                const resolveOptions = { ...options, warn: testPassed };
 
                 const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
                 // Warning may have been suppressed, but return early if validation failed
@@ -118,9 +120,13 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     return null;
                 }
 
+                const slug = this.slug ?? sluggify(parent.name);
+                const alterationsRecord = actor.synthetics.damageAlterations;
+                const alterations = extractDamageAlterations(alterationsRecord, options.selectors, slug);
+
                 return new DamageDicePF2e({
                     selector,
-                    slug: this.slug ?? sluggify(this.item.name),
+                    slug,
                     label,
                     diceNumber,
                     dieSize,
@@ -131,16 +137,17 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     override: fu.deepClone(this.override),
                     enabled: testPassed,
                     hideIfDisabled: this.hideIfDisabled,
+                    alterations,
                     ...resolvedBrackets,
                 });
             };
 
-            const synthetics = (this.actor.synthetics.damageDice[selector] ??= []);
+            const synthetics = (actor.synthetics.damageDice[selector] ??= []);
             synthetics.push(deferredDice);
         }
     }
 
-    #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
+    #isValidOverride(override: JSONValue): override is DamageDiceOverride | undefined {
         if (override === undefined) return true;
 
         return (
@@ -157,7 +164,7 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         );
     }
 
-    #resolvedBracketsIsValid(value: unknown): value is ResolvedBrackets {
+    #resolvedBracketsIsValid(value: JSONValue): value is ResolvedBrackets {
         if (!isObject<ResolvedBrackets>(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
         const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
@@ -174,16 +181,17 @@ interface ResolvedBrackets {
 }
 
 interface DamageDiceSource extends RuleElementSource {
-    selector?: unknown;
-    name?: unknown;
-    diceNumber?: unknown;
-    dieSize?: unknown;
-    override?: unknown;
-    damageType?: unknown;
-    critical?: unknown;
-    category?: unknown;
-    damageCategory?: unknown;
-    hideIfDisabled?: unknown;
+    selector?: JSONValue;
+    name?: JSONValue;
+    diceNumber?: JSONValue;
+    dieSize?: JSONValue;
+    override?: JSONValue;
+    value?: JSONValue;
+    damageType?: JSONValue;
+    critical?: JSONValue;
+    category?: JSONValue;
+    damageCategory?: JSONValue;
+    hideIfDisabled?: JSONValue;
 }
 
 interface DamageDiceRuleElement

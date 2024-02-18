@@ -1,0 +1,255 @@
+<form class="{{cssClass}}" autocomplete="off" spellcheck="false" data-tooltip-class="pf2e">
+    {{!-- HEADER --}}
+    <header>
+        <div class="image-container">
+            <img class="actor-image" src="{{actor.img}}" data-edit="img" />
+            <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
+        </div>
+
+        <div class="header-content">
+            <div class="charname">
+                <input class="charname-value" name="name" type="text" value="{{actor.name}}"
+                    placeholder="{{localize "TYPES.Actor.familiar"}}" spellcheck="false" />
+                <label class="familiar-title">{{localize "TYPES.Actor.familiar"}}</label>
+                {{#if data.master.id}}
+                    <label class="familiar-title"> {{data.details.level.value}}</label>
+                {{/if}}
+            </div>
+            <div class="sub-header">
+                <div class="traits">
+                    {{#each traits as |trait|}}
+                        <span data-trait="{{trait.value}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
+                    {{/each}}
+                    <span>{{localize size}}</span>
+                </div>
+                <div>
+                    <label for="{{document.uuid}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
+                    <select id="{{document.uuid}}-master" name="system.master.id">
+                        {{#select master.id}}
+                            <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
+                            {{#each masters as |eligible|}}
+                                <option value="{{eligible.id}}">{{eligible.name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            <section class="details-section">
+                {{#unless document.limited}}{{> headerDetails}}{{/unless}}
+            </section>
+        </div>
+    </header>
+    <hr>
+    <div class="main-section">
+        <div class="skills-sidebar{{#if document.limited}} skills-sidebar-placeholder{{/if}}">
+            {{#unless document.limited}}{{> skills}}{{/unless}}
+        </div>
+        <div class="main-container">
+            {{#unless document.limited}}{{> details}}{{/unless}}
+
+            {{!-- CONDITIONS --}}
+            {{#if document.itemTypes.condition}}
+                <div class="section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.ConditionsLabel"}}</h4>
+                    </div>
+                    <div class="section-body">
+                        <ol class="effects-list item-list">
+                            {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.conditions.active}}
+                        </ol>
+                    </div>
+                </div>
+            {{/if}}
+            {{!-- EFFECTS --}}
+            {{#if document.itemTypes.effect}}
+                <div class="section-container">
+                    <div class="section-header">
+                        <h4>{{localize "PF2E.EffectsLabel"}}</h4>
+                    </div>
+                    <div class="section-body">
+                        <ol class="effects-list item-list">
+                            {{> "systems/pf2e/templates/actors/partials/effects.hbs" effects=document.itemTypes.effect}}
+                        </ol>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</form>
+
+{{#*inline "headerDetails"}}
+    <div class="hp-section">
+        <div class="label">
+            <i class="fa-solid fa-heart"></i>
+            <h4>{{localize "PF2E.HitPointsHeader"}}</h4>
+        </div>
+        <div class="value">
+            <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
+                name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
+                data-dtype="Number" />
+            <div>/ </div>
+            <div class="total-hp" data-tooltip="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
+            <div class="temp-hp">
+                (+<input name="system.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0" />)
+            </div>
+        </div>
+        <div class="label">
+            <i class="fa-solid fa-heart-broken"></i>
+            <h4>{{localize "PF2E.condition.dying.name"}}</h4>
+        </div>
+        <div class="value dying-section">
+            {{#if data.attributes.dying.value}}
+                <a class="rollable roll-icon" data-action="recovery-check" data-tooltip="PF2E.Check.Specific.Recovery">
+                    <i class="fa-solid fa-dice-d20"></i>
+                </a>
+            {{/if}}
+            <a
+                class="pips"
+                data-action="adjust-condition-value"
+                data-condition="dying"
+                data-tooltip="PF2E.condition.dying.summary"
+            >{{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}</a>
+        </div>
+    </div>
+    <div class="defenses-section">
+        {{#if data.master.id}}
+            <div class="defenses-list">
+                <div class="ac" data-tooltip="{{data.attributes.ac.breakdown}}">
+                    <div class="name">{{localize "PF2E.ArmorClassShortLabel"}}</div>
+                    <div class="value"><i class="fa-solid fa-shield-alt"></i>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</div>
+                </div>
+                {{#each data.saves as |save|}}
+                    <a class="save" data-action="roll-check" data-statistic="{{save.slug}}" data-tooltip="{{save.breakdown}}">
+                        <div class="name">{{localize save.label}}</div>
+                        <div class="value">{{numberFormat save.value decimals=0 sign=true}}</div>
+                    </a>
+                {{/each}}
+            </div>
+        {{/if}}
+    </div>
+{{/inline}}
+
+{{#*inline "skills"}}
+    <div class="section-container">
+        <div class="section-header">
+            <h4>{{localize "PF2E.Familiar.Skills"}}</h4>
+        </div>
+        <div class="section-body">
+            <div class="skills-content">
+                {{#if data.master.id}}
+                    <div class="skills-list">
+                        <a data-action="roll-check" data-statistic="perception" data-tooltip="{{data.perception.breakdown}}">
+                            <div class="mod">{{numberFormat data.perception.totalModifier sign=true}}</div>
+                            <div class="name">{{localize "PF2E.Familiar.Perception"}}</div>
+                        </a>
+                    </div>
+                    <div class="skills-list">
+                        {{#each skills as |skill|}}
+                            <a data-action="roll-check" data-statistic="{{skill.slug}}" data-tooltip="{{skill.breakdown}}">
+                                <div class="mod">{{numberFormat skill.value sign=true}}</div>
+                                <div class="name">{{skill.label}}</div>
+                            </a>
+                        {{/each}}
+                    </div>
+                    <a class="rollable skills-attack" data-action="familiar-attack-roll" data-tooltip="{{data.attack.breakdown}}">
+                        <strong>{{localize "PF2E.Familiar.AttackRoll"}}</strong>
+                        <span>{{numberFormat data.attack.value sign=true}}</span>
+                    </a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+{{/inline}}
+
+{{#*inline "details"}}
+    <div class="familiar-section section-container">
+        <div class="section-header">
+            <h4>{{localize "PF2E.Familiar.Familiar"}}</h4>
+        </div>
+        <div class="section-body">
+            <div class="familiar-content">
+                {{!-- Textual "creature type" --}}
+                <div class="familiar-species">
+                    <div class="detail">
+                        <label for="{{document.uuid}}-creature">{{localize "PF2E.Familiar.CreatureType"}}</label>
+                        <input id="{{document.uuid}}-creature" type="text" name="system.details.creature.value"
+                            value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc." />
+                    </div>
+                </div>
+
+                {{!-- Master Attribute --}}
+                {{#if data.master.id}}
+                    <div class="familiar-modifier">
+                        <div class="detail">
+                            <label for="{{document.uuid}}-attribute">{{localize "PF2E.Familiar.MasterSpellcastingAbility"}}</label>
+                            <select id="{{document.uuid}}-attribute" name="system.master.ability">
+                                {{#select data.master.ability}}
+                                    {{#each attributes as |label slug|}}
+                                        <option value="{{slug}}">{{localize label}}</option>
+                                    {{/each}}
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                {{/if}}
+            </div>
+            {{#if data.master.id}}
+                <div class="familiar-content">
+                    <div class="detail">
+                        <label>{{localize "PF2E.Familiar.TotalNumberFamiliarAbilities"}}</label>
+                        <div>
+                            <h4>{{numberFormat familiarAbilities.value decimals=0}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="familiar-content">
+                    {{!-- Speed --}}
+                    <div class="familiar-senses">
+                        <div class="detail">
+                            <label>{{localize "PF2E.Actor.Speed.Plural"}}</label>
+                            <ol class="tags speeds">
+                                {{#with data.attributes.speed as |landSpeed|}}
+                                    <li class="tag tag_alt" data-tooltip="{{landSpeed.breakdown}}">{{localize landSpeed.label}}
+                                        ({{landSpeed.total}})</li>
+                                {{/with}}
+                                {{#each data.attributes.speed.otherSpeeds as |speed k|}}
+                                    <li class="tag tag_alt {{k}}" data-tooltip="{{speed.breakdown}}">
+                                        {{localize speed.label}} ({{speed.total}})
+                                    </li>
+                                {{/each}}
+                            </ol>
+                        </div>
+                    </div>
+
+                    {{!-- Senses --}}
+                    <div class="familiar-senses">
+                        <div class="detail">
+                            <label>{{localize "PF2E.Senses"}}</label>
+                            <ol class="tags senses">
+                                {{#each data.perception.senses as |sense|}}
+                                    <li class="tag tag_alt {{sense.slug}}">{{localize sense.label}}</li>
+                                {{/each}}
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+    {{!-- ABILITIES --}}
+    <div class="section-container">
+        <div class="section-header">
+            <h4>{{localize "PF2E.Familiar.AbilitiesLabel"}}</h4>
+            <div class="controls">
+                <a data-action="browse-abilities" data-action-category="familiar"><i class="fa-solid fa-search"></i> {{localize "PF2E.BrowseLabel"}}</a>
+            </div>
+        </div>
+        <div class="section-body">
+            <ol class="actions-list item-list">
+                {{#each familiarAbilities.items as |action|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action}}
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+{{/inline}}

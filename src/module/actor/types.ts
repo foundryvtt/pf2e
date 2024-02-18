@@ -199,6 +199,7 @@ interface ApplyDamageParams {
     rollOptions?: Set<string>;
     shieldBlockRequest?: boolean;
     breakdown?: string[];
+    outcome?: DegreeOfSuccessString | null;
     notes?: RollNotePF2e[];
 }
 

@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
+import type { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base.ts";
 
@@ -29,9 +29,4 @@ export class Migration757HillockHalfling extends MigrationBase {
             rules.push(element);
         }
     }
-}
-
-interface AELikeSource extends RuleElementSource {
-    mode: string;
-    path: string;
 }

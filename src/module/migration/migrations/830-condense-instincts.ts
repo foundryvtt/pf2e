@@ -20,6 +20,7 @@ export class Migration830BarbarianRework extends MigrationBase {
 
             if (
                 rule.key === "FlatModifier" &&
+                "value" in rule &&
                 rule.value === "3 * @actor.system.custom.modifiers.barbarian-dedication-count"
             ) {
                 rule.value = "3 * @actor.flags.pf2e.barbarian.archetypeFeatCount";

@@ -7,6 +7,7 @@ import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } fr
 import { WeaponDamage } from "@item/weapon/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
+    extractDamageAlterations,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -58,7 +59,7 @@ class WeaponDamagePF2e {
                     new DamageDicePF2e({
                         slug: "base",
                         label: labelFromCategory[instance.category ?? "null"],
-                        selector: "damage",
+                        selector: `${attack.id}-damage`,
                         diceNumber: instance.dice,
                         dieSize: instance.die,
                         damageType: instance.damageType,
@@ -69,6 +70,7 @@ class WeaponDamagePF2e {
             if (instance.modifier) {
                 modifiers.push(
                     new ModifierPF2e({
+                        slug: "base",
                         label: labelFromCategory[instance.category ?? "null"],
                         modifier: instance.modifier,
                         damageType,
@@ -95,9 +97,8 @@ class WeaponDamagePF2e {
         weaponPotency = null,
         context,
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
-        const { baseDamage } = weapon;
-        const { options } = context;
-        const domains = context.domains;
+        const baseDamage = weapon.baseDamage;
+        const { domains, options } = context;
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
@@ -440,21 +441,34 @@ class WeaponDamagePF2e {
 
         const base = R.compact([baseUncategorized, basePersistent]);
 
-        // Synthetics
+        // Collect damage alterations for non-synthetic damage
+        for (const dice of damageDice) {
+            dice.alterations = extractDamageAlterations(actor.synthetics.damageAlterations, domains, dice.slug);
+        }
 
+        // Synthetics
         const extractOptions = {
+            selectors: domains,
             test: options,
             resolvables: { weapon, target: context.target?.actor ?? null },
             injectables: { weapon },
         };
         const extracted = processDamageCategoryStacking(base, {
             modifiers: [modifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
-            dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
+            dice: extractDamageDice(actor.synthetics.damageDice, extractOptions),
             test: options,
         });
 
         const testedModifiers = extracted.modifiers;
         damageDice.push(...extracted.dice);
+
+        // Apply damage alterations
+        for (const dice of damageDice) {
+            dice.applyAlterations({ item: weapon, test: options });
+        }
+        for (const modifier of testedModifiers) {
+            modifier.applyDamageAlterations({ item: weapon, test: options });
+        }
 
         const formulaData: DamageFormulaData = {
             base,

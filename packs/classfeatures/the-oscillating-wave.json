@@ -214,12 +214,10 @@
                     },
                     {
                         "label": "PF2E.SpecificRule.Psychic.OscillatingWave.RemoveEnergy",
-                        "selected": false,
                         "value": "cold"
                     }
                 ],
-                "toggleable": true,
-                "value": true
+                "toggleable": true
             },
             {
                 "key": "DamageDice",
@@ -243,6 +241,39 @@
                     }
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Psychic.OscillatingWave.Mindshift",
+                "option": "mindshift:add-remove-energy",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:tag:mindshifted",
+                    "mindshift:add-remove-energy"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "dice:slug:mindshift",
+                    "dice:damage:type:mental",
+                    "mindshift:add-remove-energy"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
             }
         ],
         "traits": {

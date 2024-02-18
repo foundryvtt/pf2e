@@ -280,6 +280,7 @@ interface AELikeSource extends RuleElementSource {
     mode?: JSONValue;
     path?: JSONValue;
     phase?: JSONValue;
+    value?: JSONValue;
 }
 
 export { AELikeRuleElement };

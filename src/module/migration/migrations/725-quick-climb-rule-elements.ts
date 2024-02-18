@@ -35,4 +35,5 @@ export class Migration725QuickClimbREs extends MigrationBase {
 interface NoteOrBaseSpeed extends RuleElementSource {
     selector?: string;
     text?: string;
+    value?: JSONValue;
 }

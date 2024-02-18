@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { RuleElementSource } from "@module/rules/index.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import type { RuleElementSource } from "@module/rules/index.ts";
+import type { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Add roll options to abilities allowing one to ignore the flat-footed condition from being flanked */
@@ -13,14 +13,14 @@ export class Migration719ShrugFlanking extends MigrationBase {
         switch (source.type) {
             case "action": {
                 if (slug === "all-around-vision") {
-                    source.system.rules = [this.allAroundVision];
+                    source.system.rules = [this.#allAroundVision];
                 } else if (actorSource?.type === "npc" && source.name === "Deny Advantage") {
                     // No slugs, unfortunately
                     const sourceId = actorSource.flags.core?.sourceId;
                     const npcId = sourceId?.replace(/^Compendium\.[^.]+\./, "") ?? actorSource._id;
 
-                    if (this.needsDenyAdvantage(source.system.rules)) {
-                        const rule = this.npcDenyAvantage(npcId!);
+                    if (this.#needsDenyAdvantage(source.system.rules)) {
+                        const rule = this.#npcDenyAvantage(npcId!);
                         source.system.rules.push(rule);
                     }
                 }
@@ -28,7 +28,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
             }
             case "effect": {
                 if (slug === "stance-wolf-stance") {
-                    source.system.rules = this.wolfStanceRules;
+                    source.system.rules = this.#wolfStanceRules;
                 }
                 return;
             }
@@ -38,17 +38,17 @@ export class Migration719ShrugFlanking extends MigrationBase {
 
                 if (
                     ["constant-gaze", "deny-advantage"].includes(featSlug) &&
-                    this.needsDenyAdvantage(source.system.rules)
+                    this.#needsDenyAdvantage(source.system.rules)
                 ) {
-                    source.system.rules.push(this.denyAdvantage);
+                    source.system.rules.push(this.#denyAdvantage);
                 } else if (featSlug === "gang-up") {
-                    source.system.rules = [this.gangUp];
+                    source.system.rules = [this.#gangUp];
                 } else if (featSlug.startsWith("side-by-side")) {
-                    const sideBySide = this.gangUp;
+                    const sideBySide = this.#gangUp;
                     sideBySide.value = "animal-companion";
                     source.system.rules = [sideBySide];
                 } else if (["pack-tactics", "squad-tactics"].includes(featSlug)) {
-                    const tactics = this.gangUp;
+                    const tactics = this.#gangUp;
                     tactics.value = 2;
                     source.system.rules = [tactics];
                 }
@@ -57,7 +57,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
     }
 
     /** Instead of merely shrugging the flat--footed condition, this will suppress all benefits of flanking */
-    private get allAroundVision(): AELikeSource {
+    get #allAroundVision(): AELikeSource {
         return {
             key: "ActiveEffectLike",
             mode: "override",
@@ -66,7 +66,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         };
     }
 
-    private get denyAdvantage(): AELikeSource {
+    get #denyAdvantage(): AELikeSource {
         return {
             key: "ActiveEffectLike",
             mode: "override",
@@ -75,7 +75,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         };
     }
 
-    private get gangUp(): AELikeSource {
+    get #gangUp(): AELikeSource {
         return {
             key: "ActiveEffectLike",
             mode: "add",
@@ -85,7 +85,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
     }
 
     /** NPCs with variant Deny Advantage rules */
-    private npcVariants: Map<string, number> = new Map([
+    #npcVariants: Map<string, number> = new Map([
         ["YsBSkW3aFwU1bl3w", 13], // Ajbal Kimon
         ["0Kb4z4h8KVqfrIju", 8], // Assassin
         ["B09JfuBZHjcRXztU", 4], // Burglar
@@ -110,7 +110,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         ["pjnTEh0NVd1DB6jI", 4], // Yorulu
     ]);
 
-    private get wolfStanceRules(): RuleElementSource[] {
+    get #wolfStanceRules(): RuleElementSource[] {
         const rules = [
             {
                 category: "unarmed",
@@ -134,13 +134,13 @@ export class Migration719ShrugFlanking extends MigrationBase {
         return rules;
     }
 
-    private npcDenyAvantage(npcId = ""): AELikeSource {
-        const { denyAdvantage } = this;
-        denyAdvantage.value = this.npcVariants.get(npcId) ?? "@actor.level";
+    #npcDenyAvantage(npcId = ""): AELikeSource {
+        const denyAdvantage = this.#denyAdvantage;
+        denyAdvantage.value = this.#npcVariants.get(npcId) ?? "@actor.level";
         return denyAdvantage;
     }
 
-    private needsDenyAdvantage(rules: AELikeSource[]): boolean {
+    #needsDenyAdvantage(rules: AELikeSource[]): boolean {
         return !rules.some(
             (r: Partial<AELikeSource>) =>
                 r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable",

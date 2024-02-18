@@ -1,18 +1,26 @@
-import { ActorPF2e } from "@actor";
-import { DexterityModifierCapData } from "@actor/character/types.ts";
-import { LabeledSpeed, SenseData } from "@actor/creature/data.ts";
-import { DamageDicePF2e, DeferredPromise, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers.ts";
+import type { ActorPF2e } from "@actor";
+import type { DexterityModifierCapData } from "@actor/character/types.ts";
+import type { LabeledSpeed, SenseData } from "@actor/creature/data.ts";
+import type {
+    DamageDicePF2e,
+    DeferredDamageDiceOptions,
+    DeferredPromise,
+    DeferredValue,
+    ModifierAdjustment,
+    ModifierPF2e,
+} from "@actor/modifiers.ts";
 import type { TokenEffect } from "@actor/token-effect.ts";
-import { MovementType } from "@actor/types.ts";
-import { MeleePF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/index.ts";
-import { ConditionSource, EffectSource } from "@item/base/data/index.ts";
-import { WeaponPropertyRuneType } from "@item/weapon/types.ts";
-import { RollNotePF2e } from "@module/notes.ts";
-import { MaterialDamageEffect } from "@system/damage/types.ts";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
-import { PredicatePF2e } from "@system/predication.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { MovementType } from "@actor/types.ts";
+import type { MeleePF2e, WeaponPF2e } from "@item";
+import type { ActionTrait } from "@item/ability/index.ts";
+import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
+import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
+import type { RollNotePF2e } from "@module/notes.ts";
+import type { MaterialDamageEffect } from "@system/damage/types.ts";
+import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
+import type { Statistic } from "@system/statistic/index.ts";
+import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -20,6 +28,7 @@ interface RuleElementSynthetics {
         standard: CritSpecSynthetic[];
         alternate: CritSpecSynthetic[];
     };
+    damageAlterations: Record<string, DamageAlteration[]>;
     damageDice: DamageDiceSynthetics;
     degreeOfSuccessAdjustments: Record<string, DegreeOfSuccessAdjustment[]>;
     dexterityModifierCaps: DexterityModifierCapData[];
@@ -48,12 +57,6 @@ interface RuleElementSynthetics {
             | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
-    preparationWarnings: {
-        /** Adds a new preparation warning to be printed when flushed. These warnings are de-duped. */
-        add: (warning: string) => void;
-        /** Prints all preparation warnings, but this printout is debounced to handle prep and off-prep cycles */
-        flush: () => void;
-    };
 }
 
 type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];
@@ -66,7 +69,7 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
     ModifierAdjustment[] | undefined
 >;
 type DeferredModifier = DeferredValue<ModifierPF2e>;
-type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
+type DeferredDamageDice = (args: DeferredDamageDiceOptions) => DamageDicePF2e | null;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
 

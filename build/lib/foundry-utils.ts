@@ -79,15 +79,15 @@ class Color extends Number {}
  * @param variable A provided variable
  * @return The named type of the token
  */
-function getType(variable: unknown): string {
+export function getType(variable: unknown): string {
     // Primitive types, handled with simple typeof check
     const typeOf = typeof variable;
     if (typeOf !== "object") return typeOf;
 
     // Special cases of object
     if (variable === null) return "null";
-    if (variable instanceof Object && !variable.constructor) return "Object"; // Object with the null prototype.
-    if (variable instanceof Object && variable.constructor.name === "Object") return "Object"; // simple objects
+    if (!(variable as object).constructor) return "Object"; // Object with the null prototype.
+    if ((variable as object).constructor.name === "Object") return "Object"; // simple objects
 
     // Match prototype instances
     const prototypes: [Function, string][] = [
@@ -263,6 +263,40 @@ function _mergeUpdate(
 }
 
 /**
+ * Test if two objects contain the same enumerable keys and values.
+ * @param a The first object.
+ * @param b The second object.
+ */
+function objectsEqual(a: object | null, b: object | null): boolean {
+    if (a === null || b === null) return a === b;
+    if (getType(a) !== "Object" || getType(b) !== "Object") return a === b;
+    if (Object.keys(a).length !== Object.keys(b).length) return false;
+    return Object.entries(a).every(([k, v0]) => {
+        const v1 = (b as Record<string, unknown>)[k];
+        const t0 = getType(v0);
+        const t1 = getType(v1);
+        if (t0 !== t1) return false;
+        if (v0?.equals instanceof Function) return v0.equals(v1);
+        if (t0 === "Object") return objectsEqual(v0, v1 as object | null);
+        return v0 === v1;
+    });
+}
+
+function _arrayEquals(arr: unknown[], other: unknown): boolean {
+    if (!(other instanceof Array) || other.length !== arr.length) return false;
+    return arr.every((v0, i) => {
+        const v1 = other[i];
+        const t0 = getType(v0);
+        const t1 = getType(v1);
+        if (t0 !== t1) return false;
+        if ((v0 as Maybe<{ equals?: unknown }>)?.equals instanceof Function)
+            return (v0 as { equals: Function }).equals(v1);
+        if (t0 === "Object") return objectsEqual(v0 as object, v1);
+        return v0 === v1;
+    });
+}
+
+/**
  * Deeply difference an object against some other, returning the update keys and values.
  * @param original     An object comparing data against which to compare
  * @param other        An object containing potentially different data
@@ -273,38 +307,41 @@ function _mergeUpdate(
  * @return {object}               An object of the data in other which differs from that in original
  */
 function diffObject(original: object, other: object, { inner = false, deletionKeys = false } = {}) {
-    function _difference(v0: unknown, v1: unknown) {
+    function _difference(v0: unknown, v1: unknown): [boolean, unknown] {
         // Eliminate differences in types
-        const t0 = fu.getType(v0);
-        const t1 = fu.getType(v1);
+        const t0 = getType(v0);
+        const t1 = getType(v1);
         if (t0 !== t1) return [true, v1];
 
         // null and undefined
         if (["null", "undefined"].includes(t0)) return [v0 !== v1, v1];
 
         // If the prototype explicitly exposes an equality-testing method, use it
-        if (v0 instanceof Object && "equals" in v0 && v0.equals instanceof Function) {
-            return [!v0.equals(v1), v1];
+        if ((v0 as { equals?: unknown }).equals instanceof Function) {
+            return [!(v0 as { equals: Function }).equals(v1), v1];
+        }
+        if (Array.isArray(v0)) {
+            return [!_arrayEquals(v0, v1), v1];
         }
 
         // Recursively diff objects
-        if (v0 instanceof Object && v1 instanceof Object && t0 === "Object") {
-            if (fu.isEmpty(v1)) return [false, {}];
-            if (fu.isEmpty(v0)) return [true, v1];
-            const d = diffObject(v0, v1, { inner, deletionKeys });
+        if (t0 === "Object") {
+            if (isEmpty(v1)) return [false, {}];
+            if (isEmpty(v0)) return [true, v1];
+            const d = diffObject(v0 as object, v1 as object, { inner, deletionKeys });
             return [!isEmpty(d), d];
         }
 
         // Differences in primitives
-        return [v0 instanceof Object && v1 instanceof Object && v0.valueOf() !== v1.valueOf(), v1];
+        return [(v0 as object).valueOf() !== (v1 as object).valueOf(), v1];
     }
 
     // Recursively call the _difference function
-    return Object.keys(other).reduce((obj: Record<string, unknown>, key) => {
+    return Object.keys(other).reduce((obj, key) => {
         const isDeletionKey = key.startsWith("-=");
         if (isDeletionKey && deletionKeys) {
             const otherKey = key.substring(2);
-            if (otherKey in original) obj[key] = (other as Record<string, unknown>)[key];
+            if (otherKey in original) (obj as Record<string, unknown>)[key] = (other as Record<string, unknown>)[key];
             return obj;
         }
         if (inner && !(key in original)) return obj;
@@ -312,17 +349,17 @@ function diffObject(original: object, other: object, { inner = false, deletionKe
             (original as Record<string, unknown>)[key],
             (other as Record<string, unknown>)[key],
         );
-        if (isDifferent) obj[key] = difference;
+        if (isDifferent) (obj as Record<string, unknown>)[key] = difference;
         return obj;
     }, {});
 }
 
 /**
  * Test whether a value is empty-like; either undefined or a content-less object.
- * @param {*} value       The value to test
- * @returns {boolean}     Is the value empty-like?
+ * @param value The value to test
+ * @returns     Is the value empty-like?
  */
-function isEmpty(value: unknown): boolean {
+export function isEmpty(value: unknown): boolean {
     const t = getType(value);
     switch (t) {
         case "undefined":
@@ -330,12 +367,12 @@ function isEmpty(value: unknown): boolean {
         case "null":
             return true;
         case "Array":
-            return Array.isArray(value) ? !value.length : !!value;
+            return !(value as unknown[]).length;
         case "Object":
-            return value instanceof Object ? !Object.keys(value).length : !!value;
+            return !Object.keys(value as object).length;
         case "Set":
         case "Map":
-            return value instanceof Map ? !value.size : !!value;
+            return !(value as Map<unknown, unknown>).size;
         default:
             return false;
     }

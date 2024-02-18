@@ -1,6 +1,6 @@
 import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { groupBy, signedInteger } from "@util";
+import { groupBy, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { applyDamageDiceOverrides } from "./helpers.ts";
 import {
@@ -12,7 +12,7 @@ import {
     DamageType,
     MaterialDamageEffect,
 } from "./types.ts";
-import { CRITICAL_INCLUSION } from "./values.ts";
+import { CRITICAL_INCLUSION, DAMAGE_DICE_FACES } from "./values.ts";
 
 /** A compiled formula with its associated breakdown */
 interface AssembledFormula {
@@ -73,9 +73,13 @@ function createDamageFormula(
                 return [diceSection, displayedModifier].filter((p) => p !== null).join(operator);
             })();
 
+            const diceFaces = Number(dieSize?.replace("d", ""));
             list.push({
                 label,
-                dice: diceNumber && dieSize ? { number: diceNumber, faces: Number(dieSize.replace("d", "")) } : null,
+                dice:
+                    diceNumber && tupleHasValue(DAMAGE_DICE_FACES, diceFaces)
+                        ? { number: diceNumber, faces: diceFaces }
+                        : null,
                 modifier,
                 critical: null,
                 damageType,
@@ -97,7 +101,7 @@ function createDamageFormula(
         const baseDieSize = Number(matchingBase.dieSize?.replace("d", "")) || matchingBase.terms?.[0].dice?.faces;
         const faces = Number(dice.dieSize?.replace("d", "")) || baseDieSize || null;
         const damageType = dice.damageType ?? matchingBase.damageType;
-        if (dice.diceNumber > 0 && faces) {
+        if (dice.diceNumber > 0 && tupleHasValue(DAMAGE_DICE_FACES, faces)) {
             const list = typeMap.get(damageType) ?? [];
             list.push({
                 label: BONUS_BASE_LABELS.includes(dice.label) ? null : `${dice.label} +${dice.diceNumber}d${faces}`,

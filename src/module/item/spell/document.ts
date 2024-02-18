@@ -15,6 +15,7 @@ import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
+    extractDamageAlterations,
     extractDamageDice,
     extractModifierAdjustments,
     extractModifiers,
@@ -28,7 +29,7 @@ import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
 import { combinePartialTerms, createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
-import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DamageCategorization, applyBaseDamageAlterations } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
@@ -331,7 +332,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const { attribute, isAttack } = this;
         const checkStatistic = spellcasting.statistic;
-        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
         const damageKinds = Array.from(this.damageKinds);
         const domains = R.compact(
             [
@@ -343,12 +343,20 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ].flat(),
         );
 
+        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition])).sort();
+        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
+        const actionAndTraitOptions = new Set([
+            "action:cast-a-spell",
+            "self:action:slug:cast-a-spell",
+            ...actionTraitOptions,
+            ...spellTraits,
+        ]);
         const contextData = await this.actor.getDamageRollContext({
             target: isAttack ? params.target : null,
             item: this as SpellPF2e<ActorPF2e>,
             statistic: checkStatistic.check,
             domains,
-            options: new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]),
+            options: actionAndTraitOptions,
             checkContext: null,
             outcome: null,
             traits: spellTraits,
@@ -370,7 +378,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Add modifiers and damage die adjustments
         const modifiers: ModifierPF2e[] = [];
         const damageDice: DamageDicePF2e[] = [];
-        const { actor } = contextData.self;
+        const actor = contextData.self.actor;
+        const { damageAlterations, modifierAdjustments } = actor.synthetics;
+
         if (actor.system.abilities) {
             const attributes = actor.system.abilities;
             const attributeModifiers = Object.entries(this.system.damage)
@@ -385,23 +395,38 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                             modifier: attributes[attribute].mod,
                             damageType: d.type,
                             damageCategory: d.category || null,
-                            adjustments: extractModifierAdjustments(
-                                actor.synthetics.modifierAdjustments,
-                                domains,
-                                `ability-${k}`,
-                            ),
+                            alterations: extractDamageAlterations(damageAlterations, domains, `ability-${k}`),
+                            adjustments: extractModifierAdjustments(modifierAdjustments, domains, `ability-${k}`),
                         }),
                 );
 
             const extractOptions = {
+                selectors: domains,
                 resolvables: { spell: this, target: contextData.target?.actor ?? null },
                 test: contextData.options,
             };
             const extracted = processDamageCategoryStacking(base, {
                 modifiers: [attributeModifiers, extractModifiers(actor.synthetics, domains, extractOptions)].flat(),
-                dice: extractDamageDice(actor.synthetics.damageDice, domains, extractOptions),
+                dice: extractDamageDice(actor.synthetics.damageDice, extractOptions),
                 test: contextData.options,
             });
+
+            // Apply alterations to base damage
+            if (actor) {
+                const item = this as SpellPF2e<NonNullable<TParent>>;
+                applyBaseDamageAlterations({ actor, item, base, domains, rollOptions: context.options });
+            }
+
+            // Apply alterations to damage synthetics
+            for (const dice of extracted.dice) {
+                dice.applyAlterations({ item: this as SpellPF2e<NonNullable<TParent>>, test: contextData.options });
+            }
+            for (const modifier of extracted.modifiers) {
+                modifier.applyDamageAlterations({
+                    item: this as SpellPF2e<NonNullable<TParent>>,
+                    test: contextData.options,
+                });
+            }
 
             modifiers.push(...extracted.modifiers);
             damageDice.push(...extracted.dice);
@@ -961,9 +986,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        context.extraRollOptions = R.uniq(
-            R.compact(["action:cast-a-spell", "self:action:slug:cast-a-spell", context.extraRollOptions].flat()),
-        );
+        const spellTraits = R.uniq(R.compact([...this.system.traits.value, tradition])).sort();
+        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
+        context.extraRollOptions = R.uniq([
+            "action:cast-a-spell",
+            "self:action:slug:cast-a-spell",
+            ...actionTraitOptions,
+            ...(context.extraRollOptions ?? []),
+        ]);
 
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
