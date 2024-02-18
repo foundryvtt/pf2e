@@ -70,7 +70,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
-            { dragSelector: "[data-foundry-list] .drag-handle" },
+            { dragSelector: "[data-foundry-list] [data-drag-handle]" },
             { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
