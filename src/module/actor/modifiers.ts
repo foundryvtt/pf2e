@@ -254,22 +254,20 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        const damageKind =
-            this.domains
-                .find((d) => /(damage|healing)$/.test(d))
-                ?.match(/(damage|healing)$/)
-                ?.at(1) ?? null;
-
-        if (damageKind) {
-            options.push(damageKind);
-            options.push(`${this.kind}:${damageKind}`);
+        const damageKinds = R.compact([
+            this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
+            this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
+        ]);
+        for (const kind of damageKinds) {
+            options.push(kind);
+            options.push(`${this.kind}:${kind}`);
             if (this.damageType) {
-                options.push(`${damageKind}:type:${this.damageType}`);
-                options.push(`${this.kind}:${damageKind}:type:${this.damageType}`);
+                options.push(`${kind}:type:${this.damageType}`);
+                options.push(`${this.kind}:${kind}:type:${this.damageType}`);
             }
             if (this.damageCategory) {
-                options.push(`${damageKind}:category:${this.damageCategory}`);
-                options.push(`${this.kind}:${damageKind}:category:${this.damageCategory}`);
+                options.push(`${kind}:category:${this.damageCategory}`);
+                options.push(`${this.kind}:${kind}:category:${this.damageCategory}`);
             }
         }
 
