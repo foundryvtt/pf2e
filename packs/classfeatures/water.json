@@ -88,14 +88,32 @@
                 "mode": "add",
                 "path": "flags.pf2e.kineticist.elements",
                 "value": {
-                    "label": "PF2E.Traitwater",
+                    "label": "PF2E.TraitWater",
                     "value": "water"
                 }
+            },
+                        {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "junction:water:impulse",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:water"
+                ]
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateTwo",
+                "path": "flags.pf2e.kineticist.gate.One",
+                "predicate": [
+                    "kinetic-gate:first-element:water"
+                ],
+                "value": "water"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.Two",
                 "predicate": [
                     "kinetic-gate:second-element:water"
                 ],
@@ -104,7 +122,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateThree",
+                "path": "flags.pf2e.kineticist.gate.Three",
                 "predicate": [
                     "kinetic-gate:first-threshold:fork:water"
                 ],
@@ -113,7 +131,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateFour",
+                "path": "flags.pf2e.kineticist.gate.Four",
                 "predicate": [
                     "kinetic-gate:second-threshold:fork:water"
                 ],
@@ -122,7 +140,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateFive",
+                "path": "flags.pf2e.kineticist.gate.Five",
                 "predicate": [
                     "kinetic-gate:third-threshold:fork:water"
                 ],
@@ -131,7 +149,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.gateSix",
+                "path": "flags.pf2e.kineticist.gate.Six",
                 "predicate": [
                     "kinetic-gate:fourth-threshold:fork:water"
                 ],
