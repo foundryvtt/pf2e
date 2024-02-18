@@ -27,24 +27,44 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.heavy.rank",
-                "priority": 41,
-                "value": "ternary(gte(@actor.level,13),2*max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)),max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)))"
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            "defense:light:rank:0"
+                        ],
+                        "value": "light"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.MediumShort",
+                        "predicate": [
+                            "defense:medium:rank:0",
+                            {
+                                "not": "defense:light:rank:0"
+                            }
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            "defense:heavy:rank:0",
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": "heavy"
+                    }
+                ],
+                "key": "ChoiceSet"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.defenses.medium.rank",
-                "priority": 41,
-                "value": "ternary(gte(@actor.level,13),2*min(1,@actor.system.proficiencies.defenses.light.rank),min(1,@actor.system.proficiencies.defenses.light.rank))"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.light.rank",
-                "priority": 41,
+                "path": "system.proficiencies.defenses.{item|flags.pf2e.rulesSelections.armorProficiency}.rank",
                 "value": "ternary(gte(@actor.level,13),2,1)"
             }
         ],
