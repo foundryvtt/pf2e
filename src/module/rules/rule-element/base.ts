@@ -454,11 +454,15 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
     onCreate?(actorUpdates: Record<string, unknown>): void;
 
     /**
-     * Run at the start of the actor's turn. Similar to onCreate and onDelete, this provides an opportunity to make
+     * Run at certain encounter events, such as the start of the actor's turn. Similar to onCreate and onDelete, this provides an opportunity to make
      * updates to the actor.
-     * @param actorUpdates A record containing update data for the actor
+     * @param data.event        The type of event that triggered this callback
+     * @param data.actorUpdates A record containing update data for the actor
      */
-    onTurnStart?(actorUpdates: Record<string, unknown>): void | Promise<void>;
+    onUpdateEncounter?(data: {
+        event: "initiative-roll" | "turn-start";
+        actorUpdates: Record<string, unknown>;
+    }): Promise<void>;
 
     /**
      * Runs after an item holding this rule is removed from an actor. This method is used for cleaning up any values
