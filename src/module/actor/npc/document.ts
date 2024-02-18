@@ -5,7 +5,7 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { AttributeString, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import type { ItemPF2e, MeleePF2e } from "@item";
+import type { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -235,22 +235,31 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
 
         this.skills = this.prepareSkills();
-        const loreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
+        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
+        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
         this.system.skills = R.mapToObj(Object.values(this.skills), (statistic) => [
             objectHasKey(SKILL_DICTIONARY_REVERSE, statistic.slug)
                 ? SKILL_DICTIONARY_REVERSE[statistic.slug]
                 : statistic.slug,
             {
                 ...statistic.getTraceData(),
+                base: loreItems[statistic.slug]?.system.mod.value ?? 0,
+                itemId: loreItems[statistic.slug]?.id ?? null,
+                lore: !!statistic.lore,
                 mod: statistic.check.mod,
-                visible: statistic.proficient,
                 variants: Object.values(loreItems[statistic.slug]?.system.variants ?? {}),
+                visible: statistic.proficient,
             },
         ]);
 
         // process strikes.
         const generatedMelee = Array.from(synthetics.strikes.values()).flatMap((w) => w.toNPCAttacks({ keepId: true }));
-        for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
+        const meleeItems = R.sortBy(
+            [this.itemTypes.melee, generatedMelee].flat(),
+            (m) => m.name,
+            (m) => m.sort,
+        );
+        for (const item of meleeItems) {
             system.actions.push(strikeFromMeleeItem(item));
         }
 
