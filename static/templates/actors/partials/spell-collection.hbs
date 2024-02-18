@@ -107,7 +107,7 @@
                 {{#each group.active as |slot index|}}
                     {{#if slot.spell}}
                         <li
-                            class="item spell{{#if slot.virtual}} virtual{{/if}}"
+                            class="spell{{#if slot.virtual}} virtual{{/if}}"
                             data-item-type="spell"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
@@ -116,7 +116,7 @@
                             {{#if entry.isPrepared}}data-slot-id="{{index}}"{{/if}}
                             {{#if slot.expended}}data-slot-expended{{/if}}
                         >
-                            <div class="drag-handle item-name">
+                            <div class="item-name{{#unless slot.virtual}} drag-handle{{/unless}}">
                                 <a class="item-image framed" data-action="item-to-chat">
                                     <img class="item-icon" src="{{spell.img}}">
                                     <i class="fa-solid fa-message"></i>
