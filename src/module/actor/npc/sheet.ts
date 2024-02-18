@@ -10,7 +10,6 @@ import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
 import {
     getActionGlyph,
-    getActionIcon,
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
@@ -18,6 +17,7 @@ import {
     setHasElement,
     sortLabeledRecord,
     tagify,
+    traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
@@ -31,7 +31,7 @@ import {
     NPCSystemSheetData,
 } from "./types.ts";
 
-abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
+abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
     protected readonly actorConfigClass = NPCConfig;
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -48,13 +48,13 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
      * Prepares items in the actor for easier access during sheet rendering.
      * @param sheetData Data from the actor associated to this sheet.
      */
-    override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
+    override async prepareItems(sheetData: NPCSheetData): Promise<void> {
         this.#prepareSkills(sheetData.data);
         this.#prepareSaves(sheetData.data);
     }
 
-    override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData<TActor>> {
-        const sheetData = (await super.getData(options)) as PrePrepSheetData<TActor>;
+    override async getData(options?: Partial<ActorSheetOptions>): Promise<NPCSheetData> {
+        const sheetData = (await super.getData(options)) as PrePrepSheetData;
 
         const rollData = this.actor.getRollData();
         sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
@@ -72,7 +72,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
             record: CONFIG.PF2E.creatureTraits,
         });
 
-        return sheetData as NPCSheetData<TActor>;
+        return sheetData as NPCSheetData;
     }
 
     #prepareSkills(sheetSystemData: NPCSystemSheetData): void {
@@ -117,7 +117,7 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
     }
 }
 
-class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
+class NPCSheetPF2e extends AbstractNPCSheet {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.scrollY.push(".inventory-list", ".tab:not(.inventory)");
@@ -295,18 +295,38 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
      */
     async #prepareActions(sheetData: NPCSheetData): Promise<void> {
         // Enrich strike descriptions
-        const attacks: NPCStrikeSheetData[] = sheetData.data.actions;
-        const actorRollData = this.actor.getRollData();
-        for (const attack of attacks) {
-            if (attack.description.length > 0) {
-                const itemRollData = attack.item.getRollData();
-                attack.description = await TextEditor.enrichHTML(attack.description, {
-                    rollData: { ...actorRollData, ...itemRollData },
-                    async: true,
-                });
-            }
-            attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
-        }
+        const attacks: NPCStrikeSheetData[] = R.sortBy(
+            await Promise.all(
+                sheetData.data.actions.map(async (attack) => {
+                    const item = attack.item;
+                    const tags = [
+                        item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
+                        attack.additionalEffects.map((e) => ({
+                            name: e.tag,
+                            label: e.label,
+                            description: null,
+                        })),
+                    ].flat();
+                    const description = await TextEditor.enrichHTML(item.description, {
+                        rollData: item.getRollData(),
+                        async: true,
+                    });
+                    const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
+
+                    return {
+                        ...R.pick(item, ["name", "sort"]),
+                        ...R.pick(attack, ["breakdown", "variants"]),
+                        _id: item.id,
+                        attackType: item.isMelee ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged",
+                        tags,
+                        description,
+                        damageFormula,
+                    };
+                }),
+            ),
+            (a) => a.name,
+            (a) => a.sort,
+        );
 
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
@@ -322,26 +342,15 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
         );
 
         for (const item of abilities) {
-            const itemData = item.toObject(false);
-            const chatData = await item.getChatData();
-            const traits = chatData.traits ?? [];
+            const tags = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+            const glyph = getActionGlyph(item.actionCost);
+            const actionGroup = glyph ? "active" : "passive";
+            const hasAura = item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura");
 
-            const actionGroup = !item.actionCost ? "passive" : "active";
-
-            const hasAura =
-                actionGroup === "passive" &&
-                (item.system.traits.value.includes("aura") || !!item.system.rules.find((r) => r.key === "Aura"));
-
-            actions[actionGroup].actions.push({
-                ...itemData,
-                glyph: getActionGlyph(item.actionCost),
-                imageUrl: getActionIcon(item.actionCost),
-                chatData,
-                traits,
-                hasAura,
-            });
+            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, tags, hasAura });
         }
 
+        sheetData.attacks = attacks;
         sheetData.actions = actions;
     }
 
@@ -392,7 +401,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
 
         if (this.isEditable) {
             handlers["generate-attack"] = async (event) => {
-                const { actor } = this;
+                const actor = this.actor;
                 const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId ?? "";
                 const item = actor.items.get(itemId, { strict: true });
                 if (!item.isOfType("weapon")) return;
@@ -461,7 +470,7 @@ class NPCSheetPF2e extends AbstractNPCSheet<NPCPF2e> {
     }
 }
 
-class SimpleNPCSheet extends AbstractNPCSheet<NPCPF2e> {
+class SimpleNPCSheet extends AbstractNPCSheet {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.classes.push("simple");
@@ -476,6 +485,6 @@ class SimpleNPCSheet extends AbstractNPCSheet<NPCPF2e> {
     }
 }
 
-type PrePrepSheetData<TActor extends NPCPF2e = NPCPF2e> = Partial<NPCSheetData> & CreatureSheetData<TActor>;
+type PrePrepSheetData = Partial<NPCSheetData> & CreatureSheetData<NPCPF2e>;
 
 export { AbstractNPCSheet, NPCSheetPF2e, SimpleNPCSheet };
