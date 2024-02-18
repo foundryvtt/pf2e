@@ -21,16 +21,16 @@ import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElement
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
     synthetics: RuleElementSynthetics,
-    selectors: string[],
+    domains: string[],
     options: DeferredValueParams = {},
 ): ModifierPF2e[] {
-    const modifiers = R.uniq(selectors)
-        .flatMap((s) => synthetics.modifiers[s] ?? [])
-        .flatMap((d) => d(options) ?? []);
+    domains = R.uniq(domains);
+    const modifiers = domains.flatMap((s) => synthetics.modifiers[s] ?? []).flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
-        modifier.adjustments = extractModifierAdjustments(synthetics.modifierAdjustments, selectors, modifier.slug);
-        if (selectors.some((s) => s.endsWith("damage"))) {
-            modifier.alterations = extractDamageAlterations(synthetics.damageAlterations, selectors, modifier.slug);
+        modifier.domains = [...domains];
+        modifier.adjustments = extractModifierAdjustments(synthetics.modifierAdjustments, domains, modifier.slug);
+        if (domains.some((s) => s.endsWith("damage"))) {
+            modifier.alterations = extractDamageAlterations(synthetics.damageAlterations, domains, modifier.slug);
         }
     }
 

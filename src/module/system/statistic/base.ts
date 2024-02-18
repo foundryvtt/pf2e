@@ -26,7 +26,7 @@ abstract class BaseStatistic<TActor extends ActorPF2e> {
         this.data = { ...data };
         this.domains = R.uniq((data.domains ??= []));
         const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)].flat();
-        this.modifiers = new StatisticModifier("", modifiers).modifiers.map((m) => m.clone());
+        this.modifiers = new StatisticModifier("", modifiers).modifiers.map((m) => m.clone({ domains: this.domains }));
 
         if (this.domains.length > 0) {
             // Test the gathered modifiers if there are any domains
