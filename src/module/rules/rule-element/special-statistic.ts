@@ -79,13 +79,19 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
         const extendedFrom = this.extends
             ? actor.getStatistic(this.extends) ?? actor.synthetics.statistics.get(this.extends) ?? null
             : null;
+        if (this.extends && !extendedFrom) {
+            return this.failValidation(`extends: unable to resolve statistic "${this.extends}"`);
+        }
+
         const label = this.itemCasting ? extendedFrom?.label ?? this.label : this.label;
         const checkType = this.type === "check" ? "check" : "attack-roll";
         const modCheckDC =
             this.baseModifier && actor.type === "npc"
                 ? R.mapValues(this.baseModifier, (value, key) => {
-                      const [slug, label] = key === "mod" ? ["modifier", "PF2E.ModifierTitle"] : [`base-${key}`, ""];
-                      return value ? [new ModifierPF2e({ slug, label, type: "untyped", modifier: value })] : [];
+                      const slug = typeof this.baseModifier?.mod === "number" && key !== "mod" ? `base-${key}` : "base";
+                      const label = "PF2E.ModifierTitle";
+                      const modifier = typeof value === "number" && key === "dc" ? value - 10 : value;
+                      return typeof modifier === "number" ? [new ModifierPF2e({ slug, label, modifier })] : [];
                   })
                 : { mod: [], check: [], dc: [] };
 

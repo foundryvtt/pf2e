@@ -59,4 +59,5 @@ type TogglePropertyOrRollOption = RuleElementSource & {
     toggleable?: boolean;
     default?: boolean;
     property?: string;
+    value?: JSONValue;
 };

@@ -1,6 +1,6 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
-import { isObject } from "remeda";
+import * as R from "remeda";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type {
     ArrayFieldOptions,
@@ -51,7 +51,7 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
     }
 
     protected override _cleanType(data: object, options?: CleanFieldOptions): SourceFromSchema<TDataSchema> {
-        if (!isObject(data)) {
+        if (!R.isPlainObject(data)) {
             throw Error(`${this.name} is not an object`);
         }
         return super._cleanType(data, options);
@@ -421,7 +421,7 @@ class RecordField<
         values: unknown,
         options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void {
-        if (!isObject(values)) {
+        if (!R.isPlainObject(values)) {
             return new foundry.data.validation.DataModelValidationFailure({ message: "must be an Object" });
         }
         return this._validateValues(values, options);

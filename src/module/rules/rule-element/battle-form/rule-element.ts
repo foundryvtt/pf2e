@@ -179,9 +179,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onCreate(
-                actorUpdates,
-            );
+            const source = { key: "TempHP", label: this.label, value: tempHP };
+            new TempHPRuleElement(source, { parent: this.item }).onCreate(actorUpdates);
         }
     }
 
@@ -235,9 +234,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         const tempHP = this.overrides.tempHP;
         if (tempHP) {
-            new TempHPRuleElement({ key: "TempHP", label: this.label, value: tempHP }, { parent: this.item }).onDelete(
-                actorUpdates,
-            );
+            const source = { key: "TempHP", label: this.label, value: tempHP };
+            new TempHPRuleElement(source, { parent: this.item }).onDelete(actorUpdates);
         }
     }
 
@@ -531,7 +529,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     }
 
     /** Process compendium query and construct full strike object using retrieved weapon */
-    async #resolveStrikeQueries(ruleSource: RuleElementSource & { overrides?: unknown }): Promise<void> {
+    async #resolveStrikeQueries(
+        ruleSource: RuleElementSource & { value?: JSONValue; overrides?: JSONValue },
+    ): Promise<void> {
         const value = ruleSource.overrides ? ruleSource.overrides : (ruleSource.value ??= {});
         const hasStrikes = (v: unknown): v is ValueWithStrikes =>
             isObject<{ strikes: unknown }>(v) && isObject<Record<string, unknown>>(v.strikes);

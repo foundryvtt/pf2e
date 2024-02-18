@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import type { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Have Hand of the Apprentice feat enlarge focus pool */

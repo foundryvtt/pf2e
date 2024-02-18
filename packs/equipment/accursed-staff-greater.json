@@ -1,6 +1,6 @@
 {
     "_id": "eIGcGgQDBihvJsEo",
-    "img": "icons/weapons/staves/staff-simple.webp",
+    "img": "icons/weapons/staves/staff-ornate-orb-steel-red.webp",
     "name": "Accursed Staff (Greater)",
     "system": {
         "baseItem": "staff",
@@ -51,7 +51,22 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:curse"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Staff.AccursedStaff.Note"
+                    }
+                ]
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

@@ -293,13 +293,7 @@ class CheckPF2e {
     }
 
     static #createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
-        interface TagObject {
-            label: string;
-            name?: string;
-            description?: string;
-        }
-
-        const toTagElement = (tag: TagObject, cssClass: string | null = null): HTMLElement => {
+        const toTagElement = (tag: TraitViewData, cssClass: string | null = null): HTMLElement => {
             const span = document.createElement("span");
             span.classList.add("tag");
             if (cssClass) span.classList.add(`tag_${cssClass}`);
@@ -372,11 +366,15 @@ class CheckPF2e {
             .map((modifier) => {
                 const sign = modifier.modifier < 0 ? "" : "+";
                 const label = `${modifier.label} ${sign}${modifier.modifier}`;
-                const tag = toTagElement({ name: modifier.slug, label }, "transparent");
+                const tag = toTagElement({ name: modifier.slug, label, description: null }, "transparent");
                 if (!showBreakdown) tag.dataset.visibility = "gm";
                 return tag;
             });
-        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
+        const tagsFromOptions = extraTags.map((t) => {
+            const label = game.i18n.localize(t);
+            const slug = sluggify(label);
+            return toTagElement({ name: slug, label, description: null }, "transparent");
+        });
         const rollTags = [...modifiers, ...tagsFromOptions];
         const modifiersAndExtras =
             rollTags.length > 0
