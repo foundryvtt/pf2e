@@ -15,7 +15,8 @@ export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
                 /^system\.abilities\..+\.value$/.test(r.path) &&
-                R.isObject(r.value) &&
+                "value" in r &&
+                R.isPlainObject(r.value) &&
                 typeof r.value.field === "string" &&
                 /^actor\|system\.abilities\.[a-z]{3}\.value$/.test(r.value.field) &&
                 Array.isArray(r.value.brackets) &&

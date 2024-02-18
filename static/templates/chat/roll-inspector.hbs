@@ -37,9 +37,13 @@
                 </div>
             {{/if}}
 
-            {{#each modifiers as |m|}}
-                <div class="modifier {{disabled (not m.enabled)}}">
-                    <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
+            {{#each modifiers as |m idx|}}
+                <div class="modifier {{disabled (not m.enabled)}}" data-type="modifier" data-idx="{{idx}}">
+                    <h4>
+                        {{m.label}}
+                        <span class="slug">({{m.slug}})</span>
+                        <i class="fa-solid fa-circle-info"></i>
+                    </h4>
                     <div>
                         <span>{{localize (concat "PF2E.ModifierType." m.type)}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
                         <span>{{m.critical}}</span>
@@ -47,9 +51,13 @@
                 </div>
             {{/each}}
 
-            {{#each dice as |d|}}
-                <div class="modifier {{disabled (not d.enabled)}}">
-                    <h4>{{d.label}} <span class="slug">({{d.slug}})</span></h4>
+            {{#each dice as |d idx|}}
+                <div class="modifier {{disabled (not d.enabled)}}" data-type="dice" data-idx="{{idx}}">
+                    <h4>
+                        {{d.label}}
+                        <span class="slug">({{d.slug}})</span>
+                        <i class="fa-solid fa-circle-info"></i>
+                    </h4>
                     <div>
                         <span>{{d.value}} {{d.damageType}} {{#if d.category}}({{d.category}}){{/if}}</span>
                         <span>{{d.critical}}</span>

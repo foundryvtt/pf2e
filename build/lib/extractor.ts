@@ -567,8 +567,18 @@ class PackExtractor {
             if (!source.system.onlyLevel1) {
                 delete (source.system as { onlyLevel1?: boolean }).onlyLevel1;
             }
-        } else if (source.type === "spellcastingEntry" && this.#lastActor?.type === "npc") {
-            delete (source.system as { ability?: unknown }).ability;
+        } else if (source.type === "spellcastingEntry") {
+            if (this.#lastActor?.type === "npc") {
+                delete (source.system as { ability?: unknown }).ability;
+            }
+            if (source.system.showSlotlessLevels?.value === true) {
+                delete (source.system as { showSlotlessLevels?: { value: boolean } }).showSlotlessLevels;
+            }
+
+            for (const slots of Object.values(source.system.slots)) {
+                slots.prepared &&= Object.values(slots.prepared);
+            }
+            source.system.slots = fu.diffObject(templateJSON.Item.spellcastingEntry.slots, source.system.slots);
         }
 
         for (const rule of source.system.rules) {
@@ -579,7 +589,7 @@ class PackExtractor {
     #pruneRuleElement(source: RuleElementSource): void {
         switch (source.key) {
             case "RollOption":
-                if ("toggleable" in source && source.toggleable && !source.value) {
+                if ("toggleable" in source && source.toggleable && "value" in source && !source.value) {
                     delete source.value;
                 }
                 return;
