@@ -68,8 +68,10 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
     }
 
     /** Send a message with a "healing" (damage) roll at the start of its turn */
-    override async onTurnStart(): Promise<void> {
-        if (!this.test()) return;
+    override async onUpdateEncounter({ event }: { event: "initiative-roll" | "turn-start" }): Promise<void> {
+        if (this.ignored || event !== "turn-start" || !this.test()) {
+            return;
+        }
 
         const value = this.resolveValue(this.value);
         if (typeof value !== "number" && typeof value !== "string") {
