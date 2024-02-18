@@ -39,7 +39,7 @@
                 "flag": "rune",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.NPCAbility.RuneGiant.InvokeRune.Prompt",
-                "rollOption": "invoke-rune:rune"
+                "rollOption": "invoke-rune"
             },
             {
                 "choices": [
@@ -58,8 +58,7 @@
                 ],
                 "flag": "weapon",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon",
-                "rollOption": "invoke-rune:weapon"
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "key": "Note",
@@ -68,7 +67,7 @@
                     "success"
                 ],
                 "predicate": [
-                    "invoke-rune:rune:destruction"
+                    "invoke-rune:destruction"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
                 "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Text",
@@ -88,7 +87,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "invoke-rune:rune:destruction"
+                    "invoke-rune:destruction"
                 ],
                 "property": "weapon-traits",
                 "value": "deadly-3d12"
@@ -101,7 +100,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "invoke-rune:rune:destruction"
+                    "invoke-rune:destruction"
                 ],
                 "property": "weapon-traits",
                 "value": "deadly-3d8"
@@ -113,7 +112,7 @@
                 "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
-                    "invoke-rune:rune:flames"
+                    "invoke-rune:flames"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
@@ -124,7 +123,7 @@
                     "success"
                 ],
                 "predicate": [
-                    "invoke-rune:rune:smiting"
+                    "invoke-rune:smiting"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
                 "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Text",
