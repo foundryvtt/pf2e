@@ -30,6 +30,24 @@
                         <label class="details-label" for="{{options.id}}-vehicle-speed">{{localize "PF2E.Actor.Speed.Label"}}</label>
                         <input class="details-input" id="{{options.id}}-vehicle-speed" name="system.details.speed" type="text" value="{{data.details.speed}}" placeholder="0" />
                     </div>
+                    <section class="emits-sound">
+                        <div class="details-label">
+                            <h4>
+                                <span>{{localize "PF2E.Actor.Vehicle.EmitsSound.Title"}}</span>
+                                <i
+                                    class="fa-solid fa-info-circle"
+                                    data-tooltip="PF2E.Actor.Vehicle.EmitsSound.Hint"
+                                    data-tooltip-direction="RIGHT"
+                                ></i>
+                            </h4>
+                        </div>
+                        <select name="system.attributes.emitsSound">
+                            {{#select data.attributes.emitsSound}}
+                                <option value="true">{{localize "PF2E.Actor.Vehicle.EmitsSound.True"}}</option>
+                                <option value="false">{{localize "PF2E.Actor.Vehicle.EmitsSound.False"}}</option>
+                            {{/select}}
+                        </select>
+                    </section>
                 </div>
             </section>
             <section class="vehicle-properties">
