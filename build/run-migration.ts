@@ -13,7 +13,6 @@ import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
 import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
 import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
@@ -23,6 +22,7 @@ import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-t
 import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
 import { Migration919WeaponToggleStructure } from "@module/migration/migrations/919-trait-toggle-structure.ts";
+import { Migration920SuboptionSelection } from "@module/migration/migrations/920-suboption-selection.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -32,7 +32,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration910EdictsAnathemaArrays(),
     new Migration911CoinBulk(),
     new Migration912RmFocusTraitFocusCantrips(),
     new Migration913SpellSustainedText(),
@@ -42,6 +41,7 @@ const migrations: MigrationBase[] = [
     new Migration917ScrollWandSpellIds(),
     new Migration918DeitySkills(),
     new Migration919WeaponToggleStructure(),
+    new Migration920SuboptionSelection(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

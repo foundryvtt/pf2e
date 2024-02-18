@@ -10,6 +10,7 @@ function traitSlugToObject(trait: string, dictionary: Record<string, string | un
     const traitObject: TraitViewData = {
         name: trait,
         label: game.i18n.localize(dictionary[trait] ?? trait),
+        description: null,
     };
     if (objectHasKey(CONFIG.PF2E.traitsDescriptions, trait)) {
         traitObject.description = CONFIG.PF2E.traitsDescriptions[trait];

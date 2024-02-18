@@ -207,7 +207,7 @@ interface TraitViewData {
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
     /** The description of the trait */
-    description?: string;
+    description: string | null;
 }
 
 /** An strike which a character can use. */

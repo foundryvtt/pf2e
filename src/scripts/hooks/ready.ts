@@ -116,7 +116,7 @@ export const Ready = {
                     .filter((a) => !a.isOfType("familiar")),
                 ...game.actors.filter((a) => a.type === "familiar"),
             ]);
-            resetActors(new Set(actorsToReprepare));
+            resetActors(new Set(actorsToReprepare), { sheets: false });
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
             if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {
