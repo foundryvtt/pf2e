@@ -21,7 +21,7 @@ import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { Suboption } from "./rule-element/roll-option/data.ts";
+import type { Suboption } from "./rule-element/roll-option/data.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {

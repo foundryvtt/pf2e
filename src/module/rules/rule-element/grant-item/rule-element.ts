@@ -155,7 +155,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         grantedSource._id = fu.randomID();
 
         // An item may grant another copy of itself, but at least strip the copy of its grant REs
-        if (this.item.sourceId === grantedSource.flags.core?.sourceId ?? "") {
+        if (this.item.sourceId === (grantedSource.flags.core?.sourceId ?? "")) {
             grantedSource.system.rules = grantedSource.system.rules.filter((r) => r.key !== "GrantItem");
         }
 

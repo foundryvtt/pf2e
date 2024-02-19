@@ -24,7 +24,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             this.ignored = true;
         }
 
-        this.option = this.#resolveOption();
+        this.option &&= this.#resolveOption();
 
         // If no suboption has been selected yet, set the first as selected
         const firstSuboption = this.suboptions.at(0);
