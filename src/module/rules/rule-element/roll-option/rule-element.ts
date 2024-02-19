@@ -148,6 +148,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         const foreignSuboptions = this.mergeable
             ? this.actor.rules.flatMap((r) =>
                   r !== this &&
+                  !r.ignored &&
                   r instanceof RollOptionRuleElement &&
                   r.toggleable &&
                   r.mergeable &&
@@ -159,9 +160,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
               )
             : [];
 
-        const suboptions = R.uniqBy([...localSuboptions, ...foreignSuboptions], (s) => s.value).filter(
-            (s) => !test || s.predicate.test(test),
-        );
+        const suboptions = R.uniqBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
+            .filter((s) => !test || s.predicate.test(test))
+            .map((suboption) => {
+                suboption.label = suboption.rule.resolveInjectedProperties(suboption.label);
+                return suboption;
+            });
 
         // Resolve family disagreement on selection
         if (suboptions.length > 0 && suboptions.filter((s) => s.selected).length > 1) {
