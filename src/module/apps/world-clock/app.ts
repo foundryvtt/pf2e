@@ -211,7 +211,7 @@ export class WorldClock extends Application {
         const html = $html[0];
 
         // add listener to post date and time to chat
-        html.querySelector("a.datetime-text")?.addEventListener("click", async () => {
+        html.querySelector("[data-action=post-time]")?.addEventListener("click", async () => {
             this.#postTimeMessage();
         });
 
