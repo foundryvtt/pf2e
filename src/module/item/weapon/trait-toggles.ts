@@ -23,7 +23,7 @@ class WeaponTraitToggles {
         const weapon = this.parent;
         const hasTrait = weapon.system.traits.value.includes("double-barrel");
         const sourceToggles = weapon._source.system.traits.toggles;
-        const selected = hasTrait && weapon.ammoRequired > 0 && !!sourceToggles?.doubleBarrel?.selected;
+        const selected = hasTrait && weapon.isRanged && !weapon.isThrown && !!sourceToggles?.doubleBarrel?.selected;
 
         return { selected };
     }
