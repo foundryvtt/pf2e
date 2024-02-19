@@ -438,6 +438,7 @@ class CheckPF2e {
 
         context.skipDialog = true;
         context.isReroll = true;
+        context.options.push("check:reroll")
         if (heroPoint) context.options.push("check:hero-point");
 
         const oldRoll = message.rolls.at(0);
