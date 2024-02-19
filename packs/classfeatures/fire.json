@@ -79,9 +79,9 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "option": "kinetic-gate:fire"
+                "option": "kinetic-gate:fire",
+                "priority": 10
             },
             {
                 "key": "ActiveEffectLike",
@@ -282,6 +282,28 @@
                     "impulse-damage",
                     "inline-damage"
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.fire",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
+                ],
+                "priority": 19,
+                "value": {
+                    "damageTypes": [
+                        "fire"
+                    ],
+                    "dieFaces": 6,
+                    "element": "fire",
+                    "img": "systems/pf2e/icons/actions/elemental-blast/fire.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Fire",
+                    "range": 60
+                }
             }
         ],
         "traits": {

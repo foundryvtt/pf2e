@@ -79,9 +79,9 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "option": "kinetic-gate:wood"
+                "option": "kinetic-gate:wood",
+                "priority": 10
             },
             {
                 "key": "ActiveEffectLike",
@@ -247,6 +247,29 @@
                 ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Wood",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.wood",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
+                ],
+                "priority": 19,
+                "value": {
+                    "damageTypes": [
+                        "bludgeoning",
+                        "vitality"
+                    ],
+                    "dieFaces": 8,
+                    "element": "wood",
+                    "img": "icons/magic/nature/root-vine-wood-blue.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Wood",
+                    "range": 30
+                }
             }
         ],
         "traits": {
