@@ -111,7 +111,12 @@ export const InlineRollLinks = {
                     }
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                    const actors = getSelectedActors({ exclude: ["loot"], assignedFallback: true });
+                    const actors =
+                        foundryDoc instanceof ActorPF2e
+                            ? [foundryDoc]
+                            : foundryDoc instanceof ItemPF2e && foundryDoc.actor
+                              ? [foundryDoc.actor]
+                              : getSelectedActors({ exclude: ["loot"], assignedFallback: true });
                     const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
                     if (parent?.isOfType("party") || (actors.length === 0 && parent && !isSave)) {
                         return [parent];
@@ -373,7 +378,7 @@ export const InlineRollLinks = {
         })();
 
         const speaker = actor
-            ? ChatMessagePF2e.getSpeaker({ actor, token: actor.getActiveTokens(false, true).shift() })
+            ? ChatMessagePF2e.getSpeaker({ actor, token: actor.getActiveTokens(true, true).shift() })
             : ChatMessagePF2e.getSpeaker();
 
         // If the originating document is a journal entry, include its UUID as a flag. If a chat message, copy over
