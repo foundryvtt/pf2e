@@ -79,9 +79,9 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "option": "kinetic-gate:air"
+                "option": "kinetic-gate:air",
+                "priority": 10
             },
             {
                 "key": "ActiveEffectLike",
@@ -244,6 +244,29 @@
                 ],
                 "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.air",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
+                ],
+                "priority": 19,
+                "value": {
+                    "damageTypes": [
+                        "electricity",
+                        "slashing"
+                    ],
+                    "dieFaces": 6,
+                    "element": "air",
+                    "img": "icons/magic/lightning/bolt-beam-strike-blue.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Air",
+                    "range": 60
+                }
             }
         ],
         "traits": {
