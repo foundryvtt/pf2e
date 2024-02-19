@@ -2,6 +2,7 @@ import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RUNE_DATA, prunePropertyRunes } from "@item/physical/runes.ts";
+import { addOrUpgradeTrait } from "@item/weapon/helpers.ts";
 import { WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MaterialDamageEffect } from "@system/damage/index.ts";
 import { PredicateField } from "@system/schema-data-fields.ts";
@@ -151,7 +152,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            const traits: string[] = weapon.system.traits.value;
+                            const traits: { value: string[] } = weapon.system.traits;
 
                             // If the weapon's base damage type is the same as a modular or versatile damage type, skip
                             // adding the trait
@@ -163,37 +164,10 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
                                 return;
                             }
 
-                            // If the weapon already has a trait of the same type but a different value, we need to check
-                            // if the new trait is better than the existing one and, if it is, replace it
-                            const annotatedTraitMatch = change.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-                            if (this.mode === "add" && annotatedTraitMatch) {
-                                const changeBaseTrait = annotatedTraitMatch[1];
-                                const changeValue = annotatedTraitMatch[2];
-
-                                const traitRegex = new RegExp(`${changeBaseTrait}-(\\d*d?\\d*)`);
-                                const existingTraitMatch = traits
-                                    .map((trait) => trait.match(traitRegex))
-                                    .find((match) => !!match);
-                                if (existingTraitMatch) {
-                                    const existingTrait = existingTraitMatch[1];
-                                    const existingValue = AdjustStrikeRuleElement.getTraitScore(existingTrait);
-                                    const changeTraitScore = AdjustStrikeRuleElement.getTraitScore(changeValue);
-
-                                    // If the new trait's score is higher than the existing trait's score, then remove
-                                    // the existing one otherwise just return out as we don't want to add the new
-                                    // (lesser) trait
-                                    if (changeTraitScore > existingValue) {
-                                        traits.findSplice((trait) => trait === existingTraitMatch[0], change);
-                                    }
-
-                                    return;
-                                }
-                            }
-
-                            if (this.mode === "add" && !traits.includes(change)) {
-                                traits.push(change);
-                            } else if (this.mode !== "add" && traits.includes(change)) {
-                                traits.splice(traits.indexOf(change), 1);
+                            if (this.mode === "add") {
+                                traits.value = addOrUpgradeTrait(traits.value, change);
+                            } else if (traits.value.includes(change)) {
+                                traits.value.splice(traits.value.indexOf(change), 1);
                             }
                         },
                     };
@@ -228,14 +202,6 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
         })();
 
         this.actor.synthetics.strikeAdjustments.push(adjustment);
-    }
-
-    /** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
-    static getTraitScore(traitValue: string): number {
-        const traitValueMatch = traitValue.match(/(\d*)d(\d+)/);
-        return traitValueMatch
-            ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
-            : Number(traitValue);
     }
 }
 

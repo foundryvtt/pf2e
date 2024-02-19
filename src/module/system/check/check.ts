@@ -75,7 +75,7 @@ class CheckPF2e {
             check.calculateTotal(rollOptions);
         }
 
-        const substitutions = (context.substitutions ??= []);
+        context.substitutions ??= [];
         const requiredSubstitution = context.substitutions.find((s) => s.required && s.selected);
         if (requiredSubstitution) {
             for (const substitution of context.substitutions) {
@@ -84,8 +84,9 @@ class CheckPF2e {
             }
         }
 
+        // Show dialog if enabled. This has the side effect of mutating the context,
+        // so assigning variables from the context should not be done before this point
         if (!context.skipDialog && context.type !== "flat-check") {
-            // Show dialog for adding/editing modifiers, unless skipped or flat check
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
@@ -96,6 +97,7 @@ class CheckPF2e {
         const extraTags: string[] = [];
         const isReroll = context.isReroll ?? false;
         if (isReroll) context.rollTwice = false;
+        const substitutions = context.substitutions ?? [];
 
         // Acquire the d20 roll expression and resolve fortune/misfortune effects
         const [dice, tagsFromDice] = ((): [string, string[]] => {
