@@ -438,7 +438,7 @@ class CheckPF2e {
 
         context.skipDialog = true;
         context.isReroll = true;
-        if(heroPoint) context.options.push("hero-point");
+        if (heroPoint) context.options.push("hero-point");
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
