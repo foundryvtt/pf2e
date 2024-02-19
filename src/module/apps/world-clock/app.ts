@@ -200,7 +200,7 @@ export class WorldClock extends Application {
     // method to post the current time to chat
     #postTimeMessage(): void {
         const content = `<p>${this.#generateDateString()}  ${this.#generateTimeString()}</p>`;
-        const flavor = game.i18n.localize("PF2E.WorldClock.MessageHeader")
+        const flavor = game.i18n.localize("PF2E.WorldClock.MessageHeader");
 
         ChatMessagePF2e.create({ user: game.user.id, flavor, content });
     }
