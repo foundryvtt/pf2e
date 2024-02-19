@@ -362,9 +362,9 @@ export interface CleanFieldOptions {
 
 type BooleanFieldOptions<
     TSourceProp extends boolean,
-    TRequired extends boolean,
-    TNullable extends boolean,
-    THasInitial extends boolean,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
 > = Omit<DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>, "choices">;
 
 /** A subclass of [DataField]{@link DataField} which deals with boolean-typed data. */
@@ -700,7 +700,7 @@ export class EmbeddedDocumentField<
  */
 export class EmbeddedCollectionField<
     TDocument extends abstract.Document<abstract.Document>,
-    TSourceProp extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
+    TSourceProp extends object[] = SourceFromDocument<TDocument>[],
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -762,8 +762,8 @@ export class EmbeddedCollectionField<
  */
 export class EmbeddedCollectionDeltaField<
     TDocument extends abstract.Document<abstract.Document>,
-    TSource extends (SourcePropFromDataField<TDocument["schema"]> | SourceFromSchema<TombstoneDataSchema>)[] = (
-        | SourcePropFromDataField<TDocument["schema"]>
+    TSource extends (SourceFromDocument<TDocument> | SourceFromSchema<TombstoneDataSchema>)[] = (
+        | SourceFromDocument<TDocument>
         | SourceFromSchema<TombstoneDataSchema>
     )[],
     TRequired extends boolean = true,
@@ -1057,6 +1057,7 @@ export type SourcePropFromDataField<T> =
         ? MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>
         : never;
 
+export type SourceFromDocument<T extends abstract.Document> = SourcePropFromDataField<T["schema"]>;
 export type ModelPropFromDataField<T> =
     T extends DataField<infer _TSourceProp, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
