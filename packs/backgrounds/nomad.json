@@ -24,20 +24,21 @@
         "description": {
             "value": "<p>Traveling far and wide, you picked up basic tactics for surviving on the road and in unknown lands, getting by with few supplies and even fewer comforts. As an adventurer, you travel still, often into even more dangerous places.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you traveled in (such as Desert Lore or Swamp Lore). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with Survival.</p>"
         },
-        "items": {
-            "dbply": {
-                "img": "icons/sundries/books/book-red-exclamation.webp",
-                "level": 1,
-                "name": "Assurance (Survival)",
-                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
-            }
-        },
+        "items": {},
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "preselectChoices": {
+                    "assurance": "survival"
+                },
+                "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+            }
+        ],
         "trainedLore": "<Terrain> Lore",
         "trainedSkills": {
             "value": [
