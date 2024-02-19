@@ -2,6 +2,7 @@ import { ErrorPF2e, htmlQuery, htmlQueryAll, ordinalString, tupleHasValue } from
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
+import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 
 interface WorldClockData {
     date: string;
@@ -129,22 +130,30 @@ export class WorldClock extends Application {
         }
     }
 
-    override getData(options?: ApplicationOptions): WorldClockData {
-        const date =
-            this.dateTheme === "CE"
-                ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
-                : game.i18n.format(CONFIG.PF2E.worldClock.Date, {
-                      era: this.era,
-                      year: this.year,
-                      month: this.month,
-                      day: ordinalString(this.worldTime.day),
-                      weekday: this.weekday,
-                  });
+    // generate a formatted string of the current date
+    #generateDateString(): string {
+        return this.dateTheme === "CE"
+            ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
+            : game.i18n.format(CONFIG.PF2E.worldClock.Date, {
+                  era: this.era,
+                  year: this.year,
+                  month: this.month,
+                  day: ordinalString(this.worldTime.day),
+                  weekday: this.weekday,
+              });
+    }
 
-        const time =
-            this.timeConvention === 24
-                ? this.worldTime.toFormat("HH:mm:ss")
-                : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
+    // generate a formatted string of the current time
+    #generateTimeString(): string {
+        return this.timeConvention === 24
+            ? this.worldTime.toFormat("HH:mm:ss")
+            : this.worldTime.toLocaleString(DateTime.TIME_WITH_SECONDS);
+    }
+
+    override getData(options?: ApplicationOptions): WorldClockData {
+        const date = this.#generateDateString();
+        const time = this.#generateTimeString();
+
         const sign = this.ctrlKeyDown ? "-" : "+";
 
         return { date, time, options, user: game.user, sign };
@@ -188,10 +197,23 @@ export class WorldClock extends Application {
         }
     }
 
+    // method to post the current time to chat
+    #postTimeMessage(): void {
+        const content = `<p>${this.#generateDateString()}  ${this.#generateTimeString()}</p>`;
+        const flavor = game.i18n.localize("PF2E.WorldClock.MessageHeader")
+
+        ChatMessagePF2e.create({ user: game.user.id, flavor, content });
+    }
+
     /** Advance the world time by a static or input value */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
+
+        // add listener to post date and time to chat
+        html.querySelector("a.datetime-text")?.addEventListener("click", async () => {
+            this.#postTimeMessage();
+        });
 
         for (const button of htmlQueryAll(html, "button[data-advance-time]")) {
             button.addEventListener("click", () => {
