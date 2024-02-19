@@ -1,10 +1,18 @@
-import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
+import {
+    DataUnionField,
+    PredicateField,
+    StrictArrayField,
+    StrictBooleanField,
+    StrictStringField,
+} from "@system/schema-data-fields.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { RollOptionToggle } from "../synthetics.ts";
-import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import * as R from "remeda";
+import { RollOptionToggle } from "../../synthetics.ts";
+import { AELikeRuleElement } from "../ae-like.ts";
+import { RuleElementPF2e, type RuleElementOptions } from "../base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
+import type { RollOptionSchema, SuboptionField, SuboptionSource, SuboptionsArrayField } from "./data.ts";
+import { Suboption } from "./data.ts";
 
 /**
  * Set a roll option at a specificed domain
@@ -22,12 +30,6 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (this.toggleable === "totm" && !game.pf2e.settings.totm) {
             this.ignored = true;
         }
-
-        // If no suboption has been selected yet, set the first as selected
-        const firstSuboption = this.suboptions.at(0);
-        if (firstSuboption && !this.selection) {
-            this.selection = firstSuboption.value;
-        }
     }
 
     static override defineSchema(): RollOptionSchema {
@@ -36,6 +38,17 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         const baseSchema = super.defineSchema();
         baseSchema.priority.initial = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES.override;
+
+        const trueFalseUndefined = { required: true, nullable: false, initial: undefined } as const;
+
+        const suboptionField: SuboptionField = new fields.EmbeddedDataField(Suboption, { ...trueFalseUndefined });
+        const suboptionsArrayField: SuboptionsArrayField = new StrictArrayField<SuboptionField>(suboptionField, {
+            ...trueFalseUndefined,
+            validate: (v): boolean => Array.isArray(v) && v.length !== 1,
+            validationError: "must have zero or 2+ suboptions",
+        });
+        const suboptionsRefField = new StrictStringField({ ...trueFalseUndefined });
+        const suboptionsFieldTuple = [suboptionsArrayField, suboptionsRefField];
 
         return {
             ...baseSchema,
@@ -52,30 +65,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 choices: fu.deepClone(AELikeRuleElement.PHASES),
                 initial: "applyAEs",
             }),
-            suboptions: new fields.ArrayField(
-                new fields.SchemaField({
-                    label: new fields.StringField({
-                        required: true,
-                        nullable: false,
-                        blank: false,
-                        initial: undefined,
-                    }),
-                    value: new StrictStringField({
-                        required: true,
-                        nullable: false,
-                        blank: false,
-                        initial: undefined,
-                    }),
-                    predicate: new PredicateField(),
-                }),
-                {
-                    required: false,
-                    nullable: false,
-                    initial: [],
-                    validate: (v): boolean => Array.isArray(v) && v.length !== 1,
-                    validationError: "must have zero or 2+ suboptions",
-                },
-            ),
+            suboptions: new DataUnionField(suboptionsFieldTuple, { required: false, nullable: false, initial: [] }),
             value: new ResolvableValueField({
                 required: false,
                 initial: (d) => !d.toggleable,
@@ -149,12 +139,34 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (this.phase === "afterDerived") this.#setOptionAndFlag();
     }
 
-    /** Force false totm toggleable roll options if the totmToggles setting is disabled */
+    /** Force false totm toggleable roll options if the totmToggles setting is disabled. */
     override resolveValue(): boolean {
         if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
             return false;
         }
         return this.alwaysActive ? true : !!super.resolveValue(this.value);
+    }
+
+    /** Return internal suboptions or resolve and return them if referenced by flag. */
+    #resolveSuboptions(): Suboption[] {
+        if (Array.isArray(this.suboptions)) return this.suboptions;
+
+        const fromRef = this.actor.flags.pf2e.toggleSuboptions[this.suboptions];
+        if (Array.isArray(fromRef)) {
+            const context = { parent: this, strict: false };
+            const constructed = fromRef.map(
+                (s) => new Suboption((R.isPlainObject(s) ? s : {}) as Partial<SuboptionSource>, context),
+            );
+            if (constructed.some((s) => s.invalid)) {
+                const message = `suboptions: failed to construct from actor.flags.pf2e.suboptions.${this.suboptions}`;
+                this.failValidation(message);
+                return [];
+            }
+            return constructed;
+        } else {
+            this.failValidation(`suboptions: failed to resolve at actor.flags.pf2e.suboptions.${this.suboptions}`);
+            return [];
+        }
     }
 
     #resolveOption({ appendSuboption = true } = {}): string {
@@ -190,11 +202,16 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         }
 
         if (this.toggleable) {
-            const suboptions = this.suboptions.filter((s) => s.predicate.test(optionSet));
-            if (suboptions.length > 0 && (!this.selection || !suboptions.some((s) => s.value === this.selection))) {
+            const suboptions = this.#resolveSuboptions();
+            if (this.ignored) return;
+            const filteredSuboptions = suboptions.filter((s) => s.predicate.test(optionSet));
+            if (
+                filteredSuboptions.length > 0 &&
+                (!this.selection || !filteredSuboptions.some((s) => s.value === this.selection))
+            ) {
                 // If predicate testing eliminated the selected suboption, select the first and deselect the rest.
-                this.selection = suboptions[0].value;
-            } else if (this.suboptions.length > 0 && suboptions.length === 0) {
+                this.selection = filteredSuboptions[0].value;
+            } else if (suboptions.length > 0 && filteredSuboptions.length === 0) {
                 // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
                 return;
             }
@@ -205,7 +222,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 placement: this.placement ?? "actions",
                 domain: this.domain,
                 option: baseOption,
-                suboptions: suboptions.map((s) => ({ ...s, selected: s.value === this.selection })),
+                suboptions: filteredSuboptions.map((s) => ({ ...s, selected: s.value === this.selection })),
                 alwaysActive: !!this.alwaysActive,
                 checked: false,
                 enabled: true,
@@ -340,53 +357,6 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
     value: boolean | string;
 }
-
-type RollOptionSchema = RuleElementSchema & {
-    domain: StringField<string, string, true, false, true>;
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
-    option: StringField<string, string, true, false, false>;
-    /** Suboptions for a toggle, appended to the option string */
-    suboptions: ArrayField<
-        SchemaField<
-            SuboptionSchema,
-            SourceFromSchema<SuboptionSchema>,
-            ModelPropsFromSchema<SuboptionSchema>,
-            true,
-            false,
-            true
-        >
-    >;
-    /**
-     * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
-     * `true` unless also `togglable`, in which case to `false`.
-     */
-    value: ResolvableValueField<false, false, true>;
-    /** A suboption selection */
-    selection: StringField<string, string, false, false, false>;
-    /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
-    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
-    /** If toggleable, the location to be found in an interface */
-    placement: StringField<string, string, false, false, false>;
-    /** An optional predicate to determine whether the toggle is interactable by the user */
-    disabledIf: PredicateField<false, false, false>;
-    /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
-    disabledValue: BooleanField<boolean, boolean, false, false, false>;
-    /**
-     * Whether this (toggleable and suboptions-containing) roll option always has a `value` of `true`, allowing only
-     * suboptions to be changed
-     */
-    alwaysActive: BooleanField<boolean, boolean, false, false, false>;
-    /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
-    count: BooleanField<boolean, boolean, false, false, false>;
-    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
-    removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
-};
-
-type SuboptionSchema = {
-    label: StringField<string, string, true, false, false>;
-    value: StringField<string, string, true, false, false>;
-    predicate: PredicateField;
-};
 
 interface RollOptionSource extends RuleElementSource {
     domain?: JSONValue;
