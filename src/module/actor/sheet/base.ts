@@ -70,7 +70,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
-            { dragSelector: "[data-foundry-list] .drag-handle" },
+            { dragSelector: "[data-foundry-list] [data-drag-handle]" },
             { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
@@ -140,6 +140,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         })();
 
+        // Consolidate toggles from across domains and regroup by sheet placement
+        const toggles = R.groupBy(
+            Object.values(this.actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
+            (t) => t.placement,
+        );
+
         const sheetData: ActorSheetDataPF2e<TActor> = {
             actor: actorData,
             cssClass: this.actor.isOwner ? "editable" : "locked",
@@ -156,7 +162,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             options,
             owner: this.actor.isOwner,
             title: this.title,
-            toggles: R.groupBy(this.actor.synthetics.toggles, (t) => t.placement),
+            toggles,
             totalCoinage,
             totalCoinageGold,
             totalWealth,

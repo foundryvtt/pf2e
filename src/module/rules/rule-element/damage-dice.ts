@@ -8,6 +8,22 @@ import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
+    constructor(data: DamageDiceSource, options: RuleElementOptions) {
+        super(data, options);
+        if (this.invalid) return;
+
+        this.brackets = this.isBracketedValue(data.value) ? data.value : null;
+
+        if (data.override && !this.#isValidOverride(data.override)) {
+            this.failValidation(
+                "The override property must be an object with one property of 'upgrade' (boolean),",
+                "'downgrade (boolean)', 'diceNumber' (integer between 0 and 10), 'dieSize' (d6-d12), or 'damageType'",
+                "(recognized damage type)",
+            );
+            this.override = null;
+        }
+    }
+
     static override defineSchema(): DamageDiceRuleSchema {
         const fields = foundry.data.fields;
 
@@ -35,21 +51,6 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
             hideIfDisabled: new fields.BooleanField({ required: false }),
         };
-    }
-
-    constructor(data: DamageDiceSource, options: RuleElementOptions) {
-        super(data, options);
-
-        this.brackets = this.isBracketedValue(data.value) ? data.value : null;
-
-        if (data.override && !this.#isValidOverride(data.override)) {
-            this.failValidation(
-                "The override property must be an object with one property of 'upgrade' (boolean),",
-                "'downgrade (boolean)', 'diceNumber' (integer between 0 and 10), 'dieSize' (d6-d12), or 'damageType'",
-                "(recognized damage type)",
-            );
-            this.override = null;
-        }
     }
 
     override beforePrepareData(): void {

@@ -37,6 +37,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     constructor(source: StrikeSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
 
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);

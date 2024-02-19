@@ -10,9 +10,10 @@ class CraftingFormulaRuleElement extends RuleElementPF2e {
 
     constructor(data: CraftingFormulaSource, options: RuleElementOptions) {
         super(data, options);
+        if (this.invalid) return;
 
         if (!(typeof data.uuid === "string" && /^(?:Compendium|Item)\..*[a-z0-9]{16}$/i.test(data.uuid))) {
-            const { item } = this;
+            const item = this.item;
             this.failValidation(`Crafting formula rule element on ${item.name} (${item.uuid}) has a malformed UUID`);
         }
     }

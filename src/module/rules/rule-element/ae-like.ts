@@ -126,7 +126,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
         if (!this.test(rollOptions)) return;
 
-        const { actor } = this;
+        const actor = this.actor;
         const current = fu.getProperty(actor, path);
         const change = this.resolveValue(this.value);
         const newValue = AELikeRuleElement.getNewValue(this.mode, current, change, this.merge);

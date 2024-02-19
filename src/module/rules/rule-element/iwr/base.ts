@@ -85,8 +85,8 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     /** A reference to the pertinent property in actor system data */
     abstract get property(): IWRSource[];
 
-    #isValid(value: unknown): boolean {
-        const { dictionary } = this.constructor;
+    #isValidValue(value: unknown): boolean {
+        const dictionary = this.constructor.dictionary;
 
         const unrecognizedTypes = this.type.filter((t) => !(t in dictionary));
         if (unrecognizedTypes.length > 0) {
@@ -117,7 +117,7 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
         this.definition = this.resolveInjectedProperties(this.definition);
 
         const value = Math.floor(Number(this.resolveValue(this.value)));
-        if (!this.#isValid(value)) return;
+        if (!this.#isValidValue(value)) return;
 
         if (this.mode === "add") {
             this.property.push(...this.getIWR(value));

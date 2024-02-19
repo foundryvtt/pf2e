@@ -16,6 +16,14 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
+
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
+            this.failValidation("value must be a number, string, or bracketed value");
+        }
+    }
+
     static override defineSchema(): CreatureSizeRuleSchema {
         const fields = foundry.data.fields;
 
@@ -41,14 +49,6 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
                 initial: undefined,
             }),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
-
-        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
-            this.failValidation("value must be a number, string, or bracketed value");
-        }
     }
 
     private static wordToAbbreviation: Record<string, Size | undefined> = {

@@ -1,7 +1,7 @@
 <li class="item settlement" data-settlement-id="{{settlement.id}}" data-item-summary-id="{{settlement.id}}">
     <div class="item-name">
         {{#if settlement.editing}}
-            <h4 class="drag-handle"><i class="fa-solid fa-bars"></i></h4>
+            <h4 class="drag-handle" data-drag-handle><i class="fa-solid fa-bars"></i></h4>
             <input class="name" type="text" value="{{settlement.name}}" name="settlements.{{settlement.id}}.name" placeholder="{{localize "PF2E.Kingmaker.Settlement.Name"}}" />
             <select class="type" name="settlements.{{settlement.id}}.type" data-dtype="String">
                 {{#select settlement.type}}
@@ -11,7 +11,7 @@
                 {{/select}}
             </select>
         {{else}}
-            <h4 class="name drag-handle"><a data-action="toggle-summary">{{settlement.name}}</a></h4>
+            <h4 class="name drag-handle" data-drag-handle><a data-action="toggle-summary">{{settlement.name}}</a></h4>
             <span class="type">{{localize settlement.typeLabel}}</span>
         {{/if}}
         <label class="level">
