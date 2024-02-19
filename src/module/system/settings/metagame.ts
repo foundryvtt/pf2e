@@ -87,6 +87,16 @@ const MetagameSettingsConfig = {
             }
         },
     },
+    ignoreSecretTrait: {
+        prefix: "metagame_",
+        name: "PF2E.SETTINGS.Metagame.IgnoreSecretTrait.Name",
+        hint: "PF2E.SETTINGS.Metagame.IgnoreSecretTrait.Hint",
+        default: false,
+        type: Boolean,
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.ignoreSecretTrait = !!value;
+        },
+    },
 } satisfies Record<string, PartialSettingsData>;
 
 class MetagameSettings extends SettingsMenuPF2e {

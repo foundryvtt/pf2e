@@ -68,7 +68,9 @@ class CheckPF2e {
         }
 
         // Figure out the default roll mode (if not already set by the event)
-        if (rollOptions.has("secret")) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+        // ignore the secret trait if the ignoreSecretTrait setting is enabled
+        if (rollOptions.has("secret") && !game.pf2e.settings.metagame.ignoreSecretTrait)
+            context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
         context.rollMode ??= "roll";
 
         if (rollOptions.size > 0 && !context.isReroll) {
