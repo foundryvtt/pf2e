@@ -1,7 +1,7 @@
 {
-    "_id": "dEm00L1XFXFCH2wS",
-    "img": "icons/magic/earth/barrier-stone-brown-green.webp",
-    "name": "Earth",
+    "_id": "PfeDtJBJdUun0THS",
+    "img": "icons/magic/fire/beam-jet-stream-spiral-yellow.webp",
+    "name": "Fire Gate",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<table class=\"pf2e\">\n<thead>\n<tr>\n<th style=\"text-align:left\">Earth Gate Junction</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> If the target is on the ground, it's knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]; if it isn't on the ground, it descends up to 20 feet (you choose the distance).</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> earth, poison</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Fragments of stone float around you, granting you a +1 circumstance bonus to AC until the start of your next turn.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Squares in the aura are difficult terrain fo your enemies, but only if moving into the square would make the enemy farther away from you.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Athletics, @UUID[Compendium.pf2e.feats-srd.Item.Hefty Hauler]</td>\n</tr>\n</tbody>\n</table>"
+            "value": "<table class=\"pf2e\">\n<tbody>\n<tr>\n<th style=\"text-align:left\">Fire Gate Junction</th>\n</tr>\n</tbody>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> The target takes 1d6 persistent fire damage. You gain an item bonus to this persistent damage equal to your item bonus to impulse attack rolls, such as from a <em>gate attenuator</em>.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> cold, fire</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Enemies in your kinetic aura gain weakness to fire from your fire impulses. The weakness is equal to half your level (minimum weakness 1).</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Intimidation, @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare]</td>\n</tr>\n</tbody>\n</table>"
         },
         "level": {
             "value": 1
@@ -33,16 +33,19 @@
                         {
                             "lte": [
                                 "item:level",
-                                "parent:level"
+                                "parent:granter:level"
                             ]
                         },
                         "item:trait:impulse",
-                        "item:trait:earth"
+                        "item:trait:fire"
                     ],
                     "itemType": "feat"
                 },
                 "flag": "impulseOne",
                 "key": "ChoiceSet",
+                "predicate": [
+                    "class:kineticist"
+                ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
             },
             {
@@ -57,7 +60,7 @@
                         "item:rarity:common",
                         "item:level:1",
                         "item:trait:impulse",
-                        "item:trait:earth"
+                        "item:trait:fire"
                     ],
                     "itemType": "feat"
                 },
@@ -65,7 +68,7 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:earth"
+                    "kinetic-gate:first-element:fire-gate"
                 ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
             },
@@ -74,13 +77,13 @@
                 "key": "GrantItem",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:earth"
+                    "kinetic-gate:first-element:fire-gate"
                 ],
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
             {
                 "key": "RollOption",
-                "option": "kinetic-gate:earth",
+                "option": "kinetic-gate:fire",
                 "priority": 10
             },
             {
@@ -88,17 +91,17 @@
                 "mode": "add",
                 "path": "flags.pf2e.kineticist.elements",
                 "value": {
-                    "label": "PF2E.TraitEarth",
-                    "value": "earth"
+                    "label": "PF2E.TraitFire",
+                    "value": "fire"
                 }
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "junction:earth:impulse",
+                "option": "junction:fire:impulse",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:earth"
+                    "kinetic-gate:first-element:fire-gate"
                 ]
             },
             {
@@ -106,99 +109,99 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.one",
                 "predicate": [
-                    "kinetic-gate:first-element:earth"
+                    "kinetic-gate:first-element:fire-gate"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.two",
                 "predicate": [
-                    "kinetic-gate:second-element:earth"
+                    "kinetic-gate:second-element:fire-gate"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.three",
                 "predicate": [
-                    "kinetic-gate:first-threshold:fork:earth"
+                    "parent:granter:first-gates-threshold"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.four",
                 "predicate": [
-                    "kinetic-gate:second-threshold:fork:earth"
+                    "parent:granter:second-gates-threshold"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.five",
                 "predicate": [
-                    "kinetic-gate:third-threshold:fork:earth"
+                    "parent:granter:third-gates-threshold"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.six",
                 "predicate": [
-                    "kinetic-gate:fourth-threshold:fork:earth"
+                    "parent:granter:fourth-gates-threshold"
                 ],
-                "value": "earth"
+                "value": "fire"
             },
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:earth:skill"
+                    "junction:fire:skill"
                 ],
                 "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+                "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.ath.rank",
+                "path": "system.skills.itm.rank",
                 "predicate": [
-                    "junction:earth:skill"
+                    "junction:fire:skill"
                 ],
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "junction:earth:skill",
+                    "junction:fire:skill",
                     "self:effect:kinetic-aura"
                 ],
-                "selector": "athletics",
+                "selector": "intimidation",
                 "type": "status",
                 "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
             },
             {
                 "key": "Resistance",
                 "predicate": [
-                    "junction:earth:resistance",
+                    "junction:fire:resistance",
                     "self:effect:kinetic-aura"
                 ],
                 "type": [
-                    "earth",
-                    "poison"
+                    "cold",
+                    "fire"
                 ],
                 "value": "@actor.level"
             },
             {
                 "key": "Immunity",
                 "predicate": [
-                    "junction:earth:resistance",
+                    "junction:fire:resistance",
                     {
                         "gte": [
                             "self:level",
@@ -208,25 +211,44 @@
                     "self:effect:kinetic-aura"
                 ],
                 "type": [
-                    "earth",
-                    "poison"
+                    "cold",
+                    "fire"
                 ]
             },
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
+                "category": "persistent",
+                "critical": true,
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
                 "predicate": [
-                    "junction:earth:critical",
-                    "item:trait:earth"
+                    "junction:fire:critical",
+                    "item:trait:fire"
                 ],
-                "selector": "elemental-blast-damage",
-                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Earth",
-                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+                "selector": "elemental-blast-damage"
             },
             {
-                "key": "Note",
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "predicate": [
+                    "junction:fire:critical",
+                    "item:trait:fire"
+                ],
+                "selector": "elemental-blast-damage",
+                "value": "@blast.flags.pf2e.attackItemBonus"
+            },
+            {
+                "damageType": "fire",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
+                "override": {
+                    "upgrade": true
+                },
                 "predicate": [
                     {
                         "gte": [
@@ -235,20 +257,39 @@
                         ]
                     },
                     "impulse",
-                    "junction:earth:impulse",
-                    "earth"
+                    "junction:fire:impulse"
                 ],
                 "selector": [
                     "impulse-damage",
                     "inline-damage"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "impulse",
+                    "junction:fire:impulse"
                 ],
-                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Earth",
-                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ]
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.earth",
+                "path": "flags.pf2e.kineticist.elementalBlast.fire",
                 "predicate": [
                     "self:effect:kinetic-aura",
                     {
@@ -258,14 +299,13 @@
                 "priority": 19,
                 "value": {
                     "damageTypes": [
-                        "bludgeoning",
-                        "piercing"
+                        "fire"
                     ],
-                    "dieFaces": 8,
-                    "element": "earth",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/earth.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Earth",
-                    "range": 30
+                    "dieFaces": 6,
+                    "element": "fire",
+                    "img": "systems/pf2e/icons/actions/elemental-blast/fire.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Fire",
+                    "range": 60
                 }
             }
         ],

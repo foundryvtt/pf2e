@@ -1,7 +1,7 @@
 {
-    "_id": "MvunDFH8Karxee0t",
-    "img": "icons/magic/water/pseudopod-swirl-blue.webp",
-    "name": "Water",
+    "_id": "X11Y3T1IzmtNqGMV",
+    "img": "icons/magic/air/wind-vortex-swirl-blue-purple.webp",
+    "name": "Air Gate",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<table class=\"pf2e\">\n<thead>\n<tr>\n<th style=\"text-align:left\">Water Gate Junction</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> The blast deals 2 splash per damage die of the blast, with the same damage type.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> fire, water</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> After the impulse's other effects, you can move one creature targeted by the impulse or in its area 5 feet in any direction, or 10 feet if it's in a body of water. This can't move the creature into the air. You can choose only a creature that's willing to be moved, that failed its save against the impulse, or that you succeeded at an impulse attack roll against.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> The aura becomes saturated with humidity, and water moves as you please. Non-magical fires in the aura are extinguished, and creatures in the aura gain fire resistance equal to half your level.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Athletics, @UUID[Compendium.pf2e.feats-srd.Item.Underwater Marauder]</td>\n</tr>\n</tbody>\n</table>"
+            "value": "<table class=\"pf2-table\">\n<thead>\n<tr>\n<th style=\"text-align:left\">Air Gate Junction</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> Push the target up to 10 feet.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> air, electricity</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Before or after the other effects of the impulse, you can either Stride up to half your Speed or Step. If you have a fly Speed, you can Fly up to half your fly Speed instead.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> You and any ally that starts its turn in the aura gets a +10-foot status bonus to land Speed until the end of that turn, and to fly Speed if applicable</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Stealth, @UUID[Compendium.pf2e.feats-srd.Item.Experienced Smuggler]</td>\n</tr>\n</tbody>\n</table>"
         },
         "level": {
             "value": 1
@@ -33,21 +33,27 @@
                         {
                             "lte": [
                                 "item:level",
-                                "parent:level"
+                                "parent:granter:level"
                             ]
                         },
                         "item:trait:impulse",
-                        "item:trait:water"
+                        "item:trait:air"
                     ],
                     "itemType": "feat"
                 },
                 "flag": "impulseOne",
                 "key": "ChoiceSet",
+                "predicate": [
+                    "class:kineticist"
+                ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
             },
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
+                "predicate": [
+                    "class:kineticist"
+                ],
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
             },
             {
@@ -57,7 +63,7 @@
                         "item:rarity:common",
                         "item:level:1",
                         "item:trait:impulse",
-                        "item:trait:water"
+                        "item:trait:air"
                     ],
                     "itemType": "feat"
                 },
@@ -65,7 +71,7 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:water"
+                    "kinetic-gate:first-element:air"
                 ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
             },
@@ -74,13 +80,13 @@
                 "key": "GrantItem",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:water"
+                    "kinetic-gate:first-element:air"
                 ],
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
             {
                 "key": "RollOption",
-                "option": "kinetic-gate:water",
+                "option": "kinetic-gate:air",
                 "priority": 10
             },
             {
@@ -88,17 +94,17 @@
                 "mode": "add",
                 "path": "flags.pf2e.kineticist.elements",
                 "value": {
-                    "label": "PF2E.TraitWater",
-                    "value": "water"
+                    "label": "PF2E.TraitAir",
+                    "value": "air"
                 }
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "junction:water:impulse",
+                "option": "junction:air:impulse",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:water"
+                    "kinetic-gate:first-element:air"
                 ]
             },
             {
@@ -106,99 +112,109 @@
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.one",
                 "predicate": [
-                    "kinetic-gate:first-element:water"
+                    {
+                        "or": [
+                            "kinetic-gate:first-element:air-gate",
+                            "parent:granter:slug:kineticist-dedication"
+                        ]
+                    }
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.two",
                 "predicate": [
-                    "kinetic-gate:second-element:water"
+                    {
+                        "or": [
+                            "kinetic-gate:second-element:air-gate",
+                            "parent:slug:through-the-gate"
+                        ]
+                    }
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.three",
                 "predicate": [
-                    "kinetic-gate:first-threshold:fork:water"
+                    "parent:granter:slug:first-gates-threshold"
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.four",
                 "predicate": [
-                    "kinetic-gate:second-threshold:fork:water"
+                    "parent:granter:slug:second-gates-threshold"
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.five",
                 "predicate": [
-                    "kinetic-gate:third-threshold:fork:water"
+                    "parent:granter:slug:third-gates-threshold"
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "flags.pf2e.kineticist.gate.six",
                 "predicate": [
-                    "kinetic-gate:fourth-threshold:fork:water"
+                    "parent:granter:slug:fourth-gates-threshold"
                 ],
-                "value": "water"
+                "value": "air"
             },
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:water:skill"
+                    "junction:air:skill"
                 ],
                 "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
+                "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.ath.rank",
+                "path": "system.skills.ste.rank",
                 "predicate": [
-                    "junction:water:skill"
+                    "junction:air:skill"
                 ],
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "junction:water:skill",
+                    "junction:air:skill",
                     "self:effect:kinetic-aura"
                 ],
-                "selector": "athletics",
+                "selector": "stealth",
                 "type": "status",
-                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+                "value": "ternary(gte(@actor.level,17),3, ternary(gte(@actor.level,10),2,1))"
             },
             {
                 "key": "Resistance",
                 "predicate": [
-                    "junction:water:resistance",
+                    "junction:air:resistance",
                     "self:effect:kinetic-aura"
                 ],
                 "type": [
-                    "fire",
-                    "water"
+                    "air",
+                    "electricity"
                 ],
                 "value": "@actor.level"
             },
             {
                 "key": "Immunity",
                 "predicate": [
-                    "junction:water:resistance",
+                    "junction:air:resistance",
                     {
                         "gte": [
                             "self:level",
@@ -208,21 +224,22 @@
                     "self:effect:kinetic-aura"
                 ],
                 "type": [
-                    "fire",
-                    "water"
+                    "air",
+                    "electricity"
                 ]
             },
             {
-                "critical": true,
-                "damageCategory": "splash",
-                "key": "FlatModifier",
-                "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
                 "predicate": [
-                    "junction:water:critical",
-                    "item:trait:water"
+                    "junction:air:critical",
+                    "item:trait:air"
                 ],
                 "selector": "elemental-blast-damage",
-                "value": "ternary(gte(@actor.level,17),10,ternary(gte(@actor.level,13),8,ternary(gte(@actor.level,9),6,ternary(gte(@actor.level,5),4,2))))"
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Air",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
             },
             {
                 "key": "Note",
@@ -234,20 +251,20 @@
                         ]
                     },
                     "impulse",
-                    "junction:water:impulse",
-                    "water"
+                    "junction:air:impulse",
+                    "air"
                 ],
                 "selector": [
                     "impulse-damage",
                     "inline-damage"
                 ],
-                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Water",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.water",
+                "path": "flags.pf2e.kineticist.elementalBlast.air",
                 "predicate": [
                     "self:effect:kinetic-aura",
                     {
@@ -257,14 +274,14 @@
                 "priority": 19,
                 "value": {
                     "damageTypes": [
-                        "bludgeoning",
-                        "cold"
+                        "electricity",
+                        "slashing"
                     ],
-                    "dieFaces": 8,
-                    "element": "water",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/water.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Water",
-                    "range": 30
+                    "dieFaces": 6,
+                    "element": "air",
+                    "img": "icons/magic/lightning/bolt-beam-strike-blue.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Air",
+                    "range": 60
                 }
             }
         ],
