@@ -14,17 +14,20 @@ import { Suboption, type RollOptionSchema } from "./data.ts";
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     constructor(source: RollOptionSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
+            return;
         }
 
         // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
         if (this.toggleable === "totm" && !game.pf2e.settings.totm) {
             this.ignored = true;
+            return;
         }
 
-        this.option &&= this.#resolveOption();
+        this.option = this.#resolveOption();
 
         // If no suboption has been selected yet, set the first as selected
         const firstSuboption = this.suboptions.at(0);
