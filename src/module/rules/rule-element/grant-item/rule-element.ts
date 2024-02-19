@@ -154,6 +154,11 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const grantedSource = grantedItem.toObject();
         grantedSource._id = fu.randomID();
 
+        // An item may grant another copy of itself, but at least strip the copy of its grant REs
+        if (this.item.sourceId === grantedSource.flags.core?.sourceId ?? "") {
+            grantedSource.system.rules = grantedSource.system.rules.filter((r) => r.key !== "GrantItem");
+        }
+
         // Special case until configurable item alterations are supported:
         if (itemSource.type === "effect" && grantedSource.type === "effect") {
             grantedSource.system.level.value = itemSource.system?.level?.value ?? grantedSource.system.level.value;
