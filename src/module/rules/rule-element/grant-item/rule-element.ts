@@ -18,21 +18,22 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     static override validActorTypes: ActorType[] = ["army", "character", "npc", "familiar"];
 
     /** The id of the granted item */
-    grantedId: string | null;
+    grantedId: string | null = null;
 
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
      * `ChoiceSet`'s designated `flag` property.
      */
-    preselectChoices: Record<string, string | number>;
+    preselectChoices: Record<string, string | number> = {};
 
     /** Actions taken when either the parent or child item are deleted */
-    onDeleteActions: Partial<OnDeleteActions> | null;
+    onDeleteActions: Partial<OnDeleteActions> | null = null;
 
     constructor(data: GrantItemSource, options: RuleElementOptions) {
         // Run slightly earlier if granting an in-memory condition
         if (data.inMemoryOnly) data.priority ??= 99;
         super(data, options);
+        if (this.invalid) return;
 
         // In-memory-only conditions are always reevaluated on update
         if (this.inMemoryOnly) {
@@ -104,7 +105,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
-        if (this.inMemoryOnly) return;
+        if (this.inMemoryOnly || this.invalid) return;
 
         const { itemSource, pendingItems, context } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
@@ -223,7 +224,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     override async preUpdateActor(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> {
         const noAction = { create: [], delete: [] };
 
-        if (!this.reevaluateOnUpdate || this.inMemoryOnly) {
+        if (this.ignored || !this.reevaluateOnUpdate || this.inMemoryOnly) {
             return noAction;
         }
 
@@ -253,7 +254,9 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
     /** Add an in-memory-only condition to the actor */
     override onApplyActiveEffects(): void {
-        this.#createInMemoryCondition();
+        if (!this.invalid) {
+            this.#createInMemoryCondition();
+        }
     }
 
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {

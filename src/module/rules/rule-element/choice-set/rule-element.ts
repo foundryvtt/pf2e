@@ -43,7 +43,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     containsItems = false;
 
     /** The user's selection from among the options in `choices`, or otherwise `null` */
-    selection: string | number | object | null;
+    selection: string | number | object | null = null;
 
     constructor(data: ChoiceSetSource, options: RuleElementOptions) {
         super(data, options);
@@ -51,6 +51,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         this.allowedDrops ??= null;
         this.allowNoSelection ??= false;
         this.rollOption ??= this.slug;
+        if (this.invalid) return;
 
         this.flag = this.#setDefaultFlag(this);
         this.selection =

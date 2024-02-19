@@ -21,6 +21,7 @@ import {
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     constructor(source: FlatModifierSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
 
         if (!this.item.isOfType("physical") && this.type !== "item") {
             this.fromEquipment = false;
