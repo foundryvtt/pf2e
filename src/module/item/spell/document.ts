@@ -618,7 +618,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
 
         if (this.system.area?.value) {
-            this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
+            this.system.area.value = (Math.ceil(this.system.area.value / 5) * 5 || 5) as EffectAreaSize;
             this.system.area.type ||= "burst";
         } else {
             this.system.area = null;
@@ -1181,6 +1181,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
         ]);
         for (const system of systemChanges) {
+            // Normalize or remove spell area
+            const areaData = changed.system.area;
+            if (areaData) {
+                if (typeof areaData.value === "number") {
+                    areaData.value = (Math.ceil(areaData.value / 5) * 5 || 5) as EffectAreaSize;
+                    areaData.type ||= "burst";
+                } else if (areaData.value === null || !areaData.type) {
+                    changed.system.area = null;
+                }
+            }
+
             // Normalize defense data; wipe if both defenses are `null`
             for (const defenseType of ["passive", "save"] as const) {
                 const newValue = system.defense?.[defenseType];
