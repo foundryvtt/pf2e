@@ -15,6 +15,7 @@ import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
 import { Language } from "./index.ts";
 import { SpellPreparationSheet } from "./spell-preparation-sheet.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 
 /**
  * Base class for NPC and character sheets
@@ -296,6 +297,43 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         game.tooltip.activate(anchor, { cssClass: "pf2e carry-type-menu", content, locked: true });
     }
 
+    protected override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dataString = event.dataTransfer?.getData("text/plain");
+        const dropData = ((): Record<string, unknown> | null => {
+            try {
+                return JSON.parse(dataString ?? "");
+            } catch {
+                return null;
+            }
+        })();
+        if (!dropData) return;
+
+        // catch persistent damage dropped as an object
+        if (R.isObject(dropData) && dropData.type === "PersistentDamage") {
+            const data = dropData;
+            // roll the damage to get a Rolled
+            const roll = new DamageRoll(String(data.formula));
+            const instances = roll.instances.filter((i) => i.persistent);
+
+            // construct a condition
+            const persistentDamage = instances.map((instance) => {
+                const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+                condition.system.persistent = {
+                    formula: instance.head.expression,
+                    damageType: instance.type,
+                    dc: 15,
+                };
+                return condition;
+            });
+
+            // apply the conditions
+            await this.actor.createEmbeddedDocuments("Item", persistentDamage);
+            return;
+        } else {
+            return super._onDrop(event);
+        }
+    }
+
     protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         event.preventDefault();
 
@@ -324,6 +362,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                 return [draggedSpell];
             }
         }
+
+        console.log(data);
 
         return super._onDropItem(event, data);
     }
