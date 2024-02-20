@@ -67,15 +67,17 @@
                 ]
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "2+@spell.rank"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
                     "item:slug:fireball",
                     "spell-trickster:lingering-flames"
                 ],
-                "selector": "spell-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "2 + @spell.rank"
             },
             {
                 "damageCategory": "persistent",

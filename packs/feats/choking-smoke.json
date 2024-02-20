@@ -65,10 +65,8 @@
                 ]
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": "2*(@spell.rank - 3)"
-                },
+                "key": "DamageAlteration",
+                "mode": "override",
                 "predicate": [
                     "item:slug:fireball",
                     "spell-trickster:choking-smoke",
@@ -79,7 +77,11 @@
                         ]
                     }
                 ],
-                "selector": "spell-damage"
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "2*(@spell.rank - 3)"
             }
         ],
         "traits": {
