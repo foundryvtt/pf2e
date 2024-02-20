@@ -316,7 +316,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
 
         // get the backing language for common
-        const commonLanguage = game.settings.get("pf2e", "homebrew.languageRarities").commonLanguage;
+        const commonBackingLanguage = game.settings.get("pf2e", "homebrew.languageRarities").commonLanguage;
 
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
@@ -324,26 +324,30 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 (l) => l in CONFIG.PF2E.languages,
             );
 
-            const deductBackingLanguage = commonLanguage
-                ? actor.system.details.languages.value.find((i) => i === commonLanguage)
+            // find if the backing language is present in character's languages
+            // this means characters explictly selected it
+            const deductBackingLanguage = commonBackingLanguage
+                ? actor.system.details.languages.value.find((i) => i === commonBackingLanguage)
                     ? 1
                     : 0
                 : 0;
+            // set the new languages max based on if the common-backing language is present
+            const languageNewMax = languagesBuild.max + deductBackingLanguage;
 
-            const isOverMax = languagesBuild.value - deductBackingLanguage > languagesBuild.max;
+            const isOverMax = languagesBuild.value > languageNewMax;
             const languages: LanguageSheetData[] = actor.system.details.languages.value
                 .map((language) => {
                     const baseLanguage = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
 
                     const label = baseLanguage;
 
+                    // set the tooltip for common to show the backing language
                     const commonTooltip =
-                        commonLanguage && language === "common"
-                            ? game.i18n.localize(CONFIG.PF2E.languages[commonLanguage] ?? commonLanguage)
+                        commonBackingLanguage && language === "common"
+                            ? game.i18n.localize(CONFIG.PF2E.languages[commonBackingLanguage] ?? commonBackingLanguage)
                             : baseLanguage;
 
-                    const overLimit =
-                        isOverMax && sourceLanguages.indexOf(language) + 1 > languagesBuild.max + deductBackingLanguage;
+                    const overLimit = isOverMax && sourceLanguages.indexOf(language) + 1 > languageNewMax;
                     const tooltip = overLimit
                         ? "PF2E.Actor.Character.Language.OverLimit"
                         : language === "common"
@@ -354,9 +358,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 .sort((a, b) => a.label.localeCompare(b.label));
             const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
             const unallocatedTooltip = "PF2E.Actor.Character.Language.Unallocated.Tooltip";
-            const unallocatedLanguages = Array.fromRange(
-                Math.max(0, languagesBuild.max - languagesBuild.value - deductBackingLanguage),
-            ).map(() => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }));
+            const unallocatedLanguages = Array.fromRange(Math.max(0, languageNewMax - languagesBuild.value)).map(
+                () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
+            );
             languages.push(...unallocatedLanguages);
 
             return languages;
