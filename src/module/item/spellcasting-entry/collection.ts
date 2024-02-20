@@ -4,7 +4,7 @@ import { OneToTen, ValueAndMax, ZeroToTen } from "@module/data.ts";
 import { ErrorPF2e, groupBy, localizer, ordinalString } from "@util";
 import * as R from "remeda";
 import { spellSlotGroupIdToNumber } from "./helpers.ts";
-import { ActiveSpell, BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
+import { BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 
 class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TActor>> {
     readonly entry: BaseSpellcastingEntry<TActor>;
@@ -132,28 +132,29 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
 
         const groupNumber = spellSlotGroupIdToNumber(groupId);
-        const prepared = this.entry.system.slots[`slot${groupNumber}`].prepared;
-        prepared[slotIndex] = { id: spell.id };
-        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
+        const slots = fu.deepClone(this.entry.system.slots[`slot${groupNumber}`].prepared);
+        const expended = slots[slotIndex].expended;
+        slots[slotIndex] = { id: spell.id, expended };
+        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: slots });
 
         return result ? this : null;
     }
 
     /** Clear the spell slot and updates the spellcasting entry */
-    async unprepareSpell(groupId: SpellSlotGroupId, slotId: number): Promise<this | null> {
+    async unprepareSpell(groupId: SpellSlotGroupId, slotIndex: number): Promise<this | null> {
         this.#assertEntryIsDocument(this.entry);
-        const groupNumber = spellSlotGroupIdToNumber(groupId);
 
+        const groupNumber = spellSlotGroupIdToNumber(groupId);
         if (CONFIG.debug.hooks === true) {
             console.debug(
-                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${slotId} for spell rank ${groupNumber}`,
+                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${slotIndex} for spell rank ${groupNumber}`,
             );
         }
 
-        const slots = this.entry.toObject().system.slots[`slot${groupNumber}`];
-        const prepared = slots.prepared;
-        prepared.splice(slotId, 1);
-        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: prepared });
+        const slots = fu.deepClone(this.entry.system.slots[`slot${groupNumber}`].prepared);
+        const expended = slots[slotIndex].expended;
+        slots[slotIndex] = { id: null, expended };
+        const result = await this.entry.update({ [`system.slots.slot${groupNumber}.prepared`]: slots });
 
         return result ? this : null;
     }
@@ -172,7 +173,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
     }
 
     async getSpellData({ prepList = false } = {}): Promise<SpellCollectionData> {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
@@ -193,22 +194,15 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             for (let rank = 0 as ZeroToTen; rank <= this.highestRank; rank++) {
                 const group = this.entry.system.slots[`slot${rank}`];
                 // Detect which spells are active. If flexible, it will be set later via signature spells
-                const active: (ActiveSpell | null)[] = [];
                 const showRank = this.entry.showSlotlessRanks || group.max > 0;
-                if (showRank && (rank === 0 || !isFlexible)) {
-                    const maxPrepared = Math.max(group.max, 0);
-                    active.push(...Array(maxPrepared).fill(null));
-                    for (const [index, slot] of Object.entries(group.prepared)) {
-                        const spell = slot.id ? this.get(slot.id) : null;
-                        if (spell) {
-                            active[Number(index)] = {
-                                castRank: spell.computeCastRank(rank),
-                                spell,
-                                expended: !!slot.expended,
-                            };
-                        }
-                    }
-                }
+                const populateList = showRank && (rank === 0 || !isFlexible);
+                const active = populateList
+                    ? group.prepared.map((slot) => {
+                          const spell = slot && this.get(slot.id ?? "");
+                          const castRank = spell?.computeCastRank(rank);
+                          return spell ? { castRank, spell, expended: slot.expended } : null;
+                      })
+                    : [];
 
                 const [groupId, maxRank]: [SpellSlotGroupId, OneToTen] =
                     rank === 0 ? ["cantrips", maxCantripRank] : [rank, rank];
