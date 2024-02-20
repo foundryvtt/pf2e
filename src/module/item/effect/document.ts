@@ -51,6 +51,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badge.type === "formula") {
                 badge.label = null;
             } else {
+                if (badge.type === "counter") badge.loop ??= false;
                 badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
                 badge.value = Math.clamped(badge.value, badge.min, badge.max);
