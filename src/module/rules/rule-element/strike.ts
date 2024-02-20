@@ -42,7 +42,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);
         this.battleForm ??= false;
-        this.fist ??= false;
         this.options ??= [];
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
             ? true

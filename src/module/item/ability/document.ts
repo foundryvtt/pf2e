@@ -54,13 +54,13 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         processSanctification(this);
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const options = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         if (this.frequency || this.system.deathNote) {
-            options.push(`${prefix}:frequency:limited`);
+            rollOptions.push(`${prefix}:frequency:limited`);
         }
 
-        return options;
+        return rollOptions;
     }
 
     override async getChatData(

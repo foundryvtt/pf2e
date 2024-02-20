@@ -224,14 +224,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
-        const rollOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         const { material } = this.system;
         rollOptions.push(
             ...Object.entries({
                 equipped: this.isEquipped,
                 [`hands-held:${this.handsHeld}`]: this.handsHeld > 0,
-                [`rarity:${this.rarity}`]: true,
                 uninvested: this.isInvested === false,
                 [`material:${material.type}`]: !!material.type,
             })

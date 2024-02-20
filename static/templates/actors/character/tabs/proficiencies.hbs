@@ -8,23 +8,18 @@
                     <a class="d20" data-action="roll-check">
                         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                     </a>
-                    <a class="modifier" data-action="roll-check" data-tooltip="{{skill.breakdown}}">
+                    <a class="modifier hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers" data-tooltip="{{skill.breakdown}}">
                         {{numberFormat skill.value decimals=0 sign=true}}
                     </a>
                     <div class="name">{{localize skill.label}}</div>
-                    <div class="button-group stacked">
-                        <select
-                            class="skill-proficiency pf-rank"
-                            data-property="system.skills.{{key}}.rank"
-                            data-rank="{{skill.rank}}"
-                            data-dtype="Number"
-                        >
-                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
-                        </select>
-                        <button type="button" class="hover" data-tooltip-content="#{{@root.options.id}}-{{skill.slug}}-modifiers">
-                            {{localize "PF2E.ModifiersTitle"}}
-                        </button>
-                    </div>
+                    <select
+                        class="skill-proficiency pf-rank"
+                        data-property="system.skills.{{key}}.rank"
+                        data-rank="{{skill.rank}}"
+                        data-dtype="Number"
+                    >
+                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                    </select>
                     {{#with skill}}
                         {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" abpEnabled=@root.abpEnabled title=label}}
                     {{/with}}
@@ -53,16 +48,14 @@
                     </a>
                     <a class="modifier" data-action="roll-check">{{numberFormat skill.value decimals=0 sign=true}}</a>
                     <input class="name" data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
-                    <div class="skill-prof button-group skill-container">
-                        <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
-                            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
-                        </select>
-                        {{#if ../editable}}
-                            <div class="item-controls">
-                                <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
-                            </div>
-                        {{/if}}
-                    </div>
+                    <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
+                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
+                    </select>
+                    {{#if ../editable}}
+                        <div class="item-controls">
+                            <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        </div>
+                    {{/if}}
                 </li>
             {{/if}}
         {{/each}}
@@ -86,16 +79,14 @@
                 {{/if}}
                 <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                 <span class="name">{{localize proficiency.label}}</span>
-                <div class="button-group">
-                    <select
-                        class="skill-proficiency pf-rank{{#unless proficiency.custom}} readonly{{/unless}}"
-                        data-property="system.proficiencies.attacks.{{key}}.rank"
-                        data-rank="{{proficiency.rank}}"
-                        data-dtype="Number"
-                    >
-                        {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
-                    </select>
-                </div>
+                <select
+                    class="skill-proficiency pf-rank{{#unless proficiency.custom}} readonly{{/unless}}"
+                    data-property="system.proficiencies.attacks.{{key}}.rank"
+                    data-rank="{{proficiency.rank}}"
+                    data-dtype="Number"
+                >
+                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=proficiency.rank}}
+                </select>
             </li>
         {{/each}}
     </ul>
@@ -109,9 +100,7 @@
             <li{{#if (and @first @last)}} class="all-by-myself"{{/if}} data-slug="{{key}}">
                 <span class="modifier" data-tooltip="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</span>
                 <span class="name">{{localize proficiency.label}}</span>
-                <div class="button-group">
-                    <span class="pf-rank" data-rank="{{proficiency.rank}}">{{lookup @root.numberToRank proficiency.rank}}</span>
-                </div>
+                <span class="pf-rank" data-rank="{{proficiency.rank}}">{{lookup @root.numberToRank proficiency.rank}}</span>
             </li>
         {{/each}}
     </ul>
@@ -124,9 +113,7 @@
                 <li class="all-by-myself" data-slug="spellcasting">
                     <span class="modifier" data-tooltip="{{spellcasting.breakdown}}">{{numberFormat spellcasting.mod decimals=0 sign=true}}</span>
                     <span class="name">{{localize spellcasting.label}}</span>
-                    <div class="skill-prof button-group skill-container">
-                        <span class="pf-rank" data-rank="{{spellcasting.rank}}">{{lookup @root.numberToRank spellcasting.rank}}</span>
-                    </div>
+                    <span class="pf-rank" data-rank="{{spellcasting.rank}}">{{lookup @root.numberToRank spellcasting.rank}}</span>
                 </li>
             {{/with}}
         </ul>
@@ -138,14 +125,9 @@
         <ul class="proficiencies-list">
             {{#each classDCs.dcs as |classDC|}}
                 <li{{#if (and @first @last)}} class="all-by-myself"{{else if (not classDC.primary)}} class="secondary"{{/if}}>
-                    <span class="dc" data-tooltip="{{classDC.breakdown}}">{{classDC.dc}}</span>
+                    <a class="dc hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers" data-tooltip="{{classDC.breakdown}}">{{classDC.dc}}</a>
                     <span class="name">{{classDC.label}}</span>
-                    <div class="button-group stacked">
-                        <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
-                        <button type="button" class="hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers">
-                            {{localize "PF2E.ModifiersTitle"}}
-                        </button>
-                    </div>
+                    <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
                     {{#with classDC}}
                         {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.Actor.Character.ClassDC.Label"}}
                     {{/with}}

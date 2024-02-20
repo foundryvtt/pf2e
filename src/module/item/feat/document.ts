@@ -316,18 +316,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "feat"): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         prefix = prefix === "feat" && this.isFeature ? "feature" : prefix;
 
-        const options = [
-            ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
-            `${prefix}:category:${this.category}`,
-        ];
+        const rollOptions = new Set([...super.getRollOptions(prefix, options), `${prefix}:category:${this.category}`]);
+        rollOptions.delete(`${prefix}:level:0`);
+        if (!this.isFeat) rollOptions.delete(`${prefix}:rarity:${this.rarity}`);
+        if (this.frequency) rollOptions.add(`${prefix}:frequency:limited`);
 
-        if (this.isFeat) options.push(`${prefix}:rarity:${this.rarity}`);
-        if (this.frequency) options.push(`${prefix}:frequency:limited`);
-
-        return options;
+        return Array.from(rollOptions);
     }
 
     /* -------------------------------------------- */
