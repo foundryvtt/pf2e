@@ -74,8 +74,10 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Increases if this is a counter effect, otherwise ignored outright */
     async increase(): Promise<void> {
         const badge = this.system.badge;
+        const looping = this.system.looping;
         if (badge?.type === "counter" && !this.isExpired) {
-            const value = badge.value + 1;
+            const value =
+                looping && badge.labels ? (badge.value + 1 > badge.max ? badge.min : badge.value + 1) : badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
     }
@@ -86,7 +88,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             await this.delete();
             return;
         }
-
         const value = this.system.badge.value - 1;
         await this.update({ system: { badge: { value } } });
     }
