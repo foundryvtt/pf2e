@@ -53,9 +53,7 @@ export const InlineRollLinks = {
         }
     },
 
-    listen: (html: HTMLElement, foundryDoc: ClientDocument | null = null): void => {
-        foundryDoc ??= resolveDocument(html, foundryDoc);
-
+    listen: (html: HTMLElement, foundryDoc = resolveDocument(html)): void => {
         const links = htmlQueryAll(html, inlineSelector).filter((l) => ["A", "SPAN"].includes(l.nodeName));
         InlineRollLinks.injectRepostElement(links, foundryDoc);
 
@@ -111,18 +109,25 @@ export const InlineRollLinks = {
                     }
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                    const actors =
-                        foundryDoc instanceof ActorPF2e
-                            ? [foundryDoc]
-                            : foundryDoc instanceof ItemPF2e && foundryDoc.actor
-                              ? [foundryDoc.actor]
-                              : getSelectedActors({ exclude: ["loot"], assignedFallback: true });
+                    const sheetActor = ((): ActorPF2e | null => {
+                        const actor =
+                            foundryDoc instanceof ActorPF2e
+                                ? foundryDoc
+                                : foundryDoc instanceof ItemPF2e && foundryDoc.actor
+                                  ? foundryDoc.actor
+                                  : null;
+                        return actor.isOwner && !actor.isOfType("loot", "party") ? actor : null;
+                    })();
+                    const rollingActors = [
+                        sheetActor ?? getSelectedActors({ exclude: ["loot"], assignedFallback: true }),
+                    ].flat();
+
                     const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
-                    if (parent?.isOfType("party") || (actors.length === 0 && parent && !isSave)) {
+                    if (parent?.isOfType("party") || (rollingActors.length === 0 && parent && !isSave)) {
                         return [parent];
                     }
 
-                    return actors;
+                    return rollingActors;
                 })();
 
                 if (actors.length === 0) {
