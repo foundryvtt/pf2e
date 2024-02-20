@@ -42,7 +42,11 @@ class DamageAlteration {
         }
 
         if (rule.property === "dice-number" && "diceNumber" in damage && typeof change === "number") {
-            return AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change);
+            return Math.clamped(
+                Math.floor(AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change)),
+                0,
+                99,
+            );
         }
 
         if (rule.property === "dice-faces") {

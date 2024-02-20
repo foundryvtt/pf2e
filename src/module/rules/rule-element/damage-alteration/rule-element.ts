@@ -69,8 +69,8 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
         const damageTypes: Set<string> = DAMAGE_TYPES;
         const isValid = {
             "damage-type": typeof resolved === "string" && damageTypes.has(resolved),
-            "dice-faces": typeof resolved === "number" && Number.isInteger(resolved) && resolved >= 0 && resolved < 100,
-            "dice-number": tupleHasValue(DAMAGE_DICE_FACES, resolved),
+            "dice-faces": tupleHasValue(DAMAGE_DICE_FACES, resolved),
+            "dice-number": typeof resolved === "number" && Number.isInteger(resolved) && resolved.between(0, 99),
         };
 
         if (!isValid[this.property]) {
