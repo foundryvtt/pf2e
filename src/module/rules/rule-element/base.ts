@@ -1,6 +1,6 @@
 import type { ActorPF2e, ActorType } from "@actor";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { ItemPF2e, PhysicalItemPF2e, type WeaponPF2e } from "@item";
+import { ItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
@@ -24,9 +24,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
     declare label: string;
 
-    sourceIndex: number | null;
+    sourceIndex: number | null = null;
 
-    protected suppressWarnings: boolean;
+    protected suppressWarnings = false;
 
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = [
@@ -45,10 +45,15 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     constructor(source: RuleElementSource, options: RuleElementOptions) {
         super(source, { parent: options.parent, strict: options.strict ?? true, fallback: false });
-        const item = this.parent;
 
+        if (this.invalid) {
+            this.ignored = true;
+            return;
+        }
+
+        const item = this.parent;
         // Always suppress warnings if the actor has no ID (and is therefore a temporary clone)
-        this.suppressWarnings = options.suppressWarnings ?? !this.actor.id;
+        this.suppressWarnings = options.suppressWarnings ?? !item.actor.id;
         this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
@@ -66,9 +71,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
               })
             : item.name;
 
-        if (this.invalid) {
-            this.ignored = true;
-        } else if (item instanceof PhysicalItemPF2e) {
+        if (item.isOfType("physical")) {
             this.requiresEquipped = !!(source.requiresEquipped ?? true);
             this.requiresInvestment =
                 item.isInvested === null ? null : !!(source.requiresInvestment ?? this.requiresEquipped);
@@ -454,11 +457,15 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
     onCreate?(actorUpdates: Record<string, unknown>): void;
 
     /**
-     * Run at the start of the actor's turn. Similar to onCreate and onDelete, this provides an opportunity to make
+     * Run at certain encounter events, such as the start of the actor's turn. Similar to onCreate and onDelete, this provides an opportunity to make
      * updates to the actor.
-     * @param actorUpdates A record containing update data for the actor
+     * @param data.event        The type of event that triggered this callback
+     * @param data.actorUpdates A record containing update data for the actor
      */
-    onTurnStart?(actorUpdates: Record<string, unknown>): void | Promise<void>;
+    onUpdateEncounter?(data: {
+        event: "initiative-roll" | "turn-start";
+        actorUpdates: Record<string, unknown>;
+    }): Promise<void>;
 
     /**
      * Runs after an item holding this rule is removed from an actor. This method is used for cleaning up any values

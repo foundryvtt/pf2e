@@ -22,6 +22,10 @@
         }
     }
 
+    .drag-handle {
+        cursor: hand;
+    }
+
     i.fa-info-circle {
         cursor: help;
     }
@@ -158,9 +162,7 @@
             text-shadow: 0 0 0.1em var(--text-light);
         }
     }
-}
 
-.actor.sheet {
     form.crb-style {
         display: grid;
         grid:
@@ -239,6 +241,7 @@
                     > li {
                         align-items: center;
                         display: flex;
+                        height: 1.5rem;
                         width: 100%;
 
                         label {
@@ -299,7 +302,6 @@
                         }
 
                         .drag-handle {
-                            cursor: move;
                             color: var(--text-light);
                             flex-basis: 0;
                             margin-right: 0.25em;
@@ -447,7 +449,16 @@
         }
     }
 
-    &.character {
+    /* Mystification data revealed to GMs */
+    .gm-mystified-data {
+        opacity: 0.75;
+    }
+
+    @import "coinage";
+}
+
+.actor.sheet {
+    &.character section.window-content {
         @import "character/attack-popout";
 
         .crb-style {
@@ -461,7 +472,6 @@
 }
 
 @import "spell-preparation";
-@import "coinage";
 
 /* Actor-type Imports */
 @import "familiar";
@@ -475,8 +485,3 @@
 @import "party";
 
 @import "army";
-
-/* Mystification data revealed to GMs */
-.gm-mystified-data {
-    opacity: 0.75;
-}

@@ -26,9 +26,7 @@ interface SpellDifficultyClass {
 
 interface SpellPrepData {
     id: string | null;
-    expended?: boolean;
-    name?: string;
-    prepared?: boolean;
+    expended: boolean;
 }
 
 interface SpellSlotData {

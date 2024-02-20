@@ -189,10 +189,10 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
+        const baseOptions = super.getRollOptions(prefix, options);
 
-        const { damageType } = this.baseDamage;
+        const damageType = this.baseDamage.damageType;
         const damageCategory = DamageCategorization.fromDamageType(damageType);
         const rangeIncrement = this.range?.increment;
         const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);

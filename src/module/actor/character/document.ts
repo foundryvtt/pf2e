@@ -1116,12 +1116,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Regenerate unarmed strikes from handwraps so that all runes are included
         if (handwraps) {
-            for (const [slug, weapon] of synthetics.strikes.entries()) {
+            for (const weapon of synthetics.strikes.values()) {
                 if (weapon.category === "unarmed") {
-                    const clone = weapon.clone({ system: { runes: unarmedRunes } }, { keepId: true });
-                    synthetics.strikes.set(slug, clone);
-                    // Prevent synthetic strikes from being renamed by runes
-                    clone.name = clone._source.name;
+                    weapon.system.runes = fu.mergeObject(weapon.system.runes, unarmedRunes);
                 }
             }
         }
@@ -1425,6 +1422,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (weapon.isEquipped && handsAvailable) ||
             (weapon.isThrown && weapon.reload === "0" && weapon.isWorn && handsReallyFree > 0);
 
+        const traitToggles = weapon.system.traits.toggles;
+        const doubleBarrel = weaponTraits.has("double-barrel") ? traitToggles.doubleBarrel : null;
+        const versatileOptions =
+            weapon.altUsageType === "thrown"
+                ? []
+                : traitToggles.versatile.options.map((o) => ({
+                      value: o,
+                      selected: traitToggles.versatile.selected === o,
+                      label: versatileLabel(o),
+                      glyph: DAMAGE_TYPE_ICONS[o],
+                  }));
+
         const action: CharacterStrike = fu.mergeObject(strikeStat, {
             label: weapon.name,
             quantity: weapon.quantity,
@@ -1445,28 +1454,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             selectedAmmoId: weapon.system.selectedAmmoId,
             altUsages,
             auxiliaryActions,
-            versatileOptions: weapon.system.traits.toggles.versatile.options.map((o) => ({
-                value: o,
-                selected: weapon.system.traits.toggles.versatile.selected === o,
-                label: versatileLabel(o),
-                glyph: DAMAGE_TYPE_ICONS[o],
-            })),
+            doubleBarrel,
+            versatileOptions,
         });
 
         if (action.versatileOptions.length > 0) {
             action.versatileOptions.unshift({
                 value: weapon.system.damage.damageType,
-                selected: weapon.system.traits.toggles.versatile.selected === null,
+                selected: traitToggles.versatile.selected === null,
                 label: CONFIG.PF2E.damageTypes[weapon.system.damage.damageType],
                 glyph: DAMAGE_TYPE_ICONS[weapon.system.damage.damageType],
             });
         }
 
         // Show the ammo list if the weapon requires ammo
-        if (weapon.requiresAmmo) {
+        if (weapon.ammoRequired > 0) {
             const compatible = ammos.filter((a) => a.isAmmoFor(weapon));
             const incompatible = ammos.filter((a) => !a.isAmmoFor(weapon));
-            const { ammo } = weapon;
+            const ammo = weapon.ammo;
             const selected = ammo ? { id: ammo.id, compatible: ammo.isAmmoFor(weapon) } : null;
             action.ammunition = { compatible, incompatible, selected };
         }
@@ -1519,9 +1524,17 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             },
             roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 params.options ??= [];
-                params.consumeAmmo ??= weapon.requiresAmmo;
 
-                if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
+                const configuredAmmo = weapon.ammo;
+                const ammoRequired = weapon.ammoRequired;
+                const ammoRemaining = configuredAmmo?.isOfType("consumable")
+                    ? configuredAmmo.uses.max > 1
+                        ? configuredAmmo.uses.value
+                        : configuredAmmo.quantity
+                    : configuredAmmo?.quantity ?? 0;
+                params.consumeAmmo ??= ammoRequired > 0;
+
+                if (params.consumeAmmo && ammoRequired > ammoRemaining) {
                     ui.notifications.warn(
                         game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name }),
                     );

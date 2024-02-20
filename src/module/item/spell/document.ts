@@ -335,7 +335,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const damageKinds = Array.from(this.damageKinds);
         const domains = R.compact(
             [
-                damageKinds,
                 damageKinds.map((k) => `spell-${k}`),
                 damageKinds.map((k) => `${this.id}-${k}`),
                 isAttack ? ["attack-damage", "attack-spell-damage"] : null,
@@ -619,7 +618,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
 
         if (this.system.area?.value) {
-            this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
+            this.system.area.value = (Math.ceil(this.system.area.value / 5) * 5 || 5) as EffectAreaSize;
             this.system.area.type ||= "burst";
         } else {
             this.system.area = null;
@@ -706,7 +705,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         processSanctification(this);
     }
 
-    override getRollOptions(prefix = this.type, options: { includeVariants?: boolean } = {}): string[] {
+    override getRollOptions(
+        prefix = this.type,
+        options: { includeGranter?: boolean; includeVariants?: boolean } = {},
+    ): string[] {
         const spellcasting = this.spellcasting;
         const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
@@ -780,10 +782,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const rollOptions = super.getRollOptions(prefix);
-        rollOptions.push(...spellOptions);
-
-        return rollOptions;
+        return [...super.getRollOptions(prefix, options), ...spellOptions];
     }
 
     override async toMessage(
@@ -919,7 +918,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         })();
 
         // Spell attack labels
-        const { damageKinds } = this;
+        const damageKinds = this.damageKinds;
         const damageLabel = damageKinds.has("damage")
             ? damageKinds.has("healing")
                 ? "PF2E.Damage.Kind.Both.Roll.Verb"
@@ -1182,6 +1181,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
         ]);
         for (const system of systemChanges) {
+            // Normalize or remove spell area
+            const areaData = changed.system.area;
+            if (areaData) {
+                if (typeof areaData.value === "number") {
+                    areaData.value = (Math.ceil(areaData.value / 5) * 5 || 5) as EffectAreaSize;
+                    areaData.type ||= "burst";
+                } else if (areaData.value === null || !areaData.type) {
+                    changed.system.area = null;
+                }
+            }
+
             // Normalize defense data; wipe if both defenses are `null`
             for (const defenseType of ["passive", "save"] as const) {
                 const newValue = system.defense?.[defenseType];

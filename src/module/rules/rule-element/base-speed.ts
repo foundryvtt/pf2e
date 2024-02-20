@@ -1,9 +1,9 @@
 import type { ActorType, CreaturePF2e } from "@actor";
-import { MovementType } from "@actor/types.ts";
+import type { MovementType } from "@actor/types.ts";
 import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { tupleHasValue } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
+import type { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
@@ -13,6 +13,17 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
+        if (this.invalid) return;
+
+        this.selector = this.selector.trim().replace(/-speed$/, "");
+
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
+            this.failValidation("A value must be a number, string, or bracketed value");
+        }
+    }
+
     static override defineSchema(): BaseSpeedRuleSchema {
         const fields = foundry.data.fields;
 
@@ -21,16 +32,6 @@ class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> {
             selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
             value: new ResolvableValueField({ required: true, nullable: false, initial: undefined }),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
-
-        this.selector = this.selector?.trim().replace(/-speed$/, "");
-
-        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
-            this.failValidation("A value must be a number, string, or bracketed value");
-        }
     }
 
     override beforePrepareData(): void {

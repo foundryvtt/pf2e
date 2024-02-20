@@ -31,7 +31,7 @@
             display: flex;
             font-family: var(--serif);
             font-size: var(--font-size-16);
-            min-height: 2.5rem;
+            min-height: 2.25rem;
             padding: 0 var(--space-8) 0 var(--space-4);
 
             a.d20 {
@@ -65,42 +65,15 @@
                 width: 1.75rem;
             }
 
-            .name {
-                flex: 1;
-                line-height: 1em;
-                margin-right: var(--space-4);
+            a.hover {
+                text-decoration: underline var(--color-pf-primary-dark);
+                text-underline-offset: 0.125em;
             }
 
-            .button-group {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-
-                button {
-                    @include micro;
-                    align-items: center;
-                    background: var(--sub);
-                    border-radius: 2px;
-                    border: 1px solid rgba(black, 0.5);
-                    box-shadow: inset 0 0 0 1px rgba(white, 0.15);
-                    color: var(--text-light);
-                    display: flex;
-                    font-weight: 500;
-                    justify-content: center;
-                    line-height: 1.3em;
-                    margin: 0;
-                    padding: var(--space-1) 0 0;
-                    width: 6.5em;
-
-                    &:hover {
-                        background: var(--color-pf-primary);
-                    }
-                }
-
-                &.stacked {
-                    flex-flow: column wrap;
-                    gap: var(--space-1);
-                }
+            .name {
+                flex: 1;
+                line-height: 0.9em;
+                margin-right: var(--space-4);
             }
 
             // Proficiencies added by the user
@@ -121,7 +94,7 @@
             }
         }
 
-        &.lores-list > li .button-group .item-controls {
+        &.lores-list > li .item-controls {
             font-size: var(--font-size-12);
             margin-left: var(--space-8);
         }

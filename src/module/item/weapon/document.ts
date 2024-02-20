@@ -170,9 +170,13 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
-    /** Does this weapon require ammunition in order to make a strike? */
-    get requiresAmmo(): boolean {
-        return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload);
+    /** The number of units of ammunition required to attack with this weapon */
+    get ammoRequired(): number {
+        return this.isRanged && !this.isThrown && ![null, "-"].includes(this.reload)
+            ? this.system.traits.toggles.doubleBarrel.selected
+                ? 2
+                : 1
+            : 0;
     }
 
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
@@ -212,7 +216,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const { actor, baseDamage } = this;
         const damage = {
             category: DamageCategorization.fromDamageType(baseDamage.damageType),
@@ -260,7 +264,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         })();
         const rangeIncrement = this.range?.increment;
 
-        const rollOptions = super.getRollOptions(prefix);
+        const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
                 [`category:${this.category}`]: true,
@@ -414,6 +418,11 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.rules.push(...ammoRules);
     }
 
+    override onPrepareSynthetics(): void {
+        super.onPrepareSynthetics();
+        this.system.traits.toggles.applyChanges();
+    }
+
     override async getChatData(
         this: WeaponPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
@@ -503,7 +512,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a clone of this combination weapon with its melee usage overlain, or `null` if not applicable */
     private toMeleeUsage(): this | null {
-        const { meleeUsage } = this.system;
+        const meleeUsage = this.system.meleeUsage;
         if (!meleeUsage || this.flags.pf2e.comboMeleeUsage) return null;
 
         const traitToggles = {
@@ -695,9 +704,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Consume a unit of ammunition used by this weapon */
     async consumeAmmo(): Promise<void> {
-        const { ammo } = this;
+        const ammo = this.ammo;
         if (ammo?.isOfType("consumable")) {
-            return ammo.consume();
+            const deduction = this.system.traits.toggles.doubleBarrel.selected ? 2 : 1;
+            return ammo.consume(deduction);
         } else if (ammo?.isOfType("weapon")) {
             if (!ammo.system.usage.canBeAmmo) {
                 throw ErrorPF2e("attempted to consume weapon not usable as ammunition");

@@ -129,23 +129,22 @@ class ChatCards {
                     if (overlayIds) {
                         const variantSpell = spell?.loadVariant({ overlayIds, castRank });
                         if (variantSpell) {
-                            const variantMessage = await variantSpell.toMessage(null, {
-                                create: false,
-                                data: { castRank },
-                            });
+                            const data = { castRank };
+                            const variantMessage = await variantSpell.toMessage(null, { data, create: false });
                             if (variantMessage) {
-                                const messageSource = variantMessage.toObject();
-                                await message.update(messageSource);
+                                const whisper = message._source.whisper;
+                                const changes = variantMessage.clone({ whisper }).toObject();
+                                await message.update(changes);
                             }
                         }
                     } else if (spell) {
                         const originalSpell = spell?.original ?? spell;
-                        const originalMessage = await originalSpell.toMessage(null, {
-                            create: false,
-                            data: { castRank },
-                        });
-                        if (originalMessage) {
-                            await message.update(originalMessage.toObject());
+                        const data = { castRank };
+                        const restoredMessage = await originalSpell.toMessage(null, { data, create: false });
+                        if (restoredMessage) {
+                            const whisper = message._source.whisper;
+                            const changes = restoredMessage.clone({ whisper }).toObject();
+                            await message.update(changes);
                         }
                     }
                     return;

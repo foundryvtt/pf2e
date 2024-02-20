@@ -1,6 +1,6 @@
 {{#if featSlot.feat}}
-    <li class="item feat-item" data-item-id="{{featSlot.feat.id}}" data-slot-id="{{featSlot.id}}">
-        <div class="item-name drag-handle">
+    <li class="slot" data-item-id="{{featSlot.feat.id}}" data-slot-id="{{featSlot.id}}">
+        <div class="item-name drag-handle" data-drag-handle>
             <div class="feat-slot-title">{{featSlot.label}}</div>
             <a class="item-image framed" data-action="item-to-chat">
                 <img class="item-icon" src="{{featSlot.feat.img}}" alt="{{featSlot.feat.name}}">
@@ -59,7 +59,7 @@
 {{/inline}}
 
 {{#*inline "emptySlot"}}
-    <li class="feat-item" data-slot-id="{{slot.id}}">
+    <li class="slot" data-slot-id="{{slot.id}}">
         <div class="item-name">
             <div class="feat-slot-title">{{slot.label}}</div>
             <div class="item-placeholder">{{coalesce slot.restriction.hint (localize "PF2E.EmptySlot")}}</div>

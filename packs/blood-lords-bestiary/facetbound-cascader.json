@@ -1965,7 +1965,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and [[/r (@item.level)d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2446,45 +2446,10 @@
             "type": "melee"
         },
         {
-            "_id": "coZ6si2yrca9IsEA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 3400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "jUR7Ydda63BBMAlR",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Implanted Stone",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2519,7 +2484,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status to All Saves vs. Magic",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2567,7 +2532,7 @@
             "_id": "LAA0XJePYKC5IgZv",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Energy Ward",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2590,30 +2555,26 @@
                         "domain": "all",
                         "key": "RollOption",
                         "option": "energy-ward",
+                        "selection": "cold",
                         "suboptions": [
                             {
                                 "label": "PF2E.TraitAcid",
-                                "selected": false,
                                 "value": "acid"
                             },
                             {
                                 "label": "PF2E.TraitCold",
-                                "selected": true,
                                 "value": "cold"
                             },
                             {
                                 "label": "PF2E.TraitElectricity",
-                                "selected": false,
                                 "value": "electricity"
                             },
                             {
                                 "label": "PF2E.TraitFire",
-                                "selected": false,
                                 "value": "fire"
                             },
                             {
                                 "label": "PF2E.TraitPoison",
-                                "selected": false,
                                 "value": "poison"
                             }
                         ],
@@ -2651,7 +2612,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2688,7 +2649,7 @@
             "_id": "FvCV25pS2ksjpkOt",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Energy Charge",
-            "sort": 3900000,
+            "sort": 3800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2720,7 +2681,7 @@
             "_id": "DEFEGOYbazU1avTn",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Energy Shift",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -2753,7 +2714,7 @@
             "_id": "iFKNoFTDpMXMV1nP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "description": {
                     "value": ""
@@ -2778,7 +2739,7 @@
             "_id": "9uC0CHKVDNKpP6Vh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "description": {
                     "value": ""
@@ -2803,7 +2764,7 @@
             "_id": "carBeOcSmPmnZe02",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "description": {
                     "value": ""
@@ -2828,7 +2789,7 @@
             "_id": "j5Nf1jyEJt5AzODW",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 4400000,
+            "sort": 4300000,
             "system": {
                 "description": {
                     "value": ""
@@ -2853,7 +2814,7 @@
             "_id": "oNSmpKscUR8rrzEN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 4500000,
+            "sort": 4400000,
             "system": {
                 "description": {
                     "value": ""
@@ -2878,7 +2839,7 @@
             "_id": "qiocWsfzZkZPKp2h",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 4600000,
+            "sort": 4500000,
             "system": {
                 "description": {
                     "value": ""

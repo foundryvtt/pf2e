@@ -312,7 +312,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.label = this.#determineLabel(data);
 
         // Acquire additional adjustments for cloned parent modifiers
-        const { modifierAdjustments } = parent.actor.synthetics;
+        const modifierAdjustments = parent.actor.synthetics.modifierAdjustments;
         const parentModifiers = parent.modifiers.map((modifier) => {
             const clone = modifier.clone();
             clone.adjustments.push(
@@ -340,7 +340,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const rollOptions = parent.createRollOptions(this.domains, config);
         this.modifiers = [
             ...parentModifiers,
-            ...checkOnlyModifiers.map((modifier) => modifier.clone({ test: rollOptions })),
+            ...checkOnlyModifiers.map((m) => m.clone({ domains: this.domains }, { test: rollOptions })),
         ];
         if (this.type === "flat-check" && this.modifiers.length > 0) {
             console.error(ErrorPF2e("Flat checks cannot have modifiers.").message);

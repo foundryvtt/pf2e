@@ -41,6 +41,8 @@ type ModifierType = SetElement<typeof MODIFIER_TYPES>;
 interface RawModifier {
     /** An identifier for this modifier; should generally be a localization key (see en.json). */
     slug?: string;
+    /** The domains of discourse to which this modifier belongs */
+    domains?: string[];
     /** The display name of this modifier; can be a localization key (see en.json). */
     label: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
@@ -110,7 +112,7 @@ type DeferredPromise<T> = (options?: DeferredValueParams) => Promise<T | null>;
 class ModifierPF2e implements RawModifier {
     slug: string;
     label: string;
-
+    domains: string[];
     /** The value of the modifier */
     modifier: number;
     /** The value before adjustments are applied */
@@ -173,6 +175,7 @@ class ModifierPF2e implements RawModifier {
 
         this.type = setHasElement(MODIFIER_TYPES, params.type) ? params.type : "untyped";
         this.ability = params.ability ?? null;
+        this.domains = params.domains ?? [];
         this.force = params.force ?? false;
         this.adjustments = fu.deepClone(params.adjustments ?? []);
         this.alterations = [params.alterations ?? []].flat();
@@ -235,11 +238,8 @@ class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
-        const clone =
-            this.modifier === this.#originalValue
-                ? new ModifierPF2e(this)
-                : new ModifierPF2e({ ...this, modifier: this.#originalValue });
+    clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
+        const clone = new ModifierPF2e(fu.mergeObject({ ...this, modifier: this.#originalValue, ...data }));
         if (options.test) clone.test(options.test);
 
         return clone;
@@ -255,11 +255,21 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        if (this.damageCategory) {
-            options.push(`${this.kind}:damage-category:${this.damageCategory}`);
-        }
-        if (this.damageType) {
-            options.push(`${this.kind}:damage-type:${this.damageType}`);
+        const damageKinds = R.compact([
+            this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
+            this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
+        ]);
+        for (const kind of damageKinds) {
+            options.push(kind);
+            options.push(`${this.kind}:${kind}`);
+            if (this.damageType) {
+                options.push(`${kind}:type:${this.damageType}`);
+                options.push(`${this.kind}:${kind}:type:${this.damageType}`);
+            }
+            if (this.damageCategory) {
+                options.push(`${kind}:category:${this.damageCategory}`);
+                options.push(`${this.kind}:${kind}:category:${this.damageCategory}`);
+            }
         }
 
         return options;
@@ -712,14 +722,15 @@ class DamageDicePF2e {
     /** Get roll options for set of dice using a "dice:" prefix. */
     getRollOptions(): string[] {
         const kind = this.selector.endsWith("healing") ? "healing" : "damage";
-        return R.compact([
+        return [
+            kind,
             `dice:slug:${this.slug}`,
             `dice:number:${this.diceNumber}`,
             `dice:faces:${this.dieSize}`,
             `dice:${kind}`,
-            this.category ? `dice:${kind}:category:${this.category}` : null,
-            this.damageType ? `dice:${kind}:type:${this.damageType}` : null,
-        ]);
+            this.category ? [`${kind}:category:${this.category}`, `dice:${kind}:category:${this.category}`] : [],
+            this.damageType ? [`${kind}:type:${this.damageType}`, `dice:${kind}:type:${this.damageType}`] : [],
+        ].flat();
     }
 
     /**

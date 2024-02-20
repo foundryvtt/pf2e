@@ -104,16 +104,16 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
-    override getRollOptions(prefix = this.type): string[] {
-        const options = super.getRollOptions(prefix);
+    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;
-            options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
+            rollOptions.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
+            if (category) rollOptions.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
-        return options;
+        return rollOptions;
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {

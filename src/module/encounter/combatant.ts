@@ -106,19 +106,10 @@ class CombatantPF2e<
         const { actor, encounter } = this;
         if (!encounter || !actor) return;
 
-        const actorUpdates: Record<string, unknown> = {};
+        this.update({ "flags.pf2e.roundOfLastTurn": encounter.round }, { render: false });
 
-        // Run any turn start events before the effect tracker updates.
-        // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
-        for (const rule of actor.rules) {
-            await rule.onTurnStart?.(actorUpdates);
-        }
-
-        // Now that a user has been found, make the updates if there are any
-        await this.update({ "flags.pf2e.roundOfLastTurn": encounter.round });
-        if (Object.keys(actorUpdates).length > 0) {
-            await actor.update(actorUpdates);
-        }
+        // Run any turn start events before the effect tracker updates
+        await this.#performActorUpdates("turn-start");
 
         // Effect changes on turn start/end
         for (const effect of actor.itemTypes.effect) {
@@ -231,6 +222,19 @@ class CombatantPF2e<
         await this.token.update({ displayName: visibilityToggles[currentVisibility] });
     }
 
+    /**
+     * Collect and process actor updates received from encounter event callbacks
+     * @param event The event type that triggered this request
+     */
+    async #performActorUpdates(event: "initiative-roll" | "turn-start"): Promise<void> {
+        const actor = this.actor;
+        const actorUpdates: Record<string, unknown> = {};
+        for (const rule of actor?.rules ?? []) {
+            await rule.onUpdateEncounter?.({ event, actorUpdates });
+        }
+        await actor?.update(actorUpdates);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -242,9 +246,10 @@ class CombatantPF2e<
     ): void {
         super._onUpdate(changed, options, userId);
 
-        // Reset actor data in case initiative order changed
-        if (this.encounter?.started && typeof changed.initiative === "number") {
-            this.encounter.resetActors();
+        if (typeof changed.initiative === "number") {
+            // Reset actor data in case initiative order changed
+            if (this.encounter?.started) this.encounter.resetActors();
+            if (userId === game.user.id) this.#performActorUpdates("initiative-roll");
         }
 
         // Send out a message with information on an automatic effect that occurs upon an actor's death

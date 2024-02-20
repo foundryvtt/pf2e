@@ -2992,41 +2992,6 @@
             "type": "melee"
         },
         {
-            "_id": "uv8lYUKGJVNvxD5Q",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 4000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "i1fagw7VusZxwIdz",
             "flags": {
                 "core": {
@@ -3035,7 +3000,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3083,7 +3048,7 @@
             "_id": "53IhzCwi4y8yO9XX",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Drain Bonded Item",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3118,7 +3083,7 @@
             "_id": "NILfejzFJ409TN4i",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Poison Conversion",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3148,12 +3113,19 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "poison"
-                        },
+                        "itemType": "spell",
+                        "key": "DamageAlteration",
+                        "mode": "override",
                         "predicate": [
                             "poison-conversion",
+                            {
+                                "or": [
+                                    "damage:type:acid",
+                                    "damage:type:cold",
+                                    "damage:type:electricity",
+                                    "damage:type:fire"
+                                ]
+                            },
                             {
                                 "or": [
                                     "item:trait:cantrip",
@@ -3166,7 +3138,12 @@
                                 ]
                             }
                         ],
-                        "selector": "spell-damage"
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "poison"
                     },
                     {
                         "itemType": "spell",
@@ -3174,6 +3151,14 @@
                         "mode": "add",
                         "predicate": [
                             "poison-conversion",
+                            {
+                                "or": [
+                                    "item:damage:type:acid",
+                                    "item:damage:type:cold",
+                                    "item:damage:type:electricity",
+                                    "item:damage:type:fire"
+                                ]
+                            },
                             {
                                 "or": [
                                     "item:trait:cantrip",
@@ -3202,7 +3187,7 @@
             "_id": "1UU8GXOataksFqUf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 4400000,
+            "sort": 4300000,
             "system": {
                 "description": {
                     "value": ""
@@ -3227,7 +3212,7 @@
             "_id": "oWm6RCTm77DoE8IK",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 4500000,
+            "sort": 4400000,
             "system": {
                 "description": {
                     "value": ""
@@ -3252,7 +3237,7 @@
             "_id": "jv7nSMazTXHAJzyA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 4600000,
+            "sort": 4500000,
             "system": {
                 "description": {
                     "value": ""
@@ -3277,7 +3262,7 @@
             "_id": "p4fLXOLZXDuP9UWw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 4700000,
+            "sort": 4600000,
             "system": {
                 "description": {
                     "value": ""
@@ -3302,7 +3287,7 @@
             "_id": "zKzd8af55LIetqCL",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Poison Lore",
-            "sort": 4800000,
+            "sort": 4700000,
             "system": {
                 "description": {
                     "value": ""

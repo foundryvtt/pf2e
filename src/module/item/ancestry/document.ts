@@ -150,10 +150,6 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        return [...super.getRollOptions(prefix), `${prefix}:rarity:${this.rarity}`];
-    }
-
     /** Ensure certain fields are positive integers. */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
