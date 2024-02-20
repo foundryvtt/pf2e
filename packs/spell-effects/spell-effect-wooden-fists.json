@@ -26,50 +26,43 @@
                 "key": "Strike"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d6"
-                },
-                "selector": "{item|_id}-damage"
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
             },
             {
-                "definition": [
-                    "item:base:fist"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
                 "mode": "remove",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "nonlethal"
             },
             {
-                "definition": [
-                    "item:base:fist"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "reach"
             },
             {
-                "definition": [
-                    "item:base:fist"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     {
                         "gte": [
-                            "{item|level}",
+                            "parent:level",
                             3
                         ]
                     }
                 ],
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "magical"
             },
             {
                 "key": "Striking",
-                "selector": "{item|_id}-damage",
+                "selector": "xxxxxxFISTxxxxxx-damage",
                 "value": "ternary(gte(@item.level,9),3,ternary(gte(@item.level,7),2,ternary(gte(@item.level,3),1,0)))"
             }
         ],
