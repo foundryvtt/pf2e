@@ -44,7 +44,6 @@ interface EffectSystemData
     expired: boolean;
     badge: EffectBadge | null;
     remaining: string;
-    loop: boolean;
 }
 
 export type { EffectFlags, EffectSource, EffectSystemData };

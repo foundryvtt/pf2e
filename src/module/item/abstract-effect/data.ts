@@ -30,6 +30,7 @@ interface EffectBadgeCounterSource extends EffectBadgeBaseSource {
     min?: number;
     max?: number;
     value: number;
+    loop?: boolean;
 }
 
 interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
