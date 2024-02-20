@@ -62,7 +62,7 @@ import {
 } from "./data.ts";
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
-import { EffectAreaSize, MagicTradition, SpellTrait } from "./types.ts";
+import { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
 
 class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly parentItem: ConsumablePF2e<TParent> | null;
@@ -235,13 +235,31 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get area(): (SpellArea & { label: string }) | null {
-        if (!this.system.area) return null;
+        const areaData = this.system.area;
+        if (!areaData) return null;
 
-        const size = Number(this.system.area.value);
-        const unit = game.i18n.localize("PF2E.Foot");
-        const shape = game.i18n.localize(CONFIG.PF2E.areaTypes[this.system.area.type]);
-        const label = game.i18n.format("PF2E.Item.Spell.Area", { size, unit, shape });
-        return { ...this.system.area, label };
+        const formatString = "PF2E.Item.Spell.Area";
+        const shape = game.i18n.localize(`PF2E.Area.Shape.${areaData.type}`);
+
+        // Handle special cases of very large areas
+        const largeAreaLabel = {
+            1320: "PF2E.Area.Size.Quarter",
+            2640: "PF2E.Area.Size.Half",
+            5280: "1",
+        }[areaData.value];
+        if (largeAreaLabel) {
+            const size = game.i18n.localize(largeAreaLabel);
+            const unit = game.i18n.localize("PF2E.Area.Size.Mile");
+            const label = game.i18n.format(formatString, { shape, size, unit, units: unit });
+            return { ...areaData, label };
+        }
+
+        const size = Number(areaData.value);
+        const unit = game.i18n.localize("PF2E.Foot.Label");
+        const units = game.i18n.localize("PF2E.Foot.Plural");
+        const label = game.i18n.format(formatString, { shape, size, unit, units });
+
+        return { ...areaData, label };
     }
 
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
@@ -558,13 +576,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e> {
         if (!canvas.ready) throw ErrorPF2e("No canvas");
-        const templateConversion = {
+        const templateConversion: Record<EffectAreaShape, MeasuredTemplateType> = {
             burst: "circle",
             cone: "cone",
             cube: "rect",
+            cylinder: "circle",
             emanation: "circle",
             line: "ray",
-            rect: "rect",
             square: "rect",
         } as const;
 
@@ -585,7 +603,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                         traits: fu.deepClone(this.system.traits.value),
                         ...this.getOriginData(),
                     },
-                    areaType: this.system.area?.type ?? null,
+                    areaShape: this.system.area?.type ?? null,
                 },
             },
         };
@@ -618,7 +636,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
 
         if (this.system.area?.value) {
-            this.system.area.value = (Math.ceil(this.system.area.value / 5) * 5 || 5) as EffectAreaSize;
+            this.system.area.value = Math.max(5, Math.ceil(this.system.area.value / 5) * 5 || 5);
             this.system.area.type ||= "burst";
         } else {
             this.system.area = null;
@@ -1180,12 +1198,13 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             changed.system,
             ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
         ]);
+
         for (const system of systemChanges) {
             // Normalize or remove spell area
             const areaData = changed.system.area;
             if (areaData) {
                 if (typeof areaData.value === "number") {
-                    areaData.value = (Math.ceil(areaData.value / 5) * 5 || 5) as EffectAreaSize;
+                    areaData.value = Math.max(5, Math.ceil(areaData.value / 5) * 5 || 5);
                     areaData.type ||= "burst";
                 } else if (areaData.value === null || !areaData.type) {
                     changed.system.area = null;

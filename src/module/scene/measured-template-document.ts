@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import type { EffectAreaType } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
 import { ItemOriginFlag } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -39,18 +39,18 @@ class MeasuredTemplateDocumentPF2e<
         return game.messages.get(this.flags.pf2e?.messageId ?? "") ?? null;
     }
 
-    get areaType(): EffectAreaType | null {
-        return this.flags.pf2e.areaType;
+    get areaShape(): EffectAreaShape | null {
+        return this.flags.pf2e.areaShape;
     }
 
-    /** Ensure the source has a `pf2e` flag along with an `areaType` if directly inferable. */
+    /** Ensure the source has a `pf2e` flag along with an `areaShape` if directly inferable. */
     protected override _initializeSource(
         data: object,
         options?: DataModelConstructionOptions<TParent>,
     ): this["_source"] {
         const initialized = super._initializeSource(data, options);
-        const areaType = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
-        initialized.flags.pf2e = fu.mergeObject({ areaType }, initialized.flags.pf2e ?? {});
+        const areaShape = initialized.t === "cone" ? "cone" : initialized.t === "ray" ? "line" : null;
+        initialized.flags.pf2e = fu.mergeObject({ areaShape }, initialized.flags.pf2e ?? {});
         return initialized;
     }
 
@@ -79,7 +79,7 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
         pf2e: {
             messageId?: string;
             origin?: ItemOriginFlag;
-            areaType: EffectAreaType | null;
+            areaShape: EffectAreaShape | null;
         };
     };
 }
