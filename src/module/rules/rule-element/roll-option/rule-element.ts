@@ -218,7 +218,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             return;
         }
 
-        if (this.toggleable && this.selection) {
+        if (this.toggleable) {
             const suboptions = this.#resolveSuboptions(test);
             const toggleDomain = (this.actor.synthetics.toggles[this.domain] ??= {});
 
