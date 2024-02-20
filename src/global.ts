@@ -138,6 +138,9 @@ interface GamePF2e
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;
+            homebrew: {
+                languageRarities: LanguageRaritiesData;
+            };
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
             metagame: {

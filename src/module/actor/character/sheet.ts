@@ -315,8 +315,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
 
-        // get the backing language for common
-        const commonBackingLanguage = game.settings.get("pf2e", "homebrew.languageRarities").commonLanguage;
+        // get the backing language for common from cache
+        const commonBackingLanguage = game.pf2e.settings.homebrew.languageRarities.commonLanguage;
 
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
@@ -326,10 +326,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             // find if the backing language is present in character's languages
             // this means characters explictly selected it
-            const deductBackingLanguage = commonBackingLanguage
-                ? actor.system.details.languages.value.find((i) => i === commonBackingLanguage)
-                    ? 1
-                    : 0
+            const deductBackingLanguage = actor.system.details.languages.value.find((i) => i === commonBackingLanguage)
+                ? 1
                 : 0;
             // set the new languages max based on if the common-backing language is present
             const languageNewMax = languagesBuild.max + deductBackingLanguage;
