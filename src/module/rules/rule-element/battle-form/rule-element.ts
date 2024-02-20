@@ -23,10 +23,22 @@ import { BattleFormRuleOverrideSchema, BattleFormRuleSchema } from "./schema.ts"
 import { BattleFormSource, BattleFormStrike, BattleFormStrikeQuery } from "./types.ts";
 
 class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
-    /** The label given to modifiers of AC, skills, and strikes */
-    modifierLabel: string;
-
     protected static override validActorTypes: ActorType[] = ["character"];
+
+    /** The label given to modifiers of AC, skills, and strikes */
+    modifierLabel: string = "invalid";
+
+    constructor(data: BattleFormSource, options: RuleElementOptions) {
+        super(data, options);
+        if (this.invalid) return;
+
+        this.overrides = this.resolveValue(
+            this.value,
+            this.overrides,
+        ) as ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
+
+        this.modifierLabel = this.getReducedLabel();
+    }
 
     static override defineSchema(): BattleFormRuleSchema {
         const fields = foundry.data.fields;
@@ -98,17 +110,6 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             canSpeak: new fields.BooleanField({ required: false, nullable: false, initial: false }),
             hasHands: new fields.BooleanField({ required: false, nullable: false, initial: false }),
         };
-    }
-
-    constructor(data: BattleFormSource, options: RuleElementOptions) {
-        super(data, options);
-
-        this.overrides = this.resolveValue(
-            this.value,
-            this.overrides,
-        ) as ModelPropsFromSchema<BattleFormRuleOverrideSchema>;
-
-        this.modifierLabel = this.getReducedLabel();
     }
 
     static #defaultIcons: Record<string, ImageFilePath | undefined> = [

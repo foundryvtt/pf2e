@@ -34,6 +34,8 @@ import { ItemAlteration } from "./item-alteration/alteration.ts";
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
+
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
         for (const effect of this.effects) {
             effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;

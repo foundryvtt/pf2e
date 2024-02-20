@@ -116,7 +116,10 @@
                             {{#if entry.isPrepared}}data-slot-id="{{index}}"{{/if}}
                             {{#if slot.expended}}data-slot-expended{{/if}}
                         >
-                            <div class="item-name{{#unless slot.virtual}} drag-handle{{/unless}}">
+                            <div
+                                class="item-name{{#unless slot.virtual}} drag-handle{{/unless}}"
+                                {{#unless slot.virtual}}data-drag-handle{{/unless}}
+                            >
                                 <a class="item-image framed" data-action="item-to-chat">
                                     <img class="item-icon" src="{{spell.img}}">
                                     <i class="fa-solid fa-message"></i>

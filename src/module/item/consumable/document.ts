@@ -141,10 +141,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(): Promise<void> {
+    async consume(thisMany = 1): Promise<void> {
         const actor = this.actor;
         if (!actor) return;
-        const { value, max } = this.uses;
+        const uses = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
             if (actor.spellcasting?.canCastConsumable(this)) {
@@ -159,11 +159,11 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         } else if (this.category !== "ammo") {
             // Announce consumption of non-ammunition
-            const exhausted = max > 1 && value === 1;
-            const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
+            const exhausted = uses.max >= thisMany && uses.value === thisMany;
+            const key = exhausted ? "UseExhausted" : uses.max > thisMany ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
-                current: value - 1,
+                current: uses.value - thisMany,
             });
             const flags = {
                 pf2e: {
@@ -185,24 +185,24 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         // Optionally destroy the item
-        if (this.system.uses.autoDestroy && value <= 1) {
-            const { quantity } = this;
+        if (this.system.uses.autoDestroy && uses.value <= thisMany) {
+            const quantityRemaining = this.quantity;
 
             // Keep ammunition if it has rule elements
             const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
-            if (quantity <= 1 && !isPreservedAmmo) {
+            if (quantityRemaining <= 1 && !isPreservedAmmo) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "system.quantity": Math.max(quantity - 1, 0),
-                    "system.uses.value": max,
+                    "system.quantity": Math.max(quantityRemaining - 1, 0),
+                    "system.uses.value": uses.max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "system.uses.value": Math.max(value - 1, 0),
+                "system.uses.value": Math.max(uses.value - thisMany, 0),
             });
         }
     }

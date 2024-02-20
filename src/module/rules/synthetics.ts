@@ -21,6 +21,7 @@ import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
+import type { Suboption } from "./rule-element/roll-option/data.ts";
 
 /** Defines a list of data provided by rule elements that an actor can pull from during its data preparation lifecycle */
 interface RuleElementSynthetics {
@@ -48,7 +49,7 @@ interface RuleElementSynthetics {
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, WeaponPF2e<ActorPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
-    toggles: RollOptionToggle[];
+    toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: TokenEffect[];
     tokenMarks: Map<TokenDocumentUUID, string>;
     tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
@@ -105,7 +106,7 @@ interface RollOptionToggle {
     placement: string;
     domain: string;
     option: string;
-    suboptions: { label: string; selected: boolean }[];
+    suboptions: Suboption[];
     alwaysActive: boolean;
     checked: boolean;
     enabled: boolean;

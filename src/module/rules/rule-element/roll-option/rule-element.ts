@@ -1,10 +1,11 @@
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
-import { RollOptionToggle } from "../synthetics.ts";
-import { AELikeDataPrepPhase, AELikeRuleElement } from "./ae-like.ts";
-import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+import * as R from "remeda";
+import { RollOptionToggle } from "../../synthetics.ts";
+import { AELikeRuleElement } from "../ae-like.ts";
+import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSource } from "../data.ts";
+import { Suboption, type RollOptionSchema } from "./data.ts";
 
 /**
  * Set a roll option at a specificed domain
@@ -13,19 +14,24 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     constructor(source: RollOptionSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
 
         if (source.removeAfterRoll && !this.item.isOfType("effect")) {
             this.failValidation("removeAfterRoll may only be used on rule elements from effect items");
+            return;
         }
 
         // Prevent all further processing of this RE if it is a totm toggle and the setting is disabled
         if (this.toggleable === "totm" && !game.pf2e.settings.totm) {
             this.ignored = true;
+            return;
         }
+
+        this.option = this.#resolveOption();
 
         // If no suboption has been selected yet, set the first as selected
         const firstSuboption = this.suboptions.at(0);
-        if (firstSuboption && !this.selection) {
+        if (firstSuboption && !this.suboptions.some((s) => s.value === this.selection)) {
             this.selection = firstSuboption.value;
         }
     }
@@ -52,30 +58,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 choices: fu.deepClone(AELikeRuleElement.PHASES),
                 initial: "applyAEs",
             }),
-            suboptions: new fields.ArrayField(
-                new fields.SchemaField({
-                    label: new fields.StringField({
-                        required: true,
-                        nullable: false,
-                        blank: false,
-                        initial: undefined,
-                    }),
-                    value: new StrictStringField({
-                        required: true,
-                        nullable: false,
-                        blank: false,
-                        initial: undefined,
-                    }),
-                    predicate: new PredicateField(),
-                }),
-                {
-                    required: false,
-                    nullable: false,
-                    initial: [],
-                    validate: (v): boolean => Array.isArray(v) && v.length !== 1,
-                    validationError: "must have zero or 2+ suboptions",
-                },
-            ),
+            suboptions: new fields.ArrayField(new fields.EmbeddedDataField(Suboption), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
+            mergeable: new fields.BooleanField({ required: false }),
             value: new ResolvableValueField({
                 required: false,
                 initial: (d) => !d.toggleable,
@@ -157,14 +145,57 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         return this.alwaysActive ? true : !!super.resolveValue(this.value);
     }
 
-    #resolveOption({ appendSuboption = true } = {}): string {
+    /** Filter suboptions, including those among the same merge family. */
+    #resolveSuboptions(test?: Set<string>): Suboption[] {
+        const localSuboptions = this.suboptions.filter((s) => !test || s.predicate.test(test));
+        const foreignSuboptions = this.mergeable
+            ? this.actor.rules.flatMap((r) =>
+                  r !== this &&
+                  !r.ignored &&
+                  r instanceof RollOptionRuleElement &&
+                  r.toggleable &&
+                  r.mergeable &&
+                  r.domain === this.domain &&
+                  r.option === this.option &&
+                  (!test || r.test(test))
+                      ? r.suboptions
+                      : [],
+              )
+            : [];
+
+        const suboptions = R.uniqBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
+            .filter((s) => !test || s.predicate.test(test))
+            .map((suboption) => {
+                suboption.label = suboption.rule.resolveInjectedProperties(suboption.label);
+                return suboption;
+            });
+
+        // Resolve family disagreement on selection
+        if (suboptions.length > 0 && suboptions.filter((s) => s.selected).length > 1) {
+            const suboptionValues = R.uniq(suboptions.map((s) => s.value));
+            const rules = R.uniq(suboptions.map((s) => s.rule));
+            const consensusSelection = R.uniq(
+                R.compact(suboptions.map((s) => s.rule._source.selection ?? s.rule.selection)).filter((s) =>
+                    suboptionValues.includes(s),
+                ),
+            ).at(0);
+            const selection = consensusSelection ?? suboptionValues[0];
+            for (const rule of rules) {
+                rule.selection = selection;
+            }
+        }
+
+        return suboptions;
+    }
+
+    #resolveOption({ withSuboption = false } = {}): string {
         const baseOption = this.resolveInjectedProperties(this.option)
             .replace(/[^-:\w]/g, "")
             .replace(/:+/g, ":")
             .replace(/-+/g, "-")
             .trim();
 
-        return appendSuboption && this.selection ? `${baseOption}:${this.selection}` : baseOption;
+        return withSuboption && this.selection ? `${baseOption}:${this.selection}` : baseOption;
     }
 
     #setOptionAndFlag(): void {
@@ -178,42 +209,48 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             );
         }
 
-        const optionSet = new Set(
-            [this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat(),
-        );
-        if (!this.test(optionSet)) return this.#setFlag(false);
+        const test = new Set([this.actor.getRollOptions([this.domain]), this.parent.getRollOptions("parent")].flat());
+        if (!this.test(test)) return this.#setFlag(false);
 
-        const baseOption = (this.option = this.#resolveOption({ appendSuboption: false }));
+        const baseOption = (this.option = this.#resolveOption());
         if (!baseOption) {
             this.failValidation("option: must be a string consisting of only letters, numbers, colons, and hyphens");
             return;
         }
 
-        if (this.toggleable) {
-            const suboptions = this.suboptions.filter((s) => s.predicate.test(optionSet));
-            if (suboptions.length > 0 && (!this.selection || !suboptions.some((s) => s.value === this.selection))) {
-                // If predicate testing eliminated the selected suboption, select the first and deselect the rest.
+        if (this.toggleable && this.selection) {
+            const suboptions = this.#resolveSuboptions(test);
+            const toggleDomain = (this.actor.synthetics.toggles[this.domain] ??= {});
+
+            // Exit early if another mergeable roll option has already completed the following
+            if (this.mergeable && toggleDomain[this.option]) return;
+
+            if (suboptions.length > 0 && !suboptions.some((s) => s.value === this.selection)) {
+                // If predicate testing eliminated the selected suboption, select the first and deselect the rest
                 this.selection = suboptions[0].value;
             } else if (this.suboptions.length > 0 && suboptions.length === 0) {
-                // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
+                // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle
+                return;
+            } else if (this.mergeable && this.actor.synthetics.toggles[this.domain]?.[this.option]) {
+                // Also return if this is a mergeable toggle and the sheet toggle has already bee created
                 return;
             }
 
+            const managingItem = suboptions.find((s) => s.selected)?.parent.item ?? this.item;
             const toggle: RollOptionToggle = {
-                itemId: this.item.id,
+                itemId: managingItem.id,
                 label: this.getReducedLabel(),
                 placement: this.placement ?? "actions",
                 domain: this.domain,
                 option: baseOption,
-                suboptions: suboptions.map((s) => ({ ...s, selected: s.value === this.selection })),
+                suboptions,
                 alwaysActive: !!this.alwaysActive,
                 checked: false,
                 enabled: true,
             };
 
             if (this.disabledIf) {
-                const rollOptions = this.actor.getRollOptions([this.domain]);
-                toggle.enabled = !this.disabledIf.test(rollOptions);
+                toggle.enabled = !this.disabledIf.test(test);
                 if (!toggle.enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
                     this.value = this.disabledValue;
                 }
@@ -222,7 +259,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             const value = (toggle.checked = this.resolveValue());
             this.#setOption(baseOption, value);
             this.#setFlag(value);
-            this.actor.synthetics.toggles.push(toggle);
+            toggleDomain[this.option] = toggle;
         } else if (this.count) {
             this.#setCount(baseOption);
         } else {
@@ -233,7 +270,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     #setOption(baseOption: string, value: boolean) {
         const rollOptions = this.actor.rollOptions;
         const domainRecord = (rollOptions[this.domain] ??= {});
-        const fullOption = this.#resolveOption();
+        const fullOption = this.#resolveOption({ withSuboption: true });
 
         if (value) {
             domainRecord[fullOption] = true;
@@ -247,12 +284,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
     #setFlag(value: boolean): void {
         if (this.selection) {
-            const flagKey = sluggify(this.#resolveOption({ appendSuboption: false }), { camel: "dromedary" });
+            const flagKey = sluggify(this.#resolveOption(), { camel: "dromedary" });
             if (value) {
                 const flagValue = /^\d+$/.test(this.selection) ? Number(this.selection) : this.selection;
                 this.item.flags.pf2e.rulesSelections[flagKey] = flagValue;
             } else {
-                this.item.flags.pf2e.rulesSelections[flagKey] = null;
+                this.item.flags.pf2e.rulesSelections[flagKey] ??= null;
             }
         }
     }
@@ -277,24 +314,44 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
     /**
      * Toggle the provided roll option (swapping it from true to false or vice versa).
+     * @param value The new roll option value
+     * @param [selection] The new suboption selection
      * @returns the new value if successful or otherwise `null`
      */
-    async toggle(newValue = !this.resolveValue(), newSelection: string | null = null): Promise<boolean | null> {
+    async toggle(value = !this.resolveValue(), selection: string | null = null): Promise<boolean | null> {
         if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
-        // Directly update the rule element on the item
-        const rulesSource = this.item.toObject().system.rules;
-        const thisSource: Maybe<RollOptionSource> =
-            typeof this.sourceIndex === "number" ? rulesSource.at(this.sourceIndex) : null;
-        if (!thisSource) return null;
-        thisSource.value = newValue;
-        if (newSelection) thisSource.selection = newSelection;
+        const actor = this.actor;
+        const updates: { _id: string; "system.rules": RuleElementSource[] }[] = [];
 
-        const result = await this.actor.updateEmbeddedDocuments("Item", [
-            { _id: this.item.id, "system.rules": rulesSource },
-        ]);
+        if (this.mergeable && selection) {
+            // Update the items containing rule elements in the merge family
+            const rules = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
+            for (const itemId of Object.keys(rules)) {
+                const item = actor.items.get(itemId, { strict: true });
+                const ruleSources = item.toObject().system.rules;
+                const rollOptionSources = ruleSources.filter(
+                    (_r, index): _r is RollOptionSource => rules[itemId][index]?.sourceIndex === index,
+                );
+                for (const ruleSource of rollOptionSources) {
+                    ruleSource.selection = selection;
+                }
+                updates.push({ _id: itemId, "system.rules": ruleSources });
+            }
+        } else {
+            // Directly update the rule element on the item
+            const ruleSources = this.item.toObject().system.rules;
+            const thisSource: Maybe<RollOptionSource> =
+                typeof this.sourceIndex === "number" ? ruleSources.at(this.sourceIndex) : null;
+            if (!thisSource) return null;
+            thisSource.value = value;
+            if (selection) thisSource.selection = selection;
+            updates.push({ _id: this.item.id, "system.rules": ruleSources });
+        }
 
-        return result.length === 1 ? newValue : null;
+        const result = await this.actor.updateEmbeddedDocuments("Item", updates);
+
+        return result.length > 0 ? value : null;
     }
 
     /* -------------------------------------------- */
@@ -309,7 +366,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
         if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
 
         this.value = this.resolveValue();
-        const option = this.#resolveOption();
+        const option = this.#resolveOption({ withSuboption: true });
         if (this.value) {
             rollOptions.add(option);
         } else {
@@ -319,7 +376,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
     /** Remove the parent effect if configured so */
     override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
-        const option = this.#resolveOption();
+        const option = this.#resolveOption({ withSuboption: true });
         if (
             !this.ignored &&
             this.removeAfterRoll &&
@@ -340,53 +397,6 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
     value: boolean | string;
 }
-
-type RollOptionSchema = RuleElementSchema & {
-    domain: StringField<string, string, true, false, true>;
-    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, false, false, true>;
-    option: StringField<string, string, true, false, false>;
-    /** Suboptions for a toggle, appended to the option string */
-    suboptions: ArrayField<
-        SchemaField<
-            SuboptionSchema,
-            SourceFromSchema<SuboptionSchema>,
-            ModelPropsFromSchema<SuboptionSchema>,
-            true,
-            false,
-            true
-        >
-    >;
-    /**
-     * The value of the roll option: either a boolean or a string resolves to a boolean If omitted, it defaults to
-     * `true` unless also `togglable`, in which case to `false`.
-     */
-    value: ResolvableValueField<false, false, true>;
-    /** A suboption selection */
-    selection: StringField<string, string, false, false, false>;
-    /** Whether the roll option is toggleable: a checkbox will appear in interfaces (usually actor sheets) */
-    toggleable: DataUnionField<StrictStringField<"totm"> | StrictBooleanField, false, false, true>;
-    /** If toggleable, the location to be found in an interface */
-    placement: StringField<string, string, false, false, false>;
-    /** An optional predicate to determine whether the toggle is interactable by the user */
-    disabledIf: PredicateField<false, false, false>;
-    /** The value of the roll option if its toggle is disabled: null indicates the pre-disabled value is preserved */
-    disabledValue: BooleanField<boolean, boolean, false, false, false>;
-    /**
-     * Whether this (toggleable and suboptions-containing) roll option always has a `value` of `true`, allowing only
-     * suboptions to be changed
-     */
-    alwaysActive: BooleanField<boolean, boolean, false, false, false>;
-    /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
-    count: BooleanField<boolean, boolean, false, false, false>;
-    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
-    removeAfterRoll: BooleanField<boolean, boolean, false, false, false>;
-};
-
-type SuboptionSchema = {
-    label: StringField<string, string, true, false, false>;
-    value: StringField<string, string, true, false, false>;
-    predicate: PredicateField;
-};
 
 interface RollOptionSource extends RuleElementSource {
     domain?: JSONValue;

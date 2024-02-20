@@ -106,6 +106,7 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
+        doubleBarrel?: { selected: boolean };
         modular?: { selected: DamageType | null };
         versatile?: { selected: DamageType | null };
     };

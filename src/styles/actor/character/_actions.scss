@@ -6,7 +6,7 @@
             margin-top: var(--space-8);
         }
 
-        .trait-toggles {
+        .toggles {
             align-items: center;
             display: flex;
             font-size: var(--font-size-14);
@@ -25,11 +25,36 @@
                 justify-content: center;
                 width: 3ch;
 
+                &.double-barrel {
+                    i.barrels {
+                        left: 0;
+                        height: 1rem;
+                        top: var(--space-5);
+                        overflow: hidden;
+                        opacity: 80%;
+                    }
+
+                    i.blast {
+                        color: var(--color-pf-primary-dark);
+                        overflow: hidden;
+                        height: 1.1875rem;
+                        top: var(--space-4);
+                        left: var(--space-5);
+                        width: initial;
+                    }
+                }
+
                 &.selected {
                     background: var(--text-dark);
+                    color: var(--bg-dark);
 
-                    > i[class^="fa-"] {
+                    i.fa-solid,
+                    i.fa-solid.blast {
                         color: var(--bg-dark);
+                    }
+
+                    i.barrels {
+                        opacity: 80%;
                     }
                 }
 

@@ -15,6 +15,13 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
 
     declare slug: string;
 
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super({ priority: 9, ...data }, options);
+        if (this.invalid) return;
+
+        this.slug ??= sluggify(this.label);
+    }
+
     static override defineSchema(): MartialProficiencySchema {
         return {
             ...super.defineSchema(),
@@ -37,12 +44,6 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
             }),
             value: new ResolvableValueField({ required: false, initial: undefined }),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super({ priority: 9, ...data }, options);
-
-        this.slug ??= sluggify(this.label);
     }
 
     override onApplyActiveEffects(): void {

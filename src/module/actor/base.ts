@@ -39,7 +39,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { extractEphemeralEffects, extractNotes, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
-import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option.ts";
+import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -690,7 +690,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             strikes: new Map(),
             striking: {},
             tokenMarks: new Map(),
-            toggles: [],
+            toggles: {},
             tokenEffectIcons: [],
             tokenOverrides: {},
             weaponPotency: {},
