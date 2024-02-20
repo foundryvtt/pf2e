@@ -77,12 +77,8 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const badge = this.system.badge;
 
         if (badge?.type === "counter" && !this.isExpired) {
-            const value =
-                badge.loop && badge.labels
-                    ? badge.value + 1 > badge.max
-                        ? badge.min
-                        : badge.value + 1
-                    : badge.value + 1;
+            const shouldLoop = badge.loop && badge.labels && badge.value >= badge.max;
+            const value = shouldLoop ? badge.min : badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
     }
