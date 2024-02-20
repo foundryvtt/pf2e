@@ -171,14 +171,14 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
 
                 const item = data.item;
                 if (!item.system.damage.die) return;
-                if (this.mode === "upgrade" && !item.flags.pf2e.damageDieUpgraded) {
+                if (this.mode === "upgrade" && !item.flags.pf2e.damageFacesUpgraded) {
                     item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
-                    item.flags.pf2e.damageDieUpgraded = true;
+                    item.flags.pf2e.damageFacesUpgraded = true;
                 } else if (this.mode === "downgrade") {
                     item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
                 } else if (this.mode === "override" && typeof data.alteration.value === "number") {
                     if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
-                        item.flags.pf2e.damageDieUpgraded = true;
+                        item.flags.pf2e.damageFacesUpgraded = true;
                     }
                     item.system.damage.die = `d${data.alteration.value}`;
                 }
