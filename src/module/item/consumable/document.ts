@@ -118,9 +118,9 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         return [
-            ...super.getRollOptions(prefix),
+            ...super.getRollOptions(prefix, options),
             ...Object.entries({
                 [`category:${this.category}`]: true,
             })

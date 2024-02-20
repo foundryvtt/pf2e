@@ -136,12 +136,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Generate a list of strings for use in predication */
-    getRollOptions(prefix = this.type): string[] {
+    getRollOptions(prefix = this.type, { includeGranter = true } = {}): string[] {
         if (prefix.length === 0) throw ErrorPF2e("`prefix` must be at least one character long");
 
-        const slug = this.slug ?? sluggify(this.name);
-
-        const { value: traits = [], otherTags } = this.system.traits;
+        const { value: traits = [], rarity = null, otherTags } = this.system.traits;
         const traitOptions = ((): string[] => {
             // Additionally include annotated traits without their annotations
             const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
@@ -153,31 +151,38 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             return [traits, deannotated].flat().map((t) => `trait:${t}`);
         })();
 
-        const options = [
+        const slug = this.slug ?? sluggify(this.name);
+        const granterOptions = includeGranter
+            ? this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? []
+            : [];
+
+        const rollOptions = [
             `${prefix}:id:${this.id}`,
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
+            ...R.compact([rarity]),
+            ...granterOptions,
             ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
 
         if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
-            options.push(`${prefix}:magical`);
+            rollOptions.push(`${prefix}:magical`);
         }
 
         // The heightened level of a spell is retrievable from its getter but not prepared level data
         const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
         if (typeof level === "number") {
-            options.push(`${prefix}:level:${level}`);
+            rollOptions.push(`${prefix}:level:${level}`);
         }
 
         const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
         if (prefix !== itemType) {
-            options.unshift(`${prefix}:type:${itemType}`);
+            rollOptions.unshift(`${prefix}:type:${itemType}`);
         }
 
-        return options;
+        return rollOptions;
     }
 
     override getRollData(): NonNullable<EnrichmentOptionsPF2e["rollData"]> {
