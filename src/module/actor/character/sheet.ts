@@ -359,7 +359,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             languages.push(...unallocatedLanguages);
 
-            return languages.filter((s) => s.slug != commonBackingLanguage);
+            return languages.filter((s) => s.slug !== commonBackingLanguage);
         })();
 
         // Sort skills by localized label
