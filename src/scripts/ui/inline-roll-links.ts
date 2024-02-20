@@ -309,15 +309,13 @@ export const InlineRollLinks = {
                     }
                 }
 
-                const flags: { pf2e: Record<string, unknown> } = {
-                    pf2e: {},
-                };
+                const pf2e = templateData.flags?.pf2e ?? {};
 
                 if (
                     objectHasKey(CONFIG.PF2E.areaTypes, pf2EffectArea) &&
                     objectHasKey(CONFIG.PF2E.areaSizes, templateData.distance)
                 ) {
-                    flags.pf2e.areaType = pf2EffectArea;
+                    pf2e.areaType = pf2EffectArea;
                 }
 
                 const messageId =
@@ -325,23 +323,25 @@ export const InlineRollLinks = {
                         ? foundryDoc.id
                         : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
                 if (messageId) {
-                    flags.pf2e.messageId = messageId;
+                    pf2e.messageId = messageId;
                 }
 
                 const actor = resolveActor(foundryDoc, link);
-                if (actor || pf2Traits) {
-                    const origin: Record<string, unknown> = {};
-                    if (actor) {
-                        origin.actor = actor.uuid;
-                    }
-                    if (pf2Traits) {
-                        origin.traits = pf2Traits.split(",");
-                    }
-                    flags.pf2e.origin = origin;
+                const origin = isRecord(pf2e.origin) ? pf2e.origin : {};
+                if (actor) {
+                    origin.actor = actor.uuid;
                 }
 
-                if (!R.isEmpty(flags.pf2e)) {
-                    templateData.flags = flags;
+                if (pf2Traits) {
+                    origin.traits = pf2Traits.split(",");
+                }
+
+                if (!R.isEmpty(pf2e)) {
+                    if (templateData.flags) {
+                        templateData.flags.pf2e = pf2e;
+                    } else {
+                        templateData.flags = { pf2e };
+                    }
                 }
 
                 canvas.templates.createPreview(templateData);
@@ -424,4 +424,8 @@ function resolveActor(foundryDoc: ClientDocument | null, anchor: HTMLElement): A
     const itemUuid = anchor.dataset.itemUuid;
     const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
     return itemByUUID instanceof ItemPF2e ? itemByUUID.actor : null;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+    return !!value;
 }

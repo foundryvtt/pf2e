@@ -4,7 +4,6 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData } from "@item/base/data/system.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
     extractDamageDice,
@@ -255,7 +254,7 @@ class TextEditorPF2e extends TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item);
             default:
                 return null;
         }
@@ -307,9 +306,10 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
+        const itemData = item?.system;
         if (!params) return null;
 
         // Check for correct param notation
@@ -346,11 +346,32 @@ class TextEditorPF2e extends TextEditor {
                 });
             }
 
+            if (item) {
+                const itemTraits = Array.from(item.system?.traits?.value ?? []);
+                params.templateData = JSON.stringify({
+                    flags: {
+                        pf2e: {
+                            origin: {
+                                name: item.name,
+                                slug: item.slug,
+                                actor: item.actor?.uuid,
+                                traits: itemTraits,
+                                type: item.type,
+                                uuid: item.uuid,
+                            },
+                        },
+                    },
+                });
+            }
+
             // Add the html elements used for the inline buttons
             const html = document.createElement("span");
             html.innerHTML = label;
             html.setAttribute("data-pf2-effect-area", params.type);
             html.setAttribute("data-pf2-distance", params.distance);
+            if (params.templateData) {
+                html.dataset.pf2TemplateData = params.templateData;
+            }
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
             return html;
