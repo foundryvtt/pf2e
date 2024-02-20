@@ -363,8 +363,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         }
 
-        console.log(data);
-
         return super._onDropItem(event, data);
     }
 
