@@ -168,10 +168,10 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const groupId = coerceToSpellGroupId(row?.dataset.groupId);
             if (!groupId) throw ErrorPF2e("Unexpected slot group ID");
 
-            const slotId = Number(row?.dataset.slotId) || 0;
-            const entryId = row?.dataset.entryId ?? "";
-            const collection = actor.spellcasting.collections.get(entryId);
-            return collection?.unprepareSpell(groupId, slotId);
+            const slotIndex = Number(row?.dataset.slotId) || 0;
+            const entryId = row?.dataset.entryId;
+            const collection = actor.spellcasting.collections.get(entryId, { strict: true });
+            return collection.unprepareSpell(groupId, slotIndex);
         };
 
         // Set expended state of a spell slot
@@ -312,11 +312,10 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const sameGroupId = groupId === targetDataset.groupId;
             const targetIsEmpty = targetDataset.itemId?.length !== 16;
 
-            if (isPrepared && sameCollectionId && sameGroupId && targetIsEmpty) {
+            if (isPrepared && sameCollectionId && sameGroupId && !targetIsEmpty) {
                 const draggedSpell = await ItemPF2e.fromDropData(data);
-                const dropTargetSpell: ItemPF2e = this.actor.items.get(targetDataset.itemId, { strict: true });
-                const actorsAreSame = draggedSpell?.actor === dropTargetSpell.actor;
-                if (!actorsAreSame || !draggedSpell?.isOfType("spell") || !dropTargetSpell.isOfType("spell")) {
+                const dropTargetSpell = this.actor.items.get(targetDataset.itemId ?? "");
+                if (!draggedSpell?.isOfType("spell") || !dropTargetSpell?.isOfType("spell")) {
                     throw ErrorPF2e("Unexpected data received while swapping spells");
                 }
                 collection.swapSlotPositions(groupId, slotIndex, Number(targetDataset.slotId));

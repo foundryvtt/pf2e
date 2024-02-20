@@ -113,7 +113,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
                 });
             }
 
-            // Spontaneous, and Prepared spells
+            // Prepared spells
             const slots = entry.system.slots;
             let updated = false;
             for (const slot of Object.values(slots)) {
