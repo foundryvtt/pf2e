@@ -216,7 +216,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const { actor, baseDamage } = this;
         const damage = {
             category: DamageCategorization.fromDamageType(baseDamage.damageType),
@@ -264,7 +264,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         })();
         const rangeIncrement = this.range?.increment;
 
-        const rollOptions = super.getRollOptions(prefix);
+        const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
                 [`category:${this.category}`]: true,

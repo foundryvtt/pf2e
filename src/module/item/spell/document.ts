@@ -705,7 +705,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         processSanctification(this);
     }
 
-    override getRollOptions(prefix = this.type, options: { includeVariants?: boolean } = {}): string[] {
+    override getRollOptions(
+        prefix = this.type,
+        options: { includeGranter?: boolean; includeVariants?: boolean } = {},
+    ): string[] {
         const spellcasting = this.spellcasting;
         const spellOptions = new Set(["magical", `${prefix}:rank:${this.rank}`, ...this.traits]);
 
@@ -779,10 +782,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const rollOptions = super.getRollOptions(prefix);
-        rollOptions.push(...spellOptions);
-
-        return rollOptions;
+        return [...super.getRollOptions(prefix, options), ...spellOptions];
     }
 
     override async toMessage(
@@ -918,7 +918,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         })();
 
         // Spell attack labels
-        const { damageKinds } = this;
+        const damageKinds = this.damageKinds;
         const damageLabel = damageKinds.has("damage")
             ? damageKinds.has("healing")
                 ? "PF2E.Damage.Kind.Both.Roll.Verb"

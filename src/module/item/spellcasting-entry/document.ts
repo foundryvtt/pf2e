@@ -393,7 +393,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         });
     }
 
-    override getRollOptions(prefix = "spellcasting"): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         return [
             `${prefix}:${this.attribute}`,
             `${prefix}:attribute:${this.attribute}`,

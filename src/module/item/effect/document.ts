@@ -92,14 +92,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     }
 
     /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const slug = this.slug ?? sluggify(this.name);
         const trimmedSlug = slug.replace(/^(?:spell-)?(?:effect|stance)-/, "");
 
-        const options = super.getRollOptions(prefix);
-        options.findSplice((o) => o === `${prefix}:${slug}`, `${prefix}:${trimmedSlug}`);
+        const rollOptions = super.getRollOptions(prefix, options);
+        rollOptions.findSplice((o) => o === `${prefix}:${slug}`, `${prefix}:${trimmedSlug}`);
 
-        return options;
+        return rollOptions;
     }
 
     /**

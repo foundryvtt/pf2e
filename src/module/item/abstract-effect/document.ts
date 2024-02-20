@@ -75,7 +75,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     abstract increase(): Promise<void>;
     abstract decrease(): Promise<void>;
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
         const context = this.system.context;
         const originRollOptions =
             context?.origin.rollOptions?.map((o) => `${prefix}:${o}`) ??
@@ -98,7 +98,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
         };
 
         return [
-            ...super.getRollOptions(prefix),
+            ...super.getRollOptions(prefix, options),
             ...grantingItem,
             ...Object.entries({
                 [`badge:type:${badge?.type}`]: !!badge,

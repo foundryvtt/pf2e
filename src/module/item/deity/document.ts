@@ -107,10 +107,13 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const sanctifications = this.getSanctificationRollOptions().map((o) => `${prefix}:${o}`);
-        return [...baseOptions, `${prefix}:category:${this.category}`, ...sanctifications].sort();
+        return [
+            ...super.getRollOptions(prefix, options),
+            `${prefix}:category:${this.category}`,
+            ...sanctifications,
+        ].sort();
     }
 
     private getSanctificationRollOptions(): string[] {
