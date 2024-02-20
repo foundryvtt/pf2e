@@ -43,7 +43,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             mode: new fields.StringField({
                 required: true,
@@ -77,6 +77,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
      * @param item The item to be altered
      */
     applyTo(item: ItemPF2e<ActorPF2e> | ItemSourcePF2e): void {
+        const fallbackValue = ITEM_ALTERATION_VALIDATORS[this.property].fields.value.getInitialValue();
         const data: {
             item: ItemPF2e | ItemSourcePF2e;
             alteration: { mode: string; itemType: string; value: unknown };
@@ -85,9 +86,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.resolveValue(this.value)),
+                value: (this.value = this.resolveValue(this.value, fallbackValue)),
             },
         };
+        if (this.parent.ignored) return;
+
         const DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
         switch (this.property) {
@@ -106,7 +109,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 const effect = data.item;
-                const { badge } = effect.system;
+                const badge = effect.system.badge;
                 if (badge?.type !== "counter" || typeof badge.value !== "number" || typeof badge.max !== "number") {
                     return;
                 }
@@ -174,6 +177,9 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 } else if (this.mode === "downgrade") {
                     item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
                 } else if (this.mode === "override" && typeof data.alteration.value === "number") {
+                    if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
+                        item.flags.pf2e.damageDieUpgraded = true;
+                    }
                     item.system.damage.die = `d${data.alteration.value}`;
                 }
 
@@ -224,8 +230,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "hardness": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    const { system } = data.item;
-                    const { value } = data.alteration;
+                    const system = data.item.system;
+                    const value = data.alteration.value;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
                     system.hardness = Math.max(newValue, 0);
                     this.#adjustCreatureShieldData(data.item);
@@ -235,8 +241,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "hp-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    const { hp } = data.item.system;
-                    const { value } = data.alteration;
+                    const hp = data.item.system.hp;
+                    const value = data.alteration.value;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, hp.max, value);
                     hp.max = Math.max(Math.trunc(newValue), 1);
                     if ("brokenThreshold" in hp) {
@@ -281,7 +287,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 data.alteration.value = this.resolveValue(data.alteration.value) || 15;
                 if (validator.isValid(data) && data.item.system.persistent) {
-                    const { persistent } = data.item.system;
+                    const persistent = data.item.system.persistent;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);
                     persistent.dc = Math.max(newValue, 0);
                 }
@@ -373,7 +379,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     /** Adjust creature shield data due it being set before item alterations occur */
     #adjustCreatureShieldData(item: PhysicalItemPF2e | PhysicalItemSource): void {
         if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("shield")) {
-            const { heldShield } = item.actor;
+            const heldShield = item.actor.heldShield;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;
                 shieldData.ac = item.system.acBonus;
@@ -390,9 +396,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         current: FrequencyInterval,
         newValue: string,
     ): FrequencyInterval | DataModelValidationFailure {
-        const { DataModelValidationFailure } = foundry.data.validation;
         if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
-            return new DataModelValidationFailure({ invalidValue: current, fallback: false });
+            return new foundry.data.validation.DataModelValidationFailure({ invalidValue: current, fallback: false });
         }
         if (mode === "override") return newValue;
 
