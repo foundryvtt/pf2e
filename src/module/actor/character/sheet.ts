@@ -325,7 +325,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
 
             // find if the backing language is present in character's languages
-            // this means characters explictly selected it
+            // this means characters explicitly selected it
             const deductBackingLanguage = actor.system.details.languages.value.find((i) => i === commonBackingLanguage)
                 ? 1
                 : 0;
@@ -337,20 +337,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 .map((language) => {
                     const baseLanguage = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
 
-                    const label = baseLanguage;
-
-                    // set the tooltip for common to show the backing language
-                    const commonTooltip =
+                    const label =
                         commonBackingLanguage && language === "common"
-                            ? game.i18n.localize(CONFIG.PF2E.languages[commonBackingLanguage] ?? commonBackingLanguage)
+                            ? game.i18n.format("PF2E.Actor.Character.Language.CommonLabel", {
+                                  common: baseLanguage,
+                                  linkedLanguage: game.i18n.localize(
+                                      CONFIG.PF2E.languages[commonBackingLanguage] ?? commonBackingLanguage,
+                                  ),
+                              })
                             : baseLanguage;
 
                     const overLimit = isOverMax && sourceLanguages.indexOf(language) + 1 > languageNewMax;
-                    const tooltip = overLimit
-                        ? "PF2E.Actor.Character.Language.OverLimit"
-                        : language === "common"
-                          ? commonTooltip
-                          : "";
+                    const tooltip = overLimit ? "PF2E.Actor.Character.Language.OverLimit" : "";
                     return { slug: language, label, tooltip, overLimit };
                 })
                 .sort((a, b) => a.label.localeCompare(b.label));
@@ -361,7 +359,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
             languages.push(...unallocatedLanguages);
 
-            return languages;
+            return languages.filter((s) => s.slug != commonBackingLanguage);
         })();
 
         // Sort skills by localized label
