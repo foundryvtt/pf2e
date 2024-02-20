@@ -374,7 +374,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
         this.flags.pf2e.comboMeleeUsage ??= false;
-        this.flags.pf2e.damageDieUpgraded = false;
+        this.flags.pf2e.damageFacesUpgraded = false;
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);

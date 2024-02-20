@@ -11,7 +11,7 @@ import { ItemAlteration, ItemAlterationSchema } from "./alteration.ts";
 
 class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema> {
     static override defineSchema(): ItemAlterationRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         // Set a default priority according to AE mode yet still later than AE-likes
         const baseSchema = super.defineSchema();
