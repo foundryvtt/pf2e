@@ -334,6 +334,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                     (_r, index): _r is RollOptionSource => rules[itemId][index]?.sourceIndex === index,
                 );
                 for (const ruleSource of rollOptionSources) {
+                    ruleSource.value = value;
                     ruleSource.selection = selection;
                 }
                 updates.push({ _id: itemId, "system.rules": ruleSources });
