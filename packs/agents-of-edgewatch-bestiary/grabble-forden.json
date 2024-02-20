@@ -3113,10 +3113,9 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "poison"
-                        },
+                        "itemType": "spell",
+                        "key": "DamageAlteration",
+                        "mode": "override",
                         "predicate": [
                             "poison-conversion",
                             {
@@ -3131,7 +3130,12 @@
                                 ]
                             }
                         ],
-                        "selector": "spell-damage"
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "poison"
                     },
                     {
                         "itemType": "spell",
