@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you cast vampiric touch, you can modify its standard effects as follows: Instead of gaining temporary Hit Points, if your target fails or critically fails its saving throw, you can attempt a counteract check to remove the clumsy or enfeebled conditions on yourself, using the source of that condition to determine the counteract rank and DC. If the condition was caused by an ongoing effect and you don't remove that effect, the condition returns at the end of your next turn.</p>"
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Feast], you can modify its standard effects as follows: Instead of gaining temporary Hit Points, if your target fails or critically fails its saving throw, you can attempt a counteract check to remove the @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} or @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} conditions on yourself, using the source of that condition to determine the counteract rank and DC. If the condition was caused by an ongoing effect and you don't remove that effect, the condition returns at the end of your next turn.</p>"
         },
         "level": {
             "value": 8
@@ -31,7 +31,37 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "steal-vitality"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:steal-vitality",
+                    "item:slug:vampiric-feast"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.StealVitality.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
