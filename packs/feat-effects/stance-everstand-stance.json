@@ -32,17 +32,19 @@
                 "value": 2
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "item:hands-held:2"
+                    "item:hands-held:2",
+                    {
+                        "or": [
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes"
+                        ]
+                    }
                 ],
-                "selector": [
-                    "shield-boss-damage",
-                    "shield-spikes-damage"
-                ]
+                "property": "damage-dice-faces"
             }
         ],
         "start": {
