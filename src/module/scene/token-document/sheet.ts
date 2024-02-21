@@ -142,18 +142,21 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         const managedBy = document.createElement("a");
         managedBy.className = "managed-by-rbv";
+        if (!game.user.isGM) managedBy.classList.add("disabled");
         managedBy.append(fontAwesomeIcon("robot"));
-        managedBy.title = game.i18n
+        managedBy.dataset.tooltip = game.i18n
             .localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
             .replace(/<\/?rbv>/g, "");
         for (const sightInput of sightInputs) {
             const anchor = managedBy.cloneNode(true);
-            anchor.addEventListener("click", () => {
-                const menu = game.settings.menus.get("pf2e.automation");
-                if (!menu) throw ErrorPF2e("Automation Settings application not found");
-                const app = new menu.type();
-                app.render(true);
-            });
+            if (game.user.isGM) {
+                anchor.addEventListener("click", () => {
+                    const menu = game.settings.menus.get("pf2e.automation");
+                    if (!menu) throw ErrorPF2e("Automation Settings application not found");
+                    const app = new menu.type();
+                    app.render(true);
+                });
+            }
 
             const label = sightInput.closest(".form-group")?.querySelector("label");
             label?.append(anchor);
