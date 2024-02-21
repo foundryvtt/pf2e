@@ -586,7 +586,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // MAIN
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
 
-        // Ancestry/Heritage/Class/Background/Deity context menu
+        // A(H)BCD context menu
         if (mainPanel && this.isEditable) {
             new ContextMenu(
                 mainPanel,
@@ -611,7 +611,19 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         },
                     },
                 ],
-                { eventName: "click" },
+                {
+                    eventName: "click",
+                    // Position the menu to the left of the anchor
+                    onOpen: () => {
+                        Promise.resolve().then(() => {
+                            const menu = document.getElementById("context-menu");
+                            if (menu) {
+                                const leftPlacement = -1 * Math.floor(0.95 * menu.clientWidth);
+                                menu.style.left = `${leftPlacement}px`;
+                            }
+                        });
+                    },
+                },
             );
 
             for (const link of htmlQueryAll(html, ".crb-tag-selector")) {

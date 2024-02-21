@@ -6,10 +6,11 @@ import type { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import * as R from "remeda";
 import { SpellCollection, SpellCollectionData } from "./collection.ts";
-import type { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types.ts";
+import { createCounteractStatistic } from "./helpers.ts";
+import type { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 /** An in-memory spellcasting entry for items-only spellcasting */
-class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements BaseSpellcastingEntry<TActor> {
+class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements SpellcastingEntry<TActor> {
     id: string;
 
     name: string;
@@ -30,6 +31,10 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Ba
         this.statistic = statistic;
         this.tradition = tradition ?? null;
         this.castPredicate = castPredicate;
+    }
+
+    get counteraction(): Statistic {
+        return createCounteractStatistic(this);
     }
 
     get attribute(): AttributeString {

@@ -101,7 +101,6 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
-        game.pf2e.ConditionManager.initialize();
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),

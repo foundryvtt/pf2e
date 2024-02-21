@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you cast light, you can modify its target to be 1 melee weapon, either unattended or possessed by you or a willing ally, and modify its duration to be 1 minute. If you do, add the following to its effects: When a creature wielding the weapon critically hits a foe, you can Dismiss the Spell as a reaction, causing the foe to be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. After you use this reaction, you can't use this modification again for 10 minutes.</p>"
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Light], you can modify its target to be 1 melee weapon, either unattended or possessed by you or a willing ally, and modify its duration to be 1 minute. If you do, add the following to its effects: When a creature wielding the weapon critically hits a foe, you can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] the Spell as a reaction, causing the foe to be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. After you use this reaction, you can't use this modification again for 10 minutes.</p>"
         },
         "level": {
             "value": 4
@@ -31,7 +31,37 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "shining-arms"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:shining-arms",
+                    "item:slug:light"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.ShiningArms.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
