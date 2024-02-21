@@ -579,7 +579,7 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "slashing"
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -589,7 +589,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -609,9 +609,9 @@
                     "value": "yaktYCBDkXVUrqE9"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -920,12 +920,12 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "slashing"
+                        "type": "bludgeoning"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -945,9 +945,9 @@
                     "value": "yaktYCBDkXVUrqE9"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "60 feet"
@@ -1061,7 +1061,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.Rn2LkoSq1XhLsODV"
                 }
             },
-            "img": "systems/pf2e/icons/spells/pummeling-rubble.webp",
+            "img": "icons/magic/earth/projectiles-stone-salvo-gray.webp",
             "name": "Pummeling Rubble",
             "sort": 1400000,
             "system": {
@@ -1082,7 +1082,7 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "slashing"
+                        "type": "bludgeoning"
                     }
                 },
                 "defense": {
@@ -1092,7 +1092,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A spray of heavy rocks flies through the air in front of you. The rubble deals @Damage[2d4[bludgeoning]] damage to each creature in the area. Each creature must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet away from you.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet away from you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 2d4.</p>"
+                    "value": "<p>A spray of heavy rocks flies through the air in front of you. The rubble deals 2d4 bludgeoning damage to each creature in the area. Each creature must attempt a Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pushed 5 feet away from you.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pushed 10 feet away from you.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 2d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1112,9 +1112,9 @@
                     "value": "yaktYCBDkXVUrqE9"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -1549,7 +1549,27 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:fireball",
+                                    "item:slug:hydraulic-push",
+                                    "item:slug:pummeling-rubble"
+                                ]
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "slashing"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

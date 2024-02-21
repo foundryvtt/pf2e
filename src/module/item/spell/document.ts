@@ -39,7 +39,7 @@ import {
     SpellDamageTemplate,
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
+import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -1055,20 +1055,11 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             return null;
         }
 
-        // NPCs have neither a proficiency bonus nor specified attribute modifier: use their base attack roll modifier
-        const baseModifier = actor.isOfType("npc")
-            ? spellcasting.statistic.check.modifiers.find((m) => m.type === "untyped" && m.slug === "modifier")?.clone()
-            : null;
+        const statistic = spellcasting.counteraction;
+        if (!statistic) return null;
 
-        const localize = localizer("PF2E.Item.Spell.Counteract");
-        const statistic = new Statistic(actor, {
-            slug: "counteract",
-            label: localize("Label"),
-            attribute: spellcasting.statistic.attribute,
-            rank: spellcasting.statistic.rank ?? 0,
-            modifiers: R.compact([baseModifier]),
-        });
         const domain = "counteract-check";
+        const localize = localizer("PF2E.Item.Spell.Counteract");
         const notes = [
             new RollNotePF2e({ selector: domain, text: localize("Hint") }),
             ...DEGREE_OF_SUCCESS_STRINGS.map((degreeString): RollNotePF2e => {
@@ -1088,9 +1079,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         ];
 
         const traits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
-        const { check } = statistic.extend({ domains: [domain], rollOptions: traits });
-
-        return check.roll({
+        return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
             extraRollNotes: notes,

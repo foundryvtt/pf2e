@@ -422,6 +422,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return super.checkItemValidity(source);
     }
 
+    override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         if (tupleHasValue(["scouting", "morale", "maneuver"], slug)) {
             return this[slug];

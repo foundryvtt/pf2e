@@ -28,7 +28,28 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "ranged-reprisal",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:retributive-strike",
+                    "ranged-reprisal"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.RangedReprisal.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

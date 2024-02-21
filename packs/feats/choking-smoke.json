@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you cast fireball heightened to at least 6th level, you can modify the spell's standard effects as follows: Reduce the spell's damage by 6d6. Your fireball leaves behind a lingering cloud of toxic smoke in its area. While it's smoke instead of mist, this cloud otherwise has the effects of stinking cloud.</p>"
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Fireball] heightened to at least 6th level, you can modify the spell's standard effects as follows: Reduce the spell's damage by 6d6. Your fireball leaves behind a lingering cloud of toxic smoke in its area. While it's smoke instead of mist, this cloud otherwise has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Stinking Cloud].</p>"
         },
         "level": {
             "value": 12
@@ -28,7 +28,62 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "choking-smoke"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:choking-smoke",
+                    "item:slug:fireball",
+                    {
+                        "gte": [
+                            "item:level",
+                            6
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.ChokingSmoke.Description"
+                    }
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:fireball",
+                    "spell-trickster:choking-smoke",
+                    {
+                        "gte": [
+                            "item:level",
+                            6
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "2*(@spell.rank - 3)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

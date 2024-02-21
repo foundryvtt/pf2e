@@ -41,6 +41,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Additional item roll options set by rule elements */
     declare rollOptions: Set<string>;
 
+    /** The item that granted this item, if any */
+    declare grantedBy: ItemPF2e<ActorPF2e> | null;
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
     }
@@ -70,11 +73,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     get description(): string {
         return this.system.description.value.trim();
-    }
-
-    /** The item that granted this item, if any */
-    get grantedBy(): ItemPF2e<ActorPF2e> | null {
-        return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
     /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
@@ -160,12 +158,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:id:${this.id}`,
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
-            ...R.compact([rarity]),
             ...granterOptions,
             ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
+
+        if (rarity) {
+            rollOptions.push(`${prefix}:rarity:${rarity}`);
+        }
 
         if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
             rollOptions.push(`${prefix}:magical`);
@@ -285,6 +286,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 grant.onDelete ??= "detach";
             }
         }
+
+        this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
     prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElementPF2e[] {

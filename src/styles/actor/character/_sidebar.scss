@@ -54,8 +54,12 @@ aside {
     .sidebar {
         margin-bottom: 2.625rem;
         overflow: hidden auto;
-        padding: 0 var(--space-2) var(--space-2) var(--space-8);
+        padding: 0 var(--space-2) var(--space-2) var(--space-6);
         scrollbar-gutter: stable;
+
+        @-moz-document url-prefix() {
+            padding-right: var(--space-6);
+        }
 
         h2,
         h3,
@@ -507,15 +511,15 @@ aside {
         }
 
         ul.saves {
-            @include p-reset;
             display: flex;
+            margin: 0;
+            padding: 0;
 
             li {
-                align-items: center;
                 border-left: 1px solid rgba(255, 239, 189, 0.18);
-                flex: 1 1 auto;
                 flex-direction: column;
                 gap: 0;
+                width: 4.375rem;
 
                 &:first-child {
                     border-left: none;
@@ -530,7 +534,8 @@ aside {
                 }
 
                 .save-roll {
-                    @include flex-center;
+                    display: flex;
+                    gap: var(--space-4);
                     margin-top: var(--space-4);
 
                     .modifier {
