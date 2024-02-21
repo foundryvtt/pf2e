@@ -160,14 +160,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         formData["system.bonusDamage.value"] ||= 0;
         formData["system.splashDamage.value"] ||= 0;
 
-        // Coerce a weapon range of zero to null
-        formData["system.range"] ||= null;
-
-        // Clamp damage dice to between zero and eight
-        if ("system.damage.dice" in formData) {
-            formData["system.damage.dice"] = Math.clamped(Number(formData["system.damage.dice"]) || 0, 0, 12);
-        }
-
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
             formData["system.-=meleeUsage"] = null;
