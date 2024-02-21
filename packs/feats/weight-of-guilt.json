@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Guilt clouds the minds of those who ignore your Glimpse of Redemption. Instead of making the triggering creature enfeebled 2, you can make it stupefied 2 for the same duration.</p>"
+            "value": "<p>Guilt clouds the minds of those who ignore your @UUID[Compendium.pf2e.actionspf2e.Item.Glimpse of Redemption]. Instead of making the triggering creature enfeebled 2, you can make it @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for the same duration.</p>"
         },
         "level": {
             "value": 1
@@ -28,7 +28,28 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "weight-of-guilt",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "weight-of-guilt",
+                    "item:slug:glimpse-of-redemption"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.WeightOfGuilt.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
