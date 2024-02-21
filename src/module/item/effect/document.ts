@@ -188,6 +188,8 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
 
                 const currentValue = Number(badgeChange.value ?? currentBadge.value ?? 1);
                 badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
+
+                if (badgeChange["-=labels"] === null) badgeChange["loop"] = false;
             }
 
             // Delete min/max under certain conditions. Foundry is a bit shakey with -= behavior in _preUpdates
