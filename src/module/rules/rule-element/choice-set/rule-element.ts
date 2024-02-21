@@ -426,6 +426,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
         progress.close({ label: localize("LoadingComplete") });
 
+        const parentRollOptions = this.item.getRollOptions("parent");
         const filteredItems = indexData
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
             .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
@@ -436,7 +437,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 return new ItemProxyPF2e(fu.deepClone(source), { pack });
             })
             .concat(game.items.filter((i) => i.type === itemType))
-            .filter((i) => filter.test([...i.getRollOptions("item"), ...actorRollOptions]));
+            .filter((i) => filter.test([...i.getRollOptions("item"), ...parentRollOptions, ...actorRollOptions]));
 
         // Exclude any feat of which the character already has its maximum number and return final list
         const existing: Map<string, number> = new Map();
