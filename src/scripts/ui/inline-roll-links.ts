@@ -110,13 +110,13 @@ export const InlineRollLinks = {
 
                     // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
                     const sheetActor = ((): ActorPF2e | null => {
-                        const actor =
+                        const maybeActor: ActorPF2e | null =
                             foundryDoc instanceof ActorPF2e
                                 ? foundryDoc
                                 : foundryDoc instanceof ItemPF2e && foundryDoc.actor
                                   ? foundryDoc.actor
                                   : null;
-                        return actor.isOwner && !actor.isOfType("loot", "party") ? actor : null;
+                        return maybeActor?.isOwner && !maybeActor.isOfType("loot", "party") ? maybeActor : null;
                     })();
                     const rollingActors = [
                         sheetActor ?? getSelectedActors({ exclude: ["loot"], assignedFallback: true }),
