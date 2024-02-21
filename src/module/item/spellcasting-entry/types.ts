@@ -23,6 +23,8 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     isSpontaneous: boolean;
     isEphemeral: boolean;
     statistic?: Statistic | null;
+    /** A related but more-limited statistic for making counteract checks */
+    counteraction?: Statistic | null;
     tradition: MagicTradition | null;
     spells: SpellCollection<NonNullable<TActor>> | null;
     system?: SpellcastingEntrySystemData;
@@ -43,6 +45,7 @@ interface GetSheetDataOptions<TActor extends ActorPF2e> {
 interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellcastingEntry<TActor> {
     attribute: AttributeString;
     statistic: Statistic;
+    counteraction: Statistic;
 }
 
 type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
