@@ -197,8 +197,8 @@ abstract class CreaturePF2e<
     }
 
     /** Retrieve percpetion and spellcasting statistics */
-    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic;
-    override getStatistic(slug: string): Statistic | null;
+    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic<this>;
+    override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         switch (slug) {
             case "perception":

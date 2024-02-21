@@ -182,8 +182,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
-    override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic;
-    override getStatistic(slug: string): Statistic | null;
+    override getStatistic(slug: GuaranteedGetStatisticSlug): Statistic<this>;
+    override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         switch (slug) {
             case "class":
