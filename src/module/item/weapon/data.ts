@@ -45,7 +45,7 @@ type WeaponFlags = ItemFlagsPF2e & {
         /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
         attackItemBonus: number;
         /** A tracking property of whether the damage die size has been upgraded */
-        damageDieUpgraded: boolean;
+        damageFacesUpgraded: boolean;
     };
 };
 

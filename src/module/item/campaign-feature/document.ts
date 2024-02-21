@@ -99,10 +99,10 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix: string | null = null): string[] {
+    override getRollOptions(prefix?: string, options?: { includeGranter?: boolean }): string[] {
         prefix ??= this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
         return R.compact([
-            ...super.getRollOptions(prefix).filter((o) => !o.endsWith("level:0")),
+            ...super.getRollOptions(prefix, options).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
             this.isAction ? `action:${this.slug}` : null,
         ]);

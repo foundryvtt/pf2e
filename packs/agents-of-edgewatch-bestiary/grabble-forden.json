@@ -3113,12 +3113,19 @@
                         "toggleable": true
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "damageType": "poison"
-                        },
+                        "itemType": "spell",
+                        "key": "DamageAlteration",
+                        "mode": "override",
                         "predicate": [
                             "poison-conversion",
+                            {
+                                "or": [
+                                    "damage:type:acid",
+                                    "damage:type:cold",
+                                    "damage:type:electricity",
+                                    "damage:type:fire"
+                                ]
+                            },
                             {
                                 "or": [
                                     "item:trait:cantrip",
@@ -3131,7 +3138,12 @@
                                 ]
                             }
                         ],
-                        "selector": "spell-damage"
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "poison"
                     },
                     {
                         "itemType": "spell",
@@ -3139,6 +3151,14 @@
                         "mode": "add",
                         "predicate": [
                             "poison-conversion",
+                            {
+                                "or": [
+                                    "item:damage:type:acid",
+                                    "item:damage:type:cold",
+                                    "item:damage:type:electricity",
+                                    "item:damage:type:fire"
+                                ]
+                            },
                             {
                                 "or": [
                                     "item:trait:cantrip",

@@ -5,7 +5,7 @@ import { itemIsOfType } from "@item/helpers.ts";
 import { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values.ts";
 import { RARITIES } from "@module/data.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import type { DamageType } from "@system/damage/types.ts";
+import { DamageDiceFaces, type DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
@@ -172,10 +172,10 @@ const ITEM_ALTERATION_VALIDATORS = {
         {
             itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
             mode: new fields.StringField({ required: true, choices: ["downgrade", "override", "upgrade"] }),
-            value: new StrictNumberField<4 | 6 | 8 | 10 | 12, 4 | 6 | 8 | 10 | 12 | true, true, true>({
+            value: new StrictNumberField<DamageDiceFaces, DamageDiceFaces, true, true, true>({
                 required: true,
                 nullable: true,
-                choices: () => [4, 6, 8, 10, 12],
+                choices: () => DAMAGE_DICE_FACES,
                 initial: null,
             } as const),
         },

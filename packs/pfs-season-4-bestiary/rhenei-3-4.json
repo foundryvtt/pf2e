@@ -270,7 +270,7 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "bludgeoning"
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -325,8 +325,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "water"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
@@ -508,7 +508,6 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": false,
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
@@ -563,8 +562,7 @@
                         "attack",
                         "focus",
                         "manipulate",
-                        "sorcerer",
-                        "water"
+                        "sorcerer"
                     ]
                 }
             },
@@ -876,12 +874,12 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "bludgeoning"
+                        "type": "fire"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and [[/r (@item.level)d4[persistent,bludgeoning]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -927,8 +925,8 @@
                         "attack",
                         "cantrip",
                         "concentrate",
-                        "manipulate",
-                        "water"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
@@ -1338,10 +1336,93 @@
             "type": "action"
         },
         {
+            "_id": "Wd7Y7mu98qfWLV7w",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elemental Bloodline",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "fire"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:elemental-toss",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "water"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "OWnwjPZgueXBDTuB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1366,7 +1447,7 @@
             "_id": "vRiZDzoX95H8oqBz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1391,7 +1472,7 @@
             "_id": "sEJyuENEZD7l2b80",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Dueling Lore",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1416,7 +1497,7 @@
             "_id": "tC57ZCtGksPBmPnO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""

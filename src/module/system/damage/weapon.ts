@@ -469,6 +469,7 @@ class WeaponDamagePF2e {
         for (const modifier of testedModifiers) {
             modifier.applyDamageAlterations({ item: weapon, test: options });
         }
+        const maxIncreases = weapon.isOfType("weapon") && weapon.flags.pf2e.damageFacesUpgraded ? 0 : 1;
 
         const formulaData: DamageFormulaData = {
             base,
@@ -477,7 +478,7 @@ class WeaponDamagePF2e {
             // extra dice from abilities, critical specialization effects, property runes, weapon traits,
             // or the like.
             dice: damageDice,
-            maxIncreases: 1,
+            maxIncreases,
             modifiers: testedModifiers,
             ignoredResistances,
         };

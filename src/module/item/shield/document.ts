@@ -68,7 +68,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "armor"): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const reinforcingRune = this.system.runes.reinforcing;
         const reinforcingSlug = [null, "minor", "lesser", "moderate", "greater", "major", "supreme"][reinforcingRune];
         const reinforcingOptions = {
@@ -76,7 +76,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             [`rune:reinforcing:${reinforcingSlug}`]: !!reinforcingRune,
         };
 
-        const rollOptions = super.getRollOptions(prefix);
+        const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
                 [`base:${this.baseType}`]: !!this.baseType,

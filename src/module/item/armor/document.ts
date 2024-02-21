@@ -55,8 +55,8 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "armor"): string[] {
-        const rollOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
                 [`category:${this.category}`]: true,
