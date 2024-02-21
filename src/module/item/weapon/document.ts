@@ -731,8 +731,23 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
         }
-        if (changed.system.group !== undefined) {
-            changed.system.group ||= null;
+
+        for (const key of ["group", "range", "selectedAmmoId"] as const) {
+            if (changed.system[key] !== undefined) {
+                changed.system[key] ||= null;
+            }
+        }
+
+        if (changed.system.damage) {
+            // Clamp `dice` to between 0 and 12
+            if (changed.system.damage.dice !== undefined) {
+                changed.system.damage.dice = Math.clamped(Number(changed.system.damage.dice) || 0, 0, 12);
+            }
+
+            // Null out empty `die`
+            if (changed.system.damage.die !== undefined) {
+                changed.system.damage.die ||= null;
+            }
         }
 
         return super._preUpdate(changed, options, user);
