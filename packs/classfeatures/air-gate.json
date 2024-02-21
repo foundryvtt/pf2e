@@ -37,7 +37,10 @@
                             ]
                         },
                         "item:trait:impulse",
-                        "item:trait:air"
+                        "item:trait:air",
+                        {
+                            "not": "item:trait:composite"
+                        }
                     ],
                     "itemType": "feat"
                 },
@@ -71,7 +74,7 @@
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:air"
+                    "kinetic-gate:first-element:air-gate"
                 ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
             },
@@ -80,7 +83,7 @@
                 "key": "GrantItem",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:air"
+                    "kinetic-gate:first-element:air-gate"
                 ],
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             },
@@ -104,7 +107,7 @@
                 "option": "junction:air:impulse",
                 "predicate": [
                     "kinetic-gate:initial:single-gate",
-                    "kinetic-gate:first-element:air"
+                    "kinetic-gate:first-element:air-gate"
                 ]
             },
             {
