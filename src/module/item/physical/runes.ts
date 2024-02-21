@@ -898,7 +898,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             ],
             notes: [
                 {
-                    outcome: ["success"],
                     title: "PF2E.WeaponPropertyRune.ashen.Name",
                     text: "PF2E.WeaponPropertyRune.ashen.Note.success",
                 },
@@ -1334,7 +1333,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             ],
             notes: [
                 {
-                    outcome: ["success"],
                     title: "PF2E.WeaponPropertyRune.greaterAshen.Name",
                     text: "PF2E.WeaponPropertyRune.greaterAshen.Note.success",
                 },
