@@ -507,7 +507,7 @@ class WeaponDamagePF2e {
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             materials: Array.from(materials),
-            modifiers: [...modifiers, ...damageDice],
+            modifiers: [...damageDice, ...testedModifiers],
             damage: {
                 ...formulaData,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
