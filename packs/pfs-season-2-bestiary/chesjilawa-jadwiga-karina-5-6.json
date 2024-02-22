@@ -169,13 +169,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "6d6",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "cold"
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -185,7 +186,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A roaring blast of ice appears at a spot you designate, dealing 6d6 cold damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -205,9 +206,9 @@
                     "value": "cxPALScq3PzKyQYx"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -228,8 +229,8 @@
                         "primal"
                     ],
                     "value": [
-                        "cold",
                         "concentrate",
+                        "fire",
                         "manipulate"
                     ]
                 }
@@ -1784,7 +1785,20 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:fireball"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage"
+                        ],
+                        "value": "cold"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
