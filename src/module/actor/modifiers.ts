@@ -6,6 +6,7 @@ import type { RollNotePF2e } from "@module/notes.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
+import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
@@ -258,16 +259,24 @@ class ModifierPF2e implements RawModifier {
             this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
             this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
         ]);
-        for (const kind of damageKinds) {
-            options.push(kind);
-            options.push(`${this.kind}:${kind}`);
+
+        for (const damageKind of damageKinds) {
+            options.push(damageKind);
+            options.push(`${this.kind}:${damageKind}`);
+
             if (this.damageType) {
-                options.push(`${kind}:type:${this.damageType}`);
-                options.push(`${this.kind}:${kind}:type:${this.damageType}`);
+                options.push(`${damageKind}:type:${this.damageType}`);
+                options.push(`${this.kind}:${damageKind}:type:${this.damageType}`);
+                const categoryFromType = DamageCategorization.fromDamageType(this.damageType);
+                if (damageKind === "damage" && categoryFromType) {
+                    options.push(`${damageKind}:category:${categoryFromType}`);
+                    options.push(`${this.kind}:${damageKind}:category:${categoryFromType}`);
+                }
             }
+
             if (this.damageCategory) {
-                options.push(`${kind}:category:${this.damageCategory}`);
-                options.push(`${this.kind}:${kind}:category:${this.damageCategory}`);
+                options.push(`${damageKind}:category:${this.damageCategory}`);
+                options.push(`${this.kind}:${damageKind}:category:${this.damageCategory}`);
             }
         }
 
@@ -720,15 +729,24 @@ class DamageDicePF2e {
 
     /** Get roll options for set of dice using a "dice:" prefix. */
     getRollOptions(): string[] {
-        const kind = this.selector.endsWith("healing") ? "healing" : "damage";
+        const damageKind = this.selector.endsWith("healing") ? "healing" : "damage";
+        const categoryFromType = DamageCategorization.fromDamageType(this.damageType ?? "untyped");
+
         return [
-            kind,
+            damageKind,
             `dice:slug:${this.slug}`,
             `dice:number:${this.diceNumber}`,
             `dice:faces:${this.dieSize}`,
-            `dice:${kind}`,
-            this.category ? [`${kind}:category:${this.category}`, `dice:${kind}:category:${this.category}`] : [],
-            this.damageType ? [`${kind}:type:${this.damageType}`, `dice:${kind}:type:${this.damageType}`] : [],
+            `dice:${damageKind}`,
+            this.category
+                ? [`${damageKind}:category:${this.category}`, `dice:${damageKind}:category:${this.category}`]
+                : [],
+            categoryFromType
+                ? [`${damageKind}:category:${categoryFromType}`, `dice:${damageKind}:category:${categoryFromType}`]
+                : [],
+            this.damageType
+                ? [`${damageKind}:type:${this.damageType}`, `dice:${damageKind}:type:${this.damageType}`]
+                : [],
         ].flat();
     }
 
