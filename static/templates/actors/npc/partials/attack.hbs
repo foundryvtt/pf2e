@@ -16,13 +16,11 @@
 
         {{#if action.tags}}
             <span class="traits">
-                <span class="parenthesis">(</span>{{!--
-                --}}<ul class="comma-separated">
-                    {{~#each action.tags as |tag|~}}
-                        <li{{#if tag.description}} data-tooltip="{{tag.description}}"{{/if}}>{{tag.label}}</li>
-                    {{/each~}}
-                </ul>{{!--
-                --}}<span class="parenthesis">)</span>
+                {{#each action.tags as |tag|}}
+                    {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
+                    <li{{#if tag.description}} data-tooltip="{{tag.description}}"{{/if}}>{{tag.label}}</li>
+                    {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
+                {{/each}}
             </span>
         {{/if}}
     </h4>
