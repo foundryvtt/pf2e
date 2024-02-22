@@ -9,11 +9,11 @@ export class Migration921KineticistRestructure extends MigrationBase {
     override async updateActor(source: CreatureSource): Promise<void> {
         if (source.type === "character" && source.items.some((i) => i.slug === "kinetic-gate")) {
             const airUUID = "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV";
-            // const earthUUID = "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"
-            // const fireUUID = "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"
-            // const metalUUID = "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"
-            // const waterUUID = "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"
-            // const woodUUID = "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"
+            const earthUUID = "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"
+            const fireUUID = "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"
+            const metalUUID = "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"
+            const waterUUID = "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"
+            const woodUUID = "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"
 
             const kineticGateRules = [
                 {
@@ -75,31 +75,31 @@ export class Migration921KineticistRestructure extends MigrationBase {
                     source.createEmbeddedDocuments("Item", [airGate]);
                     break;
                 case "earth":
-                    const earthGateSource = await fromUuid(airUUID);
+                    const earthGateSource = await fromUuid(earthUUID);
                     const earthGate = earthGateSource?.toObject;
                     this.setGate(earthGate, "one", "earth");
                     source.createEmbeddedDocuments("Item", [earthGate]);
                     break;
                 case "fire":
-                    const fireGateSource = await fromUuid(airUUID);
+                    const fireGateSource = await fromUuid(fireUUID);
                     const fireGate = fireGateSource?.toObject;
                     this.setGate(fireGate, "one", "fire");
                     source.createEmbeddedDocuments("Item", [fireGate]);
                     break;
                 case "metal":
-                    const metalGateSource = await fromUuid(airUUID);
+                    const metalGateSource = await fromUuid(metalUUID);
                     const metalGate = metalGateSource?.toObject;
                     this.setGate(metalGate, "one", "metal");
                     source.createEmbeddedDocuments("Item", [metalGate]);
                     break;
                 case "water":
-                    const waterGateSource = await fromUuid(airUUID);
+                    const waterGateSource = await fromUuid(waterUUID);
                     const waterGate = waterGateSource?.toObject;
                     this.setGate(waterGate, "one", "water");
                     source.createEmbeddedDocuments("Item", [waterGate]);
                     break;
                 case "wood":
-                    const woodGateSource = await fromUuid(airUUID);
+                    const woodGateSource = await fromUuid(woodUUID);
                     const woodGate = woodGateSource?.toObject;
                     this.setGate(woodGate, "one", "wood");
                     source.createEmbeddedDocuments("Item", [woodGate]);
