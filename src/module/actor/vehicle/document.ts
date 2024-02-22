@@ -31,7 +31,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
     /** Whether the creature emits sound: overridable by AE-like */
     override get emitsSound(): boolean {
-        return this.system.attributes.emitsSound;
+        const { emitsSound } = this.system.attributes;
+        return !this.isDead && typeof emitsSound === "boolean"
+            ? emitsSound
+            : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
     }
 
     getTokenDimensions(dimensions: Omit<ActorDimensions, "height"> = this.dimensions): TokenDimensions {

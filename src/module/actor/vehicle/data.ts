@@ -71,7 +71,7 @@ interface VehicleAttributes extends Omit<VehicleAttributesSource, AttributesSour
     hp: VehicleHitPoints;
     initiative?: never;
     shield?: never;
-    emitsSound: boolean;
+    emitsSound: boolean | "encounter";
 }
 type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 
