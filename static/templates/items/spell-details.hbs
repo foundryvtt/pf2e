@@ -169,14 +169,14 @@
                             ><i class="fa-solid fa-fw fa-edit"></i></a>
                             <a data-action="delete-damage-partial" data-id="{{id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                         </div>
+                        {{#if partial.materials}}
+                            <div class="materials">
+                                {{#each partial.materials as |material|}}
+                                    <div class="tag-legacy">{{localize (lookup @root.materials material)}}</div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
                     </div>
-                    {{#if partial.materials}}
-                        <div class="materials">
-                            {{#each partial.materials as |material|}}
-                                <div class="tag-legacy">{{localize (lookup @root.materials material)}}</div>
-                            {{/each}}
-                        </div>
-                    {{/if}}
                 </div>
             {{/each}}
         </div>
