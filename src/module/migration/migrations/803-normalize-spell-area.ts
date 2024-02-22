@@ -1,6 +1,6 @@
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { EffectAreaSize, EffectAreaType } from "@item/spell/index.ts";
-import { isObject } from "@util";
+import type { ItemSourcePF2e } from "@item/base/data/index.ts";
+import type { EffectAreaShape } from "@item/spell/types.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Ensure spell-area values are numbers, null out area object if not in use */
@@ -14,10 +14,9 @@ export class Migration803NormalizeSpellArea extends MigrationBase {
 
         const area: MaybeWithOldAreaType = source.system.area;
         if (area) {
-            area.value = Number(area.value) as EffectAreaSize;
+            area.value = Number(area.value) || 5;
             if ("areaType" in area && this.#isAreaType(area.areaType)) {
                 area.type = area.areaType;
-                delete area.areaType;
                 area["-=areaType"] = null;
             }
         }
@@ -27,7 +26,7 @@ export class Migration803NormalizeSpellArea extends MigrationBase {
         }
 
         // Move old details text
-        if ("areasize" in source.system && isObject<{ value: string }>(source.system.areasize)) {
+        if ("areasize" in source.system && R.isObject(source.system.areasize)) {
             if (this.#hasDetails(source.system.areasize.value) && area) {
                 area.details = source.system.areasize.value;
             }
@@ -37,7 +36,7 @@ export class Migration803NormalizeSpellArea extends MigrationBase {
         }
     }
 
-    #isAreaType(areaType: unknown): areaType is EffectAreaType {
+    #isAreaType(areaType: unknown): areaType is EffectAreaShape {
         return typeof areaType === "string" && areaType.length > 0 && this.#AREA_TYPES.has(areaType);
     }
 
@@ -58,9 +57,9 @@ type MaybeWithAreasize = ItemSourcePF2e & {
 };
 
 type MaybeWithOldAreaType = {
-    value: EffectAreaSize;
-    type: EffectAreaType;
-    areaType?: EffectAreaType | "";
+    value: number;
+    type: EffectAreaShape;
+    areaType?: EffectAreaShape | "";
     "-=areaType"?: unknown;
     details?: string;
 } | null;
