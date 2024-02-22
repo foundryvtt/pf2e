@@ -56,7 +56,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
-            actor.rollOptions.all[`ability:${slug}`] = true;
+            actor.rollOptions.all[`self:ability:${slug}`] = true;
         }
     }
 
