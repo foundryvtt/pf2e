@@ -1736,7 +1736,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: ["item:group:brawling"],
+                    predicate: [{ or: ["item:group:brawling", "item:group:firearm"] }],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Brawling",
                 },
