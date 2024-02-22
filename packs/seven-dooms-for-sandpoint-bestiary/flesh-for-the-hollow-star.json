@@ -1,0 +1,111 @@
+{
+    "_id": "DIvrxLJQeOCACG2i",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "XBiFbokC9xNtRiK5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Open Eyes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> a non-worshipper of Azathoth approaches within 5 feet, or a non-worshipper of Azathoth attacks Ziradini in this room</p>\n<hr />\n<p><strong>Effect</strong> A dozen eyes blink open on the spherical shape to glare at the triggering creature, who must succeed at a @Check[type:will|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Flesh for the Hollow Star",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            }
+        },
+        "details": {
+            "description": "<p>The flesh and leather sculpture of Azathoth seems to ripple and churn before eyes open across its surface—eyes that then open into mouths that extend long whipping tendrils of rasping filaments to bless with warped flesh.</p>",
+            "disable": "<p>@Check[type:thievery|dc:23] twice to pull away one of the two primary anchor points for the sculpture to cause the leather and bones to slump harmlessly to the floor, @Check[type:religion|dc:26] from a worshipper of a lawful or good faith to banish Azathoth's influence from the hazard, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd level, counteract DC 20) to counteract the hazard</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>The trap deactivates and resets after a worshipper of Azathoth spends 1 hour in prayer before it.</p>",
+            "routine": "<p>(2 actions; necromancy, occult) The eyes open like mouths to extrude a whipping tangle of filaments that lash out at a target in area <strong>F19</strong> or within 10 feet of any entrance into the room. The filaments can't attack a single target more than once per round. A creature targeted by a filament must attempt a @Check[type:fortitude|traits:necromancy,occult|dc:22] save. The body of a creature slain by poison damage from this hazard melts into a heap and then splits open to allow a gibbering mouther to slither free; this creature attacks any non-worshipper of Azathoth it sees, or otherwise slithers off to area <strong>F20</strong> to splash and gyre in the waters of the lake.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[poison]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(2d6+7)[poison]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} as their flesh and muscles grow limp and saggy.</p>\n<p><strong>Critical Failure</strong> As failure, but @Damage[(4d6+14)[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
