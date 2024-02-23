@@ -87,14 +87,14 @@ const MetagameSettingsConfig = {
             }
         },
     },
-    ignoreSecretTrait: {
+    showSecretTrait: {
         prefix: "metagame_",
-        name: "PF2E.SETTINGS.Metagame.IgnoreSecretTrait.Name",
-        hint: "PF2E.SETTINGS.Metagame.IgnoreSecretTrait.Hint",
+        name: "PF2E.SETTINGS.Metagame.ShowSecretTrait.Name",
+        hint: "PF2E.SETTINGS.Metagame.ShowSecretTrait.Hint",
         default: false,
         type: Boolean,
         onChange: (value: unknown) => {
-            game.pf2e.settings.metagame.ignoreSecretTrait = !!value;
+            game.pf2e.settings.metagame.showSecretTrait = !!value;
         },
     },
 } satisfies Record<string, PartialSettingsData>;

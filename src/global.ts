@@ -143,7 +143,7 @@ interface GamePF2e
             metagame: {
                 breakdowns: boolean;
                 dcs: boolean;
-                ignoreSecretTrait: boolean;
+                showSecretTrait: boolean;
                 partyStats: boolean;
                 partyVision: boolean;
                 results: boolean;
@@ -280,7 +280,7 @@ declare global {
         get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
         get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
-        get(module: "pf2e", setting: "metagame_ignoreSecretTrait"): boolean;
+        get(module: "pf2e", setting: "metagame_showSecretTrait"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 

@@ -120,7 +120,7 @@ export const SetGamePF2e = {
             metagame: {
                 breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
                 dcs: game.settings.get("pf2e", "metagame_showDC"),
-                ignoreSecretTrait: game.settings.get("pf2e", "metagame_ignoreSecretTrait"),
+                showSecretTrait: game.settings.get("pf2e", "metagame_showSecretTrait"),
                 partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
                 partyVision: game.settings.get("pf2e", "metagame_partyVision"),
                 results: game.settings.get("pf2e", "metagame_showResults"),
