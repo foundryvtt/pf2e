@@ -174,7 +174,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
                 break;
         }
 
-        gate.system.rules.slice(0, 2);
+        gate.system.rules.splice(0, 2);
     }
 
     async #setElement(source: ActorSourcePF2e, element: string, gateNumber: string) {
