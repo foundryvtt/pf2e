@@ -4,7 +4,7 @@
     "name": "Effect: Restorative Strike",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Restorative Strike]</p>\n<p>If you make this Strike with your deity's favored weapon, you gain a +1 status bonus to the attack roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Restorative Strike]</p>\n<p>Cast a 1-action @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to heal yourself, expending the spell normally. It loses the manipulate trait when cast this way. Then make a melee Strike. If you make this Strike with your deity's favored weapon, you gain a +1 status bonus to the attack roll.</p>\n<p>If the Strike hits, you can target a second willing creature to heal the same amount from the spell. This creature can be outside of the spell's range, provided it's adjacent to the enemy you hit.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,6 +22,22 @@
         },
         "rules": [
             {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:cast:actions:1",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "manipulate"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "item:deity-favored"
@@ -30,6 +46,16 @@
                 "selector": "strike-attack-roll",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Cleric.RestorativeStrike.Note",
+                "title": "{item|name}"
             }
         ],
         "start": {
