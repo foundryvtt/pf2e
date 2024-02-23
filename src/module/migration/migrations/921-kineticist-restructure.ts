@@ -70,16 +70,16 @@ export class Migration921KineticistRestructure extends MigrationBase {
         kineticGate.system.rules.push(...kineticGateRules);
         impulses.system.rules = impulsesRules;
 
-        if (typeof(elementOne) == "string") {
-            this.#setElement(source, elementOne, "one")
+        if (typeof elementOne === "string") {
+            this.#setElement(source, elementOne, "one");
         }
 
         const elementTwo = kineticGate.system.rules.find(
             (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementTwo",
         )?.selection;
 
-        if (typeof(elementTwo) == "string") {
-            this.#setElement(source, elementTwo, "two")
+        if (typeof elementTwo === "string") {
+            this.#setElement(source, elementTwo, "two");
         }
 
         if (gateJunction) {
@@ -93,44 +93,50 @@ export class Migration921KineticistRestructure extends MigrationBase {
                 (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementFork",
             )?.selection;
 
-            if (typeof(elementThree) == "string") {
-                this.#setElement(source, elementThree, "three")
+            if (typeof elementThree === "string") {
+                this.#setElement(source, elementThree, "three");
             }
         }
 
-        const secondThreshold = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "second-gates-threshold");
+        const secondThreshold = source.items.find(
+            (i) => (i.system.slug ?? sluggify(i.name)) === "second-gates-threshold",
+        );
 
         if (secondThreshold) {
             const elementFour = secondThreshold.system.rules.find(
                 (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementFork",
             )?.selection;
 
-            if (typeof(elementFour) == "string") {
-                this.#setElement(source, elementFour, "four")
+            if (typeof elementFour === "string") {
+                this.#setElement(source, elementFour, "four");
             }
         }
 
-        const thirdThreshold = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "third-gates-threshold");
+        const thirdThreshold = source.items.find(
+            (i) => (i.system.slug ?? sluggify(i.name)) === "third-gates-threshold",
+        );
 
         if (thirdThreshold) {
             const elementFive = thirdThreshold.system.rules.find(
                 (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementFork",
             )?.selection;
 
-            if (typeof(elementFive) == "string") {
-                this.#setElement(source, elementFive, "five")
+            if (typeof elementFive === "string") {
+                this.#setElement(source, elementFive, "five");
             }
         }
 
-        const fourthThreshold = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "fourth-gates-threshold");
+        const fourthThreshold = source.items.find(
+            (i) => (i.system.slug ?? sluggify(i.name)) === "fourth-gates-threshold",
+        );
 
         if (fourthThreshold) {
             const elementSix = fourthThreshold.system.rules.find(
                 (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementFork",
             )?.selection;
 
-            if (typeof(elementSix) == "string") {
-                this.#setElement(source, elementSix, "six")
+            if (typeof elementSix === "string") {
+                this.#setElement(source, elementSix, "six");
             }
         }
     }
@@ -168,7 +174,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
                 break;
         }
 
-        gate.system.rules.slice(0,2)
+        gate.system.rules.slice(0, 2);
     }
 
     async #setElement(source: ActorSourcePF2e, element: string, gateNumber: string) {
@@ -179,9 +185,9 @@ export class Migration921KineticistRestructure extends MigrationBase {
             ["metal", "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"],
             ["water", "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"],
             ["wood", "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"],
-        ])
+        ]);
 
-        const elementUUID = elementMap.get(element)
+        const elementUUID = elementMap.get(element);
 
         if (elementUUID) {
             const gate = await this.#loadFeatSource(elementUUID);
