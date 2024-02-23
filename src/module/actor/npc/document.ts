@@ -252,8 +252,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             },
         ]);
 
-        // process strikes.
-        const generatedMelee = Array.from(synthetics.strikes.values()).flatMap((w) => w.toNPCAttacks({ keepId: true }));
+        // Process strikes
+        const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s())), (w) => w.slug);
+        const generatedMelee = syntheticWeapons.flatMap((w) => w.toNPCAttacks({ keepId: true }));
         const meleeItems = R.sortBy(
             [this.itemTypes.melee, generatedMelee].flat(),
             (m) => m.name,
