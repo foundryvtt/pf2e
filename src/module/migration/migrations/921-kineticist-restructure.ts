@@ -71,7 +71,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
         impulses.system.rules = impulsesRules;
 
         if (typeof elementOne === "string") {
-            this.#setElement(source, elementOne, "one");
+            await this.#setElement(source, elementOne, "one");
         }
 
         const elementTwo = kineticGate.system.rules.find(
@@ -79,7 +79,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
         )?.selection;
 
         if (typeof elementTwo === "string") {
-            this.#setElement(source, elementTwo, "two");
+            await this.#setElement(source, elementTwo, "two");
         }
 
         if (gateJunction) {
@@ -94,7 +94,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
             )?.selection;
 
             if (typeof elementThree === "string") {
-                this.#setElement(source, elementThree, "three");
+                await this.#setElement(source, elementThree, "three");
             }
         }
 
@@ -108,7 +108,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
             )?.selection;
 
             if (typeof elementFour === "string") {
-                this.#setElement(source, elementFour, "four");
+                await this.#setElement(source, elementFour, "four");
             }
         }
 
@@ -122,7 +122,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
             )?.selection;
 
             if (typeof elementFive === "string") {
-                this.#setElement(source, elementFive, "five");
+                await this.#setElement(source, elementFive, "five");
             }
         }
 
@@ -136,7 +136,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
             )?.selection;
 
             if (typeof elementSix === "string") {
-                this.#setElement(source, elementSix, "six");
+                await this.#setElement(source, elementSix, "six");
             }
         }
     }
