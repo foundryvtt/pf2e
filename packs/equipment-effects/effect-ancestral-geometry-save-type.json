@@ -1,0 +1,93 @@
+{
+    "_id": "Iwn7XovHu9HXp129",
+    "img": "systems/pf2e/icons/equipment/tattoos/ancestral-geometry.webp",
+    "name": "Effect: Ancestral Geometry (Save Type)",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Fortitude",
+                "Fortitude",
+                "Reflex",
+                "Reflex",
+                "Will",
+                "Will"
+            ],
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d6"
+        },
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:1",
+                            "parent:badge:value:2"
+                        ]
+                    }
+                ],
+                "value": "fortitude"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:3",
+                            "parent:badge:value:4"
+                        ]
+                    }
+                ],
+                "value": "reflex"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:5",
+                            "parent:badge:value:6"
+                        ]
+                    }
+                ],
+                "value": "will"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
