@@ -1114,26 +1114,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
               })()
             : null;
 
-        // Regenerate unarmed strikes from handwraps so that all runes are included
-        if (handwraps) {
-            for (const weapon of synthetics.strikes.values()) {
-                if (weapon.category === "unarmed") {
-                    weapon.system.runes = fu.mergeObject(weapon.system.runes, unarmedRunes);
-                }
-            }
-        }
-
         const ammos = [
             ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
+        const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s(unarmedRunes))), (w) => w.slug);
 
         // Exclude handwraps as a strike
         const weapons = R.compact(
             [
                 itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
-                Array.from(synthetics.strikes.values()),
+                syntheticWeapons,
                 basicUnarmed ?? [],
                 // Generate a shield attacks from the character's shields
                 this.itemTypes.shield
