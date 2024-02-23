@@ -1,5 +1,9 @@
-import { FeatSource } from "@item/base/data/index.ts";
 import { CreatureSource } from "@actor/data/index.ts";
+import { ItemPF2e } from "@item";
+import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
+import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
+import { sluggify } from "@util/misc.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Move existing kineticists to the new class automation structure **/
@@ -7,114 +11,135 @@ export class Migration921KineticistRestructure extends MigrationBase {
     static override version = 0.921;
 
     override async updateActor(source: CreatureSource): Promise<void> {
-        if (source.type === "character" && source.items.some((i) => i.slug === "kinetic-gate")) {
-            const airUUID = "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV";
-            const earthUUID = "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"
-            const fireUUID = "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"
-            const metalUUID = "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"
-            const waterUUID = "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"
-            const woodUUID = "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"
+        if (source.type !== "character") return;
 
-            const kineticGateRules = [
-                {
-                    key: "ActiveEffectLike",
-                    mode: "override",
-                    path: "flags.pf2e.kineticist.elements",
-                    priority: 10,
-                    value: [],
-                },
-                {
-                    key: "ActiveEffectLike",
-                    mode: "override",
-                    path: "flags.pf2e.kineticist.gate",
-                    priority: 10,
-                    value: {
-                        five: "none",
-                        four: "none",
-                        one: "none",
-                        six: "none",
-                        three: "none",
-                        two: "none",
-                    },
-                },
-            ];
+        const kineticGate = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "kinetic-gate");
+        const impulses = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "impulses");
+        const gateJunction = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "gates-junction");
+        if (!kineticGate || !impulses || !gateJunction) return;
 
-            const impulsesRules = [
-                {
-                    extends: "kineticist",
-                    key: "SpecialStatistic",
-                    label: "PF2E.TraitImpulse",
-                    slug: "impulse",
-                    type: "attack-roll",
-                },
-                {
-                    key: "GrantItem",
-                    uuid: "Compendium.pf2e.actionspf2e.Item.6lbr0Jnv0zMB5uGb",
-                    flag: "elementalBlast",
-                },
-                {
-                    key: "GrantItem",
-                    predicate: ["class:kineticist"],
-                    uuid: "Compendium.pf2e.actionspf2e.Item.nTBrvt2b9wngyr0i",
-                    flag: "baseKinesis",
-                },
-            ];
+        const airUUID = "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV";
+        const earthUUID = "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS";
+        const fireUUID = "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS";
+        const metalUUID = "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3";
+        const waterUUID = "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t";
+        const woodUUID = "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr";
 
-            const kineticGate = source.items.filter((i) => i.slug === "kinetic-gate")[0];
-            const elementOne = kineticGate.system.rules.filter((r) => r.flag === "elementOne")[0].selection;
-            const impulses = source.items.filter((i) => i.slug === "impulses")[0];
+        const kineticGateRules = [
+            {
+                key: "ActiveEffectLike",
+                mode: "override",
+                path: "flags.pf2e.kineticist.elements",
+                priority: 10,
+                value: [],
+            },
+            {
+                key: "ActiveEffectLike",
+                mode: "override",
+                path: "flags.pf2e.kineticist.gate",
+                priority: 10,
+                value: {
+                    five: "none",
+                    four: "none",
+                    one: "none",
+                    six: "none",
+                    three: "none",
+                    two: "none",
+                },
+            },
+        ];
 
-            kineticGate.system.rules.push(kineticGateRules);
-            impulses.system.rules = impulsesRules;
+        const impulsesRules = [
+            {
+                extends: "kineticist",
+                key: "SpecialStatistic",
+                label: "PF2E.TraitImpulse",
+                slug: "impulse",
+                type: "attack-roll",
+            },
+            {
+                key: "GrantItem",
+                uuid: "Compendium.pf2e.actionspf2e.Item.6lbr0Jnv0zMB5uGb",
+                flag: "elementalBlast",
+            },
+            {
+                key: "GrantItem",
+                predicate: ["class:kineticist"],
+                uuid: "Compendium.pf2e.actionspf2e.Item.nTBrvt2b9wngyr0i",
+                flag: "baseKinesis",
+            },
+        ];
 
-            switch (elementOne) {
-                case "air":
-                    const airGateSource = await fromUuid(airUUID);
-                    const airGate = airGateSource?.toObject;
-                    this.setGate(airGate, "one", "air");
+        const elementOne = kineticGate.system.rules.find(
+            (r): r is ChoiceSetSource => r.key === "ChoiceSet" && "flag" in r && r.flag === "elementOne",
+        )?.selection;
+
+        kineticGate.system.rules.push(...kineticGateRules);
+        impulses.system.rules = impulsesRules;
+
+        switch (elementOne) {
+            case "air": {
+                const airGate = await this.#loadFeatSource(airUUID);
+                if (airGate) {
+                    this.#setGate(airGate, "one", "air");
                     source.createEmbeddedDocuments("Item", [airGate]);
-                    break;
-                case "earth":
-                    const earthGateSource = await fromUuid(earthUUID);
-                    const earthGate = earthGateSource?.toObject;
-                    this.setGate(earthGate, "one", "earth");
+                }
+                break;
+            }
+            case "earth": {
+                const earthGate = await this.#loadFeatSource(earthUUID);
+                if (earthGate) {
+                    this.#setGate(earthGate, "one", "earth");
                     source.createEmbeddedDocuments("Item", [earthGate]);
-                    break;
-                case "fire":
-                    const fireGateSource = await fromUuid(fireUUID);
-                    const fireGate = fireGateSource?.toObject;
-                    this.setGate(fireGate, "one", "fire");
+                }
+                break;
+            }
+            case "fire": {
+                const fireGate = await this.#loadFeatSource(fireUUID);
+                if (fireGate) {
+                    this.#setGate(fireGate, "one", "fire");
                     source.createEmbeddedDocuments("Item", [fireGate]);
-                    break;
-                case "metal":
-                    const metalGateSource = await fromUuid(metalUUID);
-                    const metalGate = metalGateSource?.toObject;
-                    this.setGate(metalGate, "one", "metal");
+                }
+                break;
+            }
+            case "metal": {
+                const metalGate = await this.#loadFeatSource(metalUUID);
+                if (metalGate) {
+                    this.#setGate(metalGate, "one", "metal");
                     source.createEmbeddedDocuments("Item", [metalGate]);
-                    break;
-                case "water":
-                    const waterGateSource = await fromUuid(waterUUID);
-                    const waterGate = waterGateSource?.toObject;
-                    this.setGate(waterGate, "one", "water");
+                }
+                break;
+            }
+            case "water": {
+                const waterGate = await this.#loadFeatSource(waterUUID);
+                if (waterGate) {
+                    this.#setGate(waterGate, "one", "water");
                     source.createEmbeddedDocuments("Item", [waterGate]);
-                    break;
-                case "wood":
-                    const woodGateSource = await fromUuid(woodUUID);
-                    const woodGate = woodGateSource?.toObject;
-                    this.setGate(woodGate, "one", "wood");
+                }
+                break;
+            }
+            case "wood": {
+                const woodGate = await this.#loadFeatSource(woodUUID);
+                if (woodGate) {
+                    this.#setGate(woodGate, "one", "wood");
                     source.createEmbeddedDocuments("Item", [woodGate]);
-                    break;
+                }
+                break;
             }
+        }
 
-            const gateJunction = source.items.filter((i) => i.slug === "gates-junction")[0];
-
-            if (gateJunction) {
-                gateJunction.system.rules = [];
-            }
+        if (gateJunction) {
+            gateJunction.system.rules = [];
         }
     }
 
-    setGate(gate: FeatSource, gateNumber: string, element: string) {
+    async #loadFeatSource(uuid: ItemUUID): Promise<FeatSource | null> {
+        const item = await fromUuid<ItemPF2e>(uuid);
+        const source: ItemSourcePF2e | null = item?.toObject(true) ?? null;
+        return source && itemIsOfType(source, "feat") ? source : null;
+    }
+
+    #setGate(gate: FeatSource, gateNumber: string, element: string) {
         const modifiedRules = [
             {
                 key: "ActiveEffectLike",
@@ -124,20 +149,20 @@ export class Migration921KineticistRestructure extends MigrationBase {
             },
         ];
 
-        gate.system.rules.push(modifiedRules);
+        gate.system.rules.push(...modifiedRules);
 
-        switch (gate) {
+        switch (gateNumber) {
             case "three":
-                gate.level = 5
+                gate.system.level.value = 5;
                 break;
             case "four":
-                gate.level = 9
+                gate.system.level.value = 9;
                 break;
             case "five":
-                gate.level = 13
+                gate.system.level.value = 13;
                 break;
             case "six":
-                gate.level = 17
+                gate.system.level.value = 17;
                 break;
         }
     }
