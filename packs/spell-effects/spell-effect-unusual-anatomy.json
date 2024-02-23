@@ -4,7 +4,7 @@
     "name": "Spell Effect: Unusual Anatomy",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Unusual Anatomy]</p>\n<p>You gain resistance to precision damage and resistance to extra damage from critical hits, and you gain darkvision.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,6 +21,14 @@
             "title": "Pathfinder Core Rulebook"
         },
         "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "critical-hits",
+                    "precision"
+                ],
+                "value": "ceil(@item.level/2)*5 -5"
+            },
             {
                 "key": "Sense",
                 "selector": "darkvision"
