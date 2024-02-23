@@ -1,4 +1,4 @@
-import { CreatureSource } from "@actor/data/index.ts";
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemPF2e } from "@item";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
@@ -10,7 +10,7 @@ import { MigrationBase } from "../base.ts";
 export class Migration921KineticistRestructure extends MigrationBase {
     static override version = 0.921;
 
-    override async updateActor(source: CreatureSource): Promise<void> {
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
 
         const kineticGate = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "kinetic-gate");
