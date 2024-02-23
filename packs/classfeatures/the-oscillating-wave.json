@@ -207,6 +207,9 @@
                 "label": "PF2E.SpecificRule.Psychic.OscillatingWave.ConservationOfEnergyLabel",
                 "option": "conservation-of-energy",
                 "placement": "spellcasting",
+                "predicate": [
+                    "class:psychic"
+                ],
                 "suboptions": [
                     {
                         "label": "PF2E.SpecificRule.Psychic.OscillatingWave.AddEnergy",
@@ -246,6 +249,9 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Psychic.OscillatingWave.Mindshift",
                 "option": "mindshift:add-remove-energy",
+                "predicate": [
+                    "class:psychic"
+                ],
                 "toggleable": true
             },
             {
@@ -274,6 +280,66 @@
                     "strike-damage"
                 ],
                 "value": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "priority": 10,
+                "value": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Ignition",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:ignition"
+                            }
+                        ],
+                        "value": "ignition"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Frostbite",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:frostbite"
+                            }
+                        ],
+                        "value": "frostbite"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.ThermalStasis",
+                        "predicate": [
+                            "feat:psi-development"
+                        ],
+                        "value": "thermal-stasis"
+                    }
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.psychic.dedication.psiCantrips",
+                "flag": "dedicationCantrip",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.PsiCantrip",
+                "rollOption": "selected-psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:psychic-dedication",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.dedicationCantrip}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
             }
         ],
         "traits": {
