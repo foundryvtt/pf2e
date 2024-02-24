@@ -43,7 +43,14 @@ interface EffectTraits extends ItemTraitsNoRarity<EffectTrait> {}
 interface EffectBadgeValueSource extends EffectBadgeBaseSource {
     type: "value";
     value: number;
-    reevaluate?: { formula: string; event: "turn-start" | "turn-end" } | null;
+    reevaluate?: {
+        /** The type of event that reevaluation should occur */
+        event: BadgeReevaluationEventType;
+        /** The formula of this badge when it was of a "formula" type */
+        formula: string;
+        /** The initial value of this badge */
+        initial?: number;
+    } | null;
 }
 
 interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
@@ -55,8 +62,10 @@ interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     type: "formula";
     value: string;
     evaluate?: boolean;
-    reevaluate?: "turn-start" | "turn-end" | null;
+    reevaluate?: BadgeReevaluationEventType | null;
 }
+
+type BadgeReevaluationEventType = "initiative-roll" | "turn-start" | "turn-end";
 
 interface EffectBadgeFormula extends EffectBadgeFormulaSource, EffectBadgeBase {}
 
@@ -101,6 +110,7 @@ interface DurationData {
 export type {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    BadgeReevaluationEventType,
     DurationData,
     EffectAuraData,
     EffectBadge,
