@@ -1,7 +1,7 @@
 {
-    "_id": "TTCw5NusiSSkJU1x",
+    "_id": "PqGX4Dgy9siZJitH",
     "img": "systems/pf2e/icons/actions/Passive.webp",
-    "name": "Void Healing",
+    "name": "Stench",
     "system": {
         "actionType": {
             "value": "passive"
@@ -9,9 +9,9 @@
         "actions": {
             "value": null
         },
-        "category": "defensive",
+        "category": null,
         "description": {
-            "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+            "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
         },
         "publication": {
             "license": "ORC",
@@ -20,15 +20,19 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.attributes.hp.negativeHealing",
-                "value": true
+                "key": "Aura",
+                "radius": 0,
+                "slug": "stench",
+                "traits": [
+                    "olfactory"
+                ]
             }
         ],
         "traits": {
-            "rarity": "common",
-            "value": []
+            "value": [
+                "aura",
+                "olfactory"
+            ]
         }
     },
     "type": "action"
