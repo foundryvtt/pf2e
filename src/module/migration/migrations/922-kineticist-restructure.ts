@@ -7,8 +7,8 @@ import { sluggify } from "@util/misc.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Move existing kineticists to the new class automation structure **/
-export class Migration921KineticistRestructure extends MigrationBase {
-    static override version = 0.921;
+export class Migration922KineticistRestructure extends MigrationBase {
+    static override version = 0.922;
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
