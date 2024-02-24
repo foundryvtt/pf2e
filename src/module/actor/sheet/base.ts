@@ -16,6 +16,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -896,10 +897,27 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
-    /** Emulate a sheet item drop from the canvas */
-    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt") });
-        return this._onDropItem(event, data);
+    override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dropData = TextEditor.getDragEventData(event);
+        if (this.actor && dropData.type === "PersistentDamage" && "formula" in dropData) {
+            // Add persistent damage. If the actor type doesn't support conditions, it'll be rejected
+            const roll = new DamageRoll(String(dropData.formula));
+            if (roll.instances.length === 0 || roll.instances.some((i) => !i.persistent)) {
+                throw ErrorPF2e("Unexpected error adding persistent damage: all instances must be persistent");
+            }
+
+            const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+            const conditions = roll.instances.map((i) =>
+                fu.mergeObject(baseConditionSource, {
+                    system: {
+                        persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
+                    },
+                }),
+            );
+            await this.actor.createEmbeddedDocuments("Item", conditions);
+        } else {
+            return super._onDrop(event);
+        }
     }
 
     protected override async _onDropItem(
