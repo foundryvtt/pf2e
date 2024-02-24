@@ -14,7 +14,18 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
     }
 
     protected override get validTraits(): Record<string, string> {
-        return R.omit(this.item.constructor.validTraits, ["archetype", "cantrip", "focus", "general"]);
+        return R.omit(this.item.constructor.validTraits, [
+            ...R.keys.strict(CONFIG.PF2E.ancestryTraits),
+            ...R.keys.strict(CONFIG.PF2E.classTraits),
+            "archetype",
+            "cantrip",
+            "class",
+            "dedication",
+            "focus",
+            "general",
+            "skill",
+            "summoned",
+        ] as const);
     }
 
     override async getData(options: Partial<ItemSheetOptions> = {}): Promise<ActionSheetData> {
