@@ -4,7 +4,7 @@
     "name": "Effect: Deity's Protection",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Deity's Protection]</p>\n<p>You gain resistance to all damage.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Deity's Protection]</p>\n<p>You gain resistance to all damage until the start of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,129 +22,9 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.First",
-                        "value": 1
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Second",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    3
-                                ]
-                            }
-                        ],
-                        "value": 2
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Third",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    5
-                                ]
-                            }
-                        ],
-                        "value": 3
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    7
-                                ]
-                            }
-                        ],
-                        "value": 4
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    9
-                                ]
-                            }
-                        ],
-                        "value": 5
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    11
-                                ]
-                            }
-                        ],
-                        "value": 6
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    13
-                                ]
-                            }
-                        ],
-                        "value": 7
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    15
-                                ]
-                            }
-                        ],
-                        "value": 8
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    17
-                                ]
-                            }
-                        ],
-                        "value": 9
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "self:level",
-                                    19
-                                ]
-                            }
-                        ],
-                        "value": 10
-                    }
-                ],
-                "flag": "deitysProtectionRank",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
-            },
-            {
                 "key": "Resistance",
                 "type": "all-damage",
-                "value": "{item|flags.pf2e.rulesSelections.deitysProtectionRank}"
+                "value": "@item.level"
             }
         ],
         "start": {

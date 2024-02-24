@@ -1,0 +1,75 @@
+{
+    "_id": "Iwn7XovHu9HXp129",
+    "img": "systems/pf2e/icons/equipment/tattoos/ancestral-geometry.webp",
+    "name": "Effect: Ancestral Geometry (Save Type)",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Fortitude",
+                "Reflex",
+                "Will"
+            ],
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d3"
+        },
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "value": "fortitude"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    "parent:badge:value:2"
+                ],
+                "value": "reflex"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.ancestralGeometry",
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "value": "will"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

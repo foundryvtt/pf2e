@@ -69,15 +69,15 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
         const damageTypes: Set<string> = DAMAGE_TYPES;
         const isValid = {
             "damage-type": typeof resolved === "string" && damageTypes.has(resolved),
-            "dice-faces": tupleHasValue(DAMAGE_DICE_FACES, resolved),
+            "dice-faces": resolved === null || tupleHasValue(DAMAGE_DICE_FACES, resolved),
             "dice-number": typeof resolved === "number" && Number.isInteger(resolved) && resolved.between(0, 99),
         };
 
         if (!isValid[this.property]) {
             const message = {
                 "damage-type": `value: must be a damage type (resolved to ${resolved})`,
-                "dice-faces": `value: must be a positive integer less than 100 (resolved to ${resolved})`,
-                "dice-number": `value: must be one of 4, 6, 8, 10, and 12 (resolved to ${resolved})`,
+                "dice-faces": `value: must be one of 4, 6, 8, 10, and 12 (resolved to ${resolved})`,
+                "dice-number": `value: must be a positive integer less than 100 (resolved to ${resolved})`,
             };
             this.failValidation(message[this.property]);
             return null;
