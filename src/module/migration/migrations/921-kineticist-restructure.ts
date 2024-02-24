@@ -152,7 +152,7 @@ export class Migration921KineticistRestructure extends MigrationBase {
             {
                 key: "ActiveEffectLike",
                 mode: "override",
-                path: "flags.pf2e.kineticist.gate." + gateNumber,
+                path: `flags.pf2e.kineticist.gate.${gateNumber}`,
                 value: element,
             },
         ];
@@ -177,17 +177,17 @@ export class Migration921KineticistRestructure extends MigrationBase {
         gate.system.rules.splice(0, 2);
     }
 
-    async #setElement(source: ActorSourcePF2e, element: string, gateNumber: string) {
-        const elementMap: Map<string, ItemUUID> = new Map([
-            ["air", "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV"],
-            ["earth", "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"],
-            ["fire", "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"],
-            ["metal", "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"],
-            ["water", "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"],
-            ["wood", "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"],
-        ]);
+    #elementMap: Map<string, ItemUUID> = new Map([
+        ["air", "Compendium.pf2e.classfeatures.Item.X11Y3T1IzmtNqGMV"],
+        ["earth", "Compendium.pf2e.classfeatures.Item.dEm00L1XFXFCH2wS"],
+        ["fire", "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"],
+        ["metal", "Compendium.pf2e.classfeatures.Item.21JjdNW0RQ2LfaH3"],
+        ["water", "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"],
+        ["wood", "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"],
+    ]);
 
-        const elementUUID = elementMap.get(element);
+    async #setElement(source: ActorSourcePF2e, element: string, gateNumber: string) {
+        const elementUUID = this.#elementMap.get(element);
 
         if (elementUUID) {
             const gate = await this.#loadFeatSource(elementUUID);
