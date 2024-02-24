@@ -109,6 +109,7 @@ const weaknessTypes = {
     ...sanctifiedIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
+    alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     "arrow-vulnerability": "PF2E.Damage.IWR.Type.arrow-vulnerability",
     "axe-vulnerability": "PF2E.Damage.IWR.Type.axe-vulnerability",
