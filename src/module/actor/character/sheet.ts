@@ -1417,17 +1417,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return super._onDropItem(event, data);
     }
 
-    protected override async _onDrop(event: DragEvent): Promise<boolean | void> {
-        const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData = ((): Record<string, unknown> | null => {
-            try {
-                return JSON.parse(dataString ?? "");
-            } catch {
-                return null;
-            }
-        })();
-        if (!dropData) return;
-
+    override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dropData = TextEditor.getDragEventData(event);
         if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {
