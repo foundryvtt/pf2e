@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
