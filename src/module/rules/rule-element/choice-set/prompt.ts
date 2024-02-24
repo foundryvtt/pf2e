@@ -6,7 +6,7 @@ import {
     PickAThingPrompt,
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
-import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -149,7 +149,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
     protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
+        const dropData: DropCanvasItemDataPF2e | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
             ui.notifications.error("Only an item can be dropped here.");
             return;
