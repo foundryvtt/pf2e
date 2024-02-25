@@ -14,11 +14,11 @@
             </span>
         {{/if}}
 
-        {{#if action.tags}}
+        {{#if action.traits}}
             <span class="traits">
-                {{#each action.tags as |tag|}}
+                {{#each action.traits as |trait|}}
                     {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
-                    <li{{#if tag.description}} data-tooltip="{{tag.description}}"{{/if}}>{{tag.label}}</li>
+                    <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
                     {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
                 {{/each}}
             </span>
@@ -45,6 +45,13 @@
             </div>
         {{/if}}
     </div>
+
+    {{#if action.effects~}}
+        <div class="effects">
+            {{~localize "PF2E.Actor.AttackEffects.PlusList" list=action.effects~}}
+        </div>
+    {{~/if}}
+
 
     {{#if action.description}}
         <div class="item-summary">
