@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
@@ -9,12 +9,13 @@ import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
-import { PhysicalItemConstructionContext } from "@item/physical/document.ts";
+import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { RangeData } from "@item/types.ts";
+import type { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
@@ -401,10 +402,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
-    }
 
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
         }
@@ -420,7 +418,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override onPrepareSynthetics(): void {
         super.onPrepareSynthetics();
-        this.system.traits.toggles.applyChanges();
+
+        const traits = this.system.traits;
+        traits.toggles.applyChanges();
+
+        // Upgrade dice faces if a two-hand trait is present and applicable
+        const twoHandFaces = Number(traits.value.find((t) => t.startsWith("two-hand-d"))?.replace("two-hand-d", ""));
+        const diceFaces = Number(this.system.damage.die?.replace("d", ""));
+        if (this.handsHeld === 2 && tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces) && twoHandFaces > diceFaces) {
+            this.system.damage.die = `d${twoHandFaces}`;
+        }
     }
 
     override async getChatData(
