@@ -34,7 +34,7 @@ export class CheckModifiersDialog extends Application {
 
             const rollType = context.type ?? "";
 
-            const showName = actorName && game.user.isGM && ["saving-throw", "initiative"].includes(rollType);
+            const showName = actorName && game.user.isGM && ["saving-throw", "initiative", "perception-check"].includes(rollType);
 
             const maybeWithHTML = context.title?.trim() || check.slug;
             if (!maybeWithHTML.includes("<"))
