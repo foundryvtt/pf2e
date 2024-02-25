@@ -1,35 +1,48 @@
 import { ActorPF2e } from "@actor";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
+import { WeaponPF2e } from "@item";
+import {
+    CheckContext,
+    CheckContextData,
+    CheckContextOptions,
+    CheckResultCallback,
+    CombatManeuverActionUseOptions,
+} from "@system/action-macros/types.ts";
+import {
+    SingleCheckAction,
+    SingleCheckActionUseOptions,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.Grapple";
 
-function grappleCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
-    opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+type GrappleActionUseOptions = SingleCheckActionUseOptions & CombatManeuverActionUseOptions;
+
+function grappleCheckContext(
+    opts: CheckContextOptions<Partial<CombatManeuverActionUseOptions>>,
+    data: CheckContextData,
+): CheckContext | undefined {
     // weapon
-    const weapon = (ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "grapple") ?? []).shift();
+    const item = ActionMacroHelpers.resolveWieldedWeapon(opts.actor, opts.passthrough?.item, "grapple");
 
     // modifier
     const modifiers = data.modifiers?.length ? [...data.modifiers] : [];
-    if (weapon && weapon.traits.has("grapple")) {
-        const modifier = ActionMacroHelpers.getWeaponPotencyModifier(weapon, data.slug);
+    if (item) {
+        const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, data.slug);
         if (modifier) {
             modifiers.push(modifier);
         }
     }
 
-    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, modifiers });
+    return ActionMacroHelpers.defaultCheckContext(opts, { ...data, item, modifiers });
 }
 
-function grapple(options: SkillActionOptions): void {
+function grapple(options: SkillActionOptions & Partial<CombatManeuverActionUseOptions>): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:grapple"];
-    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>, Partial<CombatManeuverActionUseOptions>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
         title: `${PREFIX}.Title`,
@@ -44,6 +57,7 @@ function grapple(options: SkillActionOptions): void {
             ActionMacroHelpers.note(selector, PREFIX, "failure"),
             ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
+        passthrough: options,
     }).catch((error: Error) => {
         ui.notifications.error(error.message);
         throw error;
@@ -51,10 +65,14 @@ function grapple(options: SkillActionOptions): void {
 }
 
 class GrappleActionVariant extends SingleCheckActionVariant {
-    protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    override async use(options: Partial<GrappleActionUseOptions> = {}): Promise<CheckResultCallback[]> {
+        return super.use(options);
+    }
+
+    protected override checkContext(
+        opts: CheckContextOptions<Partial<GrappleActionUseOptions>>,
+        data: CheckContextData,
+    ): CheckContext | undefined {
         return grappleCheckContext(opts, data);
     }
 }

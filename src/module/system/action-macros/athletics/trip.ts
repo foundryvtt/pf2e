@@ -1,24 +1,34 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
+import {
+    CheckContext,
+    CheckContextData,
+    CheckContextOptions,
+    CheckResultCallback,
+    CombatManeuverActionUseOptions,
+} from "@system/action-macros/types.ts";
+import {
+    SingleCheckAction,
+    SingleCheckActionUseOptions,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
 
-function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
-    opts: CheckContextOptions<ItemType>,
-    data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+type TripActionUseOptions = SingleCheckActionUseOptions & CombatManeuverActionUseOptions;
+
+function tripCheckContext(
+    opts: CheckContextOptions<Partial<CombatManeuverActionUseOptions>>,
+    data: CheckContextData,
+): CheckContext | undefined {
     // weapon
-    const item = [
-        ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "trip") ?? []),
-        ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "ranged-trip") ?? []),
-    ].shift();
+    const item = ActionMacroHelpers.resolveWieldedWeapon(opts.actor, opts.passthrough?.item, ["trip", "ranged-trip"]);
 
     // context
     const context = ActionMacroHelpers.defaultCheckContext(opts, {
-        item: data.item,
+        item,
         modifiers: data.modifiers,
         rollOptions: data.rollOptions,
         slug: data.slug,
@@ -27,11 +37,9 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     // modifiers
     if (item && context) {
         const modifiers = context.modifiers?.length ? [...context.modifiers] : [];
-        if (item.traits.has("trip") || item.traits.has("ranged-trip")) {
-            const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, data.slug);
-            if (modifier) {
-                modifiers.push(modifier);
-            }
+        const modifier = ActionMacroHelpers.getWeaponPotencyModifier(item, data.slug);
+        if (modifier) {
+            modifiers.push(modifier);
         }
         if (item.traits.has("ranged-trip")) {
             modifiers.push(
@@ -54,11 +62,11 @@ function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     return context;
 }
 
-function trip(options: SkillActionOptions): void {
+function trip(options: SkillActionOptions & Partial<CombatManeuverActionUseOptions>): void {
     const slug = options?.skill ?? "athletics";
     const modifiers = options?.modifiers;
     const rollOptions = ["action:trip"];
-    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>>({
+    ActionMacroHelpers.simpleRollActionCheck<WeaponPF2e<ActorPF2e>, Partial<CombatManeuverActionUseOptions>>({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
         title: "PF2E.Actions.Trip.Title",
@@ -72,6 +80,7 @@ function trip(options: SkillActionOptions): void {
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.Trip", "criticalFailure"),
         ],
+        passthrough: options,
     }).catch((error: Error) => {
         ui.notifications.error(error.message);
         throw error;
@@ -79,10 +88,14 @@ function trip(options: SkillActionOptions): void {
 }
 
 class TripActionVariant extends SingleCheckActionVariant {
-    protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
-        opts: CheckContextOptions<ItemType>,
-        data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    override async use(options: Partial<TripActionUseOptions> = {}): Promise<CheckResultCallback[]> {
+        return super.use(options);
+    }
+
+    protected override checkContext(
+        opts: CheckContextOptions<Partial<TripActionUseOptions>>,
+        data: CheckContextData,
+    ): CheckContext | undefined {
         return tripCheckContext(opts, data);
     }
 }
