@@ -32,11 +32,15 @@ export class CheckModifiersDialog extends Application {
             // add actor name to title to differentiate rolls
             const actorName = context.actor?.name.trim() ?? "";
 
+            const rollType = context.type ?? "";
+
+            const showName = actorName && game.user.isGM && ["saving-throw", "initiative"].includes(rollType);
+
             const maybeWithHTML = context.title?.trim() || check.slug;
             if (!maybeWithHTML.includes("<"))
-                return actorName && game.user.isGM
+                return showName
                     ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
-                          check: maybeWithHTML.trim(),
+                          title: maybeWithHTML.trim(),
                           actor: actorName,
                       })
                     : maybeWithHTML.trim();
@@ -45,9 +49,9 @@ export class CheckModifiersDialog extends Application {
             div.innerHTML = maybeWithHTML;
             div.querySelector(".action-glyph, .pf2-icon")?.remove();
 
-            return actorName && game.user.isGM
+            return showName
                 ? game.i18n.format("PF2E.Roll.Dialog.Check.Title", {
-                      check: div.innerText.trim(),
+                      title: div.innerText.trim(),
                       actor: actorName,
                   })
                 : div.innerText.trim();
