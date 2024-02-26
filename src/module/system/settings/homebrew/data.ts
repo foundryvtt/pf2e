@@ -51,12 +51,12 @@ interface CustomDamageData {
 interface HomebrewElementsSheetData extends MenuTemplateData {
     campaignSettings: Record<string, SettingsTemplateData>;
     traitSettings: Record<string, SettingsTemplateData>;
-    languageRarities: LanguageRaritiesSheetData;
+    languageRarities: LanguageSettingsSheetData;
     damageCategories: Record<MainDamageCategories, string>;
     customDamageTypes: CustomDamageData[];
 }
 
-interface LanguageRaritiesSheetData {
+interface LanguageSettingsSheetData {
     commonLanguage: LanguageNotCommon | null;
     common: { slug: LanguageNotCommon; label: string }[];
     uncommon: { slug: LanguageNotCommon; label: string }[];
@@ -66,9 +66,12 @@ interface LanguageRaritiesSheetData {
 
 type LanguageNotCommon = Exclude<Language, "common">;
 
-class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRaritiesSchema> {
+class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettingsSchema> {
     /** Common-rarity languages: those not classified among the subsequent rarities */
     declare common: Set<LanguageNotCommon>;
+
+    /** Homebrew languages created by the GM */
+    declare homebrew: Set<LanguageNotCommon>;
 
     protected override _initialize(options?: Record<string, unknown>): void {
         super._initialize(options);
@@ -79,9 +82,10 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
                 .strict(CONFIG.PF2E.languages)
                 .filter((l): l is LanguageNotCommon => l !== "common" && !nonCommonLanguages.has(l)),
         );
+        this.homebrew = new Set(game.settings.get("pf2e", "homebrew.languages").map((t) => t.id));
     }
 
-    static override defineSchema(): LanguageRaritiesSchema {
+    static override defineSchema(): LanguageSettingsSchema {
         const fields = foundry.data.fields;
 
         const languageSetField = (initial: LanguageNotCommon[]): LanguageSetField =>
@@ -111,11 +115,17 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
 
     /** Include common languages in the non-source raw object. */
     override toObject(source?: true): this["_source"];
-    override toObject(source: false): RawLanguageRarities<this>;
-    override toObject(source?: boolean): this["_source"] | RawLanguageRarities<this>;
-    override toObject(source?: boolean): this["_source"] | RawLanguageRarities {
+    override toObject(source: false): RawLanguageSettings<this>;
+    override toObject(source?: boolean): this["_source"] | RawLanguageSettings<this>;
+    override toObject(source?: boolean): this["_source"] | RawLanguageSettings {
         const obj = super.toObject(source);
-        return source ? obj : { ...obj, common: Array.from(this.common) };
+        return source
+            ? obj
+            : {
+                  ...obj,
+                  common: Array.from(this.common),
+                  homebrew: Array.from(this.homebrew),
+              };
     }
 
     /** Schema-restricting choices removes homebrew languages before they're registered: prune in ready hook instead. */
@@ -129,11 +139,11 @@ class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRari
     }
 }
 
-interface LanguageRaritiesData
-    extends foundry.abstract.DataModel<null, LanguageRaritiesSchema>,
-        ModelPropsFromSchema<LanguageRaritiesSchema> {}
+interface LanguageSettings
+    extends foundry.abstract.DataModel<null, LanguageSettingsSchema>,
+        ModelPropsFromSchema<LanguageSettingsSchema> {}
 
-type LanguageRaritiesSchema = {
+type LanguageSettingsSchema = {
     /** The "common" tongue of the region, rather than languages of common rarity */
     commonLanguage: StringField<LanguageNotCommon, LanguageNotCommon, true, true, true>;
     /** Languages of uncommon rarity */
@@ -155,11 +165,12 @@ type LanguageSetField = SetField<
     true
 >;
 
-type RawLanguageRarities<TModel extends LanguageRaritiesData = LanguageRaritiesData> = RawObject<TModel> & {
+type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = RawObject<TModel> & {
     common: LanguageNotCommon[];
+    homebrew: LanguageNotCommon[];
 };
 
-export { HOMEBREW_TRAIT_KEYS, LanguageRaritiesData, TRAIT_PROPAGATIONS };
+export { HOMEBREW_TRAIT_KEYS, LanguageSettings, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
     HomebrewElementsSheetData,
@@ -168,5 +179,5 @@ export type {
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
     LanguageNotCommon,
-    LanguageRaritiesSheetData,
+    LanguageSettingsSheetData,
 };

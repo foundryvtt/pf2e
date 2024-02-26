@@ -106,8 +106,11 @@ export const SetGamePF2e = {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
             },
             campaign: {
-                enabled: game.settings.get("pf2e", "campaignFeats"),
-                sections: game.settings.get("pf2e", "campaignFeatSections"),
+                feats: {
+                    enabled: game.settings.get("pf2e", "campaignFeats"),
+                    sections: game.settings.get("pf2e", "campaignFeatSections"),
+                },
+                languages: game.settings.get("pf2e", "homebrew.languageRarities"),
             },
             critFumble: {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),

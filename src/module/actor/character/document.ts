@@ -1028,7 +1028,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         this.deityBoonsCurses = [];
         this.feats = new CharacterFeats(this);
 
-        for (const section of game.pf2e.settings.campaign.sections) {
+        for (const section of game.pf2e.settings.campaign.feats.sections) {
             this.feats.createGroup(section);
         }
 
