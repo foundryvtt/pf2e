@@ -63,7 +63,7 @@ import type {
     CustomDamageData,
     HomebrewTag,
     HomebrewTraitSettingsKey,
-    LanguageRaritiesData,
+    LanguageSettings,
 } from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
@@ -128,8 +128,11 @@ interface GamePF2e
             };
             /** Campaign feat slots */
             campaign: {
-                enabled: boolean;
-                sections: FeatGroupOptions[];
+                feats: {
+                    enabled: boolean;
+                    sections: FeatGroupOptions[];
+                };
+                languages: LanguageSettings;
             };
             critFumble: {
                 buttons: boolean;
@@ -303,7 +306,7 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
-        get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageRaritiesData;
+        get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageSettings;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;

@@ -41,8 +41,8 @@ import {
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
     LanguageNotCommon,
-    LanguageRaritiesData,
-    LanguageRaritiesSheetData,
+    LanguageSettings,
+    LanguageSettingsSheetData,
     TRAIT_PROPAGATIONS,
 } from "./data.ts";
 import {
@@ -86,7 +86,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             default: false,
             type: Boolean,
             onChange: (value) => {
-                game.pf2e.settings.campaign.enabled = !!value;
+                game.pf2e.settings.campaign.feats.enabled = !!value;
                 resetActors(game.actors.filter((a) => a.isOfType("character")));
             },
         },
@@ -136,7 +136,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             languageRarities: {
                 prefix: "homebrew.",
                 name: "PF2E.Settings.Homebrew.Languages.Rarities.Name",
-                type: LanguageRaritiesData,
+                type: LanguageSettings,
                 default: {
                     common: "taldane",
                     uncommon: [...LANGUAGES_BY_RARITY.uncommon],
@@ -144,7 +144,10 @@ class HomebrewElements extends SettingsMenuPF2e {
                     secret: [...LANGUAGES_BY_RARITY.secret],
                     unavailable: [],
                 },
-                onChange: () => {
+                onChange: (value) => {
+                    if (value instanceof LanguageSettings) {
+                        game.pf2e.settings.campaign.languages = value;
+                    }
                     const languageSelector = Object.values(ui.windows).find((a) => a instanceof LanguageSelector);
                     languageSelector?.render();
                 },
@@ -525,11 +528,11 @@ class LanguagesManager {
         this.data.reset();
     }
 
-    get data(): LanguageRaritiesData {
+    get data(): LanguageSettings {
         return this.menu.cache.languageRarities;
     }
 
-    getSheetData(): LanguageRaritiesSheetData {
+    getSheetData(): LanguageSettingsSheetData {
         const data = this.data.toObject(false);
         const homebrewLanguages = this.menu.cache.languages;
         return {
@@ -684,7 +687,7 @@ class LanguagesManager {
 type HomebrewSubmitData = {
     damageTypes: CustomDamageData[];
     languages: HomebrewTag<"languages">[];
-    languageRarities: LanguageRaritiesData;
+    languageRarities: LanguageSettings;
 } & Record<string, unknown> & { clear(): void };
 
 interface HomebrewElements extends SettingsMenuPF2e {
