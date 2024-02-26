@@ -813,8 +813,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected prepareRuleElements(): RuleElementPF2e[] {
-        // Ensure "temporary" items have their rule elements go last when priority is equal
-        return R.sortBy(this.items.contents, (i) => i.isOfType("affliction", "condition", "effect"))
+        // Ensure certain ABC items go early and common temporary items go last
+        // These leads to predictability with RE overrides such as auras and CreatureSize
+        const sortOrder: Partial<Record<ItemType, number>> = {
+            ancestry: 0,
+            heritage: 1,
+            background: 2,
+            class: 3,
+        };
+        return R.sortBy(
+            this.items.contents,
+            (i) => sortOrder[i.type as ItemType] ?? Infinity,
+            (i) => i.isOfType("affliction", "condition", "effect"),
+        )
             .flatMap((item) => item.prepareRuleElements())
             .filter((rule) => !rule.ignored)
             .sort((elementA, elementB) => elementA.priority - elementB.priority);
