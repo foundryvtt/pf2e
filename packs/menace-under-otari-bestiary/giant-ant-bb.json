@@ -1,26 +1,27 @@
 {
-    "_id": "AuCC04X2AO8oFN75",
+    "_id": "2vyM10zN0JYdzyxt",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "BmhB6hl9Ivt5pnw6",
+            "_id": "lkSRJHjjBXYoXr0e",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Talon",
+            "name": "Mandible",
             "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
-                    "value": []
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "bonus": {
-                    "value": 15
+                    "value": 9
                 },
                 "damageRolls": {
-                    "6xkwe0kwnpbd9cc44qjd": {
-                        "damage": "2d6+4",
+                    "PrtdrWwrEuxIO0o9": {
+                        "damage": "1d8+4",
                         "damageType": "slashing"
                     }
                 },
@@ -35,11 +36,7 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -48,23 +45,25 @@
             "type": "melee"
         },
         {
-            "_id": "4ylRBejfjiE0ygZX",
+            "_id": "ka7JvClSTu3JXPDU",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Stinger",
             "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "giant-ant-venom"
+                    ]
                 },
                 "bonus": {
-                    "value": 15
+                    "value": 9
                 },
                 "damageRolls": {
-                    "JRPVu98gfvLxmEgN": {
-                        "damage": "2d8+4",
+                    "3BUuNV8zH6CT6ICX": {
+                        "damage": "1d6+4",
                         "damageType": "piercing"
                     }
                 },
@@ -80,7 +79,7 @@
                 "slug": null,
                 "traits": {
                     "value": [
-                        "finesse"
+                        "agile"
                     ]
                 },
                 "weaponType": {
@@ -90,7 +89,7 @@
             "type": "melee"
         },
         {
-            "_id": "dBX2IpwGpcj3w0iE",
+            "_id": "pTESjlzdOhp2zlLE",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
@@ -125,41 +124,44 @@
             "type": "action"
         },
         {
-            "_id": "IqOAXLLKjSYmNd2w",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hungry Winds",
+            "_id": "EiFUvCjzet6A69v3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The harpy uses the wind to pull its prey closer. A target within 20 feet must succeed at a @Check[type:fortitude|dc:21] save or be pulled adjacent to the harpy. The harpy then makes a jaws strike against the target. If the target is pulled into the air and cannot fly, it falls as normal.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "traits": {
-                    "value": [
-                        "air",
-                        "concentrate"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "X36hKYEWL0S6irBU",
+            "_id": "vf62uHn3Bh74svnk",
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Stench",
+            "name": "Giant Ant Venom",
             "sort": 500000,
             "system": {
                 "actionType": {
@@ -170,7 +172,38 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p>A creature that comes within 30 feet of the harpy and can smell the harpy must attempt a @Check[type:fortitude|dc:21] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch. A creature that succeeds at its save isn't affected by any harpy's stenches for 1 minute.</p>"
+                    "value": "<p>A target that takes piercing damage from the giant ant's stinger Strike must succeed at a @Check[type:fortitude|dc:18|traits:damaging-effect] save or take [[/r 1d10[poison]]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IZMJ1l1EsTmncB5c",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Haul Away",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If the giant ant has a creature grabbed or restrained with its mandibles, it can spend this action to Stride up to its speed, carrying the creature with it. At the end of the Stride, place the creature in any open square adjacent to the giant ant.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -186,41 +219,16 @@
             "type": "action"
         },
         {
-            "_id": "ZLnwbBfhf7Wy9NLg",
+            "_id": "w3S2y4X6KySGmohl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "CDhfStT3tO6oeCeT",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
+            "name": "Athletics",
             "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 11
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -237,110 +245,16 @@
             "type": "lore"
         },
         {
-            "_id": "NEGmf6Kzs2dqGl0P",
+            "_id": "MdG6XZr9gH94vdsR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
+            "name": "Survival",
             "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "XfysylreSHBRTKzu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Singing",
-                        "predicate": [
-                            "action:perform:singing"
-                        ],
-                        "selector": "performance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+16 singing",
-                        "options": "action:perform:singing"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "sp4Tg5BYK2Ht5XFN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZhrmjrHKu0e32MlQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
+                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -357,53 +271,50 @@
             "type": "lore"
         }
     ],
-    "name": "Harpy (BB)",
-    "prototypeToken": {
-        "name": "Harpy"
-    },
+    "name": "Giant Ant (BB)",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 4
+                "mod": -4
             },
             "con": {
-                "mod": 0
-            },
-            "dex": {
                 "mod": 4
             },
+            "dex": {
+                "mod": 1
+            },
             "int": {
-                "mod": -1
+                "mod": -5
             },
             "str": {
-                "mod": 1
+                "mod": 4
             },
             "wis": {
-                "mod": 1
+                "mod": -1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 21
+                "value": 18
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 75,
+                "max": 30,
                 "temp": 0,
-                "value": 75
+                "value": 30
             },
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "fly",
-                        "value": 60
+                        "type": "climb",
+                        "value": 20
                     }
                 ],
-                "value": 20
+                "value": 40
             }
         },
         "details": {
@@ -413,41 +324,37 @@
                 "value": []
             },
             "level": {
-                "value": 5
+                "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Harpies are an amalgamation of human and bird, using their ancestral control of the wind to lure prey or even directly pull in their next meal. Harpies can eat most creatures, but prefer to eat humans and elves in particular. Harpies live in family groups or larger clans, although they rarely hunt in big groups, preferring to keep most meals for themselves.</p>",
+            "publicNotes": "<p>Giant ants form vast underground colonies, excavating deep burrows or infesting existing caverns. Giant ants look identical to their smaller kin, but their size makes them a deadly threat to farms and travelers alike.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder Beginner Box"
+                "title": ""
             }
         },
         "initiative": {
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
-            "mod": 12,
-            "senses": [
-                {
-                    "type": "darkvision"
-                }
-            ]
+            "details": "darkvision",
+            "mod": 7,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 9
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 15
+                "value": 7
             },
             "will": {
                 "saveDetail": "",
-                "value": 12
+                "value": 5
             }
         },
         "traits": {
@@ -456,11 +363,7 @@
                 "value": "med"
             },
             "value": [
-                "air",
-                "beast",
-                "chaotic",
-                "evil",
-                "humanoid"
+                "animal"
             ]
         }
     },
