@@ -503,9 +503,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const sourceLanguages = this._source.system.details.languages.value.filter((l) => l in CONFIG.PF2E.languages);
         build.languages.granted = build.languages.granted.filter((l) => l.slug in CONFIG.PF2E.languages);
         const grantedLanguages = build.languages.granted.map((g) => g.slug);
-        build.languages.value = sourceLanguages.filter((l) => !grantedLanguages.includes(l)).length;
-        build.languages.max += Math.max(this.system.abilities.int.mod, 0);
         this.system.details.languages.value = R.uniq([...sourceLanguages, ...grantedLanguages]);
+
+        // When tallying the number of languages taken, make sure Common and its actual language aren't counted twice
+        const commonAndCommon = R.compact(["common", game.pf2e.settings.campaign.languages.commonLanguage]);
+        const hasCommonTwice =
+            commonAndCommon.length === 2 &&
+            commonAndCommon.every((l) => this.system.details.languages.value.includes(l));
+        const countReducedBy = hasCommonTwice ? 1 : 0;
+        build.languages.value = sourceLanguages.filter((l) => !grantedLanguages.includes(l)).length - countReducedBy;
+        build.languages.max += Math.max(this.system.abilities.int.mod, 0);
 
         this.setNumericRollOptions();
         this.deity?.setFavoredWeaponRank();
