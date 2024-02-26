@@ -1470,7 +1470,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .join(", ");
 
         // Multiple attack penalty
-        const createMAPenalty = (data: MultipleAttackPenaltyData, increases: 1 | 2, rollOptions: Set<string>) => {
+        const createMAPenalty = (data: MultipleAttackPenaltyData, increases: ZeroToTwo, rollOptions: Set<string>) => {
+            if (increases === 0) return null;
             const penalty = new ModifierPF2e({
                 slug: data.slug,
                 label: data.label,
@@ -1493,12 +1494,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
             get label(): string {
-                if (mapIncreases === 0) return signedInteger(action.totalModifier);
                 const penalty = createMAPenalty(initialMAPs, mapIncreases, initialRollOptions);
-                return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                    value: signedInteger(action.totalModifier + penalty.value),
-                    penalty: penalty.value,
-                });
+                return penalty
+                    ? game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                          value: signedInteger(action.totalModifier + penalty.value),
+                          penalty: penalty.value,
+                      })
+                    : signedInteger(action.totalModifier);
             },
             roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 params.options ??= [];
@@ -1518,27 +1520,31 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     );
                     return null;
                 }
+                const targetToken = params.getFormula
+                    ? null
+                    : (params.target ?? game.user.targets.first())?.document ?? null;
 
                 const context = await this.getCheckContext({
                     item: weapon,
                     domains: attackDomains,
                     statistic: action,
-                    target: { token: params.target ?? game.user.targets.first() ?? null },
-                    defense: "armor",
+                    origin: { actor: this },
+                    target: { actor: targetToken?.actor, token: targetToken },
+                    against: "armor",
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
                     traits: actionTraits,
                 });
                 action.traits = context.traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
-                const check = checkModifiers[mapIncreases](context.self.statistic ?? action, context.self.modifiers);
-                const maps = calculateMAPs(context.self.item, { domains: attackDomains, options: context.options });
-                const maPenalty = mapIncreases === 0 ? null : createMAPenalty(maps, mapIncreases, context.options);
-                if (maPenalty) check.push(maPenalty);
+                const statistic = context.origin.statistic ?? action;
+                const maps = calculateMAPs(context.origin.item, { domains: attackDomains, options: context.options });
+                const maPenalty = createMAPenalty(maps, mapIncreases, context.options);
+                const check = checkModifiers[mapIncreases](statistic, R.compact([maPenalty]));
 
                 // Check whether target is out of maximum range; abort early if so
-                if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                    const maxRange = context.self.item.range?.max ?? 10;
+                if (context.origin.item.isRanged && typeof context.target?.distance === "number") {
+                    const maxRange = context.origin.item.range?.max ?? 10;
                     if (context.target.distance > maxRange) {
                         ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
                         return null;
@@ -1552,18 +1558,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const dc = params.dc ?? context.dc;
 
-                const notes = extractNotes(context.self.actor.synthetics.rollNotes, attackDomains);
+                const notes = extractNotes(context.origin.actor.synthetics.rollNotes, attackDomains);
                 const rollTwice =
                     params.rollTwice ||
-                    extractRollTwice(context.self.actor.synthetics.rollTwice, attackDomains, context.options);
+                    extractRollTwice(context.origin.actor.synthetics.rollTwice, attackDomains, context.options);
                 const substitutions = extractRollSubstitutions(
-                    context.self.actor.synthetics.rollSubstitutions,
+                    context.origin.actor.synthetics.rollSubstitutions,
                     attackDomains,
                     context.options,
                 );
                 const dosAdjustments = [
-                    getPropertyRuneDegreeAdjustments(context.self.item),
-                    extractDegreeOfSuccessAdjustments(context.self.actor.synthetics, attackDomains),
+                    getPropertyRuneDegreeAdjustments(context.origin.item),
+                    extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, attackDomains),
                 ].flat();
 
                 const title = game.i18n.format(
@@ -1576,12 +1582,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     identifier: `${weapon.id}.${weaponSlug}.${meleeOrRanged}`,
                     action: "strike",
                     title,
-                    actor: context.self.actor,
-                    token: context.self.token,
+                    actor: context.origin.actor,
+                    token: context.origin.token,
                     target: context.target,
-                    item: context.self.item,
+                    item: context.origin.item,
                     altUsage: params.altUsage ?? null,
-                    damaging: context.self.item.dealsDamage,
+                    damaging: context.origin.item.dealsDamage,
                     domains: attackDomains,
                     options: context.options,
                     notes,
@@ -1594,14 +1600,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     createMessage: params.createMessage ?? true,
                 };
 
-                if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
+                if (params.consumeAmmo && !this.consumeAmmo(context.origin.item, params)) {
                     return null;
                 }
 
                 const roll = await CheckPF2e.roll(check, checkContext, params.event, params.callback);
 
                 if (roll) {
-                    for (const rule of context.self.actor.rules.filter((r) => !r.ignored)) {
+                    for (const rule of context.origin.actor.rules.filter((r) => !r.ignored)) {
                         await rule.afterRoll?.({
                             roll,
                             check,
@@ -1627,7 +1633,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     statistic: action,
-                    target: { token: targetToken },
+                    target: { token: targetToken?.document },
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
@@ -1635,7 +1641,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     checkContext: params.checkContext,
                 });
 
-                if (!context.self.item.dealsDamage) {
+                const weaponClone = context.origin.item;
+                if (!weaponClone?.isOfType("weapon")) {
+                    throw Error();
+                }
+
+                if (!weaponClone.dealsDamage) {
                     if (!params.getFormula) {
                         ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                         return null;
@@ -1644,11 +1655,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
 
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
-                const { self, target, options } = context;
+                const { origin, target, options } = context;
                 const damageContext: DamageRollContext = {
                     type: "damage-roll",
                     sourceType: "attack",
-                    self,
+                    self: origin,
                     target,
                     outcome,
                     options,
@@ -1667,8 +1678,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 if (params.getFormula) damageContext.skipDialog = true;
 
                 const damage = await WeaponDamagePF2e.calculate({
-                    weapon: context.self.item,
-                    actor: context.self.actor,
+                    weapon: weaponClone,
+                    actor: context.origin.actor,
                     weaponPotency,
                     context: damageContext,
                 });
@@ -1711,13 +1722,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     /** Modify this weapon from AdjustStrike rule elements */
     protected override getRollContext<
-        TStatistic extends StatisticCheck | StrikeData | null,
+        TStatistic extends StatisticCheck | StrikeData,
         TItem extends ItemPF2e<ActorPF2e> | null,
     >(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
-    protected override async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
+    protected override async getRollContext(params: RollContextParams): Promise<RollContext> {
         const context = await super.getRollContext(params);
-        if (params.statistic instanceof StatisticModifier && context.self.item?.isOfType("weapon")) {
-            PCAttackTraitHelpers.adjustWeapon(context.self.item);
+        if (params.statistic instanceof StatisticModifier && context.origin.item?.isOfType("weapon")) {
+            PCAttackTraitHelpers.adjustWeapon(context.origin.item);
         }
 
         return context;

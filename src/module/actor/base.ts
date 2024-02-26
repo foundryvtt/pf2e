@@ -871,16 +871,18 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    protected getRollContext<
-        TStatistic extends StatisticCheck | StrikeData | null,
-        TItem extends ItemPF2e<ActorPF2e> | null,
-    >(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
-    protected async getRollContext(params: RollContextParams): Promise<RollContext<this>> {
+    protected getRollContext<TStatistic extends StatisticCheck | StrikeData, TItem extends ItemPF2e<ActorPF2e> | null>(
+        params: RollContextParams<TStatistic, TItem>,
+    ): Promise<RollContext<this, TStatistic, TItem>>;
+    protected async getRollContext(params: RollContextParams): Promise<RollContext> {
         const [selfToken, targetToken] =
             canvas.ready && !params.viewOnly
                 ? [
-                      canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null,
-                      params.target?.token ?? params.target?.actor?.getActiveTokens().shift() ?? null,
+                      (
+                          canvas.tokens.controlled.find((t) => t.actor === this) ??
+                          this.getActiveTokens(true, false).shift()
+                      )?.document ?? null,
+                      params.target?.token ?? params.target?.actor?.getActiveTokens(true, true).shift() ?? null,
                   ]
                 : [null, null];
 
@@ -894,8 +896,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             isAttackAction &&
             isMelee &&
             typeof reach === "number" &&
-            targetToken?.actor &&
-            selfToken?.isFlanking(targetToken, { reach })
+            targetToken?.object &&
+            selfToken?.object?.isFlanking(targetToken.object, { reach })
         );
 
         // Get ephemeral effects from the target that affect this actor while attacking
@@ -909,7 +911,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         const targetMarkOption = ((): string | null => {
-            const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.document.uuid) : null;
+            const tokenMark = targetToken ? this.synthetics.tokenMarks.get(targetToken.uuid) : null;
             return tokenMark ? `target:mark:${tokenMark}` : null;
         })();
         const initialActionOptions = params.traits?.map((t) => `self:action:trait:${t}`) ?? [];
@@ -990,14 +992,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         })();
 
         // Calculate distance and range increment, set as a roll option
-        const distance = selfToken && targetToken ? selfToken.distanceTo(targetToken) : null;
+        const distance =
+            selfToken?.object && targetToken?.object ? selfToken.object.distanceTo(targetToken.object) : null;
         const [originDistance, targetDistance] =
             typeof distance === "number"
                 ? [`origin:distance:${distance}`, `target:distance:${distance}`]
                 : [null, null];
 
         const originMarkOption = ((): string | null => {
-            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.document.uuid) : null;
+            const tokenMark = selfToken ? targetToken?.actor?.synthetics.tokenMarks.get(selfToken.uuid) : null;
             return tokenMark ? `origin:mark:${tokenMark}` : null;
         })();
         const originRollOptions =
@@ -1034,7 +1037,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         });
 
         // Add an epehemeral effect from flanking
-        if (isFlankingAttack && isOffGuardFromFlanking(targetToken.actor, selfActor, originRollOptions)) {
+        if (
+            isFlankingAttack &&
+            targetToken.actor &&
+            isOffGuardFromFlanking(targetToken.actor, selfActor, originRollOptions)
+        ) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             targetEphemeralEffects.push(condition.toObject());
@@ -1064,9 +1071,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const rangeIncrement = selfItem ? getRangeIncrement(selfItem, distance) : null;
         if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
 
-        const self = {
+        const origin = {
             actor: selfActor,
-            token: selfToken?.document ?? null,
+            token: selfToken,
             statistic,
             item: selfItem,
             modifiers: [],
@@ -1074,12 +1081,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const target =
             targetActor && targetToken && distance !== null
-                ? { actor: targetActor, token: targetToken.document, distance, rangeIncrement }
+                ? { actor: targetActor, token: targetToken, statistic: null, distance, rangeIncrement }
                 : null;
 
         return {
             options: rollOptions,
-            self,
+            origin,
             target,
             traits: actionTraits,
         };
@@ -1094,23 +1101,22 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const rangeIncrement = context.target?.rangeIncrement ?? null;
 
         const rangePenalty = calculateRangePenalty(this, rangeIncrement, params.domains, context.options);
-        if (rangePenalty) context.self.modifiers.push(rangePenalty);
+        if (rangePenalty) context.origin.modifiers.push(rangePenalty);
 
         const dcData = ((): CheckDC | null => {
-            const { domains, defense } = params;
+            const { domains, against } = params;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = targetActor?.getStatistic(defense.replace(/-dc$/, ""))?.dc;
-            return statistic ? { scope, statistic, slug: defense, value: statistic.value } : null;
+            const statistic = targetActor?.getStatistic(against.replace(/-dc$/, ""))?.dc;
+            return statistic ? { scope, statistic, slug: against, value: statistic.value } : null;
         })();
 
         return { ...context, dc: dcData };
     }
 
     /** Acquire additional data for a damage roll. */
-    getDamageRollContext<
-        TStatistic extends StatisticCheck | StrikeData | null,
-        TItem extends ItemPF2e<ActorPF2e> | null,
-    >(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
+    getDamageRollContext<TStatistic extends StatisticCheck | StrikeData, TItem extends ItemPF2e<ActorPF2e> | null>(
+        params: DamageRollContextParams<TStatistic, TItem>,
+    ): Promise<RollContext<this, TStatistic, TItem>>;
     async getDamageRollContext(params: DamageRollContextParams): Promise<RollContext<this>> {
         // In case the user rolled damage from their sheet, try to fish out the check context from chat
         params.checkContext ??= findMatchingCheckContext(this, params);

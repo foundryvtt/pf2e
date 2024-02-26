@@ -421,20 +421,20 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                       domains,
                       statistic: this,
                       target: targetToken,
-                      defense: args.dc?.slug ?? "ac",
+                      against: args.dc?.slug ?? "ac",
                       melee: args.melee,
                       options: new Set(args.extraRollOptions ?? []),
                   })
                 : null;
         })();
 
-        const selfActor = rollContext?.self.actor ?? this.actor;
+        const selfActor = rollContext?.origin.actor ?? this.actor;
         const targetActor = origin ? null : rollContext?.target?.actor ?? args.target ?? null;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
-            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.self.modifiers].flat());
+            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.origin.modifiers].flat());
 
         // Get roll options and roll notes
         const extraRollOptions = R.compact([
