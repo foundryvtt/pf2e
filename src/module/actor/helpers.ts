@@ -182,7 +182,7 @@ function setHitPointsRollOptions(actor: ActorPF2e): void {
 function calculateMAPs(
     item: ItemPF2e,
     { domains, options }: { domains: string[]; options: Set<string> | string[] },
-): MAPData {
+): MultipleAttackPenaltyData {
     const slugAndLabel = { slug: "multiple-attack-penalty", label: "PF2E.MultipleAttackPenalty" } as const;
     const baseMap =
         item.isOfType("action", "melee", "weapon") && item.traits.has("agile")
@@ -193,14 +193,21 @@ function calculateMAPs(
     const maps = item.actor?.synthetics.multipleAttackPenalties ?? {};
     const fromSynthetics = domains
         .flatMap((d) => maps[d] ?? [])
-        .filter((p) => p.predicate?.test(optionSet) ?? true)
-        .map((p): MAPData => ({ slug: baseMap.slug, label: p.label, map1: p.penalty, map2: p.penalty * 2 }));
+        .filter((p) => p.predicate.test(optionSet))
+        .map(
+            (p): MultipleAttackPenaltyData => ({
+                slug: baseMap.slug,
+                label: p.label,
+                map1: p.penalty,
+                map2: p.penalty * 2,
+            }),
+        );
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
 }
 
-interface MAPData {
+interface MultipleAttackPenaltyData {
     slug: "multiple-attack-penalty";
     label: string;
     map1: number;
@@ -719,3 +726,5 @@ export {
     strikeFromMeleeItem,
     userColorForActor,
 };
+
+export type { MultipleAttackPenaltyData };

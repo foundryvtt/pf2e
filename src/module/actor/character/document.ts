@@ -5,6 +5,7 @@ import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import {
+    MultipleAttackPenaltyData,
     calculateMAPs,
     getStrikeAttackDomains,
     getStrikeDamageDomains,
@@ -1469,45 +1470,35 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             .join(", ");
 
         // Multiple attack penalty
-        const maps = calculateMAPs(weapon, { domains: attackDomains, options: initialRollOptions });
-        const createMapModifier = (prop: "map1" | "map2") => {
-            return new ModifierPF2e({
-                slug: maps.slug,
-                label: maps.label,
-                modifier: maps[prop],
-                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, maps.slug),
+        const createMAPenalty = (data: MultipleAttackPenaltyData, increases: 1 | 2, rollOptions: Set<string>) => {
+            const penalty = new ModifierPF2e({
+                slug: data.slug,
+                label: data.label,
+                modifier: data[`map${increases}`],
+                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, data.slug),
             });
+            adjustModifiers([penalty], new Set(rollOptions));
+            return penalty;
         };
-
-        const createMapLabel = (prop: "map1" | "map2") => {
-            const modifier = createMapModifier(prop);
-            adjustModifiers([modifier], new Set(rollOptions));
-            const penalty = modifier.ignored ? 0 : modifier.value;
-            return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
-                value: signedInteger(action.totalModifier + penalty),
-                penalty,
-            });
-        };
-
-        // Defer in case total modifier is recalulated with a different result later
-        const labels = [
-            () => signedInteger(action.totalModifier),
-            () => createMapLabel("map1"),
-            () => createMapLabel("map2"),
-        ];
+        const initialMAPs = calculateMAPs(weapon, { domains: attackDomains, options: initialRollOptions });
 
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
                 new CheckModifier("strike", statistic, otherModifiers),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier("strike-map1", statistic, [...otherModifiers, createMapModifier("map1")]),
+                new CheckModifier("strike-map1", statistic, otherModifiers),
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
-                new CheckModifier("strike-map2", statistic, [...otherModifiers, createMapModifier("map2")]),
+                new CheckModifier("strike-map2", statistic, otherModifiers),
         ];
 
-        action.variants = [0, 1, 2].map((mapIncreases) => ({
+        action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
             get label(): string {
-                return labels[mapIncreases]();
+                if (mapIncreases === 0) return signedInteger(action.totalModifier);
+                const penalty = createMAPenalty(initialMAPs, mapIncreases, initialRollOptions);
+                return game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
+                    value: signedInteger(action.totalModifier + penalty.value),
+                    penalty: penalty.value,
+                });
             },
             roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 params.options ??= [];
@@ -1539,6 +1530,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     traits: actionTraits,
                 });
                 action.traits = context.traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+
+                const check = checkModifiers[mapIncreases](context.self.statistic ?? action, context.self.modifiers);
+                const maps = calculateMAPs(context.self.item, { domains: attackDomains, options: context.options });
+                const maPenalty = mapIncreases === 0 ? null : createMAPenalty(maps, mapIncreases, context.options);
+                if (maPenalty) check.push(maPenalty);
 
                 // Check whether target is out of maximum range; abort early if so
                 if (context.self.item.isRanged && typeof context.target?.distance === "number") {
@@ -1602,7 +1598,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     return null;
                 }
 
-                const check = checkModifiers[mapIncreases](context.self.statistic ?? action, context.self.modifiers);
                 const roll = await CheckPF2e.roll(check, checkContext, params.event, params.callback);
 
                 if (roll) {

@@ -88,7 +88,7 @@ interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
 interface MAPSynthetic {
     label: string;
     penalty: number;
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
 }
 
 interface RollSubstitution {
