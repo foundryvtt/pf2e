@@ -3,8 +3,8 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -14,21 +14,20 @@ import {
 import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
-import {
+import type {
     CheckContext,
     CheckContextData,
-    CheckContextError,
     CheckContextOptions,
     SimpleRollActionCheckOptions,
     UnresolvedCheckDC,
 } from "./types.ts";
 
-export class ActionMacroHelpers {
+class ActionMacroHelpers {
     static resolveStat(stat: string): {
         checkType: CheckType;
         property: string;
@@ -215,7 +214,13 @@ export class ActionMacroHelpers {
                     const domains = ["all", type, statistic.slug];
                     const targetInfo =
                         targetData.token && targetData.actor && typeof distance === "number"
-                            ? { token: targetData.token, actor: targetData.actor, distance, rangeIncrement }
+                            ? {
+                                  actor: targetData.actor,
+                                  token: targetData.token,
+                                  statistic: null,
+                                  distance,
+                                  rangeIncrement,
+                              }
                             : null;
                     const substitutions = extractRollSubstitutions(
                         actor.synthetics.rollSubstitutions,
@@ -323,8 +328,20 @@ export class ActionMacroHelpers {
     }
 }
 
+class CheckContextError extends Error {
+    constructor(
+        message: string,
+        public actor: ActorPF2e,
+        public slug: string,
+    ) {
+        super(message);
+    }
+}
+
 interface ResolveCheckDCParams {
     unresolvedDC: UnresolvedCheckDC | undefined | null;
     target?: ActorPF2e | null;
     fully?: boolean;
 }
+
+export { ActionMacroHelpers, CheckContextError };

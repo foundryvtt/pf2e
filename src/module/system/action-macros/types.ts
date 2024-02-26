@@ -11,16 +11,6 @@ import type { Statistic } from "@system/statistic/index.ts";
 
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
-class CheckContextError extends Error {
-    constructor(
-        message: string,
-        public actor: ActorPF2e,
-        public slug: string,
-    ) {
-        super(message);
-    }
-}
-
 interface BuildCheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
     item?: ItemType;
@@ -104,7 +94,6 @@ interface SkillActionOptions extends ActionDefaultOptions {
     difficultyClass?: CheckDC;
 }
 
-export { CheckContextError };
 export type {
     ActionDefaultOptions,
     ActionGlyph,
