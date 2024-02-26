@@ -5,11 +5,12 @@ import {
     SingleCheckActionVariant,
     SingleCheckActionVariantData,
 } from "@actor/actions/index.ts";
-import { StrikeData } from "@actor/data/base.ts";
+import type { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
-import { Statistic } from "@system/statistic/index.ts";
+import type { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
+import type { Statistic } from "@system/statistic/index.ts";
+import { CheckContextError } from "../helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
@@ -26,7 +27,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
         rollOptions: actionRollOptions,
         target: opts.target,
     });
-    const { actor } = opts;
+    const actor = opts.actor;
     const strikes = (() => {
         if (actor instanceof CharacterPF2e) {
             return actor.system.actions.filter((strike) =>
