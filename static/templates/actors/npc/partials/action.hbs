@@ -9,7 +9,7 @@
 
         {{#if action.traits}}
             <span class="traits">
-                {{#each action.traits as |traits|}}
+                {{#each action.traits as |trait|}}
                     {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
                     <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
                     {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
