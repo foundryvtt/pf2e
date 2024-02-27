@@ -1192,7 +1192,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         );
         if (isDamage && token) {
             const damage = isDelta ? -1 * value : hitPoints.value - value;
-            return this.applyDamage({ damage, token });
+            return this.applyDamage({ damage, token, final: true });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
@@ -1214,9 +1214,15 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         breakdown = [],
         notes = [],
         outcome = null,
+        final = false,
     }: ApplyDamageParams): Promise<this> {
         const hitPoints = this.hitPoints;
         if (!hitPoints) return this;
+
+        if (final) {
+            shieldBlockRequest = false;
+            skipIWR = true;
+        }
 
         // Round damage and healing (negative values) toward zero
         const result: IWRApplicationData =
@@ -1284,6 +1290,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Reduce damage by actor hardness
         const baseActorHardness = this.hardness;
         const effectiveActorHardness = ((): number => {
+            if (final) return 0;
+
             // "[Adamantine weapons] treat any object they hit as if it had half as much Hardness as usual, unless the
             // object's Hardness is greater than that of the adamantine weapon."
             const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
