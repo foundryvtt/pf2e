@@ -3,20 +3,20 @@ import { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.t
 import { DCSlug } from "@actor/types.ts";
 import { DC_SLUGS } from "@actor/values.ts";
 import type { ItemPF2e } from "@item";
+import { TokenPF2e } from "@module/canvas/index.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { ActionMacroHelpers } from "@system/action-macros/index.ts";
 import {
     ActionGlyph,
-    CheckContext,
     CheckContextData,
     CheckContextOptions,
+    CheckMacroContext,
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { getActionGlyph, isObject, setHasElement } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
 
 type SingleCheckActionRollNoteData = Omit<RollNoteSource, "selector"> & { selector?: string };
 function toRollNoteSource(data: SingleCheckActionRollNoteData): RollNoteSource {
@@ -175,7 +175,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
     protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         return ActionMacroHelpers.defaultCheckContext(opts, data);
     }
 

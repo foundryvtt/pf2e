@@ -2,20 +2,20 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { createHTMLElement } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
-import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { DamageDamageContext, DamageTemplate } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
     static async roll(
         data: DamageTemplate,
-        context: DamageRollContext,
+        context: DamageDamageContext,
         callback?: Function,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
@@ -201,7 +201,8 @@ export class DamagePF2e {
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
+        const targetFlag =
+            target?.actor && target.token ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
         const strike = (() => {
@@ -228,10 +229,10 @@ export class DamagePF2e {
         })();
 
         const rollMode = context.rollMode ?? "roll";
-        const contextFlag: DamageRollContextFlag = {
+        const contextFlag: DamageDamageContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
-            actor: context.self?.actor.id ?? null,
+            actor: context.self?.actor?.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,
             domains: context.domains ?? [],

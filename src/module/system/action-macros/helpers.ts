@@ -1,8 +1,9 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
-import type { RollTarget } from "@actor/types.ts";
+import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
 import type { ActionTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
@@ -21,9 +22,9 @@ import { sluggify } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
 import type {
-    CheckContext,
     CheckContextData,
     CheckContextOptions,
+    CheckMacroContext,
     SimpleRollActionCheckOptions,
     UnresolvedCheckDC,
 } from "./types.ts";
@@ -66,10 +67,10 @@ class ActionMacroHelpers {
     static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
-            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StatisticModifier);
+            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StrikeData);
         if (!statistic) {
             const { actor } = options;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;
@@ -118,8 +119,8 @@ class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: SimpleRollActionCheckOptions<ItemType>,
+    static async simpleRollActionCheck<TItem extends ItemPF2e<ActorPF2e>>(
+        options: SimpleRollActionCheckOptions<TItem>,
     ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -139,7 +140,7 @@ class ActionMacroHelpers {
 
         for (const actor of rollers) {
             try {
-                const selfToken = actor.getActiveTokens(false, true).shift();
+                const selfToken = actor.getActiveTokens(false, true).shift() ?? null;
                 const {
                     item: weapon,
                     modifiers = [],
@@ -213,12 +214,22 @@ class ActionMacroHelpers {
                             ? getRangeIncrement(weapon, distance)
                             : null;
                     const domains = ["all", type, statistic.slug];
-                    const targetInfo: RollTarget | null =
+                    const rollOrigin: RollOrigin = {
+                        actor: selfActor,
+                        token: selfToken,
+                        item: weapon ?? null,
+                        self: true,
+                        statistic,
+                        modifiers: [],
+                    };
+                    const rollTarget: RollTarget | null =
                         targetData.token && targetData.actor && typeof distance === "number"
                             ? {
                                   actor: targetData.actor,
                                   token: targetData.token,
                                   statistic: null,
+                                  roller: false,
+                                  item: null,
                                   distance,
                                   rangeIncrement,
                               }
@@ -237,7 +248,8 @@ class ActionMacroHelpers {
                             token: selfToken,
                             item: weapon,
                             createMessage: options.createMessage,
-                            target: targetInfo,
+                            origin: rollOrigin,
+                            target: rollTarget,
                             dc,
                             type,
                             options: finalOptions,

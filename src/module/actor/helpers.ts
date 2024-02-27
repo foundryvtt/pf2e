@@ -2,7 +2,7 @@ import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { CheckRollContextFlag } from "@module/chat-message/index.ts";
+import { CheckCheckContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -15,8 +15,8 @@ import {
     extractRollTwice,
 } from "@module/rules/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
-import { DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
@@ -33,7 +33,10 @@ import {
     createAttributeModifier,
 } from "./modifiers.ts";
 import { NPCStrike } from "./npc/data.ts";
-import { AttributeString, AuraEffectData, DamageRollContextParams } from "./types.ts";
+import { CheckContext } from "./roll-context/check.ts";
+import { DamageContext } from "./roll-context/damage.ts";
+import { DamageContextConstructorParams } from "./roll-context/types.ts";
+import { AttributeString, AuraEffectData } from "./types.ts";
 
 /**
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
@@ -252,15 +255,15 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 }
 
 /** Whether flanking puts this actor off-guard */
-function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e, originRollOptions: string[]): boolean {
-    if (!target.isOfType("creature")) return false;
-    const { flanking } = target.attributes;
+function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
+    if (!target.isOfType("creature") || !target.attributes.flanking.flankable) {
+        return false;
+    }
+    const flanking = target.attributes.flanking;
+    const rollOptions = ["item:type:condition", "item:slug:off-guard", ...origin.getSelfRollOptions("origin")];
     return (
-        flanking.flankable &&
         (typeof flanking.offGuardable === "number" ? origin.level > flanking.offGuardable : flanking.offGuardable) &&
-        !target.attributes.immunities.some((i) =>
-            i.test(["item:type:condition", "item:slug:off-guard", ...originRollOptions]),
-        )
+        !target.attributes.immunities.some((i) => i.test(rollOptions))
     );
 }
 
@@ -498,16 +501,15 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
             params.options ??= [];
             // Always add all weapon traits as options
-            const context = await actor.getCheckContext({
-                item,
+            const context = await new CheckContext({
                 viewOnly: params.getFormula ?? false,
-                statistic: strike,
+                origin: { actor, statistic: strike, item },
                 target: { token: (params.target ?? game.user.targets.first())?.document ?? null },
                 against: "armor",
                 domains,
                 options: new Set([...baseOptions, ...params.options]),
                 traits: actionTraits,
-            });
+            }).resolve();
 
             // Check whether target is out of maximum range; abort early if so
             if (context.origin.item?.isRanged && typeof context.target?.distance === "number") {
@@ -537,7 +539,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
 
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, otherModifiers);
-            const checkContext: CheckRollContext = {
+            const checkContext: CheckCheckContext = {
                 type: "attack-roll",
                 identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
                 action: "strike",
@@ -545,6 +547,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 actor: context.origin.actor,
                 token: context.origin.token,
                 item: context.origin.item,
+                origin: context.origin,
                 target: context.target,
                 damaging: context.origin.item.dealsDamage,
                 domains,
@@ -583,24 +586,23 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const domains = getStrikeDamageDomains(item, actor.isOfType("npc") ? 1 : null);
             const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
 
-            const context = await actor.getDamageRollContext({
-                item,
-                statistic: strike,
-                target: { token: targetToken },
+            const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
+                origin: { actor, statistic: strike, item },
+                target: { token: targetToken },
                 domains,
                 checkContext: params.checkContext,
                 outcome,
                 traits: actionTraits,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
-            });
+            }).resolve();
 
             if (!context.origin.item.dealsDamage && !params.getFormula) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 return null;
             }
 
-            const damageContext: DamageRollContext = {
+            const damageContext: DamageDamageContext = {
                 type: "damage-roll",
                 sourceType: "attack",
                 self: context.origin,
@@ -680,9 +682,12 @@ function isReallyPC(actor: ActorPF2e): boolean {
 }
 
 /** Scan the last three chat messages for a check context to match the to-be-created damage context. */
-function findMatchingCheckContext(actor: ActorPF2e, params: DamageRollContextParams): CheckRollContextFlag | null {
+function findMatchingCheckContext(
+    actor: ActorPF2e,
+    params: DamageContextConstructorParams,
+): CheckCheckContextFlag | null {
     if (params.viewOnly || !params.target?.token) return null;
-    const paramsItem = params.item;
+    const paramsItem = params.origin?.item;
     if (!paramsItem?.isOfType("melee", "weapon")) return null;
 
     const checkMessage = game.messages.contents
@@ -705,7 +710,7 @@ function findMatchingCheckContext(actor: ActorPF2e, params: DamageRollContextPar
             );
         });
 
-    return (checkMessage?.flags.pf2e.context ?? null) as CheckRollContextFlag | null;
+    return (checkMessage?.flags.pf2e.context ?? null) as CheckCheckContextFlag | null;
 }
 
 export {

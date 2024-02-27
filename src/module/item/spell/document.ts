@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import type { ConsumablePF2e } from "@item";
@@ -33,9 +34,9 @@ import { DamageCategorization, applyBaseDamageAlterations } from "@system/damage
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
+    DamageDamageContext,
     DamageFormulaData,
     DamageKind,
-    DamageRollContext,
     SpellDamageTemplate,
 } from "@system/damage/types.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
@@ -368,19 +369,18 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ...actionTraitOptions,
             ...spellTraits,
         ]);
-        const contextData = await this.actor.getDamageRollContext({
+        const contextData = await new DamageContext({
+            origin: { actor: this.actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
             target: isAttack ? { token: params.target } : null,
-            item: this as SpellPF2e<ActorPF2e>,
-            statistic: checkStatistic.check,
             domains,
             options: actionAndTraitOptions,
             checkContext: null,
             outcome: null,
             traits: spellTraits,
             viewOnly: !isAttack || !params.target,
-        });
+        }).resolve();
 
-        const context: DamageRollContext = {
+        const context: DamageDamageContext = {
             type: "damage-roll",
             sourceType: isAttack ? "attack" : "save",
             outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
@@ -1265,7 +1265,7 @@ interface SpellConstructionContext<TParent extends ActorPF2e | null> extends Doc
 
 interface SpellDamage {
     template: SpellDamageTemplate;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface SpellVariantChatData {

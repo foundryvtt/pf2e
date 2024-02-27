@@ -20,7 +20,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
-import { ChatMessagePF2e, CheckRollContextFlag } from "../index.ts";
+import { ChatMessagePF2e, CheckCheckContextFlag } from "../index.ts";
 
 class ChatCards {
     static #lastClick = 0;
@@ -57,7 +57,7 @@ class ChatCards {
         if (strikeAction && action?.startsWith("strike-")) {
             const context = (
                 message.rolls.some((r) => r instanceof CheckRoll) ? message.flags.pf2e.context ?? null : null
-            ) as CheckRollContextFlag | null;
+            ) as CheckCheckContextFlag | null;
             const mapIncreases =
                 context && "mapIncreases" in context && tupleHasValue([0, 1, 2], context.mapIncreases)
                     ? context.mapIncreases
@@ -240,7 +240,7 @@ class ChatCards {
                     );
                     const checkContext = (
                         roll ? message.flags.pf2e.context ?? null : null
-                    ) as CheckRollContextFlag | null;
+                    ) as CheckCheckContextFlag | null;
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
                         roll?.options.identifier?.split(".") ?? [];
@@ -340,7 +340,7 @@ class ChatCards {
             const roll = message.rolls.find(
                 (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "army-strike",
             );
-            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckRollContextFlag | null;
+            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckCheckContextFlag | null;
             const action = button.dataset.outcome === "success" ? "damage" : "critical";
             const strike = actor.strikes[roll?.options.identifier ?? ""];
             strike?.[action]({ checkContext, event });
