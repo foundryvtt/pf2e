@@ -29,7 +29,12 @@ import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
-import { extractNotes, processPreUpdateActorHooks } from "@module/rules/helpers.ts";
+import {
+    extractDamageDice,
+    extractModifiers,
+    extractNotes,
+    processPreUpdateActorHooks,
+} from "@module/rules/helpers.ts";
 import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
@@ -45,7 +50,7 @@ import type {
     StatisticDifficultyClass,
 } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
-import { ErrorPF2e, localizer, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
@@ -65,6 +70,7 @@ import {
 import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import { ItemTransfer } from "./item-transfer.ts";
+import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
@@ -953,11 +959,63 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   ? { finalDamage: damage.total, applications: [], persistent: [] }
                   : applyIWR(this, damage, rollOptions);
 
-        const finalDamage = result.finalDamage;
+        // Extract Target-specific healing adjustments (unless final)
+        // Currently only healing modifiers are implemented
+        const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
+        const { modifiers, damageDice } = (() => {
+            if (final || domain !== "healing-received") {
+                return { modifiers: [], damageDice: [] };
+            }
+
+            const critical = outcome === "criticalSuccess";
+            const resolvables = ((): Record<string, unknown> => {
+                if (item?.isOfType("spell")) return { spell: item };
+                if (item?.isOfType("weapon")) return { weapon: item };
+                return {};
+            })();
+
+            const damageDice = extractDamageDice(this.synthetics.damageDice, {
+                selectors: [domain],
+                resolvables,
+                test: rollOptions,
+            }).filter((d) => (d.critical === null || d.critical === critical) && d.predicate.test(rollOptions));
+
+            const modifiers = extractModifiers(this.synthetics, [domain], { resolvables }).filter(
+                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(rollOptions),
+            );
+
+            return { modifiers, damageDice };
+        })();
+
+        // Roll any dice damage adjustments and produce a total result
+        const diceAdjustment = (
+            await Promise.all(
+                damageDice.map(async (dice) => {
+                    const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
+                    const roll = await new Roll(formula).evaluate({ async: true });
+                    roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
+                    await roll.toMessage({
+                        flags: { pf2e: { suppressDamageButtons: true } },
+                        flavor: dice.label,
+                        speaker: ChatMessage.getSpeaker({ token }),
+                    });
+                    return roll.total;
+                }),
+            )
+        ).reduce((previous, current) => previous + current, 0);
+
+        // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
+        const modifierAdjustment = applyStackingRules(modifiers ?? []);
+
+        // Compute result after adjustments (but before hardness) and add to breakdown
+        const finalDamage = result.finalDamage - (diceAdjustment + modifierAdjustment);
+        breakdown.push(
+            ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
+            ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
+        );
 
         // Extract notes based on whether it is healing or damage
-        const domain = finalDamage < 0 ? "healing-received" : "damage-received";
-        const hasDamageOrHealing = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
+        const hasDamageOrHealing = finalDamage !== 0;
         const extractedNotes = hasDamageOrHealing
             ? extractNotes(this.synthetics.rollNotes, [domain]).filter(
                   (n) =>
