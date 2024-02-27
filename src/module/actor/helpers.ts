@@ -502,15 +502,15 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 item,
                 viewOnly: params.getFormula ?? false,
                 statistic: strike,
-                target: { token: params.target ?? game.user.targets.first() ?? null },
-                defense: "armor",
+                target: { token: (params.target ?? game.user.targets.first())?.document ?? null },
+                against: "armor",
                 domains,
                 options: new Set([...baseOptions, ...params.options]),
                 traits: actionTraits,
             });
 
             // Check whether target is out of maximum range; abort early if so
-            if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+            if (context.origin.item?.isRanged && typeof context.target?.distance === "number") {
                 const maxRange = item.range?.max ?? 10;
                 if (context.target.distance > maxRange) {
                     ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
@@ -518,34 +518,35 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 }
             }
 
-            const otherModifiers = [map ?? [], context.self.modifiers].flat();
+            const otherModifiers = R.compact([map]);
             const title = game.i18n.format(
                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                 { weapon: item.name },
             );
 
             const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
-            const notes = [attackEffects, extractNotes(context.self.actor.synthetics.rollNotes, domains)].flat();
+            const notes = [attackEffects, extractNotes(context.origin.actor.synthetics.rollNotes, domains)].flat();
             const rollTwice =
-                params.rollTwice || extractRollTwice(context.self.actor.synthetics.rollTwice, domains, context.options);
+                params.rollTwice ||
+                extractRollTwice(context.origin.actor.synthetics.rollTwice, domains, context.options);
             const substitutions = extractRollSubstitutions(
-                context.self.actor.synthetics.rollSubstitutions,
+                context.origin.actor.synthetics.rollSubstitutions,
                 domains,
                 context.options,
             );
-            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.self.actor.synthetics, domains);
+            const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
 
-            const check = new CheckModifier("strike", context.self.statistic ?? strike, otherModifiers);
+            const check = new CheckModifier("strike", context.origin.statistic ?? strike, otherModifiers);
             const checkContext: CheckRollContext = {
                 type: "attack-roll",
                 identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,
                 action: "strike",
                 title,
-                actor: context.self.actor,
-                token: context.self.token,
-                item: context.self.item,
+                actor: context.origin.actor,
+                token: context.origin.token,
+                item: context.origin.item,
                 target: context.target,
-                damaging: context.self.item.dealsDamage,
+                damaging: context.origin.item.dealsDamage,
                 domains,
                 options: context.options,
                 traits: context.traits,
@@ -560,7 +561,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             const roll = await CheckPF2e.roll(check, checkContext, params.event);
 
             if (roll) {
-                for (const rule of context.self.actor.rules.filter((r) => !r.ignored)) {
+                for (const rule of context.origin.actor.rules.filter((r) => !r.ignored)) {
                     await rule.afterRoll?.({
                         roll,
                         check,
@@ -580,7 +581,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
         async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = getStrikeDamageDomains(item, actor.isOfType("npc") ? 1 : null);
-            const targetToken = params.target ?? game.user.targets.first() ?? null;
+            const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
 
             const context = await actor.getDamageRollContext({
                 item,
@@ -594,17 +595,16 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             });
 
-            if (!context.self.item.dealsDamage && !params.getFormula) {
+            if (!context.origin.item.dealsDamage && !params.getFormula) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
                 return null;
             }
 
-            const { self, target } = context;
             const damageContext: DamageRollContext = {
                 type: "damage-roll",
                 sourceType: "attack",
-                self,
-                target,
+                self: context.origin,
+                target: context.target,
                 outcome,
                 options: context.options,
                 domains,
@@ -622,8 +622,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             if (params.getFormula) damageContext.skipDialog = true;
 
             const damage = await WeaponDamagePF2e.fromNPCAttack({
-                attack: context.self.item,
-                actor: context.self.actor,
+                attack: context.origin.item,
+                actor: context.origin.actor,
                 context: damageContext,
             });
             if (!damage) return null;

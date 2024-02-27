@@ -274,7 +274,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             params: DamageRollParams = {},
             outcome: "success" | "criticalSuccess" = "success",
         ): Promise<string | Rolled<DamageRoll> | null> => {
-            const targetToken = params.target ?? game.user.targets.first() ?? null;
+            const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
 
             const domains = ["damage", "strike-damage", `${type}-damage`];
 
@@ -291,7 +291,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             const damageContext: DamageRollContext = {
                 type: "damage-roll",
                 sourceType: "attack",
-                self: context.self,
+                self: context.origin,
                 target: context.target,
                 outcome,
                 options: context.options,
@@ -302,8 +302,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             // Compute damage formula. Since army damage has no category/type, we skip processing stacking rules here
             const { formula, breakdown } = createDamageFormula({
                 base: [{ modifier: outcome === "success" ? 1 : 2, damageType: "untyped", category: null }],
-                modifiers: extractModifiers(context.self.actor.synthetics, domains, { test: context.options }),
-                dice: extractDamageDice(context.self.actor.synthetics.damageDice, {
+                modifiers: extractModifiers(context.origin.actor.synthetics, domains, { test: context.options }),
+                dice: extractDamageDice(context.origin.actor.synthetics.damageDice, {
                     selectors: domains,
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },

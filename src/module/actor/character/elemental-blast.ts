@@ -385,7 +385,7 @@ class ElementalBlast {
         const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
-        const targetToken = game.user.targets.first() ?? null;
+        const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =
             blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
@@ -424,11 +424,11 @@ class ElementalBlast {
             ],
         };
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
-            modifiers: extractModifiers(context.self.actor.synthetics, domains, {
+            modifiers: extractModifiers(context.origin.actor.synthetics, domains, {
                 test: context.options,
                 resolvables: { blast: item },
             }),
-            dice: extractDamageDice(context.self.actor.synthetics.damageDice, {
+            dice: extractDamageDice(context.origin.actor.synthetics.damageDice, {
                 selectors: domains,
                 test: context.options,
                 resolvables: { blast: item, target: context.target?.actor ?? null },
@@ -447,7 +447,7 @@ class ElementalBlast {
         const damageContext: DamageRollContext = {
             type: "damage-roll",
             sourceType: "attack",
-            self: context.self,
+            self: context.origin,
             target: context.target,
             outcome,
             options: context.options,

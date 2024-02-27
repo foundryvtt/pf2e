@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
+import type { RollTarget } from "@actor/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
 import type { ActionTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
@@ -212,7 +213,7 @@ class ActionMacroHelpers {
                             ? getRangeIncrement(weapon, distance)
                             : null;
                     const domains = ["all", type, statistic.slug];
-                    const targetInfo =
+                    const targetInfo: RollTarget | null =
                         targetData.token && targetData.actor && typeof distance === "number"
                             ? {
                                   actor: targetData.actor,

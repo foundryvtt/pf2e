@@ -1,5 +1,5 @@
 import type { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import type { ResistanceType, RollTarget, StrikeSelf } from "@actor/types.ts";
+import type { ResistanceType, RollOrigin, RollTarget } from "@actor/types.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { BaseRollContext } from "@system/rolls.ts";
@@ -45,7 +45,7 @@ interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
     outcome?: DegreeOfSuccessString | null;
-    self?: StrikeSelf | null;
+    self?: RollOrigin | null;
     target?: RollTarget | null;
     options: Set<string>;
     secret?: boolean;
