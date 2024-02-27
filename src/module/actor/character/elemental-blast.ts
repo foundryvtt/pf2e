@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RangeData } from "@item/types.ts";
@@ -22,8 +23,8 @@ import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
+    DamageDamageContext,
     DamageFormulaData,
-    DamageRollContext,
     DamageType,
     SimpleDamageTemplate,
 } from "@system/damage/types.ts";
@@ -291,6 +292,7 @@ class ElementalBlast {
 
         const clone = item.clone({ system: { traits: { value: traits } } }, { keepId: true });
         clone.range = melee ? null : config?.range ?? null;
+        clone.isMelee = melee;
 
         return clone;
     }
@@ -391,14 +393,12 @@ class ElementalBlast {
             blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
                 ?.value ?? 0;
 
-        const context = await this.actor.getDamageRollContext({
+        const context = await new DamageContext({
             viewOnly: params.getFormula ?? false,
-            statistic: this.statistic.check,
-            item,
+            origin: { actor: this.actor, statistic: this.statistic, item },
             target: { token: targetToken },
             domains,
             outcome,
-            melee,
             checkContext: params.checkContext,
             options: new Set(
                 R.compact([
@@ -411,7 +411,7 @@ class ElementalBlast {
                     ...item.traits,
                 ]),
             ),
-        });
+        }).resolve();
 
         const baseDamage: BaseDamageData = {
             category: null,
@@ -444,7 +444,7 @@ class ElementalBlast {
             ignoredResistances: [],
         };
 
-        const damageContext: DamageRollContext = {
+        const damageContext: DamageDamageContext = {
             type: "damage-roll",
             sourceType: "attack",
             self: context.origin,

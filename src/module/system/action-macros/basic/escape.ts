@@ -8,12 +8,12 @@ import {
 import type { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import type { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
+import type { CheckContextData, CheckContextOptions, CheckMacroContext } from "@system/action-macros/types.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import { CheckContextError } from "../helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
+const toHighestModifier = (highest: StrikeData | null, current: StrikeData): StrikeData | null => {
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
 };
 
@@ -41,7 +41,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     const statistic = strikes
         .map((strike) => {
             const modifiers = (strike.modifiers ?? []).concat(data.modifiers ?? []);
-            return new StatisticModifier("unarmed", modifiers, rollOptions);
+            return new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
         })
         .reduce(toHighestModifier, null);
     return statistic ? { actor, rollOptions, statistic } : null;
@@ -50,7 +50,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
 function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+): CheckMacroContext<ItemType> | undefined {
     // find all unarmed strikes and pick the one with the highest modifier
     const unarmed = data.slug && data.slug !== "unarmed" ? null : unarmedStrikeWithHighestModifier(opts, data);
 
@@ -74,7 +74,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                     statistic.slug,
                     statistic.modifiers.concat(data.modifiers ?? []),
                     rollOptions,
-                ),
+                ) as StrikeData,
             };
         });
 
@@ -131,7 +131,7 @@ class EscapeActionVariant extends SingleCheckActionVariant {
     protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         return escapeCheckContext(opts, data);
     }
 

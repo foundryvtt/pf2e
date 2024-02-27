@@ -7,7 +7,7 @@ import { ConditionSlug } from "@item/condition/types.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { ConditionManager } from "@system/conditions/manager.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "@system/damage/formula.ts";
-import { AfflictionDamageTemplate, BaseDamageData, DamagePF2e, DamageRollContext } from "@system/damage/index.ts";
+import { AfflictionDamageTemplate, BaseDamageData, DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { ErrorPF2e } from "@util";
@@ -136,7 +136,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             };
 
             // Context isn't used for affliction damage rolls, but we still need it for creating messages
-            const context: DamageRollContext = {
+            const context: DamageDamageContext = {
                 type: "damage-roll",
                 sourceType: "save",
                 outcome: "failure",
@@ -343,7 +343,7 @@ interface AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
 
 interface AfflictionDamage {
     template: AfflictionDamageTemplate;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 export { AfflictionPF2e };

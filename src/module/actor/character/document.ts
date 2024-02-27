@@ -1,4 +1,4 @@
-import { CreaturePF2e, type ActorPF2e, type FamiliarPF2e } from "@actor";
+import { CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
@@ -22,7 +22,9 @@ import {
     createAttributeModifier,
     createProficiencyModifier,
 } from "@actor/modifiers.ts";
-import { AttributeString, MovementType, RollContext, RollContextParams, SkillLongForm } from "@actor/types.ts";
+import { CheckContext } from "@actor/roll-context/check.ts";
+import { DamageContext } from "@actor/roll-context/damage.ts";
+import { AttributeString, MovementType, SkillLongForm } from "@actor/types.ts";
 import {
     ATTRIBUTE_ABBREVIATIONS,
     SAVE_TYPES,
@@ -60,14 +62,14 @@ import {
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check/index.ts";
-import { DamagePF2e, DamageRollContext, DamageType } from "@system/damage/index.ts";
+import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
+import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { PredicatePF2e } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
-import { ArmorStatistic, PerceptionStatistic, Statistic, StatisticCheck } from "@system/statistic/index.ts";
+import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -1531,17 +1533,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ? null
                     : (params.target ?? game.user.targets.first())?.document ?? null;
 
-                const context = await this.getCheckContext({
-                    item: weapon,
+                const context = await new CheckContext({
                     domains: attackDomains,
-                    statistic: action,
-                    origin: { actor: this },
-                    target: { actor: targetToken?.actor, token: targetToken },
+                    origin: { actor: this, statistic: action, item: weapon },
+                    target: { token: targetToken },
                     against: "armor",
                     options: new Set([...baseOptions, ...params.options]),
                     viewOnly: params.getFormula,
                     traits: actionTraits,
-                });
+                }).resolve();
                 action.traits = context.traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
 
                 const statistic = context.origin.statistic ?? action;
@@ -1584,13 +1584,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     { weapon: weapon.name },
                 );
 
-                const checkContext: CheckRollContext = {
+                const checkContext: CheckCheckContext = {
                     type: "attack-roll",
                     identifier: `${weapon.id}.${weaponSlug}.${meleeOrRanged}`,
                     action: "strike",
                     title,
                     actor: context.origin.actor,
                     token: context.origin.token,
+                    origin: context.origin,
                     target: context.target,
                     item: context.origin.item,
                     altUsage: params.altUsage ?? null,
@@ -1636,17 +1637,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 params.options = new Set(params.options ?? []);
                 const targetToken = params.target ?? game.user.targets.first() ?? null;
 
-                const context = await this.getDamageRollContext({
-                    item: weapon,
+                const context = await new DamageContext({
                     viewOnly: params.getFormula ?? false,
-                    statistic: action,
+                    origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken?.document },
                     domains,
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
                     traits: actionTraits,
                     checkContext: params.checkContext,
-                });
+                }).resolve();
 
                 const weaponClone = context.origin.item;
                 if (!weaponClone?.isOfType("weapon")) {
@@ -1663,7 +1663,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
                 const { origin, target, options } = context;
-                const damageContext: DamageRollContext = {
+                const damageContext: DamageDamageContext = {
                     type: "damage-roll",
                     sourceType: "attack",
                     self: origin,
@@ -1725,20 +1725,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             flavor.success = "PF2E.Strike.Ranged.Success";
         }
         return flavor;
-    }
-
-    /** Modify this weapon from AdjustStrike rule elements */
-    protected override getRollContext<
-        TStatistic extends StatisticCheck | StrikeData,
-        TItem extends ItemPF2e<ActorPF2e> | null,
-    >(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
-    protected override async getRollContext(params: RollContextParams): Promise<RollContext> {
-        const context = await super.getRollContext(params);
-        if (params.statistic instanceof StatisticModifier && context.origin.item?.isOfType("weapon")) {
-            PCAttackTraitHelpers.adjustWeapon(context.origin.item);
-        }
-
-        return context;
     }
 
     consumeAmmo(weapon: WeaponPF2e<this>, params: RollParameters): boolean {

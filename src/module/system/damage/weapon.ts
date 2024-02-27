@@ -21,9 +21,9 @@ import { DamageModifierDialog } from "./dialog.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import {
     DamageCategoryUnique,
+    DamageDamageContext,
     DamageDieSize,
     DamageFormulaData,
-    DamageRollContext,
     MaterialDamageEffect,
     WeaponBaseDamageData,
     WeaponDamageTemplate,
@@ -550,13 +550,13 @@ interface WeaponDamageCalculateParams {
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e<ActorPF2e>;
     actor: ActorPF2e;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface ExcludeDamageParams {
