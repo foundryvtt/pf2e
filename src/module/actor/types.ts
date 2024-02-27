@@ -204,6 +204,8 @@ interface ApplyDamageParams {
     breakdown?: string[];
     outcome?: DegreeOfSuccessString | null;
     notes?: RollNotePF2e[];
+    /** Whether to treat to not adjust the damage any further. Skips IWR regardless of its setting if set */
+    final?: boolean;
 }
 
 type ImmunityType = keyof typeof immunityTypes;
