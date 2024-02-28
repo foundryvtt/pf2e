@@ -18,12 +18,25 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "opportune-riposte",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:felicitous-riposte",
+                            "feat:impossible-riposte",
+                            "feature:eternal-confidence"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": [
-                "swashbuckler"
-            ]
+            "value": []
         }
     },
     "type": "action"
