@@ -13,7 +13,9 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
 
         if (source.type === "action") {
             if (slug === "basic-finisher" || slug === "confident-finisher") {
-                source.system.rules.push(this.#buildRule(slug));
+                if (!source.system.rules.some((r) => "mergeable" in r)) {
+                    source.system.rules.push(this.#buildRule(slug));
+                }
             }
         } else if (source.type === "feat") {
             const featSlugs = [
@@ -28,9 +30,13 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
                 "unbalancing-finisher",
             ];
 
-            if (featSlugs.includes(slug)) {
-                source.system.rules.push(this.#buildRule(slug));
-            } else if (slug === "precise-strike") {
+            if (!source.system.rules.some((r) => "mergeable" in r)) {
+                if (featSlugs.includes(slug)) {
+                    source.system.rules.push(this.#buildRule(slug));
+                }
+            }
+
+            if (slug === "precise-strike") {
                 source.system.rules = source.system.rules.filter((r) => !("option" in r && r.option === "finisher"));
             }
         }
