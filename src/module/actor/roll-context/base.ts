@@ -154,24 +154,30 @@ abstract class RollContext<
         const opposingActor = await this.#cloneActor(opposerRole, { other: rollingActor });
         const originIsSelf = selfRole === "origin";
 
-        const origin: RollOrigin = {
-            actor: originIsSelf ? rollingActor : opposingActor,
-            token: originToken ?? null,
-            statistic: originIsSelf ? rollerStatistic : null,
-            item: originIsSelf ? itemClone : null,
-            self: originIsSelf,
-            modifiers: [],
-        };
+        const originActor = originIsSelf ? rollingActor : opposingActor;
+        const origin: RollOrigin | null = originActor
+            ? {
+                  actor: originIsSelf ? rollingActor : opposingActor,
+                  token: originToken ?? null,
+                  statistic: originIsSelf ? rollerStatistic : null,
+                  item: originIsSelf ? itemClone : null,
+                  self: originIsSelf,
+                  modifiers: [],
+              }
+            : null;
 
-        const target: RollTarget = {
-            actor: originIsSelf ? opposingActor : rollingActor,
-            token: targetToken,
-            statistic: !originIsSelf && rollerStatistic && "check" in rollerStatistic ? rollerStatistic : null,
-            item: originIsSelf ? null : itemClone,
-            distance,
-            roller: !originIsSelf,
-            rangeIncrement,
-        };
+        const targetActor = originIsSelf ? opposingActor : rollingActor;
+        const target: RollTarget | null = targetActor
+            ? {
+                  actor: targetActor,
+                  token: targetToken,
+                  statistic: !originIsSelf && rollerStatistic && "check" in rollerStatistic ? rollerStatistic : null,
+                  item: originIsSelf ? null : itemClone,
+                  distance,
+                  self: !originIsSelf,
+                  rangeIncrement,
+              }
+            : null;
 
         return {
             options: rollOptions,

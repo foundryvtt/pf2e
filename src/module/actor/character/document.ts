@@ -1543,6 +1543,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     traits: actionTraits,
                 }).resolve();
                 action.traits = context.traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+                if (!context.origin) return null;
 
                 const statistic = context.origin.statistic ?? action;
                 const maps = calculateMAPs(context.origin.item, { domains: attackDomains, options: context.options });
@@ -1647,6 +1648,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     traits: actionTraits,
                     checkContext: params.checkContext,
                 }).resolve();
+                if (!context.origin) return null;
 
                 const weaponClone = context.origin.item;
                 if (!weaponClone?.isOfType("weapon")) {

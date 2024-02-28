@@ -288,6 +288,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 checkContext: params.checkContext,
                 options: new Set(),
             }).resolve();
+            const origin = context.origin;
+            if (!origin) return null;
 
             const damageContext: DamageDamageContext = {
                 type: "damage-roll",
@@ -303,8 +305,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             // Compute damage formula. Since army damage has no category/type, we skip processing stacking rules here
             const { formula, breakdown } = createDamageFormula({
                 base: [{ modifier: outcome === "success" ? 1 : 2, damageType: "untyped", category: null }],
-                modifiers: extractModifiers(context.origin.actor.synthetics, domains, { test: context.options }),
-                dice: extractDamageDice(context.origin.actor.synthetics.damageDice, {
+                modifiers: extractModifiers(origin.actor.synthetics, domains, { test: context.options }),
+                dice: extractDamageDice(origin.actor.synthetics.damageDice, {
                     selectors: domains,
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },

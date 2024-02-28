@@ -412,6 +412,7 @@ class ElementalBlast {
                 ]),
             ),
         }).resolve();
+        if (!context.origin) return null;
 
         const baseDamage: BaseDamageData = {
             category: null,

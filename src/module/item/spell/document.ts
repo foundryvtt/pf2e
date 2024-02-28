@@ -379,6 +379,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             traits: spellTraits,
             viewOnly: !isAttack || !params.target,
         }).resolve();
+        if (!contextData.origin) return null;
 
         const context: DamageDamageContext = {
             type: "damage-roll",
