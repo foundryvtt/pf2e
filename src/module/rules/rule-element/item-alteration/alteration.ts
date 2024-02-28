@@ -24,6 +24,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "category",
         "check-penalty",
         "damage-dice-faces",
+        "damage-type",
         "defense-passive",
         "description",
         "dex-cap",
@@ -178,6 +179,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     item.system.damage.die = `d${data.alteration.value}`;
                 }
 
+                return;
+            }
+            case "damage-type": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.system.damage.damageType = data.alteration.value;
+                }
                 return;
             }
             case "defense-passive": {
