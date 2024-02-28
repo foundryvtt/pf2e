@@ -9,9 +9,9 @@ import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.t
 import type { Statistic } from "@system/statistic/statistic.ts";
 
 interface OpposingActorConstructorData<
-    TActor extends ActorPF2e | null,
-    TStatistic extends Statistic | StrikeData | null,
-    TItem extends ItemPF2e<ActorPF2e> | null,
+    TActor extends ActorPF2e | null = ActorPF2e | null,
+    TStatistic extends Statistic | StrikeData | null = Statistic | StrikeData | null,
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > {
     actor?: TActor;
     /** The statistic used for the roll */
@@ -56,8 +56,8 @@ interface RollTarget {
     token: TokenDocumentPF2e | null;
     /** The statistic in use if the target is rolling */
     statistic: Statistic | null;
-    /** Whether the origin is also the roller: usually not the case unless a saving throw */
-    roller: boolean;
+    /** Whether the target is also the roller: usually not the case unless a saving throw */
+    self: boolean;
     item: ItemPF2e<ActorPF2e> | null;
     distance: number | null;
     rangeIncrement: number | null;
@@ -71,7 +71,7 @@ interface RollContextData<
 > {
     /** Roll options */
     options: Set<string>;
-    origin: RollOrigin<TActor, TStatistic, TItem>;
+    origin: RollOrigin<TActor, TStatistic, TItem> | null;
     target: RollTarget | null;
     traits: ActionTrait[];
 }
@@ -84,36 +84,15 @@ interface CheckContextData<
     dc: CheckDC | null;
 }
 
-interface ConstructorParamsSelfIsOrigin<
+interface BaseConstructorParams<
     TSelf extends ActorPF2e,
     TStatistic extends Statistic | StrikeData,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
+    TItem extends ItemPF2e<ActorPF2e> | null,
 > {
     /** An origin actor and token: required for most checks, optional for saving throws */
-    origin: OpposingActorConstructorData<TSelf, TStatistic, TItem>;
+    origin?: OpposingActorConstructorData<TSelf | ActorPF2e | null, TStatistic | null, TItem | null> | null;
     /** A targeted actor and token: may not be applicable if the action doesn't take targets */
-    target: OpposingActorConstructorData<ActorPF2e | null, null, null> | null;
-}
-
-interface ConstructorParamsSelfIsTarget<
-    TSelf extends ActorPF2e,
-    TStatistic extends Statistic | StrikeData,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
-> {
-    /** An origin actor and token: required for most checks, optional for saving throws */
-    origin?: OpposingActorConstructorData<ActorPF2e | null, null, TItem> | null;
-    /** A targeted actor and token: may not be applicable if the action doesn't take targets */
-    target: OpposingActorConstructorData<TSelf, TStatistic, null>;
-}
-
-type RollContextConstructorParams<
-    TSelf extends ActorPF2e = ActorPF2e,
-    TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
-    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
-> = (
-    | ConstructorParamsSelfIsOrigin<TSelf, TStatistic, TItem>
-    | ConstructorParamsSelfIsTarget<TSelf, TStatistic, TItem>
-) & {
+    target?: OpposingActorConstructorData<TSelf | ActorPF2e | null, TStatistic | null, TItem | null> | null;
     /** Domains from which to draw roll options */
     domains: string[];
     /** Initial roll options for the strike */
@@ -122,14 +101,38 @@ type RollContextConstructorParams<
     viewOnly?: boolean;
     /** Action traits associated with the roll */
     traits?: ActionTrait[];
-};
+}
+
+interface ConstructorParamsSelfIsOrigin<
+    TSelf extends ActorPF2e = ActorPF2e,
+    TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
+> extends BaseConstructorParams<TSelf, TStatistic, TItem> {
+    origin: OpposingActorConstructorData<TSelf, TStatistic, TItem>;
+    target?: OpposingActorConstructorData<ActorPF2e | null, null, null> | null;
+}
+
+interface ConstructorParamsSelfIsTarget<
+    TSelf extends ActorPF2e = ActorPF2e,
+    TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
+> extends BaseConstructorParams<TSelf, TStatistic, TItem> {
+    origin?: OpposingActorConstructorData<ActorPF2e | null, null, TItem> | null;
+    target: OpposingActorConstructorData<TSelf, TStatistic, null>;
+}
+
+type RollContextConstructorParams<
+    TSelf extends ActorPF2e = ActorPF2e,
+    TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
+    TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
+> = ConstructorParamsSelfIsOrigin<TSelf, TStatistic, TItem> | ConstructorParamsSelfIsTarget<TSelf, TStatistic, TItem>;
 
 type CheckContextConstructorParams<
     TSelf extends ActorPF2e = ActorPF2e,
     TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > = RollContextConstructorParams<TSelf, TStatistic, TItem> & {
-    against: string;
+    against?: string;
 };
 
 type DamageContextConstructorParams<

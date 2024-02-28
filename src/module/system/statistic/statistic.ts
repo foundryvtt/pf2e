@@ -413,19 +413,20 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     !!(args.dc?.slug || "statistic" in (args.dc ?? {})) &&
                     (!item || item.isOfType("action", "campaignFeature", "feat", "weapon"))));
 
+        const isValidRoller = targetToken?.actor?.isOfType("army")
+            ? self.isOfType("army")
+            : self.isOfType("creature", "hazard");
+        if (!isValidRoller) return null;
+
         // This is required to determine the AC for attack dialogs
         const rollContext = await (() => {
-            const isValidRoller = targetToken?.actor?.isOfType("army")
-                ? this.actor.isOfType("army")
-                : this.actor.isOfType("creature", "hazard");
-            if (!isValidRoller) return null;
-
             const contextItem = item?.isOfType("action", "melee", "spell", "weapon") ? item : null;
+            const optionSet = new Set(args.extraRollOptions ?? []);
 
             if (selfIsTargeting) {
                 return new CheckContext({
                     origin: {
-                        actor: this.actor,
+                        actor: self,
                         token: originToken,
                         statistic: this.parent,
                         item: contextItem,
@@ -436,14 +437,14 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     },
                     domains,
                     against: args.dc?.slug ?? "ac",
-                    options: new Set(args.extraRollOptions ?? []),
+                    options: optionSet,
                 }).resolve();
             } else if (selfIsTarget) {
                 return new CheckContext({
                     target: {
                         actor: this.actor,
-                        statistic: this.parent,
                         token: targetToken,
+                        statistic: this.parent,
                     },
                     origin: {
                         actor: originToken?.actor ?? null,
@@ -452,21 +453,30 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                     },
                     domains,
                     against: args.dc?.slug ?? "ac",
-                    options: new Set(args.extraRollOptions ?? []),
+                    options: optionSet,
+                }).resolve();
+            } else {
+                return new CheckContext({
+                    origin: {
+                        actor: self,
+                        token: selfToken,
+                        statistic: this.parent,
+                        item: contextItem,
+                    },
+                    domains,
+                    options: optionSet,
                 }).resolve();
             }
-
-            return null;
         })();
 
-        const originActor = rollContext?.origin.actor ?? self;
-        const targetActor = rollContext?.target?.actor ?? null;
+        const originActor = rollContext.origin?.actor ?? self;
+        const targetActor = rollContext.target?.actor ?? null;
         const selfActor = (selfIsTarget ? targetActor : originActor) ?? self;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
-            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.origin.modifiers].flat());
+            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.origin?.modifiers].flat());
 
         // Get roll options and roll notes
         const extraRollOptions = R.compact([
@@ -550,8 +560,8 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const context: CheckCheckContext = {
             actor: selfActor,
             token: selfToken,
-            origin: rollContext?.origin ?? null,
-            target: rollContext?.target ?? null,
+            origin: rollContext.origin,
+            target: rollContext.target,
             item,
             type: this.type,
             identifier: args.identifier,
@@ -576,7 +586,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             context.options?.add(`map:increases:${mapIncreases}`);
         }
         const modifiers =
-            (selfIsTarget ? rollContext?.target?.statistic?.modifiers : rollContext?.origin.statistic?.modifiers) ??
+            (selfIsTarget ? rollContext?.target?.statistic?.modifiers : rollContext?.origin?.statistic?.modifiers) ??
             this.modifiers;
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
         const roll = await CheckPF2e.roll(check, context, null, args.callback);

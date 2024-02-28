@@ -228,7 +228,7 @@ class ActionMacroHelpers {
                                   actor: targetData.actor,
                                   token: targetData.token,
                                   statistic: null,
-                                  roller: false,
+                                  self: false,
                                   item: null,
                                   distance,
                                   rangeIncrement,

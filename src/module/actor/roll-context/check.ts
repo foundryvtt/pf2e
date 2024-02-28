@@ -13,30 +13,32 @@ class CheckContext<
     TItem extends ItemPF2e<ActorPF2e> | null,
 > extends RollContext<TSelf, TStatistic, TItem> {
     /** The slug of a `Statistic` for use in building a DC */
-    against: string;
+    against: string | null;
 
     constructor(params: CheckContextConstructorParams<TSelf, TStatistic, TItem>) {
         super(params);
-        this.against = params.against;
+        this.against = params.against ?? null;
     }
 
     override resolve(): Promise<CheckContextData<TSelf, TStatistic, TItem>>;
     override async resolve(): Promise<CheckContextData> {
         const baseContext = await super.resolve();
-        const targetActor = baseContext.target?.actor;
+        const originIsSelf = !!baseContext.origin?.self;
+        const selfActor = originIsSelf ? baseContext.origin?.actor : baseContext.target?.actor;
+        const opposingActor = originIsSelf ? baseContext.target?.actor : baseContext.origin?.actor;
+
+        const mayHaveRangePenalty = !!selfActor && originIsSelf && this.domains.includes("attack-roll");
         const rangeIncrement = baseContext.target?.rangeIncrement ?? null;
-        const rangePenalty = calculateRangePenalty(
-            baseContext.origin.actor,
-            rangeIncrement,
-            this.domains,
-            baseContext.options,
-        );
-        if (rangePenalty) baseContext.origin.modifiers.push(rangePenalty);
+        const rangePenalty = mayHaveRangePenalty
+            ? calculateRangePenalty(selfActor, rangeIncrement, this.domains, baseContext.options)
+            : null;
+        if (rangePenalty) baseContext.origin?.modifiers.push(rangePenalty);
 
         const dcData = ((): CheckDC | null => {
             const { domains, against } = this;
+            if (!against) return null;
             const scope = domains.includes("attack") ? "attack" : "check";
-            const statistic = targetActor?.getStatistic(against.replace(/-dc$/, ""))?.dc;
+            const statistic = opposingActor?.getStatistic(against.replace(/-dc$/, ""))?.dc;
             return statistic ? { scope, statistic, slug: against, value: statistic.value } : null;
         })();
 

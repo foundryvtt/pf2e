@@ -510,6 +510,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 options: new Set([...baseOptions, ...params.options]),
                 traits: actionTraits,
             }).resolve();
+            if (!context.origin) return null;
 
             // Check whether target is out of maximum range; abort early if so
             if (context.origin.item?.isRanged && typeof context.target?.distance === "number") {
@@ -596,6 +597,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 traits: actionTraits,
                 options: new Set([...baseOptions, ...(params.options ?? [])]),
             }).resolve();
+            if (!context.origin) return null;
 
             if (!context.origin.item.dealsDamage && !params.getFormula) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });

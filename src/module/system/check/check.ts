@@ -64,7 +64,9 @@ class CheckPF2e {
                 modifiers: check.modifiers,
             };
         }
-        if (!context.origin?.actor) return null;
+        if (!context.origin?.actor && !context.target?.actor) {
+            return null;
+        }
 
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
