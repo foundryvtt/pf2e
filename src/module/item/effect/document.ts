@@ -51,6 +51,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badge.type === "formula") {
                 badge.label = null;
             } else {
+                if (badge.type === "counter") badge.loop ??= false;
                 badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
                 badge.value = Math.clamped(badge.value, badge.min, badge.max);
@@ -78,8 +79,10 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Increases if this is a counter effect, otherwise ignored outright */
     async increase(): Promise<void> {
         const badge = this.system.badge;
+
         if (badge?.type === "counter" && !this.isExpired) {
-            const value = badge.value + 1;
+            const shouldLoop = badge.loop && badge.value >= badge.max;
+            const value = shouldLoop ? badge.min : badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
     }
@@ -90,7 +93,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             await this.delete();
             return;
         }
-
         const value = this.system.badge.value - 1;
         await this.update({ system: { badge: { value } } });
     }
@@ -204,6 +206,12 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badgeTypeChanged || labels || badgeChange.max === null) {
                 delete badgeChange.max;
                 if ("max" in (this._source.system.badge ?? {})) badgeChange["-=max"] = null;
+            }
+
+            // remove loop when type changes or labels are removed
+            if (badgeChange["-=labels"] === null || badgeTypeChanged) {
+                delete badgeChange.loop;
+                if ("loop" in (this._source.system.badge ?? {})) badgeChange["-=loop"] = null;
             }
         }
 
