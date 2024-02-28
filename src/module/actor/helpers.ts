@@ -2,7 +2,6 @@ import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { CheckContextChatFlag } from "@module/chat-message/index.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -35,7 +34,6 @@ import {
 import { NPCStrike } from "./npc/data.ts";
 import { CheckContext } from "./roll-context/check.ts";
 import { DamageContext } from "./roll-context/damage.ts";
-import { DamageContextConstructorParams } from "./roll-context/types.ts";
 import { AttributeString, AuraEffectData } from "./types.ts";
 
 /**
@@ -683,45 +681,12 @@ function isReallyPC(actor: ActorPF2e): boolean {
     return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
 }
 
-/** Scan the last three chat messages for a check context to match the to-be-created damage context. */
-function findMatchingCheckContext(
-    actor: ActorPF2e,
-    params: DamageContextConstructorParams,
-): CheckContextChatFlag | null {
-    if (params.viewOnly || !params.target?.token) return null;
-    const paramsItem = params.origin?.item;
-    if (!paramsItem?.isOfType("melee", "weapon")) return null;
-
-    const checkMessage = game.messages.contents
-        .slice(-3)
-        .reverse()
-        .find((message) => {
-            if (!message.rolls.some((r) => r instanceof CheckRoll)) return false;
-            if (message.actor?.uuid !== actor.uuid) return false;
-            if (params.target?.token !== message.target?.token.object) return false;
-
-            const messageItem = message.item;
-            if (!messageItem?.isOfType("melee", "weapon")) return false;
-            const paramsItemSlug = paramsItem.slug ?? sluggify(paramsItem.name);
-            const messageItemSlug = messageItem.slug ?? sluggify(messageItem.name);
-
-            return !!(
-                paramsItemSlug === messageItemSlug &&
-                paramsItem.uuid === messageItem.uuid &&
-                paramsItem.isMelee === messageItem.isMelee
-            );
-        });
-
-    return (checkMessage?.flags.pf2e.context ?? null) as CheckContextChatFlag | null;
-}
-
 export {
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
-    findMatchingCheckContext,
     getRangeIncrement,
     getStrikeAttackDomains,
     getStrikeDamageDomains,
