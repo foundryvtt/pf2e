@@ -204,6 +204,15 @@ const ITEM_ALTERATION_VALIDATORS = {
             },
         },
     ),
+    "damage-type": new ItemAlterationValidator({
+        itemType: new fields.StringField({ required: true, choices: ["weapon"] }),
+        mode: new fields.StringField({ required: true, choices: ["override"] }),
+        value: new fields.StringField({
+            required: true,
+            nullable: false,
+            choices: () => CONFIG.PF2E.damageTypes,
+        } as const),
+    }),
     /** The passive defense targeted by an attack spell */
     "defense-passive": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: ["spell"] }),

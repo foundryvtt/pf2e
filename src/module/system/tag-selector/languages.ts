@@ -50,13 +50,16 @@ class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
             (g) => [g.slug, g.source],
         );
 
-        const languagesByRarity = game.settings.get("pf2e", "homebrew.languageRarities");
+        const languagesByRarity = game.pf2e.settings.campaign.languages;
 
         for (const language of languagesByRarity.unavailable) {
             delete sheetData.choices[language];
         }
 
-        const choices = R.mapValues(sheetData.choices, (data, key): ChoiceData => {
+        // Move selected languages to top
+        const selectedAtTop = Object.fromEntries(R.sortBy(Object.entries(sheetData.choices), ([, v]) => !v.selected));
+        // Assign rarities to each option
+        const choices = R.mapValues(selectedAtTop, (data, key): ChoiceData => {
             const slug = key as Language;
             const rarityLocKeys = { ...CONFIG.PF2E.rarityTraits, secret: "PF2E.TraitSecret" };
             const tags = R.mapToObj(LANGUAGE_RARITIES, (r) => [

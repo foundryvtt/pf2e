@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor";
-import { RollTarget } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollSubstitution } from "@module/rules/synthetics.ts";
@@ -19,15 +18,13 @@ type CheckType =
     | "saving-throw"
     | "skill-check";
 
-interface CheckRollContext extends BaseRollContext {
+interface CheckCheckContext extends BaseRollContext {
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: CheckType;
     /** A string of some kind to identify the roll: will be included in `CheckRoll#options` */
     identifier?: Maybe<string>;
     /** The slug of an action, of which this roll is a workflow component */
     action?: Maybe<string>;
-    /** Targeting data for the check, if applicable */
-    target?: RollTarget | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
     /** The actor which initiated this roll. */
@@ -56,4 +53,4 @@ interface CheckRollContext extends BaseRollContext {
     dosAdjustments?: DegreeOfSuccessAdjustment[];
 }
 
-export type { CheckRollContext, CheckType, RollTwiceOption };
+export type { CheckCheckContext, CheckType, RollTwiceOption };

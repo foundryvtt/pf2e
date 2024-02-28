@@ -24,6 +24,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "category",
         "check-penalty",
         "damage-dice-faces",
+        "damage-type",
         "defense-passive",
         "description",
         "dex-cap",
@@ -67,11 +68,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         return this.parent.actor;
     }
 
-    /** Convenience access to the parent rule element's `resolveValue` method */
-    resolveValue(...args: Parameters<RuleElementPF2e["resolveValue"]>): ReturnType<RuleElementPF2e["resolveValue"]> {
-        return this.parent.resolveValue(...args);
-    }
-
     /**
      * Apply this alteration to an item (or source)
      * @param item The item to be altered
@@ -86,7 +82,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.resolveValue(this.value, fallbackValue)),
+                value: (this.value = this.parent.resolveValue(this.value, fallbackValue)),
             },
         };
         if (this.parent.ignored) return;
@@ -183,6 +179,13 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     item.system.damage.die = `d${data.alteration.value}`;
                 }
 
+                return;
+            }
+            case "damage-type": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.system.damage.damageType = data.alteration.value;
+                }
                 return;
             }
             case "defense-passive": {
@@ -285,7 +288,6 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }
             case "pd-recovery-dc": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                data.alteration.value = this.resolveValue(data.alteration.value) || 15;
                 if (validator.isValid(data) && data.item.system.persistent) {
                     const persistent = data.item.system.persistent;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);

@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { AttackTraitHelpers } from "@actor/creature/helpers.ts";
 import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { RangeData } from "@item/types.ts";
@@ -22,8 +23,8 @@ import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
     BaseDamageData,
+    DamageDamageContext,
     DamageFormulaData,
-    DamageRollContext,
     DamageType,
     SimpleDamageTemplate,
 } from "@system/damage/types.ts";
@@ -291,6 +292,7 @@ class ElementalBlast {
 
         const clone = item.clone({ system: { traits: { value: traits } } }, { keepId: true });
         clone.range = melee ? null : config?.range ?? null;
+        clone.isMelee = melee;
 
         return clone;
     }
@@ -385,20 +387,18 @@ class ElementalBlast {
         const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
-        const targetToken = game.user.targets.first() ?? null;
+        const targetToken = game.user.targets.first()?.document ?? null;
         const damageCategory = DamageCategorization.fromDamageType(params.damageType);
         item.flags.pf2e.attackItemBonus =
             blastConfig.statistic.check.modifiers.find((m) => m.enabled && ["item", "potency"].includes(m.type))
                 ?.value ?? 0;
 
-        const context = await this.actor.getDamageRollContext({
+        const context = await new DamageContext({
             viewOnly: params.getFormula ?? false,
-            statistic: this.statistic.check,
-            item,
+            origin: { actor: this.actor, statistic: this.statistic, item },
             target: { token: targetToken },
             domains,
             outcome,
-            melee,
             checkContext: params.checkContext,
             options: new Set(
                 R.compact([
@@ -411,7 +411,8 @@ class ElementalBlast {
                     ...item.traits,
                 ]),
             ),
-        });
+        }).resolve();
+        if (!context.origin) return null;
 
         const baseDamage: BaseDamageData = {
             category: null,
@@ -424,11 +425,11 @@ class ElementalBlast {
             ],
         };
         const damageSynthetics = processDamageCategoryStacking([baseDamage], {
-            modifiers: extractModifiers(context.self.actor.synthetics, domains, {
+            modifiers: extractModifiers(context.origin.actor.synthetics, domains, {
                 test: context.options,
                 resolvables: { blast: item },
             }),
-            dice: extractDamageDice(context.self.actor.synthetics.damageDice, {
+            dice: extractDamageDice(context.origin.actor.synthetics.damageDice, {
                 selectors: domains,
                 test: context.options,
                 resolvables: { blast: item, target: context.target?.actor ?? null },
@@ -444,10 +445,10 @@ class ElementalBlast {
             ignoredResistances: [],
         };
 
-        const damageContext: DamageRollContext = {
+        const damageContext: DamageDamageContext = {
             type: "damage-roll",
             sourceType: "attack",
-            self: context.self,
+            self: context.origin,
             target: context.target,
             outcome,
             options: context.options,

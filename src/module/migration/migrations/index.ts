@@ -287,4 +287,5 @@ export { Migration918DeitySkills } from "./918-deity-skills.ts";
 export { Migration919WeaponToggleStructure } from "./919-trait-toggle-structure.ts";
 export { Migration920SuboptionSelection } from "./920-suboption-selection.ts";
 export { Migration921SpellSlotArrays } from "./921-spell-slot-arrays.ts";
-export { Migration922KineticistRestructure } from "./922-kineticist-restructure.ts";
+export { Migration922SwashbucklerFinishers } from "./922-swashbuckler-finisher-suboptions.ts";
+export { Migration923KineticistRestructure } from "./923-kineticist-restructure.ts";

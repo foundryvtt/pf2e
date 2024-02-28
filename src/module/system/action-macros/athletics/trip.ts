@@ -1,15 +1,15 @@
 import { ActorPF2e } from "@actor";
+import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
+import { CheckContextData, CheckContextOptions, CheckMacroContext } from "@system/action-macros/types.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { CheckContext, CheckContextData, CheckContextOptions } from "@system/action-macros/types.ts";
 
 function tripCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+): CheckMacroContext<ItemType> | undefined {
     // weapon
     const item = [
         ...(ActionMacroHelpers.getApplicableEquippedWeapons(opts.actor, "trip") ?? []),
@@ -82,7 +82,7 @@ class TripActionVariant extends SingleCheckActionVariant {
     protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         return tripCheckContext(opts, data);
     }
 }
@@ -114,4 +114,4 @@ class TripAction extends SingleCheckAction {
 
 const action = new TripAction();
 
-export { trip as legacy, action };
+export { action, trip as legacy };

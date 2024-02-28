@@ -1,10 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
+import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement } from "@actor/helpers.ts";
-import { CheckModifier, ModifierPF2e, StatisticModifier, ensureProficiencyOption } from "@actor/modifiers.ts";
+import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -14,21 +16,20 @@ import {
 import type { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckPF2e, CheckType } from "@system/check/index.ts";
-import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { CheckDCReference, Statistic } from "@system/statistic/index.ts";
 import { sluggify } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
 import * as R from "remeda";
-import {
-    CheckContext,
+import type {
     CheckContextData,
-    CheckContextError,
     CheckContextOptions,
+    CheckMacroContext,
     SimpleRollActionCheckOptions,
     UnresolvedCheckDC,
 } from "./types.ts";
 
-export class ActionMacroHelpers {
+class ActionMacroHelpers {
     static resolveStat(stat: string): {
         checkType: CheckType;
         property: string;
@@ -66,10 +67,10 @@ export class ActionMacroHelpers {
     static defaultCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
         options: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         const { checkType: type, property, stat: slug, subtitle } = this.resolveStat(data.slug);
         const statistic =
-            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StatisticModifier);
+            options.actor.getStatistic(data.slug) ?? (fu.getProperty(options.actor, property) as StrikeData);
         if (!statistic) {
             const { actor } = options;
             const message = `Actor ${actor.name} (${actor.id}) does not have a statistic for ${slug}.`;
@@ -118,8 +119,8 @@ export class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck<ItemType extends ItemPF2e<ActorPF2e>>(
-        options: SimpleRollActionCheckOptions<ItemType>,
+    static async simpleRollActionCheck<TItem extends ItemPF2e<ActorPF2e>>(
+        options: SimpleRollActionCheckOptions<TItem>,
     ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -139,7 +140,7 @@ export class ActionMacroHelpers {
 
         for (const actor of rollers) {
             try {
-                const selfToken = actor.getActiveTokens(false, true).shift();
+                const selfToken = actor.getActiveTokens(false, true).shift() ?? null;
                 const {
                     item: weapon,
                     modifiers = [],
@@ -213,9 +214,25 @@ export class ActionMacroHelpers {
                             ? getRangeIncrement(weapon, distance)
                             : null;
                     const domains = ["all", type, statistic.slug];
-                    const targetInfo =
+                    const rollOrigin: RollOrigin = {
+                        actor: selfActor,
+                        token: selfToken,
+                        item: weapon ?? null,
+                        self: true,
+                        statistic,
+                        modifiers: [],
+                    };
+                    const rollTarget: RollTarget | null =
                         targetData.token && targetData.actor && typeof distance === "number"
-                            ? { token: targetData.token, actor: targetData.actor, distance, rangeIncrement }
+                            ? {
+                                  actor: targetData.actor,
+                                  token: targetData.token,
+                                  statistic: null,
+                                  self: false,
+                                  item: null,
+                                  distance,
+                                  rangeIncrement,
+                              }
                             : null;
                     const substitutions = extractRollSubstitutions(
                         actor.synthetics.rollSubstitutions,
@@ -231,7 +248,8 @@ export class ActionMacroHelpers {
                             token: selfToken,
                             item: weapon,
                             createMessage: options.createMessage,
-                            target: targetInfo,
+                            origin: rollOrigin,
+                            target: rollTarget,
                             dc,
                             type,
                             options: finalOptions,
@@ -323,8 +341,20 @@ export class ActionMacroHelpers {
     }
 }
 
+class CheckContextError extends Error {
+    constructor(
+        message: string,
+        public actor: ActorPF2e,
+        public slug: string,
+    ) {
+        super(message);
+    }
+}
+
 interface ResolveCheckDCParams {
     unresolvedDC: UnresolvedCheckDC | undefined | null;
     target?: ActorPF2e | null;
     fully?: boolean;
 }
+
+export { ActionMacroHelpers, CheckContextError };

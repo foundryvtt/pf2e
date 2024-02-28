@@ -4,7 +4,7 @@ import { ItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
+import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -509,7 +509,7 @@ namespace RuleElementPF2e {
     export interface AfterRollParams {
         roll: Rolled<CheckRoll>;
         check: CheckModifier;
-        context: CheckRollContext;
+        context: CheckCheckContext;
         domains: string[];
         rollOptions: Set<string>;
     }

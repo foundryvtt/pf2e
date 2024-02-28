@@ -1070,12 +1070,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.equipped.carryType = "worn";
             }
             // If the item is from a compendium, adjust the size to be appropriate to the creature's
-            const resizeItem =
-                data?.uuid?.startsWith("Compendium") &&
-                itemSource.type !== "treasure" &&
-                !["med", "sm"].includes(actor.size) &&
-                actor.isOfType("creature");
-            if (resizeItem) itemSource.system.size = actor.size;
+            if (data?.uuid?.startsWith("Compendium") && itemSource.type !== "treasure" && actor.isOfType("creature")) {
+                const sourceSize = actor.system.traits?.naturalSize ?? actor.size;
+                itemSource.system.size = sourceSize === "sm" ? "med" : sourceSize;
+            }
         }
 
         // Creating a new item: clear the _id via cloning it

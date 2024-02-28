@@ -262,7 +262,9 @@ export function registerSettings(): void {
         default: [],
         type: Array,
         onChange: (value) => {
-            game.pf2e.settings.campaign.sections = Array.isArray(value) ? value : game.pf2e.settings.campaign.sections;
+            game.pf2e.settings.campaign.feats.sections = Array.isArray(value)
+                ? value
+                : game.pf2e.settings.campaign.feats.sections;
             resetActors(game.actors.filter((a) => a.isOfType("character")));
         },
     });
