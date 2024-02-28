@@ -13,10 +13,10 @@ import {
     tupleHasValue,
 } from "@util";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
-import { ChatContextFlag, CheckCheckContextFlag } from "./data.ts";
+import { ChatContextFlag, CheckContextChatFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
-function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckCheckContextFlag {
+function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
 }
 

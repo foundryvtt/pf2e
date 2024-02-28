@@ -4,7 +4,7 @@ import type { CheckModifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
-import { ActorTokenFlag, ChatMessageSourcePF2e, CheckCheckContextFlag } from "@module/chat-message/data.ts";
+import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -254,7 +254,7 @@ class CheckPF2e {
                 .join("");
         })();
 
-        const contextFlag: CheckCheckContextFlag = {
+        const contextFlag: CheckContextChatFlag = {
             ...context,
             type: context.type ?? "check",
             identifier: context.identifier ?? null,

@@ -38,7 +38,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
     core: NonNullable<ChatMessageFlags["core"]>;
 };
 
-type ChatContextFlag = CheckCheckContextFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
+type ChatContextFlag = CheckContextChatFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -75,7 +75,7 @@ type ContextFlagOmission =
     | "target"
     | "token";
 
-interface CheckCheckContextFlag extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
+interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: string;
@@ -133,7 +133,7 @@ export type {
     ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageSourcePF2e,
-    CheckCheckContextFlag,
+    CheckContextChatFlag,
     DamageDamageContextFlag,
     DamageRollFlag,
 };
