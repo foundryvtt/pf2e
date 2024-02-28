@@ -2,11 +2,13 @@ import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
 import type { SpellPF2e, WeaponPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { processSanctification } from "@item/ability/helpers.ts";
 import { RawItemChatData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ValueAndMax } from "@module/data.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
@@ -41,7 +43,16 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!this.system.spell) return null;
 
         const context = { parent: this.actor, parentItem: this };
-        return new ItemProxyPF2e(fu.deepClone(this.system.spell), context) as SpellPF2e<NonNullable<TParent>>;
+        const spell = new ItemProxyPF2e(fu.deepClone(this.system.spell), context) as SpellPF2e<NonNullable<TParent>>;
+
+        const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
+        for (const alteration of alterations) {
+            alteration.applyAlteration({ singleItem: spell });
+        }
+
+        processSanctification(spell);
+
+        return spell;
     }
 
     override prepareBaseData(): void {
