@@ -11,6 +11,12 @@ async function repair(options: RepairActionOptions): Promise<void> {
     const item =
         options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
+    if (item === null) {
+        // Don't do anything if passed a null item.
+        // TODO: do something smart here. Like possibly rolling the result and the recovered amount both.
+        return;
+    }
+
     // ensure specified item is a valid crafting target
     if (!(item instanceof PhysicalItemPF2e)) {
         ui.notifications.warn(
