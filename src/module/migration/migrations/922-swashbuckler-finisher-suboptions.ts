@@ -60,7 +60,7 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
             suboptions: [
                 {
                     label: `PF2E.SpecificRule.Swashbuckler.Finisher.${name}`,
-                    value: `${slug}`,
+                    value: `${slug.replace("-finisher", "")}`,
                 },
             ],
             toggleable: true,
