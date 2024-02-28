@@ -8,7 +8,7 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const slug = source.system.slug;
-        
+
         if (!slug) return;
 
         if (source.type === "action") {
