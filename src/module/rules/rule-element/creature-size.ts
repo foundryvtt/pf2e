@@ -129,6 +129,9 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
                     item.system.size = this.decrementSize(item.size, Math.abs(sizeDifference));
                 }
             }
+
+            // Update natural size so auto-scaling targets the original size, but only once per data preparation.
+            actor.system.traits.naturalSize = actor.system.traits.naturalSize ?? originalSize.value;
         }
     }
 
