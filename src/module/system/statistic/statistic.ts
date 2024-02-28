@@ -459,9 +459,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             return null;
         })();
 
-        const selfActor = selfIsTarget ? rollContext?.target?.actor ?? self : self;
-        const originActor = selfIsTarget ? rollContext?.origin.actor ?? self : null;
-        const targetActor = rollContext?.target?.actor ?? (selfIsTarget ? null : self);
+        const originActor = rollContext?.origin.actor ?? self;
+        const targetActor = rollContext?.target?.actor ?? null;
+        const selfActor = (selfIsTarget ? targetActor : originActor) ?? self;
         const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
 
         // Extract modifiers, unless this is a flat check

@@ -2,7 +2,7 @@ import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ActionTrait } from "@item/ability/types.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
-import type { CheckCheckContextFlag } from "@module/chat-message/index.ts";
+import type { CheckContextChatFlag } from "@module/chat-message/index.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import type { RollTwiceOption } from "./check/index.ts";
@@ -46,7 +46,7 @@ interface AttackRollParams extends RollParameters {
 
 interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
     mapIncreases?: Maybe<ZeroToTwo>;
-    checkContext?: Maybe<CheckCheckContextFlag>;
+    checkContext?: Maybe<CheckContextChatFlag>;
 }
 
 interface BaseRollContext {

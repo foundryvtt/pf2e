@@ -2,7 +2,7 @@ import { ActorProxyPF2e, type ActorPF2e } from "@actor";
 import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
-import { CheckCheckContextFlag } from "@module/chat-message/index.ts";
+import { CheckContextChatFlag } from "@module/chat-message/index.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
@@ -685,7 +685,7 @@ function isReallyPC(actor: ActorPF2e): boolean {
 function findMatchingCheckContext(
     actor: ActorPF2e,
     params: DamageContextConstructorParams,
-): CheckCheckContextFlag | null {
+): CheckContextChatFlag | null {
     if (params.viewOnly || !params.target?.token) return null;
     const paramsItem = params.origin?.item;
     if (!paramsItem?.isOfType("melee", "weapon")) return null;
@@ -710,7 +710,7 @@ function findMatchingCheckContext(
             );
         });
 
-    return (checkMessage?.flags.pf2e.context ?? null) as CheckCheckContextFlag | null;
+    return (checkMessage?.flags.pf2e.context ?? null) as CheckContextChatFlag | null;
 }
 
 export {
