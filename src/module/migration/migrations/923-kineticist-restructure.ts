@@ -3,7 +3,7 @@ import type { ItemPF2e } from "@item";
 import { FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
-import { sluggify } from "@util/misc.ts";
+import { sluggify, tupleHasValue } from "@util/misc.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Move existing kineticists to the new class automation structure **/
@@ -13,6 +13,12 @@ export class Migration923KineticistRestructure extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
 
+        // If this actor already has a modern gate item, skip
+        if (source.items.some((i) => tupleHasValue(i.system.traits.otherTags, "kineticist-kinetic-gate"))) {
+            return;
+        }
+
+        // Retrieve certain kineticist items we plan to update. If they don't exist, skip
         const kineticGate = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "kinetic-gate");
         const impulses = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "impulses");
         const gateJunction = source.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "gates-junction");
