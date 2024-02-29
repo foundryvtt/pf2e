@@ -770,7 +770,10 @@ abstract class CreaturePF2e<
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (!changed.system || isFullReplace) {
+            return super._preUpdate(changed, options, user);
+        }
 
         // Clamp hit points
         const currentHP = this.hitPoints;
