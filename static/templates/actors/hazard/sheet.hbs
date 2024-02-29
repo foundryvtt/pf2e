@@ -136,10 +136,10 @@
                     {{/each}}
 
                     {{#if actor.system.actions}}
-                        {{!-- List Attacks --}}
+                        {{!-- Attacks --}}
                         <ol class="actions-list attacks-list strikes-list item-list">
                             {{#each actor.system.actions as |action index|}}
-                                <li class="item attack flexrow" data-action-index="{{index}}" data-strike="" data-item-id="{{action.item.id}}">
+                                <li class="item action" data-action-index="{{index}}" data-strike="" data-item-id="{{action.item.id}}">
                                     <h4 class="attack-name tags">
                                         <span>
                                             <strong>{{localize action.attackRollType}}</strong>
@@ -147,7 +147,7 @@
                                             {{action.label}}
                                         </span>
                                         {{#each action.traits as |trait|}}
-                                            <div class="tag tag_transparent" title="{{localize trait.description}}">{{localize trait.label}}</div>
+                                            <div class="tag tag_transparent" data-tooltip="{{trait.description}}">{{localize trait.label}}</div>
                                         {{/each}}
                                         {{#each action.additionalEffects as |effect|}}
                                             <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
@@ -161,13 +161,13 @@
                                     </div>
 
                                     <div class="button-group">
-                                        <div class="attacks sub-section">
+                                        <div class="subsection attack">
                                             {{#each action.variants as |variant vi|}}
                                                 <button type="button" class="btn attack-button" {{#if (eq vi 0)}}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
                                             {{/each}}
                                         </div>
                                         {{#if action.item.dealsDamage}}
-                                            <div class="damage sub-section">
+                                            <div class="subsection damage">
                                                 <button type="button" class="damage-button" data-action="strike-damage">{{action.damageFormula}}</button>
                                                 <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
                                             </div>
