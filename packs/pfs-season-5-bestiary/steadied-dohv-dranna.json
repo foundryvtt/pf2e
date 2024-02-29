@@ -1,5 +1,5 @@
 {
-    "_id": "Fa1S0A8fAx3SkO9h",
+    "_id": "R110GkevjeNDEfNb",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -50,13 +50,14 @@
                 },
                 "slug": null,
                 "spelldc": {
-                    "dc": 26,
+                    "dc": 29,
                     "mod": 0,
-                    "value": 18
+                    "value": 21
                 },
                 "tradition": {
                     "value": "occult"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -1278,11 +1279,11 @@
                     ]
                 },
                 "bonus": {
-                    "value": 20
+                    "value": 23
                 },
                 "damageRolls": {
                     "pgsa4eg784s5ejayhaj1": {
-                        "damage": "2d12+6",
+                        "damage": "2d12+9",
                         "damageType": "piercing"
                     }
                 },
@@ -1320,11 +1321,11 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 20
+                    "value": 23
                 },
                 "damageRolls": {
                     "9z3yrno2knwx7foh986b": {
-                        "damage": "2d8+6",
+                        "damage": "2d8+9",
                         "damageType": "slashing"
                     }
                 },
@@ -1526,7 +1527,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If a brain collector takes 30 damage from a critical hit or takes 25 mental damage, it must succeed at a DC 26 save (@Check[type:fortitude|dc:26] for critical damage or @Check[type:will|dc:26] for mental damage) or one of its brain blisters is destroyed.</p>"
+                    "value": "<p>If a brain collector takes 30 damage from a critical hit or takes 25 mental damage, it must succeed at a DC 29 save (@Check[type:fortitude|dc:29] for critical damage or @Check[type:will|dc:29] for mental damage) or one of its brain blisters is destroyed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1556,7 +1557,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]], enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[2d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1607,16 +1608,138 @@
             "type": "action"
         },
         {
+            "_id": "thChQrAoqxPJlmhv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.cfqRc4clMniqQNsl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosive End",
+            "sort": 2700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>The mutant brain collector's death reveals one last surprise as it explodes into radioactive ash. When it dies, it explodes, dealing @Damage[5d6[acid]] damage to each creature in a @Template[type:emanation|distance:10], with a basic @Check[type:reflex|dc:27] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [],
+                "slug": "cryptid-mutant-explosive-end",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ttZHm74xhLp5A9SV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZUxt6s54TMgydXoW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shifting Iridescence",
+            "sort": 2800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the mutant brain collector takes energy damage to which it isn't resistant or immune, after taking the damage normally, it gains resistance 10 to that damage type. If it had a resistance to a different damage type from shifting iridescence, it replaces the old resistance with the new resistance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shifting-iridescence",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "shifting-iridescence"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.shiftingIridescence}",
+                        "value": "ternary(gte(@actor.level,17),15,ternary(gte(@actor.level,9),10,5))"
+                    }
+                ],
+                "slug": "cryptid-mutant-shifting-iridescence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "uzWGPrcJHy8sODiQ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2700000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 17
+                    "value": 20
                 },
                 "proficient": {
                     "value": 0
@@ -1627,7 +1750,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -1635,82 +1759,7 @@
             "_id": "E38ebBVk4P0ZbVCr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "0G2NROFQHUx66j0V",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "JotouX7ikK4QZh6H",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore (all subcategories)",
             "sort": 3000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "h6h9wJvv4eB5Qr16",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1727,21 +1776,22 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "mr5fysEDm5D40AFR",
+            "_id": "0G2NROFQHUx66j0V",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 3200000,
+            "name": "Athletics",
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 17
+                    "value": 19
                 },
                 "proficient": {
                     "value": 0
@@ -1752,12 +1802,91 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "JotouX7ikK4QZh6H",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Lore (all subcategories)",
+            "sort": 3200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "h6h9wJvv4eB5Qr16",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "sort": 3300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "mr5fysEDm5D40AFR",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 3400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
     ],
-    "name": "Brain Collector",
+    "name": "Steadied Dohv-Dranna",
     "system": {
         "abilities": {
             "cha": {
@@ -1782,16 +1911,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 26
+                "value": 29
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "",
-                "max": 140,
+                "max": 180,
                 "temp": 0,
-                "value": 140
+                "value": 180
             },
             "immunities": [
                 {
@@ -1809,7 +1938,7 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Variant brain collector",
             "languages": {
                 "details": "telepathy 100 feet",
                 "value": [
@@ -1822,14 +1951,14 @@
                 ]
             },
             "level": {
-                "value": 8
+                "value": 10
             },
             "privateNotes": "",
             "publicNotes": "<p>The grotesque brain collectors originate from worlds far beyond the known solar system, and are part of a conglomeration of hostile aliens known collectively as the Dominion of the Black. Whether driven by their own schemes or directives from sinister overlords, brain collectors arrive in living starships to harvest the brains of intelligent creatures. These aberrations draw no nutrition from brains, instead storing them for analysis and as vessels for occult magical energies.</p>\n<p>A brain collector's form evokes that of a tailless scorpion, but the pulsing brain-filled blisters that glisten along its back make them impossible to mistake for merely oversized arachnids. Baleful eyes glare from the joints on their legs, and the unsettling, intrusive whisper-thoughts they telepathically broadcast into the minds of those they seek to feed on can be interpreted as threats or promises alike.</p>\n<p>Brain collectors have very little empathy for the denizens of any world they visit, despite the fact that certain cults venerate them, or the Dominion they hail from, as if they were gods. To brain collectors, terrestrial creatures are simply resources for their magical needs and occult powers. They have little interest in worshipping gods or being worshipped themselves, yet they do practice strange forms of religion of their own, in which they consider the primordial forces of deep space as worthy of faith and fear.</p>",
             "publication": {
                 "license": "OGL",
                 "remaster": false,
-                "title": "Pathfinder Bestiary"
+                "title": "Pathfinder Society Scenario #5-11: The Hidden Current"
             }
         },
         "initiative": {
@@ -1837,7 +1966,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 18,
+            "mod": 21,
             "senses": [
                 {
                     "type": "darkvision"
@@ -1853,19 +1982,19 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 15
+                "value": 18
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 13
+                "value": 16
             },
             "will": {
                 "saveDetail": "",
-                "value": 18
+                "value": 21
             }
         },
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "unique",
             "size": {
                 "value": "lg"
             },
