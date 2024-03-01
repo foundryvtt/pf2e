@@ -503,7 +503,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const processed = await preImportJSON(this, json);
+        const processed = await preImportJSON(json);
         return processed ? super.importFromJSON(processed) : this;
     }
 
