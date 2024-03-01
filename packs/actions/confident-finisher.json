@@ -45,7 +45,12 @@
                     "failure"
                 ],
                 "predicate": [
-                    "finisher:confident",
+                    {
+                        "or": [
+                            "finisher:confident",
+                            "eternal-confidence"
+                        ]
+                    },
                     {
                         "or": [
                             "item:melee",
@@ -63,9 +68,12 @@
                             "item:trait:agile",
                             "item:trait:finesse"
                         ]
+                    },
+                    {
+                        "not": "feat:precise-finisher"
                     }
                 ],
-                "selector": "attack-roll",
+                "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.Swashbuckler.Finisher.ConfidentNote",
                 "title": "{item|name}"
             }

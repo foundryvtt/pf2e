@@ -28,7 +28,109 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "add-opportune-riposte-toggle",
+                "priority": 49
+            },
+            {
+                "disabledIf": [
+                    {
+                        "not": "opportune-riposte"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "option": "impossible-riposte",
+                "priority": 51,
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    },
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitBleed",
+                        "value": "bleed"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "impossible-riposte"
+                ],
+                "property": "damage-type",
+                "value": "{item|flags.pf2e.rulesSelections.impossibleRiposte}"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "impossible-riposte"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.impossibleRiposte}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

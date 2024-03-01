@@ -24,7 +24,21 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "add-opportune-riposte-toggle",
+                "priority": 49
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "opportune-riposte"
+                ],
+                "selector": "strike-attack-roll"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
