@@ -1449,6 +1449,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .sort((a, b) => a.label.localeCompare(b.label)),
             variants: [],
             selectedAmmoId: weapon.system.selectedAmmoId,
+            canStrike: true,
             altUsages,
             auxiliaryActions,
             doubleBarrel,
