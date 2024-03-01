@@ -1655,7 +1655,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const processed = await preImportJSON(this, json);
+        const processed = await preImportJSON(json);
         return processed ? super.importFromJSON(processed) : this;
     }
 
