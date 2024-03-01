@@ -209,9 +209,17 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
         if (this.replaceAll) {
             const systemData = this.actor.system;
-            systemData.actions = systemData.actions.filter(
-                (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group,
-            );
+            systemData.actions = systemData.actions
+                .filter(
+                    (a) =>
+                        (a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group) ||
+                        a.item.shield,
+                )
+                .map((action) => {
+                    // Continue showing shields but disable strikes with them
+                    if (action.item.shield) action.canStrike = false;
+                    return action;
+                });
         } else if (this.replaceBasicUnarmed) {
             const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
