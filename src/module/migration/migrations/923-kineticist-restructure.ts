@@ -30,7 +30,6 @@ export class Migration923KineticistRestructure extends MigrationBase {
 
         // Extract every kineticist build decision. We need to recreate all of these decisions
         const decisions = this.#extractKineticistDecisions(actorSource, kineticGate);
-        console.log(decisions);
 
         // Update impulses independently
         impulses.system.rules = [
