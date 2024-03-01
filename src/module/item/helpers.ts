@@ -89,8 +89,11 @@ class ItemChatData {
                         contents: unfiltered.contents
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
-                                line.title &&= game.i18n.localize(line.title);
-                                line.text = game.i18n.localize(line.text);
+                                line.title &&= game.i18n.localize(line.title).trim();
+                                const text = game.i18n.localize(line.text).trim();
+                                line.text = text.startsWith("<")
+                                    ? createHTMLElement("div", { innerHTML: text }).innerText
+                                    : text;
                                 return line;
                             }),
                     };

@@ -1832,6 +1832,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, options, user);
+
         // Allow only one free crafting and quick alchemy to be enabled
         if (changed.flags?.pf2e?.freeCrafting) {
             changed.flags.pf2e.quickAlchemy = false;
