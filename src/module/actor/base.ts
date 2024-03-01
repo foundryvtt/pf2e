@@ -621,6 +621,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         updates: Record<string, unknown>[] = [],
         context: DocumentModificationContext<TokenDocumentPF2e | null> = {},
     ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
+        const isFullReplace = !((context?.diff ?? true) && (context?.recursive ?? true));
+        if (isFullReplace) return super.updateDocuments(updates, context);
+
         // Process rule element hooks for each actor update
         for (const changed of updates) {
             await processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
@@ -1677,6 +1680,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         options: ActorUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, options, user);
+
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
         const changedHP = changed.system?.attributes?.hp;
         const currentHP = this.hitPoints;

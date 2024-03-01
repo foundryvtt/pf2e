@@ -439,6 +439,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: ActorUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, options, user);
+
         if (typeof changed?.system?.attributes?.hp?.value === "number") {
             const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
             changed.system.attributes.hp.value = Math.clamped(changed.system.attributes.hp.value, 0, max);
