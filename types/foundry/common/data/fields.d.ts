@@ -335,6 +335,7 @@ export class SchemaField<
     override initialize(
         value: unknown,
         model?: ConstructorOf<abstract.DataModel>,
+        options?: Record<string, unknown>,
     ): MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>;
 
     protected override _validateType(
