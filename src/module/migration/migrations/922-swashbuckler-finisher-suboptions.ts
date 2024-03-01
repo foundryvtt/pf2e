@@ -43,7 +43,7 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
     }
 
     #buildRule(slug: string) {
-        const name = sluggify(slug, { camel: "bactrian" });
+        const name = sluggify(slug, { camel: "bactrian" }).replace("Finisher", "");
 
         const rule = {
             disabledIf: [
@@ -60,7 +60,7 @@ export class Migration922SwashbucklerFinishers extends MigrationBase {
             suboptions: [
                 {
                     label: `PF2E.SpecificRule.Swashbuckler.Finisher.${name}`,
-                    value: `${slug}`,
+                    value: `${slug.replace("-finisher", "")}`,
                 },
             ],
             toggleable: true,
