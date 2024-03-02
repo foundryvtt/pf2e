@@ -122,6 +122,7 @@ const creatureTraits = {
     azata: "PF2E.TraitAzata",
     beast: "PF2E.TraitBeast",
     boggard: "PF2E.TraitBoggard",
+    bugbear: "PF2E.TraitBugbear",
     caligni: "PF2E.TraitCaligni",
     celestial: "PF2E.TraitCelestial",
     "charau-ka": "PF2E.TraitCharauKa",
