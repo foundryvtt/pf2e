@@ -417,6 +417,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.level",
                         "system.maxTakable",
                         "system.potencyRune",
+                        "system.range",
                         "system.sanctification",
                         "system.slug",
                         "system.traits",
