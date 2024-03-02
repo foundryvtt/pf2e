@@ -72,7 +72,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             : item.name;
 
         if (item.isOfType("physical")) {
-            this.requiresEquipped = !!(source.requiresEquipped ?? true);
+            this.requiresEquipped ??= true;
             this.requiresInvestment =
                 item.isInvested === null ? null : !!(source.requiresInvestment ?? this.requiresEquipped);
 
@@ -87,6 +87,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             this.requiresEquipped = null;
             this.requiresInvestment = null;
         }
+
+        // Spinoff composition rules are always inactive
+        if (this.spinoff) this.ignored = true;
     }
 
     static override defineSchema(): RuleElementSchema {
@@ -107,6 +110,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            spinoff: new SlugField({ required: false, nullable: false, initial: undefined }),
         };
     }
 

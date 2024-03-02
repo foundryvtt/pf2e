@@ -1,10 +1,10 @@
 import type { ActorPF2e } from "@actor";
+import type { ActionTrait } from "@item/ability/index.ts";
+import type { ProficiencyRank } from "@item/base/data/index.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import type { ActionTrait } from "@item/ability/index.ts";
-import { ProficiencyRank } from "@item/base/data/index.ts";
 
-const ACTION_COSTS = ["free", "reaction", 1, 2, 3] as const;
+const ACTION_COSTS = ["free", "reaction", 0, 1, 2, 3] as const;
 type ActionCost = (typeof ACTION_COSTS)[number];
 
 const ACTION_SECTIONS = ["basic", "skill", "specialty-basic"] as const;

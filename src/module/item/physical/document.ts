@@ -1,15 +1,16 @@
-import { type ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
-import { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
+import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
-import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { ErrorPF2e, isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
-import {
+import type {
     IdentificationStatus,
     ItemActivation,
     ItemCarryType,
@@ -37,9 +38,14 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     declare subitems: Collection<PhysicalItemPF2e<TParent>>;
 
+    /** A map of effect spinoff objects, which can be used to create new effects from using certain items */
+    effectSpinoffs: Map<string, EffectSpinoff>;
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: PhysicalItemConstructionContext<TParent> = {}) {
         super(data, context);
         this.parentItem = context.parentItem ?? null;
+        this.effectSpinoffs = new Map();
+        Object.defineProperty(this, "effectSpinoffs", { enumerable: false });
     }
 
     get level(): number {
@@ -319,6 +325,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 this.system.apex.selected = false;
             }
         }
+
+        // Optionally chained in case this data preparation cycle is being run during construction
+        this.effectSpinoffs?.clear();
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
