@@ -3,8 +3,8 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
-import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
-import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import type { ConsumablePF2e, ShieldPF2e } from "@item";
+import { MeleePF2e, PhysicalItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
@@ -13,6 +13,7 @@ import type { PhysicalItemConstructionContext } from "@item/physical/document.ts
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
+import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
@@ -32,6 +33,10 @@ import type {
 import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    /** The rule element that generated this weapon or unarmed attack */
+    declare rule?: StrikeRuleElement;
+
+    /** The shield that generated this weapon */
     declare shield?: ShieldPF2e<TParent>;
 
     static override get validTraits(): Record<NPCAttackTrait, string> {
@@ -40,10 +45,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: WeaponConstructionContext<TParent> = {}) {
         super(data, context);
-
-        if (context.shield) {
-            this.shield = context.shield;
-        }
+        if (context.rule) this.rule = context.rule;
+        if (context.shield) this.shield = context.shield;
     }
 
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
@@ -699,7 +702,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             flags: { pf2e: { linkedWeapon: this.id } },
         };
 
-        const attack = new ItemProxyPF2e(source, { parent: this.actor }) as MeleePF2e<NonNullable<TParent>>;
+        const attack = new MeleePF2e(source, { parent: this.actor });
         // Melee items retrieve these during `prepareSiblingData`, but if the attack is from a Strike rule element,
         // there will be no inventory weapon from which to pull the data.
         attack.category = this.category;
@@ -783,6 +786,7 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 }
 
 interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends PhysicalItemConstructionContext<TParent> {
+    rule?: StrikeRuleElement;
     shield?: ShieldPF2e<TParent>;
 }
 

@@ -46,6 +46,8 @@ type WeaponFlags = ItemFlagsPF2e & {
         attackItemBonus: number;
         /** A tracking property of whether the damage die size has been upgraded */
         damageFacesUpgraded: boolean;
+        /** Whether this weapon was created by a Strike rule element configured to be renamable */
+        renamableStrike?: boolean;
     };
 };
 

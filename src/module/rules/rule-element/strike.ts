@@ -13,7 +13,7 @@ import type {
 } from "@item/weapon/types.ts";
 import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { StrictBooleanField } from "@system/schema-data-fields.ts";
-import { objectHasKey, sluggify } from "@util";
+import { ErrorPF2e, objectHasKey, sluggify } from "@util";
 import type {
     ArrayField,
     BooleanField,
@@ -42,6 +42,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         // Set defaults without writing to this#_source
         this.slug ??= sluggify(this.label);
         this.battleForm ??= false;
+        this.renamable ??= false;
         this.options ??= [];
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
             ? true
@@ -147,10 +148,23 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 nullable: true,
                 initial: null,
             }),
+            renamable: new fields.BooleanField({ required: false, initial: undefined }),
             options: new fields.ArrayField(new fields.StringField(), { required: false, initial: undefined }),
             fist: new fields.BooleanField({ required: false, nullable: false }),
             graspingAppendage: new StrictBooleanField({ required: false, nullable: false, initial: undefined }),
         };
+    }
+
+    static override validateJoint(data: SourceFromSchema<StrikeSchema>): void {
+        super.validateJoint(data);
+
+        if (data.renamable && !data.slug) {
+            throw new foundry.data.validation.DataModelValidationFailure({
+                invalidValue: data.renamable,
+                unresolved: true,
+                message: "renamable: must also have a defined slug",
+            }).asError();
+        }
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
@@ -256,6 +270,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 pf2e: {
                     battleForm: this.battleForm,
                     fixedAttack: actorIsNPC ? this.attackModifier ?? null : null,
+                    renamableStrike: this.renamable,
                 },
             },
             system: {
@@ -295,7 +310,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             },
         });
 
-        const weapon = new WeaponPF2e(source, { parent: actor });
+        const weapon = new WeaponPF2e(source, { parent: actor, rule: this });
         weapon.name = weapon._source.name; // Remove renaming by runes
         const alterations = actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
         for (const alteration of alterations) {
@@ -303,6 +318,19 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
 
         return weapon;
+    }
+
+    /** Relabel this strike from user input */
+    async relabel(newLabel: string): Promise<void> {
+        const trimmed = newLabel.trim();
+        if (trimmed.length === 0) throw ErrorPF2e("Cannot set blank label to Strike rule element");
+
+        const ruleSources = fu.deepClone(this.item._source.system.rules);
+        const thisSource = ruleSources.at(this.sourceIndex ?? 0);
+        if (thisSource?.slug !== this.slug) throw ErrorPF2e("Rule not found");
+        thisSource.label = trimmed;
+
+        await this.item.update({ "system.rules": ruleSources });
     }
 
     /** Toggle the modular or versatile trait of this strike's weapon */
@@ -320,6 +348,7 @@ interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFro
     slug: string;
     fist: boolean;
     options: string[];
+    renamable: boolean;
 
     get actor(): CharacterPF2e | NPCPF2e;
 }
@@ -383,11 +412,12 @@ type StrikeSchema = RuleElementSchema & {
     replaceAll: BooleanField<boolean, boolean, false, false, false>;
     /** Whether to replace the "basic unarmed" strike action */
     replaceBasicUnarmed: BooleanField<boolean, boolean, false, false, false>;
+    renamable: BooleanField<boolean, boolean, false, false, false>;
     /** Whether this attack is from a battle form */
-    battleForm: BooleanField<boolean, boolean, false, false, true>;
+    battleForm: BooleanField<boolean, boolean, false, false, false>;
     options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
-    fist: BooleanField<boolean, boolean, false, false, true>;
+    fist: BooleanField<boolean, boolean, false, false>;
     /** Whether the unarmed attack is a grasping appendage */
     graspingAppendage: StrictBooleanField<false, false, false>;
 };
