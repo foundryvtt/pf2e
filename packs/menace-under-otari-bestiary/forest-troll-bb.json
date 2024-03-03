@@ -134,7 +134,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 20 (Deactivated by Acid or Fire)",
+            "name": "Regeneration 20 (Deactivated by Electricity or Fire)",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -146,7 +146,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
+                    "value": "<p>The troll regains 20 Hit Points at the start of their turn unless they've taken electricity or fire damage since their last turn. The troll can't die unless their regeneration is deactivated when they're reduced to 0 HP.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -156,8 +156,8 @@
                 "rules": [
                     {
                         "deactivatedBy": [
-                            "acid",
-                            "fire"
+                            "fire",
+                            "electricity"
                         ],
                         "key": "FastHealing",
                         "type": "regeneration",
@@ -208,10 +208,49 @@
             "type": "action"
         },
         {
+            "_id": "zWd0ku7gg194xCer",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Easily Misled",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>The forest troll gets a -4 circumstance penalty to their Perception DC against deception checks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "vs-deception"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "GF6UeMf4pV1eNW2H",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -236,7 +275,7 @@
             "_id": "iLKl7VsV3ZdehVEB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -292,10 +331,10 @@
                 "value": ""
             },
             "hp": {
-                "details": "regeneration 20 (deactivated by acid or fire)",
-                "max": 115,
+                "details": "regeneration 20 (deactivated by electricity or fire)",
+                "max": 125,
                 "temp": 0,
-                "value": 115
+                "value": 125
             },
             "speed": {
                 "otherSpeeds": [],
@@ -303,7 +342,13 @@
             },
             "weaknesses": [
                 {
+                    "exceptions": [],
                     "type": "fire",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "electricity",
                     "value": 10
                 }
             ]
@@ -318,10 +363,10 @@
                 "value": 5
             },
             "privateNotes": "",
-            "publicNotes": "<p>Common trolls are dim-witted, gangly giants who stalk the fringes of civilization. They rely on their incredible strength to overpower foes with their vicious claws and toothy maws. A troll's endless hunger drives them to consume all variety of living creatures, and this ravenous eating fuels a troll's legendary regenerative abilities. Trolls stand anywhere from 12 to 16 feet tall, though they prefer to hunch for comfort and to lull foes into a false sense of security.</p>",
+            "publicNotes": "<p>Forest trolls are dim-witted, gangly giants who stalk the fringes of civilization. They rely on their incredible strength to overpower foes with their vicious claws. A troll's endless hunger drives them to consume a variety of living creatures. Trolls stand anywhere from 12 to 16 feet tall, though they prefer to hunch to lull foes into a false sense of security.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -361,7 +406,9 @@
                 "chaotic",
                 "evil",
                 "giant",
-                "troll"
+                "humanoid",
+                "troll",
+                "wood"
             ]
         }
     },
