@@ -58,7 +58,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                     type: actorData.type,
                     name: actorData.name,
                     img: actorData.img,
-                    uuid: `Compendium.${pack.collection}.${actorData._id}`,
+                    uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
                     complexity: actorData.system.details.isComplex ? "complex" : "simple",
                     traits: actorData.system.traits.value,
