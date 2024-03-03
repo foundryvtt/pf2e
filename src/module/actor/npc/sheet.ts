@@ -344,9 +344,13 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
             const glyph = getActionGlyph(item.actionCost);
             const actionGroup = glyph ? "active" : "passive";
-            const hasAura = item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura");
+            const has = {
+                aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+                deathNote: item.system.deathNote,
+                selfEffect: !!item.system.selfEffect,
+            };
 
-            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, hasAura });
+            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, has });
         }
 
         sheetData.attacks = attacks;

@@ -67,7 +67,11 @@ interface AbilityViewData {
     name: string;
     traits: TraitViewData[];
     glyph: string | null;
-    hasAura: boolean;
+    has: {
+        aura: boolean;
+        selfEffect: boolean;
+        deathNote: boolean;
+    };
 }
 
 interface ActorSheetRenderOptionsPF2e extends RenderOptions {

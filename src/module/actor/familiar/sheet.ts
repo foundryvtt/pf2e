@@ -65,13 +65,16 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
                     (a) => a.sort,
                 ).map((item) => {
                     const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
-                    const hasAura = item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura");
                     return {
                         _id: item.id,
                         name: item.name,
                         glyph: getActionGlyph(item.actionCost) || null,
                         traits,
-                        hasAura,
+                        has: {
+                            aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+                            deathNote: item.system.deathNote,
+                            selfEffect: !!item.system.selfEffect,
+                        },
                     };
                 }),
             },
