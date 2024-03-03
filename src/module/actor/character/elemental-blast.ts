@@ -187,7 +187,7 @@ class ElementalBlast {
 
             const mapsFor = (melee: boolean): { map0: string; map1: string; map2: string } => {
                 const modifiedItem = this.#createModifiedItem({ melee }) ?? item;
-                const blastStatistic = this.#createAttackStatistic(statistic, modifiedItem, melee);
+                const blastStatistic = this.#createAttackStatistic(statistic, modifiedItem);
                 const modifier = blastStatistic.check.mod;
                 const penalties = calculateMAPs(modifiedItem, { domains, options });
                 return {
@@ -297,20 +297,12 @@ class ElementalBlast {
         return clone;
     }
 
-    #createAttackStatistic(statistic: Statistic, item: AbilityItemPF2e<ActorPF2e>, melee: boolean): Statistic {
-        const actionSlug = "elemental-blast";
-        const meleeOrRanged = melee ? "melee" : "ranged";
+    #createAttackStatistic(statistic: Statistic, item: AbilityItemPF2e<ActorPF2e>): Statistic {
         return statistic.extend({
             check: {
-                domains: [`${actionSlug}-attack-roll`],
+                domains: ["elemental-blast-attack-roll"],
                 modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
             },
-            rollOptions: [
-                `action:${actionSlug}`,
-                `action:cost:${this.actionCost}`,
-                meleeOrRanged,
-                `item:${meleeOrRanged}`,
-            ],
         });
     }
 
@@ -344,7 +336,7 @@ class ElementalBlast {
             return null;
         }
 
-        const blastStatistic = this.#createAttackStatistic(statistic, item, params.melee);
+        const blastStatistic = this.#createAttackStatistic(statistic, item);
         const label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
             title: item.name,
             glyph: actionCost.toString(),
@@ -352,10 +344,11 @@ class ElementalBlast {
         });
         const meleeOrRanged = params.melee ? "melee" : "ranged";
         const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
+        const actionSlug = "elemental-blast";
 
         return blastStatistic.roll({
             identifier: `${blastConfig.element}.${params.damageType}.${meleeOrRanged}.${actionCost}`,
-            action: "elemental-blast",
+            action: actionSlug,
             attackNumber: mapIncreases + 1,
             target: targetToken?.actor ?? null,
             token: thisToken?.document ?? null,
@@ -365,6 +358,14 @@ class ElementalBlast {
             melee,
             damaging: true,
             dc: { slug: "ac" },
+            extraRollOptions: [
+                `action:${actionSlug}`,
+                `action:cost:${this.actionCost}`,
+                `self:action:cost:${this.actionCost}`,
+                `self:action:${meleeOrRanged}`,
+                meleeOrRanged,
+                `item:${meleeOrRanged}`,
+            ],
             ...eventToRollParams(params.event, { type: "check" }),
         });
     }
@@ -404,6 +405,9 @@ class ElementalBlast {
                 R.compact([
                     `action:${actionSlug}`,
                     `action:cost:${actionCost}`,
+                    `self:action:slug:${actionSlug}`,
+                    `self:action:cost:${actionCost}`,
+                    `self:action:${meleeOrRanged}`,
                     meleeOrRanged,
                     `item:${meleeOrRanged}`,
                     `item:damage:type:${params.damageType}`,

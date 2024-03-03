@@ -362,13 +362,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         );
 
         const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition])).sort();
-        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
-        const actionAndTraitOptions = new Set([
-            "action:cast-a-spell",
-            "self:action:slug:cast-a-spell",
-            ...actionTraitOptions,
-            ...spellTraits,
-        ]);
+        const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
             origin: { actor: this.actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
             target: isAttack ? { token: params.target } : null,
@@ -1004,14 +998,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        const spellTraits = R.uniq(R.compact([...this.system.traits.value, tradition])).sort();
-        const actionTraitOptions = spellTraits.map((t) => `self:action:trait:${t}`);
-        context.extraRollOptions = R.uniq([
-            "action:cast-a-spell",
-            "self:action:slug:cast-a-spell",
-            ...actionTraitOptions,
-            ...(context.extraRollOptions ?? []),
-        ]);
+        context.extraRollOptions = R.uniq(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
 
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
