@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/attack-popouts.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import { SkillAbbreviation } from "@actor/creature/data.ts";
+import type { SkillAbbreviation } from "@actor/creature/data.ts";
 import { SKILL_DICTIONARY } from "@actor/values.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -15,13 +15,13 @@ import { objectHasKey } from "@util";
  * Get an existing item macro if one exists, otherwise create a new one.
  * @param itemId
  */
-export async function rollItemMacro(itemId: string): Promise<ChatMessagePF2e | undefined | void> {
+export async function rollItemMacro(itemId: string, event: Event | null = null): Promise<ChatMessagePF2e | null> {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     const item = actor?.items?.get(itemId);
     if (!item) {
         ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
-        return;
+        return null;
     }
 
     if (item.isOfType("action", "feat") && item.system.selfEffect) {
@@ -29,7 +29,7 @@ export async function rollItemMacro(itemId: string): Promise<ChatMessagePF2e | u
     }
 
     // Trigger the item roll
-    return item.toChat();
+    return (await item.toMessage(event)) ?? null;
 }
 
 export async function createActionMacro({
