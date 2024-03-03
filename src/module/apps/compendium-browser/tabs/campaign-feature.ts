@@ -58,7 +58,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                     type: featData.type,
                     name: featData.name,
                     img: featData.img,
-                    uuid: `Compendium.${pack.collection}.${featData._id}`,
+                    uuid: featData.uuid,
                     level: featData.system.level?.value,
                     category: featData.system.category,
                     traits: featData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),

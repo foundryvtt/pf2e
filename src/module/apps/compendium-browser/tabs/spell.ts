@@ -104,7 +104,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         type: spellData.type,
                         name: spellData.name,
                         img: spellData.img,
-                        uuid: `Compendium.${pack.collection}.${spellData._id}`,
+                        uuid: spellData.uuid,
                         rank: spellData.system.level.value,
                         categories,
                         time: spellData.system.time,
