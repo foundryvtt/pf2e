@@ -29,7 +29,7 @@ import type {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types.ts";
-import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { MANDATORY_RANGED_GROUPS, MELEE_ONLY_TRAITS, RANGED_ONLY_TRAITS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
@@ -312,7 +312,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
               ? !!this.system.graspingAppendage
               : false;
 
-        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, this.system.attribute)) {
+        if (this.system.attribute && !ATTRIBUTE_ABBREVIATIONS.has(this.system.attribute)) {
             this.system.attribute = null;
         }
 
@@ -337,16 +337,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.reload.value = "-";
         }
 
-        if (this.system.category === "unarmed" && !this.system.traits.value.includes("unarmed")) {
-            this.system.traits.value.push("unarmed");
+        const traits = this.system.traits;
+        if (this.system.category === "unarmed" && !traits.value.includes("unarmed")) {
+            traits.value.push("unarmed");
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
-        const traitSet = this.traits;
-        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, this.system.group) || traitSet.has("thrown");
-        if (mandatoryRanged) {
-            this.system.range ??= 10;
-        }
+        const mandatoryRanged =
+            (this.system.group && MANDATORY_RANGED_GROUPS.has(this.system.group)) ||
+            (["combination", "thrown"] as const).some((t) => traits.value.includes(t));
+        if (mandatoryRanged) this.system.range ??= 10;
 
         // Ensure presence of traits array on melee usage if not have been added yet
         if (this.system.meleeUsage) {
@@ -357,15 +357,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Lazy-load toggleable traits
         this.system.traits.toggles = new WeaponTraitToggles(this);
 
-        // Ensure unarmed attacks always have the unarmed trait
-        const traitsArray = this.system.traits.value;
-        if (this.system.category === "unarmed" && !traitsArray.includes("unarmed")) {
-            this.system.traits.value.push("unarmed");
-        }
-
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
-        const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
+        const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-{1,3}$/.test(t));
         if (mandatoryMelee) this.system.range = null;
+
+        // Final sweep: remove any non-sensical trait that may throw off later automation
+        if (this.isMelee) {
+            traits.value = traits.value.filter((t) => !RANGED_ONLY_TRAITS.has(t) && !t.startsWith("volley"));
+        } else {
+            traits.value = traits.value.filter((t) => !MELEE_ONLY_TRAITS.has(t) && !t.startsWith("thrown-"));
+        }
 
         // Whether the ammunition or weapon itself should be consumed
         this.system.reload.consume = this.isMelee ? null : this.reload !== null;
@@ -396,10 +397,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 : this.system.damage.dice;
 
         // Add traits from fundamental runes
-        const baseTraits = this.system.traits.value;
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTrait = hasRunes && !baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+        const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
+        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
