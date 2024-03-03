@@ -69,8 +69,8 @@ interface AbilityViewData {
     glyph: string | null;
     has: {
         aura: boolean;
-        selfEffect: boolean;
         deathNote: boolean;
+        selfEffect: boolean;
     };
 }
 
