@@ -2,12 +2,30 @@ import type { WeaponGroup, WeaponTrait } from "./types.ts";
 
 const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;
 
-const MELEE_OR_RANGED_GROUPS = new Set(["dart", "knife"] as const);
+const WEAPON_GROUPS = new Set([
+    "axe",
+    "bomb",
+    "bow",
+    "brawling",
+    "club",
+    "crossbow",
+    "dart",
+    "firearm",
+    "flail",
+    "hammer",
+    "knife",
+    "pick",
+    "polearm",
+    "shield",
+    "sling",
+    "spear",
+    "sword",
+] as const);
 
+const MELEE_OR_RANGED_GROUPS = new Set(["brawling", "dart", "knife"] as const);
 const MELEE_WEAPON_GROUPS = new Set([
     ...MELEE_OR_RANGED_GROUPS,
     "axe",
-    "brawling",
     "club",
     "flail",
     "hammer",
@@ -16,12 +34,10 @@ const MELEE_WEAPON_GROUPS = new Set([
     "shield",
     "spear",
     "sword",
-] as const);
+] as const satisfies WeaponGroup[]);
 
 /** Groups that will be forced as ranged weapons */
 const MANDATORY_RANGED_GROUPS: Set<WeaponGroup> = new Set(["bomb", "bow", "crossbow", "firearm", "sling"]);
-
-const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, "bomb", "bow", "crossbow", "firearm", "sling"] as const);
 
 const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "ancestralEchoing",
@@ -127,7 +143,6 @@ const RANGED_ONLY_TRAITS: Set<WeaponTrait> = new Set([
 
 const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set([
     "brace",
-    "critical-fusion",
     "disarm",
     "finesse",
     "grapple",

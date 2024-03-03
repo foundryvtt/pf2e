@@ -533,7 +533,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 group: meleeUsage.group,
                 range: null,
                 reload: { value: null },
-                traits: { value: meleeUsage.traits.concat("combination"), toggles: traitToggles },
+                traits: { value: [...meleeUsage.traits], toggles: traitToggles },
                 selectedAmmoId: null,
             },
             flags: {
