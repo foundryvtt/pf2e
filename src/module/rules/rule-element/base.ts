@@ -525,13 +525,11 @@ interface ResolveValueParams {
     warn?: boolean;
 }
 
-type RuleElementOptions = {
-    parent: ItemPF2e<ActorPF2e>;
-    strict?: boolean;
+interface RuleElementOptions extends ParentedDataModelConstructionOptions<ItemPF2e<ActorPF2e>> {
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
-};
+}
 
 export { RuleElementPF2e, type RuleElementOptions };
