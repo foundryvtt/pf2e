@@ -284,6 +284,32 @@
                     "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Air",
                     "range": 60
                 }
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "predicate": [
+                            "junction:air:aura"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Air)"
+                    }
+                ],
+                "key": "Aura",
+                "level": "@actor.level",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "priority": 99,
+                "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
+                "slug": "kinetic-aura",
+                "traits": [
+                    "kineticist",
+                    "primal"
+                ]
             }
         ],
         "traits": {

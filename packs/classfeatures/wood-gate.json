@@ -277,6 +277,26 @@
                     "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Wood",
                     "range": 30
                 }
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Wood)"
+                    }
+                ],
+                "key": "Aura",
+                "level": "@actor.level",
+                "predicate": [
+                    "self:effect:kinetic-aura"
+                ],
+                "priority": 99,
+                "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
+                "slug": "kinetic-aura",
+                "traits": [
+                    "kineticist",
+                    "primal"
+                ]
             }
         ],
         "traits": {
