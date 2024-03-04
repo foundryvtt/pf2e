@@ -57,11 +57,16 @@ abstract class RollContext<
         this.unresolved = { origin, target };
         this.domains = params.domains;
         this.rollOptions = params.options;
-        this.traits = params.traits ?? [];
         this.viewOnly = !!params.viewOnly;
         this.isAttack = ["attack", "attack-roll", "attack-damage"].some((d) => this.domains.includes(d));
 
         const item = this.item;
+
+        this.traits = params.traits ?? [];
+        if (this.traits.length === 0 && item?.isOfType("action", "spell")) {
+            this.traits = [...item.system.traits.value];
+        }
+
         this.isMeleeAttack = this.isAttack && !!(item?.isOfType("action", "melee", "spell", "weapon") && item.isMelee);
     }
 

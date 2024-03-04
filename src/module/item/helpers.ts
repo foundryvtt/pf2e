@@ -45,15 +45,26 @@ class ItemChatData {
     data: RawItemChatData;
     htmlOptions: EnrichmentOptionsPF2e;
 
+    /** A showdown markdown converter */
+    declare static mdConverter: showdown.Converter;
+
     constructor({ item, data, htmlOptions = {} }: ItemChatDataConstructorOptions) {
         this.item = item;
         this.data = data;
         this.htmlOptions = htmlOptions;
+        // Workaround vite not resolving import in time
+        ItemChatData.mdConverter ??= new showdown.Converter();
     }
 
     async process(): Promise<RawItemChatData> {
         const description = { ...this.data.description, value: await this.#prepareDescription() };
         return fu.mergeObject(this.data, { description }, { inplace: false });
+    }
+
+    #sanitizeMarkdown(text: string): string {
+        const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(text).trim() }).innerText;
+        const stringyHTML = ItemChatData.mdConverter.makeHtml(htmlStripped).replace(/<\/?p[^>]*>/g, "");
+        return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
     }
 
     async #prepareDescription(): Promise<string> {
@@ -90,10 +101,7 @@ class ItemChatData {
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
                                 line.title &&= game.i18n.localize(line.title).trim();
-                                const text = game.i18n.localize(line.text).trim();
-                                line.text = text.startsWith("<")
-                                    ? createHTMLElement("div", { innerHTML: text }).innerText
-                                    : text;
+                                line.text = this.#sanitizeMarkdown(line.text);
                                 return line;
                             }),
                     };

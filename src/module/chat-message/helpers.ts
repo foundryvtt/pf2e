@@ -15,7 +15,7 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFla
 async function createSelfEffectMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
     rollMode: RollMode | "roll" = "roll",
-): Promise<ChatMessagePF2e | undefined> {
+): Promise<ChatMessagePF2e | null> {
     if (!item.system.selfEffect) {
         throw ErrorPF2e(
             [
@@ -57,7 +57,7 @@ async function createSelfEffectMessage(
     const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
     const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
 
-    return ChatMessagePF2e.create(messageData);
+    return (await ChatMessagePF2e.create(messageData)) ?? null;
 }
 
 async function applyDamageFromMessage({

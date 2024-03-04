@@ -44,6 +44,8 @@ type RuleElementSchema = {
     requiresEquipped: BooleanField<boolean, boolean, false, true, false>;
     /** Whether the rule element requires that the parent item (if physical) be invested */
     requiresInvestment: BooleanField<boolean, boolean, false, true, false>;
+    /** A grouping slug to mark a rule as a part of a spinoff effect, which some item types can compose */
+    spinoff: SlugField<false, false, false>;
 };
 
 class ResolvableValueField<

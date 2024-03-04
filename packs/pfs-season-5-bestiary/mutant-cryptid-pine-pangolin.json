@@ -1,0 +1,556 @@
+{
+    "_id": "QoTiAPdSnxN6jfzF",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Frbb8rjaZxITynO6",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "2ocrsXBoRbwEDgfB": {
+                        "damage": "2d12+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "0KXkA7m63IDQ9NIz",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tongue",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "ByGEwHrTkaJDJ0dp": {
+                        "damage": "2d8+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "JysGjLVn8IglxjMg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.cfqRc4clMniqQNsl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Explosive End",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>The mutant pangolin's death reveals one last surprise as it explodes into splinters. When it dies, it explodes, dealing @Damage[4d6[piercing]] damage to each creature in a @Template[type:emanation|distance:10], with a basic @Check[type:reflex|dc:26] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [],
+                "slug": "cryptid-mutant-explosive-end",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RdcTBXUDcOhG6Cjy",
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "prone": {
+                            "id": "UCS8o3eGnhKNsX14",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Roll Up",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mutant pine pangolin falls @UUID[Compendium.pf2e.conditionitems.Item.Prone], closes up its scales, and rolls into a ball. While Rolled Up, the pangolin gains resistance 10 to physical damage and total immunity to falling damage from heights of 50 feet or less. The only action the pine pangolin can take is to Stand, and the effects of Roll Up end once the pangolin Stands.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "roll-up",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "roll-up"
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "roll-up"
+                        ],
+                        "reevaluateOnUpdate": true,
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Prone"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dyvB5o0Y6YxRtDwR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Secrete Tar",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The mutant pine pangolin secretes a brown, sticky tar within a @Template[type:emanation|distance:5], making those squares difficult terrain for 1 minute. Each creature that enters or starts its turn in a tarred square must succeed at a @Check[type:fortitude|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it Escapes. On a critical failure, the creature falls @UUID[Compendium.pf2e.conditionitems.Item.Prone]; prone creatures take a –2 circumstance penalty to their checks to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the tar. The pine pangolin is immune to the effects of its own tar.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "plant"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "JfPjwX49dzOuqGpA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ZUxt6s54TMgydXoW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shifting Iridescence",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the mutant pine pangolin takes energy damage to which it isn't resistant or immune, after taking the damage normally, it gains resistance 5 to that damage type. If it had a resistance to a different damage type from shifting iridescence, it replaces the old resistance with the new resistance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shifting-iridescence",
+                        "selection": "acid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitForce",
+                                "value": "force"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            },
+                            {
+                                "label": "PF2E.TraitVitality",
+                                "value": "vitality"
+                            },
+                            {
+                                "label": "PF2E.TraitVoid",
+                                "value": "void"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "shifting-iridescence"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.shiftingIridescence}",
+                        "value": "ternary(gte(@actor.level,17),15,ternary(gte(@actor.level,9),10,5))"
+                    }
+                ],
+                "slug": "cryptid-mutant-shifting-iridescence",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9v7ZNEaolnaC9N1v",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.SEU4K3QRAUHEMRl2"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unusual Bane",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>This mutant pine pangolin is traumatized by the former Conference Z staff who teamed up to hold it down while experimenting on it. The first time each round the mutant pine pangolin comes within 15 feet of any character who took the Aid action, or is attacked while being flanked by two characters, it takes @Damage[8[mental]] damage and must attempt a @Check[type:will|dc:26] save. On a failure, it is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Dark Archive"
+                },
+                "rules": [],
+                "slug": "cryptid-mutant-unusual-bane",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GdKbn5sYIuXZL0R3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ltf1nYQHQLIwp65S",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "SV6cZ9hGHwiSvwOM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Mutant Cryptid Pine Pangolin",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 160,
+                "temp": 0,
+                "value": 160
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "axe-vulnerability",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant pine pangolin",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These creatures sleep while hanging upside down by their partially curled tails and rely on their thick wooden scales to protect them from danger. One such danger the scales negate is the falling damage from deliberately rolling up and dropping onto the head of an unsuspecting opponent, which is one of their favorite combat strategies. Beneath their scales, pine pangolin bodies secrete a thick, sticky tar that serves as a secondary line of defense.</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #5-11: The Hidden Current"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 19
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "elemental",
+                "plant",
+                "wood"
+            ]
+        }
+    },
+    "type": "npc"
+}

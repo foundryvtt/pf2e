@@ -63,7 +63,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         type: actionData.type,
                         name: actionData.name,
                         img: actionData.img,
-                        uuid: `Compendium.${pack.collection}.${actionData._id}`,
+                        uuid: actionData.uuid,
                         traits: actionData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                         actionType: actionData.system.actionType.value,
                         category: actionData.system.category,

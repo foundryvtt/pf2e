@@ -52,9 +52,9 @@
 
         {{#if (and (eq item.type "consumable") chatData.isUsable (not item.isAmmo))}}
             {{#if (gt item.system.uses.value 0)}}
-                <button class="blue" type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
+                <button type="button" class="blue" data-action="consume-item">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
             {{else}}
-                <button class="blue" type="button" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
+                <button type="button" class="blue" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
             {{/if}}
         {{/if}}
     </div>

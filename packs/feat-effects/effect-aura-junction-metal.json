@@ -1,0 +1,52 @@
+{
+    "_id": "MFCcEWCC9PR46qPy",
+    "img": "systems/pf2e/icons/spells/cascade-countermeasure.webp",
+    "name": "Effect: Aura Junction (Metal)",
+    "system": {
+        "description": {
+            "value": "<p>Creatures with the metal trait take a -1 status penalty to AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac"
+                ],
+                "type": "status",
+                "value": -1,
+                "predicate": [
+                    {
+                        "or": [
+                            "self:trait:metal"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

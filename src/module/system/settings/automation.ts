@@ -33,7 +33,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
-                default: BUILD_MODE === "development",
+                default: true,
                 type: Boolean,
                 onChange: (value) => {
                     game.pf2e.settings.iwr = !!value;

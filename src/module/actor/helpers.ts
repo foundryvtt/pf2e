@@ -454,6 +454,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
         additionalEffects,
         item,
         weapon: item,
+        canStrike: true,
         options: Array.from(baseOptions),
         traits: [
             actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),

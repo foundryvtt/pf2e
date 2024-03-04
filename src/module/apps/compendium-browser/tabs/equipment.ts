@@ -109,7 +109,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                         type: itemData.type,
                         name: itemData.name,
                         img: itemData.img,
-                        uuid: `Compendium.${pack.collection}.${itemData._id}`,
+                        uuid: itemData.uuid,
                         level: itemData.system.level?.value ?? 0,
                         category: itemData.system.category ?? "",
                         group: itemData.system.group ?? "",

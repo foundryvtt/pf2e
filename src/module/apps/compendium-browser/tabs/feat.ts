@@ -106,7 +106,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         type: featData.type,
                         name: featData.name,
                         img: featData.img,
-                        uuid: `Compendium.${pack.collection}.Item.${featData._id}`,
+                        uuid: featData.uuid,
                         level: featData.system.level.value,
                         category: featData.system.category,
                         skills: [...skills],
