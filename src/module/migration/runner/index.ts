@@ -31,7 +31,24 @@ export class MigrationRunner extends MigrationRunnerBase {
                     return null;
                 }
             })();
-            if (updated) document.updateSource(updated);
+
+            if (updated) {
+                // Ensure new items have IDs and deleted items are removed
+                if ("items" in updated && "items" in document._source) {
+                    for (const updatedItem of updated.items) {
+                        updatedItem._id ??= fu.randomID();
+                    }
+
+                    const itemSources = document._source.items;
+                    for (const itemSource of [...itemSources]) {
+                        if (!updated.items.some((i) => i._id === itemSource._id)) {
+                            itemSources.splice(itemSources.indexOf(itemSource), 1);
+                        }
+                    }
+                }
+
+                document.updateSource(updated);
+            }
         }
 
         document.updateSource({ "system._migration.version": currentVersion });
