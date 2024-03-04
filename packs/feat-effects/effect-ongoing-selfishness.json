@@ -23,8 +23,21 @@
         "rules": [
             {
                 "key": "Resistance",
+                "predicate": [
+                    {
+                        "not": "feature:divine-smite"
+                    }
+                ],
                 "type": "all-damage",
                 "value": "(floor(@actor.level/2)+2)/2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:divine-smite"
+                ],
+                "type": "all-damage",
+                "value": "(floor(@actor.level/2)+max(2,@actor.system.abilities.cha.mod))/2"
             }
         ],
         "start": {
