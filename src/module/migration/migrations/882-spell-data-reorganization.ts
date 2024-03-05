@@ -269,7 +269,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
     }
 }
 
-type MaybeOldSpellSystemSource = Omit<DeepPartial<SpellSystemSource>, "traditions"> & {
+type MaybeOldSpellSystemSource = Omit<DeepPartial<SpellSystemSource>, "traditions" | "ritual"> & {
     spellType?: { value?: string };
     "-=spellType"?: null;
 
@@ -302,6 +302,8 @@ type MaybeOldSpellSystemSource = Omit<DeepPartial<SpellSystemSource>, "tradition
     "-=hasCounteractCheck"?: null;
 
     damage?: { value?: Record<string, unknown> };
+
+    ritual?: unknown;
 
     // Random legacy cruft
     "-=ability"?: null;
