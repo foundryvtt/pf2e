@@ -1,5 +1,8 @@
 import * as R from "remeda";
 import { materialDamageEffects } from "./damage.ts";
+import { magicTraditions } from "./traits.ts";
+
+const traditionIWR = R.mapValues(magicTraditions, (_, t) => `PF2E.Damage.IWR.Type.${t}`);
 
 const materialIWR = R.mapValues(
     // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
@@ -19,6 +22,7 @@ const sanctifiedIWR = { holy: "PF2E.Damage.IWR.Type.holy", unholy: "PF2E.Damage.
 const immunityTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
@@ -107,6 +111,7 @@ const immunityTypes = {
 const weaknessTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     alchemical: "PF2E.Damage.IWR.Type.alchemical",
@@ -162,6 +167,7 @@ const weaknessTypes = {
 const resistanceTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",
