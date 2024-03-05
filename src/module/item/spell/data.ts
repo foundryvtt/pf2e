@@ -123,11 +123,17 @@ interface SpellDefenseData extends SpellDefenseSource {
 type SpellOverlay = SpellOverlayOverride;
 type SpellOverlayType = SpellOverlay["overlayType"];
 
+interface RitualSecondaryCasters {
+    min: number;
+    max: number | null;
+    details: string;
+}
+
 interface RitualData {
     /** Details of the primary check for the ritual */
     primary: { check: string };
-    /** Details of the secondary check(s) for the ritual and maximum number of casters */
-    secondary: { checks: string; casters: number };
+    /** Details of the secondary check(s) for the ritual and a number of casters */
+    secondary: { checks: string; casters: RitualSecondaryCasters };
 }
 
 export type {
