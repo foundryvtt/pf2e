@@ -1,27 +1,29 @@
 {
-    "_id": "rPHxXClTnoPYHYuZ",
+    "_id": "eq4tLYV3efCS2ouP",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "L4dKqPtdmyspmZtd",
+            "_id": "P3ldoLqhsH29iK6i",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Claw",
             "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
-                    "value": []
+                    "value": [
+                        "grab",
+                        "reefclaw-venom"
+                    ]
                 },
                 "bonus": {
-                    "value": 15
+                    "value": 9
                 },
                 "damageRolls": {
-                    "ouvlhsbcjxh9nhp23h22": {
-                        "damage": "2d8+4",
-                        "damageType": "piercing"
+                    "79OI4uAfgnjgvksq": {
+                        "damage": "1d6+1",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -35,8 +37,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -45,7 +48,7 @@
             "type": "melee"
         },
         {
-            "_id": "WjBhdxKcekKdof75",
+            "_id": "DDvnjSjjPPxmiFky",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
@@ -80,10 +83,39 @@
             "type": "action"
         },
         {
-            "_id": "Nl15bkRTLq869IPi",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Petrifying Glance",
+            "_id": "QC6Qfhm9C414P0oL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constrict",
             "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>If the reefclaw has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], it can spend one action to crush them in its coils. The creature takes [[/r 1d6[bludgeoning]]] damage depending on its @Check[type:fortitude|dc:17|basic:true] save.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "RkZmlmhuBgERLtp0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Death Frenzy",
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -91,51 +123,124 @@
                 "actions": {
                     "value": null
                 },
-                "category": "defensive",
+                "category": null,
+                "deathNote": true,
                 "description": {
-                    "value": "<p>When a creature the basilisk can see within 30 feet starts its turn, the basilisk can use its reaction to glance at the creature.</p>\n<p>The creature must attempt a @Check[type:fortitude|dc:20] save. If it fails, it gains the @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} condition for 1 minute as its body slowly stiffens.</p>"
+                    "value": "<p>When the reefclaw is reduced to 0 hit points it can spend this reaction to make a claw Strike before dying.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:slug:petrifying-glance"
-                        ],
-                        "key": "Immunity",
-                        "label": "{item|name}",
-                        "type": "custom"
-                    }
-                ],
-                "slug": "petrifying-glance",
+                "rules": [],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "aura"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "tOCS9mkYR5K1LuOZ",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Petrifying Gaze",
-            "sort": 400000,
+            "_id": "mge8vQkbMqv0OxCE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grab",
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
-                "category": "offensive",
+                "category": null,
                 "description": {
-                    "value": "<p>The basilisk stares at a creature it can see within 30 feet. If the creature can see the basilisk, that creature must attempt a @Check[type:fortitude|dc:22] save.</p>\n<p>If it fails and hasn't already gained the slowed condition from Petrifying Glance or this ability, it gains the @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} condition. If the creature fails this save when it already has the slowed condition from this ability or Petrifying Glance, the creature is permanently turned to @UUID[Compendium.pf2e.conditionitems.Item.Petrified]{Stone}.</p>\n<p>A creature petrified in this manner that is coated with fresh basilisk blood is instantly restored to flesh. A single basilisk contains enough blood to coat up to 2 creatures in this manner.</p>"
+                    "value": "<p>When the reeflclaw succeeds at its claw Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the reefclaw's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kExVKNRglkSawA2u",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reefclaw Venom",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>A target that takes slashing damage from the reefclaw's claw Strike must succeed at a @Check[type:fortitude|dc:17|traits:damaging-effect] save or take [[/r 1d6[poison]]] damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wmA9Y2PvFehlInX3",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OwfNdeLLong9waHc",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
                 },
                 "publication": {
                     "license": "OGL",
@@ -144,80 +249,32 @@
                 },
                 "rules": [
                     {
-                        "definition": [
-                            "petrifying-gaze"
+                        "key": "FlatModifier",
+                        "label": "Swim",
+                        "predicate": [
+                            "traits:action:swim"
                         ],
-                        "key": "Immunity",
-                        "type": "custom"
+                        "selector": "skill-check",
+                        "value": 4
                     }
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate"
-                    ]
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to swim",
+                        "options": "traits:action:swim"
+                    }
                 }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "3cCcIuDWAUaPqBbO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Y6lsS4ZQa6hdjjfK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
             },
             "type": "lore"
         }
     ],
-    "name": "Basilisk (BB)",
+    "name": "Reefclaw (BB)",
     "prototypeToken": {
-        "name": "Basilisk"
+        "name": "Reefclaw"
     },
     "system": {
         "abilities": {
@@ -225,38 +282,43 @@
                 "mod": 1
             },
             "con": {
-                "mod": 5
+                "mod": 2
             },
             "dex": {
-                "mod": -1
+                "mod": 4
             },
             "int": {
                 "mod": -3
             },
             "str": {
-                "mod": 4
+                "mod": 1
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 22
+                "value": 20
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 75,
+                "max": 17,
                 "temp": 0,
-                "value": 75
+                "value": 17
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": 20
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 5
             }
         },
         "details": {
@@ -266,10 +328,10 @@
                 "value": []
             },
             "level": {
-                "value": 5
+                "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>A basilisk is an eight-legged reptile that can turn creatures to stone just by looking at them.</p>",
+            "publicNotes": "<p>Reefclaws are aquatic monsters that resemble huge shrimp or lobsters. Though reefclaws can't speak, they are intelligent enough to understand the local language of humanoids near their hunting grounds.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -280,36 +342,33 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
-            "mod": 11,
-            "senses": [
-                {
-                    "type": "darkvision"
-                }
-            ]
+            "details": "darkvision",
+            "mod": 8,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 14
+                "value": 7
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 8
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": 11
+                "value": 4
             }
         },
         "traits": {
             "rarity": "common",
             "size": {
-                "value": "med"
+                "value": "sm"
             },
             "value": [
-                "beast"
+                "aberration",
+                "aquatic"
             ]
         }
     },

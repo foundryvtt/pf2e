@@ -1,9 +1,9 @@
 {
-    "_id": "wqPYzMNgYvrO6oEP",
+    "_id": "CF82XJwObLx0TPnV",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "lOUQcokkfOtGgPNG",
+            "_id": "YADLbQreiFz2uJ0E",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
@@ -12,17 +12,16 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
                         "grab"
                     ]
                 },
                 "bonus": {
-                    "value": 10
+                    "value": 11
                 },
                 "damageRolls": {
-                    "tzgxd2prihpmcn24hhht": {
-                        "damage": "1d10+3",
+                    "IfFWrSR2HVylatTp": {
+                        "damage": "1d8+4",
                         "damageType": "piercing"
                     }
                 },
@@ -37,56 +36,8 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finesse"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "YZxhBg9R5m8ydWm1",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
-            "sort": 200000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
-                "bonus": {
-                    "value": 10
-                },
-                "damageRolls": {
-                    "df27ya009wjko6cvpcog": {
-                        "damage": "1d6+3",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
                 "weaponType": {
                     "value": "melee"
                 }
@@ -94,15 +45,15 @@
             "type": "melee"
         },
         {
-            "_id": "lRaDhQKMgeR6IjAB",
+            "_id": "ekDqvB1u4JdXoAhf",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 300000,
+            "name": "Darkvision",
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -112,7 +63,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -120,7 +71,7 @@
                     "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": "low-light-vision",
+                "slug": "darkvision",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -129,9 +80,38 @@
             "type": "action"
         },
         {
-            "_id": "uEjliLhQWBsVYCsE",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Maul",
+            "_id": "VLWCAVOCAqcO4PEB",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Avenging Bite",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p>When a creature within the reach of the warg's bite attacks one of its allies, the warg can spend its reaction to make a jaws Strike against that creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mJ3ooxqjYUrJwT6T",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grab",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -140,9 +120,9 @@
                 "actions": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": null,
                 "description": {
-                    "value": "<p>The leopard makes two claw Strikes against a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The second attack uses the same multiple attack penalty as the first, but later attacks that turn take a -10 multiple attack penalty (or -8 for its claws).</p>"
+                    "value": "<p>When the warg succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the warg's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -152,52 +132,16 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "iuFRjKw2PLJl3E3F",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Pounce",
+            "_id": "KapyaNm62BvUi1J6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
             "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The leopard Strides and makes a Strike at the end of that movement. If the leopard successfully used @UUID[Compendium.pf2e.actionspf2e.Item.Hide] before this action, the target has the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition against this Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8Hc25NUrYBwSHQuO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -205,51 +149,44 @@
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": null,
                 "description": {
-                    "value": "<p>The leopard deals an extra 1d4 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
+                    "value": "<p>The warg's jaws Strike deals 1d4 extra damage to creatures within reach of two of the warg's allies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
                     {
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "target:condition:off-guard"
+                            "pack-attack"
                         ],
                         "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
                     }
                 ],
-                "slug": "sneak-attack",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "5o4Qh26axxAvJeUp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 700000,
+            "_id": "Db24UdpGiWsgWITM",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shred",
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -257,35 +194,34 @@
                 "actions": {
                     "value": 1
                 },
-                "category": "offensive",
+                "category": null,
                 "description": {
-                    "value": "<p>When the leopard succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the leopard's multiple attack penalty.</p>"
+                    "value": "<p>If the warg has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], it can spend one action to shred them with its teeth. The creature takes [[/r 1d6[slashing]]] damage and can make a @Check[type:fortitude|dc:18|basic:true] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "fA1aciXKGc5vvKn1",
+            "_id": "QPnGFkMrAPO8RT6x",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
+                    "value": 0
                 },
                 "proficient": {
                     "value": 0
@@ -302,9 +238,35 @@
             "type": "lore"
         },
         {
-            "_id": "298KQ3rpABEbmVO7",
+            "_id": "nC43PTZwJDrYoD2v",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sJ1Z546pB6k3YwSS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
             "sort": 900000,
             "system": {
                 "description": {
@@ -328,9 +290,9 @@
             "type": "lore"
         },
         {
-            "_id": "GRUZiIR1Uu91DaoY",
+            "_id": "Hu8UYwWxAE2K5wsb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Athletics",
             "sort": 1000000,
             "system": {
                 "description": {
@@ -347,76 +309,159 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Undergrowth",
-                        "predicate": [
-                            "terrain:undergrowth"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
+                "rules": [],
                 "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+11 in undergrowth",
-                        "options": "terrain:undergrowth"
-                    }
-                }
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "jKKz15c1ydJrAANk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "o4tH3NZyiTZQ91iS",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 6
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "EpTnliTgPedZxtxz",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "TB7CU2SJX1Ze5Pl5",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
     ],
-    "name": "Leopard (BB)",
+    "name": "Warg (BB)",
     "prototypeToken": {
-        "name": "Leopard"
+        "name": "Warg"
     },
     "system": {
         "abilities": {
             "cha": {
-                "mod": -2
-            },
-            "con": {
                 "mod": 2
             },
-            "dex": {
-                "mod": 4
-            },
-            "int": {
-                "mod": -4
-            },
-            "str": {
+            "con": {
                 "mod": 3
             },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 4
+            },
             "wis": {
-                "mod": 1
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 17
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 30,
+                "max": 36,
                 "temp": 0,
-                "value": 30
+                "value": 36
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "climb",
-                        "value": 20
-                    }
-                ],
-                "value": 30
+                "otherSpeeds": [],
+                "value": 40
             }
         },
         "details": {
@@ -429,7 +474,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Leopards range from the iconic yellow with black spots to black panthers and white-furred, black-spotted snow leopards. Few predators can match their talent for stalking and stealth.</p>",
+            "publicNotes": "<p>Wargs are often mistaken for wolves, but they have a cunning intelligence and the ability to speak. Wargs often form hunting parties with orcs and hobgoblins. Most wargs are amenable to this arrangement, but if food should run out, wargs are more than willing to integrate goblinoid flesh into their diet.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -440,27 +485,23 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
-            "mod": 7,
-            "senses": [
-                {
-                    "type": "low-light-vision"
-                }
-            ]
+            "details": "darkvision",
+            "mod": 8,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 8
+                "value": 11
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 10
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 6
             }
         },
         "traits": {
@@ -469,7 +510,7 @@
                 "value": "med"
             },
             "value": [
-                "animal"
+                "beast"
             ]
         }
     },
