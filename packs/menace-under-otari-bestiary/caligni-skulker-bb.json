@@ -183,14 +183,14 @@
             "type": "melee"
         },
         {
-            "_id": "up3YaXgjsQyn9zq9",
+            "_id": "7VcqKq1kJG1lIikf",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.7EuWv6tGtOASvzbG.Item.AwAca1cY9Y1Fj5kZ"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Light Blindness",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -201,18 +201,83 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                    "value": "<p>When first exposed to bright light, the caligni can't see until the end of their next turn. All squares are difficult terrain for them, and they take a -4 status penalty to Perception. If they try to attack a creature, the attack fails unless they succeed at a @Check[type:flat|dc:11]. Light doesn't blind them again for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "darkvision",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tnrpIta4aIaPM8BC",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Final Night",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "deathNote": true,
+                "description": {
+                    "value": "<p>When a caligni skulker dies, their body dissolves fog of inky darkness. All light sources within 20 feet are extinguished. Any light spells in the area go out for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZbD9TnQEJRZkJH2M",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.Rr1wwJ1jIIhRZbXh.Item.WmxT51qlRDtAKJVg"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkening Poison",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The next time the skulker deals damage with a dagger Strike, the target must succeed at a @Check[type:fortitude|dc:16|traits:damaging-effect] save or take @Damage[1d8[poison]] damage and treat all creatures as @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 1 round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
                 }
             },
             "type": "action"
@@ -226,7 +291,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -234,7 +299,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": "interaction",
+                "category": "offensive",
                 "description": {
                     "value": "<p>The caligni skulker deals an extra 1d6 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
                 },
@@ -270,110 +335,10 @@
             "type": "action"
         },
         {
-            "_id": "ZbD9TnQEJRZkJH2M",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.Rr1wwJ1jIIhRZbXh.Item.WmxT51qlRDtAKJVg"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Darkening Poison",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The next time the skulker deals damage with a dagger Strike, the target must succeed at a @Check[type:fortitude|dc:16|traits:damaging-effect] save or take @Damage[1d8[poison]] damage and treat all creatures as @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": [
-                        "poison"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "tnrpIta4aIaPM8BC",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Final Night",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "deathNote": true,
-                "description": {
-                    "value": "<p>When a caligni skulker dies, their body dissolves fog of inky darkness. All light sources within 20 feet are extinguished. Any light spells in the area go out for 1 round.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7VcqKq1kJG1lIikf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.7EuWv6tGtOASvzbG.Item.AwAca1cY9Y1Fj5kZ"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Light Blindness",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>When first exposed to bright light, the caligni can't see until the end of their next turn. All squares are difficult terrain for them, and they take a -4 status penalty to Perception. If they try to attack a creature, the attack fails unless they succeed at a @Check[type:flat|dc:11]. Light doesn't blind them again for 1 hour.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ccGeqZNGg7QXYu5P",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -399,7 +364,7 @@
             "_id": "vxQ2RV4EX8ZkeEfj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -425,7 +390,7 @@
             "_id": "8PVH2VWtD4hndf7u",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -451,7 +416,7 @@
             "_id": "RBJ9ZfdLBGIyzfVu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""

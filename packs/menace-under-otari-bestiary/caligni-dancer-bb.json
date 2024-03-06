@@ -268,14 +268,9 @@
             "type": "melee"
         },
         {
-            "_id": "yFigvmUnKnLbsoa9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "_id": "AwAca1cY9Y1Fj5kZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Light Blindness",
             "sort": 500000,
             "system": {
                 "actionType": {
@@ -286,17 +281,16 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                    "value": "<p>When first exposed to bright light, the caligni can't see until the end of their next turn. All squares are difficult terrain for them, and they take a -4 status penalty to Perception. If they try to attack a creature, the attack fails unless they succeed at a @Check[type:flat|dc:11]. Light doesn't blind them again for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "darkvision",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -314,7 +308,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "defensive",
                 "deathNote": true,
                 "description": {
                     "value": "<p>When a caligni dancer dies, their body dissolves into a swirl of darkness and light. All creatures within 10 feet must succeed at a @Check[type:will|dc:17] save or take a -2 circumstance penalty on all attack rolls for 1 round.</p>"
@@ -333,9 +327,14 @@
             "type": "action"
         },
         {
-            "_id": "AwAca1cY9Y1Fj5kZ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Light Blindness",
+            "_id": "UEVsHBxxT1scFldv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -344,53 +343,18 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
-                    "value": "<p>When first exposed to bright light, the caligni can't see until the end of their next turn. All squares are difficult terrain for them, and they take a -4 status penalty to Perception. If they try to attack a creature, the attack fails unless they succeed at a @Check[type:flat|dc:11]. Light doesn't blind them again for 1 hour.</p>"
+                    "value": "<p>The caligni dancer deals an additional 1d6 damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Hs2uBwzKrf1EMUJX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sneak Attack",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>The caligni dancer deals an extra 1d6 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Bestiary"
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
-                    },
-                    {
+                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
@@ -398,10 +362,18 @@
                             "target:condition:off-guard"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "traits": {
+                    "rarity": "common",
                     "value": []
                 }
             },
@@ -411,7 +383,7 @@
             "_id": "2IgHorZPRTXZ7fb6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -437,7 +409,7 @@
             "_id": "rIFN0PFuSd2pHRxD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -463,7 +435,7 @@
             "_id": "IDeSjaoa8ZH4bK5L",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -489,7 +461,7 @@
             "_id": "UgyBzip4lMKEEaqX",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -515,7 +487,7 @@
             "_id": "ANfWeDztvcYN5xi2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

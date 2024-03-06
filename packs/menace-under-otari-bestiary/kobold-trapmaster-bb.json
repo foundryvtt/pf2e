@@ -423,7 +423,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The kobold trapmaster deploys one of their spike traps in an adjacent square. Once this trap is deployed, anyone who steps on the square it's in takes [[/r 2d8[piercing]]] damage and must attempt a @Check[type:reflex|dc:17|basic:true] saving throw. The trap is destroyed afterward.</p>"
+                    "value": "<p>The kobold trapmaster deploys one of their spike traps in an adjacent square. Once this trap is deployed, anyone who steps on the square it's in takes @Damage[2d8[piercing]]] damage and must attempt a @Check[type:reflex|dc:17|basic:true] saving throw. The trap is destroyed afterward.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -440,6 +440,56 @@
             "type": "action"
         },
         {
+            "_id": "CHJtUAFotmtE0vu1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "scamper",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "yDzPXpPBRfYG5UfY",
             "flags": {
                 "core": {
@@ -448,7 +498,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -486,40 +536,6 @@
                 "slug": "sneak-attack",
                 "traits": {
                     "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CHJtUAFotmtE0vu1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scamper",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
                     "value": []
                 }
             },
@@ -698,10 +714,8 @@
                 "value": "sm"
             },
             "value": [
-                "evil",
                 "humanoid",
-                "kobold",
-                "lawful"
+                "kobold"
             ]
         }
     },
