@@ -58,14 +58,20 @@
                     },
                     {
                         "predicate": [
-                            "item:tag:amped"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "item:tag:amped"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Frostbite.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -87,14 +93,20 @@
                     },
                     {
                         "predicate": [
-                            "item:tag:amped"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "item:tag:amped"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Ignition.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -107,7 +119,10 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:thermal-stasis",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "property": "description",
                 "value": [
@@ -123,7 +138,10 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:entropic-wheel",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "property": "description",
                 "value": [
@@ -139,7 +157,10 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:redistribute-potential",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "property": "description",
                 "value": [
@@ -163,6 +184,9 @@
                     "item:slug:ignition",
                     "item:tag:amped",
                     {
+                        "not": "alternate-amp"
+                    },
+                    {
                         "not": "item:melee"
                     }
                 ],
@@ -177,7 +201,10 @@
                 "predicate": [
                     "item:melee",
                     "item:slug:ignition",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "selector": "spell-damage"
             },
@@ -186,7 +213,10 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "item:slug:ignition",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "selector": "spell-damage",
                 "value": "@spell.rank"
@@ -197,7 +227,10 @@
                 "key": "DamageDice",
                 "predicate": [
                     "item:slug:frostbite",
-                    "item:tag:amped"
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
                 ],
                 "selector": "spell-damage"
             },
