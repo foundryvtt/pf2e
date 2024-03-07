@@ -202,7 +202,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         earth: "hefty-hauler",
         fire: "intimidating-glare",
         metal: "quick-repair",
-        water: "underwater-maurauder",
+        water: "underwater-marauder",
         wood: "terrain-expertise",
     };
 
