@@ -770,7 +770,6 @@ const effectTraits = R.omit(actionTraits, [
     "press",
     "processed",
     "propulsive",
-    "rage",
     "reckless",
     "reincarnated",
     "revelation",
