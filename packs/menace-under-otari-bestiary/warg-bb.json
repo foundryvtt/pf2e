@@ -45,45 +45,10 @@
             "type": "melee"
         },
         {
-            "_id": "ekDqvB1u4JdXoAhf",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "VLWCAVOCAqcO4PEB",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Avenging Bite",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -91,38 +56,9 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "defensive",
                 "description": {
                     "value": "<p>When a creature within the reach of the warg's bite attacks one of its allies, the warg can spend its reaction to make a jaws Strike against that creature.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "mJ3ooxqjYUrJwT6T",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Grab",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>When the warg succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the warg's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -141,7 +77,7 @@
             "_id": "KapyaNm62BvUi1J6",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pack Attack",
-            "sort": 500000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -149,7 +85,7 @@
                 "actions": {
                     "value": null
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p>The warg's jaws Strike deals 1d4 extra damage to creatures within reach of two of the warg's allies.</p>"
                 },
@@ -186,7 +122,7 @@
             "_id": "Db24UdpGiWsgWITM",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shred",
-            "sort": 600000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -194,9 +130,9 @@
                 "actions": {
                     "value": 1
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
-                    "value": "<p>If the warg has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], it can spend one action to shred them with its teeth. The creature takes [[/r 1d6[slashing]]] damage and can make a @Check[type:fortitude|dc:18|basic:true] save.</p>"
+                    "value": "<p>If the warg has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], it can spend one action to shred them with its teeth. The creature takes @Damage[1d6[slashing]] damage and can make a @Check[type:fortitude|dc:18|basic:true] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -212,10 +148,45 @@
             "type": "action"
         },
         {
+            "_id": "0gOGUlxb9h78zefM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When the warg succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the warg's multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "QPnGFkMrAPO8RT6x",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -241,7 +212,7 @@
             "_id": "nC43PTZwJDrYoD2v",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -267,7 +238,7 @@
             "_id": "sJ1Z546pB6k3YwSS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -293,7 +264,7 @@
             "_id": "Hu8UYwWxAE2K5wsb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -319,7 +290,7 @@
             "_id": "jKKz15c1ydJrAANk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -345,7 +316,7 @@
             "_id": "o4tH3NZyiTZQ91iS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -371,7 +342,7 @@
             "_id": "EpTnliTgPedZxtxz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -397,7 +368,7 @@
             "_id": "TB7CU2SJX1Ze5Pl5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""

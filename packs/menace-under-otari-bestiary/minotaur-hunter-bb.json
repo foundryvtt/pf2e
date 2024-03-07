@@ -173,14 +173,9 @@
             "type": "melee"
         },
         {
-            "_id": "TvTbnAAZossMcKcl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "_id": "fOwVEwaZPmB4enaL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Perfect Orienteering",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -191,17 +186,16 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "darkvision",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -219,38 +213,9 @@
                 "actions": {
                     "value": 2
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
                     "value": "<p>The minotaur makes two Strikes with its greataxe against two adjacent enemies, both of whom are within its reach. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "fOwVEwaZPmB4enaL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Perfect Orienteering",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>A minotaur automatically critically succeeds on Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track]. </p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -269,7 +234,7 @@
             "_id": "bQRnxgh1VHMUoffw",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Powerful Charge",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -277,16 +242,39 @@
                 "actions": {
                     "value": 2
                 },
-                "category": null,
+                "category": "offensive",
                 "description": {
-                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If the moved at least 20 feet from their starting position, the Strike's damage is increased to [[/r 2d8+10[piercing]]]</p>"
+                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If the moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10 piercing.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "powerful-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "DamageDice",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horn-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horn-damage",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -298,7 +286,7 @@
             "_id": "ogKmU1dBkNL3fCrS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -324,7 +312,7 @@
             "_id": "0g1CDogDRzLoVG0e",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -350,7 +338,7 @@
             "_id": "yCfZrq2Q8uF6bZ69",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
