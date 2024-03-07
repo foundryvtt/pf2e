@@ -448,7 +448,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected traitChatData(
-        dictionary: Record<string, string | undefined> = {},
+        dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
         const traitChatLabels = traits
