@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { EffectPF2e, PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
@@ -195,23 +195,28 @@ class ChatCards {
                         item.isOfType("action", "feat") && item.system.selfEffect
                             ? await fromUuid(item.system.selfEffect.uuid)
                             : null;
-                    if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
-                        const effectSource: EffectSource = { ...effect.toObject(), _id: null };
-                        const originData = item.getOriginData();
-                        effectSource.system.context = {
-                            origin: {
-                                actor: actor.uuid,
-                                token: message.token?.uuid ?? null,
-                                item: item.uuid,
-                                spellcasting: null,
-                                rollOptions: originData.rollOptions,
+                    if (target instanceof ActorPF2e && effect instanceof EffectPF2e) {
+                        const traits = item.system.traits.value?.filter((t) => t in EffectPF2e.validTraits) ?? [];
+                        const effectSource: EffectSource = fu.mergeObject(effect.toObject(), {
+                            _id: null,
+                            system: {
+                                context: {
+                                    origin: {
+                                        actor: actor.uuid,
+                                        token: message.token?.uuid ?? null,
+                                        item: item.uuid,
+                                        spellcasting: null,
+                                        rollOptions: item.getOriginData().rollOptions,
+                                    },
+                                    target: {
+                                        actor: target.uuid,
+                                        token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
+                                    },
+                                    roll: null,
+                                },
+                                traits: { value: traits },
                             },
-                            target: {
-                                actor: target.uuid,
-                                token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
-                            },
-                            roll: null,
-                        };
+                        });
                         await target.createEmbeddedDocuments("Item", [effectSource]);
                         const parsedMessageContent = ((): HTMLElement => {
                             const container = document.createElement("div");
