@@ -13,16 +13,14 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "ghoul-paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 9
                 },
                 "damageRolls": {
                     "p36zyj2o94q5m2av6t6a": {
-                        "damage": "1d6+1",
+                        "damage": "1d8+1",
                         "damageType": "piercing"
                     }
                 },
@@ -59,16 +57,14 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "ghoul-paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 9
                 },
                 "damageRolls": {
                     "5gyt9361vlgk0oa54i93": {
-                        "damage": "1d4+1",
+                        "damage": "1d6+1",
                         "damageType": "slashing"
                     }
                 },
@@ -96,6 +92,35 @@
             "type": "melee"
         },
         {
+            "_id": "iqkfB1nliXSkUpU4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Stench",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A creature that comes within 10 feet of the ghoul and can smell the ghoul must attempt a @Check[type:fortitude|dc:14] save. On a failure, the creature takes a -1 status penalty to all checks and DCs until it uses an action to retch (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}). A creature that succeeds at its save isn't affected by any ghoul's stench for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "7RTjFlVzsxhjtwX4",
             "flags": {
                 "core": {
@@ -104,7 +129,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -133,15 +158,10 @@
             "type": "action"
         },
         {
-            "_id": "9TCF9GcaMoTKkPSj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FW4KAUHb7r8WkxUc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralysis",
-            "sort": 400000,
+            "_id": "538plQkKJgvoI49U",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sneak Attack",
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -151,20 +171,34 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any living creature (except an elf) that takes damage from the ghoul's Strike must succeed at a @Check[type:fortitude|dc:15] save or gain the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition for 1 round and lose its next turn.</p>\n<p>If the creature is level 3 or higher, this happens only on a critical failure.</p>"
+                    "value": "<p>The ghoul stalker deals an extra 1d4 damage to creatures that have the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
-                "rules": [],
-                "slug": "ghoul-paralysis",
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
@@ -178,7 +212,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -210,7 +244,7 @@
             "_id": "dfMNCBvnTxmin6IA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -227,7 +261,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -235,13 +270,13 @@
             "_id": "DKOkgTlAJNbbnclh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 4
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -252,7 +287,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -260,7 +296,7 @@
             "_id": "EcINHeGK7OHn7Rn4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -277,7 +313,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -285,7 +322,7 @@
             "_id": "G6Ye8oFFbsU6qxAK",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -302,14 +339,15 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
     ],
-    "name": "Ghoul (BB)",
+    "name": "Ghoul Stalker (BB)",
     "prototypeToken": {
-        "name": "Ghoul"
+        "name": "Ghoul Stalker"
     },
     "system": {
         "abilities": {
@@ -335,16 +373,16 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 17
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 20,
+                "max": 16,
                 "temp": 0,
-                "value": 20
+                "value": 16
             },
             "immunities": [
                 {
@@ -365,13 +403,8 @@
                 }
             ],
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "burrow",
-                        "value": 5
-                    }
-                ],
-                "value": 30
+                "otherSpeeds": [],
+                "value": 25
             }
         },
         "details": {
@@ -384,10 +417,10 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>The flesh-eating undead known as ghouls haunt sinister locations such as lonely graveyards and ruined crypts, making meals of corpses. Legends say that even those who survive a ghoul attack risk contracting a fever that eventually transforms them into ghouls.</p>",
+            "publicNotes": "<p>The flesh-eating undead, known as ghouls, haunt sinister locations such as lonely graveyards and ruined crypts, making meals of corpses. Legends say that those captured by ghouls hear foul whispers that curse them into craving raw meat, eventually turning them into ghouls.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -424,8 +457,6 @@
                 "value": "med"
             },
             "value": [
-                "chaotic",
-                "evil",
                 "ghoul",
                 "undead",
                 "unholy"

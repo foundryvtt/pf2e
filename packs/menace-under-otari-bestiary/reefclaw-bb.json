@@ -1,29 +1,29 @@
 {
-    "_id": "Oilfs8Atv2LjAsUS",
+    "_id": "eq4tLYV3efCS2ouP",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "NX0owCPUZbsVJ4az",
+            "_id": "P3ldoLqhsH29iK6i",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Claw",
             "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
-                        "knockdown"
+                        "grab",
+                        "reefclaw-venom"
                     ]
                 },
                 "bonus": {
                     "value": 9
                 },
                 "damageRolls": {
-                    "d9dz0n8l5x20aqoksiqt": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
+                    "79OI4uAfgnjgvksq": {
+                        "damage": "1d6+1",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -37,8 +37,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": []
+                    "value": [
+                        "finesse"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -47,60 +48,39 @@
             "type": "melee"
         },
         {
-            "_id": "GhRRqxvK6T21zheo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Pack Attack",
+            "_id": "RkZmlmhuBgERLtp0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Death Frenzy",
             "sort": 200000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": "<p>The wolf's jaws Strike deals 1d4 extra damage to creatures within reach of two of the wolf's allies.</p>"
+                    "value": "<p>When the reefclaw is reduced to 0 hit points it can spend this reaction to make a claw Strike before dying.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "pack-attack",
-                        "toggleable": true
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "pack-attack"
-                        ],
-                        "selector": "strike-damage"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "dB4Pr3yiNKH32fE8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Knockdown",
+            "_id": "QC6Qfhm9C414P0oL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constrict",
             "sort": 300000,
             "system": {
                 "actionType": {
@@ -111,36 +91,36 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the wolf succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the target. This Trip doesn't apply or count toward the wolf's multiple attack penalty.</p>"
+                    "value": "<p>If the reefclaw has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained], it can spend one action to crush them in its coils. The creature takes @Damage[1d6[bludgeoning]] damage depending on its @Check[type:fortitude|dc:17|basic:true] save.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "knockdown",
+                "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "4chElHxgWYfSZPG9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "_id": "kExVKNRglkSawA2u",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reefclaw Venom",
             "sort": 400000,
             "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
+                    "value": "<p>A target that takes slashing damage from the reefclaw's claw Strike must succeed at a @Check[type:fortitude|dc:17|traits:damaging-effect] save or take @Damage[1d6[poison]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -149,24 +129,29 @@
                 },
                 "rules": [],
                 "slug": null,
-                "traits": {}
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
             },
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "LoiARuDnD1OXi7Gq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "_id": "mge8vQkbMqv0OxCE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grab",
             "sort": 500000,
             "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
                 "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
+                    "value": "<p>When the reeflclaw succeeds at its claw Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the reefclaw's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -175,14 +160,16 @@
                 },
                 "rules": [],
                 "slug": null,
-                "traits": {}
+                "traits": {
+                    "value": []
+                }
             },
-            "type": "lore"
+            "type": "action"
         },
         {
-            "_id": "gbBnQhXZKvXNuk9i",
+            "_id": "wmA9Y2PvFehlInX3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Acrobatics",
             "sort": 600000,
             "system": {
                 "description": {
@@ -206,16 +193,16 @@
             "type": "lore"
         },
         {
-            "_id": "7Tb8i5xvJI49ytgM",
+            "_id": "OwfNdeLLong9waHc",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
+            "name": "Athletics",
             "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 4
                 },
                 "proficient": {
                     "value": 0
@@ -225,55 +212,78 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Swim",
+                        "predicate": [
+                            "traits:action:swim"
+                        ],
+                        "selector": "skill-check",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
-                "traits": {}
+                "traits": {
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to swim",
+                        "options": "traits:action:swim"
+                    }
+                }
             },
             "type": "lore"
         }
     ],
-    "name": "Wolf (BB)",
+    "name": "Reefclaw (BB)",
     "prototypeToken": {
-        "name": "Wolf"
+        "name": "Reefclaw"
     },
     "system": {
         "abilities": {
             "cha": {
-                "mod": -2
+                "mod": 1
             },
             "con": {
-                "mod": 1
+                "mod": 2
             },
             "dex": {
                 "mod": 4
             },
             "int": {
-                "mod": -4
+                "mod": -3
             },
             "str": {
-                "mod": 2
+                "mod": 1
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 15
+                "value": 20
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 24,
+                "max": 17,
                 "temp": 0,
-                "value": 24
+                "value": 17
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": 35
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 5
             }
         },
         "details": {
@@ -286,7 +296,7 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Wolves roam forests, hills, and other wild lands, where they live and hunt in packs. Contrary to popular belief, these packs aren't led by the strongest in the group, but typically consist of a mated pair, their pups, and juvenile offspring from previous mating seasons. Offspring generally leave their parents' pack upon reaching maturity, at which point they seek out mates of their own to form their own packs elsewhere. Wolves don't typically view humanoids as prey animals, but extraordinary circumstances can lead wolves to attack people, especially in winter months and other situations where traditional prey (such as deer and elk) are scarce.</p>",
+            "publicNotes": "<p>Reefclaws are aquatic monsters that resemble huge shrimp or lobsters. Though reefclaws can't speak, they are intelligent enough to understand the local language of humanoids near their hunting grounds.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -297,19 +307,15 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
-            "mod": 7,
-            "senses": [
-                {
-                    "type": "low-light-vision"
-                }
-            ]
+            "details": "darkvision",
+            "mod": 8,
+            "senses": []
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 6
+                "value": 7
             },
             "reflex": {
                 "saveDetail": "",
@@ -317,16 +323,17 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 4
             }
         },
         "traits": {
             "rarity": "common",
             "size": {
-                "value": "med"
+                "value": "sm"
             },
             "value": [
-                "animal"
+                "aberration",
+                "aquatic"
             ]
         }
     },

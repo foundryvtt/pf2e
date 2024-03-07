@@ -63,6 +63,11 @@ abstract class IWR<TType extends IWRType> {
                 return [`item:trait:${iwrType}`];
             case "all-damage":
                 return ["damage"];
+            case "arcane":
+            case "divine":
+            case "occult":
+            case "primal":
+                return [{ or: [`item:trait:${iwrType}`, `origin:action:trait:${iwrType}`] }];
             case "area-damage":
                 return ["area-damage"];
             case "arrow-vulnerability":
@@ -368,6 +373,7 @@ interface ResistanceSource extends IWRSource<ResistanceType> {
 
 /** Weaknesses to things that "[don't] normally deal damage, such as water": applied separately as untyped damage */
 const NON_DAMAGE_WEAKNESSES: Set<WeaknessType> = new Set([
+    ...MAGIC_TRADITIONS,
     "air",
     "earth",
     "ghost-touch",

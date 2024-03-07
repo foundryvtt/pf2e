@@ -24,7 +24,44 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "amp-spell"
+                    }
+                ],
+                "disabledValue": false,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Psychic.Amp.AlternateAmp",
+                "mergeable": true,
+                "option": "alternate-amp",
+                "placement": "spellcasting",
+                "priority": 51,
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "inertial-barrier"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:psi-cantrip",
+                    "alternate-amp:inertial-barrier"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.Amp.InertialBarrier"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
