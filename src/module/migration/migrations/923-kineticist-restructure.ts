@@ -54,12 +54,18 @@ export class Migration923KineticistRestructure extends MigrationBase {
         ] as RuleElementSource[];
 
         // Remove the gate junction item, this will be recreated in an entirely new way when we do the thresholds
-        const gateJunctionIdx = actorSource.items.findIndex(
-            (i) => (i.system.slug ?? sluggify(i.name)) === "gate-junction",
-        );
+        const gateJunction = actorSource.items.find((i) => (i.system.slug ?? sluggify(i.name)) === "gate-junction");
+        const gateJunctionIdx = gateJunction ? actorSource.items.indexOf(gateJunction) : -1;
         if (gateJunctionIdx >= 0) {
             actorSource.items.splice(gateJunctionIdx, 1);
         }
+
+        // Create method to connect a skill feat to an element feat via grants
+        const junctionFeats = actorFeats.filter((f) => f.flags.pf2e?.grantedBy?.id === gateJunction?._id);
+        const connectSkillFeats = (element: string, elementFeat: FeatSource) => {
+            const skillFeat = junctionFeats.find((s) => s.system.slug === this.#elementSkillFeats[element]);
+            if (skillFeat) this.#addGrantedItem(actorSource, { parent: elementFeat, child: skillFeat });
+        };
 
         // Update Kinetic Gate Rules and Grants
         kineticGate.name = kineticGate.name.replace(/\s*\(\w+\)$/, "").replace(/\s*\(\w+\)$/, "");
@@ -92,7 +98,8 @@ export class Migration923KineticistRestructure extends MigrationBase {
                 });
             }
 
-            // Ensure unresolved choice sets don't ruin everything in the future
+            // Connect any skill feats and ensure unresolved choice sets don't ruin everything in the future
+            connectSkillFeats(element, elementFeat);
             this.#wipeEmptyChoices(elementFeat);
         }
 
@@ -141,7 +148,8 @@ export class Migration923KineticistRestructure extends MigrationBase {
                     });
                 }
 
-                // Ensure unresolved choice sets don't ruin everything in the future
+                // Connect any skill feats and ensure unresolved choice sets don't ruin everything in the future
+                connectSkillFeats(element, elementFeat);
                 this.#wipeEmptyChoices(elementFeat);
             }
 
@@ -188,6 +196,15 @@ export class Migration923KineticistRestructure extends MigrationBase {
         ["water", "Compendium.pf2e.classfeatures.Item.MvunDFH8Karxee0t"],
         ["wood", "Compendium.pf2e.classfeatures.Item.8X8db58vKx21L0Dr"],
     ]);
+
+    #elementSkillFeats: Record<string, string> = {
+        air: "experienced-smuggler",
+        earth: "hefty-hauler",
+        fire: "intimidating-glare",
+        metal: "quick-repair",
+        water: "underwater-maurauder",
+        wood: "terrain-expertise",
+    };
 
     #gateJunctionFeat: ItemUUID = "Compendium.pf2e.classfeatures.Item.jx70hPakuTgB3lM5";
 
