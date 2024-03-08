@@ -895,7 +895,9 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
         const type =
             source?.type === "armor" && (source.system?.category as string | undefined) === "shield"
                 ? "shield"
-                : source?.type;
+                : source?.type === "affliction"
+                  ? "effect"
+                  : source?.type;
         const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
         return new ItemClass(...args);
     },
