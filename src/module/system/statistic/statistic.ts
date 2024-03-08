@@ -585,9 +585,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
             context.mapIncreases = mapIncreases;
             context.options?.add(`map:increases:${mapIncreases}`);
         }
-        const modifiers =
-            (selfIsTarget ? rollContext?.target?.statistic?.modifiers : rollContext?.origin?.statistic?.modifiers) ??
-            this.modifiers;
+
+        const clonedStatistic = selfIsTarget ? rollContext.target?.statistic : rollContext.origin?.statistic;
+        const modifiers = clonedStatistic?.check.modifiers ?? this.modifiers;
         const check = new CheckModifier(this.parent.slug, { modifiers }, extraModifiers);
         const roll = await CheckPF2e.roll(check, context, null, args.callback);
 
