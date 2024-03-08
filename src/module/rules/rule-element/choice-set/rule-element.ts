@@ -178,7 +178,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const inflatedChoices = await this.inflateChoices(rollOptions, tempItems);
 
         const selection =
-            this.#getPreselection() ??
+            this.#getPreselection(inflatedChoices) ??
             (await new ChoiceSetPrompt({
                 prompt: this.prompt,
                 item: this.item,
@@ -461,8 +461,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
-    #getPreselection(): PickableThing<string | number | object> | null {
-        const choice = Array.isArray(this.choices) ? this.choices.find((c) => R.equals(c.value, this.selection)) : null;
+    #getPreselection(inflatedChoices: PickableThing[]): PickableThing | null {
+        if (this.selection === null) return null;
+        const choice = inflatedChoices.find((c) => R.equals(c.value, this.selection));
         return choice ?? null;
     }
 
