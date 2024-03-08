@@ -135,6 +135,12 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         handlers["recovery-check"] = (event) => actor.rollRecovery(event);
 
+        handlers["consume-item"] = (event) => {
+            const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const item = actor.inventory.get(itemId, { strict: true });
+            return item.isOfType("consumable") && item.consume();
+        };
+
         handlers["open-carry-type-menu"] = (_, anchor) => this.#openCarryTypeMenu(anchor);
 
         // SPELLCASTING

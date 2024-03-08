@@ -415,9 +415,14 @@
             "type": "melee"
         },
         {
-            "_id": "0qvSsLdTulsncbsi",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hurried Retreat",
+            "_id": "BRVL1ixeyP9uFjWm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
             "sort": 700000,
             "system": {
                 "actionType": {
@@ -428,7 +433,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to an enemy.</p>"
+                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -437,15 +442,23 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
-                        "option": "hurried-retreat",
+                        "option": "scamper",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hurried-retreat"
+                            "scamper"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -454,7 +467,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -533,7 +545,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -559,6 +572,7 @@
                 },
                 "rules": [],
                 "slug": null,
+                "traits": {},
                 "variants": {}
             },
             "type": "lore"
@@ -584,7 +598,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -609,7 +624,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -634,7 +650,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -667,7 +684,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 16
             },
             "allSaves": {
                 "value": ""
@@ -693,10 +710,10 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Most kobolds encountered outside of a well-defended warren or lair are kobold scouts, trained for stalking and the hunt. They're charged with bringing back food and valuable goods to the community. Kobolds are skilled at working together by necessity, and they often set up ambushes or hit-and-run assaults that allow them to do the most damage possible without putting themselves at much risk.</p>",
+            "publicNotes": "<p>Most kobolds encountered outside of a well-defended warren or lair are kobold scouts, trained for stalking and the hunt. They're charged with bringing food and valuable goods back to the community. Kobolds are skilled at working together by necessity, and they often set up ambushes or hit-and-run assaults that allow them to do the most damage possible without putting themselves at much risk.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -733,10 +750,8 @@
                 "value": "sm"
             },
             "value": [
-                "evil",
                 "humanoid",
-                "kobold",
-                "lawful"
+                "kobold"
             ]
         }
     },

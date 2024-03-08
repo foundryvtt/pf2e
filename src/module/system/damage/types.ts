@@ -1,5 +1,6 @@
 import type { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import type { ResistanceType, RollTarget, StrikeSelf } from "@actor/types.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type { ResistanceType } from "@actor/types.ts";
 import type { ZeroToTwo } from "@module/data.ts";
 import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { BaseRollContext } from "@system/rolls.ts";
@@ -41,11 +42,11 @@ interface DamageRollRenderData {
     damageTypes: Record<string, DamageTypeRenderData>;
 }
 
-interface DamageRollContext extends BaseRollContext {
+interface DamageDamageContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
     outcome?: DegreeOfSuccessString | null;
-    self?: StrikeSelf | null;
+    self?: RollOrigin | null;
     target?: RollTarget | null;
     options: Set<string>;
     secret?: boolean;
@@ -121,12 +122,12 @@ export type {
     DamageCategory,
     DamageCategoryRenderData,
     DamageCategoryUnique,
+    DamageDamageContext,
     DamageDiceFaces,
     DamageDieSize,
     DamageFormulaData,
     DamageKind,
     DamagePartialTerm,
-    DamageRollContext,
     DamageRollRenderData,
     DamageTemplate,
     DamageType,

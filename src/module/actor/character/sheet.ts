@@ -317,26 +317,44 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.languages = ((): LanguageSheetData[] => {
             const languagesBuild = actor.system.build.languages;
-            const sourceLanguages = actor._source.system.details.languages.value.filter(
-                (l) => l in CONFIG.PF2E.languages,
-            );
+            const sourceLanguages = actor._source.system.details.languages.value
+                .filter((l) => l in CONFIG.PF2E.languages)
+                .sort();
             const isOverMax = languagesBuild.value > languagesBuild.max;
-            const languages: LanguageSheetData[] = actor.system.details.languages.value
-                .map((language) => {
-                    const label = game.i18n.localize(CONFIG.PF2E.languages[language] ?? language);
-                    const overLimit = isOverMax && sourceLanguages.indexOf(language) + 1 > languagesBuild.max;
-                    const tooltip = overLimit ? "PF2E.Actor.Character.Language.OverLimit" : null;
-                    return { slug: language, label, tooltip, overLimit };
-                })
-                .sort((a, b) => a.label.localeCompare(b.label));
+            const languageSlugs = actor.system.details.languages.value;
+            const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
+            const localizedLanguages: LanguageSheetData[] = languageSlugs.flatMap((language) => {
+                if (language === commonLanguage && languageSlugs.includes("common")) {
+                    return [];
+                }
+                const label =
+                    language === "common" && commonLanguage
+                        ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
+                              language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                          })
+                        : game.i18n.localize(CONFIG.PF2E.languages[language]);
+                return { slug: language, label, tooltip: null, overLimit: false };
+            });
+
+            // If applicable, mark languages at the end as being over-limit
+            const sortedLanguages = localizedLanguages.sort((a, b) => a.label.localeCompare(b.label));
+            const commonFirst = R.sortBy(sortedLanguages, (l) => l.slug !== "common");
+            for (const language of commonFirst.toReversed().filter((l) => l.slug && sourceLanguages.includes(l.slug))) {
+                if (!language.slug) continue;
+                language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
+                language.tooltip = language.overLimit
+                    ? game.i18n.localize("PF2E.Actor.Character.Language.OverLimit")
+                    : null;
+            }
+
             const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
-            const unallocatedTooltip = "PF2E.Actor.Character.Language.Unallocated.Tooltip";
+            const unallocatedTooltip = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Tooltip");
             const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
                 () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
             );
-            languages.push(...unallocatedLanguages);
+            commonFirst.push(...unallocatedLanguages);
 
-            return languages;
+            return commonFirst;
         })();
 
         // Sort skills by localized label
@@ -1417,17 +1435,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return super._onDropItem(event, data);
     }
 
-    protected override async _onDrop(event: DragEvent): Promise<boolean | void> {
-        const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData = ((): Record<string, unknown> | null => {
-            try {
-                return JSON.parse(dataString ?? "");
-            } catch {
-                return null;
-            }
-        })();
-        if (!dropData) return;
-
+    override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dropData = TextEditor.getDragEventData(event);
         if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {

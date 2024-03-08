@@ -1,11 +1,11 @@
 {
-    "_id": "LHHgGSs0ELCR4CYK",
+    "_id": "yDoN1wYdKb3Wlp22",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XJHXZOImLOORwInT",
+            "_id": "ej3i6scbur8axq00",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Ghostly Cutlass",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -13,17 +13,15 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "ghoul-paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 20
                 },
                 "damageRolls": {
-                    "p36zyj2o94q5m2av6t6a": {
-                        "damage": "1d6+1",
-                        "damageType": "piercing"
+                    "RzVQWulJYEW02MiQ": {
+                        "damage": "2d6+11",
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -39,7 +37,9 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "finesse"
+                        "forceful",
+                        "magical",
+                        "sweep"
                     ]
                 },
                 "weaponType": {
@@ -49,9 +49,9 @@
             "type": "melee"
         },
         {
-            "_id": "A97t9GcQF8k7V7By",
+            "_id": "cxlq6wpb9in9z1s2",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
+            "name": "Ghostly Hand Crossbow",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -59,17 +59,15 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "ghoul-paralysis"
-                    ]
+                    "value": []
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 20
                 },
                 "damageRolls": {
-                    "5gyt9361vlgk0oa54i93": {
-                        "damage": "1d4+1",
-                        "damageType": "slashing"
+                    "Ps9TMMOWLRSQPIRK": {
+                        "damage": "2d6+8",
+                        "damageType": "void"
                     }
                 },
                 "description": {
@@ -85,36 +83,37 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse"
+                        "magical",
+                        "range-increment-60"
                     ]
                 },
                 "weaponType": {
-                    "value": "melee"
+                    "value": "ranged"
                 }
             },
             "type": "melee"
         },
         {
-            "_id": "7RTjFlVzsxhjtwX4",
+            "_id": "SeDr8IsuA0cd6pKi",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ixPqVlqLaYTB1b23"
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.unR8VVR4yyRnsmnB"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume Flesh",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Rejuvenation",
             "sort": 300000,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
+                "deathNote": true,
                 "description": {
-                    "value": "<p>The ghoul devours a chunk of a creature that died within the last hour and regains [[/r 1d6[healing]]] Hit Points.</p>\n<p>The ghoul can regain Hit Points from a given body only once.</p>"
+                    "value": "<p>When the ghost pirate captain is destroyed, they re-form after [[/br 2d4 #Rejuvenation]]{2d4 days} within the ship or location they're bound to, fully healed. They can be permanently destroyed if their desires are fulfilled, which could involve being defeated in a great battle or ensuring their treasure has been hidden.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -122,25 +121,25 @@
                     "title": "Pathfinder Bestiary"
                 },
                 "rules": [],
-                "slug": "ghoul-consume-flesh",
+                "slug": "ghost-rejuvenation",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "manipulate"
+                        "divine"
                     ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "9TCF9GcaMoTKkPSj",
+            "_id": "0AkVpzKeetsxnaM0",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.FW4KAUHb7r8WkxUc"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Paralysis",
+            "name": "Void Healing",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -149,99 +148,104 @@
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
                 "description": {
-                    "value": "<p>Any living creature (except an elf) that takes damage from the ghoul's Strike must succeed at a @Check[type:fortitude|dc:15] save or gain the @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] condition for 1 round and lose its next turn.</p>\n<p>If the creature is level 3 or higher, this happens only on a critical failure.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": "Pathfinder Bestiary 2"
                 },
-                "rules": [],
-                "slug": "ghoul-paralysis",
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "occult"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "rvraBop9oOSwcjkq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UU1Fp3PRuTFONjC9"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swift Leap",
+            "_id": "oc46s540bthxaecp",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Combat Current",
             "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                    "value": "<p>The ghost makes a Strike with its cutlass or hand crossbow, then Flies up to half their Speed and makes a Strike with the other attack. If they moved through an enemy when they Flew, that enemy is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the second Strike.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": "Pathfinder Bestiary"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "ghoul-swift-leap",
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dz1w9j5ipev8z1v8",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Savvy Joinin' Me Crew?",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The ghost reduces a living creature to 0 Hit Points with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The creature attempts a @Check[type:fortitude|dc:25] save. If the creature fails its save, it remains conscious but is controlled by the ghost until it loses its dying condition. It continues to attempt recovery checks as normal for the dying condition. The effect ends if the creature loses the dying condition. If the creature dies while under this effect, it joins the ghost's undead crew in [[/br 1d4 #days]]{1d4 days}. If the ghost is destroyed before the creature dies, the creature is spared this terrible fate.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "move"
+                        "divine"
                     ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "dfMNCBvnTxmin6IA",
+            "_id": "85xrfn97gummxpo9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DKOkgTlAJNbbnclh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
             "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 4
+                    "value": 18
                 },
                 "proficient": {
                     "value": 0
@@ -252,21 +256,22 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "EcINHeGK7OHn7Rn4",
+            "_id": "roe9xnd4bugbroyy",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
+            "name": "Diplomacy",
             "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -277,21 +282,22 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
         {
-            "_id": "G6Ye8oFFbsU6qxAK",
+            "_id": "hjasdf9r8xnghggq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
+            "name": "Intimidation",
             "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
+                    "value": 17
                 },
                 "proficient": {
                     "value": 0
@@ -302,93 +308,138 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "zh8ndbyu6spjabea",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Sailing Lore",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
     ],
-    "name": "Ghoul (BB)",
-    "prototypeToken": {
-        "name": "Ghoul"
-    },
+    "name": "Ulfen Ghost Pirate Captain",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 5
             },
             "con": {
-                "mod": 1
+                "mod": 0
             },
             "dex": {
-                "mod": 4
+                "mod": 6
             },
             "int": {
-                "mod": 1
+                "mod": 2
             },
             "str": {
-                "mod": 1
+                "mod": -5
             },
             "wis": {
-                "mod": 2
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 16
+                "value": 26
             },
+            "adjustment": null,
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "",
-                "max": 20,
+                "details": "void healing, rejuvenation",
+                "max": 100,
                 "temp": 0,
-                "value": 20
+                "value": 100
             },
             "immunities": [
                 {
-                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
                     "type": "poison"
                 },
                 {
-                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
                     "type": "unconscious"
-                },
+                }
+            ],
+            "resistances": [
                 {
-                    "exceptions": [],
-                    "type": "bleed"
-                },
-                {
-                    "exceptions": [],
-                    "type": "void"
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
                 }
             ],
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "burrow",
-                        "value": 5
+                        "type": "fly",
+                        "value": 25
                     }
                 ],
-                "value": 30
+                "special": "",
+                "value": 0
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Variant ghost pirate captain",
             "languages": {
                 "details": "",
-                "value": []
+                "value": [
+                    "common",
+                    "necril"
+                ]
             },
             "level": {
-                "value": 1
+                "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>The flesh-eating undead known as ghouls haunt sinister locations such as lonely graveyards and ruined crypts, making meals of corpses. Legends say that even those who survive a ghoul attack risk contracting a fever that eventually transforms them into ghouls.</p>",
+            "publicNotes": "<p>Undead prowling the ocean on derelict ships have long been threats sailors keep an eye out for. Other than corporeal undead, some undead pirates take on an incorporeal form, especially if their bodies have been lost to the fishes. Captains of crews in particular are likely to return from the dead, perhaps on account of their strong personalities.</p>\n<hr />\n<p>Tethered to the world after death by powerful emotions that haven't been resolved, ghosts haunt the living as sad echoes of their former selves.</p>",
             "publication": {
                 "license": "OGL",
                 "remaster": false,
-                "title": "Pathfinder Beginner Box"
+                "title": "Pathfinder Society Scenario #5-11: The Hidden Current"
             }
         },
         "initiative": {
@@ -396,7 +447,7 @@
         },
         "perception": {
             "details": "",
-            "mod": 7,
+            "mod": 17,
             "senses": [
                 {
                     "type": "darkvision"
@@ -407,15 +458,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 4
+                "value": 14
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 18
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 15
             }
         },
         "traits": {
@@ -426,7 +477,9 @@
             "value": [
                 "chaotic",
                 "evil",
-                "ghoul",
+                "ghost",
+                "incorporeal",
+                "spirit",
                 "undead",
                 "unholy"
             ]

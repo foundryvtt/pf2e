@@ -3,26 +3,24 @@
         {{#if action.description}}
             <a class="name" data-action="toggle-summary">
                 <strong>{{localize action.attackType}}</strong>
-                <span class="action-glyph">{{action.glyph}}</span>
+                <span class="action-glyph">1</span>
                 {{action.name}}
             </a>
         {{else}}
             <span class="name">
                 <strong>{{localize action.attackType}}</strong>
-                <span class="action-glyph">{{action.glyph}}</span>
+                <span class="action-glyph">1</span>
                 {{action.name}}
             </span>
         {{/if}}
 
-        {{#if action.tags}}
+        {{#if action.traits}}
             <span class="traits">
-                <span class="parenthesis">(</span>{{!--
-                --}}<ul class="comma-separated">
-                    {{~#each action.tags as |tag|~}}
-                        <li{{#if tag.description}} data-tooltip="{{tag.description}}"{{/if}}>{{tag.label}}</li>
-                    {{/each~}}
-                </ul>{{!--
-                --}}<span class="parenthesis">)</span>
+                {{#each action.traits as |trait|}}
+                    {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
+                    <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
+                    {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
+                {{/each}}
             </span>
         {{/if}}
     </h4>
@@ -47,6 +45,13 @@
             </div>
         {{/if}}
     </div>
+
+    {{#if action.effects~}}
+        <div class="effects">
+            {{~localize "PF2E.Actor.AttackEffects.PlusList" list=action.effects~}}
+        </div>
+    {{~/if}}
+
 
     {{#if action.description}}
         <div class="item-summary">

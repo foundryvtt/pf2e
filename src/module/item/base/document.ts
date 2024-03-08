@@ -196,7 +196,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
+        event?: Maybe<Event | JQuery.TriggeredEvent>,
         options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
@@ -214,7 +214,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
 
         // Basic chat message data
-        const originalEvent = event instanceof MouseEvent ? event : event?.originalEvent;
+        const originalEvent = event instanceof Event ? event : event?.originalEvent;
         const rollMode = options.rollMode ?? eventToRollMode(originalEvent);
         const chatData = ChatMessagePF2e.applyRollMode(
             {
@@ -448,7 +448,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected traitChatData(
-        dictionary: Record<string, string | undefined> = {},
+        dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
         const traitChatLabels = traits
@@ -503,7 +503,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const processed = await preImportJSON(this, json);
+        const processed = await preImportJSON(json);
         return processed ? super.importFromJSON(processed) : this;
     }
 

@@ -169,13 +169,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "6d6",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "cold"
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -185,7 +186,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>A roaring blast of ice appears at a spot you designate, dealing 6d6 cold damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire detonates at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -205,9 +206,9 @@
                     "value": "cxPALScq3PzKyQYx"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "500 feet"
@@ -228,8 +229,8 @@
                         "primal"
                     ],
                     "value": [
-                        "cold",
                         "concentrate",
+                        "fire",
                         "manipulate"
                     ]
                 }
@@ -792,6 +793,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "1d4",
                         "kinds": [
@@ -803,12 +805,12 @@
                 },
                 "defense": {
                     "save": {
-                        "basic": true,
+                        "basic": false,
                         "statistic": "reflex"
                     }
                 },
                 "description": {
-                    "value": "<p>Freezing sleet and heavy snowfall collect on the target's feet and legs, dealing @Damage[1d4[cold]] damage and other effects depending on its Reflex save. Once this spell ends, the target becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage, and takes a -5-foot circumstance penalty to its Speeds until the spell ends</p>\n<p><strong>Critical Failure</strong> The target takes double damage and a -10-foot circumstance penalty to its Speeds until the spell ends.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by @Damage[1d4[cold]].</p>"
+                    "value": "<p>Freezing sleet and heavy snowfall collect on the target's feet and legs, dealing 1d4 cold damage and other effects depending on its Reflex save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage, and takes a -5-foot circumstance penalty to its Speeds until the spell ends.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and a -10-foot circumstance penalty to its Speeds until the spell ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Clinging Ice]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -828,9 +830,9 @@
                     "value": "7td0UNA9K0jBS2ZC"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -850,6 +852,7 @@
                     "value": [
                         "cantrip",
                         "cold",
+                        "hex",
                         "manipulate",
                         "witch"
                     ]
@@ -1784,7 +1787,20 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:fireball"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage"
+                        ],
+                        "value": "cold"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

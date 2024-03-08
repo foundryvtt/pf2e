@@ -3,7 +3,7 @@ import { RollSubstitution } from "@module/rules/synthetics.ts";
 import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RollTwiceOption } from "../rolls.ts";
-import { CheckRollContext } from "./types.ts";
+import { CheckCheckContext } from "./types.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -13,7 +13,7 @@ export class CheckModifiersDialog extends Application {
     /** The check which is being edited. */
     check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
-    context: CheckRollContext;
+    context: CheckCheckContext;
     /** A Promise resolve method */
     resolve: (value: boolean) => void;
     /** Has the promise been resolved? */
@@ -25,7 +25,7 @@ export class CheckModifiersDialog extends Application {
     constructor(
         check: StatisticModifier,
         resolve: (value: boolean) => void,
-        context: CheckRollContext = { options: new Set() },
+        context: CheckCheckContext = { options: new Set() },
     ) {
         // The title often has HTML in it: get the base text
         const title = ((): string => {

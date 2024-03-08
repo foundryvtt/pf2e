@@ -285,3 +285,6 @@ export { Migration916NewPCToys } from "./916-new-pc-toys.ts";
 export { Migration917ScrollWandSpellIds } from "./917-scroll-wand-spell-ids.ts";
 export { Migration918DeitySkills } from "./918-deity-skills.ts";
 export { Migration919WeaponToggleStructure } from "./919-trait-toggle-structure.ts";
+export { Migration920SuboptionSelection } from "./920-suboption-selection.ts";
+export { Migration921SpellSlotArrays } from "./921-spell-slot-arrays.ts";
+export { Migration922SwashbucklerFinishers } from "./922-swashbuckler-finisher-suboptions.ts";

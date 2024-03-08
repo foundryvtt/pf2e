@@ -326,13 +326,15 @@ abstract class CreaturePF2e<
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
 
         const attributes = this.system.attributes;
+        attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
         attributes.hardness ??= { value: 0 };
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
         attributes.flanking.offGuardable = true;
-        attributes.reach = { base: 0, manipulate: 0 };
         attributes.speed = fu.mergeObject({ total: 0, value: 0 }, attributes.speed ?? {});
-        attributes.ac = fu.mergeObject({ attribute: "dex" }, attributes.ac);
+
+        // Start with a baseline reach of 5 feet: melee attacks with reach can adjust it
+        attributes.reach = { base: 5, manipulate: 5 };
 
         if (this.system.initiative) {
             this.system.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -429,9 +431,6 @@ abstract class CreaturePF2e<
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
-
-        // Start with a baseline reach of 5 feet: melee attacks with reach can adjust it
-        this.system.attributes.reach = { base: 5, manipulate: 5 };
 
         // Set whether the actor's shield is raised
         if (attributes.shield?.raised && !attributes.shield.broken && !attributes.shield.destroyed) {
@@ -771,7 +770,10 @@ abstract class CreaturePF2e<
         options: CreatureUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (!changed.system || isFullReplace) {
+            return super._preUpdate(changed, options, user);
+        }
 
         // Clamp hit points
         const currentHP = this.hitPoints;

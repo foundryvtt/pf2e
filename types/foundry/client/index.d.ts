@@ -1,19 +1,22 @@
 import type GSAP from "gsap";
 import type HANDLEBARS from "handlebars";
+import { showdown as SHOWDOWN } from "showdownf";
 
 declare global {
     const CONST: typeof Constants;
+
     namespace globalThis {
-        export import Color = Utils.Color;
-        export import gsap = GSAP;
+        const Color = Utils.Color;
         export import Handlebars = HANDLEBARS;
+        const gsap = GSAP;
+        export import showdown = SHOWDOWN;
 
         namespace foundry {
-            export import CONST = Constants;
-            export import abstract = Abstract;
-            export import data = Data;
-            export import documents = Documents;
-            export import utils = Utils;
+            const CONST = Constants;
+            const abstract = Abstract;
+            const data = Data;
+            const documents = Documents;
+            const utils = Utils;
         }
     }
 }

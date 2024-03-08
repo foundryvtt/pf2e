@@ -15,20 +15,19 @@ import {
 } from "@module/rules/helpers.ts";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
-import { mapValues, objectHasKey, sluggify, tupleHasValue } from "@util";
+import { mapValues, objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { DamageModifierDialog } from "./dialog.ts";
 import { createDamageFormula, parseTermsFromSimpleFormula } from "./formula.ts";
 import {
     DamageCategoryUnique,
+    DamageDamageContext,
     DamageDieSize,
     DamageFormulaData,
-    DamageRollContext,
     MaterialDamageEffect,
     WeaponBaseDamageData,
     WeaponDamageTemplate,
 } from "./types.ts";
-import { DAMAGE_DIE_SIZES } from "./values.ts";
 
 class WeaponDamagePF2e {
     static async fromNPCAttack({
@@ -172,15 +171,6 @@ class WeaponDamagePF2e {
                         modifier: 1,
                     }),
                 );
-            }
-
-            // Two-Hand trait
-            const handsHeld = weapon.system.equipped.handsHeld ?? 0;
-            const baseDieFaces = Number(baseDamage.die?.replace("d", "") ?? "NaN");
-            const twoHandSize = weaponTraits.find((t) => t.startsWith("two-hand-"))?.replace("two-hand-", "");
-            const twoHandFaces = Number(twoHandSize?.replace("d", "") ?? "NaN");
-            if (handsHeld === 2 && tupleHasValue(DAMAGE_DIE_SIZES, twoHandSize) && twoHandFaces > baseDieFaces) {
-                baseDamage.die = twoHandSize;
             }
 
             // Bonus damage
@@ -507,7 +497,7 @@ class WeaponDamagePF2e {
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             materials: Array.from(materials),
-            modifiers: [...modifiers, ...damageDice],
+            modifiers: [...damageDice, ...testedModifiers],
             damage: {
                 ...formulaData,
                 formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
@@ -560,13 +550,13 @@ interface WeaponDamageCalculateParams {
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface NPCStrikeCalculateParams {
     attack: MeleePF2e<ActorPF2e>;
     actor: ActorPF2e;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface ExcludeDamageParams {

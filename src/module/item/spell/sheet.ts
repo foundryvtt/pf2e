@@ -19,20 +19,21 @@ import {
 import * as R from "remeda";
 import { createDescriptionPrepend, createSpellRankLabel } from "./helpers.ts";
 import type {
+    EffectAreaShape,
     SpellDamageSource,
     SpellHeighteningInterval,
     SpellPF2e,
     SpellSystemData,
     SpellSystemSource,
 } from "./index.ts";
-import { MAGIC_TRADITIONS } from "./values.ts";
+import { EFFECT_AREA_SHAPES, MAGIC_TRADITIONS } from "./values.ts";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
     traits: "PF2E.Traits",
     time: "PF2E.Item.Spell.Cast",
     target: "PF2E.SpellTargetLabel",
-    area: "PF2E.AreaLabel",
+    area: "PF2E.Area.Label",
     range: "PF2E.TraitRange",
     damage: "PF2E.DamageLabel",
 };
@@ -101,6 +102,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         return {
             ...sheetData,
+            areaShapes: R.mapToObj(EFFECT_AREA_SHAPES, (s) => [s, `PF2E.Area.Shape.${s}`]),
             itemType: createSpellRankLabel(this.item),
             variants,
             isVariant: this.item.isVariant,
@@ -108,8 +110,6 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             damageSubtypes: R.pick(CONFIG.PF2E.damageCategories, [...DAMAGE_CATEGORIES_UNIQUE]),
             damageKinds,
             materials: CONFIG.PF2E.materialDamageEffects,
-            areaSizes: CONFIG.PF2E.areaSizes,
-            areaTypes: CONFIG.PF2E.areaTypes,
             heightenIntervals: [1, 2, 3, 4],
             heightenOverlays: this.#prepareHeighteningLevels(),
             canHeighten: this.isEditable && this.getAvailableHeightenLevels().length > 0,
@@ -484,8 +484,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     damageTypes: Record<DamageType, string>;
     damageSubtypes: Pick<typeof CONFIG.PF2E.damageCategories, DamageCategoryUnique>;
     damageKinds: Record<string, { value: string[]; label: string; selected: boolean; disabled: boolean }[]>;
-    areaSizes: typeof CONFIG.PF2E.areaSizes;
-    areaTypes: typeof CONFIG.PF2E.areaTypes;
+    areaShapes: Record<EffectAreaShape, string>;
     heightenIntervals: number[];
     heightenOverlays: SpellSheetHeightenOverlayData[];
     canHeighten: boolean;

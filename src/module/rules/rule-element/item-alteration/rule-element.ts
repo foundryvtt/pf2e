@@ -44,9 +44,8 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         }
     }
 
-    override onApplyActiveEffects(): void {
-        this.applyAlteration();
-    }
+    /** Alteration properties that should be processed at the end of data preparation */
+    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
@@ -80,6 +79,18 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         });
         if (updates.length > 0) {
             await this.actor.updateEmbeddedDocuments("Item", updates, { render: false, checkHP: false });
+        }
+    }
+
+    override onApplyActiveEffects(): void {
+        if (!this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+            this.applyAlteration();
+        }
+    }
+
+    override afterPrepareData(): void {
+        if (this.constructor.#DELAYED_PROPERTIES.includes(this.property)) {
+            this.applyAlteration();
         }
     }
 
@@ -144,7 +155,9 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
 
 interface ItemAlterationRuleElement
     extends RuleElementPF2e<ItemAlterationRuleSchema>,
-        ModelPropsFromRESchema<ItemAlterationRuleSchema> {}
+        ModelPropsFromRESchema<ItemAlterationRuleSchema> {
+    constructor: typeof ItemAlterationRuleElement;
+}
 
 type ItemAlterationRuleSchema = RuleElementSchema &
     ItemAlterationSchema & {

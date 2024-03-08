@@ -58,14 +58,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.PhaseBolt.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.PhaseBolt.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -87,14 +93,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.WarpStep.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell",
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            },
                             {
                                 "gte": [
                                     "item:rank",
@@ -112,7 +124,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:distortion-lens"
                 ],
                 "property": "description",
@@ -128,7 +143,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:ghostly-shift"
                 ],
                 "property": "description",
@@ -148,7 +166,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:tesseract-tunnel"
                 ],
                 "property": "description",
@@ -164,11 +185,74 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:phase-bolt",
                     "item:tag:psi-cantrip"
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "priority": 10,
+                "value": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.PhaseBolt",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:phase-bolt"
+                            }
+                        ],
+                        "value": "phase-bolt"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.WarpStep",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:warp-step"
+                            }
+                        ],
+                        "value": "warp-step"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.DistortionLens",
+                        "predicate": [
+                            "feat:psi-development"
+                        ],
+                        "value": "distortion-lens"
+                    }
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.psychic.dedication.psiCantrips",
+                "flag": "dedicationCantrip",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.PsiCantrip",
+                "rollOption": "selected-psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:psychic-dedication",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.dedicationCantrip}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
             }
         ],
         "traits": {

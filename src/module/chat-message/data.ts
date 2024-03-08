@@ -3,8 +3,8 @@ import { ItemType, SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
-import { CheckRollContext } from "@system/check/index.ts";
-import { DamageRollContext } from "@system/damage/types.ts";
+import { CheckCheckContext } from "@system/check/index.ts";
+import { DamageDamageContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
@@ -38,7 +38,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
     core: NonNullable<ChatMessageFlags["core"]>;
 };
 
-type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
+type ChatContextFlag = CheckContextChatFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -54,7 +54,7 @@ interface DieResult {
     result: number;
 }
 
-interface TargetFlag {
+interface ActorTokenFlag {
     actor: ActorUUID | TokenDocumentUUID;
     token?: TokenDocumentUUID;
 }
@@ -70,27 +70,30 @@ type ContextFlagOmission =
     | "mapIncreases"
     | "notes"
     | "options"
+    | "origin"
     | "range"
     | "target"
     | "token";
 
-interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
+interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: string;
     dosAdjustments?: DegreeAdjustmentsRecord;
-    target: TargetFlag | null;
+    roller?: "origin" | "target";
+    origin: ActorTokenFlag | null;
+    target: ActorTokenFlag | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];
     options: string[];
 }
 
-interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+interface DamageDamageContextFlag extends Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
     actor: string | null;
     token: string | null;
     item?: string;
     mapIncreases?: ZeroToTwo;
-    target: TargetFlag | null;
+    target: ActorTokenFlag | null;
     notes: RollNoteSource[];
     options: string[];
 }
@@ -125,12 +128,12 @@ interface AppliedDamageFlag {
 }
 
 export type {
+    ActorTokenFlag,
     AppliedDamageFlag,
     ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageSourcePF2e,
-    CheckRollContextFlag,
-    DamageRollContextFlag,
+    CheckContextChatFlag,
+    DamageDamageContextFlag,
     DamageRollFlag,
-    TargetFlag,
 };

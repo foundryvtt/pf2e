@@ -14,6 +14,17 @@ import * as R from "remeda";
 export const Ready = {
     listen: (): void => {
         Hooks.once("ready", () => {
+            // Proceed no further if blacklisted modules are enabled
+            const blacklistedModules = ["pf2e-action-support-engine", "pf2e-action-support-engine-macros"];
+            const blacklistedId = blacklistedModules.find((id) => game.modules.get(id)?.active);
+            if (blacklistedId) {
+                const message = `PF2E System halted: module "${blacklistedId}" is not supported.`;
+                ui.notifications.error(message, { permanent: true });
+                CONFIG.PF2E = {} as typeof CONFIG.PF2E;
+                game.pf2e = {} as typeof game.pf2e;
+                return;
+            }
+
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
@@ -103,7 +114,16 @@ export const Ready = {
             });
 
             game.pf2e.system.moduleArt.refresh().then(() => {
-                ui.compendium.compileSearchIndex();
+                if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
+                    // For some reason, Babele calls its own "ready" hook twice, and only the second one is genuine.
+                    Hooks.once("babele.ready", () => {
+                        Hooks.once("babele.ready", () => {
+                            ui.compendium.compileSearchIndex();
+                        });
+                    });
+                } else {
+                    ui.compendium.compileSearchIndex();
+                }
             });
 
             // Now that all game data is available, Determine what actors we need to reprepare.

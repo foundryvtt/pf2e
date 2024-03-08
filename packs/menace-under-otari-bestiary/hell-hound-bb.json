@@ -23,10 +23,6 @@
                         "damage": "1d8+4",
                         "damageType": "piercing"
                     },
-                    "lo40csa3zl4zythhvae1": {
-                        "damage": "1d6",
-                        "damageType": "spirit"
-                    },
                     "9hz2gveqa2icaip33z0e": {
                         "damage": "1d6",
                         "damageType": "fire"
@@ -58,7 +54,7 @@
         {
             "_id": "GsQeeSV97T6FPvoY",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Breath Weapon",
+            "name": "Hellfire Breath",
             "sort": 200000,
             "system": {
                 "actionType": {
@@ -69,7 +65,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hell hound breathes flames that deal @Damage[4d6[fire]] damage to all creatures in a @Template[type:cone|distance:15]. Each affected creature must attempt a @Check[type:reflex|dc:19|basic:true] save.</p>\n<p>The hell hound can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}. If the hell hound would take fire damage or is the target of a fire effect, its Breath Weapon recharges.</p>"
+                    "value": "<p>The hell hound breathes flames that deal @Damage[4d6[fire]] damage to all creatures in a @Template[type:cone|distance:15]. Each affected creature must attempt a @Check[type:reflex|dc:19|basic:true] save.</p>\n<p>The hell hound can't use Breath Weapon again for [[/br 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the hell hound would take fire damage or is the target of a fire effect, its Hellfire Breath recharges.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -89,9 +85,9 @@
             "type": "action"
         },
         {
-            "_id": "rj9VxT0ANFzZgmXI",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Evil Damage",
+            "_id": "gHFLr2q5cyBdthRD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pack Attack",
             "sort": 300000,
             "system": {
                 "actionType": {
@@ -102,17 +98,33 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hell hound's spirit damage harms only characters of a good alignment.</p>"
+                    "value": "<p>The hell hound's jaws Strike deals 1d4 extra damage to creatures within reach of two of the hell hounds' allies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "Pack Attack",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -139,7 +151,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -164,7 +177,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -189,7 +203,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -225,6 +240,7 @@
                     }
                 ],
                 "slug": null,
+                "traits": {},
                 "variants": {
                     "0": {
                         "label": "+11 to Track",
@@ -263,7 +279,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 19
+                "value": 17
             },
             "allSaves": {
                 "value": ""
@@ -302,10 +318,10 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "<p>Temperamental and quick to aggressive behavior, hell hounds are fiendish canines from a hellish plane. They're skilled hunters and can breath supernatural gouts of flame from their maws. A hell hound's appearance leaves no doubts as to its infernal origins-flesh the color of burning pitch, teeth as sharp as any fiend's pitchfork, and a shroud of ever-burning hellfire are all trademark features. Though they can't speak, they understand the Infernal language of Hell.</p>",
+            "publicNotes": "<p>Temperamental and quick to aggressive behavior, hell hounds are fiendish canines from a hellish plane. They're skilled hunters and can breathe supernatural gouts of flame from their maws. A hell hound's appearance leaves no doubts as to its infernal origins-flesh the color of burning pitch, teeth as sharp as any fiend's pitchfork, and a shroud of ever-burning hellfire are all trademark features. Though they can't speak, they understand Diabolic, the language of Hell.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -343,10 +359,8 @@
             },
             "value": [
                 "beast",
-                "evil",
                 "fiend",
                 "fire",
-                "lawful",
                 "unholy"
             ]
         }

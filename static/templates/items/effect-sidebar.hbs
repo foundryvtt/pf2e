@@ -37,6 +37,14 @@
             </div>
         </div>
     {{/if}}
+    {{#if data.badge.labels}}
+        <div class="form-group">
+            <label for="{{item.uuid}}-loop">{{localize "PF2E.Item.Effect.Looping"}}</label>
+            <div class="form-fields">
+                <input id="{{item.uuid}}-loop" type="checkbox" name="system.badge.loop" {{checked data.badge.loop}} />
+            </div>
+        </div>
+    {{/if}}
     <hr />
     {{#if data.badge}}
         {{#if (eq data.badge.type "formula")~}}
@@ -51,12 +59,14 @@
                     {{/if}}
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="{{item.uuid}}-badge-reevaluate">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.Label"}}</label>
                 <div class="form-fields">
                     <select id="{{item.uuid}}-badge-reevaluate" name="system.badge.reevaluate">
                         {{#select data.badge.reevaluate}}
                             <option value="">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.Never"}}</option>
+                            <option value="initiative-roll">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.InitiativeRoll"}}</option>
                             <option value="turn-start">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.TurnStart"}}</option>
                             <option value="turn-end">{{localize "PF2E.Item.Effect.Badge.ReevaluateFormula.TurnEnd"}}</option>
                         {{/select}}

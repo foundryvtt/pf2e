@@ -27,21 +27,14 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.AreaLabel"}}</label>
+        <label>{{localize "PF2E.Area.InFeet"}}</label>
         <div class="details-container-two-columns">
-            <select name="system.area.value" data-dtype="Number">
-                <option value="0"></option>
-                {{#select data.area.value}}
-                    {{#each areaSizes as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+            <input type="number" name="system.area.value" min="5" step="5" value="{{data.area.value}}" />
             <select name="system.area.type">
                 <option value=""></option>
                 {{#select data.area.type}}
-                    {{#each areaTypes as |label type|}}
-                        <option value="{{type}}">{{localize label}}</option>
+                    {{#each areaShapes as |label shape|}}
+                        <option value="{{shape}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -176,14 +169,14 @@
                             ><i class="fa-solid fa-fw fa-edit"></i></a>
                             <a data-action="delete-damage-partial" data-id="{{id}}"><i class="fa-solid fa-fw fa-trash"></i></a>
                         </div>
+                        {{#if partial.materials}}
+                            <div class="materials">
+                                {{#each partial.materials as |material|}}
+                                    <div class="tag-legacy">{{localize (lookup @root.materials material)}}</div>
+                                {{/each}}
+                            </div>
+                        {{/if}}
                     </div>
-                    {{#if partial.materials}}
-                        <div class="materials">
-                            {{#each partial.materials as |material|}}
-                                <div class="tag-legacy">{{localize (lookup @root.materials material)}}</div>
-                            {{/each}}
-                        </div>
-                    {{/if}}
                 </div>
             {{/each}}
         </div>

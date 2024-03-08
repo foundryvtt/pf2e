@@ -31,7 +31,7 @@ class UserVisibilityPF2e {
                     continue;
                 }
 
-                if (message?.target && whoseData === "target") {
+                if (message?.target && whoseData === "opposer") {
                     element.dataset.visibility = message.target.actor.hasPlayerOwner ? "all" : "gm";
                 }
             }

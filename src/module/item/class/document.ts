@@ -9,6 +9,7 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
 import { ClassTrait } from "./types.ts";
 
@@ -41,10 +42,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const system = this.system;
 
         return {
-            ancestry: fu.deepClone(system.ancestryFeatLevels.value),
-            class: [...system.classFeatLevels.value],
-            skill: [...system.skillFeatLevels.value],
-            general: [...system.generalFeatLevels.value],
+            ancestry: R.uniq(system.ancestryFeatLevels.value).sort((a, b) => a - b),
+            class: R.uniq(system.classFeatLevels.value).sort((a, b) => a - b),
+            skill: R.uniq(system.skillFeatLevels.value).sort((a, b) => a - b),
+            general: R.uniq(system.generalFeatLevels.value).sort((a, b) => a - b),
         };
     }
 

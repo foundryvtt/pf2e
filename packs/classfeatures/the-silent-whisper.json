@@ -58,14 +58,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Daze.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusTwo"
@@ -87,7 +93,10 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Message.Base",
                         "title": "PF2E.TraitAmp"
@@ -99,7 +108,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:forbidden-thought"
                 ],
                 "property": "description",
@@ -115,7 +127,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:shatter-mind"
                 ],
                 "property": "description",
@@ -153,6 +168,77 @@
                     "item:tag:amped"
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:shatter-mind",
+                    "item:tag:amped"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "priority": 10,
+                "value": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Daze",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:daze"
+                            }
+                        ],
+                        "value": "daze"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Message",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:message"
+                            }
+                        ],
+                        "value": "message"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.ForbiddenThought",
+                        "predicate": [
+                            "feat:psi-development"
+                        ],
+                        "value": "forbidden-thought"
+                    }
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.psychic.dedication.psiCantrips",
+                "flag": "dedicationCantrip",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.PsiCantrip",
+                "rollOption": "selected-psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:psychic-dedication",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.dedicationCantrip}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
             }
         ],
         "traits": {

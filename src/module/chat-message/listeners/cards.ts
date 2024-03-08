@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { EffectPF2e, PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
@@ -20,7 +20,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
-import { ChatMessagePF2e, CheckRollContextFlag } from "../index.ts";
+import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
 
 class ChatCards {
     static #lastClick = 0;
@@ -57,7 +57,7 @@ class ChatCards {
         if (strikeAction && action?.startsWith("strike-")) {
             const context = (
                 message.rolls.some((r) => r instanceof CheckRoll) ? message.flags.pf2e.context ?? null : null
-            ) as CheckRollContextFlag | null;
+            ) as CheckContextChatFlag | null;
             const mapIncreases =
                 context && "mapIncreases" in context && tupleHasValue([0, 1, 2], context.mapIncreases)
                     ? context.mapIncreases
@@ -195,23 +195,28 @@ class ChatCards {
                         item.isOfType("action", "feat") && item.system.selfEffect
                             ? await fromUuid(item.system.selfEffect.uuid)
                             : null;
-                    if (target instanceof ActorPF2e && effect instanceof ItemPF2e && effect.isOfType("effect")) {
-                        const effectSource: EffectSource = { ...effect.toObject(), _id: null };
-                        const originData = item.getOriginData();
-                        effectSource.system.context = {
-                            origin: {
-                                actor: actor.uuid,
-                                token: message.token?.uuid ?? null,
-                                item: item.uuid,
-                                spellcasting: null,
-                                rollOptions: originData.rollOptions,
+                    if (target instanceof ActorPF2e && effect instanceof EffectPF2e) {
+                        const traits = item.system.traits.value?.filter((t) => t in EffectPF2e.validTraits) ?? [];
+                        const effectSource: EffectSource = fu.mergeObject(effect.toObject(), {
+                            _id: null,
+                            system: {
+                                context: {
+                                    origin: {
+                                        actor: actor.uuid,
+                                        token: message.token?.uuid ?? null,
+                                        item: item.uuid,
+                                        spellcasting: null,
+                                        rollOptions: item.getOriginData().rollOptions,
+                                    },
+                                    target: {
+                                        actor: target.uuid,
+                                        token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
+                                    },
+                                    roll: null,
+                                },
+                                traits: { value: traits },
                             },
-                            target: {
-                                actor: target.uuid,
-                                token: target.getActiveTokens(true, true).at(0)?.uuid ?? null,
-                            },
-                            roll: null,
-                        };
+                        });
                         await target.createEmbeddedDocuments("Item", [effectSource]);
                         const parsedMessageContent = ((): HTMLElement => {
                             const container = document.createElement("div");
@@ -240,7 +245,7 @@ class ChatCards {
                     );
                     const checkContext = (
                         roll ? message.flags.pf2e.context ?? null : null
-                    ) as CheckRollContextFlag | null;
+                    ) as CheckContextChatFlag | null;
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
                         roll?.options.identifier?.split(".") ?? [];
@@ -340,7 +345,7 @@ class ChatCards {
             const roll = message.rolls.find(
                 (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "army-strike",
             );
-            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckRollContextFlag | null;
+            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckContextChatFlag | null;
             const action = button.dataset.outcome === "success" ? "damage" : "critical";
             const strike = actor.strikes[roll?.options.identifier ?? ""];
             strike?.[action]({ checkContext, event });

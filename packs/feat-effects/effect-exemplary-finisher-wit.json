@@ -1,10 +1,10 @@
 {
-    "_id": "WrWSieH9Acy6XuzV",
-    "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
-    "name": "Effect: Educate Allies (Ally)",
+    "_id": "cu10OjQUdY0a9gpj",
+    "img": "systems/pf2e/icons/features/classes/wit-style.webp",
+    "name": "Effect: Exemplary Finisher (Wit)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Educate Allies].</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Exemplary Finisher]</p>\n<p>The foe takes a -2 circumstance penalty to attack rolls against you until the start of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,21 +23,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Educate Allies (vs. performative effects)",
                 "predicate": [
-                    {
-                        "or": [
-                            "auditory",
-                            "illusion",
-                            "linguistic",
-                            "sonic",
-                            "visual"
-                        ]
-                    }
+                    "target:signature:{item|origin.signature}"
                 ],
-                "selector": "saving-throw",
+                "selector": "attack",
                 "type": "circumstance",
-                "value": 1
+                "value": -2
             }
         ],
         "start": {
@@ -48,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

@@ -14,7 +14,7 @@ import {
 import * as R from "remeda";
 import { createDamageFormula } from "./formula.ts";
 import { DamageRoll } from "./roll.ts";
-import { DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageRollContext, DamageType } from "./types.ts";
+import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
 
 /**
@@ -23,7 +23,7 @@ import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
  */
 class DamageModifierDialog extends Application {
     formulaData: DamageFormulaData;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 
     /** The base damage type of this damage roll */
     baseDamageType: DamageType;
@@ -384,7 +384,7 @@ class DamageModifierDialog extends Application {
 
 interface DamageDialogParams {
     formulaData: DamageFormulaData;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 
 interface BaseData {

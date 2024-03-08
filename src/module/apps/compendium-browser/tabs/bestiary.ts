@@ -57,7 +57,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     type: actorData.type,
                     name: actorData.name,
                     img: actorData.img,
-                    uuid: `Compendium.${pack.collection}.${actorData._id}`,
+                    uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
                     actorSize: actorData.system.traits.size.value,
                     traits: actorData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
