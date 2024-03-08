@@ -602,7 +602,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // PFS Level Bump - hit points
             if (system.pfs.levelBump) {
-                const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
+                const hitPointsBump = Math.max(10, Math.floor(stat.totalModifier * 0.1));
                 stat.push(new ModifierPF2e("PF2E.PFS.LevelBump", hitPointsBump, "untyped"));
             }
 
