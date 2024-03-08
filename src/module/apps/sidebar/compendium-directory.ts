@@ -8,14 +8,27 @@ import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
 class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static readonly STOP_WORDS = new Set(["of", "th", "the"]);
 
-    static readonly searchEngine = new MiniSearch<CompendiumIndexData>({
-        fields: ["name"],
-        idField: "uuid",
-        processTerm: (t) =>
-            t.length > 1 && !this.STOP_WORDS.has(t) ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "") : null,
-        searchOptions: { combineWith: "AND", prefix: true },
-        storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
-    });
+    #searchEngine: MiniSearch<CompendiumIndexData>;
+
+    constructor(options?: Partial<ApplicationOptions>) {
+        super(options);
+
+        const wordSegmenter = new Intl.Segmenter(game.i18n.lang, { granularity: "word" });
+        this.#searchEngine = new MiniSearch({
+            fields: ["name"],
+            idField: "uuid",
+            processTerm: (term) => {
+                if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
+                    return null;
+                }
+                return Array.from(wordSegmenter.segment(term))
+                    .map((t) => t.segment.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, ""))
+                    .filter((t) => t.length > 1);
+            },
+            searchOptions: { combineWith: "AND", prefix: true },
+            storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
+        });
+    }
 
     /** Include ability to search and drag document search results */
     static override get defaultOptions(): ApplicationOptions {
@@ -129,8 +142,8 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const html = this.element[0];
 
         // Match documents within each compendium by name
-        const docMatches = query.length > 0 ? this.constructor.searchEngine.search(query) : [];
-        const { activeFilters } = this;
+        const docMatches = query.length > 0 ? this.#searchEngine.search(query) : [];
+        const activeFilters = this.activeFilters;
         const filteredMatches =
             this.activeFilters.length > 0
                 ? docMatches.filter((m) => activeFilters.includes(m.documentType))
@@ -224,7 +237,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
-        this.constructor.searchEngine.removeAll();
+        this.#searchEngine.removeAll();
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
@@ -232,7 +245,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 documentType: pack.metadata.type,
                 packLabel: pack.metadata.label,
             }));
-            this.constructor.searchEngine.addAll(contents);
+            this.#searchEngine.addAll(contents);
         }
         console.debug("PF2e System | Finished compiling search index");
     }
