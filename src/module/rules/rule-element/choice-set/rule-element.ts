@@ -175,15 +175,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.#setDefaultFlag(ruleSource);
 
-        const inflatedChoices = await this.inflateChoices(rollOptions, tempItems);
+        this.choices = await this.inflateChoices(rollOptions, tempItems);
 
         const selection =
-            this.#getPreselection(inflatedChoices) ??
+            this.#getPreselection(this.choices) ??
             (await new ChoiceSetPrompt({
                 prompt: this.prompt,
                 item: this.item,
                 title: this.label,
-                choices: inflatedChoices,
+                choices: this.choices,
                 containsItems: this.containsItems,
                 allowedDrops: this.allowedDrops,
                 allowNoSelection: this.allowNoSelection,
