@@ -296,7 +296,7 @@ function getStrikeAttackDomains(
         domains.push(`${proficiencies[proficiencyRank]}-attack`);
     }
 
-    const { actor } = weapon;
+    const actor = weapon.actor;
     if (actor.isOfType("character", "npc")) {
         const defaultAttributeModifier = createAttributeModifier({
             actor,
