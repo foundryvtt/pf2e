@@ -65,7 +65,9 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
     #testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
         if ("eq" in statement) {
-            return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
+            return typeof statement.eq[1] === "string"
+                ? statement.eq[0] === statement.eq[1]
+                : domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
         } else {
             const operator = Object.keys(statement)[0];
 
