@@ -17,7 +17,6 @@ import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
 import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice.ts";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap.ts";
-import { EffectSpinoffRuleElement } from "./rule-element/effect-spinoff/rule-element.ts";
 import { EphemeralEffectRuleElement } from "./rule-element/ephemeral-effect.ts";
 import { FastHealingRuleElement } from "./rule-element/fast-healing.ts";
 import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency.ts";
@@ -69,7 +68,6 @@ class RuleElements {
         DamageAlteration: DamageAlterationRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
-        EffectSpinoff: EffectSpinoffRuleElement,
         EphemeralEffect: EphemeralEffectRuleElement,
         FastHealing: FastHealingRuleElement,
         FixedProficiency: FixedProficiencyRuleElement,
