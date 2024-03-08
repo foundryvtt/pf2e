@@ -20,7 +20,7 @@ export class Migration923NineRingSwordAndTouchOfCorruption extends MigrationBase
     }
 
     private spellUUID: Set<CompendiumUUID> = new Set([
-        "Compendium.pf2e.spells-srd.jFmWSIpJGGebim6y", // Touch of Corruption
+        "Compendium.pf2e.spells-srd.Item.jFmWSIpJGGebim6y", // Touch of Corruption
     ]);
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
