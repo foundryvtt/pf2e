@@ -1,12 +1,12 @@
-import { ActorPF2e } from "@actor";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
+import type { ActorPF2e } from "@actor";
+import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
-import { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
-import { ItemPF2e } from "./base/document.ts";
-import { PhysicalItemPF2e } from "./physical/document.ts";
+import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
+import type { ItemPF2e } from "./base/document.ts";
+import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import { ItemInstances } from "./types.ts";
+import type { ItemInstances } from "./types.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
