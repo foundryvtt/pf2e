@@ -51,7 +51,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
             Object.values(p).every((v) => ["string", "number"].includes(typeof v));
         this.preselectChoices =
-            R.isObject(data.preselectChoices) && isValidPreselect(data.preselectChoices)
+            R.isPlainObject(data.preselectChoices) && isValidPreselect(data.preselectChoices)
                 ? fu.deepClone(data.preselectChoices)
                 : {};
 
