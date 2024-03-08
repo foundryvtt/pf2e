@@ -288,3 +288,4 @@ export { Migration919WeaponToggleStructure } from "./919-trait-toggle-structure.
 export { Migration920SuboptionSelection } from "./920-suboption-selection.ts";
 export { Migration921SpellSlotArrays } from "./921-spell-slot-arrays.ts";
 export { Migration922SwashbucklerFinishers } from "./922-swashbuckler-finisher-suboptions.ts";
+export { Migration923NineRingSwordAndTouchOfCorruption } from "./923-nine-ring-sword-and-touch-of-corruption.ts";
