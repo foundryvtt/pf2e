@@ -211,7 +211,9 @@ export class Migration923KineticistRestructure extends MigrationBase {
     async #loadFeatSource(uuid: ItemUUID): Promise<FeatSource | null> {
         const item = await fromUuid<ItemPF2e>(uuid);
         const source: ItemSourcePF2e | null = item?.toObject(true) ?? null;
-        return source && itemIsOfType(source, "feat") ? source : null;
+        if (!source || !itemIsOfType(source, "feat")) return null;
+        source._id = fu.randomID();
+        return source;
     }
 
     #addGrantedItem(
@@ -312,7 +314,13 @@ export class Migration923KineticistRestructure extends MigrationBase {
                     if (!thresholdItem) return null;
                     const choice = getChoice(thresholdItem, sluggify(slug, { camel: "dromedary" }));
                     if (!tupleHasValue(["fork", "expand"], choice)) return null;
-                    const element = getChoice(thresholdItem, choice === "expand" ? "elementExpand" : "elementFork");
+
+                    // Get the element. The first choice isn't necessary and the rest should resolve normally, but we tested with it so best not to risk it
+                    const element =
+                        getChoice(thresholdItem, choice === "expand" ? "elementExpand" : "elementFork") ??
+                        getChoice(thresholdItem, "element") ??
+                        getChoice(thresholdItem, "elementExpand") ??
+                        getChoice(thresholdItem, "elementFork");
                     if (!element) return null;
 
                     return {
