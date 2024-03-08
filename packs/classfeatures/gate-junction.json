@@ -26,12 +26,19 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": "elementTraits",
+                "flag": "element",
+                "key": "ChoiceSet"
+            },
+            {
+                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.Rename",
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.Aura",
                         "predicate": [
                             {
-                                "not": "junction:{actor|flags.pf2e.elementOne}:aura"
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:aura"
                             }
                         ],
                         "value": "aura"
@@ -40,7 +47,7 @@
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.CriticalBlast",
                         "predicate": [
                             {
-                                "not": "junction:{actor|flags.pf2e.elementOne}:critical"
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:critical"
                             }
                         ],
                         "value": "critical"
@@ -49,7 +56,7 @@
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ElementalResistance",
                         "predicate": [
                             {
-                                "not": "junction:{actor|flags.pf2e.elementOne}:resistance"
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:resistance"
                             }
                         ],
                         "value": "resistance"
@@ -58,7 +65,7 @@
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.Impulse",
                         "predicate": [
                             {
-                                "not": "junction:{actor|flags.pf2e.elementOne}:impulse"
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:impulse"
                             }
                         ],
                         "value": "impulse"
@@ -67,7 +74,7 @@
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.Skill",
                         "predicate": [
                             {
-                                "not": "junction:{actor|flags.pf2e.elementOne}:skill"
+                                "not": "junction:{item|flags.pf2e.rulesSelections.element}:skill"
                             }
                         ],
                         "value": "skill"
@@ -80,13 +87,18 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "junction:{actor|flags.pf2e.elementOne}:{item|flags.pf2e.rulesSelections.junction}"
+                "option": "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}"
             },
             {
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:air:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:air:skill"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
             },
@@ -94,7 +106,12 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:earth:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:earth:skill"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
             },
@@ -102,7 +119,12 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:fire:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:fire:skill"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
             },
@@ -110,7 +132,12 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:metal:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:metal:skill"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Quick Repair"
             },
@@ -118,7 +145,12 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:water:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:water:skill"
+                        ]
+                    }
                 ],
                 "uuid": "Compendium.pf2e.feats-srd.Item.Underwater Marauder"
             },
@@ -126,7 +158,12 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "predicate": [
-                    "junction:wood:skill"
+                    {
+                        "eq": [
+                            "junction:{item|flags.pf2e.rulesSelections.element}:{item|flags.pf2e.rulesSelections.junction}",
+                            "junction:wood:skill"
+                        ]
+                    }
                 ],
                 "preselectChoices": {
                     "terrain": "forest"

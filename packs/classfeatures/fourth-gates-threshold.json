@@ -26,6 +26,7 @@
         },
         "rules": [
             {
+                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Rename",
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Label",
@@ -41,8 +42,7 @@
                 "rollOption": "kinetic-gate:fourth-threshold"
             },
             {
-                "actorFlag": true,
-                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Rename",
+                "adjustName": false,
                 "choices": [
                     {
                         "label": "PF2E.TraitAir",
@@ -99,6 +99,9 @@
                 "predicate": [
                     "kinetic-gate:fourth-threshold:expand"
                 ],
+                "preselectChoices": {
+                    "element": "{item|flags.pf2e.rulesSelections.elementOne}"
+                },
                 "uuid": "Compendium.pf2e.classfeatures.Item.Gate Junction"
             },
             {
