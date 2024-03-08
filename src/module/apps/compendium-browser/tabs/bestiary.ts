@@ -18,7 +18,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     ];
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = ["type", "name", "img", "uuid", "level", "actorSize", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
@@ -56,6 +56,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 bestiaryActors.push({
                     type: actorData.type,
                     name: actorData.name,
+                    originalName: actorData.originalName, // Added by Babele
                     img: actorData.img,
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,

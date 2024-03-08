@@ -11,7 +11,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = ["type", "name", "img", "uuid", "level", "category", "traits", "source"];
 
     constructor(browser: CompendiumBrowser) {
@@ -57,6 +57,7 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
                 feats.push({
                     type: featData.type,
                     name: featData.name,
+                    originalName: featData.originalName, // Added by Babele
                     img: featData.img,
                     uuid: featData.uuid,
                     level: featData.system.level?.value,

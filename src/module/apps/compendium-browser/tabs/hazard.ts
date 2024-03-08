@@ -10,7 +10,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];
 
     protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
@@ -57,6 +57,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 hazardActors.push({
                     type: actorData.type,
                     name: actorData.name,
+                    originalName: actorData.originalName, // Added by Babele
                     img: actorData.img,
                     uuid: actorData.uuid,
                     level: actorData.system.details.level.value,
