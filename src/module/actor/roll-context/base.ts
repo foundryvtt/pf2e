@@ -107,6 +107,9 @@ abstract class RollContext<
         const opposerRole = selfRole === "origin" ? "target" : "origin";
         const rollingActor = await this.#cloneActor(selfRole);
         const rollerStatistic = this.#getClonedStatistic(rollingActor);
+        const resolvedDomains =
+            (rollerStatistic instanceof StatisticModifier ? rollerStatistic.domains : rollerStatistic?.check.domains) ??
+            this.domains;
 
         const itemClone =
             rollerStatistic && "item" in rollerStatistic ? rollerStatistic.item : this.#cloneItem(rollingActor);
@@ -129,7 +132,7 @@ abstract class RollContext<
             R.compact(
                 [
                     ...this.rollOptions,
-                    rollingActor?.getRollOptions(this.domains),
+                    rollingActor?.getRollOptions(resolvedDomains),
                     distanceRangeOptions,
                     this.traits.map((t) => `self:action:trait:${t}`),
                     itemOptions,
@@ -185,6 +188,7 @@ abstract class RollContext<
             : null;
 
         return {
+            domains: resolvedDomains,
             options: rollOptions,
             origin,
             target,
