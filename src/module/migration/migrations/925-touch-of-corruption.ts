@@ -7,9 +7,7 @@ export class Migration925TouchOfCorruption extends MigrationBase {
     static override version = 0.925;
 
     #replaceStrings<TObject extends object>(data: TObject): TObject {
-        return recursiveReplaceString(data, (s) =>
-            s.replace("ekGHLJSHGgWMUwkY", "jFmWSIpJGGebim6y"),
-        );
+        return recursiveReplaceString(data, (s) => s.replace("ekGHLJSHGgWMUwkY", "jFmWSIpJGGebim6y"));
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
