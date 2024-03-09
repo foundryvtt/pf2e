@@ -18,7 +18,7 @@ export class Migration923KineticistRestructure extends MigrationBase {
         if (actorSource.type !== "character") return;
 
         // If this actor already has a modern gate item, skip
-        if (actorSource.items.some((i) => tupleHasValue(i.system.traits.otherTags, "kineticist-kinetic-gate"))) {
+        if (actorSource.items.some((i) => tupleHasValue(i.system.traits?.otherTags ?? [], "kineticist-kinetic-gate"))) {
             return;
         }
 
