@@ -69,6 +69,8 @@ interface RollContextData<
     TStatistic extends Statistic | StrikeData | null = Statistic | StrikeData | null,
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > {
+    /** Roll option domains */
+    domains: string[];
     /** Roll options */
     options: Set<string>;
     origin: RollOrigin<TActor, TStatistic, TItem> | null;

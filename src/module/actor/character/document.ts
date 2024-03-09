@@ -1547,7 +1547,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 if (!context.origin) return null;
 
                 const statistic = context.origin.statistic ?? action;
-                const maps = calculateMAPs(context.origin.item, { domains: attackDomains, options: context.options });
+                const maps = calculateMAPs(context.origin.item, { domains: context.domains, options: context.options });
                 const maPenalty = createMAPenalty(maps, mapIncreases, context.options);
                 const check = checkModifiers[mapIncreases](statistic, R.compact([maPenalty]));
 
@@ -1562,23 +1562,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
-                    rule.beforeRoll?.(attackDomains, context.options);
+                    rule.beforeRoll?.(context.domains, context.options);
                 }
 
                 const dc = params.dc ?? context.dc;
 
-                const notes = extractNotes(context.origin.actor.synthetics.rollNotes, attackDomains);
+                const notes = extractNotes(context.origin.actor.synthetics.rollNotes, context.domains);
                 const rollTwice =
                     params.rollTwice ||
-                    extractRollTwice(context.origin.actor.synthetics.rollTwice, attackDomains, context.options);
+                    extractRollTwice(context.origin.actor.synthetics.rollTwice, context.domains, context.options);
                 const substitutions = extractRollSubstitutions(
                     context.origin.actor.synthetics.rollSubstitutions,
-                    attackDomains,
+                    context.domains,
                     context.options,
                 );
                 const dosAdjustments = [
                     getPropertyRuneDegreeAdjustments(context.origin.item),
-                    extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, attackDomains),
+                    extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, context.domains),
                 ].flat();
 
                 const title = game.i18n.format(
@@ -1598,7 +1598,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     item: context.origin.item,
                     altUsage: params.altUsage ?? null,
                     damaging: context.origin.item.dealsDamage,
-                    domains: attackDomains,
+                    domains: context.domains,
                     options: context.options,
                     notes,
                     dc,
@@ -1622,7 +1622,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                             roll,
                             check,
                             context: checkContext,
-                            domains: attackDomains,
+                            domains: context.domains,
                             rollOptions: context.options,
                         });
                     }
@@ -1635,7 +1635,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
-                const domains = getStrikeDamageDomains(weapon, proficiencyRank);
                 params.options = new Set(params.options ?? []);
                 const targetToken = params.target ?? game.user.targets.first() ?? null;
 
@@ -1643,7 +1642,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     viewOnly: params.getFormula ?? false,
                     origin: { actor: this, statistic: action, item: weapon },
                     target: { token: targetToken?.document },
-                    domains,
+                    domains: getStrikeDamageDomains(weapon, proficiencyRank),
                     outcome: method === "damage" ? "success" : "criticalSuccess",
                     options: new Set([...baseOptions, ...params.options]),
                     traits: actionTraits,
@@ -1673,7 +1672,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     target,
                     outcome,
                     options,
-                    domains,
+                    domains: context.domains,
                     traits: context.traits,
                     createMessage: params.createMessage ?? true,
                     ...eventToRollParams(params.event, { type: "damage" }),
