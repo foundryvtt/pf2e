@@ -7,8 +7,10 @@ export class Migration925TouchOfCorruption extends MigrationBase {
     static override version = 0.925;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.system.description = recursiveReplaceString(source.system.description, (s) =>
-            s.replace(/\bekGHLJSHGgWMUwkY\b/g, "jFmWSIpJGGebim6y"),
-        );
+        if (itemIsOfType(source, "effect", "spell")) {
+            source.system.description = recursiveReplaceString(source.system.description, (s) =>
+                s.replace(/\bekGHLJSHGgWMUwkY\b/g, "jFmWSIpJGGebim6y"),
+            );
+        }
     }
 }
