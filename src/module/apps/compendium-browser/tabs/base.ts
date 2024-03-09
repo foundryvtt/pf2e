@@ -53,11 +53,19 @@ export abstract class CompendiumBrowserTab {
         await this.loadData();
 
         // Initialize MiniSearch
-        const wordSegmenter = new Intl.Segmenter(game.i18n.lang, { granularity: "word" });
+        const wordSegmenter =
+            "Segmenter" in Intl
+                ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
+                : // Firefox >:(
+                  {
+                      segment(term: string): { segment: string }[] {
+                          return [{ segment: term }];
+                      },
+                  };
         this.searchEngine = new MiniSearch({
             fields: this.searchFields,
             idField: "uuid",
-            processTerm: (term) => {
+            processTerm: (term): string[] | null => {
                 if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
                     return null;
                 }
