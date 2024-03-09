@@ -4,7 +4,7 @@ import { MigrationBase } from "../base.ts";
 
 /** Rename all instances of and references to "Nine-Ring Sword" to "Jiu Huan Doa". **/
 export class Migration924JiuHuanDoa extends MigrationBase {
-    static override version = 0.923;
+    static override version = 0.924;
 
     #nineRingSword = {
         slug: "nine-ring-sword",
