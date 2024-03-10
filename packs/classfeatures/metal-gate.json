@@ -267,9 +267,29 @@
                             2
                         ]
                     },
-                    "impulse",
                     "junction:metal:impulse",
-                    "metal"
+                    "self:action:trait:impulse",
+                    "self:action:trait:metal"
+                ],
+                "selector": "impulse-attack-roll",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Metal",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "self:action:slug:elemental-blast"
+                    },
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "junction:metal:impulse",
+                    "self:action:trait:impulse",
+                    "self:action:trait:metal"
                 ],
                 "selector": [
                     "impulse-damage",
