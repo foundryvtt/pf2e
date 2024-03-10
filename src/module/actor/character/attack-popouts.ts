@@ -1,4 +1,4 @@
-import type { ElementTrait } from "@scripts/config/traits.ts";
+import { ActionTrait as EffectTrait } from "@item/ability/index.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
 import type { CharacterStrike } from "./data.ts";
 import type { CharacterPF2e } from "./document.ts";
@@ -10,7 +10,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
     #strikeItemId = "";
     #strikeSlug = "";
     #strike?: CharacterStrike;
-    #elementTrait?: ElementTrait;
+    #blastTrait?: EffectTrait;
     #blasts: ElementalBlastConfig[] = [];
 
     override get template(): string {
@@ -21,7 +21,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         const id = super.id;
         return this.type === "strike"
             ? `${id}-strike-${this.#strikeItemId}-${this.#strikeSlug}`
-            : `${id}-blast-${this.#elementTrait}`;
+            : `${id}-blast-${this.#blastTrait}`;
     }
 
     static override get defaultOptions(): ActorSheetOptions {
@@ -53,7 +53,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
             if (!options.elementTrait) {
                 throw ErrorPF2e('AttackPopout of type "blast" is missing mandatory "elementalTrait" option.');
             }
-            this.#elementTrait = options.elementTrait;
+            this.#blastTrait = options.elementTrait;
         } else {
             if (!options.strikeSlug) {
                 throw ErrorPF2e('AttackPopout of type "strike" is missing mandatory "strikeSlug" option.');
@@ -71,7 +71,7 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
         const base = await super.getData(options);
 
         if (this.type === "blast") {
-            base.elementalBlasts = this.#blasts = base.elementalBlasts.filter((b) => b.element === this.#elementTrait);
+            base.elementalBlasts = this.#blasts = base.elementalBlasts.filter((b) => b.element === this.#blastTrait);
             base.data.actions = [];
             base.toggles.actions = base.toggles.actions?.filter((t) => t.domain === "elemental-blast") ?? [];
         } else {
@@ -123,7 +123,7 @@ interface StrikePopoutOptions extends BaseAttackPopoutOptions {
 
 interface BlastPopoutOptions extends BaseAttackPopoutOptions {
     type: "blast";
-    elementTrait?: ElementTrait;
+    elementTrait?: EffectTrait;
 }
 
 type AttackPopoutOptions = StrikePopoutOptions | BlastPopoutOptions;

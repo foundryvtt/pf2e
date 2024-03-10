@@ -1244,7 +1244,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     #activateBlastListeners(panel: HTMLElement | null): void {
         const blastList = htmlQuery(panel, "ol[data-elemental-blasts]");
-        const { elementTraits, damageTypes } = CONFIG.PF2E;
         const selectors = ["roll-attack", "roll-damage", "set-damage-type"]
             .map((s) => `button[data-action=${s}]`)
             .join(",");
@@ -1258,10 +1257,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const blast = new ElementalBlast(this.actor);
             const { element } = blastRow.dataset;
             const damageType = button.value || blastRow.dataset.damageType;
-            if (!objectHasKey(elementTraits, element)) {
-                throw ErrorPF2e("Unexpected error retrieve element");
+            if (!objectHasKey(CONFIG.PF2E.effectTraits, element)) {
+                throw ErrorPF2e("Unexpected error retrieving elemental blast: invalid trait");
             }
-            if (!objectHasKey(damageTypes, damageType)) {
+            if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                 throw ErrorPF2e("Unexpected error retrieving damage type");
             }
             const melee = button.dataset.melee === "true";

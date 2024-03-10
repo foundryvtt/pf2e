@@ -4,7 +4,7 @@ import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import {
@@ -13,7 +13,6 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -31,6 +30,7 @@ import {
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
+import { RecordField } from "@system/schema-data-fields.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, isObject, objectHasKey, signedInteger } from "@util";
 import * as R from "remeda";
@@ -58,95 +58,22 @@ class ElementalBlast {
     /** Modifications of the blast from infusions */
     infusion: BlastInfusionData | null;
 
+    /** Actual data model of the flag data */
+    #flags: KineticistFlags;
+
     constructor(actor: CharacterPF2e) {
         if (!actor.isOfType("character")) throw ErrorPF2e("Must construct with a PC");
         this.actor = actor;
         this.statistic = this.actor.getStatistic("impulse");
         this.item = this.actor.itemTypes.action.find((a) => a.slug === "elemental-blast") ?? null;
-        this.infusion = this.#prepareBlastInfusion();
+
+        // Load flags and shove into data model
+        const kineticist = this.actor.flags.pf2e.kineticist;
+        this.#flags = new KineticistFlags(isObject(kineticist) ? fu.duplicate(kineticist) : {});
+
+        this.infusion = this.#flags.blastInfusion;
         this.configs = this.#prepareBlastConfigs();
     }
-
-    static #blastConfigSchema = ((): SchemaField<BlastConfigSchema> => {
-        const { fields } = foundry.data;
-
-        return new fields.SchemaField({
-            element: new fields.StringField<ElementTrait, ElementTrait, true, false, false>({
-                required: true,
-                choices: () => CONFIG.PF2E.elementTraits,
-                initial: undefined,
-            }),
-            label: new fields.StringField({ required: true, blank: false, initial: undefined }),
-            img: new fields.FilePathField({
-                required: true,
-                categories: ["IMAGE"],
-                nullable: false,
-                initial: "systems/pf2e/icons/default-icons/spell.svg" as ImageFilePath,
-            }),
-            damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
-            ),
-            dieFaces: new fields.NumberField({
-                required: true,
-                nullable: false,
-                integer: true,
-                choices: [6, 8],
-                initial: undefined,
-            } as const),
-            range: new fields.NumberField({
-                required: true,
-                nullable: false,
-                integer: true,
-                positive: true,
-                initial: undefined,
-            }),
-        });
-    })();
-
-    static #blastInfusionSchema = ((): SchemaField<BlastInfusionSchema> => {
-        const { fields } = foundry.data;
-
-        return new fields.SchemaField({
-            damageTypes: new fields.ArrayField(
-                new fields.StringField({ required: true, choices: () => CONFIG.PF2E.damageTypes, initial: undefined }),
-            ),
-            range: new fields.SchemaField(
-                {
-                    increment: new fields.NumberField({
-                        required: true,
-                        integer: true,
-                        positive: true,
-                        nullable: false,
-                    }),
-                    max: new fields.NumberField({
-                        required: true,
-                        integer: true,
-                        positive: true,
-                        nullable: false,
-                    }),
-                },
-                { required: false, nullable: true, initial: null },
-            ),
-            traits: new fields.SchemaField({
-                melee: new fields.ArrayField(
-                    new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
-                        required: true,
-                        nullable: false,
-                        choices: () => CONFIG.PF2E.weaponTraits,
-                        initial: undefined,
-                    }),
-                ),
-                ranged: new fields.ArrayField(
-                    new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
-                        required: true,
-                        nullable: false,
-                        choices: () => CONFIG.PF2E.weaponTraits,
-                        initial: undefined,
-                    }),
-                ),
-            }),
-        });
-    })();
 
     get actionCost(): 1 | 2 {
         const cost = this.item?.flags.pf2e.rulesSelections.actionCost ?? 1;
@@ -158,23 +85,11 @@ class ElementalBlast {
     #prepareBlastConfigs(): ElementalBlastConfig[] {
         const { item, statistic, actionCost, infusion } = this;
         if (!item || !statistic) return [];
-        const { kineticist } = this.actor.flags.pf2e;
-        if (!isObject(kineticist) || !("elementalBlast" in kineticist) || !isObject(kineticist.elementalBlast)) {
-            return [];
-        }
-        const schema = ElementalBlast.#blastConfigSchema;
+
         const damageTypeSelections = ((): Record<string, unknown> => {
             const flag = item.flags.pf2e.damageSelections;
             return isObject<Record<string, unknown>>(flag) ? flag : {};
         })();
-        const blasts = Object.values(kineticist.elementalBlast)
-            .filter((b: unknown) => isObject(b) && "element" in b)
-            .map((b) => schema.clean(b));
-
-        const validationFailures = blasts.flatMap((b) => schema.validate(b) ?? []);
-        for (const failure of validationFailures) {
-            throw failure.asError();
-        }
 
         // Set in the same fashion as weapons
         item.flags.pf2e.attackItemBonus =
@@ -206,7 +121,8 @@ class ElementalBlast {
             return { melee: mapsFor(true), ranged: mapsFor(false) };
         })();
 
-        return blasts.map((blast) => {
+        const blastValues = R.compact(Object.values(this.#flags.elementalBlast ?? {}));
+        return blastValues.map((blast) => {
             const damageTypes: BlastConfigDamageType[] = R.uniq(
                 R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
             )
@@ -247,19 +163,8 @@ class ElementalBlast {
         });
     }
 
-    #prepareBlastInfusion(): BlastInfusionData | null {
-        const schema = ElementalBlast.#blastInfusionSchema;
-        const flag = this.actor.flags.pf2e.kineticist;
-        const infusionData =
-            isObject<{ elementalBlast: unknown }>(flag) && isObject<{ infusion: unknown }>(flag.elementalBlast)
-                ? flag.elementalBlast.infusion
-                : null;
-
-        return isObject(infusionData) ? schema.clean(infusionData) : null;
-    }
-
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
-    #getBlastConfig(element: ElementTrait, damageType: DamageType): ElementalBlastConfig {
+    #getBlastConfig(element: EffectTrait, damageType: DamageType): ElementalBlastConfig {
         const config = this.configs.find(
             (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType),
         );
@@ -280,12 +185,12 @@ class ElementalBlast {
         const { item } = this;
         if (!item) return null;
 
-        const traits = ((): ActionTrait[] => {
+        const traits = ((): EffectTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
             return R.uniq(
                 R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                    (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
                 ),
             ).sort();
         })();
@@ -316,9 +221,6 @@ class ElementalBlast {
 
         const { element, damageType } = params;
         if (!element) throw ErrorPF2e("No element provided");
-        if (!objectHasKey(elementTraits, element)) {
-            throw ErrorPF2e(`Unrecognized element: ${element}`);
-        }
         if (!damageType) throw ErrorPF2e("No damage type provided");
         if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
             throw ErrorPF2e(`Unrecognized damage type: ${damageType}`);
@@ -509,13 +411,134 @@ class ElementalBlast {
     }
 
     /** Set damage type according to the user's selection on the PC sheet */
-    async setDamageType({ element, damageType }: { element: ElementTrait; damageType: DamageType }): Promise<void> {
+    async setDamageType({ element, damageType }: { element: EffectTrait; damageType: DamageType }): Promise<void> {
         if (!this.configs.some((c) => c.element === element && c.damageTypes.some((dt) => dt.value === damageType))) {
             throw ErrorPF2e(`Damage type "${damageType}" not available for ${element}`);
         }
         await this.item?.update({ [`flags.pf2e.damageSelections.${element}`]: damageType });
     }
 }
+
+class KineticistFlags extends foundry.abstract.DataModel {
+    static override defineSchema(): KineticistFlagsSchema {
+        const { fields } = foundry.data;
+
+        return {
+            blastInfusion: new fields.SchemaField({
+                damageTypes: new fields.ArrayField(
+                    new fields.StringField({
+                        required: true,
+                        choices: () => CONFIG.PF2E.damageTypes,
+                        initial: undefined,
+                    }),
+                ),
+                range: new fields.SchemaField(
+                    {
+                        increment: new fields.NumberField({
+                            required: true,
+                            integer: true,
+                            positive: true,
+                            nullable: false,
+                        }),
+                        max: new fields.NumberField({
+                            required: false,
+                            integer: true,
+                            positive: true,
+                            nullable: true,
+                            initial: null,
+                        }),
+                    },
+                    { required: false, nullable: true, initial: null },
+                ),
+                traits: new fields.SchemaField({
+                    melee: new fields.ArrayField(
+                        new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
+                            required: true,
+                            nullable: false,
+                            choices: () => CONFIG.PF2E.weaponTraits,
+                            initial: undefined,
+                        }),
+                    ),
+                    ranged: new fields.ArrayField(
+                        new fields.StringField<WeaponTrait, WeaponTrait, true, false, false>({
+                            required: true,
+                            nullable: false,
+                            choices: () => CONFIG.PF2E.weaponTraits,
+                            initial: undefined,
+                        }),
+                    ),
+                }),
+            }),
+            elementalBlast: new RecordField(
+                new fields.StringField({ required: true, nullable: false, blank: false }),
+                new fields.SchemaField({
+                    element: new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
+                        required: true,
+                        choices: () => CONFIG.PF2E.effectTraits,
+                        initial: undefined,
+                    }),
+                    label: new fields.StringField({ required: true, blank: false, initial: undefined }),
+                    img: new fields.FilePathField({
+                        required: true,
+                        categories: ["IMAGE"],
+                        nullable: false,
+                        initial: "systems/pf2e/icons/default-icons/spell.svg" as ImageFilePath,
+                    }),
+                    damageTypes: new fields.ArrayField(
+                        new fields.StringField({
+                            required: true,
+                            choices: () => CONFIG.PF2E.damageTypes,
+                            initial: undefined,
+                        }),
+                    ),
+                    dieFaces: new fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        choices: [6, 8],
+                        initial: undefined,
+                    } as const),
+                    range: new fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        positive: true,
+                        initial: undefined,
+                    }),
+                }),
+                { required: false, nullable: false, initial: undefined },
+            ),
+            elements: new fields.ArrayField(
+                new fields.SchemaField({
+                    label: new fields.StringField<string, string, true, false, false>({
+                        required: true,
+                        nullable: false,
+                    }),
+                    value: new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
+                        required: true,
+                        choices: () => CONFIG.PF2E.effectTraits,
+                        initial: undefined,
+                    }),
+                }),
+            ),
+        };
+    }
+
+    static override validateJoint(data: SourceFromSchema<KineticistFlagsSchema>): void {
+        super.validateJoint(data);
+
+        const { DataModelValidationError } = foundry.data.validation;
+        for (const blast of Object.values(data.elementalBlast ?? {})) {
+            if (blast && !data.elements.some((e) => e.value === blast.element)) {
+                throw new DataModelValidationError(
+                    " elementalBlast: can only contain elements defined in flags.pf2e.kineticist.elements",
+                );
+            }
+        }
+    }
+}
+
+interface KineticistFlags extends ModelPropsFromSchema<KineticistFlagsSchema> {}
 
 interface CreateModifiedItemParams {
     melee: boolean;
@@ -525,21 +548,38 @@ interface CreateModifiedItemParams {
 
 interface BlastAttackParams extends AttackRollParams {
     mapIncreases: number;
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
 }
 
 interface BlastDamageParams extends DamageRollParams {
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
     actionCost?: number;
     outcome?: "success" | "criticalSuccess";
 }
 
+type KineticistFlagsSchema = {
+    blastInfusion: SchemaField<BlastInfusionSchema>;
+    elementalBlast: RecordField<
+        StringField<string, string, true, false, false>,
+        SchemaField<BlastConfigSchema>,
+        false,
+        false,
+        false
+    >;
+    elements: ArrayField<
+        SchemaField<{
+            label: StringField<string, string, true, false, false>;
+            value: StringField<EffectTrait, EffectTrait, true, false, false>;
+        }>
+    >;
+};
+
 type BlastConfigSchema = {
-    element: StringField<ElementTrait, ElementTrait, true, false, false>;
+    element: StringField<EffectTrait, EffectTrait, true, false, false>;
     label: StringField<string, string, true, false, false>;
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     damageTypes: ArrayField<StringField<DamageType, DamageType, true, false, false>>;
@@ -552,10 +592,10 @@ type BlastInfusionSchema = {
     range: SchemaField<
         {
             increment: NumberField<number, number, true, false, false>;
-            max: NumberField<number, number, true, false, false>;
+            max: NumberField<number, number, false, true, true>;
         },
-        { increment: number; max: number },
-        { increment: number; max: number },
+        { increment: number; max: number | null },
+        { increment: number; max: number | null },
         false,
         true,
         true
