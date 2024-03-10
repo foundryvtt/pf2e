@@ -107,9 +107,17 @@ abstract class RollContext<
         const opposerRole = selfRole === "origin" ? "target" : "origin";
         const rollingActor = await this.#cloneActor(selfRole);
         const rollerStatistic = this.#getClonedStatistic(rollingActor);
-        const resolvedDomains =
-            (rollerStatistic instanceof StatisticModifier ? rollerStatistic.domains : rollerStatistic?.check.domains) ??
-            this.domains;
+        const resolvedDomains = ((): string[] => {
+            if (this.domains.includes("damage")) {
+                return this.domains;
+            } else {
+                return (
+                    (rollerStatistic instanceof StatisticModifier
+                        ? rollerStatistic.domains
+                        : rollerStatistic?.check.domains) ?? this.domains
+                );
+            }
+        })();
 
         const itemClone =
             rollerStatistic && "item" in rollerStatistic ? rollerStatistic.item : this.#cloneItem(rollingActor);
