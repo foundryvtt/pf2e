@@ -1,3 +1,15 @@
+## 5.14.1
+
+### Bugfixes
+
+-   (stwlam) Fix issue preventing most modifiers from being included in damage rolls
+
+### Data Updates
+
+-   (Clemente) Fix typos in some localization strings
+-   (Tikael) Fix amping spells for psychic dedication
+-   (Tikael) Fix determination of which kineticist aura junctions should apply
+
 ## 5.14.0
 
 ### System Improvements
