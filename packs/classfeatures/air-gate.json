@@ -289,9 +289,6 @@
                 "effects": [
                     {
                         "affects": "allies",
-                        "events": [
-                            "enter"
-                        ],
                         "predicate": [
                             "junction:air:aura"
                         ],
@@ -301,10 +298,11 @@
                 "key": "Aura",
                 "level": "@actor.level",
                 "predicate": [
-                    "self:effect:kinetic-aura"
+                    "self:effect:kinetic-aura",
+                    "junction:air:aura"
                 ],
                 "priority": 99,
-                "radius": "@item.flags.pf2e.rulesSelections.auraRadius",
+                "radius": "@actor.flags.pf2e.kineticist.auraRadius",
                 "slug": "kinetic-aura",
                 "traits": [
                     "kineticist",
