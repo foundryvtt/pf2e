@@ -132,7 +132,7 @@ abstract class RollContext<
             originToken?.object && targetToken?.object ? originToken.object.distanceTo(targetToken.object) : null;
         const rangeIncrement = itemClone ? getRangeIncrement(itemClone, distance) : null;
         const distanceRangeOptions =
-            rangeIncrement && Number.isInteger("distance")
+            rangeIncrement && Number.isInteger(distance)
                 ? [`${opposerRole}:distance:${distance}`, `${opposerRole}:range-increment:${rangeIncrement}`]
                 : [];
 
@@ -169,6 +169,12 @@ abstract class RollContext<
 
         const opposingActor = await this.#cloneActor(opposerRole, { other: rollingActor });
         const originIsSelf = selfRole === "origin";
+        if (opposingActor) {
+            rollOptions.add(opposerRole);
+            for (const option of opposingActor.getSelfRollOptions(opposerRole)) {
+                rollOptions.add(option);
+            }
+        }
 
         const originActor = originIsSelf ? rollingActor : opposingActor;
         const origin: RollOrigin | null = originActor
@@ -228,7 +234,8 @@ abstract class RollContext<
         });
 
         // Add an epehemeral effect from flanking
-        if (which === "target" && this.isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, otherActor)) {
+        const isFlankingAttack = this.isFlankingAttack;
+        if (which === "target" && isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, otherActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
             const condition = game.pf2e.ConditionManager.getCondition("off-guard", { name });
             ephemeralEffects.push(condition.toObject());
@@ -241,16 +248,15 @@ abstract class RollContext<
         })();
 
         const perspectivePrefix = which === "origin" ? (this.rollerRole === "origin" ? "self" : "target") : "origin";
-        const actionOptions = [
-            this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`),
-            this.isFlankingAttack ? `${perspectivePrefix}:flanking` : [],
-        ].flat();
+        const actionOptions = this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
 
         return uncloned.actor.getContextualClone(
             R.compact([
                 ...Array.from(this.rollOptions),
+                opposingAlias,
                 ...otherActor.getSelfRollOptions(opposingAlias),
                 markOption,
+                isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
             ]),
             ephemeralEffects,
