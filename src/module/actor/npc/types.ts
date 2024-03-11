@@ -52,7 +52,6 @@ interface NPCSystemSheetData extends NPCSystemData {
             localizedName?: string;
         };
     };
-    sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillAbbreviation, NPCSkillSheetData>;
 }
