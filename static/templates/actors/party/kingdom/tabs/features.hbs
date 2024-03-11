@@ -6,7 +6,7 @@
                 <i class="fa-solid fa-fw fa-crown"></i>{{localize "PF2E.Kingmaker.KingdomBuilder.Builder"}}
             </button>
         </header>
-        <ol class="directory-list">
+        <ol class="feats-list">
             {{#if kingdom.build.charter}}
                 {{> kingdomCHG letter="C" item=kingdom.build.charter type="charter"}}
             {{/if}}
@@ -36,7 +36,7 @@
                     {{/if}}
                 </div>
             </header>
-            <ol class="actions-list directory-list" data-foundry-list>
+            <ol class="feats-list" data-foundry-list>
                 {{#each section.feats as |featSlot|}}
                     {{> "systems/pf2e/templates/actors/character/partials/feat-slot.hbs" featSlot=featSlot featFilter=section.featFilter}}
                 {{/each}}
@@ -46,7 +46,7 @@
 </div>
 
 {{#*inline "kingdomCHG"}}
-    <li class="item feat-item expandable" data-item-summary-id="kingdom-{{letter}}">
+    <li class="slot expandable" data-item-summary-id="kingdom-{{letter}}">
         <div class="item-name">
             <div class="feat-slot-title">{{letter}}</div>
             <div class="item-image framed">

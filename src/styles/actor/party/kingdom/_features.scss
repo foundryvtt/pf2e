@@ -7,14 +7,20 @@
     padding-bottom: 1em;
 }
 
-.feat-item {
+ol.feats-list {
+    padding-left: 0;
+}
+
+ol.feats-list li.slot {
+    align-items: center;
     display: grid;
     grid:
         "name ctrl" min-content
         "content content" min-content
         / 1fr min-content;
-    align-items: center;
-    padding: 2px 0;
+    padding: var(--space-5) 0 var(--space-4);
+    position: relative;
+    row-gap: var(--space-2);
 
     &:nth-child(odd) {
         background-color: rgba($alt-color, 0.1);
@@ -26,21 +32,21 @@
     }
 
     .item-name {
-        grid-area: name;
-        display: flex;
-        flex: 1;
         align-items: center;
+        display: flex;
+        gap: var(--space-8);
+        grid-area: name;
+        flex: 1;
+        height: var(--font-size-25);
         width: 100%;
 
         .feat-slot-title {
             display: flex;
-            font-family: var(--serif);
-            font-size: 1.1em;
-            font-weight: 600;
-            color: var(--secondary);
+            font: 600 var(--font-size-15) var(--serif);
+            color: var(--color-pf-secondary);
             justify-content: center;
-            width: 20px;
-            margin-left: 6px;
+            width: 1.25rem;
+            margin-left: var(--space-6);
         }
 
         .item-placeholder {
@@ -49,19 +55,21 @@
         }
 
         h4 {
-            display: flex;
-            align-items: center;
-            font-family: var(--serif);
+            display: inline-flex;
+            max-width: 20rem;
+            margin: 0;
 
-            a:hover {
+            &:hover {
                 color: var(--color-pf-primary);
-                text-shadow: 0 0 3px var(--tertiary);
+                text-shadow: 0 0 3px var(--color-pf-tertiary);
             }
-        }
 
-        .item-image {
-            margin-left: 8px;
-            margin-right: 8px;
+            a {
+                font-size: var(--font-size-13);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
         }
     }
 
@@ -82,33 +90,23 @@
     }
 
     .item-summary {
-        flex: 100%;
         grid-area: content;
-        padding: 0 8px 8px;
-        margin: 4px 0 0 4px;
+        padding: 0 var(--space-4);
+
+        .tags:has(.tag) {
+            padding: var(--space-6) 0 0;
+        }
+
+        .level {
+            font-weight: 600;
+            position: absolute;
+            right: 3rem;
+            top: var(--space-8);
+        }
     }
 
-    .build-entry-boosts {
-        font-family: var(--font-primary);
-        section {
-            align-items: center;
-            display: flex;
-            gap: 4px;
-            .abilities {
-                display: flex;
-                gap: 3px;
-            }
-        }
-        strong {
-            line-height: 1.5em;
-        }
-        .tag {
-            border-radius: 4px;
-            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
-            line-height: unset;
-            padding: 0.15em;
-            font-size: 0.9em;
-        }
+    > .item-summary {
+        margin-left: 1.75rem;
     }
 
     ol.nested-items {
@@ -150,5 +148,28 @@
                 margin-left: 25px;
             }
         }
+    }
+}
+
+ol.feats-list li.slot .build-entry-boosts {
+    font-family: var(--font-primary);
+    section {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+        .abilities {
+            display: flex;
+            gap: 3px;
+        }
+    }
+    strong {
+        line-height: 1.5em;
+    }
+    .tag {
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%);
+        line-height: unset;
+        padding: 0.15em;
+        font-size: 0.9em;
     }
 }
