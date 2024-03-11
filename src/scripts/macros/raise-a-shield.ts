@@ -40,9 +40,14 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     const shield = actor.heldShield;
     const speaker = ChatMessagePF2e.getSpeaker({ actor });
 
+    const speakerName =
+        game.pf2e.settings.tokens.nameVisibility && actor.isOfType("npc") && actor.token?.playersCanSeeName
+            ? speaker.alias
+            : localize("AnonymousActor");
+
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield?.isDestroyed) {
-            ui.notifications.warn(localize("ShieldIsDestroyed", { actor: speaker.alias, shield: shield.name }));
+            ui.notifications.warn(localize("ShieldIsDestroyed", { actor: speakerName, shield: shield.name }));
             return false;
         } else if (shield?.isBroken === false) {
             const effect = await fromUuid(ITEM_UUID);
@@ -52,10 +57,10 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             await actor.createEmbeddedDocuments("Item", [effect.toObject()]);
             return true;
         } else if (shield?.isBroken) {
-            ui.notifications.warn(localize("ShieldIsBroken", { actor: speaker.alias, shield: shield.name }));
+            ui.notifications.warn(localize("ShieldIsBroken", { actor: speakerName, shield: shield.name }));
             return false;
         } else {
-            ui.notifications.warn(localize("NoShieldEquipped", { actor: speaker.alias }));
+            ui.notifications.warn(localize("NoShieldEquipped", { actor: speakerName }));
             return false;
         }
     })();
@@ -67,7 +72,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
         const content = await renderTemplate(TEMPLATES.content, {
             imgPath: shield.img,
-            message: localize("Content", { actor: speaker.alias, shield: game.i18n.localize("TYPES.Item.shield") }),
+            message: localize("Content", { actor: speakerName, shield: game.i18n.localize("TYPES.Item.shield") }),
         });
         const flavor = await renderTemplate(TEMPLATES.flavor, {
             action: { title: localize(`${actionType}Title`), glyph },
