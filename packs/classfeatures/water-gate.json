@@ -240,9 +240,29 @@
                             2
                         ]
                     },
-                    "impulse",
                     "junction:water:impulse",
-                    "water"
+                    "self:action:trait:impulse",
+                    "self:action:trait:water"
+                ],
+                "selector": "impulse-attack-roll",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Water",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "self:action:slug:elemental-blast"
+                    },
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "junction:water:impulse",
+                    "self:action:trait:impulse",
+                    "self:action:trait:water"
                 ],
                 "selector": [
                     "impulse-damage",

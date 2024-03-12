@@ -251,9 +251,29 @@
                             2
                         ]
                     },
-                    "impulse",
                     "junction:air:impulse",
-                    "air"
+                    "self:action:trait:impulse",
+                    "self:action:trait:air"
+                ],
+                "selector": "impulse-attack-roll",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "self:action:slug:elemental-blast"
+                    },
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "junction:air:impulse",
+                    "self:action:trait:impulse",
+                    "self:action:trait:air"
                 ],
                 "selector": [
                     "impulse-damage",
