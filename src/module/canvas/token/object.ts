@@ -341,6 +341,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
+        if (!this.hasSight || !this.document.parent?.tokenVision) return false;
+
         // If GM vision is enabled, making nothing a vision source will allow the user to see everything
         if (game.pf2e.settings.gmVision && game.user.isGM) return false;
 
