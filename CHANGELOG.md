@@ -1,3 +1,15 @@
+5.14.3
+
+### Bugfixes
+
+-   (stwlam) Restore range penalties to strike attack rolls
+-   (stwlam) Avoid declaring tokens to be vision sources when sight is disabled
+
+### Data Updates
+
+-   (Drental) Fix stats of Clockwork Belimarius
+-   (In3luki) Show impulse junction note on elemental blast attack roll instead of damage roll
+
 ## 5.14.2
 
 ### Bugfixes
