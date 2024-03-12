@@ -174,7 +174,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The will-o'-wisp extinguishes its glow, becoming invisible. It can end this effect with another use of this action. If it uses its shock attack while invisible, the arc of electricity lets any observer determine its location, making the will-o'-wisp only hidden to all observers until it moves.</p>"
+                    "value": "<p>The will-o'-wisp extinguishes its glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. It can end this effect with another use of this action. If it uses its shock attack while invisible, the arc of electricity lets any observer determine its location, making the will-o'-wisp only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all observers until it moves.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -187,6 +187,14 @@
                         "key": "RollOption",
                         "option": "go-dark",
                         "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "go-dark"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
                     }
                 ],
                 "slug": null,
