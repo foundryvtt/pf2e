@@ -1,3 +1,25 @@
+## 5.14.2
+
+### Bugfixes
+
+-   (Clemente) Fix Party's Hexploration Speed missing localization
+-   (In3luki) Fix NPC sheet initiative only showing perception
+-   (j-bs) Fix issue preventing checks from being rolled from kingdom sheet
+-   (stwlam) Fix issue blocking flanking from being recognized during damage rolls
+-   (stwlam) Prevent players from acquiring vision from controlled tokens without at least observer ownership
+-   (Supe) Fix Kingdom feat styling
+
+### Data Updates
+
+-   (Dire Weasel) Automate invisibility grant for Wisp's Go Dark
+-   (Dire Weasel) Fix Bulk of chest
+-   (DocSchlock) Add Haagenti to Deities
+-   (LebombJames) Correct Agitate save as not Basic
+-   (LebombJames) Correct Escape Fulu activation action cost
+-   (Rigo) Exclude alternate amps from Parallel Breakthrough
+-   (Rigo) Hide disabled damage dice and modifiers in Parallel Breakthrough
+-   (Tikael) Fix focus point cost of Psychic Dedication amps
+
 ## 5.14.1
 
 ### Bugfixes
