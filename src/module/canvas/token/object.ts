@@ -346,7 +346,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         const partyVisionEnabled =
             game.pf2e.settings.metagame.partyVision && !!this.actor?.hasPlayerOwner && !game.user.isGM;
-        return partyVisionEnabled || (this.observer && super._isVisionSource());
+        const controllingAsObserver = this.controlled && this.observer;
+
+        return partyVisionEnabled || controllingAsObserver || (!this.controlled && super._isVisionSource());
     }
 
     /** Include actor overrides in the clone if it is a preview */
