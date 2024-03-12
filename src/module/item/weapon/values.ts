@@ -146,7 +146,6 @@ const MELEE_ONLY_TRAITS: Set<WeaponTrait> = new Set([
     "disarm",
     "finesse",
     "grapple",
-    "kickback",
     "reach",
     "shove",
     "trip",
