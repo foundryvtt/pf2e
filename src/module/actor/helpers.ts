@@ -520,7 +520,6 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
                 }
             }
 
-            const otherModifiers = R.compact([map]);
             const title = game.i18n.format(
                 item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
                 { weapon: item.name },
@@ -538,7 +537,8 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             );
             const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
 
-            const check = new CheckModifier("strike", context.origin.statistic ?? strike, otherModifiers);
+            const allModifiers = R.compact([map, params.modifiers, context.origin.modifiers].flat());
+            const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
             const checkContext: CheckCheckContext = {
                 type: "attack-roll",
                 identifier: `${item.id}.${attackSlug}.${meleeOrRanged}`,

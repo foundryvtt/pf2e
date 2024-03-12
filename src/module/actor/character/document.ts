@@ -1549,7 +1549,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const statistic = context.origin.statistic ?? action;
                 const maps = calculateMAPs(context.origin.item, { domains: context.domains, options: context.options });
                 const maPenalty = createMAPenalty(maps, mapIncreases, context.options);
-                const check = checkModifiers[mapIncreases](statistic, R.compact([maPenalty]));
+                const allModifiers = R.compact([maPenalty, params.modifiers, context.origin.modifiers].flat());
+                const check = checkModifiers[mapIncreases](statistic, allModifiers);
 
                 // Check whether target is out of maximum range; abort early if so
                 if (context.origin.item.isRanged && typeof context.target?.distance === "number") {
