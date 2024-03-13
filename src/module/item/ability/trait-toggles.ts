@@ -40,6 +40,31 @@ class AbilityTraitToggles {
             : [];
     }
 
+    getCheckAlterations(): CheckAlteration[] {
+        return this.mindshift?.selected
+            ? [
+                  {
+                      mode: "override",
+                      property: "type",
+                      slug: "mindshift",
+                      value: "will",
+                  }
+              ]
+            : [];
+    }
+
+    getTraitAlterations(): TraitAlteration[] {
+        return this.mindshift?.selected
+            ? [
+                  {
+                      mode: "add",
+                      slug: "mindshift",
+                      value: "mental",
+                  }
+              ]
+            : [];
+    }
+
     getSheetData(): TraitToggleViewData[] {
         return R.compact(
             (["mindshift"] as const).map((t) => {
@@ -73,6 +98,20 @@ interface TraitToggleViewData {
     icon: string;
     classes: string;
     tooltip: string;
+}
+
+// I should do a proper rule like DamageAlteration, right? Or if not, where should I put this type?
+interface CheckAlteration {
+    mode: "override";
+    property: "type";
+    slug: string;
+    value: string;
+}
+
+interface TraitAlteration {
+    mode: "add" | "remove";
+    slug: string;
+    value: string;
 }
 
 export { AbilityTraitToggles, type TraitToggleViewData };
