@@ -74,31 +74,49 @@ export class MigrationRunnerBase {
         const currentActor = fu.deepClone(actor);
 
         for (const migration of migrations) {
-            for (const currentItem of currentActor.items) {
-                await migration.preUpdateItem?.(currentItem, currentActor);
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.preUpdateItem?.(currentItem.system.spell);
-                }
-                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
-                    for (const subitem of currentItem.system.subitems) {
-                        migration.preUpdateItem?.(subitem);
+            try {
+                for (const currentItem of currentActor.items) {
+                    await migration.preUpdateItem?.(currentItem, currentActor);
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.preUpdateItem?.(currentItem.system.spell);
                     }
+                    if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                        for (const subitem of currentItem.system.subitems) {
+                            migration.preUpdateItem?.(subitem);
+                        }
+                    }
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
                 }
             }
         }
 
         for (const migration of migrations) {
-            await migration.updateActor?.(currentActor);
+            try {
+                await migration.updateActor?.(currentActor);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
+            }
 
             for (const currentItem of currentActor.items) {
-                await migration.updateItem?.(currentItem, currentActor);
-                // Handle embedded items
-                if (currentItem.type === "consumable" && currentItem.system.spell) {
-                    await migration.updateItem?.(currentItem.system.spell, currentActor);
-                }
-                if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
-                    for (const subitem of currentItem.system.subitems) {
-                        migration.updateItem?.(subitem);
+                try {
+                    await migration.updateItem?.(currentItem, currentActor);
+                    // Handle embedded items
+                    if (currentItem.type === "consumable" && currentItem.system.spell) {
+                        await migration.updateItem?.(currentItem.system.spell, currentActor);
+                    }
+                    if (itemIsOfType(currentItem, "armor", "equipment", "shield", "weapon")) {
+                        for (const subitem of currentItem.system.subitems) {
+                            migration.updateItem?.(subitem);
+                        }
+                    }
+                } catch (error) {
+                    if (error instanceof Error) {
+                        throw Error(`Migration ${migration.version}: ${error.message}`);
                     }
                 }
             }
@@ -122,26 +140,38 @@ export class MigrationRunnerBase {
         const current = fu.deepClone(item);
 
         for (const migration of migrations) {
-            await migration.preUpdateItem?.(current);
-            if (current.type === "consumable" && current.system.spell) {
-                await migration.preUpdateItem?.(current.system.spell);
-            }
-            if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
-                for (const subitem of current.system.subitems) {
-                    migration.preUpdateItem?.(subitem);
+            try {
+                await migration.preUpdateItem?.(current);
+                if (current.type === "consumable" && current.system.spell) {
+                    await migration.preUpdateItem?.(current.system.spell);
+                }
+                if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
+                    for (const subitem of current.system.subitems) {
+                        migration.preUpdateItem?.(subitem);
+                    }
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
                 }
             }
         }
 
         for (const migration of migrations) {
-            await migration.updateItem?.(current);
-            // Handle embedded spells
-            if (current.type === "consumable" && current.system.spell) {
-                await migration.updateItem?.(current.system.spell);
-            }
-            if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
-                for (const subitem of current.system.subitems) {
-                    migration.updateItem?.(subitem);
+            try {
+                await migration.updateItem?.(current);
+                // Handle embedded spells
+                if (current.type === "consumable" && current.system.spell) {
+                    await migration.updateItem?.(current.system.spell);
+                }
+                if (itemIsOfType(current, "armor", "equipment", "shield", "weapon")) {
+                    for (const subitem of current.system.subitems) {
+                        migration.updateItem?.(subitem);
+                    }
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
                 }
             }
         }
@@ -160,8 +190,10 @@ export class MigrationRunnerBase {
         for (const migration of migrations) {
             try {
                 await migration.updateTable?.(current);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
             }
         }
 
@@ -177,8 +209,10 @@ export class MigrationRunnerBase {
         for (const migration of migrations) {
             try {
                 await migration.updateMacro?.(current);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
             }
         }
 
@@ -194,8 +228,10 @@ export class MigrationRunnerBase {
         for (const migration of migrations) {
             try {
                 await migration.updateJournalEntry?.(clone);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
             }
         }
 
@@ -208,7 +244,13 @@ export class MigrationRunnerBase {
     ): Promise<foundry.documents.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
-            await migration.updateToken?.(current, token.actor, token.scene);
+            try {
+                await migration.updateToken?.(current, token.actor, token.scene);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
+            }
         }
 
         return current;
@@ -222,8 +264,10 @@ export class MigrationRunnerBase {
         for (const migration of migrations) {
             try {
                 await migration.updateUser?.(current);
-            } catch (err) {
-                console.error(err);
+            } catch (error) {
+                if (error instanceof Error) {
+                    throw Error(`Migration ${migration.version}: ${error.message}`);
+                }
             }
         }
 
