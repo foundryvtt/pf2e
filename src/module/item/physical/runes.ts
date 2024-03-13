@@ -1253,7 +1253,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 250,
         rarity: "uncommon",
         slug: "flickering",
-        traits: ["illusion","magical"],
+        traits: ["illusion", "magical"],
     },
     flurrying: {
         level: 7,
@@ -2010,9 +2010,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     nightmare: {
         damage: {
-            dice: [
-                { damageType: "mental", diceNumber: 1, dieSize: "d6" },
-            ],
+            dice: [{ damageType: "mental", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
