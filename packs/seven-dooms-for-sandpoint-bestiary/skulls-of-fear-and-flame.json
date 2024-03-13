@@ -1,0 +1,153 @@
+{
+    "_id": "CPDU21UvJNe032TJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "c3gUtrnAh1QoPfD4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fearful Cry",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks into view of the skulls and is spotted by them</p>\n<hr />\n<p><strong>Effect</strong> The candles atop all six skulls flare to light and the skulls shriek out fearsome, mind-numbing howls. All creatures in area <strong>F6</strong>, the stairs, or the eastern trough must attempt a @Check[type:will|dc:25] save. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] as long as they remain frightened.</p>\n<p><strong>Critical Failure</strong> As failure, but once the creature is no longer frightened, the previous minute of memories are erased—likely removing knowledge of the secret door at the top of the stairs in area <strong>E7a</strong>. All that remains are strange lingering fears about returning to the area.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "emotion",
+                        "fear"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W9IiKDTv9Q49e7Hh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fire Beam",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "k94MjSC9mxcIvMRx": {
+                        "damage": "4d8",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "fire",
+                        "range-25"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Skulls of Fear and Flame",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "Skulls",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to notice little wisps of smoke start to curl up from the unlit candles on the skulls.</p>",
+                "value": 17
+            }
+        },
+        "details": {
+            "description": "<p>A line of skulls adorned with black candles sit on the floor, and use darkvision to spot intruders. The red arrows on the map indicate the direction the skulls are looking.</p>",
+            "disable": "<p>@Check[type:stealth|dc:27] to move through the room unseen by the skulls (this does not disable the trap but does prevent it from triggering), @Check[type:thievery|dc:27] three times to \"blind\" an adjacent skull by deftly scraping hidden runes away from the inside of the eye sockets, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th level, counteract DC 25) to counteract the trap</p>",
+            "isComplex": true,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>If there are no visible targets, the trap deactivates at the end of its turn, then automatically resets.</p>",
+            "routine": "<p>(6 actions) On its initiative the trap uses its first action to rotate a skull that can't see targets a full 360 degrees, stopping as soon as the skull spots a target. It repeats this action until all six skulls are looking at targets, then uses its remaining actions to shoot beams of fire from their eyes. The trap can only target a creature once per round, so if there are fewer targets than actions, any additional actions possessed by the trap are lost. The trap loses one action for each skull that is destroyed.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

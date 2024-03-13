@@ -1238,6 +1238,23 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "flaming",
         traits: ["fire", "magical"],
     },
+    flickering: {
+        damage: {
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.flickering.Name",
+                    text: "PF2E.WeaponPropertyRune.flickering.Note.criticalSuccess",
+                },
+            ],
+        },
+        level: 6,
+        name: "PF2E.WeaponPropertyRune.flickering.Name",
+        price: 250,
+        rarity: "uncommon",
+        slug: "flickering",
+        traits: ["illusion", "magical"],
+    },
     flurrying: {
         level: 7,
         name: "PF2E.WeaponPropertyRune.flurrying.Name",
@@ -1990,6 +2007,24 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         rarity: "common",
         slug: "merciful",
         traits: ["magical", "mental"],
+    },
+    nightmare: {
+        damage: {
+            dice: [{ damageType: "mental", diceNumber: 1, dieSize: "d6" }],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.nightmare.Name",
+                    text: "PF2E.WeaponPropertyRune.nightmare.Note.criticalSuccess",
+                },
+            ],
+        },
+        level: 9,
+        name: "PF2E.WeaponPropertyRune.nightmare.Name",
+        price: 250,
+        rarity: "uncommon",
+        slug: "nightmare",
+        traits: ["magical"],
     },
     pacifying: {
         level: 5,

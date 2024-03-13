@@ -1,0 +1,65 @@
+{
+    "_id": "oSieXBuCjz6r72uz",
+    "img": "icons/commodities/gems/gem-faceted-rough-yellow.webp",
+    "name": "Effect: The Hollow Star",
+    "system": {
+        "description": {
+            "value": "<p>Any creature within the bright light of the <em>Hollow Star</em> gains a +1 item bonus to Occultism checks. Deros in the bright light shed by the <em>Hollow Star</em> suffer distracting but pleasant hallucinations and strange visions, and they become @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} when in this illumination.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "occultism",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "self:trait:dero"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.4,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "flame"
+                    },
+                    "bright": 60,
+                    "color": "#f2b969",
+                    "dim": 120,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
