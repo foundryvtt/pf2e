@@ -403,6 +403,7 @@ class RecordField<
             }
         }
         if (failures.elements.length) {
+            failures.unresolved = failures.elements.some((e) => e.failure.unresolved);
             return failures;
         }
     }

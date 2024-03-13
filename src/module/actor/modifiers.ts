@@ -287,7 +287,8 @@ class ModifierPF2e implements RawModifier {
     test(options: string[] | Set<string>): void {
         if (this.predicate.length === 0) return;
         const rollOptions = this.rule ? [...options, ...this.rule.item.getRollOptions("parent")] : options;
-        this.ignored = !this.predicate.test(rollOptions);
+        this.enabled = this.predicate.test(rollOptions);
+        this.ignored = !this.enabled;
     }
 
     toObject(): Required<RawModifier> {
@@ -489,6 +490,8 @@ class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
+    /** Roll-option domains associated with this statistic */
+    declare domains?: string[];
 
     /**
      * @param slug The name of this collection of statistic modifiers.

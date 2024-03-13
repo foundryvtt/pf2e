@@ -1,7 +1,7 @@
-import * as R from "remeda";
 import { getActionIcon, sluggify } from "@util";
-import { CompendiumBrowser } from "../index.ts";
+import * as R from "remeda";
 import { ContentTabName } from "../data.ts";
+import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
 import { ActionFilters, CompendiumBrowserIndexData } from "./data.ts";
 
@@ -11,7 +11,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = ["type", "name", "img", "uuid", "traits", "source", "category", "actionType"];
 
     constructor(browser: CompendiumBrowser) {
@@ -62,6 +62,7 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                     actions.push({
                         type: actionData.type,
                         name: actionData.name,
+                        originalName: actionData.originalName, // Added by Babele
                         img: actionData.img,
                         uuid: actionData.uuid,
                         traits: actionData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),

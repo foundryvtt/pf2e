@@ -140,7 +140,7 @@
         <select name="system.initiative.statistic">
             {{#select data.initiative.statistic}}
                 <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
-                {{#each data.sortedSkills as |skill|}}
+                {{#each data.skills as |skill|}}
                     <option value="{{skill.slug}}">{{skill.label}}</option>
                 {{/each}}
             {{/select}}

@@ -41,8 +41,9 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
+        const spellSource = fu.mergeObject(this.system.spell, { "system.location.value": null }, { inplace: false });
         const context = { parent: this.actor, parentItem: this };
-        const spell = new ItemProxyPF2e(fu.deepClone(this.system.spell), context) as SpellPF2e<NonNullable<TParent>>;
+        const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
 
         const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
         for (const alteration of alterations) {

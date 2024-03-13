@@ -13,7 +13,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = [
         "type",
         "name",
@@ -108,6 +108,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     inventoryItems.push({
                         type: itemData.type,
                         name: itemData.name,
+                        originalName: itemData.originalName, // Added by Babele
                         img: itemData.img,
                         uuid: itemData.uuid,
                         level: itemData.system.level?.value ?? 0,

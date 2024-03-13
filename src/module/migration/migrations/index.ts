@@ -288,3 +288,6 @@ export { Migration919WeaponToggleStructure } from "./919-trait-toggle-structure.
 export { Migration920SuboptionSelection } from "./920-suboption-selection.ts";
 export { Migration921SpellSlotArrays } from "./921-spell-slot-arrays.ts";
 export { Migration922SwashbucklerFinishers } from "./922-swashbuckler-finisher-suboptions.ts";
+export { Migration923KineticistRestructure } from "./923-kineticist-restructure.ts";
+export { Migration924JiuHuanDoa } from "./924-jiu-huan-dao.ts";
+export { Migration925TouchOfCorruption } from "./925-touch-of-corruption.ts";
