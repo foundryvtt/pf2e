@@ -22,7 +22,8 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
         const synthetic: RollTwiceSynthetic = { keep: this.keep };
         if (this.predicate) synthetic.predicate = this.predicate;
 
-        const synthetics = (this.actor.synthetics.rollTwice[this.selector] ??= []);
+        const selector = this.resolveInjectedProperties(this.selector);
+        const synthetics = (this.actor.synthetics.rollTwice[selector] ??= []);
         synthetics.push(synthetic);
     }
 
