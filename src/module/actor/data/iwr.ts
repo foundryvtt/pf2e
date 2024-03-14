@@ -53,6 +53,7 @@ abstract class IWR<TType extends IWRType> {
 
         switch (iwrType) {
             case "air":
+            case "alchemical":
             case "earth":
             case "metal":
             case "olfactory":
