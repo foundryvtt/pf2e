@@ -354,6 +354,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const damageKinds = Array.from(this.damageKinds);
         const domains = R.compact(
             [
+                damageKinds,
                 damageKinds.map((k) => `spell-${k}`),
                 damageKinds.map((k) => `${this.id}-${k}`),
                 isAttack ? ["attack-damage", "attack-spell-damage"] : null,
