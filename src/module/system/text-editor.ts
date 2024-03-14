@@ -1116,6 +1116,13 @@ interface AugmentCheckOptions {
     actor?: ActorPF2e | null;
 }
 
+interface CheckAlteration {
+    mode: "override";
+    property: "type";
+    slug: string;
+    value: string;
+}
+
 interface AugmentInlineDamageOptions {
     skipDialog: boolean;
     /** Refrain from adding domains to the damage roll. */
@@ -1130,4 +1137,4 @@ interface AugmentInlineDamageOptions {
     extraRollOptions: string[];
 }
 
-export { TextEditorPF2e, type EnrichmentOptionsPF2e };
+export { TextEditorPF2e, type EnrichmentOptionsPF2e, type CheckAlteration };

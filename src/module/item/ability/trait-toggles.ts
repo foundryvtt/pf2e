@@ -1,5 +1,6 @@
 import type { AbilityItemPF2e, FeatPF2e } from "@item";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
+import { CheckAlteration } from "@module/system/text-editor.ts";
 import * as R from "remeda";
 
 /** A helper class to handle toggleable ability traits */
@@ -53,18 +54,6 @@ class AbilityTraitToggles {
             : [];
     }
 
-    getTraitAlterations(): TraitAlteration[] {
-        return this.mindshift?.selected
-            ? [
-                  {
-                      mode: "add",
-                      slug: "mindshift",
-                      value: "mental",
-                  }
-              ]
-            : [];
-    }
-
     getSheetData(): TraitToggleViewData[] {
         return R.compact(
             (["mindshift"] as const).map((t) => {
@@ -98,20 +87,6 @@ interface TraitToggleViewData {
     icon: string;
     classes: string;
     tooltip: string;
-}
-
-// I should do a proper rule like DamageAlteration, right? Or if not, where should I put this type?
-interface CheckAlteration {
-    mode: "override";
-    property: "type";
-    slug: string;
-    value: string;
-}
-
-interface TraitAlteration {
-    mode: "add" | "remove";
-    slug: string;
-    value: string;
 }
 
 export { AbilityTraitToggles, type TraitToggleViewData };
