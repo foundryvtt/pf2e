@@ -49,7 +49,7 @@ class AbilityTraitToggles {
                       property: "type",
                       slug: "mindshift",
                       value: "will",
-                  }
+                  },
               ]
             : [];
     }

@@ -1036,18 +1036,22 @@ async function augmentInlineDamageRoll(
 }
 
 /** Given a check options, augments its type depending on item and actor status */
-function augmentCheck(
-    options: AugmentCheckOptions,
-): CheckLinkParams {
+function augmentCheck(options: AugmentCheckOptions): CheckLinkParams {
     const { params, item } = options;
 
     const resultParams: CheckLinkParams = {
-        ...params
+        ...params,
     };
 
     const checkAlterations = item?.isOfType("action", "feat") ? item.system.traits.toggles.getCheckAlterations() : [];
     for (const alteration of checkAlterations) {
-        resultParams[alteration.property] = alteration.value;
+        switch (alteration.mode) {
+            case "override":
+                resultParams[alteration.property] = alteration.value;
+                break;
+            default:
+                break;
+        }
     }
 
     return resultParams;
