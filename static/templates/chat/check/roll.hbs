@@ -14,16 +14,16 @@
     <div class="message-buttons" data-identifier="{{identifier}}">
         <button type="button" class="success" data-action="{{action}}-damage" data-outcome="success">
             {{localize "PF2E.DamageLabel"}}
-            {{#if (eq degree 2)}}
-                <span class="cue"{{#unless showDamageCue}} data-visibility="owner" data-whose="target"{{/unless}}>
+            {{#if (and showDamageCue (eq degree 2))}}
+                <span class="cue">
                     <i class="fa-duotone fa-bullseye-pointer fa-flip-horizontal fa-fw"></i>
                 </span>
             {{/if}}
         </button>
         <button type="button" class="critical-success" data-action="{{action}}-damage" data-outcome="critical-success">
             {{localize "PF2E.CriticalDamageLabel"}}
-            {{#if (eq degree 3)}}
-                <span class="cue"{{#unless showDamageCue}} data-visibility="owner" data-whose="target"{{/unless}}>
+            {{#if (and showDamageCue (eq degree 3))}}
+                <span class="cue">
                     <i class="fa-duotone fa-bullseye-pointer fa-flip-horizontal fa-fw"></i>
                 </span>
             {{/if}}

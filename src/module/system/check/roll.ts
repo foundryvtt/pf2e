@@ -39,7 +39,7 @@ class CheckRoll extends Roll {
         const { type, identifier, action, damaging } = this.options;
         const canRollDamage = !!(damaging && identifier && (this.roller === game.user || game.user.isGM));
         const showBreakdown = this.options.showBreakdown;
-        const showDamageCue = canRollDamage && game.pf2e.settings.metagame.results;
+        const showDamageCue = canRollDamage && (game.user.isGM || game.pf2e.settings.metagame.results);
         const tooltip = isPrivate || !(showBreakdown || game.user.isGM) ? "" : await this.getTooltip();
 
         const chatData: Record<string, unknown> = {
