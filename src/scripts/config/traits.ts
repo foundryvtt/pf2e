@@ -157,6 +157,7 @@ const creatureTraits = {
     ghul: "PF2E.TraitGhul",
     giant: "PF2E.TraitGiant",
     golem: "PF2E.TraitGolem",
+    graveknight: "PF2E.TraitGraveknight",
     gremlin: "PF2E.TraitGremlin",
     grioth: "PF2E.TraitGrioth",
     hag: "PF2E.TraitHag",
