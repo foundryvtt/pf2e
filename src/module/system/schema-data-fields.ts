@@ -1,4 +1,4 @@
-import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
+import { Predicate, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
 import * as R from "remeda";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
@@ -304,7 +304,7 @@ class PredicateField<
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
-> extends StrictArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
+> extends StrictArrayField<PredicateStatementField, RawPredicate, Predicate, TRequired, TNullable, THasInitial> {
     constructor(options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial> = {}) {
         super(new PredicateStatementField(), { label: "PF2E.RuleEditor.General.Predicate", ...options });
     }
@@ -314,14 +314,14 @@ class PredicateField<
         value: RawPredicate,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>,
-    ): MaybeSchemaProp<PredicatePF2e, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<Predicate, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options: ArrayFieldOptions<RawPredicate, TRequired, TNullable, THasInitial>,
-    ): PredicatePF2e | null | undefined {
+    ): Predicate | null | undefined {
         const statements = super.initialize(value, model, options);
-        return Array.isArray(statements) ? new PredicatePF2e(...statements) : statements;
+        return Array.isArray(statements) ? new Predicate(...statements) : statements;
     }
 }
 

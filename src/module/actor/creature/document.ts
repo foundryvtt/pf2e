@@ -25,7 +25,7 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
@@ -302,7 +302,7 @@ abstract class CreaturePF2e<
                     actor: this,
                     statistic: ability.statistic,
                     tradition: ability.tradition ?? spell.traditions.first() ?? null,
-                    castPredicate: new PredicatePF2e([`item:id:${consumable.id}`, `spell:id:${spell.id}`]),
+                    castPredicate: new Predicate([`item:id:${consumable.id}`, `spell:id:${spell.id}`]),
                 });
                 spell.system.location.value = itemCasting.id;
                 const collection = new SpellCollection(itemCasting);

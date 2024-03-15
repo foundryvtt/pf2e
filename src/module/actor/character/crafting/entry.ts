@@ -1,7 +1,7 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingFormula } from "./formula.ts";
@@ -23,10 +23,10 @@ class CraftingEntry implements CraftingEntryData {
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    craftableItems: PredicatePF2e;
+    craftableItems: Predicate;
     maxSlots: number;
-    fieldDiscovery: PredicatePF2e | null;
-    batchSizes: { default: number; other: { definition: PredicatePF2e; quantity: number }[] };
+    fieldDiscovery: Predicate | null;
+    batchSizes: { default: number; other: { definition: Predicate; quantity: number }[] };
     fieldDiscoveryBatchSize: number;
     maxItemLevel: number;
 
@@ -39,17 +39,17 @@ class CraftingEntry implements CraftingEntryData {
         this.isPrepared = data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel;
-        this.fieldDiscovery = data.fieldDiscovery ? new PredicatePF2e(data.fieldDiscovery) : null;
+        this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSizes = {
             default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
             other:
                 data.batchSizes?.other.map((o) => ({
-                    definition: new PredicatePF2e(o.definition),
+                    definition: new Predicate(o.definition),
                     quantity: o.quantity,
                 })) ?? [],
         };
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
-        this.craftableItems = new PredicatePF2e(data.craftableItems);
+        this.craftableItems = new Predicate(data.craftableItems);
         this.knownFormulas = knownFormulas.filter((f) => this.craftableItems.test(f.options));
         this.preparedFormulaData = (data.preparedFormulaData ?? []).filter((d) =>
             this.knownFormulas.some((f) => f.item.uuid === d.itemUUID),

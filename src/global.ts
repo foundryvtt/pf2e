@@ -59,6 +59,7 @@ import type { CheckPF2e } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
+import type { Predicate } from "@system/predication.ts";
 import type {
     CustomDamageData,
     HomebrewTag,
@@ -115,6 +116,7 @@ interface GamePF2e
         ElementalBlast: typeof ElementalBlast;
         Modifier: typeof ModifierPF2e;
         ModifierType: { [K in Uppercase<ModifierType>]: Lowercase<K> };
+        Predicate: typeof Predicate;
         RuleElement: typeof RuleElementPF2e;
         RuleElements: typeof RuleElements;
         StatisticModifier: typeof StatisticModifier;

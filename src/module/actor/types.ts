@@ -9,7 +9,7 @@ import type { TokenDocumentPF2e } from "@scene";
 import type { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 import type { DamageRoll } from "@system/damage/roll.ts";
 import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import type {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
@@ -75,7 +75,7 @@ interface AuraEffectData {
         type: SaveType;
         dc: number;
     } | null;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     removeOnExit: boolean;
     includesSelf: boolean;
     alterations: ItemAlteration[];

@@ -2,7 +2,7 @@ import type { ActorType, CharacterPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_EXPANDED } from "@actor/values.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { sluggify, tupleHasValue } from "@util";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
@@ -60,7 +60,7 @@ class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSc
         if (statistic) {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
             for (const modifier of toIgnore) {
-                modifier.predicate = new PredicatePF2e(`overridden-by-${this.slug}`);
+                modifier.predicate = new Predicate(`overridden-by-${this.slug}`);
             }
         }
     }
