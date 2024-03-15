@@ -183,7 +183,13 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const members = this.actor.members;
         if (members.length === 0) return null;
 
+        // Get all member languages. If the common language is taken, replace with common (does nothing unless the party is strange)
+        const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
         const allLanguages = new Set(members.flatMap((m) => m.system.details.languages?.value ?? []));
+        if (commonLanguage && allLanguages.delete(commonLanguage)) {
+            allLanguages.add("common");
+        }
+
         const baseKnowledgeSkills = [
             "arcana",
             "nature",
@@ -210,10 +216,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return {
             languages: R.sortBy(
                 [...allLanguages].map(
-                    (slug): LanguageSheetData => ({
-                        slug,
-                        label: game.i18n.localize(CONFIG.PF2E.languages[slug]),
-                        actors: this.#getActorsThatUnderstand(slug),
+                    (language): LanguageSheetData => ({
+                        slug: language,
+                        label:
+                            language === "common" && commonLanguage
+                                ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
+                                      language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                                  })
+                                : game.i18n.localize(CONFIG.PF2E.languages[language]),
+                        actors: this.#getActorsThatUnderstand(language),
                     }),
                 ),
                 (l) => l.label,
