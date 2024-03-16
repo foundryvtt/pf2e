@@ -1,11 +1,8 @@
 <section class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
-    <div class="items inventory-section">
-        {{#if @root.owner}}
-            {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
-        {{/if}}
+    {{#if @root.owner}}
+        {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
+    {{/if}}
 
-        {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
-    </div>
-
+    {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
     {{> "systems/pf2e/templates/actors/partials/encumbrance.hbs"}}
 </section>
