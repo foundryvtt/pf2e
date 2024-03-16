@@ -245,24 +245,24 @@ class TextEditorPF2e extends TextEditor {
     static async #replaceDamageRolls(text: Text[], options: EnrichmentOptionsPF2e): Promise<boolean> {
         const getLastBracketIndex = (formula: string, firstBracketIndex: number): number | null => {
             if (formula.length === 0) return null;
-            const brackets = { open: 0, lastIndex: 0 };
+            let open = 0;
+            let lastIndex = 0;
             for (const [index, c] of Array.from(formula).entries()) {
-                if (c === "[") brackets.open += 1;
+                if (c === "[") open += 1;
                 if (c === "]") {
-                    brackets.open -= 1;
-                    brackets.lastIndex = index;
-                    if (brackets.open === 0) break;
+                    open -= 1;
+                    lastIndex = index;
+                    if (open === 0) break;
                 }
             }
-            return brackets.open === 0 && brackets.lastIndex > 0 ? firstBracketIndex + brackets.lastIndex : null;
+            return open === 0 && lastIndex > 0 ? firstBracketIndex + lastIndex : null;
         };
-        const data: { replaced: boolean; target: Text | null } = { replaced: false, target: null };
-
+        let replaced = false;
         for (const t of text) {
             if (!t.textContent) continue;
             const content = t.textContent;
             const matches = content.matchAll(/@Damage\[/g);
-            data.target = t;
+            let target = t;
             for (const match of Array.from(matches).reverse()) {
                 if (match.index === undefined) continue;
                 // Extract formula from `@Damage[` to the last closed `]`
@@ -285,19 +285,19 @@ class TextEditorPF2e extends TextEditor {
                 });
                 if (!replacement) continue;
                 const fullMatch = `${baseMatch}${inlineLabel ? `{${inlineLabel}}` : ""}`;
-                // Replace original `Text` nodes with damage roll elements.
+                // Replace original `Text` node content with damage roll element
                 // Same logic as `TextEditor._replaceTextNodes`
                 if (match.index > 0) {
-                    data.target = data.target.splitText(match.index);
+                    target = target.splitText(match.index);
                 }
-                if (fullMatch.length < data.target.length) {
-                    data.target.splitText(fullMatch.length);
+                if (fullMatch.length < target.length) {
+                    target.splitText(fullMatch.length);
                 }
-                data.target.replaceWith(replacement);
-                data.replaced = true;
+                target.replaceWith(replacement);
+                replaced = true;
             }
         }
-        return data.replaced;
+        return replaced;
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
