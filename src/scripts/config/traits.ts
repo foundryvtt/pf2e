@@ -61,6 +61,7 @@ const ancestryTraits = {
     strix: "PF2E.TraitStrix",
     suli: "PF2E.TraitSuli",
     sylph: "PF2E.TraitSylph",
+    tanuki: "PF2E.TraitTanuki",
     talos: "PF2E.TraitTalos",
     tengu: "PF2E.TraitTengu",
     undine: "PF2E.TraitUndine",
@@ -713,6 +714,7 @@ const actionTraits = {
     ...consumableTraits,
     ...spellTraits,
     ...weaponActionTraits,
+    "certain-kill": "PF2E.TraitCertainKill",
     summon: "PF2E.TraitSummon",
 };
 
@@ -1071,6 +1073,7 @@ const traitDescriptions = {
     catalyst: "PF2E.TraitDescriptionCatalyst",
     catfolk: "PF2E.TraitDescriptionCatfolk",
     censer: "PF2E.TraitDescriptionCenser",
+    "certain-kill": "PF2E.TraitDescriptionCertainKill",
     champion: "PF2E.TraitDescriptionChampion",
     changeling: "PF2E.TraitDescriptionChangeling",
     class: "PF2E.TraitDescriptionClass",
