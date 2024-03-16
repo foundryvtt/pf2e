@@ -1,4 +1,30 @@
-5.14.3
+## 5.14.4
+
+### Bugfixes
+
+-   (stwlam) Fix issue causing damage/critical icons to appear to players when Show Check Outcomes is disabled
+-   (stwlam) Restore application of volley penalty to weapon-infused elemental blasts
+-   (Supe) Fix sizing and scrollability of NPC loot sheet
+-   (Supe) Omit common language from party sheet languages
+-   (Supe) Restore spell/healing domain in spells
+
+### Data Updates
+
+-   (Abaddon) Fix prerequisites of Edgewatch Detective Dedication, Scholastic Identification, and Shoving Sweep
+-   (Dire Weasel) Fix rarity of Arms of the Drowned
+-   (Dire Weasel) Fix price of Root Boots
+-   (Dire Weasel) Handle alchemical trait in IWR
+-   (Dire Weasel) Populate some empty predicates
+-   (Intervención) Update Cassisian Helmet rule element to predicate on unholy trait
+-   (kromko) Add missing spells to Fluid Form Staff (Major)
+-   (Rigo) Add effects for Inertial Barrier and Mental Balm
+-   (Rigo) Brush up some Spell Trickster automation
+-   (Rigo, Tikael) Remove erroneously added attack trait from several spells
+-   (SpartanCPA) Add Monster Core NPCs revealed in Paizo Blog
+-   (Tikael) Add missing trait to several Fist of the Ruby Phoenix actors
+-   (Tikael) Add inline template to Scorching Column
+
+## 5.14.3
 
 ### Bugfixes
 
