@@ -312,7 +312,7 @@ abstract class RollContext<
               }) ??
                   unresolvedRoller?.statistic ??
                   null
-            : clonedActor?.getStatistic(unresolvedRoller?.statistic?.slug ?? "") ?? unresolvedRoller?.statistic ?? null;
+            : unresolvedRoller?.statistic ?? null;
     }
 }
 
