@@ -10,6 +10,8 @@ import { Statistic } from "@system/statistic/statistic.ts";
 import { DelegatedCollection, ErrorPF2e, tupleHasValue } from "@util";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
+    readonly actor: TActor;
+
     /** The base casting proficiency, off of which spellcasting builds */
     declare base: Statistic;
 
@@ -19,12 +21,11 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
     /** Cache of trick magic item entries */
     #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};
 
-    constructor(
-        public readonly actor: TActor,
-        entries: BaseSpellcastingEntry<TActor>[],
-    ) {
+    constructor(actor: TActor, entries: BaseSpellcastingEntry<TActor>[]) {
         super(entries.map((entry) => [entry.id, entry]));
+        this.actor = actor;
 
+        // Add any spell collections. Because this is a delegated collection, set() isn't called when supering
         for (const entry of entries) {
             if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
         }
@@ -52,6 +53,13 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
      */
     get spellcastingFeatures(): SpellcastingEntryPF2e<TActor>[] {
         return this.regular.filter((e) => e.isPrepared || e.isSpontaneous);
+    }
+
+    /** Also add the attached collection if set */
+    override set(key: string, entry: BaseSpellcastingEntry<TActor>): this {
+        super.set(key, entry);
+        if (entry.spells) this.collections.set(entry.spells.id, entry.spells);
+        return this;
     }
 
     /** Returns an existing spellcasting entry or trick magic item if given "trick-{skillName}" */
