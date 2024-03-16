@@ -154,7 +154,7 @@ export class WorldClockSettings extends FormApplication {
     /** Settings to be registered and also later referenced during user updates */
     private static get settings(): Record<SettingsKey, SettingRegistration> {
         return {
-            // Date theme, currently one of Golarion (Absalom Reckoning), Earth (Material Plane, 95 years ago), or
+            // Date theme, currently either one of Golarian's calenders, Earth (Material Plane, 95 years ago), or
             // Earth (real world)
             dateTheme: {
                 name: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.name,
@@ -165,6 +165,7 @@ export class WorldClockSettings extends FormApplication {
                 type: String,
                 choices: {
                     AR: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AR,
+                    IC: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.IC,
                     AD: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.AD,
                     CE: CONFIG.PF2E.SETTINGS.worldClock.dateTheme.CE,
                 },
