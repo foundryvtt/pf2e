@@ -1,0 +1,29 @@
+<div class="action-browser">
+    <nav class="tabs" data-group="primary-tabs">
+        <!--
+        <a class="item" data-tab="favorites" data-group="primary-tabs">{{localize "PF2E.ActionBrowser.Tabs.Favorites.Title"}}</a>
+        -->
+        <a class="item" data-tab="basic" data-group="primary-tabs">{{localize "PF2E.ActionBrowser.Tabs.Basic.Title"}}</a>
+        <a class="item" data-tab="specialty-basic" data-group="primary-tabs">{{localize "PF2E.ActionBrowser.Tabs.SpecialtyBasic.Title"}}</a>
+        <a class="item" data-tab="skill" data-group="primary-tabs">{{localize "PF2E.ActionBrowser.Tabs.Skill.Title"}}</a>
+        <a class="item" data-tab="other" data-group="primary-tabs">{{localize "PF2E.ActionBrowser.Tabs.Other.Title"}}</a>
+    </nav>
+
+    <section class="content">
+        <div class="tab" data-tab="favorites" data-group="primary-tabs">
+            {{> systems/pf2e/templates/action-browser/action-list.hbs actions=actions.favorites actor=actor disabled=disabled}}
+        </div>
+        <div class="tab" data-tab="basic" data-group="primary-tabs">
+            {{> systems/pf2e/templates/action-browser/action-list.hbs actions=actions.basic actor=actor disabled=disabled}}
+        </div>
+        <div class="tab" data-tab="specialty-basic" data-group="primary-tabs">
+            {{> systems/pf2e/templates/action-browser/action-list.hbs actions=actions.specialty-basic actor=actor disabled=disabled}}
+        </div>
+        <div class="tab" data-tab="skill" data-group="primary-tabs">
+            {{> systems/pf2e/templates/action-browser/action-list.hbs actions=actions.skill actor=actor disabled=disabled}}
+        </div>
+        <div class="tab" data-tab="other" data-group="primary-tabs">
+            {{> systems/pf2e/templates/action-browser/action-list.hbs actions=actions.other actor=actor disabled=disabled}}
+        </div>
+    </section>
+</div>

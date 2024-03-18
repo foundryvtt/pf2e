@@ -4,8 +4,27 @@ import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster.ts";
 export const GetSceneControlButtons = {
     listen: (): void => {
         Hooks.on("getSceneControlButtons", (controls) => {
-            // World Clock
             const tokenTools = controls.find((c) => c.name === "token")?.tools;
+
+            if (BUILD_MODE === "development") {
+                // Action Browser
+                tokenTools?.push({
+                    name: "actionbrowser",
+                    title: "CONTROLS.ActionBrowser",
+                    icon: "action-browser",
+                    button: true,
+                    visible: true,
+                    onClick: () => {
+                        if (game.pf2e.actionBrowser.rendered) {
+                            game.pf2e.actionBrowser.close({ force: true });
+                        } else {
+                            game.pf2e.actionBrowser.render(true);
+                        }
+                    },
+                });
+            }
+
+            // World Clock
             tokenTools?.push({
                 name: "worldclock",
                 title: "CONTROLS.WorldClock",
