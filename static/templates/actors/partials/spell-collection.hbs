@@ -108,7 +108,7 @@
                     {{#if slot.spell}}
                         <li
                             class="spell{{#if slot.virtual}} virtual{{/if}}"
-                            data-item-type="spell"
+                            data-item-type="spell{{#if slot.virtual}}-slot-group{{/if}}"
                             data-item-id="{{spell.id}}"
                             data-entry-id="{{entry.id}}"
                             data-cast-rank="{{coalesce slot.castRank spell.rank}}"

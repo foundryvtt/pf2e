@@ -51,7 +51,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
             Object.values(p).every((v) => ["string", "number"].includes(typeof v));
         this.preselectChoices =
-            R.isObject(data.preselectChoices) && isValidPreselect(data.preselectChoices)
+            R.isPlainObject(data.preselectChoices) && isValidPreselect(data.preselectChoices)
                 ? fu.deepClone(data.preselectChoices)
                 : {};
 
@@ -179,6 +179,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemProxyPF2e(fu.deepClone(grantedSource), { parent: this.actor });
+        tempGranted.grantedBy = this.item;
 
         // Check for immunity and bail if a match
         if (tempGranted.isOfType("affliction", "condition", "effect") && this.actor.isImmuneTo(tempGranted)) {

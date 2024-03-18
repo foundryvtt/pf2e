@@ -14,6 +14,7 @@ import type { MovementType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ActionTrait } from "@item/ability/index.ts";
 import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
+import type { WeaponRuneSource } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
@@ -47,7 +48,7 @@ interface RuleElementSynthetics {
     senses: SenseSynthetic[];
     statistics: Map<string, Statistic>;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: Map<string, WeaponPF2e<ActorPF2e>>;
+    strikes: DeferredStrike[];
     striking: Record<string, StrikingSynthetic[]>;
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: TokenEffect[];
@@ -73,6 +74,7 @@ type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = (args: DeferredDamageDiceOptions) => DamageDicePF2e | null;
 type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
 type DeferredEphemeralEffect = DeferredPromise<EffectSource | ConditionSource | null>;
+type DeferredStrike = (runes?: WeaponRuneSource) => WeaponPF2e<ActorPF2e> | null;
 
 interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
     type: MovementType;
@@ -86,7 +88,7 @@ interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
 interface MAPSynthetic {
     label: string;
     penalty: number;
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
 }
 
 interface RollSubstitution {

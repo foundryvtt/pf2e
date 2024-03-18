@@ -58,14 +58,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.DetectMagic.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell",
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            },
                             {
                                 "gte": [
                                     "item:rank",
@@ -93,20 +99,29 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.Guidance.BaseTwo"
                     },
                     {
                         "predicate": [
-                            "amp-spell",
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            },
                             {
                                 "gte": [
                                     "item:rank",
@@ -124,7 +139,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:glimpse-weakness"
                 ],
                 "property": "description",
@@ -144,7 +162,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:omnidirectional-scan"
                 ],
                 "property": "description",
@@ -163,7 +184,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:foresee-the-path"
                 ],
                 "property": "description",
@@ -173,6 +197,66 @@
                         "title": "PF2E.TraitAmp"
                     }
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "priority": 10,
+                "value": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.DetectMagic",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:detect-magic"
+                            }
+                        ],
+                        "value": "detect-magic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Guidance",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:guidance"
+                            }
+                        ],
+                        "value": "guidance"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.GlimpseWeakness",
+                        "predicate": [
+                            "feat:psi-development"
+                        ],
+                        "value": "glimpse-weakness"
+                    }
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.psychic.dedication.psiCantrips",
+                "flag": "dedicationCantrip",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.PsiCantrip",
+                "rollOption": "selected-psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:psychic-dedication",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.dedicationCantrip}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
             }
         ],
         "traits": {

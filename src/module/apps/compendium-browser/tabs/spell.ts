@@ -12,7 +12,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
 
     /* MiniSearch */
-    override searchFields = ["name"];
+    override searchFields = ["name", "originalName"];
     override storeFields = [
         "type",
         "name",
@@ -103,8 +103,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     spells.push({
                         type: spellData.type,
                         name: spellData.name,
+                        originalName: spellData.originalName, // Added by Babele
                         img: spellData.img,
-                        uuid: `Compendium.${pack.collection}.${spellData._id}`,
+                        uuid: spellData.uuid,
                         rank: spellData.system.level.value,
                         categories,
                         time: spellData.system.time,

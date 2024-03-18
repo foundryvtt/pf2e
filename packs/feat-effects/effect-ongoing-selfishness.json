@@ -1,0 +1,55 @@
+{
+    "_id": "seOQfjfjrDyK6rCo",
+    "img": "icons/magic/defensive/shield-barrier-glowing-triangle-red.webp",
+    "name": "Effect: Ongoing Selfishness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ongoing Selfishness]</p>\n<p>You gain resistance to all further damage from the triggering enemy until the end of the turn on which you used the reaction. This resistance is equal to half your Selfish Shield resistance.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "not": "feature:divine-smite"
+                    }
+                ],
+                "type": "all-damage",
+                "value": "(floor(@actor.level/2)+2)/2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:divine-smite"
+                ],
+                "type": "all-damage",
+                "value": "(floor(@actor.level/2)+max(2,@actor.system.abilities.cha.mod))/2"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,12 +1,12 @@
-import { ActorPF2e } from "@actor";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
+import type { ActorPF2e } from "@actor";
+import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
-import { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
-import { ItemPF2e } from "./base/document.ts";
-import { PhysicalItemPF2e } from "./physical/document.ts";
+import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
+import type { ItemPF2e } from "./base/document.ts";
+import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
-import { ItemInstances } from "./types.ts";
+import type { ItemInstances } from "./types.ts";
 
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 
@@ -45,15 +45,26 @@ class ItemChatData {
     data: RawItemChatData;
     htmlOptions: EnrichmentOptionsPF2e;
 
+    /** A showdown markdown converter */
+    declare static mdConverter: showdown.Converter;
+
     constructor({ item, data, htmlOptions = {} }: ItemChatDataConstructorOptions) {
         this.item = item;
         this.data = data;
         this.htmlOptions = htmlOptions;
+        // Workaround vite not resolving import in time
+        ItemChatData.mdConverter ??= new showdown.Converter();
     }
 
     async process(): Promise<RawItemChatData> {
         const description = { ...this.data.description, value: await this.#prepareDescription() };
         return fu.mergeObject(this.data, { description }, { inplace: false });
+    }
+
+    #sanitizeMarkdown(text: string): string {
+        const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(text).trim() }).innerText;
+        const stringyHTML = ItemChatData.mdConverter.makeHtml(htmlStripped).replace(/<\/?p[^>]*>/g, "");
+        return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
     }
 
     async #prepareDescription(): Promise<string> {
@@ -89,8 +100,8 @@ class ItemChatData {
                         contents: unfiltered.contents
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
-                                line.title &&= game.i18n.localize(line.title);
-                                line.text = game.i18n.localize(line.text);
+                                line.title &&= game.i18n.localize(line.title).trim();
+                                line.text = this.#sanitizeMarkdown(line.text);
                                 return line;
                             }),
                     };

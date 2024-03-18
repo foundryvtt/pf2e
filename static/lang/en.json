@@ -135,6 +135,9 @@
                 "TakesNoDamage": "<actor>{actor}</actor> takes no damage.",
                 "TheTarget": "The target"
             },
+            "AttackEffects": {
+                "PlusList": "(plus {list})"
+            },
             "Attacks": "Attacks",
             "Character": {
                 "Attribute": {
@@ -369,6 +372,7 @@
                     "sussuran": "Sussuran",
                     "taldane": "Taldane",
                     "talican": "Talican",
+                    "tanuki": "Tanuki",
                     "tekritanin": "Tekritanin",
                     "tengu": "Tengu",
                     "thalassic": "Thalassic",
@@ -408,7 +412,7 @@
                         "LowLightVision": "Low-Light Vision",
                         "MotionSense": "Motion Sense",
                         "Scent": "Scent",
-                        "SeeInvisibility": "See Invisibility",
+                        "SeeInvisibility": "See the Unseen",
                         "Spiritsense": "Spiritsense",
                         "Thoughtsense": "Thoughtsense",
                         "Tremorsense": "Tremorsense",
@@ -631,7 +635,16 @@
                 },
                 "Wealth": "Wealth"
             },
-            "Plural": "Actors"
+            "Plural": "Actors",
+            "Vehicle": {
+                "EmitsSound": {
+                    "Encounter": "During Encounters",
+                    "False": "No",
+                    "Hint": "Whether this vehicle is emitting sound and can be sensed via hearing.",
+                    "Title": "Emitting Sound?",
+                    "True": "Yes"
+                }
+            }
         },
         "ActorSizeGargantuan": "Gargantuan",
         "ActorSizeHuge": "Huge",
@@ -656,34 +669,24 @@
         "AncestryFeatLevels": "Ancestry Feat Levels",
         "AncestryFeatures": "Ancestry Features",
         "AncestryHP": "Ancestry HP",
-        "AreaLabel": "Area",
-        "AreaSize10": "10 Foot",
-        "AreaSize100": "100 Foot",
-        "AreaSize1000": "1000 Foot",
-        "AreaSize120": "120 Foot",
-        "AreaSize15": "15 Foot",
-        "AreaSize1Mile": "1 Mile",
-        "AreaSize20": "20 Foot",
-        "AreaSize25": "25 Foot",
-        "AreaSize30": "30 Foot",
-        "AreaSize360": "360 Foot",
-        "AreaSize40": "40 Foot",
-        "AreaSize45": "45 Foot",
-        "AreaSize5": "5 Foot",
-        "AreaSize50": "50 Foot",
-        "AreaSize500": "500 Foot",
-        "AreaSize60": "60 Foot",
-        "AreaSize65": "65 Foot",
-        "AreaSize75": "75 Foot",
-        "AreaSize80": "80 Foot",
-        "AreaSize90": "90 Foot",
-        "AreaSizeQuarterMile": "Quarter Mile",
-        "AreaTypeBurst": "Burst",
-        "AreaTypeCone": "Cone",
-        "AreaTypeCube": "Cube",
-        "AreaTypeEmanation": "Emanation",
-        "AreaTypeLine": "Line",
-        "AreaTypeSquare": "Square",
+        "Area": {
+            "InFeet": "Area (Feet)",
+            "Label": "Area",
+            "Shape": {
+                "burst": "burst",
+                "cone": "cone",
+                "cube": "cube",
+                "cylinder": "cylinder",
+                "emanation": "emanation",
+                "line": "line",
+                "square": "square"
+            },
+            "Size": {
+                "Half": "half",
+                "Mile": "mile",
+                "Quarter": "quarter"
+            }
+        },
         "ArmorArmorLabel": "AC Bonus",
         "ArmorCheckLabel": "Check Penalty",
         "ArmorCheckPenalty": "Armor Check Penalty",
@@ -888,8 +891,8 @@
         "CharacterTraits": "Character Traits",
         "CharacterTraitsHeader": "Traits & Other Details",
         "ChatRollDetails": {
+            "DiceAndModifiers": "Dice and Modifiers",
             "FlatCheckNoModifiers": "Flat checks never include any modifiers, bonuses, or penalties.",
-            "ModifiersAndDice": "Modifiers and Dice",
             "RollOptions": "Roll Options",
             "Select": "Inspect Roll",
             "Title": "Roll Inspector"
@@ -897,10 +900,11 @@
         "Check": {
             "DC": {
                 "Label": {
-                    "AdjustedTarget": "<target>Target: {target}</target> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
-                    "NoChangeTarget": "<target>Target: {target}</target> <dc>({dcType} <adjusted>{adjusted}</adjusted>)</dc>",
+                    "AdjustedTarget": "<opposer>Target: {opposer}</opposer> <dc>({dcType} <preadjusted>{preadjusted}</preadjusted> <adjusted>{adjusted}</adjusted>)</dc>",
+                    "NoChangeTarget": "<opposer>Target: {opposer}</opposer> <dc>({dcType} <adjusted>{adjusted}</adjusted>)</dc>",
                     "NoTarget": "<dc>{dcType} {dc}</dc>",
-                    "WithTarget": "<target>Target: {target}</target> <dc>({dcType} {dc})</dc>"
+                    "WithTarget": "<opposer>Target: {opposer}</opposer> <dc>({dcType} {dc})</dc>",
+                    "WithOrigin": "<opposer>Origin: {opposer}</opposer> <dc>({dcType} {dc})</dc>"
                 },
                 "Specific": {
                     "armor": "AC",
@@ -1163,7 +1167,9 @@
                 "Type": {
                     "abysium": "abysium",
                     "adamantine": "adamantine",
+                    "alchemical": "alchemical",
                     "all-damage": "all damage",
+                    "arcane": "arcane",
                     "area-damage": "area damage",
                     "arrow-vulnerability": "arrow vulnerability",
                     "auditory": "auditory",
@@ -1183,6 +1189,7 @@
                     "death-effects": "death effects",
                     "detection": "detection",
                     "disease": "disease",
+                    "divine": "divine",
                     "djezet": "djezet",
                     "doomed": "doomed",
                     "drained": "drained",
@@ -1215,6 +1222,7 @@
                     "nonlethal-attacks": "nonlethal attacks",
                     "noqual": "noqual",
                     "object-immunities": "object immunities",
+                    "occult": "occult",
                     "off-guard": "off-guard",
                     "olfactory": "olfactory",
                     "orichalcum": "orichalcum",
@@ -1225,6 +1233,7 @@
                     "plant": "plant",
                     "polymorph": "polymorph",
                     "possession": "possession",
+                    "primal": "primal",
                     "prone": "prone",
                     "protean-anatomy": "protean anatomy",
                     "radiation": "radiation",
@@ -1543,7 +1552,6 @@
         "FeatTypeSkill": "Skill Feat",
         "FeaturesAncestryHeader": "Ancestry Features",
         "FeaturesClassHeader": "Class Features",
-        "Feet": "feet",
         "FlatCheck": "Flat Check",
         "Focus": {
             "NotEnoughFocusPointsError": "You do not have enough focus points to cast this spell.",
@@ -1554,7 +1562,18 @@
             "label": "Focus Points",
             "pointLabel": "Points"
         },
-        "Foot": "Foot",
+        "Foot": {
+            "Label": "foot",
+            "Plural": "feet",
+            "Preformatted": {
+                "5": "5 feet",
+                "10": "10 feet",
+                "15": "15 feet",
+                "20": "20 feet",
+                "25": "25 feet",
+                "30": "30 feet"
+            }
+        },
         "FormulaKnownTitle": "Known Formulas",
         "FormulaListEmpty": "Empty (drag formula/item here)",
         "Formula": "Formula",
@@ -2186,6 +2205,7 @@
                     },
                     "Range": "Range",
                     "ReevaluateFormula": {
+                        "InitiativeRoll": "On Initiative Roll",
                         "Label": "Reevaluate?",
                         "Never": "Never",
                         "TurnEnd": "On Turn End",
@@ -2201,6 +2221,7 @@
                     "Description": "Maybe it's a treatable condition.",
                     "Name": "Disintegrated"
                 },
+                "Looping": "Loop back to start?",
                 "Plural": "Effects",
                 "ShowTokenIcon": "Show token icon?",
                 "Unidentified": "Unidentified?"
@@ -2727,7 +2748,7 @@
         "NPC": {
             "Abilities": {
                 "Glossary": {
-                    "AllAroundVision": "<p>This monster can see in all directions simultaneously, and therefore can't be flanked.</p>",
+                    "AllAroundVision": "<p>This monster can see in all directions simultaneously and therefore can't be flanked.</p>",
                     "AquaticAmbush": "<p><strong>Requirements</strong> The monster is hiding in water and a creature that hasn't detected it is within the listed number of feet.</p>\n<hr />\n<p><strong>Effect</strong> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against this Strike.</p>",
                     "AtWillSpells": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>",
                     "AttackOfOpportunity": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
@@ -2737,7 +2758,7 @@
                     "ChangeShape": "<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>",
                     "ConstantSpells": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>",
                     "Constrict": "<p>The monster deals the listed amount of damage to any number of creatures @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>",
-                    "Coven": "<p>This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments, adjusting their levels accordingly. Coven members can sense other members' locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.</p>\n<p>Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single-action spellcasting activity that has a single verbal component. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe]{Baleful Polymorph}</em> spell and all the following spells, which the coven can cast at any rank up to 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X]{Augury}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{Charm}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.HXhWYJviWalN5tQ2]{Clairaudience}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE]{Clairvoyance}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.yM3KTTSAIHhyuP14]{Dream Message}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo]{Illusory Disguise}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Ucf8eynbZMfUucjE]{Illusory Scene}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Ek5XI0aEdZhBgm21]{Prying Eye}</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt]{Talking Corpse}</em>. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.XkDCzMIyc0YOjw05]{Control Weather}</em> ritual, with a DC of 23 instead of the standard DC.</p>\n<p>If a coven member leaving the coven or the death of a coven member brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can't cast coven spells.</p>",
+                    "Coven": "<p>This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments, adjusting their levels accordingly. Coven members can sense other members' locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.</p>\n<p>Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single action that has the concentrate trait. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-rank @UUID[Compendium.pf2e.spells-srd.Item.dN8QBNuTiaBHCKUe]{Cursed Metamorphosis} spell and all the following spells, which the coven can cast at any rank up to 5th: @UUID[Compendium.pf2e.spells-srd.Item.41TZEjhO6D1nWw2X]{Augury}, @UUID[Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6]{Charm}, @UUID[Compendium.pf2e.spells-srd.Item.HXhWYJviWalN5tQ2]{Clairaudience}, @UUID[Compendium.pf2e.spells-srd.Item.zvKWclOZ7A53DObE]{Clairvoyance}, @UUID[Compendium.pf2e.spells-srd.Item.yM3KTTSAIHhyuP14]{Dream Message}, @UUID[Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo]{Illusory Disguise}, @UUID[Compendium.pf2e.spells-srd.Item.Ucf8eynbZMfUucjE]{Illusory Scene}, @UUID[Compendium.pf2e.spells-srd.Item.Ek5XI0aEdZhBgm21]{Scouting Eye}, and @UUID[Compendium.pf2e.spells-srd.Item.FM3SmEW8N1FCRjqt]{Talking Corpse}. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the @UUID[Compendium.pf2e.spells-srd.Item.XkDCzMIyc0YOjw05]{Control Weather} ritual, with a DC of 23 instead of the standard DC.</p>\n<p>If a coven member's departure or death brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can't cast coven spells.</p>",
                     "Darkvision": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.4GE2ZdODgIQtg51c]{Darkness}</em> spell, block normal darkvision. A monster with @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.4Ho2xMPEC05aSxzr]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>",
                     "Disease": "<p>When a creature is exposed to a monster's disease, it attempts a Fortitude save or succumbs to the disease. The level of a disease is the level of the monster inflicting the disease. The disease follows the rules for afflictions.</p>",
                     "Engulf": "<p>The monster Strides up to double its Speed and can move through the spaces of any creatures in its path. Any creature of the monster's size or smaller whose space the monster moves through can attempt a Reflex save with the listed DC to avoid being engulfed. A creature unable to act automatically critically fails this save. If a creature succeeds at its save, it can choose to be either pushed aside (out of the monster's path) or pushed in front of the monster to the end of the monster's movement. The monster can attempt to Engulf the same creature only once in a single use of Engulf. The monster can contain as many creatures as can fit in its space.</p>\n<p>A creature that fails its save is pulled into the monster's body. It is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1}, and has to hold its breath or start suffocating. The creature takes the listed amount of damage when first engulfed and at the end of each of its turns while it's engulfed. An engulfed creature can get free by @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escaping} against the listed escape DC. An engulfed creature can attack the monster engulfing it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either method can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, all creatures it has engulfed are automatically released as the monster's form loses cohesion.</p>",
@@ -2747,7 +2768,7 @@
                     "FrightfulPresence": "<p>A creature that first enters the area must attempt a Will save.</p>\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 4}.</p>",
                     "Grab": "<p><strong>Requirements</strong> The monster's last action was a successful Strike that lists Grab in its damage entry, or the monster has a creature @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}</p><hr /><p><strong>Effect</strong> If used after a Strike, the monster attempts to @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{Grapple} the creature using the body part it attacked with. This attempt neither applies nor counts toward the creature's multiple attack penalty.</p><p>The monster can instead use Grab and choose one creature it's grabbing or restraining with an appendage that has Grab to automatically extend that condition to the end of the monster's next turn.</p>",
                     "GreaterConstrict": "<p>The monster deals the listed amount of damage to any number of creatures @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC. A creature that fails this save falls @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious}, and a creature that succeeds is then temporarily immune to falling unconscious from Greater Constrict for 1 minute.</p>",
-                    "GreaterDarkvision": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.4GE2ZdODgIQtg51c]{Darkness}</em> spell, block normal @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>",
+                    "GreaterDarkvision": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. A creature with greater darkvision can see through even forms of magical darkness.</p>",
                     "ImprovedGrab": "<p>The monster can use @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}.</p>",
                     "ImprovedKnockdown": "<p>The monster can use @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu]{Knockdown} as a free action triggered by a hit with its initial attack.</p>",
                     "ImprovedPush": "<p>The monster can use @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl]{Push} as a free action triggered by a hit with its initial attack.</p>",
@@ -2758,14 +2779,17 @@
                     "NegativeHealing": "<p>A creature with void healing draws health from void energy rather than vitality energy. It is damaged by vitality damage and is not healed by vitality healing effects. It does not take void damage, and it is healed by void effects that heal undead.</p>",
                     "Poison": "<p>When a creature is exposed to a monster's poison, it attempts a Fortitude save to avoid becoming poisoned. The level of a poison is the level of the monster inflicting the poison. The poison follows the rules for afflictions.</p>",
                     "PowerAttack": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The monster makes a melee Strike. This counts as two attacks when calculating the monster's multiple attack penalty. If this Strike hits, the monster deals an extra die of weapon damage.</p>",
+                    "Pull": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Pull in its damage entry</p><hr /><p><strong>Effect</strong> The monster attempts to @UUID[Compendium.pf2e.actionspf2e.Item.lOE4yjUnETTdaf2T]{Reposition} the creature, moving it closer to the monster. This attempt neither applies nor counts toward the monster's multiple attack penalty. If Pull lists a distance, change the distance the creature is pulled on a success to that distance.</p>",
                     "Push": "<p><strong>Requirements</strong> The monster's last action was a successful Strike that lists Push in its damage entry</p><hr /><p><strong>Effect</strong> The monster attempts to @UUID[Compendium.pf2e.actionspf2e.Item.7blmbDrQFNfdT731]{Shove} the creature. This attempt neither applies nor counts toward the monster's multiple attack penalty. If Push lists a distance, change the distance the creature is pushed on a success to that distance.</p>",
+                    "ReactiveStrike": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
                     "Regeneration": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @UUID[Compendium.pf2e.conditionitems.Item.yZRUzMqrMmfLu0V1]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>",
                     "Rend": "<p>A Rend entry lists a Strike the monster has.</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<hr />\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>",
                     "RetributiveStrike": "<p><strong>Trigger</strong> An enemy damages the monster's ally, and both are within 15 feet of the monster.</p>\n<hr />\n<p><strong>Effect</strong> The ally gains resistance to all damage against the triggering damage equal to 2 + the monster's level. If the foe is within reach, the monster makes a melee Strike against it.</p>",
                     "Scent": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>",
                     "ShieldBlock": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<hr />\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>",
                     "SneakAttack": "<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>",
-                    "SwallowWhole": "<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an @Check[type:athletics|defense:reflex] check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>",
+                    "Stench": "<p>A creature entering the aura or starting its turn in the area must succeed at a Fortitude save or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} as long as it's sickened on a critical failure). A creature that succeeds at its save or recovers from being sickened is temporarily immune to all stench auras for 1 minute.</p>",
+                    "SwallowWhole": "<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed or restrained in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an @Check[type:athletics|defense:reflex] check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>",
                     "SwarmMind": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>",
                     "Telepathy": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>",
                     "Thoughtsense": "<p>Thoughtsense allows a monster to sense all non-mindless creatures at the listed range.</p>",
@@ -3294,6 +3318,10 @@
                 "Hint": "Limit what kinds of metagame information your players have access to.",
                 "Label": "Limit Metagame Information",
                 "Name": "Metagame Information",
+                "SecretChecks": {
+                    "Hint": "Players can see rolls with the Secret trait in chat.",
+                    "Name": "Show Secret Checks"
+                },
                 "ShowDC": {
                     "Hint": "Players can see DCs of checks made against NPCs and other non-player-owned sources.",
                     "Name": "Show Check DCs"
@@ -3791,6 +3819,7 @@
         "TraitBottledBreath": "Bottled Breath",
         "TraitBrace": "Brace",
         "TraitBrutal": "Brutal",
+        "TraitBugbear": "Bugbear",
         "TraitBulwark": "Bulwark",
         "TraitCaligni": "Caligni",
         "TraitCantrip": "Cantrip",
@@ -3803,6 +3832,8 @@
         "TraitCatalyst": "Catalyst",
         "TraitCatfolk": "Catfolk",
         "TraitCelestial": "Celestial",
+        "TraitCentaur": "Centaur",
+        "TraitCertainKill": "Certain Kill",
         "TraitChampion": "Champion",
         "TraitChangeling": "Changeling",
         "TraitCharauKa": "Charau-ka",
@@ -3832,7 +3863,7 @@
         "TraitContact": "Contact",
         "TraitContingency": "Contingency",
         "TraitContract": "Contract",
-        "TraitCouatl": "Couatl",
+        "TraitCouatl": "Coatl",
         "TraitCriticalFusion": "Critical Fusion",
         "TraitCurse": "Curse",
         "TraitCursebound": "Cursebound",
@@ -3909,6 +3940,7 @@
         "TraitDescriptionCatalyst": "Items with the catalyst trait are consumable material spell components that alter or magnify specific spells. Activating a catalyst is part of Casting the Spell. The catalyst might increase the number of actions required to Cast the Spell, as indicated in the catalyst's Activate entry. Additionally, the spell gains material components if it didn't have them already or adds the catalyst to its existing components. Because the catalyst becomes part of the material components, you can draw the catalyst as part of Casting the Spell.",
         "TraitDescriptionCatfolk": "A creature with this trait is a member of the catfolk ancestry.",
         "TraitDescriptionCenser": "Censers are decorative containers, often metal or ceramic, in which incense is burned. An item with the censer trait must be filled with incense to Activate it, which ignites the incense and causes the censer to exude a cloud of smoke.",
+        "TraitDescriptionCertainKill": "The Lightkeeper can use a Certain Kill Art as long as they are within the Glass Lighthouse—these abilities, which have the certain kill trait, cause obvious distortions in the Lighthouse's fabric as the user calls upon their technique. However, as each technique requires one of the Lightkeepers to temporarily take command of the demiplane from the rest of their team, only one Certain Kill Art can be used by any of the Lightkeepers in a given round.",
         "TraitDescriptionChampion": "This indicates abilities from the champion class.",
         "TraitDescriptionChangeling": "A creature with this trait is a member of the changeling ancestry.",
         "TraitDescriptionClass": "Archetypes with the class trait fundamentally diverge from your class's specialties but still fit within the theme of your class. You can select a class archetype only if your class meets the criteria listed in the archetype's prerequisites. Class archetypes always alter or replace some of a class's static class features in addition to any new feats they offer. It might be possible to take a class archetype at 1st level if it alters or replaces some of the class's initial class features. The 1st-level ability is presented much like a class feature and includes the class archetype's prerequisites and rules on how it changes your class. If you select this ability, you must take that archetype's dedication feat at 2nd level, and you proceed normally afterward. You can never have more than one class archetype.",
@@ -4004,6 +4036,7 @@
         "TraitDescriptionGnoll": "Gnolls are humanoids that resemble hyenas.",
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait can come from multiple tribes of creatures, including goblins, hobgoblins, and bugbears. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
+        "TraitDescriptionBugbear": "Bugbears are the monsters lurking in the closet and hiding under the bed.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
         "TraitDescriptionGrapple": "You can use this weapon to Grapple with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Grapple using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
         "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
@@ -4221,7 +4254,7 @@
         "TraitDrow": "Drow",
         "TraitDrug": "Drug",
         "TraitDruid": "Druid",
-        "TraitDuergar": "Duergar",
+        "TraitDuergar": "Hryngar",
         "TraitDuskwalker": "Duskwalker",
         "TraitDwarf": "Dwarf",
         "TraitEachRuneAppliedToASeparateItemThatHasPockets": "Each rune applied to a separate item that has pockets",
@@ -4304,12 +4337,13 @@
         "TraitGhoul": "Ghoul",
         "TraitGhul": "Ghul",
         "TraitGiant": "Giant",
-        "TraitGnoll": "Gnoll",
+        "TraitGnoll": "Kholo",
         "TraitGnome": "Gnome",
         "TraitGoblin": "Goblin",
         "TraitGolem": "Golem",
         "TraitGoloma": "Goloma",
         "TraitGrapple": "Grapple",
+        "TraitGraveknight": "Graveknight",
         "TraitGremlin": "Gremlin",
         "TraitGrimoire": "Grimoire",
         "TraitGrioth": "Grioth",
@@ -4382,7 +4416,7 @@
         "TraitLinguistic": "Linguistic",
         "TraitLitany": "Litany",
         "TraitLizardfolk": "Lizardfolk",
-        "TraitLocathah": "Locathah",
+        "TraitLocathah": "Athamaru",
         "TraitLozenge": "Lozenge",
         "TraitMagic": "Magic",
         "TraitMagical": "Magical",
@@ -4520,6 +4554,7 @@
         "TraitRangeIncrement280": "Range Increment 280 feet",
         "TraitRangeIncrement290": "Range Increment 290 feet",
         "TraitRangeIncrement30": "Range Increment 30 feet",
+        "TraitRangeIncrement35": "Range Increment 35 feet",
         "TraitRangeIncrement300": "Range Increment 300 feet",
         "TraitRangeIncrement310": "Range Increment 310 feet",
         "TraitRangeIncrement320": "Range Increment 320 feet",
@@ -4578,6 +4613,7 @@
         "TraitScrying": "Scrying",
         "TraitSeaDevil": "Sea Devil",
         "TraitSecret": "Secret",
+        "TraitSedacthy": "Sedacthy",
         "TraitSerpentfolk": "Serpentfolk",
         "TraitSeugathi": "Seugathi",
         "TraitSewnIntoClothing": "Sewn Into Clothing",
@@ -4634,6 +4670,7 @@
         "TraitTandem": "Tandem",
         "TraitTane": "Tane",
         "TraitTanggal": "Tanggal",
+        "TraitTanuki": "Tanuki",
         "TraitTattoo": "Tattoo",
         "TraitTattooedOnTheBody": "Tattooed on the Body",
         "TraitTea": "Tea",
@@ -5011,7 +5048,6 @@
                 "morningstar": "Morningstar",
                 "naginata": "Naginata",
                 "nightstick": "Nightstick",
-                "nine-ring-sword": "Nine-Ring Sword",
                 "nodachi": "Nodachi",
                 "nunchaku": "Nunchaku",
                 "ogre-hook": "Ogre Hook",
@@ -5082,6 +5118,7 @@
                 "tekko-kagi": "Tekko-kagi",
                 "temple-sword": "Temple Sword",
                 "tengu-gale-blade": "Tengu Gale Blade",
+                "tetsubo": "Tetsubo",
                 "thorn-whip": "Thorn whip",
                 "three-peaked-tree": "Three Peaked Tree",
                 "three-section-naginata": "Three-Section Naginata",
@@ -5259,6 +5296,12 @@
                 "Name": "Flaming",
                 "Note": {
                     "criticalSuccess": "On a critical hit, you deal an additional [[/r 1d10[persistent,fire]]]."
+                }
+            },
+            "flickering": {
+                "Name": "Flickering",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the weapon flashes bright pulses of color into the creature's eyes, @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzling} the creature for 1 round (this effect has the visual trait)."
                 }
             },
             "flurrying": {
@@ -5460,6 +5503,12 @@
             },
             "majorFanged": {
                 "Name": "Major Fanged"
+            },
+            "nightmare": {
+                "Name": "Nightmare",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 1} by overwhelming visions in their mind of personal horrors that linger. If you critically hit a creature that's already stupefied, it becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 2} as well. These critical hit effects have the emotion, fear, and mental traits."
+                }
             },
             "pacifying": {
                 "Name": "Pacifying"

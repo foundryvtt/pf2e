@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ConsumablePF2e, MeleePF2e, ShieldPF2e } from "@item";
 import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
@@ -9,12 +9,13 @@ import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import type { ItemSourcePF2e, MeleeSource, RawItemChatData } from "@item/base/data/index.ts";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
-import { PhysicalItemConstructionContext } from "@item/physical/document.ts";
+import type { PhysicalItemConstructionContext } from "@item/physical/document.ts";
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { RangeData } from "@item/types.ts";
+import type { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
+import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
@@ -28,7 +29,7 @@ import type {
     WeaponReloadTime,
     WeaponTrait,
 } from "./types.ts";
-import { MANDATORY_RANGED_GROUPS, THROWN_RANGES } from "./values.ts";
+import { MANDATORY_RANGED_GROUPS, MELEE_ONLY_TRAITS, RANGED_ONLY_TRAITS, THROWN_RANGES } from "./values.ts";
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
@@ -311,7 +312,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
               ? !!this.system.graspingAppendage
               : false;
 
-        if (!setHasElement(ATTRIBUTE_ABBREVIATIONS, this.system.attribute)) {
+        if (this.system.attribute && !ATTRIBUTE_ABBREVIATIONS.has(this.system.attribute)) {
             this.system.attribute = null;
         }
 
@@ -336,16 +337,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.system.reload.value = "-";
         }
 
-        if (this.system.category === "unarmed" && !this.system.traits.value.includes("unarmed")) {
-            this.system.traits.value.push("unarmed");
+        const traits = this.system.traits;
+        if (this.system.category === "unarmed" && !traits.value.includes("unarmed")) {
+            traits.value.push("unarmed");
         }
 
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
-        const traitSet = this.traits;
-        const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, this.system.group) || traitSet.has("thrown");
-        if (mandatoryRanged) {
-            this.system.range ??= 10;
-        }
+        const mandatoryRanged =
+            (this.system.group && MANDATORY_RANGED_GROUPS.has(this.system.group)) ||
+            (["combination", "thrown"] as const).some((t) => traits.value.includes(t));
+        if (mandatoryRanged) this.system.range ??= 10;
 
         // Ensure presence of traits array on melee usage if not have been added yet
         if (this.system.meleeUsage) {
@@ -356,15 +357,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Lazy-load toggleable traits
         this.system.traits.toggles = new WeaponTraitToggles(this);
 
-        // Ensure unarmed attacks always have the unarmed trait
-        const traitsArray = this.system.traits.value;
-        if (this.system.category === "unarmed" && !traitsArray.includes("unarmed")) {
-            this.system.traits.value.push("unarmed");
-        }
-
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
-        const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
+        const mandatoryMelee = !mandatoryRanged && traits.value.some((t) => /^thrown-{1,3}$/.test(t));
         if (mandatoryMelee) this.system.range = null;
+
+        // Final sweep: remove any non-sensical trait that may throw off later automation
+        if (this.isMelee) {
+            traits.value = traits.value.filter((t) => !RANGED_ONLY_TRAITS.has(t) && !t.startsWith("volley"));
+        } else {
+            traits.value = traits.value.filter((t) => !MELEE_ONLY_TRAITS.has(t) && !t.startsWith("thrown-"));
+        }
 
         // Whether the ammunition or weapon itself should be consumed
         this.system.reload.consume = this.isMelee ? null : this.reload !== null;
@@ -374,7 +376,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this.system.usage.canBeAmmo = this._source.system.usage.canBeAmmo ?? false;
 
         this.flags.pf2e.comboMeleeUsage ??= false;
-        this.flags.pf2e.damageDieUpgraded = false;
+        this.flags.pf2e.damageFacesUpgraded = false;
 
         // Prepare and limit runes
         ABP.cleanupRunes(this);
@@ -395,16 +397,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 : this.system.damage.dice;
 
         // Add traits from fundamental runes
-        const baseTraits = this.system.traits.value;
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTrait = hasRunes && !baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+        const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
+        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
-    }
 
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
         if (this.system.usage.canBeAmmo && !this.isThrowable) {
             this.system.usage.canBeAmmo = false;
         }
@@ -420,7 +418,16 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     override onPrepareSynthetics(): void {
         super.onPrepareSynthetics();
-        this.system.traits.toggles.applyChanges();
+
+        const traits = this.system.traits;
+        traits.toggles.applyChanges();
+
+        // Upgrade dice faces if a two-hand trait is present and applicable
+        const twoHandFaces = Number(traits.value.find((t) => t.startsWith("two-hand-d"))?.replace("two-hand-d", ""));
+        const diceFaces = Number(this.system.damage.die?.replace("d", ""));
+        if (this.handsHeld === 2 && tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces) && twoHandFaces > diceFaces) {
+            this.system.damage.die = `d${twoHandFaces}`;
+        }
     }
 
     override async getChatData(
@@ -526,7 +533,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 group: meleeUsage.group,
                 range: null,
                 reload: { value: null },
-                traits: { value: meleeUsage.traits.concat("combination"), toggles: traitToggles },
+                traits: { value: [...meleeUsage.traits], toggles: traitToggles },
                 selectedAmmoId: null,
             },
             flags: {
@@ -731,8 +738,23 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if ("value" in traits && Array.isArray(traits.value)) {
             traits.value = traits.value.filter((t) => t in CONFIG.PF2E.weaponTraits);
         }
-        if (changed.system.group !== undefined) {
-            changed.system.group ||= null;
+
+        for (const key of ["group", "range", "selectedAmmoId"] as const) {
+            if (changed.system[key] !== undefined) {
+                changed.system[key] ||= null;
+            }
+        }
+
+        if (changed.system.damage) {
+            // Clamp `dice` to between 0 and 12
+            if (changed.system.damage.dice !== undefined) {
+                changed.system.damage.dice = Math.clamped(Number(changed.system.damage.dice) || 0, 0, 12);
+            }
+
+            // Null out empty `die`
+            if (changed.system.damage.die !== undefined) {
+                changed.system.damage.die ||= null;
+            }
         }
 
         return super._preUpdate(changed, options, user);

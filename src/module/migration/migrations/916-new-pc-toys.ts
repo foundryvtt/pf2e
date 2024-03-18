@@ -153,9 +153,7 @@ export class Migration916NewPCToys extends MigrationBase {
             );
             if (craftingRule) {
                 craftingRule.batchSizes = {
-                    default: 1,
                     other: [
-                        { definition: ["item:base:alchemical-bomb"], quantity: 2 },
                         { definition: ["item:category:ammo", "item:trait:alchemical", "item:level:0"], quantity: 10 },
                     ],
                 };

@@ -5,6 +5,7 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSystemData } from "@item/base/data/system.ts";
+import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
     extractDamageDice,
@@ -37,7 +38,7 @@ import {
     looksLikeDamageRoll,
 } from "./damage/helpers.ts";
 import { DamageRoll } from "./damage/roll.ts";
-import { DamageFormulaData, DamageRollContext, SimpleDamageTemplate } from "./damage/types.ts";
+import { DamageDamageContext, DamageFormulaData, SimpleDamageTemplate } from "./damage/types.ts";
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
@@ -318,7 +319,7 @@ class TextEditorPF2e extends TextEditor {
         } else if (!params.distance) {
             ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing"));
             return null;
-        } else if (!objectHasKey(CONFIG.PF2E.areaTypes, params.type)) {
+        } else if (!tupleHasValue(EFFECT_AREA_SHAPES, params.type)) {
             ui.notifications.error(
                 game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type }),
             );
@@ -341,8 +342,8 @@ class TextEditorPF2e extends TextEditor {
             if (!label) {
                 label = game.i18n.format("PF2E.TemplateLabel", {
                     size: params.distance,
-                    unit: game.i18n.localize("PF2E.Foot"),
-                    shape: game.i18n.localize(CONFIG.PF2E.areaTypes[params.type]),
+                    unit: game.i18n.localize("PF2E.Foot.Label"),
+                    shape: game.i18n.localize(`PF2E.Area.Shape.${params.type}`),
                 });
             }
 
@@ -917,7 +918,7 @@ function getCheckDC({
 async function augmentInlineDamageRoll(
     baseFormula: string,
     options: AugmentInlineDamageOptions,
-): Promise<{ template: SimpleDamageTemplate; context: DamageRollContext } | null> {
+): Promise<{ template: SimpleDamageTemplate; context: DamageDamageContext } | null> {
     const { name, actor, item, traits, immutable, extraRollOptions } = options;
 
     try {
@@ -987,7 +988,7 @@ async function augmentInlineDamageRoll(
         };
 
         const isAttack = !!traits?.includes("attack");
-        const context: DamageRollContext = {
+        const context: DamageDamageContext = {
             type: "damage-roll",
             sourceType: isAttack ? "attack" : "save",
             outcome: isAttack ? "success" : null, // we'll need to support other outcomes later
@@ -999,6 +1000,7 @@ async function augmentInlineDamageRoll(
                       token: actor.token,
                       item: item ? (item as ItemPF2e<ActorPF2e>) : null,
                       statistic: null,
+                      self: true,
                       modifiers,
                   }
                 : null,
@@ -1053,7 +1055,7 @@ interface ConvertXMLNodeOptions {
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check
      */
-    whose?: "self" | "target" | null;
+    whose?: "self" | "opposer" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
     /** An optional tooltip to apply to the converted node */

@@ -74,6 +74,7 @@
 {{#unless isBomb}}
     <fieldset class="material-runes">
         <legend>{{localize "PF2E.Item.Physical.MaterialRunes.Label"}}</legend>
+
         <div class="form-group precious-material">
             <label for="{{fieldIdPrefix}}material">{{localize "PF2E.PreciousMaterialLabel"}}</label>
             <select
@@ -96,6 +97,7 @@
                 {{/select}}
             </select>
         </div>
+
         {{#unless abpEnabled}}
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
@@ -179,7 +181,7 @@
                 data-property="system.damage.dice"
                 value="{{data.damage.dice}}"
             />
-            <select name="system.damage.die">
+            <select data-property="system.damage.die">
                 {{#select data.damage.die}}
                     <option value=""></option>
                     {{#each damageDie as |name type|}}
@@ -187,7 +189,8 @@
                     {{/each}}
                 {{/select}}
             </select>
-            <select name="system.damage.damageType">
+
+            <select data-property="system.damage.damageType">
                 {{#select data.damage.damageType}}
                     {{#each damageTypes as |label slug|}}
                         {{#unless (eq slug "bleed")}}<option value="{{slug}}">{{label}}</option>{{/unless}}

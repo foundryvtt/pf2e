@@ -265,7 +265,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for scorching ray. If you spend 2 or more actions Casting the Spell, the damage increases to 4d6 fire damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by 2d6 for the 2-action and 3-action versions.</p>"
+                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for <em>scorching ray</em>. If you spend 2 or more actions Casting the Spell, the damage increases to 4d6 fire damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by 2d6 for the 2-action and 3-action versions.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -289,10 +289,14 @@
                                     "applyMod": false,
                                     "category": null,
                                     "formula": "4d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "materials": [],
                                     "type": "fire"
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "d80radfbikwjogmr": "2d6"
@@ -318,10 +322,14 @@
                                     "applyMod": false,
                                     "category": null,
                                     "formula": "2d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "materials": [],
                                     "type": "fire"
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "tgzp2lzatpg4c9a5": "1d6"
@@ -562,7 +570,7 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "bludgeoning"
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -617,8 +625,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "manipulate",
-                        "water"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
@@ -800,7 +808,6 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
-                        "applyMod": false,
                         "category": null,
                         "formula": "1d8",
                         "kinds": [
@@ -855,8 +862,7 @@
                         "attack",
                         "focus",
                         "manipulate",
-                        "sorcerer",
-                        "water"
+                        "sorcerer"
                     ]
                 }
             },
@@ -1367,12 +1373,12 @@
                             "damage"
                         ],
                         "materials": [],
-                        "type": "bludgeoning"
+                        "type": "fire"
                     }
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,bludgeoning]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1418,8 +1424,8 @@
                         "attack",
                         "cantrip",
                         "concentrate",
-                        "manipulate",
-                        "water"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
@@ -1829,10 +1835,92 @@
             "type": "action"
         },
         {
+            "_id": "hD2HZqtc0qkeFHzo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Elemental Bloodline",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "spell-damage",
+                            "inline-damage"
+                        ],
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "fire"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:breathe-fire",
+                                    "item:slug:burning-hands",
+                                    "item:slug:elemental-toss",
+                                    "item:slug:produce-flame"
+                                ]
+                            }
+                        ],
+                        "property": "traits",
+                        "value": "water"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "OWnwjPZgueXBDTuB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1857,7 +1945,7 @@
             "_id": "vRiZDzoX95H8oqBz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1882,7 +1970,7 @@
             "_id": "sEJyuENEZD7l2b80",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Dueling Lore",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1907,7 +1995,7 @@
             "_id": "tC57ZCtGksPBmPnO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""

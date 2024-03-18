@@ -46,8 +46,8 @@
     }
 
     .inventory-list {
+        flex: 1;
         overflow: hidden scroll;
-        height: calc(100% - 60px);
         padding-right: 0.15rem;
     }
 
@@ -418,6 +418,10 @@
             position: relative;
             width: 100%;
             z-index: 2;
+        }
+
+        &.encumbered .encumbrance-bar {
+            background-color: var(--color-pf-tertiary-darkest);
         }
 
         &.over-limit .encumbrance-bar {

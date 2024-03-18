@@ -74,7 +74,9 @@
                     {
                         "key": "TokenLight",
                         "predicate": [
-                            "glowing"
+                            {
+                                "not": "heat-mirage"
+                            }
                         ],
                         "value": {
                             "animation": {
@@ -85,13 +87,6 @@
                             "bright": 20,
                             "color": "#fff9a3"
                         }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
                     }
                 ],
                 "slug": null,
@@ -156,7 +151,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "heat-mirage",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "heat-mirage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

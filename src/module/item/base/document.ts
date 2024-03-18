@@ -41,6 +41,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Additional item roll options set by rule elements */
     declare rollOptions: Set<string>;
 
+    /** The item that granted this item, if any */
+    declare grantedBy: ItemPF2e<ActorPF2e> | null;
+
     static override getDefaultArtwork(itemData: foundry.documents.ItemSource): { img: ImageFilePath } {
         return { img: `systems/pf2e/icons/default-icons/${itemData.type}.svg` as const };
     }
@@ -70,11 +73,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     get description(): string {
         return this.system.description.value.trim();
-    }
-
-    /** The item that granted this item, if any */
-    get grantedBy(): ItemPF2e<ActorPF2e> | null {
-        return this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
     /** Check whether this item is in-memory-only on an actor rather than being a world item or embedded and stored */
@@ -160,12 +158,15 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             `${prefix}:id:${this.id}`,
             `${prefix}:${slug}`,
             `${prefix}:slug:${slug}`,
-            ...R.compact([rarity]),
             ...granterOptions,
             ...Array.from(this.rollOptions).map((o) => `${prefix}:${o}`),
             ...traitOptions.map((t) => `${prefix}:${t}`),
             ...otherTags.map((t) => `${prefix}:tag:${t}`),
         ];
+
+        if (rarity) {
+            rollOptions.push(`${prefix}:rarity:${rarity}`);
+        }
 
         if (this.isOfType("spell") || traits.some((t) => ["magical", ...MAGIC_TRADITIONS].includes(t))) {
             rollOptions.push(`${prefix}:magical`);
@@ -195,7 +196,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
      * follow-up options for attack rolls, effect application, etc.
      */
     async toMessage(
-        event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
+        event?: Maybe<Event | JQuery.TriggeredEvent>,
         options: { rollMode?: RollMode | "roll"; create?: boolean; data?: Record<string, unknown> } = {},
     ): Promise<ChatMessagePF2e | undefined> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
@@ -213,7 +214,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         };
 
         // Basic chat message data
-        const originalEvent = event instanceof MouseEvent ? event : event?.originalEvent;
+        const originalEvent = event instanceof Event ? event : event?.originalEvent;
         const rollMode = options.rollMode ?? eventToRollMode(originalEvent);
         const chatData = ChatMessagePF2e.applyRollMode(
             {
@@ -285,6 +286,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 grant.onDelete ??= "detach";
             }
         }
+
+        this.grantedBy = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
     prepareRuleElements(options: Omit<RuleElementOptions, "parent"> = {}): RuleElementPF2e[] {
@@ -445,7 +448,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     protected traitChatData(
-        dictionary: Record<string, string | undefined> = {},
+        dictionary: Record<string, string | undefined> = this.constructor.validTraits,
         traits = this.system.traits.value ?? [],
     ): TraitChatData[] {
         const traitChatLabels = traits
@@ -500,7 +503,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     override async importFromJSON(json: string): Promise<this> {
-        const processed = await preImportJSON(this, json);
+        const processed = await preImportJSON(json);
         return processed ? super.importFromJSON(processed) : this;
     }
 

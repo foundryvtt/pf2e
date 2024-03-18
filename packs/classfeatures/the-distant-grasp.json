@@ -58,14 +58,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticHand.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell",
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            },
                             {
                                 "gte": [
                                     "item:rank",
@@ -93,14 +99,20 @@
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Base",
                         "title": "PF2E.TraitAmp"
                     },
                     {
                         "predicate": [
-                            "amp-spell"
+                            "item:tag:amped",
+                            {
+                                "not": "alternate-amp"
+                            }
                         ],
                         "text": "PF2E.SpecificRule.Psychic.Amp.TelekineticProjectile.Heightened",
                         "title": "PF2E.SpecificRule.Psychic.Amp.AmpHeightenedLabel.AmpHeightenedPlusOne"
@@ -112,7 +124,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:telekinetic-rend"
                 ],
                 "property": "description",
@@ -132,7 +147,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:vector-screen"
                 ],
                 "property": "description",
@@ -148,7 +166,10 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:dancing-blade"
                 ],
                 "property": "description",
@@ -172,7 +193,10 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:telekinetic-projectile",
                     "item:tag:psi-cantrip"
                 ],
@@ -184,7 +208,10 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:telekinetic-rend",
                     "item:damage:type:slashing"
                 ],
@@ -196,7 +223,10 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:telekinetic-rend",
                     "item:damage:type:bludgeoning"
                 ],
@@ -208,10 +238,73 @@
                     "dieSize": "d10"
                 },
                 "predicate": [
-                    "amp-spell",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    },
                     "item:slug:dancing-blade"
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "priority": 10,
+                "value": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticHand",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:telekinetic-hand"
+                            }
+                        ],
+                        "value": "telekinetic-hand"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticProjectile",
+                        "predicate": [
+                            {
+                                "not": "selected-psi-cantrip:telekinetic-projectile"
+                            }
+                        ],
+                        "value": "telekinetic-projectile"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticRend",
+                        "predicate": [
+                            "feat:psi-development"
+                        ],
+                        "value": "telekinetic-rend"
+                    }
+                ]
+            },
+            {
+                "adjustName": false,
+                "choices": "flags.pf2e.psychic.dedication.psiCantrips",
+                "flag": "dedicationCantrip",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:psychic-dedication"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.PsiCantrip",
+                "rollOption": "selected-psi-cantrip"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:psychic-dedication",
+                    "spellcasting:tradition:occult",
+                    "item:slug:{item|flags.pf2e.rulesSelections.dedicationCantrip}"
+                ],
+                "priority": 19,
+                "property": "other-tags",
+                "value": "psi-cantrip"
             }
         ],
         "traits": {

@@ -1,4 +1,4 @@
-import type { ActorPF2e, CreaturePF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
@@ -11,6 +11,7 @@ import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
 import * as R from "remeda";
 import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
+import { createCounteractStatistic } from "./helpers.ts";
 import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 import { ProficiencyValues } from "@item/base/data/index.ts";
 
@@ -25,6 +26,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     get attribute(): AttributeString {
         return this.system.ability.value || "cha";
+    }
+
+    get counteraction(): Statistic {
+        if (!this.actor) throw ErrorPF2e("Unexpected missing actor");
+        return createCounteractStatistic(this as SpellcastingEntryPF2e<ActorPF2e>);
     }
 
     /** @deprecated */
@@ -196,7 +202,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             const baseDC = Number(this.system?.spelldc?.dc ?? 0) + adjustment;
 
             // Assign statistic data to the spellcasting entry
-            this.statistic = new Statistic(actor as CreaturePF2e, {
+            this.statistic = new Statistic(actor as ActorPF2e, {
                 slug,
                 attribute: this.attribute,
                 label: CONFIG.PF2E.magicTraditions[tradition ?? "arcane"],
@@ -205,11 +211,11 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 check: {
                     type: "attack-roll",
                     domains: checkDomains,
-                    modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseMod, "untyped")],
+                    modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseMod })],
                 },
                 dc: {
                     domains: dcDomains,
-                    modifiers: [new ModifierPF2e("PF2E.ModifierTitle", baseDC - 10, "untyped")],
+                    modifiers: [new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseDC - 10 })],
                 },
             });
         } else {

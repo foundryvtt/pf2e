@@ -24,10 +24,29 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "add-opportune-riposte-toggle",
+                "priority": 49
+            },
+            {
+                "key": "RollOption",
+                "option": "eternal-confidence",
+                "predicate": [
+                    {
+                        "or": [
+                            "finisher",
+                            "opportune-riposte"
+                        ]
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "swashbuckler": {
+                    "attribute": null,
                     "rank": 3
                 }
             }

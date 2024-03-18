@@ -89,7 +89,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
      * @param slot     The hotbar slot to use
      */
     static async #createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
-        const command = `game.pf2e.rollItemMacro("${item.id}");`;
+        const command = `game.pf2e.rollItemMacro("${item.id}", event);`;
         const macro =
             game.macros.find((m) => m.name === item.name && m.command === command) ??
             (await MacroPF2e.create(

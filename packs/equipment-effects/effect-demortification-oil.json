@@ -1,0 +1,49 @@
+{
+    "_id": "U2RNTMsZJqtVryK7",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/prey-mutagen.webp",
+    "name": "Effect: Demortification Oil",
+    "system": {
+        "description": {
+            "value": "<p>Non-incorporeal undead gain a +1 item bonus to Armor Class.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:undead",
+                    {
+                        "not": "self:trait:incorporeal"
+                    }
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

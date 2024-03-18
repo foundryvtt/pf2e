@@ -175,15 +175,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.#setDefaultFlag(ruleSource);
 
-        const inflatedChoices = await this.inflateChoices(rollOptions, tempItems);
+        this.choices = await this.inflateChoices(rollOptions, tempItems);
 
         const selection =
-            this.#getPreselection() ??
+            this.#getPreselection(this.choices) ??
             (await new ChoiceSetPrompt({
                 prompt: this.prompt,
                 item: this.item,
                 title: this.label,
-                choices: inflatedChoices,
+                choices: this.choices,
                 containsItems: this.containsItems,
                 allowedDrops: this.allowedDrops,
                 allowNoSelection: this.allowNoSelection,
@@ -417,6 +417,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.level",
                         "system.maxTakable",
                         "system.potencyRune",
+                        "system.range",
                         "system.sanctification",
                         "system.slug",
                         "system.traits",
@@ -426,6 +427,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         }
         progress.close({ label: localize("LoadingComplete") });
 
+        const parentRollOptions = this.item.getRollOptions("parent");
         const filteredItems = indexData
             .flatMap((d): { name: string; type: string; uuid: string }[] => d.contents)
             .filter((s): s is PreCreate<ItemSourcePF2e> & { uuid: DocumentUUID } => s.type === itemType)
@@ -436,7 +438,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                 return new ItemProxyPF2e(fu.deepClone(source), { pack });
             })
             .concat(game.items.filter((i) => i.type === itemType))
-            .filter((i) => filter.test([...i.getRollOptions("item"), ...actorRollOptions]));
+            .filter((i) => filter.test([...i.getRollOptions("item"), ...parentRollOptions, ...actorRollOptions]));
 
         // Exclude any feat of which the character already has its maximum number and return final list
         const existing: Map<string, number> = new Map();
@@ -459,8 +461,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     }
 
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
-    #getPreselection(): PickableThing<string | number | object> | null {
-        const choice = Array.isArray(this.choices) ? this.choices.find((c) => R.equals(c.value, this.selection)) : null;
+    #getPreselection(inflatedChoices: PickableThing[]): PickableThing | null {
+        if (this.selection === null) return null;
+        const choice = inflatedChoices.find((c) => R.equals(c.value, this.selection));
         return choice ?? null;
     }
 

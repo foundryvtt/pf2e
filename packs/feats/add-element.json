@@ -30,83 +30,20 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:air"
-                            }
-                        ],
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:earth"
-                            }
-                        ],
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:fire"
-                            }
-                        ],
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:metal"
-                            }
-                        ],
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:water"
-                            }
-                        ],
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:wood"
-                            }
-                        ],
-                        "value": "wood"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
-                "rollOption": "kinetic-gate"
-            },
-            {
+                "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:rarity:common",
-                        {
-                            "lte": [
-                                "item:level",
-                                5
-                            ]
-                        },
-                        "item:trait:impulse"
-                    ],
-                    "itemType": "feat"
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
                 },
-                "flag": "impulse",
+                "flag": "elementOne",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                "rollOption": "kinetic-gate:second-element"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementOne}"
             }
         ],
         "traits": {

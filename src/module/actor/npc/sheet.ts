@@ -294,31 +294,30 @@ class NPCSheetPF2e extends AbstractNPCSheet {
      * @param sheetData Data of the actor to be shown in the sheet.
      */
     async #prepareActions(sheetData: NPCSheetData): Promise<void> {
-        // Enrich strike descriptions
+        const listFormatter = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "conjunction" });
+
         const attacks: NPCStrikeSheetData[] = R.sortBy(
             await Promise.all(
                 sheetData.data.actions.map(async (attack) => {
                     const item = attack.item;
-                    const tags = [
-                        item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits)),
-                        attack.additionalEffects.map((e) => ({
-                            name: e.tag,
-                            label: e.label,
-                            description: null,
-                        })),
-                    ].flat();
-                    const description = await TextEditor.enrichHTML(item.description, {
-                        rollData: item.getRollData(),
-                        async: true,
-                    });
+                    const traits = item.system.traits.value.map((t) =>
+                        traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
+                    );
+                    const rollData = item.getRollData();
+                    const description = await TextEditor.enrichHTML(item.description, { rollData, async: true });
                     const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
+                    const effects = ((): string => {
+                        const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
+                        return listFormatter.format(list);
+                    })();
 
                     return {
                         ...R.pick(item, ["name", "sort"]),
                         ...R.pick(attack, ["breakdown", "variants"]),
                         _id: item.id,
                         attackType: item.isMelee ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged",
-                        tags,
+                        traits,
+                        effects,
                         description,
                         damageFormula,
                     };
@@ -342,12 +341,16 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         );
 
         for (const item of abilities) {
-            const tags = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+            const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
             const glyph = getActionGlyph(item.actionCost);
             const actionGroup = glyph ? "active" : "passive";
-            const hasAura = item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura");
+            const has = {
+                aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+                deathNote: item.system.deathNote,
+                selfEffect: !!item.system.selfEffect,
+            };
 
-            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, tags, hasAura });
+            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, has });
         }
 
         sheetData.attacks = attacks;

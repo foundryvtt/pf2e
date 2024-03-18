@@ -52,7 +52,6 @@ interface NPCSystemSheetData extends NPCSystemData {
             localizedName?: string;
         };
     };
-    sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillAbbreviation, NPCSkillSheetData>;
 }
@@ -64,7 +63,7 @@ interface NPCStrikeSheetData {
     breakdown: string;
     variants: NPCStrike["variants"];
     attackType: string;
-    tags: TraitViewData[];
+    traits: TraitViewData[];
     description: string | null;
     /** The damage formula of the strike for display on sheets */
     damageFormula: string | null;

@@ -101,14 +101,16 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
-        game.pf2e.ConditionManager.initialize();
         game.pf2e.settings = {
             automation: {
                 flanking: game.settings.get("pf2e", "automation.flankingDetection"),
             },
             campaign: {
-                enabled: game.settings.get("pf2e", "campaignFeats"),
-                sections: game.settings.get("pf2e", "campaignFeatSections"),
+                feats: {
+                    enabled: game.settings.get("pf2e", "campaignFeats"),
+                    sections: game.settings.get("pf2e", "campaignFeatSections"),
+                },
+                languages: game.settings.get("pf2e", "homebrew.languageRarities"),
             },
             critFumble: {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),
@@ -120,6 +122,7 @@ export const SetGamePF2e = {
             metagame: {
                 breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
                 dcs: game.settings.get("pf2e", "metagame_showDC"),
+                secretChecks: game.settings.get("pf2e", "metagame_secretChecks"),
                 partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
                 partyVision: game.settings.get("pf2e", "metagame_partyVision"),
                 results: game.settings.get("pf2e", "metagame_showResults"),

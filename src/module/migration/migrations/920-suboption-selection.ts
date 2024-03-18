@@ -6,7 +6,7 @@ import { MigrationBase } from "../base.ts";
 
 /** Move RollOption RE suboption selections to top level of object. */
 export class Migration920SuboptionSelection extends MigrationBase {
-    static override version = 0.919;
+    static override version = 0.92;
 
     override async updateItem(source: ItemSourcePF2e, actorSource: ActorSourcePF2e): Promise<void> {
         const suboptionREs = source.system.rules.filter(

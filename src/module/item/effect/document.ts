@@ -1,12 +1,12 @@
 import type { ActorPF2e } from "@actor";
-import { EffectBadge, EffectBadgeSource } from "@item/abstract-effect/data.ts";
+import type { BadgeReevaluationEventType, EffectBadge, EffectBadgeSource } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
-import { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
+import type { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
 class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     override get badge(): EffectBadge | null {
@@ -51,10 +51,15 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (badge.type === "formula") {
                 badge.label = null;
             } else {
+                if (badge.type === "counter") badge.loop ??= false;
                 badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
                 badge.value = Math.clamped(badge.value, badge.min, badge.max);
                 badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
+            }
+
+            if (badge.type === "value" && badge.reevaluate) {
+                badge.reevaluate.initial ??= badge.value;
             }
         }
     }
@@ -74,8 +79,10 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Increases if this is a counter effect, otherwise ignored outright */
     async increase(): Promise<void> {
         const badge = this.system.badge;
+
         if (badge?.type === "counter" && !this.isExpired) {
-            const value = badge.value + 1;
+            const shouldLoop = badge.loop && badge.value >= badge.max;
+            const value = shouldLoop ? badge.min : badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
     }
@@ -86,7 +93,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             await this.delete();
             return;
         }
-
         const value = this.system.badge.value - 1;
         await this.update({ system: { badge: { value } } });
     }
@@ -106,12 +112,16 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
      * Evaluate a formula badge, sending its result to chat.
      * @returns The resulting value badge
      */
-    private async evaluateFormulaBadge(badge: EffectBadgeFormulaSource): Promise<EffectBadgeValueSource> {
+    async #evaluateFormulaBadge(
+        badge: EffectBadgeFormulaSource,
+        initialValue?: number,
+    ): Promise<EffectBadgeValueSource> {
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
         const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
-        const reevaluate = badge.reevaluate ? { formula: badge.value, event: badge.reevaluate } : null;
+        const initial = initialValue ?? roll.total;
+        const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
         const token = actor.getActiveTokens(false, true).shift();
         const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
         roll.toMessage({ flavor: reduceItemName(this.name), speaker });
@@ -137,7 +147,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         // If this is an immediate evaluation formula effect, pre-roll and change the badge type on creation
         const badge = data.system.badge;
         if (this.actor && badge?.type === "formula" && badge.evaluate) {
-            this._source.system.badge = await this.evaluateFormulaBadge(badge);
+            this._source.system.badge = await this.#evaluateFormulaBadge(badge);
         }
 
         return super._preCreate(data, options, user);
@@ -197,6 +207,12 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 delete badgeChange.max;
                 if ("max" in (this._source.system.badge ?? {})) badgeChange["-=max"] = null;
             }
+
+            // remove loop when type changes or labels are removed
+            if (badgeChange["-=labels"] === null || badgeTypeChanged) {
+                delete badgeChange.loop;
+                if ("loop" in (this._source.system.badge ?? {})) badgeChange["-=loop"] = null;
+            }
         }
 
         return super._preUpdate(changed, options, user);
@@ -210,16 +226,18 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     }
 
     /** If applicable, reevaluate this effect's badge */
-    async onTurnStartEnd(event: "start" | "end"): Promise<void> {
-        const { badge } = this;
-
-        if (badge?.type === "value" && badge.reevaluate?.event === `turn-${event}`) {
-            const newBadge = await this.evaluateFormulaBadge({
-                type: "formula",
-                value: badge.reevaluate.formula,
-                reevaluate: badge.reevaluate.event,
-                labels: badge.labels,
-            });
+    async onEncounterEvent(event: BadgeReevaluationEventType): Promise<void> {
+        const badge = this.badge;
+        if (badge?.type === "value" && badge.reevaluate?.event === event) {
+            const newBadge = await this.#evaluateFormulaBadge(
+                {
+                    type: "formula",
+                    value: badge.reevaluate.formula,
+                    reevaluate: badge.reevaluate.event,
+                    labels: badge.labels,
+                },
+                badge.reevaluate.initial ?? badge.value,
+            );
             await this.update({ "system.badge": newBadge });
         }
     }

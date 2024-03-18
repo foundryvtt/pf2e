@@ -20,7 +20,7 @@
 
             {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                 <!-- ATTACK/DAMAGE -->
-                {{#> attackDamage action}}{{/attackDamage}}
+                {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
             {{else if (and (not action.ready) (not action.handsAvailable))}}
                 <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
             {{/if}}
@@ -116,7 +116,7 @@
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled="disabled" data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+                {{#if (eq ../quantity 0)}} disabled data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
                 {{#if (eq index 0)}}
                     <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>

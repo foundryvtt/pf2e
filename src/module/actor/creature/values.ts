@@ -168,6 +168,7 @@ const RARE_LANGUAGES = [
     "shory",
     "strix",
     "talican",
+    "tanuki",
     "tekritanin",
     "thassilonian",
     "varki",

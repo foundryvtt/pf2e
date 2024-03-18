@@ -1,4 +1,4 @@
-import type { EffectAreaType } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/spell/types.ts";
 import { TokenPF2e, type MeasuredTemplatePF2e } from "./index.ts";
 
 /**
@@ -165,7 +165,7 @@ function measureDistanceOnGrid(
 
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
 function highlightGrid({
-    areaType,
+    areaShape,
     object,
     colors,
     document,
@@ -202,7 +202,7 @@ function highlightGrid({
 
     // Offset measurement for cones to ensure that cones only start measuring from cell borders
     const coneOriginOffset = ((): Point => {
-        if (areaType !== "cone") return { x: 0, y: 0 };
+        if (areaShape !== "cone") return { x: 0, y: 0 };
 
         // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
         const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
@@ -228,7 +228,7 @@ function highlightGrid({
 
     // If this is an emanation, measure from the outer squares of the token's space
     const offsetEmanationOrigin = (destination: Point): Point => {
-        if (!(areaType === "emanation" && object instanceof TokenPF2e)) {
+        if (!(areaShape === "emanation" && object instanceof TokenPF2e)) {
             return { x: 0, y: 0 };
         }
 
@@ -263,7 +263,7 @@ function highlightGrid({
                 y: snappedOrigin.y + coneOriginOffset.y + emanationOriginOffset.y,
             };
 
-            if (areaType === "cone") {
+            if (areaShape === "cone") {
                 const ray = new Ray(origin, destination);
                 const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
                 if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
@@ -307,7 +307,7 @@ function highlightGrid({
 }
 
 interface HighlightGridParams {
-    areaType: EffectAreaType | null;
+    areaShape: EffectAreaShape | null;
     object: MeasuredTemplatePF2e | TokenPF2e;
     /** Border and fill colors in hexadecimal */
     colors: { border: number; fill: number };

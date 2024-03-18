@@ -7,6 +7,7 @@ import { extractModifiers } from "@module/rules/helpers.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e } from "@util/misc.ts";
 import * as R from "remeda";
+import { createCounteractStatistic } from "./helpers.ts";
 import { CastOptions, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 
 const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
@@ -35,6 +36,10 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
     skill: SkillLongForm;
 
     statistic: Statistic;
+
+    get counteraction(): Statistic {
+        return createCounteractStatistic(this);
+    }
 
     attribute: AttributeString;
 

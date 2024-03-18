@@ -227,6 +227,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Include campaign statistics in party statistics */
+    override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         const statistic = super.getStatistic(slug);
         if (statistic) return statistic;

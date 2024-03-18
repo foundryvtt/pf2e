@@ -51,18 +51,33 @@ export abstract class CompendiumBrowserTab {
     async init(): Promise<void> {
         // Load the index and populate filter data
         await this.loadData();
+
         // Initialize MiniSearch
+        const wordSegmenter =
+            "Segmenter" in Intl
+                ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
+                : // Firefox >:(
+                  {
+                      segment(term: string): { segment: string }[] {
+                          return [{ segment: term }];
+                      },
+                  };
         this.searchEngine = new MiniSearch({
             fields: this.searchFields,
             idField: "uuid",
-            processTerm: (t) =>
-                t.length > 1 && !CompendiumDirectoryPF2e.STOP_WORDS.has(t)
-                    ? t.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, "")
-                    : null,
+            processTerm: (term): string[] | null => {
+                if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
+                    return null;
+                }
+                return Array.from(wordSegmenter.segment(term))
+                    .map((t) => t.segment.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, ""))
+                    .filter((t) => t.length > 1);
+            },
             storeFields: this.storeFields,
             searchOptions: { combineWith: "AND", prefix: true },
         });
         this.searchEngine.addAll(this.indexData);
+
         // Set defaultFilterData for resets
         this.defaultFilterData = fu.deepClone(this.filterData);
         // Initialization complete

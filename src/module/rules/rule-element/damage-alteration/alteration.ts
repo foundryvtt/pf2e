@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import { nextDamageDieSize } from "@system/damage/helpers.ts";
+import { damageDieSizeToFaces, nextDamageDieSize } from "@system/damage/helpers.ts";
 import { BaseDamageData } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
@@ -34,7 +34,7 @@ class DamageAlteration {
         const resolvables: Record<string, unknown> = item
             ? { [item.type === "action" ? "ability" : item.type]: item }
             : {};
-        const change = this.#rule.resolveValue?.(rule.value, null, { resolvables }) ?? rule.value;
+        const change = rule.resolveValue?.(rule.value, null, { resolvables }) ?? rule.value;
         if (rule.ignored) return null;
 
         if (rule.property === "damage-type" && setHasElement(DAMAGE_TYPES, change)) {
@@ -42,18 +42,28 @@ class DamageAlteration {
         }
 
         if (rule.property === "dice-number" && "diceNumber" in damage && typeof change === "number") {
-            return AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change);
+            return Math.clamped(
+                Math.floor(AELikeRuleElement.getNewValue(rule.mode, damage.diceNumber ?? 0, change)),
+                0,
+                99,
+            );
         }
 
         if (rule.property === "dice-faces") {
             if (!("dieSize" in damage) || !damage.dieSize) {
                 return null;
             }
+
+            const currentFaces = damageDieSizeToFaces(damage.dieSize);
             if (rule.mode === "downgrade") {
-                return Number(nextDamageDieSize({ downgrade: damage.dieSize }).replace("d", ""));
+                return tupleHasValue(DAMAGE_DICE_FACES, change) && change <= currentFaces
+                    ? change
+                    : Number(nextDamageDieSize({ downgrade: damage.dieSize }).replace("d", ""));
             }
             if (rule.mode === "upgrade") {
-                return Number(nextDamageDieSize({ downgrade: damage.dieSize }).replace("d", ""));
+                return tupleHasValue(DAMAGE_DICE_FACES, change) && change >= currentFaces
+                    ? change
+                    : Number(nextDamageDieSize({ upgrade: damage.dieSize }).replace("d", ""));
             }
             if (rule.mode === "override" && tupleHasValue(DAMAGE_DICE_FACES, change)) {
                 return change;

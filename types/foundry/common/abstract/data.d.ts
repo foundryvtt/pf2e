@@ -244,6 +244,11 @@ declare global {
         partial?: boolean;
         [key: string]: unknown;
     }
+
+    interface ParentedDataModelConstructionOptions<TParent extends DataModel>
+        extends DataModelConstructionOptions<TParent> {
+        parent: TParent;
+    }
 }
 
 type _DataModel = DataModel<_DataModel | null, fields.DataSchema>;

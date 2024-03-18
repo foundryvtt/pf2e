@@ -109,15 +109,16 @@ class CombatantPF2e<
         this.update({ "flags.pf2e.roundOfLastTurn": encounter.round }, { render: false });
 
         // Run any turn start events before the effect tracker updates
-        await this.#performActorUpdates("turn-start");
+        const eventType = "turn-start";
+        await this.#performActorUpdates(eventType);
 
         // Effect changes on turn start/end
         for (const effect of actor.itemTypes.effect) {
-            await effect.onTurnStartEnd("start");
+            await effect.onEncounterEvent(eventType);
         }
         if (actor.isOfType("character") && actor.familiar) {
             for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onTurnStartEnd("start");
+                await effect.onEncounterEvent(eventType);
             }
         }
 
@@ -136,12 +137,13 @@ class CombatantPF2e<
         }
 
         // Effect changes on turn start/end
+        const eventType = "turn-end";
         for (const effect of actor.itemTypes.effect) {
-            await effect.onTurnStartEnd("end");
+            await effect.onEncounterEvent(eventType);
         }
         if (actor.isOfType("character") && actor.familiar) {
             for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onTurnStartEnd("end");
+                await effect.onEncounterEvent(eventType);
             }
         }
 
@@ -249,7 +251,15 @@ class CombatantPF2e<
         if (typeof changed.initiative === "number") {
             // Reset actor data in case initiative order changed
             if (this.encounter?.started) this.encounter.resetActors();
-            if (userId === game.user.id) this.#performActorUpdates("initiative-roll");
+            // Make necessary actor and item updates
+            if (userId === game.user.id) {
+                const eventType = "initiative-roll";
+                this.#performActorUpdates(eventType).then(() => {
+                    for (const effect of this.actor?.itemTypes.effect ?? []) {
+                        effect.onEncounterEvent(eventType);
+                    }
+                });
+            }
         }
 
         // Send out a message with information on an automatic effect that occurs upon an actor's death

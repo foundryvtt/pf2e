@@ -4,7 +4,7 @@ import { ItemPF2e, type WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
+import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -72,7 +72,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             : item.name;
 
         if (item.isOfType("physical")) {
-            this.requiresEquipped = !!(source.requiresEquipped ?? true);
+            this.requiresEquipped ??= true;
             this.requiresInvestment =
                 item.isInvested === null ? null : !!(source.requiresInvestment ?? this.requiresEquipped);
 
@@ -87,6 +87,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             this.requiresEquipped = null;
             this.requiresInvestment = null;
         }
+
+        // Spinoff composition rules are always inactive
+        if (this.spinoff) this.ignored = true;
     }
 
     static override defineSchema(): RuleElementSchema {
@@ -107,6 +110,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            spinoff: new SlugField({ required: false, nullable: false, initial: undefined }),
         };
     }
 
@@ -509,7 +513,7 @@ namespace RuleElementPF2e {
     export interface AfterRollParams {
         roll: Rolled<CheckRoll>;
         check: CheckModifier;
-        context: CheckRollContext;
+        context: CheckCheckContext;
         domains: string[];
         rollOptions: Set<string>;
     }
@@ -521,13 +525,11 @@ interface ResolveValueParams {
     warn?: boolean;
 }
 
-type RuleElementOptions = {
-    parent: ItemPF2e<ActorPF2e>;
-    strict?: boolean;
+interface RuleElementOptions extends ParentedDataModelConstructionOptions<ItemPF2e<ActorPF2e>> {
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
-};
+}
 
 export { RuleElementPF2e, type RuleElementOptions };

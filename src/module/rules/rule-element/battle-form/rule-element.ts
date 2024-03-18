@@ -315,7 +315,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
     /** Add, replace and/or adjust non-land speeds */
     #prepareSpeeds(): void {
-        const attributes = this.actor.attributes;
+        const actor = this.actor;
+        const attributes = actor.attributes;
         const currentSpeeds = attributes.speed;
 
         for (const movementType of MOVEMENT_TYPES) {
@@ -330,7 +331,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 const label = game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]);
                 otherSpeeds.findSplice((s) => s.type === movementType);
                 otherSpeeds.push({ type: movementType, label, value: speedOverride });
-                const newSpeed = this.actor.prepareSpeed(movementType);
+                const newSpeed = actor.prepareSpeed(movementType);
                 if (!newSpeed) throw ErrorPF2e("Unexpected failure retrieving movement type");
                 this.#suppressModifiers(newSpeed);
 
@@ -341,6 +342,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     }
 
     #prepareSkills(): void {
+        const actor = this.actor;
         for (const [skillShort, newSkill] of Object.entries(this.overrides.skills ?? {})) {
             if (!tupleHasValue(SKILL_ABBREVIATIONS, skillShort)) {
                 return this.failValidation(`Unrecognized skill abbreviation: ${skillShort}`);
@@ -348,7 +350,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             newSkill.ownIfHigher ??= true;
 
             const key = SKILL_DICTIONARY[skillShort];
-            const currentSkill = this.actor.skills[key];
+            const currentSkill = actor.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
             if (currentSkill.mod > newModifier && newSkill.ownIfHigher) {
                 continue;
@@ -361,20 +363,18 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 type: "untyped",
             });
 
-            this.actor.skills[key] = currentSkill.extend({
-                modifiers: [baseMod],
-                filter: this.#filterModifier,
-            });
-            this.actor.system.skills[skillShort] = fu.mergeObject(
-                this.actor.system.skills[skillShort],
-                this.actor.skills[key].getTraceData(),
+            actor.skills[key] = currentSkill.extend({ modifiers: [baseMod], filter: this.#filterModifier });
+            actor.system.skills[skillShort] = fu.mergeObject(
+                actor.system.skills[skillShort],
+                actor.skills[key].getTraceData(),
             );
         }
     }
 
     /** Clear out existing strikes and replace them with the form's stipulated ones, if any */
     #prepareStrikes(): void {
-        const synthetics = this.actor.synthetics;
+        const actor = this.actor;
+        const synthetics = actor.synthetics;
         const strikes = this.overrides.strikes ?? {};
         for (const strike of Object.values(strikes)) {
             strike.ownIfHigher ??= true;
@@ -400,14 +400,15 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         }));
 
         // Repopulate strikes with new WeaponPF2e instances--unless ownUnarmed is true
+        const strikeRules = actor.rules.filter((r): r is StrikeRuleElement => r.key === "Strike");
         if (this.ownUnarmed) {
-            for (const [slug, weapon] of synthetics.strikes.entries()) {
-                if (weapon.category !== "unarmed") synthetics.strikes.delete(slug);
+            for (const rule of strikeRules) {
+                if (rule.category !== "unarmed") rule.ignored = true;
             }
-            this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
+            actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
         } else {
-            for (const [slug, strike] of synthetics.strikes.entries()) {
-                if (!strike.flags.pf2e.battleForm) synthetics.strikes.delete(slug);
+            for (const rule of strikeRules) {
+                if (!rule.battleForm) rule.ignored = true;
             }
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
@@ -420,10 +421,10 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             }
         }
 
-        this.actor.system.actions = this.actor
+        actor.system.actions = actor
             .prepareStrikes({ includeBasicUnarmed: this.ownUnarmed })
             .filter((a) => (a.slug && a.slug in strikes) || (this.ownUnarmed && a.item.category === "unarmed"));
-        const strikeActions = this.actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
+        const strikeActions = actor.system.actions.flatMap((s): CharacterStrike[] => [s, ...s.altUsages]);
 
         for (const action of strikeActions) {
             const strike = (strikes[action.slug ?? ""] ?? null) as BattleFormStrike | null;
@@ -442,9 +443,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 const baseModifier = Number(this.resolveValue(strike.modifier)) || 0;
                 action.unshift(new ModifierPF2e(this.modifierLabel, baseModifier, "untyped"));
             } else {
-                const options = (this.actor.rollOptions["strike-attack-roll"] ??= {});
+                const options = (actor.rollOptions["strike-attack-roll"] ??= {});
                 options["battle-form:own-attack-modifier"] = true;
-                action.calculateTotal(new Set(this.actor.getRollOptions(action.domains)));
+                action.calculateTotal(new Set(actor.getRollOptions(action.domains)));
             }
         }
     }
