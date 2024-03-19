@@ -5,7 +5,7 @@ import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@a
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
-import { ArmorSource, ItemType } from "@item/base/data/index.ts";
+import { ArmorSource, ItemType, ProficiencyValues } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
 import { isEquipped } from "@item/physical/usage.ts";
@@ -15,7 +15,7 @@ import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
 import { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { ItemAttacher } from "@module/apps/item-attacher.ts";
-import { Rarity, SIZES, SIZE_SLUGS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { Rarity, SIZES, SIZE_SLUGS, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
@@ -389,7 +389,7 @@ abstract class CreaturePF2e<
         // and spell DC statistics. At 12th level, these proficiencies increase to expert.
         if (this.isOfType("character") && this.spellcasting.some((e) => e.isInnate)) {
             const spellcasting = this.system.proficiencies.spellcasting;
-            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ProficiencyValues;
         }
 
         // Base spellcasting proficiency (later extended to add attribute modifiers)
