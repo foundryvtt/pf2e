@@ -3,250 +3,6 @@
     "img": "systems/pf2e/icons/iconics/FeiyaFull.webp",
     "items": [
         {
-            "_id": "1n3l96ef9leoqpux",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "versatileHeritage": {
-                            "id": "zb4gpnehgvcwe611"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
-            "name": "Versatile Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "versatileHeritage",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
-                    }
-                ],
-                "slug": "versatile-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "zb4gpnehgvcwe611",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.hDGosy2ZTwnyctEP"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "1n3l96ef9leoqpux"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Oddity Identification",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You have a sense for spells that twist minds or reveal secrets. You gain a +2 circumstance bonus to Occultism checks to Identify Magic with the mental, possession, prediction, or scrying traits.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Occultism"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Oddity Identification (identify magic with specific traits)",
-                        "predicate": [
-                            "action:identify-magic",
-                            {
-                                "or": [
-                                    "mental",
-                                    "possession",
-                                    "prediction",
-                                    "scrying"
-                                ]
-                            }
-                        ],
-                        "selector": "occultism",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "oddity-identification",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "2jwz10ran5ezqhwj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.fuTLDmihr9Z9e5wa"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Cultist",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "int",
-                        "value": [
-                            "cha",
-                            "int"
-                        ]
-                    },
-                    "1": {
-                        "selected": "wis",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You were (or still are) a member of a cult whose rites may involve sacred dances to ensure a strong harvest or dire rituals that call upon dark powers. You might have taken up adventuring to further your cult's aims, to initiate yourself into the world's grander mysteries, or to flee unsavory practices or strictures.</p>\n<p>Choose two ability boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Occultism skill and the Lore skill related to your deity or cult. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Schooled In Secrets] skill feat.</p>"
-                },
-                "items": {
-                    "hvaw7": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Schooled In Secrets",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Schooled In Secrets"
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "cultist",
-                "trainedLore": "<Deity> or <Cult> Lore",
-                "trainedSkills": {
-                    "value": [
-                        "occ"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "ue6f8d5khrl07t7u",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.lEgYzFHransLkSvI"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Schooled In Secrets",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You notice the signs and symbols that members of mystery cults and other secret societies use to declare their affiliation to fellow members.</p>\n<p>You can use Occultism in place of Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] about such groups. If you belong to a secret cult, lodge, sect, or similar organization, you automatically recognize members of your group unless they are specifically attempting to conceal their presence from you.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "2jwz10ran5ezqhwj",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Occultism"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "schooled-in-secrets",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "xSGqw2Kbg0Pv8suP",
             "flags": {
                 "core": {
@@ -293,9 +49,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -354,9 +110,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -367,7 +123,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -414,74 +170,14 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
                 "slug": "waterskin",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "Wo6m9zZexNQIiN71",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
-            "name": "Chalk",
-            "sort": 200000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": "xSGqw2Kbg0Pv8suP",
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "stowed",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 10,
-                "rules": [],
-                "size": "med",
-                "slug": "chalk",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -534,9 +230,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -547,7 +243,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 }
             },
             "type": "equipment"
@@ -595,9 +291,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 2,
                 "rules": [],
@@ -660,9 +356,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -673,7 +369,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -720,9 +416,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
@@ -745,7 +441,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.62nnVQvGhoVLLl2K"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
+            "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
             "name": "Crossbow",
             "sort": 0,
             "system": {
@@ -771,7 +467,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 2,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "crossbow",
@@ -793,9 +489,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": 120,
@@ -846,7 +542,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -867,9 +563,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 10,
                 "rules": [],
@@ -898,7 +594,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
             "name": "Dagger",
             "sort": 0,
             "system": {
@@ -924,7 +620,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "knife",
@@ -946,9 +642,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -976,85 +672,11 @@
                     ]
                 },
                 "usage": {
+                    "canBeAmmo": false,
                     "value": "held-in-one-hand"
                 }
             },
             "type": "weapon"
-        },
-        {
-            "_id": "ES2QQ2Gut25TqI6u",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.hDLbR56Id2OtU318"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Minor)",
-            "sort": 300000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": null,
-                "damage": {
-                    "formula": "1d6",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Minor)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 1
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 3
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-minor",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
         },
         {
             "_id": "cQaYzyKc7IcjEDM9",
@@ -1089,7 +711,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 1,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "club",
@@ -1109,9 +731,9 @@
                     "value": {}
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "range": null,
@@ -1132,6 +754,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
+                        "monk",
                         "two-hand-d8"
                     ]
                 },
@@ -1279,151 +902,6 @@
                 "slug": null
             },
             "type": "lore"
-        },
-        {
-            "_id": "9j3rjsube72zj6zd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "naturalAmbition": {
-                            "id": "qjrvnylnh3aiwy3l"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Natural Ambition",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:{actor|system.details.class.trait}",
-                                {
-                                    "or": [
-                                        "feature:dragon-instinct",
-                                        {
-                                            "not": "item:draconic-arrogance"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nor": [
-                                        "item:animal-companion",
-                                        "item:animal-companion-druid",
-                                        "item:bardic-lore",
-                                        "item:fire-lung",
-                                        "item:lingering-composition",
-                                        "item:leshy-familiar",
-                                        "item:martial-performance",
-                                        "item:shore-step",
-                                        "item:steadying-stone",
-                                        "item:storm-born",
-                                        "item:versatile-performance",
-                                        "item:untamed-form"
-                                    ]
-                                }
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "naturalAmbition",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Cackle"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
-                    }
-                ],
-                "slug": "natural-ambition",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "qjrvnylnh3aiwy3l",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.0BR61rW4JFOfO7T7"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "9j3rjsube72zj6zd"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Cackle",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can extend one of your spells with a quick burst of laughter. You learn the @UUID[Compendium.pf2e.spells-srd.Item.Cackle] hex. Increase the number of Focus Points in your focus pool by 1.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "cackle",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "TaRCrQs0PsKD5Gr9",
@@ -2913,326 +2391,6 @@
             "type": "spell"
         },
         {
-            "_id": "3UXj2KLcKyK9YYa5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.9jGaBxLUtevZYcZO"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Untrained Improvisation",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to half your level instead of +0. If you're 7th level or higher, the bonus increases to your full level instead. This doesn't allow you to use the skill's trained actions.</p>"
-                },
-                "level": {
-                    "taken": 3,
-                    "value": 3
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "skill-check",
-                        "type": "proficiency",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "value": "floor(@actor.level / 2)"
-                                },
-                                {
-                                    "start": 7,
-                                    "value": "@actor.level"
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "untrained-improvisation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "ajislv3dnu0xgm8x",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.D3SuA5MaKucO1flE"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "generalTraining": {
-                            "id": "xrnewbjap5z7hebq"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "General Training",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Your adaptability manifests in your mastery of a range of useful abilities. You gain a 1st-level general feat. You must meet the feat's prerequisites, but if you select this feat during character creation, you can select the feat later in the process in order to determine which prerequisites you meet.</p>\n<p><strong>Special</strong> You can select this feat multiple times, choosing a different feat each time.</p>"
-                },
-                "level": {
-                    "taken": 5,
-                    "value": 1
-                },
-                "location": "ancestry-5",
-                "maxTakable": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "generalTraining",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Toughness"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.generalTraining}"
-                    }
-                ],
-                "slug": "general-training",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "xrnewbjap5z7hebq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "ajislv3dnu0xgm8x"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Toughness",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "hp",
-                        "value": "@actor.level"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "downgrade",
-                        "path": "system.attributes.dying.recoveryDC",
-                        "value": 9
-                    }
-                ],
-                "slug": "toughness",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "LT62IyqrX9WVcxP2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.c85a69mB1urW2Se2"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Continual Recovery",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You zealously monitor a patient's progress to administer treatment faster. When you @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], your patient becomes immune for only 10 minutes instead of 1 hour. This applies only to your Treat Wounds activities, not any other the patient receives.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "skill-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "expert in Medicine"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "continual-recovery",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "LzQCUfXM0YrUjUpi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.MjQyTcV8Jiv1Jtln"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Recognize Spell",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within line of sight casts a spell that you don't have prepared or in your spell repertoire, or a trap or similar object casts such a spell. You must be aware of the casting.</p>\n<hr />\n<p>If you are trained in the appropriate skill for the spell's tradition and it's a common spell of 2nd level or lower, you automatically identify it (you still roll to attempt to get a critical success, but can't get a worse result than success). The highest rank of spell you automatically identify increases to 4 if you're an expert, 6 if you're a master, and 10 if you're legendary.</p>\n<p>The GM rolls a secret Arcana, Nature, Occultism, or Religion check, whichever corresponds to the tradition of the spell being cast. If you're not trained in the skill, you can't get a result better than failure.</p>\n<hr />\n<p><strong>Critical Success</strong> You correctly recognize the spell and gain a +1 circumstance bonus to your saving throw or your AC against it.</p>\n<p><strong>Success</strong> You correctly recognize the spell.</p>\n<p><strong>Failure</strong> You fail to recognize the spell.</p>\n<p><strong>Critical Failure</strong> You misidentify the spell as another spell entirely, of the GM's choice.</p>"
-                },
-                "level": {
-                    "taken": 4,
-                    "value": 1
-                },
-                "location": "skill-4",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Arcana, Nature, Occultism or Religion"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Critical success on Recognize Spell",
-                        "predicate": [
-                            "action:recognize-spell",
-                            "critical-success"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Critical success on Recognize Spell",
-                        "predicate": [
-                            "action:recognize-spell",
-                            "critical-success"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": "recognize-spell",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "secret",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "x3ZB2AE8aKZxz5TR",
             "flags": {
                 "core": {
@@ -4328,152 +3486,6 @@
             "type": "spell"
         },
         {
-            "_id": "KrJAXSK4wsqxZ2Fu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zPhqmCvWyHO8i9ws"
-                }
-            },
-            "img": "icons/commodities/biological/eye-purple.webp",
-            "name": "Pendant of the Occult",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>This amulet is hollow and shaped in the form of an unblinking eye. Its cavity typically holds some fragment of occult text. While wearing the pendant, you gain a +1 item bonus to Occultism checks, and you can cast the @UUID[Compendium.pf2e.spells-srd.Item.Guidance] cantrip as an occult innate spell.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": true
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "occultism",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "pendant-of-the-occult",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "invested",
-                        "occult"
-                    ]
-                },
-                "usage": {
-                    "value": "worn"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "3MAXMfjWaukfTd1g",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.m4FOYkzuqNjU0ETq"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Eldritch Nails",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Your nails are supernaturally long and sharp.</p>\n<p>You gain a nails unarmed attack that deals @Damage[1d6[slashing]] damage. Your nails are in the brawling group and have the agile and unarmed traits. You can etch your nails with runes with the same cost and restrictions as for etching runes onto @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]; runes etched onto your nails apply to nails unarmed attacks with both hands but not to other unarmed attacks.</p>\n<p>You can deliver hexes through your nails. When you successfully cast a non-cantrip hex that requires 2 actions or more to cast and that doesn't require a spell attack roll, if your target is within your reach, as part of the spellcasting activity you can make a nails Strike against the foe before applying any effects of the hex. If this Strike misses, the hex has no effect.</p>"
-                },
-                "level": {
-                    "taken": 4,
-                    "value": 4
-                },
-                "location": "class-4",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "slashing",
-                                "dice": 1,
-                                "die": "d6"
-                            }
-                        },
-                        "group": "brawling",
-                        "key": "Strike",
-                        "label": "Nails",
-                        "range": null,
-                        "traits": [
-                            "agile",
-                            "unarmed"
-                        ]
-                    },
-                    {
-                        "key": "WeaponPotency",
-                        "label": "Etched potency rune",
-                        "selector": "{item|_id}-attack",
-                        "value": 1
-                    },
-                    {
-                        "key": "Striking",
-                        "label": "Etched striking rune",
-                        "selector": "{item|_id}-damage",
-                        "value": 1
-                    }
-                ],
-                "slug": "eldritch-nails",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "K2hQfqWleaw7vKB3",
             "flags": {
                 "core": {
@@ -4481,7 +3493,7 @@
                 }
             },
             "img": "icons/containers/bags/pouch-gold-green.webp",
-            "name": "Healer's Tools",
+            "name": "Healer's Toolkit",
             "sort": 0,
             "system": {
                 "baseItem": null,
@@ -4490,10 +3502,11 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to Administer First Aid, Treat Disease, Treat Poison, or Treat Wounds. If you wear your healer's tools, you can draw and replace them as part of the action that uses them.</p>"
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -4514,20 +3527,20 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "healers-tools",
+                "slug": "healers-toolkit",
                 "traits": {
                     "rarity": "common",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-two-hands"
+                    "value": "other"
                 }
             },
             "type": "equipment"
@@ -4574,9 +3587,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "quantity": 5,
                 "rules": [
@@ -4671,144 +3684,6 @@
                 }
             },
             "type": "equipment"
-        },
-        {
-            "_id": "OBn8RemBAoAuaXuJ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.RjuupS9xyXDLgyIr"
-                }
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Pet Cache (Level 1)",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Pet Cache]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 1
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 4
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-1st-level-spell",
-                "spell": {
-                    "_id": "z6TjSJqhgS5veUUY",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.F1nlmqOIucch3Cmt"
-                        }
-                    },
-                    "img": "icons/consumables/eggs/egg-speckled-green.webp",
-                    "name": "Pet Cache",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>You open your cloak or create a gap with your hands, drawing the target into a pocket dimension just large enough for its basic comfort. No other creature can enter this extradimensional space, and the target can bring along objects only if they were designed to be worn by a creature of its kind. The space has enough air, food, and water to sustain the target for the duration.</p>\n<p>You can @UUID[Compendium.pf2e.actionspf2e.Item.Dismiss] the spell. The spell also ends if you die or enter an extradimensional space. When the spell ends, the target reappears in the nearest unoccupied space (outside of any extradimensional space you may have entered).</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": "8 hours"
-                        },
-                        "level": {
-                            "value": 1
-                        },
-                        "location": {
-                            "heightenedLevel": 1,
-                            "value": ""
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Advanced Player's Guide"
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "pet-cache",
-                        "target": {
-                            "value": "1 willing creature that is your animal companion or familiar"
-                        },
-                        "time": {
-                            "value": "1"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "extradimensional",
-                                "manipulate"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "consumable",
-                        "divine",
-                        "magical",
-                        "occult",
-                        "primal",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
         },
         {
             "_id": "bzm2x1UjOeDj56u1",
@@ -4957,149 +3832,6 @@
             "type": "spell"
         },
         {
-            "_id": "yaT6cSihuJntAulg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.wsq8nncD25Q1fRn2"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "lessonOfLife": {
-                            "id": "nh2Gx3QxMbqeQNwD",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Basic Lesson",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>Your patron grants you a special lesson, revealing a hidden facet of its nature. Choose a Basic Lesson. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "predicate": [
-                                "item:level:2",
-                                "item:trait:witch",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Calamity"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Dreams"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Life"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Protection"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Elements"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lesson of Vengeance"
-                            }
-                        ],
-                        "flag": "lesson",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Lesson",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Lesson of Life"
-                    },
-                    {
-                        "flag": "lessonOfLife",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.lesson}"
-                    }
-                ],
-                "slug": "basic-lesson",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "nh2Gx3QxMbqeQNwD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.HbREpzudMXPscgCj"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "yaT6cSihuJntAulg",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/spells/life-boost.webp",
-            "name": "Lesson of Life",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the @UUID[Compendium.pf2e.spells-srd.Item.Life Boost] hex, and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Spirit Link].</p>"
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "lesson-of-life",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "YoK6l1nq3zm2spJ9",
             "flags": {
                 "core": {
@@ -5237,296 +3969,6 @@
             "type": "spell"
         },
         {
-            "_id": "fLkM1KUJ163eqZoy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ZmefGBXGJF3CFDbn"
-                }
-            },
-            "img": "icons/sundries/scrolls/scroll-symbol-eye-brown.webp",
-            "name": "Scroll of Familiar's Face (Level 3)",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "scroll",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Familiar's Face]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "scroll-of-3rd-level-spell",
-                "spell": {
-                    "_id": "zbSOHbyjxl1mRppT",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.9GkOWDFDEMuV3hJr"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/familiars-face.webp",
-                    "name": "Familiar's Face",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {},
-                        "defense": null,
-                        "description": {
-                            "value": "<p>The target becomes a scrying sensor, allowing you to see through its eyes, smell what it smells, and similarly use its other senses. If you can cast a spell with the revelation trait that affects your senses, such as @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen], while this spell is active, you gain the benefit of the spell through the target's senses instead of your own. You can also speak through the target, with a voice much like yours, though it takes on some of the timbre and character of the target's growls or squawks. You can use @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] on the target as part of @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustaining this Spell}. You don't need line of sight or line of effect to your target when you @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Cast this Spell}.</p>"
-                        },
-                        "duration": {
-                            "sustained": true,
-                            "value": ""
-                        },
-                        "level": {
-                            "value": 3
-                        },
-                        "location": {
-                            "heightenedLevel": 3,
-                            "value": ""
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Advanced Player's Guide"
-                        },
-                        "range": {
-                            "value": "1 mile"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "familiars-face",
-                        "target": {
-                            "value": "1 willing creature that is your animal companion or familiar"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "arcane",
-                                "divine",
-                                "occult",
-                                "primal"
-                            ],
-                            "value": [
-                                "manipulate",
-                                "scrying"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "consumable",
-                        "divine",
-                        "magical",
-                        "occult",
-                        "primal",
-                        "scroll"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "vDduRvKv69ZYGXMT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UJWiN0K3jqVjxvKk"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Soothe (Level 1)",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "wand",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Soothe]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "equipped": {
-                    "carryType": "worn"
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 60
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "magic-wand-1st-level-spell",
-                "spell": {
-                    "_id": "D15GSe2f0ZDYaZs1",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
-                        }
-                    },
-                    "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
-                    "name": "Soothe",
-                    "sort": 0,
-                    "system": {
-                        "area": null,
-                        "cost": {
-                            "value": ""
-                        },
-                        "counteraction": false,
-                        "damage": {
-                            "0": {
-                                "applyMod": false,
-                                "category": null,
-                                "formula": "1d10+4",
-                                "kinds": [
-                                    "healing"
-                                ],
-                                "materials": [],
-                                "type": "untyped"
-                            }
-                        },
-                        "defense": null,
-                        "description": {
-                            "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
-                        },
-                        "duration": {
-                            "sustained": false,
-                            "value": "1 minute"
-                        },
-                        "heightening": {
-                            "damage": {
-                                "0": "1d10+4"
-                            },
-                            "interval": 1,
-                            "type": "interval"
-                        },
-                        "level": {
-                            "value": 1
-                        },
-                        "location": {
-                            "heightenedLevel": 1,
-                            "value": ""
-                        },
-                        "publication": {
-                            "license": "OGL",
-                            "remaster": false,
-                            "title": "Pathfinder Core Rulebook"
-                        },
-                        "range": {
-                            "value": "30 feet"
-                        },
-                        "requirements": "",
-                        "rules": [],
-                        "slug": "soothe",
-                        "target": {
-                            "value": "1 willing creature"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traits": {
-                            "rarity": "common",
-                            "traditions": [
-                                "occult"
-                            ],
-                            "value": [
-                                "concentrate",
-                                "emotion",
-                                "healing",
-                                "manipulate",
-                                "mental"
-                            ]
-                        }
-                    },
-                    "type": "spell"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "magical",
-                        "occult",
-                        "wand"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "F6vUcLoPHTz2lr06",
             "flags": {
                 "core": {
@@ -5577,7 +4019,7 @@
                     "unarmored": 1
                 },
                 "description": {
-                    "value": "<p><em>You command powerful magic, not through study or devotion to any ideal, but as a vessel or agent for a mysterious, otherworldly patron that even you don't entirely understand. This entity might be a covert divinity, a powerful fey, a manifestation of natural energies, an ancient spirit, or any other mighty supernatural being-but its nature is likely as much a mystery to you as it is to anyone else. Through a special familiar, your patron grants you versatile spells and powerful hexes to use as you see fit, though you're never certain if these gifts will end up serving your patron's larger plan.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.fYJruhQfzs4dj0mp]{Witch}</em></p>"
+                    "value": "<p><em>You command powerful magic, not through study or devotion, but as an agent for an otherworldly patron that even you don't entirely understand. This entity might be a covert divinity, a powerful fey, an ancient spirit, or any other mighty supernatural being—but its nature is likely as much a mystery to you as it is to others. Through a special familiar, your patron grants you versatile spells and powerful hexes to use as you see fit, though you're never certain if you're merely serving your patron's larger plan.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.fYJruhQfzs4dj0mp]{Witch}</em></p>"
                 },
                 "generalFeatLevels": {
                     "value": [
@@ -5590,12 +4032,6 @@
                 },
                 "hp": 6,
                 "items": {
-                    "1ddf6": {
-                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
-                        "level": 9,
-                        "name": "Lightning Reflexes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
-                    },
                     "568ec": {
                         "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
                         "level": 11,
@@ -5614,6 +4050,18 @@
                         "name": "Legendary Spellcaster",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
                     },
+                    "5jVMU": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 11,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
+                    },
+                    "H4nN0": {
+                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
+                        "level": 17,
+                        "name": "Will of the Pupil",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Will of the Pupil"
+                    },
                     "ac5cq": {
                         "img": "systems/pf2e/icons/features/classes/defensive-robes.webp",
                         "level": 13,
@@ -5626,23 +4074,17 @@
                         "name": "Weapon Specialization",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
                     },
-                    "jj4q5": {
-                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
-                        "level": 17,
-                        "name": "Resolve",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Resolve"
+                    "kQI3o": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 9,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "q4i1v": {
                         "img": "systems/pf2e/icons/features/classes/witch-spellcasting.webp",
                         "level": 1,
                         "name": "Witch Spellcasting",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Witch Spellcasting"
-                    },
-                    "qo3f2": {
-                        "img": "icons/creatures/eyes/human-single-blue.webp",
-                        "level": 11,
-                        "name": "Alertness",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
                     },
                     "rmucq": {
                         "img": "systems/pf2e/icons/features/classes/familiar.webp",
@@ -5688,9 +4130,9 @@
                 },
                 "perception": 1,
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "savingThrows": {
@@ -5819,188 +4261,10 @@
             "type": "ancestry"
         },
         {
-            "_id": "9HzX5rXZdJdwBom3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.KPtF29AaeX2sJW0K"
-                },
-                "pf2e": {
-                    "itemGrants": {}
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Patron",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You weren't born with the power to cast spells, nor have you spent years in devotion to tomes, deities, or mystical secrets. Your power comes through a potent being that has chosen you as their vessel to carry forth some agenda in the world. This entity is typically mysterious and distant, revealing little of their identity and motivations, and they grant you spells and other magical powers through a familiar, which serves as a conduit for their power.</p>\n<p>A patron might be a deity or demigod, a coven of powerful hags, a fey lord, an archdevil, or a similarly powerful entity, or perhaps multiple such figures workingin tandem. As you gain more of your patron's power, you might learn more about who or what they are-certain combinations of themes and lessons suggest particular patrons or agendas-but patrons empower witches for their own secretive reasons, which they rarely reveal in full.</p>\n<p>At 1st level, choose your patron's theme, which determines your spellcasting tradition, a skill, a special cantrip you gain, and a spell added to your familiar.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "F6vUcLoPHTz2lr06",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "patron",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "JLYsMGGedV4Gu5TN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.yksPhweBZYVCsE1A"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/familiar.webp",
-            "name": "Familiar (Witch)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your patron has sent you a familiar, a mystical creature that teaches you and facilitates your spells. This familiar follows the normal familiar rules, though as it's a direct conduit between you and your patron, it's more powerful than other familiars. Your familiar gains an extra familiar ability, and gains another extra ability at 6th, 12th, and 18th levels.</p>\n<p>Your familiar is the source and repository of the spells your patron has bestowed upon you, and you must commune with your familiar to prepare your spells each day using your witch spellcasting (see below). Your familiar starts off knowing 10 cantrips, five 1st-rank spells, and one additional spell determined by your patron's theme. You choose these spells from the common spells of the tradition determined by your patron or from other spells of that tradition you gain access to.</p>\n<p>Each time you gain a level, your patron teaches your familiar two new spells of any level you can cast, chosen from common spells of your tradition or others you gain access to. Feats can also grant your familiar additional spells.</p>\n<p>Your familiar can learn new spells independently of your patron. It can learn any spell on your tradition's spell list by physically consuming a scroll of that spell in a process that takes 1 hour. You can use the @UUID[Compendium.pf2e.actionspf2e.Item.Learn a Spell] exploration activity to prepare a special written version of a spell, which your familiar can consume as if it were a scroll. You and your familiar can use the Learn a Spell activity to teach your familiar a spell from another witch's familiar. Both familiars must be present for the entirety of the activity, the spell must be on your spellcasting tradition's spell list, and you must pay the usual cost for that activity, typically in the form of an offering to the other familiar's patron. You can't prepare spells from another witch's familiar.</p>\n<p>If your familiar dies, your patron replaces it during your next daily preparations. The new familiar might be a duplicate or reincarnation of your former familiar or a new entity altogether, but it knows the same spells your former familiar knew regardless. Your familiar's death doesn't affect any spells you have already prepared.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "F6vUcLoPHTz2lr06",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.familiarAbilities.value",
-                        "priority": 9,
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.attributes.familiarAbilities.value",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 5,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 11,
-                                    "start": 6,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 17,
-                                    "start": 12,
-                                    "value": 3
-                                },
-                                {
-                                    "start": 18,
-                                    "value": 4
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "familiar-witch",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "YoSZrkiuMLh4VoGX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.9uLh5z2uPo6LDFRY"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/hexes.webp",
-            "name": "Hexes",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your patron and familiar teach you special spells called hexes. A hex is a short-term effect drawn directly from your patron's magic. As such, you can cast only one hex each turn; attempts to cast a second hex spell on that turn fail and the spellcasting actions are lost.</p>\n<p>Hexes are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with your familiar.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points.</p>\n<p>You learn the @UUID[Compendium.pf2e.spells-srd.Item.Phase Familiar] hex, which you can cast as a reaction to protect your familiar from harm. You learn most other hexes from witch lessons.</p>\n<h3>Hex Cantrips</h3>\n<p>Hex cantrips are special hexes that don't cost Focus Points, so you can cast them as often as you like, though you can still cast only one hex each round. Hex cantrips are in addition to the cantrips you choose with your witch spellcasting and aren't counted toward your prepared cantrips. Your hex cantrips are determined by your patron theme.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "F6vUcLoPHTz2lr06",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "hexes",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "witch"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "y79S6E1OYSQICsEG",
+            "_id": "YlLLAICTTCoHjF0M",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.zT6QiTMxxj8JYoN9"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "castASpell": {
-                            "id": "tU8QgxeiypqpMEWl",
-                            "onDelete": "detach"
-                        }
-                    }
                 }
             },
             "img": "systems/pf2e/icons/features/classes/witch-spellcasting.webp",
@@ -6015,7 +4279,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Using your familiar as a conduit, your patron provides you the power to cast spells. You can cast spells using the @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] activity, and you can supply material, somatic, and verbal components when casting spells.</p>\n<p>At 1st level, you can prepare up to two 1st-rank spells and five cantrips each morning from the spells your familiar knows. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a witch, your number of spell slots and the highest rank of spells you can cast from spell slots increase.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Intelligence, your spell attack rolls and spell DCs use your Intelligence modifier.</p>\n<h3>Heightening Spells</h3>\n<p>When you get spell slots of 2nd level and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h3>Cantrips</h3>\n<p>A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up-this is usually equal to the highest rank of spell you can cast as a witch. For example, as a 1st-level witch, your cantrips are 1st-rank spells, and as a 5th-level witch, your cantrips are 3rd-rank spells.</p>"
+                    "value": "<p>Using your familiar as a conduit, your patron provides you the power to cast spells. You are a spellcaster, and you can cast spells of your patron's tradition using the Cast a Spell activity. As a witch, when you cast spells, your incantations might rhyme, your gestures might be as simple as an ominous pointing finger or a complex folk sign, and your familiar might even echo your words or movements slightly as your patron's magic surges.</p>\n<p>At 1st level, you can prepare up to two 1st-rank spells and five cantrips each morning from the spells your familiar knows. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots. As you increase in level as a witch, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in the Witch Spells per Day table.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Intelligence, your spell attack modifier and spell DC use your Intelligence modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd-rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of witch spell slot you have. For example, as a 1st-level witch, your cantrips are 1st-rank spells, and as a 5th-level witch, your cantrips are 3rd-rank spells.</p>"
                 },
                 "level": {
                     "value": 1
@@ -6025,17 +4289,11 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "flag": "castASpell",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell"
-                    }
-                ],
+                "rules": [],
                 "slug": "witch-spellcasting",
                 "traits": {
                     "rarity": "common",
@@ -6047,7 +4305,210 @@
             "type": "feat"
         },
         {
-            "_id": "00AbJNExxJsQY3uO",
+            "_id": "ErQ41M8jwNefpXzH",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.yksPhweBZYVCsE1A"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "pet": {
+                            "id": "9x5mirKAsVducmTz",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/familiar.webp",
+            "name": "Familiar (Witch)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your patron has sent you a familiar, a mystical creature that teaches you magic and facilitates your spells. This familiar follows the rules for familiars, though as it's a direct conduit between you and your patron, it's more powerful than typical familiars. Your familiar gains two additional familiar abilities: one of these is a unique ability based on your patron and is always selected, and the other is an additional familiar ability that can be selected daily as normal. Your familiar gains another extra ability at 6th, 12th, and 18th levels.</p>\n<p><strong>Spells:</strong> Your familiar is the source and repository of the spells your patron has bestowed upon you, and you must commune with your familiar to prepare your spells each day using your witch spellcasting. Your familiar starts off knowing 10 cantrips, five 1st-rank spells, and one additional spell determined by your patron's initial lesson. You choose these spells from the common spells of the tradition determined by your patron or from other spells of that tradition you gain access to. Each time you gain a level, your patron teaches your familiar two new spells of any rank for which you have spell slots, chosen from common spells of your tradition or others you gain access to. Feats can also grant your familiar additional spells.</p>\n<p><strong>Learning Spells:</strong> Your familiar can learn new spells independently of your patron. It can learn any spell on your tradition's spell list by physically consuming a written version of that spell over the course of 1 hour. This can be a scroll of that spell, or you can prepare a written version using the Learn a Spell exploration activity. You and your familiar can use the Learn a Spell activity to teach your familiar a spell from another witch's familiar. Both familiars must be present for the entirety of the activity, the spell must be on your spellcasting tradition's spell list, and you must pay the usual cost for that activity, typically in the form of an offering to the other familiar's patron. You can't prepare spells from another witch's familiar.</p>\n<p><strong>Undying:</strong> If your familiar dies, your patron replaces it during your next daily preparations. The new familiar might be a duplicate or reincarnation of your former familiar or a new entity altogether, but it knows the same spells your former familiar knew regardless. Your familiar's death doesn't affect any spells you have already prepared.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "F6vUcLoPHTz2lr06",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.attributes.familiarAbilities.value",
+                        "predicate": [
+                            "class:witch"
+                        ],
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 5,
+                                    "value": 2
+                                },
+                                {
+                                    "end": 11,
+                                    "start": 6,
+                                    "value": 3
+                                },
+                                {
+                                    "end": 17,
+                                    "start": 12,
+                                    "value": 4
+                                },
+                                {
+                                    "start": 18,
+                                    "value": 5
+                                }
+                            ],
+                            "field": "actor|level"
+                        }
+                    },
+                    {
+                        "flag": "pet",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Pet"
+                    }
+                ],
+                "slug": "familiar-witch",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "OypQXAnJqr4uxZRv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.9uLh5z2uPo6LDFRY"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/hexes.webp",
+            "name": "Hex Spells",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a favored agent of your patron, you can invoke their power for a more direct magical intervention. A hex is a spell shaped by your patron and sent to you through your familiar, rather than an ability you use directly. Your patron expects you to advance its interests and does not take kindly to repeated requests for aid; as such, you can use only one hex each turn, and any attempts to use a second hex on that turn fail and the actions are lost.</p>\n<p>Hex spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with your familiar.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but it can never be more than 3 points.</p>\n<p>You learn your choice of the @UUID[Compendium.pf2e.spells-srd.Item.Patron's Puppet] hex or @UUID[Compendium.pf2e.spells-srd.Item.Phase Familiar] hex, which let you command your familiar or defend it from harm, respectively. You learn most other hexes from witch lessons.</p>\n<h2>Hex Cantrips</h2>\n<p>Hex cantrips are special hexes that don't cost Focus Points, so you can cast them as often as you like, though you can still use only one hex each round. Hex cantrips are in addition to the cantrips you choose with witch spellcasting and aren't counted toward your prepared cantrips.</p>\n<p>You gain a hex cantrip determined by your choice of patron.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "F6vUcLoPHTz2lr06",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "hex-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "OasDMBZhoVuHBvIo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.KPtF29AaeX2sJW0K"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "theResentment": {
+                            "id": "ak0ugKP2Kz0Jxhfw",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Patron",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You weren't born with the power to cast spells, nor have you spent years dedicated to worship, study, or uncovering mystical secrets. Your magic instead has been gifted to you by a potent being, one who knows that by empowering you so, you'll further the being's agenda in the world, whatever it may be. This entity is typically mysterious and distant, revealing little of their identity and motivations. They make their will known to you in abstract signs such as omens, dreams, or similar subtleties rather than words.</p>\n<p>Rather than interacting with you directly, your patron works through a familiar—a mystical creature that teaches you, serves as the conduit for your patron's magic, and maybe even keeps an eye on you to ensure you're furthering your patron's nebulous ends.</p>\n<p>At 1st level, choose your patron, which determines your spellcasting tradition and grants you the skill for that tradition of magic, your first witch's lesson and a unique familiar ability.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "F6vUcLoPHTz2lr06",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:witch-patron"
+                            ]
+                        },
+                        "flag": "patron",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Witch.Patron.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.The Resentment"
+                    },
+                    {
+                        "flag": "theResentment",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.patron}"
+                    }
+                ],
+                "slug": "patron",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "N2PLeYVc07YHbjpL",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.70jqXP2eS4tRZ0Ok"
@@ -6075,9 +4536,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "magical-fortitude",
@@ -6096,20 +4557,20 @@
             "type": "feat"
         },
         {
-            "_id": "tU8QgxeiypqpMEWl",
+            "_id": "9x5mirKAsVducmTz",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz"
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.6yPrvbSDaa8glLjn"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "y79S6E1OYSQICsEG",
+                        "id": "ErQ41M8jwNefpXzH",
                         "onDelete": "cascade"
                     }
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cast a Spell",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Pet",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -6118,17 +4579,32 @@
                 "actions": {
                     "value": null
                 },
-                "category": "interaction",
+                "category": "general",
                 "description": {
-                    "value": "<p>You cast a spell you have prepared or in your repertoire. Casting a Spell is a special activity that takes a variable number of actions depending on the spell, as listed in each spell's stat block. As soon as the spellcasting actions are complete, the spell effect occurs.</p>\n<p>Some spells are cast as a reaction or free action. In those cases, you Cast the Spell as a reaction or free action (as appropriate) instead of as an activity. Such cases will be noted in the spell's stat block-for example, \"[reaction] verbal.\"</p>\n<p><strong>Long Casting</strong> Times Some spells take minutes or hours to cast. The Cast a Spell activity for these spells includes a mix of the listed spell components, but it's not necessary to break down which one you're providing at a given time. You can't use other actions or reactions while casting such a spell, though at the GM's discretion, you might be able to speak a few sentences. As with other activities that take a long time, these spells have the exploration trait, and you can't cast them in an encounter. If combat breaks out while you're casting one, your spell is disrupted.</p>\n<p><strong>Spell Components</strong> Each spell lists the spell components required to cast it after the action icons or text, such as \"[three-actions] material, somatic, verbal.\" The spell components, described in detail below, add traits and requirements to the Cast a Spell activity. If you can't provide the components, you fail to Cast the Spell.</p>\n<ul>\n<li>Material (manipulate)</li>\n<li>Somatic (manipulate)</li>\n<li>Verbal (concentrate)</li>\n<li>Focus (manipulate)</li>\n</ul>\n<p><strong>Disrupted and Lost Spells</strong> Some abilities and spells can disrupt a spell, causing it to have no effect and be lost. When you lose a spell, you've already expended the spell slot, spent the spell's costs and actions, and used the Cast a Spell activity. If a spell is disrupted during a @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell} action, the spell immediately ends.</p>"
+                    "value": "<p>You have a pet—a Tiny animal of a type you choose, such as a cat, bird, or rodent. It has the minion trait, meaning it gains 2 actions during your turn if you use the Command an Animal action to command it; this replaces the usual effects of @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal], and you don't need to attempt a Nature check. A pet can't make Strikes.</p>\n<p><strong>Level</strong> Your pet's level is equal to yours.</p>\n<p><strong>Modifiers and AC</strong> Your pet's save modifiers and AC are equal to yours before applying circumstance or status bonuses or penalties. It uses 3 + your level as its modifier for Perception, Acrobatics, and Stealth, and just your level as its modifier for other skill checks. It doesn't have or use its own attribute modifiers and can never benefit from item bonuses.</p>\n<p><strong>Hit Points</strong> Your pet has 5 Hit Points per level.</p>\n<p><strong>Senses</strong> Your pet has low-light vision and can gain additional senses from pet abilities.</p>\n<p><strong>Speed</strong> Your pet has a Speed of 25 feet. You can choose to instead have an aquatic pet, which breathes in water instead of air and has the aquatic trait, no land Speed, and a swim Speed of 25 feet.</p>\n<p><strong>Pet Abilities</strong> When you gain your pet, choose two of the following abilities. If your pet is an animal that naturally has one of these abilities (for instance, an owl has a fly Speed), you must select that ability. Your pet can't be an animal that naturally has more pet abilities than the maximum. In some cases, the GM might add some familiar abilities to the pet abilities you can choose.</p>\n<ul>\n<li><strong>Amphibious</strong> It gains the amphibious trait, allowing it to breathe in both air and water, and has both a land Speed and a swim Speed, each equal to its highest land Speed or swim Speed.</li>\n<li><strong>Burrower</strong> It gains a burrow Speed of 5 feet, allowing it to dig Tiny holes.</li>\n<li><strong>Climber</strong> It gains a climb Speed of 25 feet.</li>\n<li><strong>Darkvision</strong> It gains darkvision.</li>\n<li><strong>Echolocation</strong> Your pet can use hearing as a precise sense within 20 feet.</li>\n<li><strong>Fast</strong> Movement Increase one of the pet's Speeds from 25 feet to 40 feet.</li>\n<li><strong>Flier</strong> It gains a fly Speed of 25 feet.</li>\n<li><strong>Manual Dexterity</strong> It can use up to two of its limbs as if they were hands to perform manipulate actions.</li>\n<li><strong>Scent</strong> Your pet can use scent as an imprecise sense within 30 feet</li>\n<li><strong>Tough</strong> Your pet's max HP increase by 2 per level.</li>\n</ul>\n<hr />\n<p><strong>Special</strong> You can gain a new pet by retraining this feat, releasing any previous pet you have. If you later gain a familiar or other companion that uses the Pet feat, you can immediately retrain this feat.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [],
-                "slug": "cast-a-spell",
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.attributes.familiarAbilities.value",
+                        "priority": 19,
+                        "value": 2
+                    }
+                ],
+                "slug": "pet",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -6136,17 +4612,23 @@
                     ]
                 }
             },
-            "type": "action"
+            "type": "feat"
         },
         {
-            "_id": "Tje83GXM7OrJFHg7",
+            "_id": "ak0ugKP2Kz0Jxhfw",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.NAXRmMjj0gcyD7ie"
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.9OwWgOP8ZWxTAqbg"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "OasDMBZhoVuHBvIo",
+                        "onDelete": "cascade"
+                    }
                 }
             },
-            "img": "icons/commodities/biological/eye-green-pink.webp",
-            "name": "Curse Patron",
+            "img": "icons/magic/unholy/hand-light-green.webp",
+            "name": "The Resentment",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -6157,19 +4639,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Foiling foes and undermining those who stand in your way are the tools of the curse patrons.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Hex Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.Evil Eye]</p>\n<p><strong>Granted Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Enfeeble]</p>"
+                    "value": "<p>A single feeling radiated from your patron in the moment you met them, as palpable as heat from a fire: the desire to see every tall poppy felled and every proud nail hammered down, whether to righteously bring justice for small folk or the base urge to see the powerful defeated. Your patron is likely far from the upper echelons of its kind, such as a hag ousted from its coven or a quasi-divinity or a lower-rank demon. This leaves it only subtler and weaker tools to see its ends met: curses, hexes, and you.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Patron Skill</strong> Occultism</p>\n<p><strong>Lesson of Strength's Impermanence</strong> Your patron has taught you that power can be taken much more easily that it can be built. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Evil Eye] hex cantrip and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Enfeeble].</p>\n<p><strong>Familiar of Ongoing Misery</strong> Your familiar seems hostile to all creatures other than you, hissing at them if they get too near. When you Cast or Sustain a hex, your familiar can curse a creature within 15 feet of it, prolonging the duration of any negative conditions affecting it by 1 round. This is a curse effect. This prolongs only conditions with a timed duration (such as \"1 round\" or \"until the end of your next turn\") and doesn't prevent conditions from being removed by other means.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "classfeature",
+                "location": null,
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -6177,9 +4659,32 @@
                         "mode": "upgrade",
                         "path": "system.skills.occ.rank",
                         "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.proficiencies.aliases.witch",
+                        "priority": 39,
+                        "value": "occult"
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "class:witch",
+                            "item:trait:hex"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.OngoingMisery.Description",
+                                "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.OngoingMisery.Title"
+                            }
+                        ]
                     }
                 ],
-                "slug": "curse-patron",
+                "slug": "the-resentment",
                 "traits": {
                     "otherTags": [
                         "witch-patron"
@@ -6191,6 +4696,465 @@
                 }
             },
             "type": "feat"
+        },
+        {
+            "_id": "SGzi6RD3uOh9MDz3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.fuTLDmihr9Z9e5wa"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Cultist",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "int",
+                        "value": [
+                            "cha",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "selected": "wis",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You were (or still are) a member of a cult whose rites may involve sacred dances to ensure a strong harvest or dire rituals that call upon dark powers. You might have taken up adventuring to further your cult's aims, to initiate yourself into the world's grander mysteries, or to flee unsavory practices or strictures.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Occultism skill and a Lore skill related to your deity or cult. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Schooled In Secrets] skill feat.</p>"
+                },
+                "items": {
+                    "hvaw7": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Schooled In Secrets",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Schooled In Secrets"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cultist",
+                "trainedLore": "<Deity> or <Cult> Lore",
+                "trainedSkills": {
+                    "value": [
+                        "occ"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "C6SeSfCTVyZD8bJ9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.lEgYzFHransLkSvI"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Schooled In Secrets",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You notice the signs and symbols that members of mystery cults and other secret societies use to declare their affiliation to fellow members. You can use Occultism in place of Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Item.Gather Information] about such groups and in place of Deception to Impersonate a member of these groups.</p>\n<p>If you belong to a secret cult, lodge, sect, or similar organization, you automatically recognize members of your group unless they are specifically attempting to conceal their presence from you. They also recognize your standing unless you are specifically concealing it.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "SGzi6RD3uOh9MDz3",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Occultism"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "schooled-in-secrets",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jTrkEvZPnxZicnc9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "oddityIdentification": {
+                            "id": "8BJJxtFpvKvxS77x",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
+                    },
+                    {
+                        "flag": "oddityIdentification",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "8BJJxtFpvKvxS77x",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.hDGosy2ZTwnyctEP"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "jTrkEvZPnxZicnc9",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Oddity Identification",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you become aware of a magical effect or see a spell being cast, you can immediately determine if it twists minds (with the mental trait), fights against fortune (with the fortune or misfortune trait), or reveals secrets (with the detection, prediction, revelation, or scrying traits). At the GM's discretion, similar effects can also fall into these categories. When you Identify Magic or Recall Knowledge to learn more about these effects, you can always use Occultism without penalty and gain a +2 circumstance bonus.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Occultism"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Oddity Identification (identify magic with specific traits)",
+                        "predicate": [
+                            "action:identify-magic",
+                            {
+                                "or": [
+                                    "mental",
+                                    "possession",
+                                    "prediction",
+                                    "scrying"
+                                ]
+                            }
+                        ],
+                        "selector": "occultism",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "oddity-identification",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "rRO4bn6hRXlfIn09",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "cackle": {
+                            "id": "ug97f3s4qgldnb7Z",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Cackle"
+                    },
+                    {
+                        "flag": "cackle",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ug97f3s4qgldnb7Z",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.0BR61rW4JFOfO7T7"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "rRO4bn6hRXlfIn09",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cackle",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>Your patron's power fills you with confidence, letting you sustain a magical working even as a quick burst of laughter leaves your lips. You learn the @UUID[Compendium.pf2e.spells-srd.Item.Cackle] hex.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cackle",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "witch"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "zR2hWcBOkwZ7ewq5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "xSGqw2Kbg0Pv8suP",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
         }
     ],
     "name": "Feiya (Level 5)",
@@ -6201,10 +5165,11 @@
         }
     },
     "system": {
+        "abilities": null,
         "attributes": {
             "hp": {
                 "temp": 0,
-                "value": 53
+                "value": 48
             },
             "speed": {
                 "otherSpeeds": [],
@@ -6243,7 +5208,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>Born in a small village north of Trollheim in the Linnorm Kingdoms, the child who would come to be known as Feiya was the daughter of two Tian merchants from Minkai who had come over the crown of the world to Avistan to start a new life. Travelers by nature, they spent the short northern summers making slow loops through Hagreach and the Thanelands, facilitating trade. What few memories Feiya has of that life are happy ones: the jostling of wagons, the smell of campfires, and wandering alone through fields and forests, marveling as the wildness closed around her.</p>\n<p>That happiness came to a sudden halt on the fateful day that brought her to the attention of a recently sundered coven of witches who dwelled on the border with Irrisen. Led by a particularly cruel green hag named Nysima, the coven had lost its youngest member to a squad of Blackravens from Trollheim and was still reeling from its sudden loss of power. They witnessed the child as she skipped away from the caravan stop, following a family of deer deep into the woods, and immediately set upon her.</p>\n<p>There’s no telling what cruelties the witches would have visited upon the girl had they not suffered their recent loss. As it was, another, no less horrific, fate awaited young Feiya. The two crones seized the child and whisked her away to the east, their mad cackling drowning out the young girl’s terrified screams. By the time they reached their snow- and thatch-covered huts, they had given the child a new name and were already envisioning the return of their lost powers.</p>\n<p>The next twelve years were a blur of pain, terror, and misery as Feiya endured the crones’ sadistic attempts to teach her their dark craft. Alternating between tutelage and torture, the witches frequently let their cruel natures impede their instruction. For while the young girl showed unmistakable promise and aptitude, she also possessed a defiance that only the harshest of punishments could suppress. On numerous occasions, Feiya tried to escape her imprisonment, only to be tracked down and captured after no more than a few hours. The retributions for these failed attempts have scarred her body and mind in ways that no magic can ever heal.</p>\n<p>One brisk autumn day, after being beaten for failing to properly brew a batch of poisonous blue whinnis, Feiya was sent off to gather herbs. While harvesting more whinnis root, she spied a fox watching her from atop a large rime-covered rock. Unlike the region’s typical arctic specimens, this creature had a striking red and orange coloration that stood in stark contrast to the endless snow. There was something about the way the creature watched her that beckoned to Feiya. She approached carefully, and was astonished by his calm and focus. As she neared, the fox trotted a small distance away, turned, and gave her a look that was clearly an invitation to follow. This process was repeated again and again, and before she knew it, Feiya was following the fox on another escape attempt.</p>\n<p>By sundown, the two witches had realized Feiya’s intentions. Furious, they set off in pursuit, confident that, as with all previous instances, their hunt would be brief. This time, however, Feiya had guidance. The fox led her along trails never before seen by human nor hag, staying always just ahead and out of reach. When she needed nourishment, the fox led her to game and fresh water. When she needed rest, it stood vigil while she slept. In this manner, Feiya was able to elude capture for more than two weeks.</p>\n<p>One particularly cold evening, however, Feiya’s luck ran out. With her pursuers hot on her trail and the fox nowhere to be seen, she found herself trapped in a river valley surrounded on three sides by impassable mountains. Feiya could sense the witches closing in, could hear their promises of pain on the chilling wind. She took shelter in a shallow cave behind the waterfall that fed the river, a curious little grotto whose far wall was emblazoned with a crude carving of a butterfly. Like an animal run to ground, Feiya steeled herself for the coming confrontation. She had come too far this time to surrender without a fight. She determined then and there that her days of living under someone else’s yoke were over. She would have her freedom, either in this life or the next.</p>\n<p>It was at that moment that the fox reappeared. Only now, there was something different in the way he approached her. He had always shown a preternatural intelligence, but as Feiya stared into his eyes, she saw a consciousness and a determination that would have frightened her had she not come to trust the animal so implicitly. As she watched him, Feiya was startled by a sudden and overwhelming flurry of sensations invading her mind. She sank, dazed, to the cave floor as the feelings slowly crystallized into coherence. Less a voice than a series of emotions, the promise it offered was unmistakable. Feiya said nothing, but her acceptance was as clear as it was quick.</p>\n<p>What followed will forever haunt Feiya’s dreams. Raspy promises of pain and suffering rose above the din of the waterfall as the witches drew near to cave mouth. Feiya could see the outlines of their hunched bodies just beyond the blanket of cascading water, but before she could act, another sound arose. It started as a low rumble, then quickly gained volume, drowning out both hags and water and sending tremors through the cave floor. Then the valley erupted with the screeching and roaring of what could only have been a forest’s worth of wild animals, punctured occasionally by the shrill curse of a hag.</p>\n<p>Long minutes passed as Feiya stood, too frightened to move. Then, as gradually as it began, the noise subsided until all that remained was the crash of the waterfall. Feiya crouched down behind a rocky outcropping, afraid to leave the shelter of the cave. As the minutes turned into hours, exhaustion claimed her, and, despite her anxiety, she succumbed to a fitful sleep.</p>\n<p>When dawn finally arrived, Feiya stepped out from the cave, not quite sure what she was expecting to see. A fresh blanket of snow had covered the land, hiding any clues she might have found concerning the events of the previous night. Yet the feeling of relief was palpable. The fox crept up and paused at her side. She was finally free.</p>\n<p>Feiya never discusses the events of that night, nor the particulars of the strange pact she entered into. She may one day try to track down the parents she barely remembers, but for now she is content to roam the world, relishing her freedom, seeking new experiences, and developing her newfound power. Though she desperately desires the company of others, formative years spent away from civilized society have left Feiya lacking in social graces, and her awkwardness often leads to unfortunate misunderstandings. Nevertheless, her inherent good nature tends to win out, and her occasional flares of temper are countered by her steadfast loyalty to her friends. Feiya relishes travel, and having identified the butterfly carving in the waterfall cave as the found-mark of a Desnan priest, she gladly embraces that faith, hoping that her wanderings may cast more light on who she really is—and what entity fosters her magical abilities.</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",
