@@ -1,13 +1,5 @@
-import { ActorPF2e } from "@actor/base.ts";
-
 class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
-    onSubmitCallback: MoveLootCallback;
-
-    constructor(object: ActorPF2e, options: Partial<MoveLootOptions>, callback: MoveLootCallback) {
-        super(object, options);
-
-        this.onSubmitCallback = callback;
-    }
+    #resolve: ((value: MoveLootFormData | null) => void) | null = null;
 
     override async getData(): Promise<PopupData> {
         const [prompt, buttonLabel] = this.options.isPurchase
@@ -25,6 +17,13 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
             prompt,
             buttonLabel,
         };
+    }
+
+    async resolveQuantity(): Promise<MoveLootFormData | null> {
+        this.render(true);
+        return new Promise((resolve) => {
+            this.#resolve = resolve;
+        });
     }
 
     static override get defaultOptions(): MoveLootOptions {
@@ -49,7 +48,13 @@ class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         _event: DragEvent,
         formData: Record<string, unknown> & MoveLootFormData,
     ): Promise<void> {
-        this.onSubmitCallback(formData.quantity, formData.newStack);
+        this.#resolve?.({ quantity: formData.quantity, newStack: formData.newStack });
+        this.#resolve = null;
+    }
+
+    override async close(options?: { force?: boolean }): Promise<void> {
+        this.#resolve?.(null);
+        return super.close(options);
     }
 }
 
@@ -63,7 +68,7 @@ interface MoveLootOptions extends FormApplicationOptions {
     isPurchase: boolean;
 }
 
-interface MoveLootFormData extends FormData {
+interface MoveLootFormData {
     quantity: number;
     newStack: boolean;
 }
@@ -78,7 +83,5 @@ interface PopupData extends FormApplicationData {
     prompt: string;
     buttonLabel: string;
 }
-
-type MoveLootCallback = (quantity: number, newStack: boolean) => void;
 
 export { MoveLootPopup };

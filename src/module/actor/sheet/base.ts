@@ -934,14 +934,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         if (item.actor && item.isOfType("physical")) {
-            await this.moveItemBetweenActors(
-                event,
-                item.actor.id,
-                item.actor?.token?.id ?? null,
-                this.actor.id,
-                this.actor.token?.id ?? null,
-                item.id,
-            );
+            await this.moveItemBetweenActors(event, item, this.actor);
             return [item];
         }
 
@@ -1112,23 +1105,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * @param targetActorId ID of the actor where the item will be stored.
      * @param itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(
-        event: DragEvent,
-        sourceActorId: string,
-        sourceTokenId: string | null,
-        targetActorId: string,
-        targetTokenId: string | null,
-        itemId: string,
-    ): Promise<void> {
-        const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
-        const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
-        const item = sourceActor?.items.get(itemId);
-
+    async moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, targetActor: ActorPF2e): Promise<void> {
+        const sourceActor = item.actor;
         if (!sourceActor || !targetActor) {
             throw ErrorPF2e("Unexpected missing actor(s)");
-        }
-        if (!item?.isOfType("physical")) {
-            throw ErrorPF2e("Missing or invalid item");
         }
 
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
@@ -1137,24 +1117,31 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
         const isAmmunition = item.isOfType("consumable") && item.isAmmo;
 
-        // If more than one item can be moved, show a popup to ask how many to move
-        if (sourceItemQuantity > 1) {
+        const result = await (async () => {
+            if (sourceItemQuantity <= 1) return { quantity: sourceItemQuantity, newStack: false };
+
             const defaultQuantity = isPurchase
                 ? isAmmunition
                     ? Math.min(10, sourceItemQuantity)
                     : 1
                 : sourceItemQuantity;
-            const popup = new MoveLootPopup(
-                sourceActor,
-                { quantity: { max: sourceItemQuantity, default: defaultQuantity }, lockStack: !stackable, isPurchase },
-                (quantity, newStack) => {
-                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-                },
-            );
 
-            popup.render(true);
-        } else {
-            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+            // If more than one item can be moved, show a popup to ask how many to move
+            return new MoveLootPopup(sourceActor, {
+                quantity: { max: sourceItemQuantity, default: defaultQuantity },
+                lockStack: !stackable,
+                isPurchase,
+            }).resolveQuantity();
+        })();
+
+        if (result !== null) {
+            sourceActor.transferItemToActor(
+                targetActor,
+                item as PhysicalItemPF2e<ActorPF2e>,
+                result.quantity,
+                containerId,
+                result.newStack,
+            );
         }
     }
 
