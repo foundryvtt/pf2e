@@ -100,6 +100,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         };
         system.attributes.speed = {
             value: 25,
+            total: 25,
             label: CONFIG.PF2E.speedTypes.land,
             otherSpeeds: [],
         };

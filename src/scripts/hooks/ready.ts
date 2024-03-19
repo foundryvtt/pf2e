@@ -127,16 +127,16 @@ export const Ready = {
             });
 
             // Now that all game data is available, Determine what actors we need to reprepare.
-            // Add actors currently in an encounter, a party, and all familiars (last)
+            // Add actors currently in an encounter, then in a party, then all familiars, then parties
+            const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
             const actorsToReprepare = R.compact([
                 ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                ...game.actors
-                    .filter((a): a is PartyPF2e<null> => a.isOfType("party"))
-                    .flatMap((p) => p.members)
-                    .filter((a) => !a.isOfType("familiar")),
+                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
                 ...game.actors.filter((a) => a.type === "familiar"),
+                ...parties,
             ]);
             resetActors(new Set(actorsToReprepare), { sheets: false });
+            ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
             if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {
