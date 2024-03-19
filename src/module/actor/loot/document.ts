@@ -1,12 +1,9 @@
 import { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
-import { PhysicalItemPF2e } from "@item/physical/document.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { ErrorPF2e } from "@util";
 import { LootSource, LootSystemData } from "./data.ts";
 
 class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
@@ -55,32 +52,6 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             super.canUserModify(user, action) ||
             (action === "update" && this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED)
         );
-    }
-
-    override async transferItemToActor(
-        targetActor: ActorPF2e,
-        item: ItemPF2e<ActorPF2e>,
-        quantity: number,
-        containerId?: string,
-        newStack = false,
-    ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
-        // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
-        if (!(this.isOwner && targetActor.isOwner)) {
-            return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-        }
-        if (this.isMerchant && item.isOfType("physical")) {
-            const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
-            if (await targetActor.inventory.removeCoins(itemValue)) {
-                await item.actor.inventory.addCoins(itemValue);
-                return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-            } else if (this.isLoot) {
-                throw ErrorPF2e("Loot transfer failed");
-            } else {
-                return null;
-            }
-        }
-
-        return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
     }
 
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */

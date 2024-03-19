@@ -444,21 +444,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
     ): Promise<ItemPF2e[]> {
         const droppedRegion = htmlClosest(event.target, "[data-region]")?.dataset.region;
-        const targetActor = htmlClosest(event.target, "[data-actor-uuid]")?.dataset.actorUuid;
-        if (droppedRegion === "inventoryMembers" && targetActor) {
+        const targetActorUUID = htmlClosest(event.target, "[data-actor-uuid]")?.dataset.actorUuid;
+        if (droppedRegion === "inventoryMembers" && targetActorUUID) {
             const item = await ItemPF2e.fromDropData(data);
-            if (!item) return [];
-            const actorUuid = fu.parseUuid(targetActor).documentId;
-            if (actorUuid && item.actor && item.isOfType("physical")) {
-                await this.moveItemBetweenActors(
-                    event,
-                    item.actor.id,
-                    item.actor.token?.id ?? null,
-                    actorUuid,
-                    null,
-                    item.id,
-                );
+            const targetActor = await fromUuid(targetActorUUID);
+            if (item?.isOfType("physical") && item.actor && targetActor instanceof ActorPF2e) {
+                await this.moveItemBetweenActors(event, item, targetActor);
                 return [item];
+            } else if (!item) {
+                return [];
             }
         }
         return super._onDropItem(event, data);

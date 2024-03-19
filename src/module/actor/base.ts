@@ -20,6 +20,7 @@ import { isContainerCycle } from "@item/container/helpers.ts";
 import type { EffectFlags, EffectSource } from "@item/effect/data.ts";
 import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { CoinsPF2e } from "@item/physical/coins.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
@@ -1360,7 +1361,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         quantity: number,
         containerId?: string,
         newStack = false,
+        isPurchase: boolean | null = null,
     ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
+        // NOTE: This exists for backwards compatibility, but will be removed when the signature is refactored
+        // It is up to the caller to realize if this is intended to be a purchase or not.
+        isPurchase ??= this.isOfType("loot") && this.isMerchant;
+
         if (!item.isOfType("physical")) {
             throw ErrorPF2e("Only physical items (with quantities) can be transfered between actors");
         }
@@ -1379,7 +1385,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, container?.id).request();
+            await new ItemTransfer({ source, target, quantity, containerId: container?.id, isPurchase }).request();
             return null;
         }
 
@@ -1394,6 +1400,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Limit the amount of items transfered to how many are actually available.
         quantity = Math.min(quantity, item.quantity);
+
+        // If this is a transaction, remove coins from the buyer and add to the seller
+        if (isPurchase) {
+            const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
+            if (await targetActor.inventory.removeCoins(itemValue)) {
+                await item.actor.inventory.addCoins(itemValue);
+            } else {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.loot.InsufficientFundsMessage", { buyer: targetActor.name }),
+                );
+                return null;
+            }
+        }
 
         // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.
         const newQuantity = item.quantity - quantity;
