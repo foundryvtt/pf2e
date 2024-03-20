@@ -193,27 +193,67 @@
                 "damageRolls": {
                     "afw854mi4ui6f02xhxld": {
                         "damage": "3d12+10",
-                        "damageType": "bludgeoning"
+                        "damageType": "untyped"
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>Damage type depends on object thrown</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "telekinetic-object",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.pf2e.rulesSelections.telekineticObject}"
+                        },
+                        "selector": "{item|id}-damage"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:telekinetic-storm"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.telekineticObject}"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
                         "magical",
                         "occult",
-                        "range-increment-60",
-                        "versatile-p",
-                        "versatile-s"
+                        "range-increment-60"
                     ]
                 },
                 "weaponType": {
@@ -271,7 +311,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A poltergeist is naturally invisible. It becomes visible only when it uses Frighten.</p>"
+                    "value": "<p>A poltergeist is naturally @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. It becomes visible only when it uses Frighten.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -369,7 +409,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The poltergeist must be invisible.</p>\n<hr />\n<p><strong>Effect</strong> The poltergeist becomes visible, appearing as a skeletal, ghostlike humanoid. Each creature within 30 feet must attempt a @Check[type:will|dc:33] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a failure. On a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it's frightened. On a success, the creature is temporarily immune for 1 minute. At the start of its next turn, the poltergeist becomes invisible again.</p>"
+                    "value": "<p><strong>Requirements</strong> The poltergeist must be @UUID[Compendium.pf2e.conditionitems.Item.Invisible].</p>\n<hr />\n<p><strong>Effect</strong> The poltergeist becomes visible, appearing as a skeletal, ghostlike humanoid. Each creature within 30 feet must attempt a @Check[type:will|dc:33] save, becoming @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a failure. On a critical failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it's frightened. On a success, the creature is temporarily immune for 1 minute. At the start of its next turn, the poltergeist becomes invisible again.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -405,7 +445,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The poltergeist telekinetically throws numerous small objects, such as dozens of pieces of silverware or books, either spreading them out among multiple foes or directing them at one target. When this effect is spread out among multiple foes, the poltergeist makes a telekinetic object Strike at a -2 penalty against each creature within 30 feet. These count as one attack for the poltergeist's multiple attack penalty, and the penalty doesn't increase until after all the attacks. When this effect has only one target, the poltergeist makes a telekinetic object Strike against the target, and the damage increases to [[/r {4d12+15}]]{4d12+15 damage}. It deals [[/r {2d12}]]{2d12 damage} on a failure, and no damage on a critical failure.</p>"
+                    "value": "<p>The poltergeist telekinetically throws numerous small objects, such as dozens of pieces of silverware or books, either spreading them out among multiple foes or directing them at one target. When this effect is spread out among multiple foes, the poltergeist makes a telekinetic object Strike at a -2 penalty against each creature within @Template[type:emanation|distance:30]{30 feet}. These count as one attack for the poltergeist's multiple attack penalty, and the penalty doesn't increase until after all the attacks. When this effect has only one target, the poltergeist makes a telekinetic object Strike against the target, and the damage increases to 4d12+15. It deals @Damage[2d12[untyped]] damage on a failure, and no damage on a critical failure.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -434,7 +474,7 @@
                         "predicate": [
                             "telekinetic-storm:multi"
                         ],
-                        "selector": "attack",
+                        "selector": "telekinetic-object-attack",
                         "value": -2
                     },
                     {
@@ -444,10 +484,18 @@
                         "predicate": [
                             "telekinetic-storm:single"
                         ],
-                        "selector": "damage"
+                        "selector": "telekinetic-object-damage"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "telekinetic-storm:single"
+                        ],
+                        "selector": "telekinetic-object-damage",
+                        "value": 5
                     }
                 ],
-                "slug": null,
+                "slug": "telekinetic-storm",
                 "traits": {
                     "rarity": "common",
                     "value": [
