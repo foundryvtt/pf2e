@@ -1,5 +1,5 @@
 {
-    "_id": "OlR1ZpTMxfZd0nq5",
+    "_id": "ROOYL5i5ASKem0j8",
     "img": "systems/pf2e/icons/iconics/LiniFull.webp",
     "items": [
         {
@@ -23,7 +23,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -1107,7 +1108,7 @@
                     "value": 0
                 },
                 "proficient": {
-                    "value": 1
+                    "value": 2
                 },
                 "publication": {
                     "license": "OGL",
@@ -1495,6 +1496,7 @@
                                     "formula": "1d8+8"
                                 }
                             },
+                            "defense": null,
                             "heightening": {
                                 "damage": {
                                     "0": "1d8+8"
@@ -1524,6 +1526,7 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
+                            "defense": null,
                             "range": {
                                 "value": "touch"
                             },
@@ -1545,7 +1548,7 @@
                 "rules": [],
                 "slug": "heal-animal",
                 "target": {
-                    "value": "1 willing living animal creature"
+                    "value": "1 willing living animal"
                 },
                 "time": {
                     "value": "1 or 2"
@@ -1615,13 +1618,32 @@
                         ]
                     },
                     "slot1": {
-                        "max": 2,
+                        "max": 3,
                         "prepared": [
                             {
+                                "expended": false,
                                 "id": "RORu2itGSnuNLevy"
                             },
                             {
+                                "expended": false,
+                                "id": "KW3iNcXfWCgDNEmX"
+                            },
+                            {
+                                "expended": false,
                                 "id": "vGyecjcp2k4kGVEt"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "expended": false,
+                                "id": "eXRCFWDYmYxFMi8i"
+                            },
+                            {
+                                "expended": false,
+                                "id": "zl0zHqqOBPOJuleD"
                             }
                         ]
                     }
@@ -3049,7 +3071,7 @@
                     "remaster": true,
                     "title": "Pathfinder GM Core"
                 },
-                "quantity": 1,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "antidote-lesser",
@@ -3524,7 +3546,377 @@
             "type": "equipment"
         },
         {
-            "_id": "tTJpVcEPCUgaxxIz",
+            "_id": "kTHelUzFuJwJ2HLy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
+                }
+            },
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "perception-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "L4L5O2I7hiYOXZni",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.F57Na5VxfBp56kke"
+                }
+            },
+            "img": "icons/magic/life/cross-explosion-burst-green.webp",
+            "name": "Fortitude Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Bard</strong> Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert.</p>\n<hr />\n<p><strong>Druid</strong> Adventures have made your physique more hardy. Your proficiency rank for Fortitude saves increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "fortitude-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "buLGZOdtgND93RWo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BWomK7EVY0WXxWgh"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Reach Spell",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reach-spell",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard",
+                        "cleric",
+                        "concentrate",
+                        "druid",
+                        "oracle",
+                        "sorcerer",
+                        "spellshape",
+                        "witch",
+                        "wizard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "qgoGUlU5Rwf3OS87",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.tGIXuk0XeWmG04CX"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Survey Wildlife",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can study details in the wilderness to determine the presence of nearby creatures. You can spend 10 minutes assessing the area around you to find out what creatures are nearby, based on nests, scat, and marks on vegetation. Attempt a Survival check against a DC determined by the GM based on how obvious the signs are. On a success, you can attempt a Recall Knowledge check with a –2 penalty to learn more about the creatures just from these signs. If you're a master in Survival, you don't take the penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Survival"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "survey-wildlife",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "rYeS72lcD8h3KtWX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughness",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FhEMSV7X2V2Ggyu8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
+            "name": "Repair Toolkit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "repair-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "5HnGEKaRau7FzgzZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 12,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "piwDhUiPzlME2A7B",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
@@ -3580,63 +3972,236 @@
             "type": "treasure"
         },
         {
-            "_id": "mBvcJxWXdjpEno0q",
+            "_id": "KW3iNcXfWCgDNEmX",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh"
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
-            "name": "Copper Pieces",
+            "img": "systems/pf2e/icons/spells/mending.webp",
+            "name": "Mending",
             "sort": 0,
             "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
+                "area": null,
+                "cost": {
                     "value": ""
                 },
-                "equipped": {
-                    "carryType": "worn"
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
                 },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "2": {
+                            "target": {
+                                "value": "non-magical object of 1 Bulk or less"
+                            }
+                        },
+                        "3": {
+                            "target": {
+                                "value": "non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "quantity": 9,
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
                 "rules": [],
-                "size": "med",
-                "slug": "copper-pieces",
-                "stackGroup": "coins",
+                "slug": "mending",
+                "target": {
+                    "value": "non-magical object of light Bulk or less"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
                 }
             },
-            "type": "treasure"
+            "type": "spell"
+        },
+        {
+            "_id": "eXRCFWDYmYxFMi8i",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf"
+                }
+            },
+            "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+            "name": "Acid Grip",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "YBeTuItHduzXElD5": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An ephemeral, taloned hand grips the target, burning it with magical acid. The target takes 2d8 acid damage plus @Damage[floor(@item.level/2)d6[persistent,acid]] damage depending on its Reflex save. A creature taking persistent damage from this spell takes a –10-foot status bonus to its Speeds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and no persistent damage, and the claw moves it up to 5 feet in a direction of your choice.</p>\n<p><strong>Failure</strong> The creature takes full damage and persistent damage, and the claw moves it up to 10 feet in a direction of your choice.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and full persistent damage, and the claw moves it up to 20 feet in a direction of your choice.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "YBeTuItHduzXElD5": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "acid-grip",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "acid",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zl0zHqqOBPOJuleD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.YWrfKetOqDwVFut7"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/barkskin.webp",
+            "name": "Oaken Resilience",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The target's skin becomes tough, with a consistency like bark or wood. The target gains resistance 2 to bludgeoning and piercing damage and weakness 3 to fire. After the target takes fire damage, it can Dismiss the spell as a free action triggered by taking the damage; doing so doesn't reduce the fire damage the target was dealt.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Oaken Resilience]</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistances increase by 2, and the weakness increases by 3.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "oaken-resilience",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "plant",
+                        "wood"
+                    ]
+                }
+            },
+            "type": "spell"
         }
     ],
-    "name": "Lini (Level 1)",
+    "name": "Lini (Level 3)",
     "prototypeToken": {
         "name": "Lini",
         "texture": {
@@ -3648,7 +4213,7 @@
         "attributes": {
             "hp": {
                 "temp": 0,
-                "value": 18
+                "value": 41
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3713,7 +4278,7 @@
                 "value": []
             },
             "level": {
-                "value": 1
+                "value": 3
             },
             "nationality": {
                 "value": ""
@@ -3784,7 +4349,7 @@
                 "rank": 0
             },
             "nat": {
-                "rank": 0
+                "rank": 2
             },
             "occ": {
                 "rank": 0
