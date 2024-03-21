@@ -213,12 +213,13 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         this.#setGrantFlags(itemSource, grantedSource);
         this.#trackItem(tempGranted);
 
+        // Add to pending items before running pre-creates to preserve creation order
+        pendingItems.push(grantedSource);
+
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
             await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
         }
-
-        pendingItems.push(grantedSource);
     }
 
     /** Grant an item if this rule element permits it and the predicate passes */
