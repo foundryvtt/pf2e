@@ -31,6 +31,9 @@ declare global {
 
         override close(options?: { force?: boolean }): Promise<void>;
 
+        /** Create a second instance of this SidebarTab class which represents a singleton popped-out container */
+        createPopout(...args: unknown[]): typeof this;
+
         /** Render the SidebarTab as a pop-out container */
         renderPopout(...args: unknown[]): void;
     }
