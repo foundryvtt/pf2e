@@ -8,12 +8,22 @@ export class Migration926RemoveVisionFeatureLinks extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.description = recursiveReplaceString(source.system.description, (s) =>
-            s.replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.Item.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
-            .replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.Item.DRtaqOHXTRtGRIUT]{Low-Light Vision}", "Low-Light Vision")
-            .replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
-            .replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT]{Low-Light Vision}", "Low-Light Vision")
-            .replaceAll("@Compendium[pf2e.ancestryfeatures.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
-            .replaceAll("@Compendium[pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT]{Low-Light Vision}", "Low-Light Vision"),
+            s
+                .replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.Item.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
+                .replaceAll(
+                    "@UUID[Compendium.pf2e.ancestryfeatures.Item.DRtaqOHXTRtGRIUT]{Low-Light Vision}",
+                    "Low-Light Vision",
+                )
+                .replaceAll("@UUID[Compendium.pf2e.ancestryfeatures.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
+                .replaceAll(
+                    "@UUID[Compendium.pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT]{Low-Light Vision}",
+                    "Low-Light Vision",
+                )
+                .replaceAll("@Compendium[pf2e.ancestryfeatures.HHVQDp61ehcpdiU8]{Darkvison}", "Darkvision")
+                .replaceAll(
+                    "@Compendium[pf2e.ancestryfeatures.DRtaqOHXTRtGRIUT]{Low-Light Vision}",
+                    "Low-Light Vision",
+                ),
         );
     }
 }
