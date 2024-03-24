@@ -339,7 +339,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             // If applicable, mark languages at the end as being over-limit
             const sortedLanguages = localizedLanguages.sort((a, b) => a.label.localeCompare(b.label));
             const commonFirst = R.sortBy(sortedLanguages, (l) => l.slug !== "common");
-            for (const language of commonFirst.toReversed().filter((l) => l.slug && sourceLanguages.includes(l.slug))) {
+            for (const language of commonFirst.filter((l) => l.slug && sourceLanguages.includes(l.slug)).reverse()) {
                 if (!language.slug) continue;
                 language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
                 language.tooltip = language.overLimit
