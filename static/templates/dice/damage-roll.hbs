@@ -10,7 +10,7 @@
                         <span class="increased-from">*</span>
                     {{~/if~}}
                 </span>
-                {{#if showTotalInstances}}
+                {{#if (and instances.length showTotalInstances)}}
                     <div class="instances">
                         (
                         {{~#each instances as |instance|~}}
