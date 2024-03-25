@@ -106,7 +106,7 @@
                 "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Mastery"
             },
             "d0g4j": {
-                "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
+                "img": "icons/skills/melee/hand-grip-sword-orange.webp",
                 "level": 15,
                 "name": "Greater Weapon Specialization (Level 15)",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
@@ -225,7 +225,56 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.inventor.explode",
+                "priority": 49,
+                "value": "fire"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:action:trait:unstable"
+                ],
+                "selector": [
+                    "inline-damage",
+                    "inline-healing",
+                    "strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.Note",
+                "title": "PF2E.TraitUnstable"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "unstable-check"
+                ],
+                "selector": [
+                    "flat-check"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Failure",
+                "title": "PF2E.Check.Result.Degree.Check.failure"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "unstable-check"
+                ],
+                "selector": [
+                    "flat-check"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.FlatCheck.CriticalFailure",
+                "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+            }
+        ],
         "savingThrows": {
             "fortitude": 2,
             "reflex": 1,

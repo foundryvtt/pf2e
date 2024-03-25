@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -31,71 +30,7 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 25,
@@ -210,13 +145,17 @@
             "name": "Noxious Vapors",
             "sort": 300000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "emanation",
+                    "value": 10
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "1d6",
                         "kinds": [
@@ -233,7 +172,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Cast the Spell} takes @Damage[1d6[poison]] damage (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by @Damage[1d6[poison]].</p>"
+                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you Cast the Spell takes 1d6 poison damage (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -277,7 +216,6 @@
                         "primal"
                     ],
                     "value": [
-                        "attack",
                         "concentrate",
                         "manipulate",
                         "poison"
@@ -543,41 +481,6 @@
             "type": "melee"
         },
         {
-            "_id": "DRiTAkncXHC24WD8",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Ef9xrtArkFxq0P59",
             "flags": {
                 "core": {
@@ -586,7 +489,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 30 feet",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -621,7 +524,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -651,41 +554,6 @@
             "type": "action"
         },
         {
-            "_id": "xNO9qlWPQbqMpX6n",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "xVxpVjRSG9uuNxHf",
             "flags": {
                 "core": {
@@ -694,7 +562,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -724,7 +592,7 @@
             "_id": "szzBCyHGwJrdNDMW",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "I Venom",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -756,7 +624,7 @@
             "_id": "5YlLz9qenasMgsSl",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Writhing Arms",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -791,7 +659,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -821,7 +689,7 @@
             "_id": "qkEVIUrEoRd9IL1b",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -846,7 +714,7 @@
             "_id": "RnvONDwtnbKequeH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -871,7 +739,7 @@
             "_id": "AkYW8V3Q63bFPSr8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -896,7 +764,7 @@
             "_id": "7uLbdRcU4d7JaUy9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Spellscar Lore",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -921,7 +789,7 @@
             "_id": "5YmXWRrZiQB5Fjjr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""

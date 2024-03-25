@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -28,72 +27,26 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot4": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     },
                     "slot5": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     },
                     "slot6": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot7": {
                         "max": 2,
-                        "prepared": [],
                         "value": 2
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -187,7 +140,18 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {},
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "70",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
                 "defense": {
                     "save": {
                         "basic": true,
@@ -195,22 +159,30 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 void damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 void damage to the target. If the damage from <em>finger of death</em> reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 7,
                     "value": "6mCb1o0EW6yQ0NfB"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "range": {
                     "value": "30 feet"
@@ -1113,41 +1085,6 @@
             "type": "melee"
         },
         {
-            "_id": "FHQiK6c7jZUggMXg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ENtN1odPFGnOKcBk",
             "flags": {
                 "core": {
@@ -1156,7 +1093,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1186,41 +1123,6 @@
             "type": "action"
         },
         {
-            "_id": "EEVNlijtDn2A6Y9J",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "iRZgPtkf6Lw3MzYm",
             "flags": {
                 "core": {
@@ -1229,7 +1131,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1259,7 +1161,7 @@
             "_id": "GHcUVfhfs6mcm7mS",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1307,7 +1209,7 @@
             "_id": "5fPhzfjVfDH0Ssgz",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Terrifying Gaze",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1357,7 +1259,7 @@
             "_id": "yHiEUWvnlHVJLlCA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draining Strike",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1389,7 +1291,7 @@
             "_id": "e7rgKN11dqX1fsSq",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Focus Gaze",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1424,7 +1326,7 @@
             "_id": "mKh47XLxTvXG71TF",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soul Crush",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1456,7 +1358,7 @@
             "_id": "NmXc3S0j7VRZX4kS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2600000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1481,7 +1383,7 @@
             "_id": "J5Mah1mfPaLkZmjC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2700000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1506,7 +1408,7 @@
             "_id": "NVxnNVFpqoe8Qdvh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2800000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1531,7 +1433,7 @@
             "_id": "MyPP3fspaRFbp363",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2900000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1556,7 +1458,7 @@
             "_id": "MgWcgCTxwxAVsQWD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Styx Lore",
-            "sort": 3000000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""

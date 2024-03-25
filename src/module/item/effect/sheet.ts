@@ -10,6 +10,10 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
         return { ...super.defaultOptions, hasSidebar: true };
     }
 
+    protected override get validTraits(): Record<string, string> {
+        return {};
+    }
+
     override async getData(options?: Partial<ItemSheetOptions>): Promise<EffectSheetData> {
         const badge = this.item.badge;
 

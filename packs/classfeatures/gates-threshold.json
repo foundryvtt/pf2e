@@ -26,18 +26,13 @@
         },
         "rules": [
             {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.classfeatures.Item.Gate Junction"
-            },
-            {
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal",
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Label",
                         "value": "expand"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath",
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath.Label",
                         "value": "fork"
                     }
                 ],
@@ -46,116 +41,10 @@
                 "rollOption": "kinetic-gate:first-threshold"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:air"
-                            }
-                        ],
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:earth"
-                            }
-                        ],
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:fire"
-                            }
-                        ],
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:metal"
-                            }
-                        ],
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:water"
-                            }
-                        ],
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:wood"
-                            }
-                        ],
-                        "value": "wood"
-                    }
-                ],
-                "flag": "elementFork",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "kinetic-gate:first-threshold:fork"
-                ],
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
-                "rollOption": "kinetic-gate"
-            },
-            {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "predicate": [
-                            "kinetic-gate:air"
-                        ],
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "predicate": [
-                            "kinetic-gate:earth"
-                        ],
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "predicate": [
-                            "kinetic-gate:fire"
-                        ],
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "predicate": [
-                            "kinetic-gate:metal"
-                        ],
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "predicate": [
-                            "kinetic-gate:water"
-                        ],
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "predicate": [
-                            "kinetic-gate:wood"
-                        ],
-                        "value": "wood"
-                    }
-                ],
-                "flag": "elementExpand",
+                "actorFlag": true,
+                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.ExpandThePortal.Rename",
+                "choices": "flags.pf2e.kineticist.elements",
+                "flag": "elementOne",
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:first-threshold:expand"
@@ -163,257 +52,86 @@
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.ExpandElement"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.AuraJunction",
-                        "predicate": [
-                            {
-                                "not": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:aura"
-                            }
-                        ],
-                        "value": "aura"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.CriticalBlast",
-                        "predicate": [
-                            {
-                                "not": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:critical"
-                            }
-                        ],
-                        "value": "critical"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ElementalResistance",
-                        "predicate": [
-                            {
-                                "not": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:resistance"
-                            }
-                        ],
-                        "value": "resistance"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
-                        "predicate": [
-                            {
-                                "not": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:impulse"
-                            }
-                        ],
-                        "value": "impulse"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.SkillJunction",
-                        "predicate": [
-                            {
-                                "not": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:skill"
-                            }
-                        ],
-                        "value": "skill"
-                    }
-                ],
-                "flag": "junction",
-                "key": "ChoiceSet",
+                "key": "GrantItem",
                 "predicate": [
                     "kinetic-gate:first-threshold:expand"
                 ],
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Junction"
+                "uuid": "Compendium.pf2e.classfeatures.Item.Gate Junction"
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "junction:{item|flags.pf2e.rulesSelections.elementExpand}:{item|flags.pf2e.rulesSelections.junction}"
+                "adjustName": "PF2E.SpecificRule.Kineticist.KineticGate.ForkThePath.Rename",
+                "choices": {
+                    "filter": [
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
+                },
+                "flag": "elementFork",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:first-threshold:fork"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementFork}"
             },
             {
                 "adjustName": false,
                 "choices": {
                     "filter": [
                         "item:rarity:common",
+                        "item:trait:impulse",
                         {
                             "lte": [
                                 "item:level",
                                 5
                             ]
                         },
-                        "item:trait:impulse",
                         {
                             "or": [
                                 {
                                     "and": [
                                         {
-                                            "not": "item:trait:composite"
+                                            "or": [
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.one}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.two}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.three}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.four}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.five}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.six}"
+                                            ]
                                         },
-                                        "item:trait:air",
-                                        "kinetic-gate:air"
+                                        {
+                                            "not": "item:trait:composite"
+                                        }
                                     ]
                                 },
                                 {
                                     "and": [
                                         {
-                                            "not": "item:trait:composite"
+                                            "not": {
+                                                "xor": [
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.one}",
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.two}",
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.three}",
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.four}",
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.five}",
+                                                    "item:trait:{actor|flags.pf2e.kineticist.gate.six}"
+                                                ]
+                                            }
                                         },
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth"
-                                    ]
-                                },
-                                {
-                                    "and": [
                                         {
-                                            "not": "item:trait:composite"
-                                        },
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        {
-                                            "not": "item:trait:composite"
-                                        },
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        {
-                                            "not": "item:trait:composite"
-                                        },
-                                        "item:trait:water",
-                                        "kinetic-gate:water"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        {
-                                            "not": "item:trait:composite"
-                                        },
-                                        "item:trait:wood",
-                                        "kinetic-gate:wood"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:air",
-                                        "kinetic-gate:air",
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:air",
-                                        "kinetic-gate:air",
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:air",
-                                        "kinetic-gate:air",
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:air",
-                                        "kinetic-gate:air",
-                                        "item:trait:water",
-                                        "kinetic-gate:water"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:air",
-                                        "kinetic-gate:air",
-                                        "item:trait:wood",
-                                        "kinetic-gate:wood"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire",
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire",
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire",
-                                        "item:trait:water",
-                                        "kinetic-gate:water"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:fire",
-                                        "kinetic-gate:fire",
-                                        "item:trait:wood",
-                                        "kinetic-gate:wood"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth",
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth",
-                                        "item:trait:water",
-                                        "kinetic-gate:water"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:earth",
-                                        "kinetic-gate:earth",
-                                        "item:trait:wood",
-                                        "kinetic-gate:wood"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal",
-                                        "item:trait:water",
-                                        "kinetic-gate:water"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:composite",
-                                        "item:trait:metal",
-                                        "kinetic-gate:metal",
-                                        "item:trait:wood",
-                                        "kinetic-gate:wood"
+                                            "or": [
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.one}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.two}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.three}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.four}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.five}",
+                                                "item:trait:{actor|flags.pf2e.kineticist.gate.six}"
+                                            ]
+                                        }
                                     ]
                                 }
                             ]
@@ -432,50 +150,6 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.impulseExpand}"
-            },
-            {
-                "adjustName": false,
-                "allowedDrops": {
-                    "label": "PF2E.SpecificRule.Kineticist.KineticGate.AllowedDropsLabel",
-                    "predicate": [
-                        {
-                            "lte": [
-                                "item:level",
-                                5
-                            ]
-                        },
-                        "item:trait:kineticist",
-                        "item:type:feat"
-                    ]
-                },
-                "choices": {
-                    "filter": [
-                        "item:rarity:common",
-                        {
-                            "lte": [
-                                "item:level",
-                                5
-                            ]
-                        },
-                        "item:trait:impulse",
-                        "item:trait:{item|flags.pf2e.rulesSelections.elementFork}",
-                        {
-                            "not": "item:trait:composite"
-                        }
-                    ],
-                    "itemType": "feat"
-                },
-                "flag": "impulseFork",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "kinetic-gate:first-threshold:fork"
-                ],
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.impulseFork}"
             }
         ],
         "traits": {

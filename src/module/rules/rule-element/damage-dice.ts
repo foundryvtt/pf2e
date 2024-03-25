@@ -1,14 +1,32 @@
-import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers.ts";
+import { DamageDiceOverride, DamageDicePF2e, DeferredDamageDiceOptions } from "@actor/modifiers.ts";
 import { DamageDieSize } from "@system/damage/types.ts";
-import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
-import { isObject, objectHasKey, setHasElement, sluggify } from "@util";
+import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
+import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { extractDamageAlterations } from "../helpers.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 
 class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
+    constructor(data: DamageDiceSource, options: RuleElementOptions) {
+        super(data, options);
+        if (this.invalid) return;
+
+        this.brackets = this.isBracketedValue(data.value) ? data.value : null;
+
+        if (data.override && !this.#isValidOverride(data.override)) {
+            this.failValidation(
+                "The override property must be an object with one property of 'upgrade' (boolean),",
+                "'downgrade (boolean)', 'diceNumber' (integer between 0 and 10), 'dieSize' (d6-d12), or 'damageType'",
+                "(recognized damage type)",
+            );
+            this.override = null;
+        }
+    }
+
     static override defineSchema(): DamageDiceRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
@@ -31,22 +49,8 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
             }),
             brackets: new ResolvableValueField({ required: false, nullable: true, initial: undefined }),
             override: new fields.ObjectField({ required: false, nullable: true, initial: undefined }),
+            hideIfDisabled: new fields.BooleanField({ required: false }),
         };
-    }
-
-    constructor(data: DamageDiceSource, options: RuleElementOptions) {
-        super(data, options);
-
-        this.brackets = this.isBracketedValue(data.value) ? data.value : null;
-
-        if (data.override && !this.#isValidOverride(data.override)) {
-            this.failValidation(
-                "The override property must be an object with one property of 'upgrade' (boolean),",
-                "'downgrade (boolean)', 'diceNumber' (integer between 0 and 10), 'dieSize' (d6-d12), or 'damageType'",
-                "(recognized damage type)",
-            );
-            this.override = null;
-        }
     }
 
     override beforePrepareData(): void {
@@ -54,8 +58,9 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
 
         for (const selector of this.resolveInjectedProperties(this.selector)) {
             if (selector === "null") continue;
+            const { actor, parent } = this;
 
-            const deferredDice = (params: DeferredValueParams = {}): DamageDicePF2e | null => {
+            const deferredDice = (options: DeferredDamageDiceOptions): DamageDicePF2e | null => {
                 const label = this.getReducedLabel();
 
                 // If this rule element's predicate would have passed without all fields being resolvable, send out a
@@ -63,10 +68,10 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 const testPassed =
                     this.predicate.length === 0 ||
                     this.resolveInjectedProperties(this.predicate).test([
-                        ...(params.test ?? this.actor.getRollOptions(["damage"])),
-                        ...this.item.getRollOptions("parent"),
+                        ...(options.test ?? actor.getRollOptions(options.selectors)),
+                        ...parent.getRollOptions("parent"),
                     ]);
-                const resolveOptions = { ...params, warn: testPassed };
+                const resolveOptions = { ...options, warn: testPassed };
 
                 const diceNumber = Number(this.resolveValue(this.diceNumber, 0, resolveOptions)) || 0;
                 // Warning may have been suppressed, but return early if validation failed
@@ -85,44 +90,44 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                 }
 
                 if (this.override) {
-                    this.override.damageType &&= this.resolveInjectedProperties(
-                        this.override.damageType,
-                        resolveOptions,
-                    );
-                    if (
-                        "damageType" in this.override &&
-                        !objectHasKey(CONFIG.PF2E.damageTypes, this.override.damageType)
-                    ) {
+                    const override = this.override;
+                    override.damageType &&= this.resolveInjectedProperties(override.damageType, resolveOptions);
+                    if ("damageType" in override && !objectHasKey(CONFIG.PF2E.damageTypes, override.damageType)) {
                         if (testPassed) this.failValidation("Unrecognized damage type in override");
                         return null;
                     }
 
-                    this.override.diceNumber &&= Math.floor(
-                        Number(this.resolveValue(this.override.diceNumber, resolveOptions)),
+                    override.diceNumber &&= Math.floor(
+                        Number(this.resolveValue(override.diceNumber, NaN, resolveOptions)),
                     );
-                    if (typeof this.override.diceNumber === "number" && this.override.diceNumber < 0) {
+                    if (Number.isNaN(override.diceNumber)) return null;
+                    if (typeof override.diceNumber === "number" && override.diceNumber < 0) {
                         if (testPassed) this.failValidation("A dice number must resolve to at least zero");
                         return null;
                     }
 
-                    this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize, resolveOptions);
-                    if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
+                    override.dieSize &&= this.resolveInjectedProperties(override.dieSize, resolveOptions);
+                    if ("dieSize" in override && !tupleHasValue(DAMAGE_DIE_SIZES, override.dieSize)) {
                         if (testPassed) this.failValidation("Unrecognized die size in override");
                         return null;
                     }
                 }
 
                 const dieSize = this.resolveInjectedProperties(this.dieSize, resolveOptions);
-                if (dieSize !== null && !setHasElement(DAMAGE_DIE_FACES, dieSize)) {
+                if (dieSize !== null && !tupleHasValue(DAMAGE_DIE_SIZES, dieSize)) {
                     if (testPassed) {
                         this.failValidation(`Die size must be a recognized damage die size, null, or omitted`);
                     }
                     return null;
                 }
 
+                const slug = this.slug ?? sluggify(parent.name);
+                const alterationsRecord = actor.synthetics.damageAlterations;
+                const alterations = extractDamageAlterations(alterationsRecord, options.selectors, slug);
+
                 return new DamageDicePF2e({
                     selector,
-                    slug: this.slug ?? sluggify(this.item.name),
+                    slug,
                     label,
                     diceNumber,
                     dieSize,
@@ -132,16 +137,18 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
                     predicate: this.predicate,
                     override: fu.deepClone(this.override),
                     enabled: testPassed,
+                    hideIfDisabled: this.hideIfDisabled,
+                    alterations,
                     ...resolvedBrackets,
                 });
             };
 
-            const synthetics = (this.actor.synthetics.damageDice[selector] ??= []);
+            const synthetics = (actor.synthetics.damageDice[selector] ??= []);
             synthetics.push(deferredDice);
         }
     }
 
-    #isValidOverride(override: unknown): override is DamageDiceOverride | undefined {
+    #isValidOverride(override: JSONValue): override is DamageDiceOverride | undefined {
         if (override === undefined) return true;
 
         return (
@@ -158,11 +165,11 @@ class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
         );
     }
 
-    #resolvedBracketsIsValid(value: unknown): value is ResolvedBrackets {
+    #resolvedBracketsIsValid(value: JSONValue): value is ResolvedBrackets {
         if (!isObject<ResolvedBrackets>(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
         const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
-        const dieSizeIsValid = !("dieSize" in value) || setHasElement(DAMAGE_DIE_FACES, value.dieSize);
+        const dieSizeIsValid = !("dieSize" in value) || tupleHasValue(DAMAGE_DIE_SIZES, value.dieSize);
         const overrideIsValid = !("override" in value) || this.#isValidOverride(value.override);
         return keysAreValid && diceNumberIsValid && dieSizeIsValid && overrideIsValid;
     }
@@ -175,15 +182,17 @@ interface ResolvedBrackets {
 }
 
 interface DamageDiceSource extends RuleElementSource {
-    selector?: unknown;
-    name?: unknown;
-    diceNumber?: unknown;
-    dieSize?: unknown;
-    override?: unknown;
-    damageType?: unknown;
-    critical?: unknown;
-    category?: unknown;
-    damageCategory?: unknown;
+    selector?: JSONValue;
+    name?: JSONValue;
+    diceNumber?: JSONValue;
+    dieSize?: JSONValue;
+    override?: JSONValue;
+    value?: JSONValue;
+    damageType?: JSONValue;
+    critical?: JSONValue;
+    category?: JSONValue;
+    damageCategory?: JSONValue;
+    hideIfDisabled?: JSONValue;
 }
 
 interface DamageDiceRuleElement
@@ -215,6 +224,8 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     brackets: ResolvableValueField<false, true, false>;
     /** Damage dice override data */
     override: ObjectField<DamageDiceOverride, DamageDiceOverride, false, true, false>;
+    /** Hide this dice change from breakdown tooltips if it is disabled */
+    hideIfDisabled: BooleanField<boolean, boolean, false, false, true>;
 };
 
 export { DamageDiceRuleElement };

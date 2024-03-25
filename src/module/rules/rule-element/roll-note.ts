@@ -8,7 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 
 class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
@@ -81,7 +82,7 @@ type RollNoteSchema = RuleElementSchema & {
     >;
 };
 
-interface RollNoteSource extends RuleElementSource {
+interface NoteRESource extends RuleElementSource {
     selector?: unknown;
     outcome?: unknown;
     title?: unknown;
@@ -89,4 +90,4 @@ interface RollNoteSource extends RuleElementSource {
     visibility?: unknown;
 }
 
-export { RollNoteRuleElement, type RollNoteSource };
+export { RollNoteRuleElement, type NoteRESource };

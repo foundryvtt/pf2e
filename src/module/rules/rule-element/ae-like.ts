@@ -12,7 +12,7 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
     static override defineSchema(): AELikeSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = this.CHANGE_MODE_DEFAULT_PRIORITIES;
@@ -126,7 +126,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         rollOptions ??= this.predicate.length > 0 ? new Set(this.actor.getRollOptions()) : new Set();
         if (!this.test(rollOptions)) return;
 
-        const { actor } = this;
+        const actor = this.actor;
         const current = fu.getProperty(actor, path);
         const change = this.resolveValue(this.value);
         const newValue = AELikeRuleElement.getNewValue(this.mode, current, change, this.merge);
@@ -280,6 +280,7 @@ interface AELikeSource extends RuleElementSource {
     mode?: JSONValue;
     path?: JSONValue;
     phase?: JSONValue;
+    value?: JSONValue;
 }
 
 export { AELikeRuleElement };

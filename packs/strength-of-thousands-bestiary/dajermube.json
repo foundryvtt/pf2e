@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -31,91 +30,33 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
                     "slot8": {
                         "max": 7,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "Fyifux0My65JRKoU"
                             },
-                            "1": {
+                            {
                                 "id": "Fyifux0My65JRKoU"
                             },
-                            "2": {
+                            {
                                 "id": "Fyifux0My65JRKoU"
                             },
-                            "3": {
+                            {
                                 "id": "HQVytopZ8CADKsxt"
                             },
-                            "4": {
+                            {
                                 "id": "HQVytopZ8CADKsxt"
                             },
-                            "5": {
+                            {
                                 "id": "HQVytopZ8CADKsxt"
                             },
-                            "6": {
+                            {
                                 "id": "SM20yZkhv35LKEAa"
                             }
-                        },
+                        ],
                         "value": 7
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -149,13 +90,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
-                        "formula": "80",
+                        "formula": "70",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "untyped"
+                        "type": "void"
                     }
                 },
                 "defense": {
@@ -165,16 +107,24 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 80 void damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 void damage to the target. If the damage from <em>finger of death</em> reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
-                    "value": 8
+                    "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 8,
                     "uses": {
                         "max": 3,
                         "value": 3
@@ -184,7 +134,7 @@
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
-                    "title": ""
+                    "title": "Pathfinder Core Rulebook"
                 },
                 "range": {
                     "value": "30 feet"
@@ -672,41 +622,6 @@
             "type": "melee"
         },
         {
-            "_id": "B2rF45WAMrowNHio",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "AJLCWM50AXEWFDYT",
             "flags": {
                 "core": {
@@ -715,7 +630,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -748,7 +663,7 @@
             "_id": "eI8RLbyITDSsCGtu",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bound Spirits",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -792,7 +707,7 @@
             "_id": "i2dPxUSrwIfJyjPU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -825,7 +740,7 @@
             "_id": "1RMu0owaI3jzGIJA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Site Bound",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -860,7 +775,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -897,7 +812,7 @@
             "_id": "0hSL8u2ImY5BTyJo",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Drain Life",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -929,7 +844,7 @@
             "_id": "BVGtxqRvaiXmxNDG",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Rage of Spirits",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -959,7 +874,7 @@
             "_id": "iXMM9LrLHQONVyO1",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Spirits",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -989,7 +904,7 @@
             "_id": "jqB6vp0i6Ok3g6Cc",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1014,7 +929,7 @@
             "_id": "4O2VV10GECeYJ9JV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1039,7 +954,7 @@
             "_id": "l7a80DGdIvJp8Pp7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Dwelling Lore",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1064,7 +979,7 @@
             "_id": "6HLA8qY0MMWacEMk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1089,7 +1004,7 @@
             "_id": "1fAKBGHSneA2KHJO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1114,7 +1029,7 @@
             "_id": "VGIhisp3NaWU83Er",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""

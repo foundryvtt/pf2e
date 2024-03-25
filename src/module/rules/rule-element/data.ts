@@ -5,7 +5,6 @@ import type { BooleanField, NumberField, StringField } from "types/foundry/commo
 
 type RuleElementSource = {
     key?: JSONValue;
-    value?: JSONValue;
     label?: JSONValue;
     slug?: JSONValue;
     predicate?: JSONValue;
@@ -16,7 +15,7 @@ type RuleElementSource = {
     removeUponCreate?: JSONValue;
 };
 
-type RuleValue = string | number | boolean | object | BracketedValue | null;
+type RuleValue = string | number | boolean | object | BracketedValue;
 
 interface Bracket<T extends object | number | string> {
     start?: number;
@@ -45,6 +44,8 @@ type RuleElementSchema = {
     requiresEquipped: BooleanField<boolean, boolean, false, true, false>;
     /** Whether the rule element requires that the parent item (if physical) be invested */
     requiresInvestment: BooleanField<boolean, boolean, false, true, false>;
+    /** A grouping slug to mark a rule as a part of a spinoff effect, which some item types can compose */
+    spinoff: SlugField<false, false, false>;
 };
 
 class ResolvableValueField<
@@ -52,12 +53,12 @@ class ResolvableValueField<
     TNullable extends boolean,
     THasInitial extends boolean = false,
 > extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
-    protected override _validateType(value: unknown): boolean {
+    protected override _validateType(value: JSONValue): boolean {
         return value !== null && ["string", "number", "object", "boolean"].includes(typeof value);
     }
 
     /** No casting is applied to this value */
-    protected _cast(value: unknown): unknown {
+    protected _cast(value: JSONValue): JSONValue {
         return value;
     }
 

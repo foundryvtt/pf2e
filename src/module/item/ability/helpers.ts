@@ -5,7 +5,7 @@ import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { RangeData } from "@item/types.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
 import * as R from "remeda";
-import { AbilitySystemData, SelfEffectReference } from "./data.ts";
+import type { AbilitySystemData, SelfEffectReference } from "./data.ts";
 import type { AbilitySheetPF2e } from "./sheet.ts";
 
 interface SourceWithActionData {

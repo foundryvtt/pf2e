@@ -18,6 +18,10 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
+    constructor(data: CraftingEntryRuleSource, options: RuleElementOptions) {
+        super({ priority: 19, ...data }, options);
+    }
+
     static override defineSchema(): CraftingEntryRuleSchema {
         const fields = foundry.data.fields;
         const quantityField = (): QuantityField =>
@@ -63,10 +67,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
                 { initial: [] },
             ),
         };
-    }
-
-    constructor(data: CraftingEntryRuleSource, options: RuleElementOptions) {
-        super({ priority: 19, ...data }, options);
     }
 
     override beforePrepareData(): void {
@@ -136,6 +136,7 @@ type CraftingEntryRuleData = Omit<SourceFromSchema<CraftingEntryRuleSchema>, "pr
 interface CraftingEntryRuleSource extends RuleElementSource {
     selector?: unknown;
     name?: unknown;
+    batchSizes?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;

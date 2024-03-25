@@ -420,45 +420,10 @@
             "type": "melee"
         },
         {
-            "_id": "ZxSGALYRVWtMBLTi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "BH97LqHtuqNlighQ",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hurried Retreat",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -477,10 +442,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "hurried-retreat",
                         "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
                     },
                     {
                         "key": "FlatModifier",
@@ -504,7 +477,7 @@
             "_id": "QfnsBk0XQ6x9wJSe",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Quick Trap",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -539,7 +512,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -586,7 +559,7 @@
             "_id": "ccosYJxMalM6rfN8",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spike Trap",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -616,7 +589,7 @@
             "_id": "qcLIDhj9YFsbdYEh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -641,7 +614,7 @@
             "_id": "ek81TyDisBCOSdTZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -666,7 +639,7 @@
             "_id": "nFzqitjuM688snvG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""

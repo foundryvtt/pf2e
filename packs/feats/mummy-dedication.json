@@ -49,29 +49,19 @@
                 "key": "Strike"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "predicate": [
-                    "item:category:unarmed",
-                    "item:damage:die:faces:4"
-                ],
-                "selector": [
-                    "fist-base-damage"
-                ]
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
             },
             {
-                "definition": [
-                    "item:base:fist"
-                ],
-                "key": "AdjustStrike",
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
                 "mode": "remove",
-                "property": "weapon-traits",
+                "property": "traits",
                 "value": "nonlethal"
             },
             {
-                "adjustName": true,
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Mummy.Terrain.Arctic",
@@ -97,11 +87,6 @@
             },
             {
                 "key": "Weakness",
-                "predicate": [
-                    {
-                        "not": "feat:sealed-poppet"
-                    }
-                ],
                 "type": "fire",
                 "value": "floor(@actor.level/2)"
             }

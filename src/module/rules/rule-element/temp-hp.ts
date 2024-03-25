@@ -13,7 +13,8 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
     static override defineSchema(): TempHPRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
@@ -65,8 +66,13 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     }
 
     /** Refresh the actor's temporary hit points at the start of its turn */
-    override onTurnStart(actorUpdates: Record<string, unknown>): void {
-        if (this.ignored || !this.events.onTurnStart) return;
+    override async onUpdateEncounter(data: {
+        event: "initiative-roll" | "turn-start";
+        actorUpdates: Record<string, unknown>;
+    }): Promise<void> {
+        if (this.ignored || data.event !== "turn-start" || !this.events.onTurnStart) {
+            return;
+        }
 
         const rollOptions = Array.from(
             new Set([
@@ -83,6 +89,7 @@ class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
             return this.failValidation("value: must resolve to a number");
         }
 
+        const actorUpdates = data.actorUpdates;
         const updatedActorData = fu.mergeObject(this.actor._source, actorUpdates, { inplace: false });
         const currentTempHP = Number(fu.getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {

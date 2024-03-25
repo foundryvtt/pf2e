@@ -19,11 +19,31 @@
     --space-12: 0.75rem;
     --space-13: 0.8125rem;
     --space-14: 0.875rem;
+    --space-15: 0.9375rem;
 }
 
 /* ----------------------------------------- */
 /* Layout                                    */
 /* ----------------------------------------- */
+
+*,
+.directory .directory-list,
+.sheet.journal-entry .scrollable,
+#permissions-config ul.permissions-list {
+    scrollbar-color: initial;
+    scrollbar-width: initial;
+}
+
+::-webkit-scrollbar-thumb {
+    border-color: #ff6400;
+}
+
+@-moz-document url-prefix() {
+    * {
+        scrollbar-color: #782e22 transparent;
+        scrollbar-width: thin;
+    }
+}
 
 [hidden] {
     display: none !important;

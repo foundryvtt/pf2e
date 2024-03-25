@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you cast dancing lights, you can modify its duration to be 1 minute and modify its standard effects to create a single floating light in the shape of a Tiny creature, instead of up to four floating lights. The creature hovers over your head unless you spend a single action that has the concentrate trait to direct the light to move up to 30 feet, in which case it remains there until you direct it again. If you direct it back to your head, it hovers there and follows you again until you direct it elsewhere. If the light ever moves beyond 120 feet of you, it winks out immediately.</p>"
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Light], you can modify its duration to be 1 minute and modify its standard effects to create a single floating light in the shape of a Tiny creature, instead of up to four floating lights. The creature hovers over your head unless you spend a single action that has the concentrate trait to direct the light to move up to 30 feet, in which case it remains there until you direct it again. If you direct it back to your head, it hovers there and follows you again until you direct it elsewhere. If the light ever moves beyond 120 feet of you, it winks out immediately.</p>"
         },
         "level": {
             "value": 4
@@ -31,7 +31,37 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "wild-lights"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:wild-lights",
+                    "item:slug:light"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.WildLights.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

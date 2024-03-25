@@ -1,0 +1,4378 @@
+{
+    "_id": "ROOYL5i5ASKem0j8",
+    "img": "systems/pf2e/icons/iconics/LiniFull.webp",
+    "items": [
+        {
+            "_id": "NimM8csExNjhJz7E",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Herbalism Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "H8J6HH7OzFDqCuWm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/gnome.svg",
+            "name": "Gnome",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": [
+                        "draconic",
+                        "dwarven",
+                        "elven",
+                        "goblin",
+                        "jotun",
+                        "orcish"
+                    ]
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "cha"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "con"
+                        ]
+                    },
+                    "2": {
+                        "selected": "wis",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Long ago, early gnome ancestors emigrated from the First World, realm of the fey. While it's unclear why the first gnomes wandered to Golarion, this lineage manifests in modern gnomes as bizarre reasoning, eccentricity, obsessive tendencies, and what some see as naivete. These qualities are further reflected in their physical characteristics, such as spindly limbs, brightly colored hair, and childlike and extremely expressive facial features that further reflect their otherworldly origins.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.qIu10HByKeRaPPvD]{Gnome}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "str"
+                        ]
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "fey",
+                        "gnomish"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "sm",
+                "slug": "gnome",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gnome",
+                        "humanoid"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "HwXmwuVa1cMxJkKr",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.tXC5Gwn9D5x0ouJh"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/sensate-gnome.webp",
+            "name": "Sensate Gnome",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Gnome",
+                    "slug": "gnome",
+                    "uuid": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
+                },
+                "description": {
+                    "value": "<p>You see all colors as brighter, hear all sounds as richer, and especially smell all scents with incredible detail. You gain a special sense: imprecise scent with a range of 30 feet. This means you can use your sense of smell to determine the exact location of a creature. The GM will usually double the range if you're downwind from the creature or halve the range if you're upwind.</p>\n<p>In addition, you gain a +2 circumstance bonus to Perception checks whenever you're trying to locate an undetected creature that is within the range of your scent.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    30
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "range": 30,
+                        "selector": "scent"
+                    }
+                ],
+                "slug": "sensate-gnome",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "SiaOd7o5A97EpHcU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.ZdhPKEY9FfaOS8Wy"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Herbalist",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "wis",
+                        "value": [
+                            "con",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>As a formally trained apothecary or a rural practitioner of folk medicine, you learned the healing properties of various herbs. You're adept at collecting the right natural cures in all sorts of environments and preparing them properly.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Nature skill and the Herbalism Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Natural Medicine] skill feat.</p>"
+                },
+                "items": {
+                    "i5m1o": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Natural Medicine",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Natural Medicine"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "herbalist",
+                "trainedLore": "Herbalism Lore",
+                "trainedSkills": {
+                    "value": [
+                        "nat"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "Vw0zKw4HHmQe1jje",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.WC4xLBGmBsdOdHWu"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Medicine",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can apply natural cures to heal your allies. You can use Nature instead of Medicine to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], including higher Nature proficiency letting you attempt more difficult checks. It doesn't replace Medicine for uses of the skill other than Treat Wounds or for feat prerequisites.</p>\n<p>If you're in the wilderness, you might have easier access to fresh ingredients, allowing you to gain a +2 circumstance bonus to your check to Treat Wounds using Nature, subject to the GM's determination.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "SiaOd7o5A97EpHcU",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Nature"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:treat-wounds",
+                            "fresh-ingredients"
+                        ],
+                        "selector": "nature",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "natural-medicine",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "UCrSBn5l4OSJs6p6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.7s57JDCaiYYCAdFx"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/druid.webp",
+            "name": "Druid",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>The power of nature is impossible to resist. It can bring ruin to the stoutest fortress in minutes, reducing even the mightiest works to rubble, burning them to ash, burying them beneath an avalanche of snow, or drowning them beneath the waves. It can provide endless bounty and breathtaking splendor to those who respect it—and an agonizing death to those who take it too lightly. You are one of those who hear nature's call. You stand in awe of the majesty of its power and give yourself over to its service.</em></p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.8ElntNAGahQka70r]{Druid}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "5zf6s": {
+                        "img": "icons/consumables/plants/leaf-hastate-glowing-green.webp",
+                        "level": 1,
+                        "name": "Anathema (Druid)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Anathema (Druid)"
+                    },
+                    "6cq7c": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "LCR42": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 5,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
+                    },
+                    "ObylJ": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 1,
+                        "name": "Druid Spellcasting",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Druid Spellcasting"
+                    },
+                    "QkvgC": {
+                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
+                        "level": 11,
+                        "name": "Wild Willpower",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Wild Willpower"
+                    },
+                    "XOa0H": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 3,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
+                    },
+                    "ZdbqS": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 3,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
+                    },
+                    "bic0m": {
+                        "img": "icons/skills/trades/academics-book-study-purple.webp",
+                        "level": 15,
+                        "name": "Master Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
+                    },
+                    "g63pa": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Druidic Order",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Druidic Order"
+                    },
+                    "gPFcb": {
+                        "img": "systems/pf2e/icons/features/classes/druidic-language.webp",
+                        "level": 1,
+                        "name": "Wildsong",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Wildsong"
+                    },
+                    "ifwyc": {
+                        "img": "icons/sundries/books/book-open-purple.webp",
+                        "level": 19,
+                        "name": "Legendary Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
+                    },
+                    "ixkp9": {
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+                        "level": 1,
+                        "name": "Shield Block",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
+                    },
+                    "jfaqa": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "mjeZi": {
+                        "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+                        "level": 1,
+                        "name": "Voice of Nature",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Voice of Nature"
+                    },
+                    "ycbpi": {
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
+                        "level": 7,
+                        "name": "Expert Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
+                    },
+                    "zird8": {
+                        "img": "icons/weapons/wands/wand-crook-yellow.webp",
+                        "level": 19,
+                        "name": "Primal Hierophant",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Primal Hierophant"
+                    },
+                    "zsmsu": {
+                        "img": "icons/skills/melee/hand-grip-sword-red.webp",
+                        "level": 11,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "wis"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "druid",
+                "spellcasting": 1,
+                "trainedSkills": {
+                    "additional": 2,
+                    "value": [
+                        "nat"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "IjwlFkizXw5HtsCP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.8STJEFVJISujgpMR"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "animalOrder": {
+                            "id": "46JZwcq7xwy5qeBn",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Druidic Order",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Upon becoming a druid, you align yourself with a druidic order, which grants you a class feat, an order spell (see below), and an additional trained skill tied to your order While you'll always be a member of your initial order, it's not unheard of for a druid to request to study with other orders in search of greater understanding of the natural world, and PC druids are among the most likely to blend the powers of different orders.</p>\n<p>Order spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with local nature spirits or otherwise tend to the wilderness in a way befitting your order.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but can never be more than 3 points.</p>\n<p><strong>Order Skill</strong> You become trained in the listed skill. If you're already trained in that skill, you become trained in a different skill of your choice.</p>\n<p><strong>Druid Feat</strong> You gain this 1st-level druid feat as a bonus feat.</p>\n<p><strong>Order Spell</strong> You automatically gain the listed order spell at 1st level.</p>\n<p><strong>Anathema</strong> Add this anathema to those for all druids.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Animal Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Flame Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Leaf Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Stone Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Storm Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Untamed Order]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Wave Order]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:druid-order"
+                            ]
+                        },
+                        "flag": "druidicOrder",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Druid.DruidicOrder.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Animal Order"
+                    },
+                    {
+                        "flag": "animalOrder",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.druidicOrder}"
+                    }
+                ],
+                "slug": "druidic-order",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jRXmfKJ2RcetRMTy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.d5BFFHXFJYKs5LXr"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "animalEmpathy": {
+                            "id": "IBxDWkih5wBuGdTb",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+            "name": "Voice of Nature",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain your choice of the @UUID[Compendium.pf2e.feats-srd.Item.Animal Empathy] or @UUID[Compendium.pf2e.feats-srd.Item.Plant Empathy] druid feat.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "value": "Compendium.pf2e.feats-srd.Item.Animal Empathy"
+                            },
+                            {
+                                "value": "Compendium.pf2e.feats-srd.Item.Plant Empathy"
+                            }
+                        ],
+                        "flag": "feat",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Animal Empathy"
+                    },
+                    {
+                        "flag": "animalEmpathy",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+                    }
+                ],
+                "slug": "voice-of-nature",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "1kYAkZiUMZUsru3X",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.nfBn8QB6HVdzpTFV"
+                }
+            },
+            "img": "icons/consumables/plants/leaf-hastate-glowing-green.webp",
+            "name": "Anathema (Druid)",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As stewards of the natural order, druids find affronts to nature anathema. If you repeatedly perform these acts, you lose your magical abilities from the druid class, including your druid spellcasting and the benefits of your order. These abilities can be regained only if you demonstrate your repentance with an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual. The following acts are anathema to all druids.</p>\n<p><strong>Anathema</strong> despoil natural places, consume more natural resources than you require to live comfortably, teach the Wildsong to non-druids.</p>\n<p>Your choice of druidic order adds further anathema, as detailed in the order's entry.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "anathema-druid",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8QuUJZkED9bYhks2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.b8pnRxGuNzG0buuh"
+                }
+            },
+            "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+            "name": "Druid Spellcasting",
+            "sort": 300,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The power of the wild world flows through you. You are a spellcaster and can cast spells of the primal tradition using the @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell] activity. As a druid, your spellcasting incantations might be pleas to the environment around you or the invocation of ancient vows; your hands might sway like willows or curl into clawlike shapes as your gestures direct your magic. At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the primal spell list, or from other primal spells to which you gain access and learn via Learn a Spell. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare each day is called your spell slots.</p>\n<p>As you increase in level as a druid, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast, as shown in the Druid Spells per Day table.</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Wisdom, your spell attack modifier and spell DC use your Wisdom modifier.</p>\n<h2>Heightening Spells</h2>\n<p>When you get spell slots of 2nd rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. Many spells have specific improvements when they are heightened to certain ranks.</p>\n<h2>Cantrips</h2>\n<p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is always automatically heightened to half your level rounded up—this is usually equal to the highest rank of druid spell slot you have. For example, as a 1st-level druid, your cantrips are 1st-rank spells, and a 5th-level druid's are 3rd rank.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "druid-spellcasting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gfJpEvYKoOrWNDOX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "1lL133CCEPnSH4bP",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+            "name": "Shield Block",
+            "sort": 400,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+                    }
+                ],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion",
+                        "druid",
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "95SzMhrCfxJyjsI0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.RiAGlnnp4S21BAG3"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/druidic-language.webp",
+            "name": "Wildsong",
+            "sort": 500,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You know the Wildsong, a secret language known only within druid orders, in addition to any languages you know through your ancestry. The Wildsong is a melodic and tonal language sounding more like animal calls than a spoken tongue, and its alphabet involves fractals and spirals, like the arrangement of a seashell's chambers, a snowflake's crystals, or a fern's fronds. Teaching the Wildsong to non-druids is anathema.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "wildsong",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "wildsong"
+                        ],
+                        "slots": 0
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "TGpNO2Y19FjpcDtw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.f2Pl5dWEL9ZvEyI1"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "46JZwcq7xwy5qeBn",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Animal Companion",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You gain the service of a young animal companion that travels with you on your adventures and obeys any simple commands you give it to the best of its abilities.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "animal order"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "animal-companion",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "46JZwcq7xwy5qeBn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.POBvoXifa9HaejAg"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "IjwlFkizXw5HtsCP",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "animalCompanion": {
+                            "id": "TGpNO2Y19FjpcDtw",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/creatures/abilities/bear-roar-bite-brown-green.webp",
+            "name": "Animal Order",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have a strong connection to beasts, always feeling like you understood them (and they you) better than your own people. You stand for the animals of nature, a powerful animal companion at your side.</p>\n<p><strong>Order Skill</strong> Athletics</p>\n<p><strong>Druid Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Animal Companion]</p>\n<p><strong>Order Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Heal Animal]</p>\n<p><strong>Anathema</strong> Commit wanton cruelty to animals or kill animals unnecessarily. (This doesn't prevent you from defending yourself against animals or killing them cleanly for food).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.ath.rank",
+                        "predicate": [
+                            {
+                                "not": "feat:order-explorer:animal-order"
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "flag": "animalCompanion",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:druid"
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Animal Companion"
+                    }
+                ],
+                "slug": "animal-order",
+                "traits": {
+                    "otherTags": [
+                        "druid-order"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "IBxDWkih5wBuGdTb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.cg816q76S5otM7yD"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "jRXmfKJ2RcetRMTy",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Animal Empathy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You have a connection to the creatures of the natural world that allows you to communicate with them on a rudimentary level. You can ask questions of, receive answers from, and use the Diplomacy skill with animals. In most cases, wild animals will give you time to make your case.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "animal-empathy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "druid"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "1lL133CCEPnSH4bP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "gfJpEvYKoOrWNDOX",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "hgGOEdg6VCRt8sez",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Forest Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 2
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "mOZzkXG2oRlQrxZI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.mxhGH4FVYXJwb0BC"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "additionalLore": {
+                            "id": "xxGszgs7ZdnGCi2l",
+                            "onDelete": "detach"
+                        },
+                        "assurance": {
+                            "id": "BCB35DORyS650GHi",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Gnome Obsession",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You might have a flighty nature, but when a topic captures your attention, you dive into it headfirst. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] feat and the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] feat for the chosen Lore. As gnome obsessions can come and go quickly, you can retrain Gnome Obsession to a different Lore subcategory in 1 day of downtime.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "additionalLore",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+                    },
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "lore"
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    }
+                ],
+                "slug": "gnome-obsession",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gnome"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xxGszgs7ZdnGCi2l",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BocFD2KV0qgUC76x"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "mOZzkXG2oRlQrxZI",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Additional Lore",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your knowledge has expanded to encompass a new field. Choose a Lore skill subcategory. You become trained in it. At 3rd, 7th, and 15th levels, you gain an additional skill increase you can apply only to the chosen Lore subcategory.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you must select a new subcategory of Lore and you gain the additional skill increases to that subcategory for the listed levels.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "additional-lore",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "BCB35DORyS650GHi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "mOZzkXG2oRlQrxZI",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Forest Lore)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SkillAcr",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.SkillArc",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.SkillAth",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.SkillCra",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.SkillDec",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.SkillDip",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.SkillItm",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.SkillMed",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.SkillNat",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.SkillOcc",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.SkillPrf",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.SkillRel",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.SkillSoc",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.SkillSte",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.SkillSur",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.SkillThi",
+                                "value": "thievery"
+                            },
+                            {
+                                "label": "PF2E.SkillLore",
+                                "value": "lore"
+                            }
+                        ],
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "lore"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "qLZBA8GSC3u7qGqq",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Focus Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "wis"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "UY1oZKxzj9wFiqBI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.Zmh4ynfnCtwKeAYl"
+                }
+            },
+            "img": "icons/creatures/mammals/rabbit-movement-glowing-green.webp",
+            "name": "Heal Animal",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d8",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You heal an animal's wounds, restoring 1d8 Hit Points to the target. The number of actions spent Casting this Spell determines its effect.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet and restores an additional 8 Hit Points to the target.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d8, and the additional healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "qLZBA8GSC3u7qGqq"
+                },
+                "overlays": {
+                    "b1ms5uwp9vwblhkq": {
+                        "_id": "b1ms5uwp9vwblhkq",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "formula": "1d8+8"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "time": {
+                                "value": "2"
+                            },
+                            "traits": {
+                                "traditions": [],
+                                "value": [
+                                    "concentrate",
+                                    "druid",
+                                    "focus",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    },
+                    "md8ss7iwxhth4y5f": {
+                        "_id": "md8ss7iwxhth4y5f",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "defense": null,
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "heal-animal",
+                "target": {
+                    "value": "1 willing living animal"
+                },
+                "time": {
+                    "value": "1 or 2"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "druid",
+                        "focus",
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "kcYTHv4cf4ZrVSeC",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Primal Prepared Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "wis"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "flexible": false,
+                    "value": "prepared"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot0": {
+                        "max": 5,
+                        "prepared": [
+                            {
+                                "id": "CdaWctKTTWYj5PZY"
+                            },
+                            {
+                                "id": "6RTMjMhEQQ6DcRup"
+                            },
+                            {
+                                "id": "5sgCGsl1pZWvJt8H"
+                            },
+                            {
+                                "id": "dmWmH3pzh5W4WN3q"
+                            },
+                            {
+                                "id": "w2czRPcqHZrqGoRT"
+                            }
+                        ]
+                    },
+                    "slot1": {
+                        "max": 3,
+                        "prepared": [
+                            {
+                                "expended": false,
+                                "id": "RORu2itGSnuNLevy"
+                            },
+                            {
+                                "expended": false,
+                                "id": "KW3iNcXfWCgDNEmX"
+                            },
+                            {
+                                "expended": false,
+                                "id": "vGyecjcp2k4kGVEt"
+                            }
+                        ]
+                    },
+                    "slot2": {
+                        "max": 2,
+                        "prepared": [
+                            {
+                                "expended": false,
+                                "id": "eXRCFWDYmYxFMi8i"
+                            },
+                            {
+                                "expended": false,
+                                "id": "zl0zHqqOBPOJuleD"
+                            }
+                        ]
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "primal"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "CdaWctKTTWYj5PZY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.gpzpAAAJ1Lza2JVl"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies. You detect illusion magic only if that magic's effect has a lower rank than the rank of your <em>detect magic</em> spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an @UUID[Compendium.pf2e.equipment-srd.Item.Invisibility Potion]) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the rank or level of the most powerful magical effect the spell detects, as determined by the GM.</p>\n<p><strong>Heightened (4th)</strong> As 3rd rank, but you also pinpoint the source of the highest-rank magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "detect-magic",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "detection",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "6RTMjMhEQQ6DcRup",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.kBhaPuzLUSwS6vVf"
+                }
+            },
+            "img": "icons/magic/lightning/bolt-strike-forked-blue.webp",
+            "name": "Electric Arc",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An arc of lightning leaps from one target to another. Each target takes 2d4 electricity damage with a basic Reflex save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "electric-arc",
+                "target": {
+                    "value": "1 or 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "electricity",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "5sgCGsl1pZWvJt8H",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.6DfLZBl8wKIV03Iq"
+                }
+            },
+            "img": "icons/magic/fire/flame-burning-earth-orange.webp",
+            "name": "Ignition",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "cQDyW0QpjJ38MlSi": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You snap your fingers and point at a target, which begins to smolder. Make a spell attack roll against the target's AC, dealing 2d4 fire damage on a hit. If the target is within your melee reach, you can choose to make a melee spell attack with the flame instead of a ranged spell attack, which increases all the spell's damage dice to d6s.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d4 and the persistent fire damage on a critical hit increases by 1d4.</p>\n<p>[[/r (@item.level)d4[persistent,fire]]]{Leveled Persistent Fire Damage}</p>\n<p>[[/r (@item.level)d6[persistent,fire]]]{Leveled Persistent Fire Damage (Melee)}</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "cQDyW0QpjJ38MlSi": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "overlays": {
+                    "eOCNn2ohYAvsYZjn": {
+                        "_id": "eOCNn2ohYAvsYZjn",
+                        "img": "icons/magic/fire/flame-burning-earth-orange.webp",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    },
+                    "xYyA7CV1GaFTRjBQ": {
+                        "_id": "xYyA7CV1GaFTRjBQ",
+                        "name": "Ignition (Melee)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "cQDyW0QpjJ38MlSi": {
+                                    "formula": "2d6"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "cQDyW0QpjJ38MlSi": "1d6"
+                                }
+                            },
+                            "range": {
+                                "value": "melee reach"
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "ignition",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "fire",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "dmWmH3pzh5W4WN3q",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg"
+                }
+            },
+            "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
+            "name": "Stabilize",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Life energy shuts death's door. The target loses the @UUID[Compendium.pf2e.conditionitems.Item.Dying] condition, though it remains @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] at 0 Hit Points.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "stabilize",
+                "target": {
+                    "value": "1 dying creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "w2czRPcqHZrqGoRT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.uZK2BYzPnxUBnDjr"
+                }
+            },
+            "img": "icons/magic/nature/root-vine-entangled-hand.webp",
+            "name": "Tangle Vine",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>A vine appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack roll against the target.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Tangle Vine]</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition and takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to remove the penalty and the immobilized condition.</p>\n<p><strong>Success</strong> The target takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "tangle-vine",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "plant",
+                        "wood"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "RORu2itGSnuNLevy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "icons/magic/life/cross-worn-green.webp",
+            "name": "Heal",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d8",
+                        "kinds": [
+                            "damage",
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "vitality"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel vital energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(concentrate)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(concentrate)</strong> You disperse vital energy in a @Template[type:emanation|distance:30]. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "formula": "1d8+8",
+                                    "kinds": [
+                                        "healing"
+                                    ]
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "time": {
+                                "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "area": {
+                                "type": "emanation",
+                                "value": 30
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "kinds": [
+                                        "damage"
+                                    ]
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            },
+                            "traits": {
+                                "value": [
+                                    "concentrate",
+                                    "healing",
+                                    "manipulate",
+                                    "vitality"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "heal",
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "healing",
+                        "manipulate",
+                        "vitality"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "vGyecjcp2k4kGVEt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.EE7Q5BHIrfWNCPtT"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/magic-fang.webp",
+            "name": "Runic Body",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Glowing runes appear on the target's body. All its unarmed attacks become <em>+1 striking</em> unarmed attacks, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The unarmed attacks are <em>+2 greater striking</em>.</p>\n<p><strong>Heightened (9th)</strong> The unarmed attacks are <em>+3 major striking</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Runic Body]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "runic-body",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "BuP9fbZi4lhW9vhN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+                }
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "wttyAqSxYZs9mdSv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "rErHfSH1TJJXdJtM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "XSbgmS6jLCCJdFSO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "9UDDh7CNmcLcvKN9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "i6NJCM5LOkRjFVSf",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "pLYuHl0V8yZ0pQ5n",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+                }
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "wtdBDUCs2hlNYzF3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+            "name": "Bedroll",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "RbR0segBBSgtigMm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+                }
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "tixkH3ELjhr1visq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.1k3AsSW7lpU0kEpY"
+                }
+            },
+            "img": "icons/equipment/shield/buckler-wooden-boss-brown.webp",
+            "name": "Buckler",
+            "sort": 0,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "buckler",
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>6</td>\n<td>3</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "equipped": {
+                    "carryType": "held",
+                    "handsHeld": 1,
+                    "invested": null
+                },
+                "hardness": 3,
+                "hp": {
+                    "max": 6,
+                    "value": 6
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "reinforcing": 0
+                },
+                "size": "med",
+                "slug": "buckler",
+                "speedPenalty": 0,
+                "traits": {
+                    "integrated": null,
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "shield"
+        },
+        {
+            "_id": "IB1vQjHzrtrFG0oL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ktjFOp3U0wQD9t0Z"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+            "name": "Antidote (Lesser)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Antidote (Lesser)]</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "antidote-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "6UiQJhzoWLgmzNWg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+                }
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "wOQCPi4GTI8NJIQS",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.MKSeXwUm56c15MZa"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sling-bullets.webp",
+            "name": "Sling Bullets",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "sling-bullets",
+                "stackGroup": "slingBullets",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Jrr3ZVUu48SDn8Zx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+                }
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Padded Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "6Phttf1YEHz4n1jB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UCH4myuFnokGv0vF"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sling.webp",
+            "name": "Sling",
+            "sort": 0,
+            "system": {
+                "baseItem": "sling",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>Little more than a leather cup attached to a pair of straps, a sling can be used to fling smooth stones or sling bullets at a range.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sling",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {}
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 50,
+                "reload": {
+                    "value": "1"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sling",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "propulsive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "Y7iVRrgeWk93tXdZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ynnBwzkzsR6B73iO"
+                }
+            },
+            "img": "icons/tools/hand/sickle-steel-grey.webp",
+            "name": "Sickle",
+            "sort": 0,
+            "system": {
+                "baseItem": "sickle",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>Originally a farming tool used for reaping grain, this one-handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "sickle",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "EK6d1ke7fHaanmNn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.s1vB3HdXjMigYAnY"
+                }
+            },
+            "img": "icons/containers/bags/pouch-gold-green.webp",
+            "name": "Healer's Toolkit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>This kit of bandages, herbs, and suturing tools is necessary for Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Administer First Aid], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease], @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison], or @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. If you wear your healer's toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healers-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "kTHelUzFuJwJ2HLy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
+                }
+            },
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "perception-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "L4L5O2I7hiYOXZni",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.F57Na5VxfBp56kke"
+                }
+            },
+            "img": "icons/magic/life/cross-explosion-burst-green.webp",
+            "name": "Fortitude Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p><strong>Bard</strong> Your physique has grown hardy in your adventures. Your proficiency rank for Fortitude saves increases to expert.</p>\n<hr />\n<p><strong>Druid</strong> Adventures have made your physique more hardy. Your proficiency rank for Fortitude saves increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "UCrSBn5l4OSJs6p6",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "fortitude-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "buLGZOdtgND93RWo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BWomK7EVY0WXxWgh"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Reach Spell",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reach-spell",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard",
+                        "cleric",
+                        "concentrate",
+                        "druid",
+                        "oracle",
+                        "sorcerer",
+                        "spellshape",
+                        "witch",
+                        "wizard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "qgoGUlU5Rwf3OS87",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.tGIXuk0XeWmG04CX"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Survey Wildlife",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can study details in the wilderness to determine the presence of nearby creatures. You can spend 10 minutes assessing the area around you to find out what creatures are nearby, based on nests, scat, and marks on vegetation. Attempt a Survival check against a DC determined by the GM based on how obvious the signs are. On a success, you can attempt a Recall Knowledge check with a –2 penalty to learn more about the creatures just from these signs. If you're a master in Survival, you don't take the penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Survival"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "survey-wildlife",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "rYeS72lcD8h3KtWX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughness",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FhEMSV7X2V2Ggyu8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
+            "name": "Repair Toolkit",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": "BuP9fbZi4lhW9vhN",
+                "description": {
+                    "value": "<p>A repair kit allows you to perform simple repairs while traveling. It contains a portable anvil, tongs, woodworking tools, a whetstone, and oils for conditioning leather and wood. You can use a repair kit to Repair items using the Crafting skill. You can draw and replace a worn repair toolkit as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "repair-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "5HnGEKaRau7FzgzZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 12,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "piwDhUiPzlME2A7B",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "KW3iNcXfWCgDNEmX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.dINQzhqGmIsqGMUY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/mending.webp",
+            "name": "Mending",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "levels": {
+                        "2": {
+                            "target": {
+                                "value": "non-magical object of 1 Bulk or less"
+                            }
+                        },
+                        "3": {
+                            "target": {
+                                "value": "non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "mending",
+                "target": {
+                    "value": "non-magical object of light Bulk or less"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "eXRCFWDYmYxFMi8i",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.9h9YCncqah6VNsKf"
+                }
+            },
+            "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+            "name": "Acid Grip",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "YBeTuItHduzXElD5": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>An ephemeral, taloned hand grips the target, burning it with magical acid. The target takes 2d8 acid damage plus @Damage[floor(@item.level/2)d6[persistent,acid]] damage depending on its Reflex save. A creature taking persistent damage from this spell takes a –10-foot status bonus to its Speeds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and no persistent damage, and the claw moves it up to 5 feet in a direction of your choice.</p>\n<p><strong>Failure</strong> The creature takes full damage and persistent damage, and the claw moves it up to 10 feet in a direction of your choice.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and full persistent damage, and the claw moves it up to 20 feet in a direction of your choice.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "YBeTuItHduzXElD5": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "acid-grip",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "acid",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zl0zHqqOBPOJuleD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.YWrfKetOqDwVFut7"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/barkskin.webp",
+            "name": "Oaken Resilience",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The target's skin becomes tough, with a consistency like bark or wood. The target gains resistance 2 to bludgeoning and piercing damage and weakness 3 to fire. After the target takes fire damage, it can Dismiss the spell as a free action triggered by taking the damage; doing so doesn't reduce the fire damage the target was dealt.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Oaken Resilience]</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistances increase by 2, and the weakness increases by 3.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "10 minutes"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "kcYTHv4cf4ZrVSeC"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "oaken-resilience",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "plant",
+                        "wood"
+                    ]
+                }
+            },
+            "type": "spell"
+        }
+    ],
+    "name": "Lini (Level 3)",
+    "prototypeToken": {
+        "name": "Lini",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Lini.webp"
+        }
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 41
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "wis",
+                        "dex",
+                        "con",
+                        "cha"
+                    ]
+                }
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "customModifiers": {},
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "<p>In her many explorations and journeys, Lini encountered numerous large animal predators, with whom she seemed to possess a certain affinity. More than once, Lini's traveling companions or enclave came under threat from some great bear or razor-clawed cat, but with a series of soothing noises and precise motions Lini always tamed the beast and sent it on its way.</p>\n<p>Lini's success at calming animals came to an end one day when a snow leopard bound out of the trees and pinned her to the ground before she could react. Her friends scattered, leaving Lini alone to face the beast. Although fascinated by the cat's power and speed, and appreciative of the animal's beauty, Lini trembled under her massive paw and tears leaked from her eyes. She knew she faced her doom, and she found it cruelly ironic how death came to claim her.</p>\n<p>Yet the leopard did not strike.</p>\n<p>\"Your friends have abandoned you,\" a calm feminine voice intoned out of Lini's sight. \"Despite the times you saved them, they left you to die.\" Although Lini could not see the woman, Lini knew of the Norn of the forest and suspected she was one of them.</p>\n<p>\"Please help me,\" Lini whispered, her chest struggling to rise under the great cat's crushing paw.</p>\n<p>\"You do not need my help, little one. You need hers.\"</p>\n<p>Lini looked at the snow leopard, deep into her eyes. She saw neither hunger or malice. Still struggling just to breathe, Lini stared into the great cat's eyes and asked, \"Will you help me?\"</p>\n<p>Inexplicably, the snow leopard lifted her paw from Lini's chest. A coughing fit then overcame the small gnome, and when she finally recovered she looked around her. The snow leopard was gone and Lini saw no sign of the Norn. She looked around frantically, suddenly alone and scared. A small gnome in a large world.</p>\n<p>\"Come back,\" Lini cried. \"Don't go! Please don't go. Don't leave me alone.\" She sank to her knees, tears afresh on her face, until she heard the sound of approaching footsteps.</p>\n<p>The snow leopard had returned. With the delicateness of a mother tending to her cubs, the great cat licked gently at Lini's face, whisking away her tears. Lini threw her arms around the leopard's neck. \"You are my friend, aren't you? I will call you Droogami. That is what we call good friends.\"</p>\n<p>Lini looked down then and picked up a stick from the forest floor before clambering up the cat's side to perch on its back.</p>\n<p>\"Let us go, then, Droogami. We have no need for this place.\"</p>\n<p>In the years since her departure from the Lands of the Linnorm Kings, Lini has collected more than a dozen sticks—one from each forest or wood she visits. In her resting time after long days of travel, she sits at Droogami's side and peels the bark from the sticks, smoothing and polishing them incessantly.</p>",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "deity": {
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
+                "value": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "F/She/Her"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "fame": 0,
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": 0,
+                "GA": 0,
+                "HH": 0,
+                "RO": 0,
+                "VS": 0,
+                "VW": 0
+            },
+            "school": "none"
+        },
+        "resources": {
+            "focus": {
+                "value": 1
+            },
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {},
+        "skills": {
+            "acr": {
+                "rank": 0
+            },
+            "arc": {
+                "rank": 0
+            },
+            "ath": {
+                "rank": 0
+            },
+            "cra": {
+                "rank": 0
+            },
+            "dec": {
+                "rank": 0
+            },
+            "dip": {
+                "rank": 1
+            },
+            "itm": {
+                "rank": 0
+            },
+            "med": {
+                "rank": 0
+            },
+            "nat": {
+                "rank": 2
+            },
+            "occ": {
+                "rank": 0
+            },
+            "prf": {
+                "rank": 0
+            },
+            "rel": {
+                "rank": 0
+            },
+            "soc": {
+                "rank": 0
+            },
+            "ste": {
+                "rank": 1
+            },
+            "sur": {
+                "rank": 1
+            },
+            "thi": {
+                "rank": 0
+            }
+        }
+    },
+    "type": "character"
+}

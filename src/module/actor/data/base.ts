@@ -207,7 +207,7 @@ interface TraitViewData {
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
     /** The description of the trait */
-    description?: string;
+    description: string | null;
 }
 
 /** An strike which a character can use. */
@@ -228,8 +228,13 @@ interface StrikeData extends StatisticModifier {
     traits: TraitViewData[];
     /** Any options always applied to this strike */
     options: string[];
-    /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
+    /**
+     * Whether the strike and its auxiliary actions are available (usually when the weapon corresponding with the
+     * strike is equipped)
+     */
     ready: boolean;
+    /** Whether striking itself, independent of the auxiliary actions, is possible */
+    canStrike: boolean;
     /** Alias for `attack`. */
     roll?: RollFunction<AttackRollParams>;
     /** Roll to attack with the given strike (with no MAP; see `variants` for MAPs.) */

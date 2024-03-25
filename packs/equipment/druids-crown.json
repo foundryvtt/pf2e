@@ -34,7 +34,35 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.druidCrownType}",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "druid-crown-type",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DruidsCrown.AntlersLabel",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DruidsCrown.FlowersLabel",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.DruidsCrown.LeavesLabel",
+                        "value": "stealth"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

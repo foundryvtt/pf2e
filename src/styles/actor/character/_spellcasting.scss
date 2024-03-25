@@ -1,10 +1,39 @@
 &.spellcasting {
+    padding: 0;
+    overflow-y: hidden;
+    scrollbar-gutter: initial;
+
+    nav.spell-collections a.rituals {
+        flex-basis: 20%;
+    }
+
+    .spell-collections {
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        padding: var(--space-8) var(--space-4) 0;
+
+        ul.option-toggles {
+            margin: var(--space-4) var(--space-4) 0;
+        }
+
+        > .tab {
+            padding: var(--space-10) 0 0;
+
+            &:first-child {
+                padding-top: 0;
+            }
+
+            > ol {
+                gap: var(--space-12);
+            }
+        }
+    }
+
     .spellcasting-entry {
         align-items: center;
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 0.25em;
-        padding-bottom: 1em;
 
         &:first-child {
             .action-header {
@@ -34,7 +63,7 @@
             display: flex;
             flex: 1;
             gap: 1rem;
-            margin: 0.5em 0.25rem;
+            margin: 0.5em var(--space-4);
 
             section {
                 display: flex;
@@ -58,11 +87,11 @@
 
             .statistic-values {
                 display: flex;
-                gap: 0.5rem;
+                gap: var(--space-8);
 
                 .skill-data {
                     display: flex;
-                    gap: 0.25rem;
+                    gap: var(--space-4);
                     white-space: nowrap;
                 }
 
@@ -79,16 +108,17 @@
                 cursor: pointer;
                 gap: 0.25em;
                 position: relative;
+
                 img.pool-size {
                     border: none;
-                    width: 34px;
-                    height: 32px;
+                    height: 2rem;
+                    width: 2.125rem;
                 }
 
                 .pips {
                     display: flex;
                     font-size: var(--font-size-10);
-                    gap: 1px;
+                    gap: var(--space-1);
 
                     i {
                         padding-bottom: 0.08rem;
@@ -111,31 +141,18 @@
             }
 
             .pf-rank {
-                margin-bottom: 0.13rem;
+                margin-bottom: var(--space-2);
             }
         }
     }
 
     .spellbook-empty {
-        margin: 0.5rem 0;
-    }
-
-    .pf-add-item-row {
-        grid-column: span 4;
-        text-align: center;
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-
-        a {
-            width: 100%;
-            margin-bottom: 12px;
-        }
+        margin: var(--space-8) 0;
     }
 
     button.create-entry {
-        font-family: var(--serif);
-        font-size: var(--font-size-14);
-        margin: 1rem 0;
+        font: 500 var(--font-size-14) var(--serif);
+        margin: 1rem 0 1.25rem;
+        width: 100%;
     }
 }

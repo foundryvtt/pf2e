@@ -1,7 +1,7 @@
 import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -478,6 +478,25 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 },
             });
         }
+    }
+
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+
+        handlers["create-feat"] = () => {
+            this.actor.createEmbeddedDocuments("Item", [
+                {
+                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    type: "campaignFeature",
+                    system: {
+                        campaign: "kingmaker",
+                        category: "kingdom-feat",
+                    },
+                },
+            ]);
+        };
+
+        return handlers;
     }
 
     /** Activate sheet events for a signle settlement */

@@ -26,10 +26,31 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elements",
+                "priority": 19,
+                "value": []
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate",
+                "priority": 49,
+                "value": {
+                    "five": null,
+                    "four": null,
+                    "one": null,
+                    "six": null,
+                    "three": null,
+                    "two": null
+                }
+            },
+            {
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate",
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate.Label",
                         "value": "dual-gate"
                     },
                     {
@@ -42,101 +63,39 @@
                 "rollOption": "kinetic-gate:initial"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "value": "wood"
-                    }
-                ],
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
+                },
                 "flag": "elementOne",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
-                "rollOption": "kinetic-gate"
+                "rollOption": "kinetic-gate:first-element"
             },
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:air"
-                            }
-                        ],
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:earth"
-                            }
-                        ],
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:fire"
-                            }
-                        ],
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:metal"
-                            }
-                        ],
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:water"
-                            }
-                        ],
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "predicate": [
-                            {
-                                "not": "kinetic-gate:wood"
-                            }
-                        ],
-                        "value": "wood"
-                    }
-                ],
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementOne}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
+                },
                 "flag": "elementTwo",
                 "key": "ChoiceSet",
                 "predicate": [
                     "kinetic-gate:initial:dual-gate"
                 ],
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
-                "rollOption": "kinetic-gate"
+                "rollOption": "kinetic-gate:second-element"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementTwo}"
             },
             {
                 "domain": "all",
@@ -145,61 +104,6 @@
                 "predicate": [
                     "kinetic-gate:initial:single-gate"
                 ]
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "filter": [
-                        "item:rarity:common",
-                        "item:level:1",
-                        "item:trait:impulse",
-                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}"
-                    ],
-                    "itemType": "feat"
-                },
-                "flag": "impulseOne",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "filter": [
-                        "item:rarity:common",
-                        "item:level:1",
-                        "item:trait:impulse",
-                        {
-                            "or": [
-                                {
-                                    "and": [
-                                        "item:trait:{item|flags.pf2e.rulesSelections.elementOne}",
-                                        "kinetic-gate:initial:single-gate"
-                                    ]
-                                },
-                                {
-                                    "and": [
-                                        "item:trait:{item|flags.pf2e.rulesSelections.elementTwo}",
-                                        "kinetic-gate:initial:dual-gate"
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "itemType": "feat"
-                },
-                "flag": "impulseTwo",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
             }
         ],
         "traits": {

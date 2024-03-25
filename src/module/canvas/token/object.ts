@@ -106,7 +106,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking highlight) */
     canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
-        if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
+        const settingDisabled = !game.pf2e.settings.automation.flanking;
+        const oneIsGMHidden = this.document.hidden || flankee.document.hidden;
+        if (settingDisabled || oneIsGMHidden || this === flankee) {
             return false;
         }
 
@@ -195,9 +197,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
         if (!this.canFlank(flankee, context)) return [];
-
+        const ignoreFlankable = !!context.ignoreFlankable;
         return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
+            .filter((t) => t !== this && t.canFlank(flankee, { ignoreFlankable }))
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
@@ -339,12 +341,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
+        if (!this.hasSight || !this.document.parent?.tokenVision) return false;
+
         // If GM vision is enabled, making nothing a vision source will allow the user to see everything
         if (game.pf2e.settings.gmVision && game.user.isGM) return false;
 
         const partyVisionEnabled =
             game.pf2e.settings.metagame.partyVision && !!this.actor?.hasPlayerOwner && !game.user.isGM;
-        return partyVisionEnabled || super._isVisionSource();
+        const controllingAsObserver = this.controlled && this.observer;
+
+        return partyVisionEnabled || controllingAsObserver || (!this.controlled && super._isVisionSource());
     }
 
     /** Include actor overrides in the clone if it is a preview */

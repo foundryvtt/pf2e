@@ -1,14 +1,11 @@
-.default section.window-content {
-    padding: 0;
-    overflow: hidden;
-}
-
 @import "character/attribute-builder";
 @import "iwr-editor";
 
-.actor.sheet .window-content {
+.actor.sheet section.window-content {
     @import "../reset";
     font-family: var(--sans-serif);
+    overflow: hidden;
+    padding: 0;
 
     h1,
     h2,
@@ -23,6 +20,10 @@
         &:hover {
             text-shadow: none;
         }
+    }
+
+    .drag-handle {
+        cursor: hand;
     }
 
     i.fa-info-circle {
@@ -161,9 +162,7 @@
             text-shadow: 0 0 0.1em var(--text-light);
         }
     }
-}
 
-.actor.sheet {
     form.crb-style {
         display: grid;
         grid:
@@ -196,7 +195,6 @@
 
         .sheet-navigation {
             grid-area: nav;
-            margin-left: calc(-1 * var(--space-2));
         }
 
         .sheet-body {
@@ -222,7 +220,7 @@
                 color: var(--text-dark);
 
                 > .tab {
-                    padding: 0.6rem 0.6rem 0;
+                    padding: var(--space-10) var(--space-10) 0;
                     display: none;
 
                     &.active {
@@ -243,6 +241,7 @@
                     > li {
                         align-items: center;
                         display: flex;
+                        height: 1.5rem;
                         width: 100%;
 
                         label {
@@ -250,8 +249,10 @@
                             display: flex;
                             gap: var(--space-4);
 
-                            input {
-                                @include p-reset;
+                            input[type="checkbox"] {
+                                height: 1.125rem;
+                                margin: 0;
+                                padding: 0;
                             }
 
                             .unchecked-disabled {
@@ -268,10 +269,10 @@
                 .directory-list {
                     > h3,
                     > li > h3 {
-                        @include p-reset;
                         color: var(--text-light);
                         font: 500 var(--font-size-16) / 1 var(--serif);
-                        margin-left: var(--space-8);
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
                     }
 
                     .action-header {
@@ -301,10 +302,10 @@
                         }
 
                         .drag-handle {
-                            cursor: move;
                             color: var(--text-light);
                             flex-basis: 0;
                             margin-right: 0.25em;
+
                             i {
                                 padding-top: 0.25em;
                             }
@@ -448,7 +449,16 @@
         }
     }
 
-    &.character {
+    /* Mystification data revealed to GMs */
+    .gm-mystified-data {
+        opacity: 0.75;
+    }
+
+    @import "coinage";
+}
+
+.actor.sheet {
+    &.character section.window-content {
         @import "character/attack-popout";
 
         .crb-style {
@@ -462,7 +472,6 @@
 }
 
 @import "spell-preparation";
-@import "coinage";
 
 /* Actor-type Imports */
 @import "familiar";
@@ -476,8 +485,3 @@
 @import "party";
 
 @import "army";
-
-/* Mystification data revealed to GMs */
-.gm-mystified-data {
-    opacity: 0.75;
-}

@@ -1,0 +1,132 @@
+{
+    "_id": "jVDSXbfq0ukHeSkK",
+    "img": "systems/pf2e/icons/equipment/weapons/starknife.webp",
+    "name": "Monarch",
+    "system": {
+        "baseItem": "starknife",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d4"
+        },
+        "description": {
+            "gm": "<p><strong>Aspects</strong> air, celestial</p>\n<hr />\n<p><em>Monarch</em> is an ancient starknife, once wielded by a priest of the Desnan sect known as the Order of the Starless Night, an organization devoted to protecting Golarion from the horrors of the Dark Tapestry. The weapon is made of low-grade silver, and its blades gleam with soft light, equivalent to that of a candle (the glow can be extinguished or activated by the weapon's carrier by activating <em>Monarch</em> as an envision action). The blades bear etchings of monarch butterflies in flight.</p>\n<p>When discovered in the Pit, <em>Monarch</em> functions as a +1 striking returning starknife that can't have additional property runes, as it's a specific item. <em>Monarch</em> deals an additional 1d6 untyped damage to creatures with the aberration trait, provided the creature isn't disguised as another creature.</p>\n<hr />\n<p><strong>Minor Gifts:</strong> @UUID[Compendium.pf2e.adventure-specific-actions.Item.Wind Barrier], @UUID[Compendium.pf2e.adventure-specific-actions.Item.Word of Faith]</p>\n<p><strong>Major Gifts:</strong> @UUID[Compendium.pf2e.adventure-specific-actions.Item.Propelling Winds], @UUID[Compendium.pf2e.adventure-specific-actions.Item.Righteous Call]</p>\n<p><strong>Grand Gift:</strong> @UUID[Compendium.pf2e.adventure-specific-actions.Item.Azata's Grace]</p>\n<p>While <em>Monarch</em> has no direct ties to the seven dooms that threaten Sandpoint, certain dangers in the Pit present specific opportunities to honor the weapon's ancient traditions by opposing forces from the darkest reaches of the Universe. In particular, the dero worshippers of Azathoth found in the Pit, as well as the Hollow Star, are elements the Order of the Starless Night would've worked hard to oppose, and the magic imbued into <em>Monarch</em> retains this thematic opposition.</p>\n<p>When the PCs first recover <em>Monarch</em>, one of its minor gifts becomes active as chosen from the above options by the first PC to handle the starknife. The second minor gift becomes active as soon as the party defeats the dero cultists of the Hollow Star. Its first major gift becomes active once the PCs defeat their first intellect devourer foes, likely those encountered at the Midnight Dawn encampment (area <strong>G7</strong>); the weapon's wielder chooses which of the two gifts become active. Note that this is likely to take place while the party is 8th level, rather than 9th level (as would be the norm for a relic's first major gift). Likewise, the relic's second major gift should become active just before this adventure's climactic battle so that the weapon's wielder can use it in the final battle. While <em>Monarch</em>'s grand gift won't become active during this adventure, this unique gift is presented here so that you can include its activation at a later date as you see fit.</p>\n<hr />\n<p><strong>Special</strong> Note: If you feel that introducing a relic upsets party balance, simply omit its gifts and have it be a unique magic starknife with the above activation.</p>",
+            "value": "<p><em>Monarch</em> functions as a <em>+1 striking returning starknife</em> that can't have additional property runes, as it's a specific item. <em>Monarch</em> deals an additional 1d6 untyped damage to creatures with the aberration trait, provided the creature isn't disguised as another creature.</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (envision, Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> <em>Monarch</em> must possess a major gift</p>\n<p><strong>Effect</strong> <em>Monarch</em> casts @UUID[Compendium.pf2e.spells-srd.Item.Dream Message] (heightened to 4th rank) to your specifications.</p>"
+        },
+        "group": "knife",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 6
+        },
+        "material": {
+            "grade": "low",
+            "type": "silver"
+        },
+        "price": {
+            "value": {}
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "damageType": "untyped",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:aberration"
+                ],
+                "selector": "{item|id}-damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.LitItem",
+                "option": "lit-monarch",
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lit-monarch"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "flame"
+                    },
+                    "color": "#9b7337",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [
+                "returning"
+            ],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": "low",
+                "type": "silver"
+            },
+            "runes": {
+                "potency": 1,
+                "property": [
+                    "returning"
+                ],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "agile",
+                "air",
+                "deadly-d6",
+                "divine",
+                "finesse",
+                "relic",
+                "thrown-20",
+                "versatile-s"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}

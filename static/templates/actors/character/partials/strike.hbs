@@ -20,7 +20,7 @@
 
             {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                 <!-- ATTACK/DAMAGE -->
-                {{#> attackDamage action}}{{/attackDamage}}
+                {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
             {{else if (and (not action.ready) (not action.handsAvailable))}}
                 <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
             {{/if}}
@@ -116,7 +116,7 @@
         {{#each variants as |variant index|}}
             <button type="button" class="tag tag_secondary variant-strike" data-action="strike-attack" data-variant-index="{{index}}"
                 {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
-                {{#if (eq ../quantity 0)}} disabled="disabled" data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
+                {{#if (eq ../quantity 0)}} disabled data-tooltip="{{localize "PF2E.ErrorMessage.WeaponQuantityZero"}}"{{/if}}
             >
                 {{#if (eq index 0)}}
                     <span class="name">{{localize "PF2E.WeaponStrikeLabel"}}</span>
@@ -132,17 +132,36 @@
             <button type="button" class="tag damage" data-action="strike-critical"
                 {{#if isAltUsage}}data-alt-usage="{{#if item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
             >{{localize "PF2E.CriticalDamageLabel"}}</button>
-            {{#if (and versatileOptions (not (eq item.altUsageType "thrown")))}}
-                <div class="versatile-options">
+
+            {{#if (or doubleBarrel versatileOptions)}}
+                <div class="toggles">
+                    {{#if doubleBarrel}}
+                        <button
+                            type="button"
+                            class="damage double-barrel color physical{{#if doubleBarrel.selected}} selected{{/if}}"
+                            data-action="toggle-weapon-trait"
+                            data-trait="double-barrel"
+                            data-tooltip="{{localize "PF2E.TraitDoubleBarrel"}}"
+                        >
+                            <span class="fa-stack fa-fw">
+                                <i class="fa-solid barrels fa-pause fa-rotate-90 fa-stack-1x icon"></i>
+                                <i class="fa-solid blast fa-explosion fa-rotate-90 fa-stack-1x icon"></i>
+                            </span>
+                        </button>
+
+                        {{#if versatileOptions}}<hr class="vr" />{{/if}}
+                    {{/if}}
+
                     {{#each versatileOptions as |option|}}
                         <button
                             type="button"
                             class="damage color {{option.value}}{{#if option.selected}} selected{{/if}}"
-                            data-tooltip="{{localize option.label}}"
-                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
                             value="{{option.value}}"
-                            data-action="toggle-versatile"
                             {{disabled option.selected}}
+                            {{#if ../isAltUsage}} data-alt-usage="{{#if ../item.isThrown}}thrown{{else}}melee{{/if}}"{{/if}}
+                            data-action="toggle-weapon-trait"
+                            data-trait="versatile"
+                            data-tooltip="{{localize option.label}}"
                         >
                             <i class="fa-solid fa-{{option.glyph}} fa-fw icon"></i>
                         </button>

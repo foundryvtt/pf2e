@@ -54,14 +54,11 @@ declare global {
         protected _prepareDetectionModes(): void;
 
         override clone(
-            data: DeepPartial<this["_source"]> | undefined,
-            options: { save: true; keepId?: boolean },
+            data: Record<string, unknown> | undefined,
+            context: DocumentCloneContext & { save: true },
         ): Promise<this>;
-        override clone(data?: DeepPartial<this["_source"]>, options?: { save?: false; keepId?: boolean }): this;
-        override clone(
-            data?: DeepPartial<this["_source"]>,
-            options?: { save?: boolean; keepId?: boolean },
-        ): this | Promise<this>;
+        override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
+        override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
 
         /**
          * Create a synthetic Actor using a provided Token instance

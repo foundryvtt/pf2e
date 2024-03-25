@@ -9,7 +9,7 @@ import type {
     StrictObjectField,
     StrictStringField,
 } from "@system/schema-data-fields.ts";
-import type { SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { RuleElementSchema, RuleElementSource } from "../data.ts";
 
 type ChoiceSetSchema = RuleElementSchema & {
@@ -39,6 +39,11 @@ type ChoiceSetSchema = RuleElementSchema & {
      * parent item's slug, falling back to name.
      */
     flag: StringField<string, string, false, false, false>;
+    /**
+     * Whether to propagate the flag to the actor: instead of `flags.pf2e.rulesSelections.${flag}`, it will take the
+     * form of `flags.pf2e.${flag}`.
+     */
+    actorFlag: BooleanField<boolean, boolean, false, false, true>;
     /** An optional roll option to be set from the selection */
     rollOption: StringField<string, string, false, true, true>;
     /** A predicate indicating valid dropped item selections */

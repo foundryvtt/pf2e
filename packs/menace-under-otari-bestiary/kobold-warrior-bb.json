@@ -255,45 +255,15 @@
             "type": "melee"
         },
         {
-            "_id": "lRYUK2abQpyhIlbv",
+            "_id": "8tPur0BcpKXkeGRe",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
             "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dF7ibA1On3Nvjxqk",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hurried Retreat",
-            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -312,15 +282,23 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
-                        "option": "hurried-retreat",
+                        "option": "scamper",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hurried-retreat"
+                            "scamper"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -329,7 +307,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -344,7 +321,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -391,7 +368,7 @@
             "_id": "cCIfhGVcyEox2Cbt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -408,7 +385,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -416,7 +394,7 @@
             "_id": "UedMQrrYjW7RxjuG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -444,6 +422,7 @@
                     }
                 ],
                 "slug": null,
+                "traits": {},
                 "variants": {
                     "0": {
                         "label": "+4 traps",
@@ -457,7 +436,7 @@
             "_id": "dZBkdmmYirMP7SOA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -474,7 +453,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -514,9 +494,9 @@
             },
             "hp": {
                 "details": "",
-                "max": 8,
+                "max": 7,
                 "temp": 0,
-                "value": 8
+                "value": 7
             },
             "speed": {
                 "otherSpeeds": [],
@@ -533,10 +513,10 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>A typical kobold trains with simple weaponry. Kobolds are capable of landing sneaky strikes against unsuspecting foes, but they're just as quick to scamper off to safety if their group wouldn't outnumber their enemies at least two to one.</p>\n<p>Kobolds believe in pragmatism, and a defeated kobold would rather surrender than face death. One might even abandon their kobold kin and concede to serve the victor if the alternative is an untimely demise.</p>",
+            "publicNotes": "<p>A typical kobold trains with simple weaponry. Kobolds are capable of landing sneaky strikes against unsuspecting foes, but they're just as quick to scamper off to safety if their group wouldn't outnumber their enemies by at least two to one.</p>\n<p>Kobolds believe in pragmatism, and a defeated kobold would rather surrender than face death. One might even abandon their kobold kin and concede to serve the victor if the alternative is an untimely demise.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -573,10 +553,8 @@
                 "value": "sm"
             },
             "value": [
-                "evil",
                 "humanoid",
-                "kobold",
-                "lawful"
+                "kobold"
             ]
         }
     },

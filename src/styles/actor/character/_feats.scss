@@ -3,7 +3,11 @@
         padding-bottom: 1em;
     }
 
-    li.feat-item {
+    ol.feats-list {
+        padding-left: 0;
+    }
+
+    ol.feats-list li.slot {
         align-items: center;
         display: grid;
         grid:
@@ -12,7 +16,7 @@
             / 1fr min-content;
         padding: var(--space-5) 0 var(--space-4);
         position: relative;
-        row-gap: var(--space-3);
+        row-gap: var(--space-2);
 
         &:nth-child(odd) {
             background-color: rgba($alt-color, 0.1);
@@ -83,7 +87,7 @@
 
         .item-summary {
             grid-area: content;
-            margin: 0 0 0 var(--space-2);
+            margin: var(--space-4) 0;
             padding: 0 var(--space-4);
 
             .tags {
@@ -108,17 +112,17 @@
             flex-basis: 100%;
             flex-direction: column;
             grid-column: span 2;
-            margin: 0 0 0 2.85rem;
+            margin: var(--space-1) 0 0 2.85rem;
             padding: 0;
+            row-gap: var(--space-4);
 
-            li {
+            > li {
                 align-items: center;
                 display: flex;
                 flex-wrap: wrap;
                 margin: 0;
                 padding-left: 0.875rem;
                 position: relative;
-                row-gap: var(--space-3);
 
                 .item-name {
                     margin: 0;
@@ -142,7 +146,7 @@
                 }
 
                 ol.nested-items {
-                    margin-left: calc(0.75rem - var(--space-1));
+                    margin: var(--space-3) 0 0 var(--space-11);
                 }
             }
         }

@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "prepared"
@@ -31,115 +30,68 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "EnzeIZIIDQUKABJc"
                             },
-                            "1": {
+                            {
                                 "id": "ba7ME5y7Q4N0kcGn"
                             },
-                            "2": {
+                            {
                                 "id": "7e6AcKgHuqUTmQ8s"
                             },
-                            "3": {
+                            {
                                 "id": "xopzylAHyTVcSmdo"
                             },
-                            "4": {
+                            {
                                 "id": "QTtxdQfCEdIlwxnV"
                             }
-                        },
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
+                        ]
                     },
                     "slot2": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "QXfvM6FrHEOhlDqg"
                             },
-                            "1": {
+                            {
                                 "id": "WYO8PLbig5DM9bF0"
                             },
-                            "2": {
+                            {
                                 "id": "AlwQQa9VMlKZZ4Lh"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot3": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "FDDK5dYYB01Ljwim"
                             },
-                            "1": {
+                            {
                                 "id": "BX852KpPN8Dw2rwi"
                             },
-                            "2": {
+                            {
                                 "id": "UuFoDG9budKm4wc0"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot4": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "27gvcHsNqsw223ci"
                             },
-                            "1": {
+                            {
                                 "id": "2CTzOS4TIZW9D020"
                             },
-                            "2": {
+                            {
                                 "id": "K0AoWoCzNwcAkbQr"
                             }
-                        },
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
+                        ]
                     }
                 },
                 "slug": null,
@@ -254,9 +206,14 @@
                         "type": "piercing"
                     }
                 },
-                "defense": null,
+                "defense": {
+                    "passive": {
+                        "statistic": "fortitude-dc"
+                    },
+                    "save": null
+                },
                 "description": {
-                    "value": "<p>You summon a slithering, thorny vine that attempts to constrict and crush a foe against a wall or other surface. Make a spell attack roll <strong>against the target's Fortitude DC</strong>. On a success, the creature is grabbed and takes 3d6 bludgeoning damage and 2d8 piercing damage. At the end of that creature's turn, if it's still grabbed by the vine, it takes @Damage[2d6[bludgeoning]] damage.</p>\n<p>The vine's Escape DC is equal to your spell DC. A creature can attack the vine in an attempt to break its grip. The vine's AC is equal to your spell DC, and the vine is destroyed if it takes 20 or more damage. Destroying or escaping from the vines ends the spell. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial bludgeoning damage increases by 1d6, the initial piercing damage increases by 1d8, and the damage a creature takes for ending its turn grabbed by the vine increases by @Damage[1d6[bludgeoning]].</p>"
+                    "value": "<p>You summon a slithering, thorny vine that attempts to constrict and crush a foe against a wall or other surface. Make a spell attack roll against the target's Fortitude DC. On a success, the creature is grabbed and takes 3d6 bludgeoning damage and 2d8 piercing damage. At the end of that creature's turn, if it's still grabbed by the vine, it takes @Damage[(floor(@item.level/2))d6[bludgeoning]] damage.</p>\n<p>The vine's Escape DC is equal to your spell DC. A creature can attack the vine in an attempt to break its grip. The vine's AC is equal to your spell DC, and the vine is destroyed if it takes 20 or more damage. Destroying or escaping from the vines ends the spell. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial bludgeoning damage increases by 1d6, the initial piercing damage increases by 1d8, and the damage a creature takes for ending its turn grabbed by the vine increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -278,8 +235,8 @@
                 },
                 "publication": {
                     "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
                 },
                 "range": {
                     "value": "60 feet"
@@ -302,7 +259,8 @@
                         "attack",
                         "concentrate",
                         "manipulate",
-                        "plant"
+                        "plant",
+                        "wood"
                     ]
                 }
             },
@@ -345,7 +303,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You bring forth a cloud of razor-sharp flower petals that thrash violently in the wind. A creature that enters the storm or starts its turn in the storm is sliced by the razor-sharp edges of the petals. It takes 2d10 slashing damage with a basic Reflex save. A creature can take damage from the petals only once per round. At the end of the duration, the storm calms and the petals fall harmlessly to the ground.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by [[/r 1d10]]{1d10}.</p>"
+                    "value": "<p>You bring forth a cloud of razor-sharp flower petals that thrash violently in the wind. A creature that enters the storm or starts its turn in the storm is sliced by the razor-sharp edges of the petals. It takes 2d10 slashing damage with a basic Reflex save. A creature can take damage from the petals only once per round. At the end of the duration, the storm calms and the petals fall harmlessly to the ground.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -366,8 +324,8 @@
                 },
                 "publication": {
                     "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Secrets of Magic"
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
                 },
                 "range": {
                     "value": "120 feet"
@@ -390,7 +348,8 @@
                         "air",
                         "concentrate",
                         "manipulate",
-                        "plant"
+                        "plant",
+                        "wood"
                     ]
                 }
             },

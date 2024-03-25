@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "spontaneous"
@@ -31,68 +30,41 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot2": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot3": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot4": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot5": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot6": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot7": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot8": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot9": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     }
                 },
@@ -207,7 +179,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You send the target a message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer. Your message is insidious and has the effect of <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>, with the message substituting for the spoken suggestion. On a successful save, the target is temporarily immune for 1 day, and on a critical success, the target is temporarily immune for 1 month. You can target a creature only if you have previously been in telepathic contact with it before, such as via the telepathy spell.</p>"
+                    "value": "<p>You send the target a message of 25 words or fewer, and it can respond immediately with its own message of 25 words or fewer. Your message is insidious and has the effect of @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], with the message substituting for the spoken suggestion. On a successful save, the target is temporarily immune for 1 day, and on a critical success, the target is temporarily immune for 1 month. You can target a creature only if you have previously been in telepathic contact with it before, such as via the telepathy spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -752,13 +724,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "16d6",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "force"
+                        "type": "spirit"
                     }
                 },
                 "defense": {
@@ -768,11 +741,18 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 spirit damage with a basic Fortitude save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 6
@@ -782,9 +762,9 @@
                     "value": "UBzBGEYk2sLnPlbQ"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -806,8 +786,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "force",
-                        "manipulate"
+                        "manipulate",
+                        "spirit"
                     ]
                 }
             },
@@ -2408,7 +2388,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>This wand features a carved dragon's head at its top and a polished metal sphere set in its midsection.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> Once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> at 7th rank.</p>\n<p>After you cast the spell, an additional missile or missiles are released from the wand at the start of each of your turns, as though you cast the 1-action version of <em>magic missile</em>. Choose targets each time. This lasts for 1 minute, until you're no longer wielding the wand, or until you try to activate the wand again.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of <em>magic missile</em> of the appropriate rank.</p>"
+                    "value": "<p>This wand features a carved dragon's head at its top and a polished metal sphere set in its midsection.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> Once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] at 7th rank.</p>\n<p>After you cast the spell, an additional missile or missiles are released from the wand at the start of each of your turns, as though you cast the 1-action version of <em>magic missile</em>. Choose targets each time. This lasts for 1 minute, until you're no longer wielding the wand, or until you try to activate the wand again.</p>\n<p><strong>Craft Requirements</strong> Supply a casting of <em>magic missile</em> of the appropriate rank.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2473,7 +2453,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Force]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Wall of Force]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -2688,41 +2668,6 @@
             "type": "melee"
         },
         {
-            "_id": "onemB0KzXTHPiaTQ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 3900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "OrGqVpvK9Ri1osng",
             "flags": {
                 "core": {
@@ -2731,7 +2676,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Vitality",
-            "sort": 4000000,
+            "sort": 3900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2776,7 +2721,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 4100000,
+            "sort": 4000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2827,7 +2772,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 4200000,
+            "sort": 4100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2860,7 +2805,7 @@
             "_id": "vghi4lo4jsex6xvg",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Spellstealing Counter",
-            "sort": 4300000,
+            "sort": 4200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -2892,7 +2837,7 @@
             "_id": "xw3tnwsyuflmy8kr",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stored Items",
-            "sort": 4400000,
+            "sort": 4300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2927,7 +2872,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 4500000,
+            "sort": 4400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2964,7 +2909,7 @@
             "_id": "v3e78dwshaq5ch57",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consult the Text",
-            "sort": 4600000,
+            "sort": 4500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -3001,7 +2946,7 @@
             "_id": "a7w43julclvnfw63",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Drain Spell Tome",
-            "sort": 4700000,
+            "sort": 4600000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3031,7 +2976,7 @@
             "_id": "vlcr44dvupfosqoq",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Steady Spellcasting",
-            "sort": 4800000,
+            "sort": 4700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -3061,7 +3006,7 @@
             "_id": "pdt8bn3rsl7rxryb",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Summon Weapon",
-            "sort": 4900000,
+            "sort": 4800000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -3091,7 +3036,7 @@
             "_id": "anch7fwfgnz4kg6d",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 5000000,
+            "sort": 4900000,
             "system": {
                 "description": {
                     "value": ""
@@ -3116,7 +3061,7 @@
             "_id": "zl5zkuozrgn1ttrm",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 5100000,
+            "sort": 5000000,
             "system": {
                 "description": {
                     "value": ""
@@ -3147,7 +3092,7 @@
             "_id": "6nqilr25bncwnndu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 5200000,
+            "sort": 5100000,
             "system": {
                 "description": {
                     "value": ""
@@ -3172,7 +3117,7 @@
             "_id": "43z29nrvo8nfyhen",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 5300000,
+            "sort": 5200000,
             "system": {
                 "description": {
                     "value": ""
@@ -3197,7 +3142,7 @@
             "_id": "69fn6ae978oqgt0c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 5400000,
+            "sort": 5300000,
             "system": {
                 "description": {
                     "value": ""
@@ -3222,7 +3167,7 @@
             "_id": "t0b3r79lebg0csac",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 5500000,
+            "sort": 5400000,
             "system": {
                 "description": {
                     "value": ""
@@ -3247,7 +3192,7 @@
             "_id": "27iwkxywfggit6f1",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 5600000,
+            "sort": 5500000,
             "system": {
                 "description": {
                     "value": ""
@@ -3272,7 +3217,7 @@
             "_id": "lylfgb3i2efqs0rn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 5700000,
+            "sort": 5600000,
             "system": {
                 "description": {
                     "value": ""

@@ -1,9 +1,21 @@
 <li class="item action flexrow" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
-    <h4 class="item-name">
-        <a data-action="toggle-summary">{{action.name}}</a>
-        {{#if action.glyph}}<span class="action-glyph" data-tooltip="{{actionCostLabel}}">{{action.glyph}}</span>{{/if}}
-        {{#if action.system.deathNote}}<i class="fa-solid fa-fw fa-skull"></i>{{/if}}
-        {{#if action.hasAura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}
+    <h4>
+        <span class="name">
+            <strong><a data-action="toggle-summary">{{action.name}}</a></strong>
+            {{#if action.glyph}}<span class="action-glyph" data-tooltip="{{actionCostLabel}}">{{action.glyph}}</span>{{/if}}
+            {{#if action.has.aura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}
+            {{#if action.has.deathNote}}<i class="fa-solid fa-fw fa-skull"></i>{{/if}}
+        </span>
+
+        {{#if action.traits}}
+            <span class="traits">
+                {{#each action.traits as |trait|}}
+                    {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
+                    <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
+                    {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
+                {{/each}}
+            </span>
+        {{/if}}
     </h4>
 
     <div class="controls">
@@ -14,7 +26,7 @@
         {{/if}}
     </div>
 
-    {{#if action.system.selfEffect}}
+    {{#if action.has.selfEffect}}
         <div class="button-group">
             <button type="button" class="use-action" data-action="use-action">
                 <span>{{localize "PF2E.Action.Use"}}</span>
@@ -22,5 +34,5 @@
         </div>
     {{/if}}
 
-    <div class="item-summary" hidden="hidden"></div>
+    <div class="item-summary" hidden></div>
 </li>

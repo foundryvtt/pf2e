@@ -28,7 +28,38 @@
             "remaster": false,
             "title": "Pathfinder Core Rulebook"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "vengeful-oath",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "vengeful-oath",
+                    "item:slug:lay-on-hands"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "spirit"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:lay-on-hands",
+                    "vengeful-oath"
+                ],
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

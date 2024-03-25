@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -30,69 +29,22 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
                     "slot3": {
                         "max": 4,
-                        "prepared": {},
                         "value": 4
                     },
                     "slot4": {
                         "max": 2,
-                        "prepared": {},
                         "value": 2
                     },
                     "slot5": {
                         "max": 1,
-                        "prepared": {},
                         "value": 1
                     },
                     "slot6": {
                         "max": 9,
-                        "prepared": {},
                         "value": 9
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -126,13 +78,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "16d6",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "force"
+                        "type": "spirit"
                     }
                 },
                 "defense": {
@@ -142,11 +95,18 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 spirit damage with a basic Fortitude save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 6
@@ -156,9 +116,9 @@
                     "value": "Pd2a0LCF9zAkHizr"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -180,8 +140,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "force",
-                        "manipulate"
+                        "manipulate",
+                        "spirit"
                     ]
                 }
             },
@@ -378,18 +338,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": "persistent",
-                        "formula": "4d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
+                "damage": {},
                 "defense": {
                     "save": {
                         "basic": false,
@@ -397,18 +346,14 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[4d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by @Damage[1d8[persistent,void]] damage on a success, or by @Damage[2d8[persistent,void]] damage on a failure or critical failure.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(floor(@item.rank/2))d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by 1d8 on a success, or by 2d8 on a failure or critical failure.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
+                    "damage": {}
                 },
                 "level": {
                     "value": 4
@@ -1043,41 +988,6 @@
             "type": "melee"
         },
         {
-            "_id": "KB3dAuCJuP1fvJj1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "0a0R5L9eHRL770lk",
             "flags": {
                 "core": {
@@ -1086,7 +996,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Breathsense (Precise) 60 feet",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1121,7 +1031,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 10",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1164,7 +1074,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Jiang-Shi Vulnerabilities",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1199,7 +1109,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "One More Breath",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1238,7 +1148,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1280,7 +1190,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Warped Fulu",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1323,7 +1233,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drain Qi",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1360,7 +1270,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rigor Mortis",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1395,7 +1305,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1425,7 +1335,7 @@
             "_id": "pw60orhvod30qfkd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1450,7 +1360,7 @@
             "_id": "v8grjxchbcml14te",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1475,7 +1385,7 @@
             "_id": "kh0pw5sucmbirjg5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1500,7 +1410,7 @@
             "_id": "n34k0p5cjzb70y0q",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""

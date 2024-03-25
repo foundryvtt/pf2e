@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base.ts";
 import type { CheckModifier } from "@actor/modifiers.ts";
-import { RollTarget } from "@actor/types.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
-import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data.ts";
+import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@module/chat-message/data.ts";
 import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -32,7 +32,7 @@ import {
 import { TextEditorPF2e } from "../text-editor.ts";
 import { CheckModifiersDialog } from "./dialog.ts";
 import { CheckRoll, CheckRollDataPF2e } from "./roll.ts";
-import { CheckRollContext } from "./types.ts";
+import { CheckCheckContext } from "./types.ts";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -50,10 +50,24 @@ class CheckPF2e {
     /** Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down. */
     static async roll(
         check: CheckModifier,
-        context: CheckRollContext = {},
+        context: CheckCheckContext = {},
         event: JQuery.TriggeredEvent | Event | null = null,
         callback?: CheckRollCallback,
     ): Promise<Rolled<CheckRoll> | null> {
+        if (context.origin === undefined && context.actor) {
+            context.origin = {
+                actor: context.actor,
+                token: context.token ?? null,
+                self: true,
+                statistic: null,
+                item: context.item ?? null,
+                modifiers: check.modifiers,
+            };
+        }
+        if (!context.origin?.actor && !context.target?.actor) {
+            return null;
+        }
+
         // If event is supplied, merge into context
         // Eventually the event parameter will go away entirely
         if (event) fu.mergeObject(context, eventToRollParams(event, { type: "check" }));
@@ -68,14 +82,17 @@ class CheckPF2e {
         }
 
         // Figure out the default roll mode (if not already set by the event)
-        if (rollOptions.has("secret")) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+        // ignore the secret trait if the ignoreSecretTrait setting is enabled
+        if (rollOptions.has("secret") && !game.pf2e.settings.metagame.secretChecks) {
+            context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+        }
         context.rollMode ??= "roll";
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
         }
 
-        const substitutions = (context.substitutions ??= []);
+        context.substitutions ??= [];
         const requiredSubstitution = context.substitutions.find((s) => s.required && s.selected);
         if (requiredSubstitution) {
             for (const substitution of context.substitutions) {
@@ -84,8 +101,9 @@ class CheckPF2e {
             }
         }
 
+        // Show dialog if enabled. This has the side effect of mutating the context,
+        // so assigning variables from the context should not be done before this point
         if (!context.skipDialog && context.type !== "flat-check") {
-            // Show dialog for adding/editing modifiers, unless skipped or flat check
             const dialogClosed = new Promise((resolve: (value: boolean) => void) => {
                 new CheckModifiersDialog(check, resolve, context).render(true);
             });
@@ -96,9 +114,13 @@ class CheckPF2e {
         const extraTags: string[] = [];
         const isReroll = context.isReroll ?? false;
         if (isReroll) context.rollTwice = false;
-	const isflat = context.type === "flat-check";
-	const droll = isflat ? "1d20" : "3d6";
-	const tdroll = isflat ? "2d20" : "{3d6,3d6}";
+
+        const isflat = context.type === "flat-check";
+        const droll = isflat ? "1d20" : "3d6";
+        const tdroll = isflat ? "2d20" : "{3d6,3d6}";
+
+        const substitutions = context.substitutions ?? [];
+
 
         // Acquire the d20 roll expression and resolve fortune/misfortune effects
         const [dice, tagsFromDice] = ((): [string, string[]] => {
@@ -166,7 +188,7 @@ class CheckPF2e {
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
-            if (R.isNil(context.dc)) return {};
+            if (!context.dc) return {};
 
             const naturalTotal = R.compact(
                 roll.dice.map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null),
@@ -177,6 +199,7 @@ class CheckPF2e {
                 ...rollOptions,
                 `check:total:${roll.total}`,
                 `check:total:natural:${naturalTotal}`,
+                `check:total:delta:${roll.total - context.dc.value}`,
             ]);
 
             return (
@@ -218,8 +241,12 @@ class CheckPF2e {
 
         const item = context.item ?? null;
 
+        const targeting = !!context.origin?.self;
+        const self = targeting ? context.origin ?? null : context.target ?? null;
+        const opposer = targeting ? context.target ?? null : context.origin ?? null;
+
         const flavor = await (async (): Promise<string> => {
-            const result = await this.#createResultFlavor({ degree, target: context.target ?? null });
+            const result = await this.#createResultFlavor({ degree, self, opposer, targeting });
             const tags = this.#createTagFlavor({ check, context, extraTags });
             const title = (context.title ?? check.slug).trim();
             const header = title.startsWith("<h4")
@@ -235,7 +262,7 @@ class CheckPF2e {
                 .join("");
         })();
 
-        const contextFlag: CheckRollContextFlag = {
+        const contextFlag: CheckContextChatFlag = {
             ...context,
             type: context.type ?? "check",
             identifier: context.identifier ?? null,
@@ -244,7 +271,12 @@ class CheckPF2e {
             actor: context.actor?.id ?? null,
             token: context.token?.id ?? null,
             domains: context.domains ?? [],
-            target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
+            origin: context.origin?.actor
+                ? { actor: context.origin.actor.uuid, token: context.origin.token?.uuid }
+                : null,
+            target: context.target?.actor
+                ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
+                : null,
             options: Array.from(rollOptions).sort(),
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
@@ -295,13 +327,7 @@ class CheckPF2e {
     }
 
     static #createTagFlavor({ check, context, extraTags }: CreateTagFlavorParams): HTMLElement[] {
-        interface TagObject {
-            label: string;
-            name?: string;
-            description?: string;
-        }
-
-        const toTagElement = (tag: TagObject, cssClass: string | null = null): HTMLElement => {
+        const toTagElement = (tag: TraitViewData, cssClass: string | null = null): HTMLElement => {
             const span = document.createElement("span");
             span.classList.add("tag");
             if (cssClass) span.classList.add(`tag_${cssClass}`);
@@ -374,11 +400,15 @@ class CheckPF2e {
             .map((modifier) => {
                 const sign = modifier.modifier < 0 ? "" : "+";
                 const label = `${modifier.label} ${sign}${modifier.modifier}`;
-                const tag = toTagElement({ name: modifier.slug, label }, "transparent");
+                const tag = toTagElement({ name: modifier.slug, label, description: null }, "transparent");
                 if (!showBreakdown) tag.dataset.visibility = "gm";
                 return tag;
             });
-        const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
+        const tagsFromOptions = extraTags.map((t) => {
+            const label = game.i18n.localize(t);
+            const slug = sluggify(label);
+            return toTagElement({ name: slug, label, description: null }, "transparent");
+        });
         const rollTags = [...modifiers, ...tagsFromOptions];
         const modifiersAndExtras =
             rollTags.length > 0
@@ -402,24 +432,35 @@ class CheckPF2e {
             return;
         }
 
-        const actor = game.actors.get(message.speaker.actor ?? "");
+        const actor = message.actor;
+        if (!actor) {
+            ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
+            return;
+        }
+
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
+
         if (heroPoint) {
+            const rerollingActor = actor.isOfType("familiar") ? actor.master : actor;
+
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor?.isOfType("character")) {
-                const heroPointCount = actor.heroPoints.value;
+            if (rerollingActor?.isOfType("character")) {
+                const heroPointCount = rerollingActor.heroPoints.value;
                 if (heroPointCount) {
-                    await actor.update({
-                        "system.resources.heroPoints.value": Math.clamped(heroPointCount - 1, 0, actor.heroPoints.max),
+                    await rerollingActor.update({
+                        "system.resources.heroPoints.value": Math.clamped(
+                            heroPointCount - 1,
+                            0,
+                            rerollingActor.heroPoints.max,
+                        ),
                     });
-                    rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
+                    rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: rerollingActor.name });
                 } else {
-                    ui.notifications.warn(game.i18n.format("PF2E.RerollMenu.WarnNoHeroPoint", { name: actor.name }));
+                    ui.notifications.warn(
+                        game.i18n.format("PF2E.RerollMenu.WarnNoHeroPoint", { name: rerollingActor.name }),
+                    );
                     return;
                 }
-            } else {
-                ui.notifications.error("PF2E.RerollMenu.ErrorNoActor", { localize: true });
-                return;
             }
         }
 
@@ -429,6 +470,8 @@ class CheckPF2e {
 
         context.skipDialog = true;
         context.isReroll = true;
+        context.options.push("check:reroll");
+        if (heroPoint) context.options.push("check:hero-point");
 
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
@@ -504,8 +547,10 @@ class CheckPF2e {
             ? await (async (): Promise<string> => {
                   const parsedFlavor = document.createElement("div");
                   parsedFlavor.innerHTML = oldFlavor;
-                  const target = context.target ?? null;
-                  const targetFlavor = await this.#createResultFlavor({ degree, target });
+                  const targeting = actor.uuid === context.origin?.actor;
+                  const self = targeting ? context.origin : context.target;
+                  const opposer = context.target?.actor === actor.uuid ? context.target : context.origin;
+                  const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
                   }
@@ -571,20 +616,25 @@ class CheckPF2e {
         return element.innerHTML;
     }
 
-    static async #createResultFlavor({ degree, target }: CreateResultFlavorParams): Promise<HTMLElement | null> {
-        if (!degree) return null;
+    static async #createResultFlavor({
+        degree,
+        self,
+        opposer,
+        targeting,
+    }: CreateResultFlavorParams): Promise<HTMLElement | null> {
+        if (!degree || !self?.actor) return null;
 
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
         const customLabel =
             needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : dc.label ?? null;
 
-        const targetActor = await (async (): Promise<ActorPF2e | null> => {
-            if (!target?.actor) return null;
-            if (target.actor instanceof ActorPF2e) return target.actor;
+        const opposingActor = await (async (): Promise<ActorPF2e | null> => {
+            if (!opposer?.actor) return null;
+            if (opposer.actor instanceof ActorPF2e) return opposer.actor;
 
             // This is a context flag: get the actor via UUID
-            const maybeActor = await fromUuid(target.actor);
+            const maybeActor = await fromUuid(opposer.actor);
             return maybeActor instanceof ActorPF2e
                 ? maybeActor
                 : maybeActor instanceof TokenDocumentPF2e
@@ -593,24 +643,24 @@ class CheckPF2e {
         })();
 
         // Not actually included in the template, but used for creating other template data
-        const targetData = await (async (): Promise<{ name: string; visible: boolean } | null> => {
-            if (!target) return null;
+        const opposerData = await (async (): Promise<{ name: string; visible: boolean } | null> => {
+            if (!opposer) return null;
 
             const token = await (async (): Promise<TokenDocumentPF2e | null> => {
-                if (!target.token) return null;
-                if (target.token instanceof TokenDocumentPF2e) return target.token;
-                if (targetActor?.token) return targetActor.token;
+                if (!opposer.token) return null;
+                if (opposer.token instanceof TokenDocumentPF2e) return opposer.token;
+                if (opposingActor?.token) return opposingActor.token;
 
                 // This is from a context flag: get the actor via UUID
-                return fromUuid(target.token) as Promise<TokenDocumentPF2e<ScenePF2e> | null>;
+                return fromUuid(opposer.token) as Promise<TokenDocumentPF2e<ScenePF2e> | null>;
             })();
 
-            const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
+            const canSeeTokenName = (token ?? new TokenDocumentPF2e(opposingActor?.prototypeToken.toObject() ?? {}))
                 .playersCanSeeName;
             const canSeeName = canSeeTokenName || !game.pf2e.settings.tokens.nameVisibility;
 
             return {
-                name: token?.name ?? targetActor?.name ?? "",
+                name: token?.name ?? opposingActor?.name ?? "",
                 visible: !!canSeeName,
             };
         })();
@@ -641,13 +691,17 @@ class CheckPF2e {
                     ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : dc.value ?? null;
 
-            const visible = targetActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
+            const visible = opposingActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = game.i18n.localize(
-                    targetData ? checkDCs.Label.WithTarget : customLabel ?? checkDCs.Label.NoTarget,
+                    opposerData
+                        ? targeting
+                            ? checkDCs.Label.WithTarget
+                            : checkDCs.Label.WithOrigin
+                        : customLabel ?? checkDCs.Label.NoTarget,
                 );
-                const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, target: targetData?.name ?? null });
+                const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
 
                 return { markup, visible };
             }
@@ -664,7 +718,7 @@ class CheckPF2e {
                 adjustment.direction === "no-change" ? checkDCs.Label.NoChangeTarget : checkDCs.Label.AdjustedTarget;
 
             const markup = game.i18n.format(translation, {
-                target: targetData?.name ?? game.user.name,
+                opposer: opposerData?.name ?? game.user.name,
                 dcType,
                 preadjusted: preadjustedDC,
                 adjusted: dc.value,
@@ -711,10 +765,10 @@ class CheckPF2e {
         const html = parseHTML(rendered);
         const convertXMLNode = TextEditorPF2e.convertXMLNode;
 
-        if (targetData) {
-            convertXMLNode(html, "target", { visible: targetData.visible, whose: "target" });
+        if (opposerData) {
+            convertXMLNode(html, "opposer", { visible: opposerData.visible, whose: "opposer" });
         }
-        convertXMLNode(html, "dc", { visible: dcData.visible, whose: "target" });
+        convertXMLNode(html, "dc", { visible: dcData.visible, whose: "opposer" });
         const adjustment = dcData.adjustment;
         if (adjustment) {
             convertXMLNode(html, "preadjusted", { classes: ["unadjusted"] });
@@ -747,10 +801,10 @@ class CheckPF2e {
             adjustedNode.dataset.tooltip = degree.adjustment.label;
         }
 
-        convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });
+        convertXMLNode(html, "offset", { visible: dcData.visible, whose: "opposer" });
 
         // If target and DC are both hidden from view, hide both
-        if (!targetData?.visible && !dcData.visible) {
+        if (!opposerData?.visible && !dcData.visible) {
             const targetDC = html.querySelector<HTMLElement>(".target-dc");
             if (targetDC) targetDC.dataset.visibility = "gm";
 
@@ -766,7 +820,10 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: RollTarget | TargetFlag | null;
+    self: RollOrigin | RollTarget | ActorTokenFlag | null;
+    opposer?: RollOrigin | RollTarget | ActorTokenFlag | null;
+    /** Whether `self` is targeting the `opposer` (or otherwise being targeted by it) */
+    targeting: boolean;
 }
 
 interface ResultFlavorTemplateData {
@@ -787,7 +844,7 @@ interface ResultFlavorTemplateData {
 
 interface CreateTagFlavorParams {
     check: CheckModifier;
-    context: CheckRollContext;
+    context: CheckCheckContext;
     extraTags: string[];
 }
 

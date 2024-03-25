@@ -1,14 +1,18 @@
 import type { ActorPF2e } from "@actor";
 import { InventoryBulk } from "@actor/inventory/index.ts";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { EquipmentTrait } from "@item/equipment/data.ts";
 import { Bulk } from "@item/physical/bulk.ts";
 import { PhysicalItemPF2e } from "@item/physical/document.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { ContainerSource, ContainerSystemData } from "./data.ts";
+import type { ContainerSource, ContainerSystemData } from "./data.ts";
 import { hasExtraDimensionalParent } from "./helpers.ts";
 
 class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    static override get validTraits(): Record<EquipmentTrait, string> {
+        return CONFIG.PF2E.equipmentTraits;
+    }
+
     /** This container's contents, reloaded every data preparation cycle */
     contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>> = new Collection();
 
@@ -68,7 +72,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     override async getChatData(
         this: ContainerPF2e<TParent>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
             traits: this.traitChatData(CONFIG.PF2E.equipmentTraits),

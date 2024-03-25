@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your mind-control spells send burrowing mental roots that tear at your target's mind when they're removed or run their course. When you Cast a Spell that imposes the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition or otherwise forces the target to take certain actions (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Command]</em>), you can choose one target that critically failed its save. When that target finishes fulfilling any commands issued by your spell, or when the spell is dispelled or counteracted, the target takes @Damage[1d6[mental]] damage per rank of the spell.</p>"
+            "value": "<p>Your mind-control spells send burrowing mental roots that tear at your target's mind when they're removed or run their course. When you Cast a Spell that imposes the @UUID[Compendium.pf2e.conditionitems.Item.Controlled] condition or otherwise forces the target to take certain actions (such as @UUID[Compendium.pf2e.spells-srd.Item.Command]), you can choose one target that critically failed its save. When that target finishes fulfilling any commands issued by your spell, or when the spell is dispelled or counteracted, the target takes @Damage[1d6[mental]] damage per rank of the spell.</p>"
         },
         "level": {
             "value": 14
@@ -24,7 +24,28 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "imposes-controlled",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "imposes-controlled"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.DeepRoots"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

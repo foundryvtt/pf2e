@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
-import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
+import { StrikeData } from "@actor/data/base.ts";
+import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { DCSlug } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import type { WeaponTrait } from "@item/weapon/types.ts";
@@ -11,50 +12,40 @@ import type { Statistic } from "@system/statistic/index.ts";
 
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
-class CheckContextError extends Error {
-    constructor(
-        message: string,
-        public actor: ActorPF2e,
-        public slug: string,
-    ) {
-        super(message);
-    }
-}
-
-interface BuildCheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface BuildCheckContextOptions<TItem extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
-    item?: ItemType;
+    item?: TItem;
     rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
-interface BuildCheckContextResult<ItemType extends ItemPF2e<ActorPF2e>> {
-    item?: ItemType;
+interface BuildCheckContextResult<TItem extends ItemPF2e<ActorPF2e>> {
+    item?: TItem;
     rollOptions: string[];
     target?: ActorPF2e | null;
 }
 
-interface CheckContextOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface CheckContextOptions<TItem extends ItemPF2e<ActorPF2e>> {
     actor: ActorPF2e;
-    buildContext: (options: BuildCheckContextOptions<ItemType>) => BuildCheckContextResult<ItemType>;
+    buildContext: (options: BuildCheckContextOptions<TItem>) => BuildCheckContextResult<TItem>;
     target?: ActorPF2e | null;
 }
 
-interface CheckContextData<ItemType extends ItemPF2e<ActorPF2e>> {
-    item?: ItemType;
+interface CheckContextData<TItem extends ItemPF2e<ActorPF2e>> {
+    item?: TItem;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
     target?: ActorPF2e | null;
 }
 
-interface CheckContext<ItemType extends ItemPF2e<ActorPF2e>> {
+interface CheckMacroContext<TItem extends ItemPF2e<ActorPF2e>> {
     type: CheckType;
-    item?: ItemType;
+    item?: TItem;
     modifiers?: ModifierPF2e[];
     rollOptions: string[];
     slug: string;
-    statistic: Statistic | (StatisticModifier & { rank?: number });
+    statistic: Statistic | (StrikeData & { rank?: number });
     subtitle: string;
 }
 
@@ -65,15 +56,15 @@ interface CheckResultCallback {
     roll: Rolled<CheckRoll>;
 }
 
-interface SimpleRollActionCheckOptions<ItemType extends ItemPF2e<ActorPF2e>> {
+interface SimpleRollActionCheckOptions<TItem extends ItemPF2e<ActorPF2e>> {
     actors: ActorPF2e | ActorPF2e[] | undefined;
     actionGlyph: ActionGlyph | undefined;
     title: string;
     checkContext: (
-        context: CheckContextOptions<ItemType>,
-    ) => Promise<CheckContext<ItemType>> | CheckContext<ItemType> | undefined;
+        context: CheckContextOptions<TItem>,
+    ) => Promise<CheckMacroContext<TItem>> | CheckMacroContext<TItem> | undefined;
     content?: (title: string) => Promise<string | null | undefined | void> | string | null | undefined | void;
-    item?: (actor: ActorPF2e) => ItemType | undefined;
+    item?: (actor: ActorPF2e) => TItem | undefined;
     traits: string[];
     event?: JQuery.TriggeredEvent | Event | null;
     /**
@@ -104,13 +95,12 @@ interface SkillActionOptions extends ActionDefaultOptions {
     difficultyClass?: CheckDC;
 }
 
-export { CheckContextError };
 export type {
     ActionDefaultOptions,
     ActionGlyph,
-    CheckContext,
     CheckContextData,
     CheckContextOptions,
+    CheckMacroContext,
     CheckResultCallback,
     SimpleRollActionCheckOptions,
     SkillActionOptions,

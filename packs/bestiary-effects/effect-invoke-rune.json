@@ -1,0 +1,147 @@
+{
+    "_id": "5Gol6tr9MtL9eR1u",
+    "img": "icons/commodities/treasure/token-engraved-red-glowing.webp",
+    "name": "Effect: Invoke Rune",
+    "system": {
+        "description": {
+            "value": "<p>A glowing copy of the invoked rune appears on a single weapon the giant holds, granting the weapon one effect of the giant’s choice.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Label",
+                        "value": "destruction"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfFlames.Label",
+                        "value": "flames"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
+                        "value": "smiting"
+                    }
+                ],
+                "flag": "rune",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.NPCAbility.RuneGiant.InvokeRune.Prompt",
+                "rollOption": "invoke-rune"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.greatsword",
+                        "value": "greatsword"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.longspear",
+                        "value": "longspear"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Rock",
+                        "value": "rock"
+                    }
+                ],
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "invoke-rune:destruction"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Text",
+                "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfDestruction.Label",
+                "visibility": "owner"
+            },
+            {
+                "definition": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}",
+                    {
+                        "or": [
+                            "item:slug:greatsword",
+                            "item:slug:rock"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "invoke-rune:destruction"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-3d12"
+            },
+            {
+                "definition": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.weapon}",
+                    "item:slug:longspear"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "invoke-rune:destruction"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-3d8"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "invoke-rune:flames"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "invoke-rune:smiting"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Text",
+                "title": "PF2E.NPCAbility.RuneGiant.InvokeRune.RuneOfSmiting.Label",
+                "visibility": "owner"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

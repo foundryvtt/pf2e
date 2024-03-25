@@ -45,45 +45,10 @@
             "type": "melee"
         },
         {
-            "_id": "WjBhdxKcekKdof75",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Nl15bkRTLq869IPi",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Petrifying Glance",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -100,12 +65,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:petrifying-glance"
+                        ],
+                        "key": "Immunity",
+                        "label": "{item|name}",
+                        "type": "custom"
+                    }
+                ],
                 "slug": "petrifying-glance",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "arcane"
+                        "arcane",
+                        "aura"
                     ]
                 }
             },
@@ -115,7 +90,7 @@
             "_id": "tOCS9mkYR5K1LuOZ",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Petrifying Gaze",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -132,8 +107,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "definition": [
+                            "item:slug:petrifying-gaze"
+                        ],
+                        "key": "Immunity",
+                        "label": "{item|name}",
+                        "type": "custom"
+                    }
+                ],
+                "slug": "petrifying-gaze",
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -148,7 +132,7 @@
             "_id": "3cCcIuDWAUaPqBbO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "description": {
                     "value": ""
@@ -165,7 +149,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -173,7 +158,7 @@
             "_id": "Y6lsS4ZQa6hdjjfK",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
@@ -190,7 +175,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -251,8 +237,8 @@
             "privateNotes": "",
             "publicNotes": "<p>A basilisk is an eight-legged reptile that can turn creatures to stone just by looking at them.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },

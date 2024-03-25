@@ -219,11 +219,12 @@ interface NPCHitPoints extends HitPointsStatistic {
 
 /** Skill data with a "base" value and whether the skill should be rendered (visible) */
 interface NPCSkillData extends AttributeBasedTraceData {
-    base?: number;
-    visible?: boolean;
-    isLore?: boolean;
-    itemID?: string;
+    base: number;
+    itemId: string | null;
+    lore: boolean;
+    mod: number;
     variants: { label: string; options: string }[];
+    visible: boolean;
 }
 
 interface NPCSpeeds extends CreatureSpeeds {

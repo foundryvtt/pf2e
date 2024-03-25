@@ -290,9 +290,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "hampering-strike"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 32
@@ -527,7 +525,19 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "hampering-strike",
                 "traits": {
                     "rarity": "common",

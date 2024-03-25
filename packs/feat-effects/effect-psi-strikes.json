@@ -1,6 +1,6 @@
 {
     "_id": "BIHU3o499fsa1bwt",
-    "img": "icons/magic/symbols/runes-star-magenta.webp",
+    "img": "systems/pf2e/icons/features/feats/psi-strikes.webp",
     "name": "Effect: Psi Strikes",
     "system": {
         "description": {
@@ -25,7 +25,7 @@
                 "choices": {
                     "attacks": true
                 },
-                "flag": "effectPsiStrikes",
+                "flag": "weapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.WeaponOrUnarmed"
             },
@@ -34,7 +34,23 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.effectPsiStrikes}-damage"
+                "predicate": [
+                    {
+                        "not": "parent:origin:item:tag:mindshifted"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "parent:origin:item:tag:mindshifted"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "slug": "mindshift"
             }
         ],
         "start": {

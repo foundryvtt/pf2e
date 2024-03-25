@@ -143,6 +143,7 @@ declare global {
         static once(...args: HookParamsUpdate<Combat, "Combat">): number;
         static once(...args: HookParamsUpdate<Scene, "Scene">): number;
         static once(...args: HookParamsUpdateWorldTime): number;
+        static once(...args: HookParamsI18nInit): number;
         static once(...args: HookParameters<string, unknown[]>): number;
 
         /**

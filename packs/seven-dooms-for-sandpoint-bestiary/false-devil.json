@@ -1,0 +1,400 @@
+{
+    "_id": "RRXHzISbHxLnvQ3q",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "t8m638wy4P8pa4PZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "bzogvfqg81qjurxuluev": {
+                        "damage": "2d10+11",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "npIgzch2HZkhFifI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "s3rtyn2pu29sh70nnc3u": {
+                        "damage": "2d6+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "abGmJgduMKED2VeX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Chupar",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The chupacabra has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The chupacabra sucks blood from the grabbed creature. The chupacabra gains the @UUID[Compendium.pf2e.conditionitems.Item.Quickened] condition for 1 minute and can use the extra action only for Strike and Stride actions. A chupacabra can't use Chupar again while it is quickened in this way.</p>\n<p>A creature that has its blood drained by a chupacabra is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} until it receives healing (of any kind or amount).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UmF9ATrgifYyt9He",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pounce",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The chupacabra Strides and makes a Strike at the end of that movement. If the chupacabra began this action @UUID[Compendium.pf2e.conditionitems.Item.Hidden], it remains hidden until after this ability's Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cqrFa6Vv4ysyzmgT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wing Flurry",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The false devil's spiny wings don't afford it a typical melee option, but it can use them to scrape and slash at foes it flies by. The winged chupacabra attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] an enemy's space. As it does so, it flaps its wings furiously, gaining a +2 circumstance bonus to its Acrobatics check. If it succeeds, it inflicts @Damage[4d6[slashing]] damage to the creature it Tumbled Through (or @Damage[8d6[slashing]] damage on a critical success).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "wing-flurry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:tumble-through",
+                            "wing-flurry"
+                        ],
+                        "selector": "acrobatics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "move"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hegoW9J1eMFWn0I6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "OQE9ap0Mj3pykdzk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "variants": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "gfmpjwebcEUzSXoN",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "variants": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "False Devil",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 145,
+                "temp": 0,
+                "value": 145
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 50
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Variant chupacabra",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "aklo"
+                ]
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These notorious predators have an undeniable thirst for blood. Chupacabras prefer to prey upon the weak and slow, often hiding in wait and watching potential prey for long periods before attacking. Spry and stealthy, they most often make their homes in areas of high grass and protective rock, their slightly reflective scales allowing them to blend in well with such surroundings.</p>\n<p>Chupacabras prefer to eat lone travelers and farm animals (particularly goats), and leave little evidence of their presence apart from the grisly, blood-drained husks of their meals. Their tendency to stay out of sight combined with their naturally nocturnal activity often leads superstitious locals to conclude the worst, imagining that a particularly reckless vampire lives in the area.</p>\n<p>A typical chupacabra measures nearly 5-1/2 feet from its muzzle to the tip of its spiny tail, and it stands just under 4 feet tall. With their slight build and lightweight bones, most weigh close to 100 pounds. They mate rarely and only during the hottest months, with the females each producing a single egg that hatches into a tiny, dehydrated creature. The mother typically leaves helpless prey in her cave so the hatchling can immediately feed.</p>\n<p>Although chupacabras are typically solitary creatures, they have been known to form small gangs in bountiful areas. Members of these groups work well together, growing bold enough to attack larger animals, small herds, and otherwise more dangerous prey. Stories of chupacabras attacking travelers or laying siege to farmhouses typically stem from the hunting practices of such gangs. Regions where chupacabra activity like this is more common often have complex and colorful myths and tall tales about chupacabra capabilities or motive-and a few of the claims, such as that some chupacabras can fly, are all too true.</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 17,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

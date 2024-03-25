@@ -1,96 +1,49 @@
-import type { CharacterPF2e } from "@actor";
-import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
-import type { DamageType } from "@system/damage/types.ts";
-import { objectHasKey, tupleHasValue } from "@util";
-import { WeaponPF2e } from "./document.ts";
+import { nextDamageDieSize } from "@system/damage/helpers.ts";
+import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
+import { tupleHasValue } from "@util";
+import * as R from "remeda";
 
-/** A helper class to handle toggleable weapon traits */
-class WeaponTraitToggles {
-    #weapon: WeaponPF2e;
-
-    constructor(weapon: WeaponPF2e) {
-        this.#weapon = weapon;
+/** Upgrade a trait with a dice annotation, if possible, or otherwise return the original trait. */
+function upgradeWeaponTrait<TTrait extends string>(trait: TTrait): TTrait;
+function upgradeWeaponTrait(trait: string): string {
+    const match = /-d(4|6|8|10|12)$/.exec(trait);
+    const value = Number(match?.at(1));
+    if (tupleHasValue(DAMAGE_DICE_FACES, value)) {
+        const upgraded = nextDamageDieSize({ upgrade: `d${value}` });
+        return trait.replace(new RegExp(String.raw`d${value}$`), upgraded);
     }
-
-    get modular(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveOptions("modular");
-        const sourceSelection = this.#weapon._source.system.traits.toggles?.modular?.selection;
-        const selection = tupleHasValue(options, sourceSelection)
-            ? sourceSelection
-            : // If the weapon's damage type is represented among the modular options, set the selection to it
-              options.includes(this.#weapon.system.damage.damageType)
-              ? this.#weapon.system.damage.damageType
-              : null;
-
-        return { options, selection };
-    }
-
-    get versatile(): { options: DamageType[]; selection: DamageType | null } {
-        const options = this.#resolveOptions("versatile");
-        const sourceSelection = this.#weapon._source.system.traits.toggles?.versatile?.selection ?? null;
-        const selection = tupleHasValue(options, sourceSelection) ? sourceSelection : null;
-
-        return { options, selection };
-    }
-
-    /** Collect selectable damage types among a list of toggleable weapon traits */
-    #resolveOptions(toggle: "modular" | "versatile"): DamageType[] {
-        const types = this.#weapon.system.traits.value
-            .filter((t) => t.startsWith(toggle))
-            .flatMap((trait): DamageType | DamageType[] => {
-                if (trait === "modular") return ["bludgeoning", "piercing", "slashing"];
-
-                const damageType = /^versatile-(\w+)$/.exec(trait)?.at(1);
-                switch (damageType) {
-                    case "b":
-                        return "bludgeoning";
-                    case "p":
-                        return "piercing";
-                    case "s":
-                        return "slashing";
-                    default: {
-                        return objectHasKey(CONFIG.PF2E.damageTypes, damageType) ? damageType : [];
-                    }
-                }
-            });
-
-        const allOptions = Array.from(new Set(types));
-        return toggle === "modular"
-            ? allOptions
-            : // Filter out any versatile options that are the same as the weapon's base damage type
-              allOptions.filter((t) => this.#weapon.system.damage.damageType !== t);
-    }
+    return trait;
 }
 
 /**
- * Update a modular or versatile weapon to change its damage type
- * @returns A promise indicating whether an update was made
+ * Add a trait to an array of traits--unless it matches an existing trait except by annotation. Replace the trait if
+ * the new trait is an upgrade, or otherwise do nothing.
  */
-async function toggleWeaponTrait({ weapon, trait, selection }: ToggleWeaponTraitParams): Promise<boolean> {
-    const current = weapon.system.traits.toggles[trait].selection;
-    if (current === selection) return false;
+function addOrUpgradeTrait<TTrait extends string>(traits: TTrait[], newTrait: TTrait): TTrait[] {
+    const annotatedTraitMatch = newTrait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
+    if (!annotatedTraitMatch) return R.uniq([...traits, newTrait]);
 
-    const item = weapon.actor?.items.get(weapon.id);
-    if (item?.isOfType("weapon") && item === weapon) {
-        await item.update({ [`system.traits.toggles.${trait}.selection`]: selection });
-    } else if (item?.isOfType("weapon") && weapon.altUsageType === "melee") {
-        item.update({ [`system.meleeUsage.traitToggles.${trait}`]: selection });
-    } else if (trait === "versatile" && item?.isOfType("shield")) {
-        item.update({ "system.traits.integrated.versatile.selection": selection });
-    } else {
-        const rule = item?.rules.find(
-            (r): r is StrikeRuleElement => r.key === "Strike" && !r.ignored && r.slug === weapon.slug,
-        );
-        await rule?.toggleTrait({ trait, selection });
+    const traitBase = annotatedTraitMatch[1];
+    const upgradeAnnotation = annotatedTraitMatch[2];
+    const traitPattern = new RegExp(String.raw`${traitBase}-(\d*d?\d*)`);
+    const existingTrait = traits.find((t) => traitPattern.test(t));
+    const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
+    if (!(existingTrait && existingAnnotation)) {
+        return R.uniq([...traits, newTrait]);
     }
 
-    return true;
+    if (_expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {
+        traits.splice(traits.indexOf(existingTrait), 1, newTrait);
+    }
+
+    return traits;
 }
 
-interface ToggleWeaponTraitParams {
-    weapon: WeaponPF2e<CharacterPF2e>;
-    trait: "modular" | "versatile";
-    selection: DamageType | null;
+function _expectedValueOf(annotation: string): number {
+    const traitValueMatch = annotation.match(/(\d*)d(\d+)/);
+    return traitValueMatch
+        ? Number(traitValueMatch[1] || 1) * ((Number(traitValueMatch[2]) + 1) / 2)
+        : Number(annotation);
 }
 
-export { WeaponTraitToggles, toggleWeaponTrait };
+export { addOrUpgradeTrait, upgradeWeaponTrait };

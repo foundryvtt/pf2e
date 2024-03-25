@@ -189,7 +189,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
         const getTokens = (): TokenDocumentPF2e[] => {
             const tokens = game.user.getActiveTokens();
-            if (!tokens.length) {
+            if (tokens.length === 0) {
                 ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
             }
             return tokens;
@@ -215,7 +215,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     theme: "crb-hover",
                     functionBefore: (): boolean => {
                         const tokens = getTokens();
-                        if (!tokens.length) return false;
+                        if (tokens.length === 0) return false;
 
                         const nonBrokenShields = getNonBrokenShields(tokens);
                         const hasMultipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
@@ -343,7 +343,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const { actor } = message;
+            const messageActor = message.actor;
+            const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 

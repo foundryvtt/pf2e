@@ -8,14 +8,18 @@ ol.spell-list {
     padding: 0;
 
     > li {
+        --range-uses-width: 4rem;
+        --cast-spell-width: min-content;
+        --controls-width: 3rem;
         align-items: center;
         display: grid;
         gap: var(--space-4);
-        grid-template-columns: 1fr 6rem 4rem min-content 3rem;
+        grid-template-columns: 1fr 6rem var(--range-uses-width) var(--cast-spell-width) var(--controls-width);
         margin: 0;
 
         > * {
             align-items: center;
+            justify-self: center;
             display: flex;
             flex-wrap: nowrap;
         }
@@ -72,13 +76,6 @@ ol.spell-list {
             }
         }
 
-        .uses {
-            align-items: center;
-            display: flex;
-            gap: 0.25em;
-            line-height: 1;
-        }
-
         &.header-row,
         .uses {
             input {
@@ -128,6 +125,9 @@ ol.spell-list {
         }
 
         .item-name {
+            justify-self: start;
+            width: 100%;
+
             &.empty {
                 opacity: 0.75;
                 pointer-events: none;
@@ -186,6 +186,12 @@ ol.spell-list {
             }
         }
 
+        .uses {
+            display: flex;
+            gap: 0.25em;
+            line-height: 1;
+        }
+
         button.cast-spell {
             font: 500 var(--font-size-10) / 1.8em var(--sans-serif);
             justify-self: end;
@@ -197,6 +203,7 @@ ol.spell-list {
 
         .item-controls {
             justify-content: end;
+            justify-self: end;
         }
 
         .item-summary {
@@ -206,6 +213,15 @@ ol.spell-list {
             display: block;
             grid-column: span 5;
             padding: var(--space-4) 0 var(--space-8);
+            width: 100%;
+        }
+    }
+
+    &[data-category="innate"] > li {
+        --range-uses-width: 5.5rem;
+
+        > .uses .unlimited {
+            font-size: var(--font-size-18);
         }
     }
 

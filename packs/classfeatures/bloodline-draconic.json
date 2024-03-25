@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>The blood of dragons flows through your veins. These beasts are both fearsome in combat and skilled at magic</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Intimidation</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Shield]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Sure Strike]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spell Immunity]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Chromatic Wall]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Form]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Mask of Terror]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Claws]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Breath]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings]</em></p>\n<p><strong>Blood Magic</strong> Draconic scales grow briefly on you or one target, granting a +1 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]</p>\n<h2 class=\"title\">Dragon Type</h2>\n<p>At 1st level, choose the type of dragon that influenced your bloodline. You can't change your dragon type later. This affects how some of your bloodline spells function.</p>\n<p>The good metallic dragons and their damage types are brass (fire), bronze (electricity), copper (acid), gold (fire), and silver (cold).</p>\n<p>The evil chromatic dragons and their damage types are black (acid), blue (electricity), green (poison), red (fire), and white (cold).</p>\n<h2 class=\"title\">Related bloodline</h2>\n<p>Because the wyrmblessed and draconic bloodlines have similar origins, they count the same as each other for the purposes of prerequisites and access requirements.</p>"
+            "value": "<p>The blood of dragons flows through your veins. These beasts are both fearsome in combat and skilled at magic</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Intimidation</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Shield], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Haste], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Spell Immunity], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Chromatic Wall], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Dragon Form], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Mask of Terror], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Dragon Claws], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Dragon Breath], greater: @UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings]</p>\n<p><strong>Blood Magic</strong> Draconic scales grow briefly on you or one target, granting a +1 status bonus to AC for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]</p>\n<h2 class=\"title\">Dragon Type</h2>\n<p>At 1st level, choose the type of dragon that influenced your bloodline. You can't change your dragon type later. This affects how some of your bloodline spells function.</p>\n<p>The good metallic dragons and their damage types are brass (fire), bronze (electricity), copper (acid), gold (fire), and silver (cold).</p>\n<p>The evil chromatic dragons and their damage types are black (acid), blue (electricity), green (poison), red (fire), and white (cold).</p>\n<h2 class=\"title\">Related bloodline</h2>\n<p>Because the wyrmblessed and draconic bloodlines have similar origins, they count the same as each other for the purposes of prerequisites and access requirements.</p>"
         },
         "level": {
             "value": 1
@@ -262,6 +262,55 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "feature:bloodline:draconic:{item|flags.pf2e.rulesSelections.dragon.slug}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:arcane",
+                                    {
+                                        "or": [
+                                            "item:slug:sure-strike",
+                                            "item:slug:resist-energy",
+                                            "item:slug:haste",
+                                            "item:slug:spell-immunity",
+                                            "item:slug:chromatic-wall",
+                                            "item:slug:dragon-form",
+                                            "item:slug:mask-of-terror",
+                                            "item:slug:prismatic-wall",
+                                            "item:slug:overwhelming-presence"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

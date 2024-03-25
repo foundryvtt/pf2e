@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "spontaneous"
                 },
@@ -27,72 +26,38 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot2": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot3": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot4": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot5": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot6": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot7": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     },
                     "slot8": {
                         "max": 2,
-                        "prepared": [],
                         "value": 2
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -119,7 +84,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "focus"
                 },
@@ -132,74 +96,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 36,
@@ -743,13 +640,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "16d6",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "force"
+                        "type": "spirit"
                     }
                 },
                 "defense": {
@@ -759,11 +657,18 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 force damage. Because spirit blast affects the creature's spirit, it can damage a target projecting its consciousness (such as via project image) or possessing another creature even if the target's body is elsewhere. The possessed creature isn't harmed by the blast. The blast doesn't harm creatures that have no spirit, such as constructs.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You concentrate ethereal energy and attack a creature's spirit, dealing 16d6 spirit damage with a basic Fortitude save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 6
@@ -773,9 +678,9 @@
                     "value": "3PEXf3YB7AgRS7zY"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -797,8 +702,8 @@
                     ],
                     "value": [
                         "concentrate",
-                        "force",
-                        "manipulate"
+                        "manipulate",
+                        "spirit"
                     ]
                 }
             },
@@ -1171,7 +1076,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You call upon your muse to greatly increase the benefits you provide with your <em>@UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Rallying Anthem]</em> composition. If your next action is to cast inspire courage or inspire defense, attempt a Performance check. The DC is usually a very hard DC of a level equal to that of the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect of your inspire courage or inspire defense composition depends on the result of your check.</p>\n<hr />\n<p><strong>Critical Success</strong> The status bonus from your inspire courage or inspire defense increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Courage, +3)]{Critical Success on Inspire Courage}, @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Defense, +3)]{Critical Success on Inspire Defense}</p>\n<p><strong>Success</strong> The status bonus from inspire courage or inspire defense increases to +2.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Courage, +2)]{Success on Inspire Courage}, @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Defense, +2)]{Success on Inspire Defense}</p>\n<p><strong>Failure</strong> Your inspire courage or inspire defense provides only its normal bonus of +1, but you don't spend the Focus Point for casting this spell.</p>"
+                    "value": "<p>You call upon your muse to greatly increase the benefits you provide with your @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] or @UUID[Compendium.pf2e.spells-srd.Item.Rallying Anthem] composition. If your next action is to cast inspire courage or inspire defense, attempt a Performance check. The DC is usually a very hard DC of a level equal to that of the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect of your inspire courage or inspire defense composition depends on the result of your check.</p>\n<hr />\n<p><strong>Critical Success</strong> The status bonus from your inspire courage or inspire defense increases to +3.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Courage, +3)]{Critical Success on Inspire Courage}, @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Defense, +3)]{Critical Success on Inspire Defense}</p>\n<p><strong>Success</strong> The status bonus from inspire courage or inspire defense increases to +2.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Courage, +2)]{Success on Inspire Courage}, @UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Inspire Heroics (Defense, +2)]{Success on Inspire Defense}</p>\n<p><strong>Failure</strong> Your inspire courage or inspire defense provides only its normal bonus of +1, but you don't spend the Focus Point for casting this spell.</p>"
                 },
                 "duration": {
                     "sustained": false,

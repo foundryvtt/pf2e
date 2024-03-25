@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import { SpellPF2e } from "@item/spell/document.ts";
+import type { ActorPF2e } from "@actor";
+import type { SpellPF2e } from "@item";
 import { ErrorPF2e } from "@util";
 import { SpellCollection } from "./collection.ts";
 import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types.ts";
@@ -8,12 +8,12 @@ import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./typ
 export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellcastingEntry<TActor> {
     actor: TActor;
 
-    spells: SpellCollection<TActor, this>;
+    spells: SpellCollection<TActor>;
 
-    constructor(actor: TActor, rituals: SpellPF2e<TActor>[]) {
+    constructor(actor: TActor) {
         this.actor = actor;
-        this.spells = new SpellCollection(this);
-        for (const ritual of rituals) {
+        this.spells = new SpellCollection(this, this.name);
+        for (const ritual of this.actor.itemTypes.spell.filter((s) => s.isRitual)) {
             this.spells.set(ritual.id, ritual);
         }
     }
@@ -27,7 +27,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
     }
 
     get sort(): number {
-        return Math.max(0, ...this.actor.itemTypes.spellcastingEntry.map((e) => e.sort)) + 10;
+        return Math.max(0, ...this.actor.itemTypes.spellcastingEntry.map((e) => e.sort)) + 20;
     }
 
     get category(): "ritual" {
@@ -62,6 +62,10 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
         return false;
     }
 
+    get isEphemeral(): true {
+        return true;
+    }
+
     canCast(spell: SpellPF2e): boolean {
         return spell.isRitual;
     }
@@ -80,6 +84,7 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
             tradition: null,
             category: this.category,
             isRitual: true,
+            isEphemeral: true,
             hasCollection: true,
             sort: this.sort,
             usesSpellProficiency: false,

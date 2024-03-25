@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -27,78 +26,11 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 18,
-                    "value": 10
+                    "dc": 24,
+                    "value": 16
                 },
                 "tradition": {
                     "value": "occult"
@@ -108,14 +40,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "4LV0V1SjFlT77Z7c",
+            "_id": "KYZe9BEXSKUkgU9T",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.i35dpZFI7jZcRoBo"
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.1xbFBQDRs0hT5xZ9"
                 }
             },
-            "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
-            "name": "Illusory Disguise",
+            "img": "icons/skills/melee/shield-damaged-broken-gold.webp",
+            "name": "Shatter",
             "sort": 200000,
             "system": {
                 "area": null,
@@ -123,35 +55,122 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {},
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "sonic"
+                    }
+                },
                 "defense": null,
                 "description": {
-                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the @UUID[Compendium.pf2e.action-macros.Macro.Impersonate: Deception]{Impersonate} use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Illusory Disguise]</p>"
+                    "value": "<p>A high-frequency sonic attack shatters a nearby object. You deal 2d10 sonic damage to the object, ignoring the object's Hardness if it is 4 or lower.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the Hardness the spell ignores increases by 2.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 hour"
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
                 },
                 "level": {
-                    "value": 1
+                    "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 1,
+                    "heightenedLevel": 3,
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": ""
+                    "value": "30 feet"
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "illusory-disguise",
+                "slug": "shatter",
                 "target": {
+                    "value": "1 unattended object"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "jw3tCtJXK4hgGtBk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.CQb8HtQ1BPeZmu9h"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/feeblemind.webp",
+            "name": "Touch of Idiocy",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
                     "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You dull the target's mind, depending on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the start of your next turn.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} for 1 minute</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "C87slniCJsgBKjT2"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "stupefy",
+                "target": {
+                    "value": "1 living creature"
                 },
                 "time": {
                     "value": "2"
@@ -164,9 +183,97 @@
                     ],
                     "value": [
                         "concentrate",
-                        "illusion",
                         "manipulate",
-                        "visual"
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "FbnBv7G45cVozFJ3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You push into the target's mind and daze it with a mental jolt. The jolt deals 1d6 mental damage, with a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "C87slniCJsgBKjT2"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
                     ]
                 }
             },
@@ -181,7 +288,7 @@
             },
             "img": "systems/pf2e/icons/spells/item-facade.webp",
             "name": "Item Facade",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "area": null,
                 "cost": {
@@ -205,9 +312,9 @@
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"
@@ -238,7 +345,7 @@
             "type": "spell"
         },
         {
-            "_id": "0B9PNJZ6YNhRDoZD",
+            "_id": "Sq10Mu6yPcxLefDd",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD"
@@ -246,7 +353,7 @@
             },
             "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
             "name": "Phantom Pain",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -289,13 +396,13 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
+                    "heightenedLevel": 3,
                     "value": "C87slniCJsgBKjT2"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "30 feet"
@@ -326,114 +433,53 @@
             "type": "spell"
         },
         {
-            "_id": "O4TFJIXAF8IkOJ0H",
+            "_id": "YE56ElUY1stNCZBV",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
-            "name": "Telekinetic Projectile",
-            "sort": 500000,
+            "img": "icons/skills/melee/strike-blade-scimitar-gray-red.webp",
+            "name": "True Strike",
+            "sort": 700000,
             "system": {
                 "area": null,
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": true,
-                        "category": null,
-                        "formula": "1d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
+                "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Sure Strike]</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
+                    "value": "until the end of your turn"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 1,
                     "value": "C87slniCJsgBKjT2"
                 },
-                "overlays": {
-                    "2I469pfbYcmFvzOA": {
-                        "_id": "2I469pfbYcmFvzOA",
-                        "name": "Telekinetic Projectile (Bludgeoning)",
-                        "overlayType": "override",
-                        "sort": 1,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "bludgeoning"
-                                }
-                            }
-                        }
-                    },
-                    "cUFX7ExSLeoa3vIF": {
-                        "_id": "cUFX7ExSLeoa3vIF",
-                        "name": "Telekinetic Projectile (Piercing)",
-                        "overlayType": "override",
-                        "sort": 2,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "piercing"
-                                }
-                            }
-                        }
-                    },
-                    "zFWsMjoeCnLxqJaV": {
-                        "_id": "zFWsMjoeCnLxqJaV",
-                        "name": "Telekinetic Projectile (Slashing)",
-                        "overlayType": "override",
-                        "sort": 3,
-                        "system": {
-                            "damage": {
-                                "0": {
-                                    "category": null,
-                                    "type": "slashing"
-                                }
-                            }
-                        }
-                    }
-                },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
-                    "value": "30 feet"
+                    "value": ""
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "telekinetic-projectile",
+                "slug": "sure-strike",
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traits": {
                     "rarity": "common",
@@ -442,10 +488,8 @@
                         "occult"
                     ],
                     "value": [
-                        "attack",
-                        "cantrip",
                         "concentrate",
-                        "manipulate"
+                        "fortune"
                     ]
                 }
             },
@@ -460,7 +504,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/katana.webp",
             "name": "Broken Katana",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "baseItem": "katana",
                 "bonus": {
@@ -549,7 +593,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Broken Katana",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -600,7 +644,7 @@
             "_id": "Y8UsuPRivKXWSvyx",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Aura of Forgetfulness",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -643,7 +687,7 @@
             "_id": "S2rn7jixmCzDSBIE",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Soul Shred",
-            "sort": 900000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -672,7 +716,7 @@
             "_id": "UkZGAgg80Om502bF",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Manifest False Memories",
-            "sort": 1000000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -711,7 +755,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Ruin Wielder",
-            "sort": 1100000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -740,7 +784,7 @@
             "_id": "zlcXDUiBfc6tqRZ0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""

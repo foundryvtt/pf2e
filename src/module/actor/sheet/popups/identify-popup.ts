@@ -48,7 +48,11 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const item = this.object;
             const identifiedName = item.system.identification.identified.name;
             const dcs: Record<string, number> = this.dcs;
-            const action = item.isMagical ? "identify-magic" : item.isAlchemical ? "identify-alchemy" : null;
+            const action = item.isMagical
+                ? "identify-magic"
+                : item.isAlchemical
+                  ? "identify-alchemy"
+                  : "recall-knowledge";
 
             const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {
                 identifiedName,

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Vision of Weakness",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Vision of Weakness]</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vision of Weakness]</p>\n<p>You gain a +2 status bonus to your next attack roll (or skill check made as part of an attack action) against that foe before the end of your turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -22,30 +22,27 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Attacking target of Vision of Weakness",
-                "option": "vision-of-weakness",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "vision-of-weakness"
             },
             {
                 "key": "FlatModifier",
-                "label": "Against target of Vision of Weakness",
                 "predicate": [
-                    "vision-of-weakness"
+                    "target:mark:vision-of-weakness",
+                    "attack"
                 ],
-                "selector": "attack",
+                "removeAfterRoll": "if-enabled",
+                "selector": "skill-check",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Part of an Attack action against Vision of Weakness target",
                 "predicate": [
-                    "attack",
-                    "vision-of-weakness"
+                    "target:mark:vision-of-weakness"
                 ],
-                "selector": "skill-check",
+                "removeAfterRoll": "if-enabled",
+                "selector": "attack",
                 "type": "status",
                 "value": 2
             }

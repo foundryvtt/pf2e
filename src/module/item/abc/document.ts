@@ -24,7 +24,7 @@ abstract class ABCItemPF2e<TParent extends ActorPF2e | null> extends ItemPF2e<TP
     override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e<null>[]> {
         const entries = Object.values(this.system.items);
         const packEntries = entries.filter((entry) => !!entry.uuid);
-        if (!packEntries.length) return [];
+        if (packEntries.length === 0) return [];
 
         const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
         const level = options.level ?? this.parent?.level;

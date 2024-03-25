@@ -16,7 +16,7 @@ import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: DocumentConstructionContext<null> = {}) {
+    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: MessageConstructionContext = {}) {
         const expandedFlags = fu.expandObject<DeepPartial<ChatMessageFlagsPF2e>>(data.flags ?? {});
         data.flags = fu.mergeObject(expandedFlags, {
             core: { canPopout: expandedFlags.core?.canPopout ?? true },
@@ -94,8 +94,9 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
+        const actor = this.actor;
         if (this.flags.pf2e.context?.type === "self-effect") {
-            const item = this.actor?.items.get(this.flags.pf2e.context.item);
+            const item = actor?.items.get(this.flags.pf2e.context.item);
             return item ?? null;
         }
 
@@ -104,7 +105,6 @@ class ChatMessagePF2e extends ChatMessage {
         if (strike?.item) return strike.item;
 
         const item = (() => {
-            const { actor } = this;
             const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
@@ -127,7 +127,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const { actor } = this;
+        const actor = this.actor;
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);

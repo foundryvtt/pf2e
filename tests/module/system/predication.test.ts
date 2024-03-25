@@ -269,6 +269,15 @@ describe("Predication with material conditional and negation return correct resu
     });
 });
 
+describe("Predication with biconditional returns correct results", () => {
+    const predicate = new PredicatePF2e({ iff: ["foo", "bar"] });
+    expect(predicate.test(["foo"])).toEqual(false);
+    expect(predicate.test(["bar"])).toEqual(false);
+    expect(predicate.test(["foo", "bar"])).toEqual(true);
+    expect(predicate.test(["baz"])).toEqual(true);
+    expect(predicate.test([])).toEqual(true);
+});
+
 describe("Tautological propositions pass all predicate tests", () => {
     test("p or not p", () => {
         const predicate = new PredicatePF2e({ or: ["foo", { not: "foo" }] });

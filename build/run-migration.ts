@@ -13,20 +13,21 @@ import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { Migration901ReorganizeBulkData } from "@module/migration/migrations/901-reorganize-bulk-data.ts";
-import { Migration902DuskwoodDawnsilver } from "@module/migration/migrations/902-duskwood-dawnsilver.ts";
-import { Migration903PhysicalNumericData } from "@module/migration/migrations/903-physical-numeric-data.ts";
-import { Migration904UndercommonToSakvroth } from "@module/migration/migrations/904-undercommon-to-sakvroth.ts";
-import { Migration905UnpersistUsage } from "@module/migration/migrations/905-unpersist-usage.ts";
-import { Migration906LimitStackGroup } from "@module/migration/migrations/906-limit-stack-group.ts";
-import { Migration907RestructureArmorWeaponRunes } from "@module/migration/migrations/907-restructure-armor-weapon-runes.ts";
-import { Migration909RefineConsumableData } from "@module/migration/migrations/909-refine-consumable-data.ts";
-import { Migration910EdictsAnathemaArrays } from "@module/migration/migrations/910-edicts-anathema-arrays.ts";
 import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
 import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
 import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
 import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
+import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-toys.ts";
+import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
+import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
+import { Migration919WeaponToggleStructure } from "@module/migration/migrations/919-trait-toggle-structure.ts";
+import { Migration920SuboptionSelection } from "@module/migration/migrations/920-suboption-selection.ts";
+import { Migration921SpellSlotArrays } from "@module/migration/migrations/921-spell-slot-arrays.ts";
+import { Migration922SwashbucklerFinishers } from "@module/migration/migrations/922-swashbuckler-finisher-suboptions.ts";
+import { Migration923KineticistRestructure } from "@module/migration/migrations/923-kineticist-restructure.ts";
+import { Migration924JiuHuanDoa } from "@module/migration/migrations/924-jiu-huan-dao.ts";
+import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-touch-of-corruption.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -36,20 +37,21 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration901ReorganizeBulkData(),
-    new Migration902DuskwoodDawnsilver(),
-    new Migration903PhysicalNumericData(),
-    new Migration904UndercommonToSakvroth(),
-    new Migration905UnpersistUsage(),
-    new Migration906LimitStackGroup(),
-    new Migration907RestructureArmorWeaponRunes(),
-    new Migration909RefineConsumableData(),
-    new Migration910EdictsAnathemaArrays(),
     new Migration911CoinBulk(),
     new Migration912RmFocusTraitFocusCantrips(),
     new Migration913SpellSustainedText(),
     new Migration914MovePerceptionSenses(),
     new Migration915MoveLanguages(),
+    new Migration916NewPCToys(),
+    new Migration917ScrollWandSpellIds(),
+    new Migration918DeitySkills(),
+    new Migration919WeaponToggleStructure(),
+    new Migration920SuboptionSelection(),
+    new Migration921SpellSlotArrays(),
+    new Migration922SwashbucklerFinishers(),
+    new Migration923KineticistRestructure(),
+    new Migration924JiuHuanDoa(),
+    new Migration925TouchOfCorruption(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

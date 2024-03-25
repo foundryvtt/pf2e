@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "spontaneous"
@@ -31,69 +30,22 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 4,
-                        "prepared": [],
                         "value": 4
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot2": {
                         "max": 4,
-                        "prepared": [],
                         "value": 4
                     },
                     "slot3": {
                         "max": 4,
-                        "prepared": [],
                         "value": 4
                     },
                     "slot4": {
                         "max": 4,
-                        "prepared": [],
                         "value": 4
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -120,7 +72,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -137,71 +88,7 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 25,
@@ -251,11 +138,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You unleash a cloud of foul, blood-sucking fog that drains the vitality from the living to bolster your own. Each living creature in the area when you Cast the Spell, aside from you, takes 6d6 void damage with a basic Fortitude save. Creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>\n<p>The first time each round you Sustain this Spell on subsequent turns, living creatures in the area take an additional @Damage[2d6[void]] damage with another basic Fortitude save. You also gain temporary Hit Points equal to half the damage a single creature took when you Sustained the spell this turn; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 2d6 and the secondary damage increases by [[/r 1d6]].</p>"
+                    "value": "<p>You unleash a cloud of foul, blood-sucking fog that drains the vitality from the living to bolster your own. Each living creature in the area when you Cast the Spell, aside from you, takes 6d6 void damage with a basic Fortitude save. Creatures in the area are @UUID[Compendium.pf2e.conditionitems.Item.Concealed], and all creatures outside the cloud become concealed to creatures within it.</p>\n<p>The first time each round you Sustain this Spell on subsequent turns, living creatures in the area take an additional @Damage[(@item.rank -2)d6[void]] damage with another basic Fortitude save. You also gain temporary Hit Points equal to half the damage a single creature took when you Sustained the spell this turn; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 2d6 and the secondary damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "sustained": false,
-                    "value": ""
+                    "sustained": true,
+                    "value": "1 minute"
                 },
                 "heightening": {
                     "damage": {
@@ -749,7 +636,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.W02bHXylIpoXbO4e"
                 }
             },
-            "img": "systems/pf2e/icons/spells/bullhorn.webp",
+            "img": "icons/tools/instruments/megaphone.webp",
             "name": "Bullhorn",
             "sort": 1000000,
             "system": {
@@ -1691,45 +1578,10 @@
             "type": "melee"
         },
         {
-            "_id": "MPJDgS7lWLTOqNeT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 2200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "UmeNuzExQLQPFzTE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Guarded Thoughts",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1761,7 +1613,7 @@
             "_id": "PAbtJjm0RNsZSr1R",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dark Naga Venom",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1794,7 +1646,7 @@
             "_id": "CvRDfFVTTkUvF6XQ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1819,7 +1671,7 @@
             "_id": "ESySmKemx1vCsre8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1844,7 +1696,7 @@
             "_id": "bOWiQIxRSn3Yrp79",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1869,7 +1721,7 @@
             "_id": "k4XDyZPwtyL1cQwE",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1894,7 +1746,7 @@
             "_id": "a3pn2YqIzCinzphX",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1919,7 +1771,7 @@
             "_id": "XaRNJGh0Um0D9U5f",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""

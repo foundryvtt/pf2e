@@ -31,36 +31,15 @@
         "rules": [
             {
                 "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.TraitAir",
-                        "value": "air"
-                    },
-                    {
-                        "label": "PF2E.TraitEarth",
-                        "value": "earth"
-                    },
-                    {
-                        "label": "PF2E.TraitFire",
-                        "value": "fire"
-                    },
-                    {
-                        "label": "PF2E.TraitMetal",
-                        "value": "metal"
-                    },
-                    {
-                        "label": "PF2E.TraitWater",
-                        "value": "water"
-                    },
-                    {
-                        "label": "PF2E.TraitWood",
-                        "value": "wood"
-                    }
-                ],
+                "choices": {
+                    "filter": [
+                        "item:tag:kineticist-kinetic-gate"
+                    ]
+                },
                 "flag": "elementOne",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
-                "rollOption": "kinetic-gate"
+                "rollOption": "kinetic-gate:first-element"
             },
             {
                 "allowDuplicate": false,
@@ -71,6 +50,27 @@
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Channel Elements"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.elementOne}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elements",
+                "priority": 10,
+                "value": []
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate",
+                "priority": 10,
+                "value": {
+                    "one": "none",
+                    "two": "none"
+                }
             }
         ],
         "subfeatures": {

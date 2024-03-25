@@ -6,7 +6,8 @@ import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 /** Roll Twice and keep either the higher or lower result */
 class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
     static override defineSchema(): RollTwiceRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false }),
@@ -21,7 +22,8 @@ class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> {
         const synthetic: RollTwiceSynthetic = { keep: this.keep };
         if (this.predicate) synthetic.predicate = this.predicate;
 
-        const synthetics = (this.actor.synthetics.rollTwice[this.selector] ??= []);
+        const selector = this.resolveInjectedProperties(this.selector);
+        const synthetics = (this.actor.synthetics.rollTwice[selector] ??= []);
         synthetics.push(synthetic);
     }
 

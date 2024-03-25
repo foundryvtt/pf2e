@@ -14,6 +14,17 @@ import * as R from "remeda";
 export const Ready = {
     listen: (): void => {
         Hooks.once("ready", () => {
+            // Proceed no further if blacklisted modules are enabled
+            const blacklistedModules = ["pf2e-action-support-engine", "pf2e-action-support-engine-macros"];
+            const blacklistedId = blacklistedModules.find((id) => game.modules.get(id)?.active);
+            if (blacklistedId) {
+                const message = `PF2E System halted: module "${blacklistedId}" is not supported.`;
+                ui.notifications.error(message, { permanent: true });
+                CONFIG.PF2E = {} as typeof CONFIG.PF2E;
+                game.pf2e = {} as typeof game.pf2e;
+                return;
+            }
+
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
@@ -56,7 +67,7 @@ export const Ready = {
                 }
 
                 // These modules claim compatibility with V11 but are abandoned
-                const abandonedModules = new Set<string>([]);
+                const abandonedModules = new Set(["pf2e-rules-based-npc-vision"]);
 
                 // Nag the GM for running unmaintained modules
                 const subV10Modules = game.modules.filter(
@@ -103,20 +114,29 @@ export const Ready = {
             });
 
             game.pf2e.system.moduleArt.refresh().then(() => {
-                ui.compendium.compileSearchIndex();
+                if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
+                    // For some reason, Babele calls its own "ready" hook twice, and only the second one is genuine.
+                    Hooks.once("babele.ready", () => {
+                        Hooks.once("babele.ready", () => {
+                            ui.compendium.compileSearchIndex();
+                        });
+                    });
+                } else {
+                    ui.compendium.compileSearchIndex();
+                }
             });
 
             // Now that all game data is available, Determine what actors we need to reprepare.
-            // Add actors currently in an encounter, a party, and all familiars (last)
+            // Add actors currently in an encounter, then in a party, then all familiars, then parties
+            const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
             const actorsToReprepare = R.compact([
                 ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                ...game.actors
-                    .filter((a): a is PartyPF2e<null> => a.isOfType("party"))
-                    .flatMap((p) => p.members)
-                    .filter((a) => !a.isOfType("familiar")),
+                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
                 ...game.actors.filter((a) => a.type === "familiar"),
+                ...parties,
             ]);
-            resetActors(new Set(actorsToReprepare));
+            resetActors(new Set(actorsToReprepare), { sheets: false });
+            ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
             if (game.user.isGM && !game.settings.get("pf2e", "seenRemasterJournalEntry")) {

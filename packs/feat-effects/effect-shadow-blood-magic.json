@@ -1,0 +1,72 @@
+{
+    "_id": "Nv70aqcQgCBpDYp8",
+    "img": "systems/pf2e/icons/features/classes/shadow.webp",
+    "name": "Effect: Shadow Blood Magic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Shadow]</p>\n<p>Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Shadow.PerceptionPenalty",
+                        "value": "perception"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Shadow.StealthBonus",
+                        "value": "stealth"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "shadow-blood-magic"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "shadow-blood-magic:perception"
+                ],
+                "selector": "perception",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "shadow-blood-magic:stealth"
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

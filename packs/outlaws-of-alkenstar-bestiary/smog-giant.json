@@ -132,41 +132,6 @@
             "type": "melee"
         },
         {
-            "_id": "Hc4qoyb4lX3qFrKO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "hq6fn6LTmAlD51Eq",
             "flags": {
                 "core": {
@@ -175,7 +140,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -210,7 +175,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Catch Rock",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -227,7 +192,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",
@@ -240,7 +224,7 @@
             "_id": "V9X6VsgOQmUoRrd2",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Explosive Headbutt",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -270,7 +254,7 @@
             "_id": "SCyykMeBV9VZo7pd",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shrapnel",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -287,7 +271,17 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "item:trait:ingested",
+                            "item:trait:poison"
+                        ],
+                        "key": "Immunity",
+                        "label": "PF2E.IWR.Custom.IngestedPoisons",
+                        "type": "custom"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -300,7 +294,7 @@
             "_id": "SdbDQvAfti0u9IO2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -325,7 +319,7 @@
             "_id": "S4ZFQb8dPFix10db",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -350,7 +344,7 @@
             "_id": "PXe1BtyqhI7fenD0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""

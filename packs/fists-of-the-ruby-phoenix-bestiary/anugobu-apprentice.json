@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -27,74 +26,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 20,
@@ -854,45 +786,10 @@
             "type": "melee"
         },
         {
-            "_id": "XUF2Yt4W6DotXC3x",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "0fnFhzeCY0zsRybu",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Planar Workshop",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -909,7 +806,33 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "planar-workshop",
+                        "toggleable": true
+                    },
+                    {
+                        "exceptions": [
+                            "force"
+                        ],
+                        "key": "Resistance",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "type": "all-damage",
+                        "value": 5
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "planar-workshop"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -922,7 +845,7 @@
             "_id": "w1mZIpYGsjanGbXd",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Stone Step",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -949,45 +872,10 @@
             "type": "action"
         },
         {
-            "_id": "CutHX5h2oJMfCnZt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "6ga4slQxfi2EBorA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1012,7 +900,7 @@
             "_id": "4oWJI0Bq94TJMsUU",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1037,7 +925,7 @@
             "_id": "EueVSZdHyyejFM5C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1062,7 +950,7 @@
             "_id": "StuSt9a4IMsIUoWT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1087,7 +975,7 @@
             "_id": "qhiZh4CdSOvOAvxq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Engineering Lore",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1112,7 +1000,7 @@
             "_id": "Eem78AJ4zllqLByn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1137,7 +1025,7 @@
             "_id": "RE5FzTQZpzxeSuuS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""

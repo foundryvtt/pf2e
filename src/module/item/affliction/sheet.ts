@@ -1,12 +1,12 @@
 import { ItemPF2e, type AfflictionPF2e, type ConditionPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data.ts";
+import type { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data.ts";
 
 class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -21,8 +21,8 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         const sheetData = await super.getData(options);
 
         // Find the "defining trait" for item sheet header purposes
-        const definingTraits: ActionTrait[] = ["disease", "poison", "curse"];
-        const traits = new Set(this.item.system.traits.value);
+        const definingTraits: EffectTrait[] = ["disease", "poison", "curse"];
+        const traits = this.item.traits;
         const definingTrait = definingTraits.find((t) => traits.has(t));
 
         return {

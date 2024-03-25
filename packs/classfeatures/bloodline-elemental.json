@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>A genie ancestor or some other elemental influence has imbued your blood with primal fury. This affects how your blood magic works, along with your bloodline spells and granted spells marked with an asterisk (*).</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Nature</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]</em>*, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Breathe Fire]</em>*, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Resist Energy]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fireball]</em>*, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Form]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Repulsion]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Energy Aegis]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Storm of Vengeance]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Toss]</em>*, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Motion]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Blast]</em>*</p>\n<p><strong>Blood Magic</strong> Elemental energy surrounds you or a target. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes 1 damage per spell rank. The damage is bludgeoning or fire, according to your elemental type (see below). If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Elemental Blood Magic (Self)]</p>\n<h2 class=\"title\">Elemental Type</h2>\n<p>Choose the type of elemental that influenced your bloodline: air, earth, fire, or water.</p>\n<p>If your element is air, you buffet your foes with powerful winds; if it's earth, you toss huge chunks of rock; if it's fire, you incinerate your foes with flame; and if it's water, you inundate your foes with torrents of water.</p>\n<p>For fire, all marked spells deal fire damage. For other elements, they deal bludgeoning damage. You replace any existing elemental traits with the trait of the element you chose.</p>"
+            "value": "<p>A genie ancestor or some other elemental influence has imbued your blood with primal fury. This affects how your blood magic works, along with your bloodline spells and granted spells marked with an asterisk (*).</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Nature</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]*, 1st: @UUID[Compendium.pf2e.spells-srd.Item.Breathe Fire]*, 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Resist Energy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Fireball]*, 4th: @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Elemental Form], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Repulsion], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Energy Aegis], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Storm of Vengeance]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Elemental Toss]*, advanced: @UUID[Compendium.pf2e.spells-srd.Item.Elemental Motion], greater: @UUID[Compendium.pf2e.spells-srd.Item.Elemental Blast]*</p>\n<p><strong>Blood Magic</strong> Elemental energy surrounds you or a target. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes 1 damage per spell rank. The damage is bludgeoning or fire, according to your elemental type (see below). If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Elemental Blood Magic (Self)]</p>\n<h2 class=\"title\">Elemental Type</h2>\n<p>Choose the type of elemental that influenced your bloodline: air, earth, fire, or water.</p>\n<p>If your element is air, you buffet your foes with powerful winds; if it's earth, you toss huge chunks of rock; if it's fire, you incinerate your foes with flame; and if it's water, you inundate your foes with torrents of water.</p>\n<p>For fire, all marked spells deal fire damage. For other elements, they deal bludgeoning damage. You replace any existing elemental traits with the trait of the element you chose.</p>"
         },
         "level": {
             "value": 1
@@ -89,7 +89,7 @@
                     {
                         "or": [
                             "item:slug:produce-flame",
-                            "item:slug:burning-hands",
+                            "item:slug:breathe-fire",
                             "item:slug:fireball",
                             "item:slug:elemental-toss",
                             "item:slug:elemental-blast"
@@ -97,6 +97,55 @@
                     }
                 ],
                 "selector": "spell-damage"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:primal",
+                                    {
+                                        "or": [
+                                            "item:slug:prismatic-wall",
+                                            "item:slug:breathe-fire",
+                                            "item:slug:resist-energy",
+                                            "item:slug:fireball",
+                                            "item:slug:unfettered-movement",
+                                            "item:slug:elemental-form",
+                                            "item:slug:repulsion",
+                                            "item:slug:energy-aegis",
+                                            "item:slug:storm-of-vengeance"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Elemental",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Elemental Blood Magic (Self)]"
+                    }
+                ]
             }
         ],
         "traits": {

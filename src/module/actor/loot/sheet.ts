@@ -1,5 +1,6 @@
 import type { LootPF2e } from "@actor";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
+import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
+import type { PhysicalItemPF2e } from "@item";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup.ts";
@@ -54,6 +55,28 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
                 }
             }
         });
+    }
+
+    protected override prepareInventory(): SheetInventory {
+        const preparedInventory = super.prepareInventory();
+        preparedInventory.showUnitBulkPrice = this.actor.system.lootSheetType === "Merchant";
+
+        // Hide empty sections for non-owners
+        if (!this.actor.isOwner) {
+            preparedInventory.sections = preparedInventory.sections.filter(
+                (s) => s.items.length && s.items.some((i) => !i.hidden),
+            );
+        }
+
+        return preparedInventory;
+    }
+
+    /** Hide coin item rows in merchant actors */
+    protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
+        const isMerchant = this.actor.system.lootSheetType === "Merchant";
+        const data = super.prepareInventoryItem(item);
+        data.hidden = isMerchant && item.isOfType("treasure") && item.isCoinage && !item.container;
+        return data;
     }
 }
 

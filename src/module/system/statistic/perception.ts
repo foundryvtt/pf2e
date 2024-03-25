@@ -1,11 +1,12 @@
-import type { ActorPF2e } from "@actor";
+import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { SenseData } from "@actor/creature/data.ts";
 import { Sense } from "@actor/creature/sense.ts";
+import { AttributeString } from "@actor/types.ts";
 import * as R from "remeda";
 import type { StatisticData, StatisticTraceData } from "./data.ts";
 import { Statistic, type RollOptionConfig } from "./statistic.ts";
 
-class PerceptionStatistic extends Statistic {
+class PerceptionStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TActor> {
     /** Special senses possessed by the actor */
     senses: Collection<Sense>;
 
@@ -15,7 +16,7 @@ class PerceptionStatistic extends Statistic {
     /** Special senses or other perception-related details without formalization in the system: used for NPCs */
     declare details?: string;
 
-    constructor(actor: ActorPF2e, data: PerceptionStatisticData, config: RollOptionConfig = {}) {
+    constructor(actor: TActor, data: PerceptionStatisticData, config: RollOptionConfig = {}) {
         super(actor, data, config);
         this.senses = new Collection(this.#prepareSenses(data.senses).map((s) => [s.type, s]));
         this.hasVision = data.vision ?? true;
@@ -46,6 +47,8 @@ class PerceptionStatistic extends Statistic {
         return R.uniqBy(preparedSenses, (s) => s.type);
     }
 
+    override getTraceData(this: Statistic<CreaturePF2e>): PerceptionTraceData<AttributeString>;
+    override getTraceData(): PerceptionTraceData;
     override getTraceData(): PerceptionTraceData {
         return {
             ...super.getTraceData({ value: "mod" }),
@@ -66,7 +69,8 @@ type LabeledSenseData = Required<SenseData> & {
     label: string | null;
 };
 
-interface PerceptionTraceData extends StatisticTraceData {
+interface PerceptionTraceData<TAttribute extends AttributeString | null = AttributeString | null>
+    extends StatisticTraceData<TAttribute> {
     /** Unusual senses or other perception-related notes */
     details: string;
     senses: LabeledSenseData[];

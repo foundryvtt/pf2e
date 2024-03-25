@@ -25,13 +25,11 @@ interface SpellDifficultyClass {
 
 interface SpellPrepData {
     id: string | null;
-    expended?: boolean;
-    name?: string;
-    prepared?: boolean;
+    expended: boolean;
 }
 
 interface SpellSlotData {
-    prepared: Record<number, SpellPrepData>;
+    prepared: SpellPrepData[];
     value: number;
     max: number;
 }
@@ -52,12 +50,14 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         slug: string;
         value: ZeroToFour;
     };
-    slots: Record<SlotKey, SpellSlotData>;
+    slots: SpellcastingEntrySlots;
     autoHeightenLevel: {
         value: OneToTen | null;
     };
     level?: never;
 }
+
+type SpellcastingEntrySlots = Record<SlotKey, SpellSlotData>;
 
 interface SpellCollectionTypeSource {
     value: SpellcastingCategory;
@@ -80,6 +80,7 @@ export type {
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
+    SpellcastingEntrySlots,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
     SpellcastingEntrySystemSource,

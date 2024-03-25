@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -31,71 +30,7 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 42,
@@ -261,84 +196,6 @@
             "type": "spell"
         },
         {
-            "_id": "kue84Wm3utwGMAga",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.Z9OrRXKgAPv6Hn5l"
-                }
-            },
-            "img": "icons/magic/unholy/hand-claw-fog-green.webp",
-            "name": "Finger of Death",
-            "sort": 400000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "90",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "untyped"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": true,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 void damage to the target. If the damage from finger of death reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 9
-                },
-                "location": {
-                    "value": "DFZPLEk0MQcqSi9v"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "finger-of-death",
-                "target": {
-                    "value": "1 living creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "divine",
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "death",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "4odHwJFcqXI8CpPg",
             "flags": {
                 "core": {
@@ -347,7 +204,7 @@
             },
             "img": "systems/pf2e/icons/spells/vampiric-exsanguination.webp",
             "name": "Vampiric Exsanguination",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": {
                     "type": "cone",
@@ -423,6 +280,93 @@
                         "death",
                         "manipulate",
                         "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "bu0DckheN59rAytu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.Z9OrRXKgAPv6Hn5l"
+                }
+            },
+            "img": "icons/magic/unholy/hand-claw-fog-green.webp",
+            "name": "Finger of Death",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "70",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You point your finger toward the target and speak a word of slaying. You deal 70 void damage to the target. If the damage from <em>finger of death</em> reduces the target to 0 Hit Points, the target dies instantly.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 10.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 9,
+                    "value": "DFZPLEk0MQcqSi9v"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "finger-of-death",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "manipulate"
                     ]
                 }
             },
@@ -820,80 +764,10 @@
             "type": "action"
         },
         {
-            "_id": "uuI2Msz0ObGGd1kj",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "scent",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "7RZaK7BB8AYtaXJb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Qx0Uh3ktQIh1dVKT",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -946,7 +820,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -997,7 +871,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Jaws Only)",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -1027,7 +901,7 @@
             "_id": "SXISaBxf4jsnV512",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1061,7 +935,7 @@
             "_id": "A5NdjSB3IdJS5DAb",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1091,7 +965,7 @@
             "_id": "BRAhQrI56OQkBhNy",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1131,7 +1005,7 @@
             "_id": "jJMWnNtJ3dst8bcj",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Drain Vigor",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1163,7 +1037,7 @@
             "_id": "wYU3mjAP9KQSofkn",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghost Bane",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1212,7 +1086,7 @@
             "_id": "D3ADe0u8LQnTgLYJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1237,7 +1111,7 @@
             "_id": "hoAH4T8LI0tjkl26",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1262,7 +1136,7 @@
             "_id": "TjZTM0EKGOVJ0S0X",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2600000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1287,7 +1161,7 @@
             "_id": "hkuXxOxuPmTFWjDI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2700000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1312,7 +1186,7 @@
             "_id": "7bhNad90ExDDqoOJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2800000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1337,7 +1211,7 @@
             "_id": "34sEZPEBqssJnsdh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2900000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1362,7 +1236,7 @@
             "_id": "AvdxOQerXrCnLU7o",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3000000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""

@@ -1,20 +1,26 @@
 import type { ActorPF2e } from "@actor";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup.ts";
-import type { WeaponPF2e } from "@item";
-import { PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import type { SpellPF2e, WeaponPF2e } from "@item";
+import { ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import { processSanctification } from "@item/ability/helpers.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
-import { ValueAndMax } from "@module/data.ts";
-import type { RuleElementPF2e } from "@module/rules/index.ts";
+import type { SpellcastingEntry } from "@item/spellcasting-entry/types.ts";
+import type { ValueAndMax } from "@module/data.ts";
+import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, setHasElement } from "@util";
 import * as R from "remeda";
-import { ConsumableSource, ConsumableSystemData } from "./data.ts";
-import { ConsumableCategory, OtherConsumableTag } from "./types.ts";
+import type { ConsumableSource, ConsumableSystemData } from "./data.ts";
+import type { ConsumableCategory, ConsumableTrait, OtherConsumableTag } from "./types.ts";
 import { DAMAGE_ONLY_CONSUMABLE_CATEGORIES, DAMAGE_OR_HEALING_CONSUMABLE_CATEGORIES } from "./values.ts";
 
 class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
+    static override get validTraits(): Record<ConsumableTrait, string> {
+        return CONFIG.PF2E.consumableTraits;
+    }
+
     get otherTags(): Set<OtherConsumableTag> {
         return new Set(this.system.traits.otherTags);
     }
@@ -31,14 +37,22 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return R.pick(this.system.uses, ["value", "max"]);
     }
 
-    get embeddedSpell(): SpellPF2e<ActorPF2e> | null {
+    get embeddedSpell(): SpellPF2e<NonNullable<TParent>> | null {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
         if (!this.system.spell) return null;
 
-        return new SpellPF2e(fu.deepClone(this.system.spell), {
-            parent: this.actor,
-            fromConsumable: true,
-        }) as SpellPF2e<ActorPF2e>;
+        const spellSource = fu.mergeObject(this.system.spell, { "system.location.value": null }, { inplace: false });
+        const context = { parent: this.actor, parentItem: this };
+        const spell = new ItemProxyPF2e(spellSource, context) as SpellPF2e<NonNullable<TParent>>;
+
+        const alterations = this.actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
+        for (const alteration of alterations) {
+            alteration.applyAlteration({ singleItem: spell });
+        }
+
+        processSanctification(spell);
+
+        return spell;
     }
 
     override prepareBaseData(): void {
@@ -61,21 +75,11 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
     }
 
-    /** Rule elements cannot be executed from consumable items, but they can be used to generate effects */
-    override prepareRuleElements(): RuleElementPF2e[] {
-        const rules = super.prepareRuleElements();
-        for (const rule of rules) {
-            rule.ignored = true;
-        }
-
-        return rules;
-    }
-
     override async getChatData(
         this: ConsumablePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
         rollOptions: Record<string, unknown> = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [category, isUsable] = this.isIdentified
             ? [game.i18n.localize(CONFIG.PF2E.consumableCategories[this.category]), true]
@@ -115,9 +119,9 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         return [
-            ...super.getRollOptions(prefix),
+            ...super.getRollOptions(prefix, options),
             ...Object.entries({
                 [`category:${this.category}`]: true,
             })
@@ -138,13 +142,13 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     /** Use a consumable item, sending the result to chat */
-    async consume(): Promise<void> {
-        const { actor } = this;
+    async consume(thisMany = 1): Promise<void> {
+        const actor = this.actor;
         if (!actor) return;
-        const { value, max } = this.uses;
+        const uses = this.uses;
 
         if (["scroll", "wand"].includes(this.category) && this.system.spell) {
-            if (actor.spellcasting.canCastConsumable(this)) {
+            if (actor.spellcasting?.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
@@ -156,11 +160,11 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
         } else if (this.category !== "ammo") {
             // Announce consumption of non-ammunition
-            const exhausted = max > 1 && value === 1;
-            const key = exhausted ? "UseExhausted" : max > 1 ? "UseMulti" : "UseSingle";
+            const exhausted = uses.max >= thisMany && uses.value === thisMany;
+            const key = exhausted && uses.max > 1 ? "UseExhausted" : uses.max > thisMany ? "UseMulti" : "UseSingle";
             const content = game.i18n.format(`PF2E.ConsumableMessage.${key}`, {
                 name: this.name,
-                current: value - 1,
+                current: uses.value - thisMany,
             });
             const flags = {
                 pf2e: {
@@ -182,56 +186,46 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         // Optionally destroy the item
-        if (this.system.uses.autoDestroy && value <= 1) {
-            const { quantity } = this;
+        if (this.system.uses.autoDestroy && uses.value <= thisMany) {
+            const quantityRemaining = this.quantity;
 
             // Keep ammunition if it has rule elements
             const isPreservedAmmo = this.category === "ammo" && this.system.rules.length > 0;
-            if (quantity <= 1 && !isPreservedAmmo) {
+            if (quantityRemaining <= 1 && !isPreservedAmmo) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "system.quantity": Math.max(quantity - 1, 0),
-                    "system.uses.value": max,
+                    "system.quantity": Math.max(quantityRemaining - 1, 0),
+                    "system.uses.value": uses.max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "system.uses.value": Math.max(value - 1, 0),
+                "system.uses.value": Math.max(uses.value - thisMany, 0),
             });
         }
     }
 
     async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemEntry): Promise<void> {
-        const { actor } = this;
+        const actor = this.actor;
         const spell = this.embeddedSpell;
         if (!actor || !spell) return;
 
         // Find the best spellcasting entry to cast this consumable
-        const entry = (() => {
+        const entry = ((): SpellcastingEntry<ActorPF2e> | null => {
             if (trickMagicItemData) return trickMagicItemData;
-            return actor.spellcasting
-                .filter(
-                    (e): e is SpellcastingEntryPF2e<ActorPF2e> =>
-                        e instanceof SpellcastingEntryPF2e && e.canCast(spell, { origin: this }),
-                )
-                .reduce((previous, current) => {
-                    const previousDC = previous.statistic.dc.value;
-                    const currentDC = current.statistic.dc.value;
-                    return currentDC > previousDC ? current : previous;
-                });
+            type SpellcastingAbility = SpellcastingEntry<ActorPF2e>;
+
+            return (
+                actor.spellcasting
+                    ?.filter((e): e is SpellcastingAbility => !!e.statistic && e.canCast(spell, { origin: this }))
+                    .reduce((best, e) => (e.statistic.dc.value > best.statistic.dc.value ? e : best)) ?? null
+            );
         })();
 
-        if (entry) {
-            const systemData = spell.system;
-            if (entry instanceof SpellcastingEntryPF2e) {
-                systemData.location.value = entry.id;
-            }
-
-            entry.cast(spell, { consume: false });
-        }
+        return entry?.cast(spell, { consume: false });
     }
 
     protected override _preUpdate(

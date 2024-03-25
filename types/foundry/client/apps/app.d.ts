@@ -121,7 +121,7 @@ declare global {
          *                is rendered in the DOM.
          * @returns The rendered Application instance
          */
-        render(force?: boolean, options?: RenderOptions): this | Promise<this>;
+        render(force?: boolean, options?: RenderOptions): this;
 
         /**
          * An asynchronous inner function which handles the rendering of the Application
@@ -265,6 +265,11 @@ declare global {
          * @return  A Promise which resolves to true once the maximization action has completed
          */
         maximize(): Promise<boolean>;
+
+        /**
+         * Bring the application to the top of the rendering stack
+         */
+        bringToTop(): void;
 
         /**
          * Set the application position and store it's new location

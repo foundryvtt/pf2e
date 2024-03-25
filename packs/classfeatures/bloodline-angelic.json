@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spiritual Weapon]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Holy Light]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Flame Strike]</em>, 6th:<em>@UUID[Compendium.pf2e.spells-srd.Item.Blade Barrier]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Decree]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Divine Aura]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Foresight]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</em></p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]</p>"
+            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Light], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Heal], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Weapon], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Holy Light], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Flame Strike], 6th:@UUID[Compendium.pf2e.spells-srd.Item.Blade Barrier], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Aura], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Foresight]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings], greater: @UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,55 @@
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:divine",
+                                    {
+                                        "or": [
+                                            "item:slug:heal",
+                                            "item:slug:spiritual-weapon",
+                                            "item:slug:holy-light",
+                                            "item:slug:divine-wrath",
+                                            "item:slug:flame-strike",
+                                            "item:slug:blade-barrier",
+                                            "item:slug:divine-decree",
+                                            "item:slug:divine-aura",
+                                            "item:slug:foresight"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Angelic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

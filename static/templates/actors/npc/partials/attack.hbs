@@ -1,33 +1,28 @@
-<li
-    class="item attack flexrow"
-    data-action-index="{{index}}"
-    data-item-type="melee"
-    data-strike=""
-    data-item-id="{{action.sourceId}}"
->
-    <h4 class="tags">
+<li class="item action" data-action-index="{{index}}" data-item-type="melee" data-item-id="{{action._id}}" data-strike>
+    <h4>
         {{#if action.description}}
-            <a data-action="toggle-summary">
-                <strong>{{localize action.attackRollType}}</strong>
-                <span class="action-glyph">{{action.glyph}}</span>
-                {{action.label}}
+            <a class="name" data-action="toggle-summary">
+                <strong>{{localize action.attackType}}</strong>
+                <span class="action-glyph">1</span>
+                {{action.name}}
             </a>
         {{else}}
-            <span>
-                <strong>{{localize action.attackRollType}}</strong>
-                <span class="action-glyph">{{action.glyph}}</span>
-                {{action.label}}
+            <span class="name">
+                <strong>{{localize action.attackType}}</strong>
+                <span class="action-glyph">1</span>
+                {{action.name}}
             </span>
         {{/if}}
-        {{#each action.traits as |trait|}}
-            <div
-                class="tag tag_transparent"
-                data-tooltip="{{trait.description}}"
-                data-tooltip-direction="UP">{{localize trait.label}}</div>
-        {{/each}}
-        {{#each action.additionalEffects as |effect|}}
-            <div class="tag tag_transparent" data-tag="{{effect.tag}}">{{localize effect.label}}</div>
-        {{/each}}
+
+        {{#if action.traits}}
+            <span class="traits">
+                {{#each action.traits as |trait|}}
+                    {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
+                    <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
+                    {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
+                {{/each}}
+            </span>
+        {{/if}}
     </h4>
 
     <div class="controls">
@@ -38,18 +33,25 @@
     </div>
 
     <div class="button-group">
-        <div class="attacks sub-section">
+        <div class="subsection attack">
             {{#each action.variants as |variant index|}}
                 <button type="button" class="attack-button" {{#if (eq index 0)}}data-tooltip="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{index}}">{{variant.label}}</button>
             {{/each}}
         </div>
-        {{#if action.item.dealsDamage}}
-            <div class="damage sub-section">
-                <button type="button" class="damage-button" data-action="strike-damage">{{action.damageFormula}}</button>
-                <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+        {{#if action.damageFormula}}
+            <div class="subsection damage">
+                <button type="button" data-action="strike-damage">{{action.damageFormula}}</button>
+                <button type="button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
             </div>
         {{/if}}
     </div>
+
+    {{#if action.effects~}}
+        <div class="effects">
+            {{~localize "PF2E.Actor.AttackEffects.PlusList" list=action.effects~}}
+        </div>
+    {{~/if}}
+
 
     {{#if action.description}}
         <div class="item-summary">

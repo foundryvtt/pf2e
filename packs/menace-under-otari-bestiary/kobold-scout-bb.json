@@ -415,45 +415,15 @@
             "type": "melee"
         },
         {
-            "_id": "Zh4UT6i2zsYug3c7",
+            "_id": "BRVL1ixeyP9uFjWm",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                    "sourceId": "Compendium.pf2e.menace-under-otari-bestiary.Actor.QaldZV2p9RpMXzzn.Item.Y5pZ1lg8o21ONX8u"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scamper",
             "sort": 700000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "0qvSsLdTulsncbsi",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Hurried Retreat",
-            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -463,7 +433,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to an enemy.</p>"
+                    "value": "<p>If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to any enemy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -472,15 +442,23 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
-                        "option": "hurried-retreat",
+                        "option": "scamper",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hurried-retreat"
+                            "scamper"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scamper"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -489,7 +467,6 @@
                 ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
                     "value": []
                 }
             },
@@ -504,7 +481,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -551,7 +528,7 @@
             "_id": "tQGydK8MubU5bdbd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -568,7 +545,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -576,7 +554,7 @@
             "_id": "skdB8eSpcqrot5k6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -594,6 +572,7 @@
                 },
                 "rules": [],
                 "slug": null,
+                "traits": {},
                 "variants": {}
             },
             "type": "lore"
@@ -602,7 +581,7 @@
             "_id": "hJqqojfXLjr2mqCW",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -619,7 +598,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -627,7 +607,7 @@
             "_id": "wToaQhCeIYEFCXeb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -644,7 +624,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -652,7 +633,7 @@
             "_id": "mBZrSn4alzCUy4KJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -669,7 +650,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -702,7 +684,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 18
+                "value": 16
             },
             "allSaves": {
                 "value": ""
@@ -728,10 +710,10 @@
                 "value": 1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Most kobolds encountered outside of a well-defended warren or lair are kobold scouts, trained for stalking and the hunt. They're charged with bringing back food and valuable goods to the community. Kobolds are skilled at working together by necessity, and they often set up ambushes or hit-and-run assaults that allow them to do the most damage possible without putting themselves at much risk.</p>",
+            "publicNotes": "<p>Most kobolds encountered outside of a well-defended warren or lair are kobold scouts, trained for stalking and the hunt. They're charged with bringing food and valuable goods back to the community. Kobolds are skilled at working together by necessity, and they often set up ambushes or hit-and-run assaults that allow them to do the most damage possible without putting themselves at much risk.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },
@@ -768,10 +750,8 @@
                 "value": "sm"
             },
             "value": [
-                "evil",
                 "humanoid",
-                "kobold",
-                "lawful"
+                "kobold"
             ]
         }
     },

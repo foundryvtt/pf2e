@@ -78,13 +78,23 @@ const MetagameSettingsConfig = {
         type: Boolean,
         onChange: async (value: unknown) => {
             game.pf2e.settings.tokens.nameVisibility = !!value;
-            await ui.combat.render();
+            ui.combat.render();
             const renderedMessages = document.querySelectorAll<HTMLLIElement>("#chat-log > li");
             for (const rendered of Array.from(renderedMessages)) {
                 const message = game.messages.get(rendered?.dataset.messageId ?? "");
                 if (!message) continue;
                 await ui.chat.updateMessage(message);
             }
+        },
+    },
+    secretChecks: {
+        prefix: "metagame_",
+        name: "PF2E.SETTINGS.Metagame.SecretChecks.Name",
+        hint: "PF2E.SETTINGS.Metagame.SecretChecks.Hint",
+        default: false,
+        type: Boolean,
+        onChange: (value: unknown) => {
+            game.pf2e.settings.metagame.secretChecks = !!value;
         },
     },
 } satisfies Record<string, PartialSettingsData>;

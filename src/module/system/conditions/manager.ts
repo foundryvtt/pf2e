@@ -19,21 +19,21 @@ export class ConditionManager {
         return [...this.conditions.keys()].filter((k) => !k.startsWith("Compendium."));
     }
 
-    static async initialize(force = false): Promise<void> {
-        if (!this.#initialized) {
-            this.conditions = new Map(
-                this.CONDITION_SOURCES?.flatMap((source) => {
-                    const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
-                    return [
-                        [condition.slug, condition],
-                        [condition.uuid, condition],
-                    ];
-                }) ?? [],
-            );
-            delete this.CONDITION_SOURCES;
-        }
+    static initialize(): void {
+        if (this.#initialized) return;
 
-        if ((!this.#initialized || force) && game.i18n.lang !== "en" && game.modules.get("babele")?.active) {
+        this.conditions = new Map(
+            this.CONDITION_SOURCES?.flatMap((source) => {
+                const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
+                return [
+                    [condition.slug, condition],
+                    [condition.uuid, condition],
+                ];
+            }) ?? [],
+        );
+        delete this.CONDITION_SOURCES;
+
+        if (game.i18n.lang !== "en") {
             const localize = localizer("PF2E.condition");
             for (const condition of this.conditions.values()) {
                 condition.name = condition._source.name = localize(`${condition.slug}.name`);
@@ -42,6 +42,7 @@ export class ConditionManager {
                 );
             }
         }
+
         this.#initialized = true;
     }
 

@@ -4,23 +4,14 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import type { AbilityItemPF2e, ArmorPF2e, ConditionPF2e, WeaponPF2e } from "@item";
 import { EffectPF2e, ItemProxyPF2e } from "@item";
 import { ItemCarryType } from "@item/physical/index.ts";
-import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
-import { DAMAGE_DIE_FACES } from "@system/damage/values.ts";
+import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
 import { PredicatePF2e } from "@system/predication.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    objectHasKey,
-    setHasElement,
-    sluggify,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
@@ -41,7 +32,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                 case "jousting": {
                     if (weapon.handsHeld === 1) {
                         const die = /(d\d{1,2})$/.exec(trait)?.[1];
-                        if (setHasElement(DAMAGE_DIE_FACES, die)) {
+                        if (tupleHasValue(DAMAGE_DIE_SIZES, die)) {
                             weapon.system.damage.die = die;
                         }
                     }
@@ -191,14 +182,19 @@ class WeaponAuxiliaryAction {
 
     get options(): SheetOptions | null {
         if (this.annotation === "modular") {
+            const toggles = this.weapon.system.traits.toggles;
             return createSheetOptions(
-                R.pick(CONFIG.PF2E.damageTypes, this.weapon.system.traits.toggles.modular.options),
-                [this.weapon.system.traits.toggles.modular.selection ?? []].flat(),
+                R.pick(CONFIG.PF2E.damageTypes, toggles.modular.options),
+                [toggles.modular.selected ?? []].flat(),
             );
         }
         return null;
     }
 
+    /**
+     * Execute an auxiliary action.
+     * [options.selection] A choice of some kind: currently only has meaning for modular trait toggling
+     */
     async execute({ selection = null }: { selection?: string | null } = {}): Promise<void> {
         const { actor, weapon } = this;
         const COVER_UUID = "Compendium.pf2e.other-effects.Item.I9lfZUiCwMiGogVi";
@@ -206,7 +202,7 @@ class WeaponAuxiliaryAction {
         if (this.carryType) {
             await actor.changeCarryType(this.weapon, { carryType: this.carryType, handsHeld: this.hands ?? 0 });
         } else if (selection && tupleHasValue(weapon.system.traits.toggles.modular.options, selection)) {
-            const updated = await toggleWeaponTrait({ weapon, trait: "modular", selection });
+            const updated = await weapon.system.traits.toggles.update({ trait: "modular", selected: selection });
             if (!updated) return;
         } else if (this.action === "raise-a-shield") {
             // Apply Effect: Raise a Shield

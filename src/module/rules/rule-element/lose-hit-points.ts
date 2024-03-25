@@ -9,7 +9,8 @@ class LoseHitPointsRuleElement extends RuleElementPF2e<LoseHitPointsRuleSchema> 
     static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
     static override defineSchema(): LoseHitPointsRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, initial: undefined }),

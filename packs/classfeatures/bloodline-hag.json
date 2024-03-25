@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>A hag long ago cursed your family, or you are a descendant of a hag or changeling, and their accursed corruption infests your blood and soul.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Deception, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Daze]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Stupefy]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Blindness]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Warp Mind]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Nature's Enmity]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Jealous Hex]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Horrific Visage]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.You're Mine]</em></p>\n<p><strong>Blood Magic</strong> Spiteful curses punish your foes. You deal 2 mental damage per spell rank (basic Will save) to the first creature that deals damage to you before the end of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Hag Blood Magic]</p>"
+            "value": "<p>A hag long ago cursed your family, or you are a descendant of a hag or changeling, and their accursed corruption infests your blood and soul.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Deception, Occultism</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Daze], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Illusory Disguise], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Stupefy], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Blindness], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Outcast's Curse], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Warp Mind], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Epidemic], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Nature's Enmity]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Jealous Hex], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Horrific Visage], greater: @UUID[Compendium.pf2e.spells-srd.Item.You're Mine]</p>\n<p><strong>Blood Magic</strong> Spiteful curses punish your foes. You deal 2 mental damage per spell rank (basic Will save) to the first creature that deals damage to you before the end of your next turn.</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,52 @@
                 "mode": "upgrade",
                 "path": "system.skills.occ.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:occult",
+                                    {
+                                        "or": [
+                                            "item:slug:illusory-disguise",
+                                            "item:slug:stupefy",
+                                            "item:slug:blindness",
+                                            "item:slug:outcasts-curse",
+                                            "item:slug:mariners-curse",
+                                            "item:slug:cursed-metamorphosis",
+                                            "item:slug:warp-mind",
+                                            "item:slug:spiritual-epidemic",
+                                            "item:slug:natures-enmity"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Hag",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    }
+                ]
             }
         ],
         "traits": {

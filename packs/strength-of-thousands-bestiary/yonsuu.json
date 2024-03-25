@@ -521,45 +521,10 @@
             "type": "melee"
         },
         {
-            "_id": "VS6ijykqKajbMTPm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "nte7kutbe3lsm1cz",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Cat's Luck",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -596,7 +561,7 @@
             "_id": "7xb9wi0nsdyrp0lb",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hampering Strike",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -617,30 +582,13 @@
                     {
                         "key": "Note",
                         "outcome": [
+                            "criticalSuccess",
                             "success"
                         ],
-                        "predicate": [
-                            {
-                                "not": "range"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "A foe that takes damage from Yonsuu's melee Strike is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            {
-                                "not": "range"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "text": "A foe that takes critical damage from Yonsuu's melee Strike is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 3} for 1 round.",
-                        "title": "{item|name}"
+                        "selector": "melee-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
                     }
                 ],
                 "slug": null,
@@ -655,7 +603,7 @@
             "_id": "Xs4GwCjt0hjJoSXY",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Subduing Attack",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -679,14 +627,18 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "subduing-attack"
+                            {
+                                "or": [
+                                    "subduing-attack",
+                                    "target:condition:frightened"
+                                ]
+                            }
                         ],
                         "selector": "strike-damage"
                     },
                     {
                         "domain": "damage",
                         "key": "RollOption",
-                        "label": "Target is frightened or in reach of an ally",
                         "option": "subduing-attack",
                         "toggleable": true
                     }
@@ -703,7 +655,7 @@
             "_id": "ry5zt1cvtpnldrxh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -728,7 +680,7 @@
             "_id": "ls9qqsajez2dcbk7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -753,7 +705,7 @@
             "_id": "sbwpojyztp9hs8fd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -778,7 +730,7 @@
             "_id": "h0e0wr06nckgcluv",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -803,7 +755,7 @@
             "_id": "3zg4w8md6nja8yex",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -828,7 +780,7 @@
             "_id": "rqporfiry6m19suu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -853,7 +805,7 @@
             "_id": "t78s1aqi0cljnbdk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""

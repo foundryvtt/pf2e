@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -28,74 +27,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 22,
@@ -574,7 +506,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You gather magical energy into your palm, forming a concentrated ball of electricity that crackles and rumbles like impossibly distant thunder. Make a ranged spell attack roll against your target's AC. On a success, you deal 3d6 electricity damage. On a critical success, the target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The number of actions you spend when Casting this Spell determines the range and other parameters.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(somatic, verbal)</strong> This spell has a range of 30 feet.</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> This spell has a range of 60 feet and deals half damage on a failure (but not a critical failure) as the electricity lashes out and jolts the target.</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 3 actions on your next turn to empower the spell even further. If you do, after attacking the target, whether you hit or miss, the ball of lightning explodes, dealing @Damage[2d6[electricity]] damage to all other creatures in a @Template[type:emanation|distance:10] around the target (basic Reflex save). Additionally, you spark with electricity for 1 minute, dealing @Damage[1[electricity]] damage to creatures that Grab you or that hit you with an unarmed Strike or a non-reach melee weapon.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage on a hit, as well as the burst damage for two-round casting time, each increase by @Damage[2d6[electricity]], and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by @Damage[1[electricity]].</p>"
+                    "value": "<p>You gather magical energy into your palm, forming a concentrated ball of electricity that crackles and rumbles like impossibly distant thunder. Make a ranged spell attack roll against your target's AC. On a success, you deal 3d6 electricity damage. On a critical success, the target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round. The number of actions you spend when Casting this Spell determines the range and other parameters.</p>\n<p><span class=\"action-glyph\">2</span> This spell has a range of 30 feet.</p>\n<p><span class=\"action-glyph\">3</span> This spell has a range of 60 feet and deals half damage on a failure (but not a critical failure) as the electricity lashes out and jolts the target.</p>\n<p><strong>Two Rounds</strong> If you spend 3 actions Casting the Spell, you can avoid finishing the spell and spend another 3 actions on your next turn to empower the spell even further. If you do, after attacking the target, whether you hit or miss, the ball of lightning explodes, dealing @Damage[(@item.rank*2)d6[electricity]] damage to all other creatures in a @Template[type:emanation|distance:10] around the target (basic Reflex save). Additionally, you spark with electricity for 1 minute, dealing @Damage[(@item.rank)[electricity]] damage to creatures that Grab you or that hit you with an unarmed Strike or a non-reach melee weapon.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage on a hit, as well as the burst damage for two-round casting time, each increase by 2d6, and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by 1.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -600,6 +532,7 @@
                         "overlayType": "override",
                         "sort": 1,
                         "system": {
+                            "defense": null,
                             "range": {
                                 "value": "30 feet"
                             },
@@ -613,6 +546,7 @@
                         "overlayType": "override",
                         "sort": 2,
                         "system": {
+                            "defense": null,
                             "range": {
                                 "value": "60 feet"
                             },
@@ -623,7 +557,6 @@
                     },
                     "px43dahs3eb2rukw": {
                         "_id": "px43dahs3eb2rukw",
-                        "name": "Horizon Thunder Sphere (2 Rounds)",
                         "overlayType": "override",
                         "sort": 3,
                         "system": {
@@ -1018,45 +951,10 @@
             "type": "melee"
         },
         {
-            "_id": "EuLz7D8KQPASHSbM",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "9KgqYkX3BJu2sNIx",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Magic Sense",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1092,7 +990,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1129,7 +1027,7 @@
             "_id": "6nrgrwameqeix38f",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1154,7 +1052,7 @@
             "_id": "x4qdpbc3ywa3rrrn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""

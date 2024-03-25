@@ -1,0 +1,437 @@
+{
+    "_id": "d8C8aBd2ZrG3i0o5",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "3tklaxZnRZJClxrj",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "EbwQXy34GnJSMmwh": {
+                        "damage": "1d10+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TgG7cxe4YnSkKy80",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Functional Form",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Depending on the creature it resembles, the topiary monster gains additional abilities.</p>\n<p><strong>Mantis</strong> The branch Strike is agile and has reach 10 feet. On the first round of combat, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to the mantis topiary monster.</p>\n<p><strong>Owlbear</strong> The branch Strike is agile and has the Grab action.</p>\n<p><strong>Unicorn</strong> The branch Strike is deadly 1d6 and has the Knockdown action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "functional-form",
+                        "selection": "mantis",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Mantis",
+                                "value": "mantis"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Owlbear",
+                                "value": "owlbear"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Unicorn",
+                                "value": "unicorn"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "functional-form:mantis"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "agile"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "functional-form:mantis"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
+                    },
+                    {
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            "encounter:round:1",
+                            {
+                                "lt": [
+                                    "self:participant:initiative:rank",
+                                    "target:participant:initiative:rank"
+                                ]
+                            },
+                            "functional-form:mantis"
+                        ],
+                        "selectors": [
+                            "strike-attack-roll",
+                            "spell-attack-roll",
+                            "strike-damage",
+                            "attack-spell-damage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+                    },
+                    {
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "functional-form:unicorn"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "deadly-d6"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "CO77haYWzPv7DrJ3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Intimidating Display",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When using Intimidation to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a target, a topiary monster doesn't take a penalty for not speaking the same language as the target.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0N5ulCrUcdSrsboE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab (Owlbear Form Only)",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dvxOitK1qUelEokW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown (Unicorn Form Only)",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4jHlWhf5tb4YGzKv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "dXEiPdoTrtRmoORN",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Hi4g6ZZeyCVlbqC8",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+11 in forests",
+                        "options": "terrain:forest"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Topiary Monster",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 16
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 20,
+                "temp": 0,
+                "value": 20
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-12: Mischief in the Maze"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 7
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

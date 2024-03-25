@@ -34,7 +34,7 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     get invested(): { value: number; max: number } | null {
         if (this.actor.isOfType("character")) {
             return {
-                value: this.filter((item) => !!item.isInvested).length,
+                value: this.filter((i) => i.isInvested).length,
                 max: this.actor.system.resources.investiture.max,
             };
         }

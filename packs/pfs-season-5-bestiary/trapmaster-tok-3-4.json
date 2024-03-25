@@ -1028,45 +1028,10 @@
             "type": "melee"
         },
         {
-            "_id": "aYJWyBMQwGUKkwg0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "nwkCMTCX0B1XgOaO",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Infused Items",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1095,7 +1060,7 @@
             "_id": "zccYiocIsj31DcFd",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Hurried Retreat",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1114,10 +1079,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "hurried-retreat",
                         "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
                     },
                     {
                         "key": "FlatModifier",
@@ -1140,7 +1113,7 @@
             "_id": "5zAIOXNSJPfE0i1A",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Quick Bomber",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1169,7 +1142,7 @@
             "_id": "8vMNeqyGSQxqqORR",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Quicktrap",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1198,7 +1171,7 @@
             "_id": "VBo8sptlM8bPUMzB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Absalom Lore",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1226,7 +1199,7 @@
             "_id": "aAXLJT3lj3Z7l6Nz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1252,7 +1225,7 @@
             "_id": "39lPe6xDDPf6OJXV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1294,7 +1267,7 @@
             "_id": "djsPa1p3HCCgmNjY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1320,7 +1293,7 @@
             "_id": "fm4NRMw4liPH1ucM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1346,7 +1319,7 @@
             "_id": "LuXTUa4rmIB45qfH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""

@@ -1,0 +1,42 @@
+{
+    "_id": "a4C89wVlcwV6Uxx4",
+    "img": "icons/commodities/tech/cog-brass.webp",
+    "name": "Effect: Overdrive Ally",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Overdrive Ally]</p>\n<p>Until the end of their next turn, that ally's Strikes deal additional damage equal to half your Intelligence modifier, or your full Intelligence modifier if you were in critical overdrive.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@item.origin.flags.pf2e.inventor.overdriveAlly.damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -94,45 +94,10 @@
             "type": "melee"
         },
         {
-            "_id": "lRaDhQKMgeR6IjAB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "uEjliLhQWBsVYCsE",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Maul",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -142,7 +107,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The leopard makes two claw Strikes against a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty (or a -8 multiple attack penalty for its claws).</p>"
+                    "value": "<p>The leopard makes two claw Strikes against a creature it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. The second attack uses the same multiple attack penalty as the first, but later attacks that turn take a -10 multiple attack penalty (or -8 for its claws).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -162,7 +127,7 @@
             "_id": "iuFRjKw2PLJl3E3F",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Pounce",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -197,7 +162,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -249,7 +214,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -259,7 +224,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the leopard succeeds at its jaws Strike, it can use this action immediately after to automatically give the target the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition until the end of its next turn.</p>"
+                    "value": "<p>When the leopard succeeds at its jaws Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the leopard's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -279,7 +244,7 @@
             "_id": "fA1aciXKGc5vvKn1",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -296,7 +261,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -304,7 +270,7 @@
             "_id": "298KQ3rpABEbmVO7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -321,7 +287,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -329,7 +296,7 @@
             "_id": "GRUZiIR1Uu91DaoY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -357,6 +324,7 @@
                     }
                 ],
                 "slug": null,
+                "traits": {},
                 "variants": {
                     "0": {
                         "label": "+11 in undergrowth",
@@ -426,10 +394,10 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Leopards range from the iconic yellow with black spots to black panthers and white-furred, black-spotted snow leopards.</p>",
+            "publicNotes": "<p>Leopards range from the iconic yellow with black spots to black panthers and white-furred, black-spotted snow leopards. Few predators can match their talent for stalking and stealth.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
         },

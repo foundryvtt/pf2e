@@ -156,7 +156,7 @@ export function hasProperty(object: object, key: string): boolean;
  *
  * @return         The value of the found property
  */
-export function getProperty(object: object, key: string): unknown;
+export function getProperty<TValue = unknown>(object: object, key: string): TValue;
 
 /**
  * A helper function which searches through an object to assign a value using a string key

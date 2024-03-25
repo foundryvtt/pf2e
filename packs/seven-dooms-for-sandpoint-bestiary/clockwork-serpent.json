@@ -1,0 +1,579 @@
+{
+    "_id": "Yvz9ZflXUS0SU3fR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "i6s8MKsoJG84mY47",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "clockwork-serpent-venom"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "6k1ykhOaoOXjmRgM": {
+                        "damage": "2d10+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "SDhkyVMBVMBEctke",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Coils",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "vN5hNygaaCnijjLK": {
+                        "damage": "2d12+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The clockwork serpent is in constrictor mode</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "djIV45njqtZPf85k",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.xS8ybzuqPSi3Jb8k"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Wind-Up",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>24 hours, @Check[type:thievery|dc:26], standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can't act until it's wound again. Some clockworks' abilities require them to spend some of their remaining operational time. They can't spend more than they have and shut down immediately once they have 0 time remaining. If it's unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn't decrease in standby, but it can sense its surroundings (with a -2 penalty to Perception). It can't act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to Disable a Device to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "clockwork-creature-wind-up",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "co4QqqzbDABHUIAu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Activate Serpent Mode",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The clockwork serpent begins its turn</p>\n<hr />\n<p><strong>Effect</strong> The clockwork serpent transforms into a different mode. Roll 1d3 and consult the options below. If it rolls a mode it can't currently activate, the clockwork serpent becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the start of its next turn. At the end of its turn, it automatically deactivates its serpent mode.</p>\n<p><strong>1 Cobra Mode</strong> The clockwork serpent can use Intimidating Hood.</p>\n<p><strong>2 Constrictor Mode</strong> The clockwork serpent can use its coils Strike and can Constrict.</p>\n<p><strong>3 Rattlesnake Mode</strong> The clockwork serpent can use Shattering Rattle.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "attackModifier": 20,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d12",
+                                "modifier": 9
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.NPCAbility.ClockworkSerpent.Coils",
+                        "predicate": [
+                            "self:effect:activate-serpent-mode:2"
+                        ],
+                        "slug": "coils",
+                        "traits": [
+                            "magical"
+                        ]
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            {
+                                                "not": "self:effect:serpent-mode:1"
+                                            },
+                                            "item:slug:intimidating-hood"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            {
+                                                "not": "self:effect:serpent-mode:2"
+                                            },
+                                            "item:slug:constrict"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            {
+                                                "not": "self:effect:serpent-mode:3"
+                                            },
+                                            "item:slug:shattering-rattle"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Notes.RequirementsNotMet",
+                                "title": "PF2E.SpecificRule.Notes.NoteLabel"
+                            }
+                        ]
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Serpent Mode",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Serpent Mode"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dh0Wmrxx4eTODFrz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Critical Deactivation",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a clockwork serpent takes any precision damage or takes a critical hit and it has a serpent mode active, it must attempt a @Check[type:flat|dc:16]. On a failure, it takes the damage from the critical hit as normal, is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}, and its serpent mode deactivates.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vifFDe9xdMiljKzm",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Clockwork Serpent Venom",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1}, and off-guard (1 round)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "magical",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UBS0sNTttXtjVkf8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(2d10+6)[bludgeoning]], @Check[type:fortitude|dc:26|basic:true]</p>\n<p><strong>Requirements</strong> The clockwork serpent is in constrictor mode</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "J7cCWQ1eDSYDRFmV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Intimidating Hood",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The clockwork serpent is in cobra mode</p>\n<hr />\n<p><strong>Effect</strong> The clockwork serpent flares out a cobra hood. All creatures within a @Template[type:emanation|distance:15] must succeed at a @Check[type:will|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TnRX0VH540FcF5oy",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Shattering Rattle",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The clockwork serpent is in rattlesnake mode</p>\n<hr />\n<p><strong>Effect</strong> The clockwork serpent rattles its tail, then snaps it like a whip to create a devastating blast of sonic energy in a @Template[type:cone|distance:30]. Creatures in the area take @Damage[9d6[sonic]] damage (@Check[type:fortitude|dc:26|basic:true] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rJMIG4bhvad8PL3N",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "coils-attack-roll",
+                        "text": "{item|description}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6ONUoMezJPzy10mI",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Clockwork Serpent",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Clockwork serpents are often found serving as guardians in serpentfolk laboratories or temples.</p>\n<h2>Experimental Serpents</h2>\n<p>Even stranger clockwork serpents are rumored to exist in the heart of serpentfolk enclaves. These constructs supposedly can repair damage to themselves when they change serpent modes, activate additional forms that allow swimming or flight, or even break apart into a seething swarm of smaller clockwork serpents.</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "clockwork",
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

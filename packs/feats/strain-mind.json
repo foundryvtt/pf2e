@@ -28,7 +28,44 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "strain-mind",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "strain-mind",
+                    "amp-spell"
+                ],
+                "priority": 151,
+                "property": "focus-point-cost",
+                "value": 0
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "strain-mind",
+                    "amp-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Psychic.SpellModification.StrainMind"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Strain Mind]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

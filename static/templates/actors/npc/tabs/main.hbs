@@ -128,7 +128,7 @@
         </div>
         <div class="section-body">
             <div class="list">
-                {{#each data.sortedSkills as |skill slug|}}
+                {{#each data.skills as |skill slug|}}
                     {{#if skill.visible}}
                         <div class="skill-entry tag-legacy" data-statistic="{{skill.slug}}">
                             <a class="roll" data-action="roll-check" data-tooltip="{{skill.breakdown}}">{{skill.label}}
@@ -160,8 +160,8 @@
             {{/if}}
         </div>
         <div class="section-body">
-            <ol class="attacks-list strikes-list item-list">
-                {{#each data.actions as |attack index|}}
+            <ol class="actions-list strikes-list item-list">
+                {{#each attacks as |attack index|}}
                     {{> "systems/pf2e/templates/actors/npc/partials/attack.hbs" action=attack index=index}}
                 {{/each}}
             </ol>
@@ -186,7 +186,7 @@
         <div class="section-body">
             <ol class="actions-list item-list">
                 {{#each actions.active.actions as |action actionId|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action isEditable=@root.options.editable}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/action.hbs" action=action}}
                 {{/each}}
             </ol>
         </div>

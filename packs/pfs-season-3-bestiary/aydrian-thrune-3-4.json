@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "spontaneous"
@@ -28,72 +27,14 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": true
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 4,
-                        "prepared": [],
                         "value": 4
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot2": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -193,31 +134,14 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": null,
-                        "formula": "2d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "type": "fire"
-                    }
-                },
+                "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for scorching ray. If you spend 2 or more actions Casting the Spell, the damage increases to @Damage[4d6[fire]] damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by @Damage[2d6[fire]] for the 2-action and 3-action versions.</p>"
+                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for <em>scorching ray</em>. If you spend 2 or more actions Casting the Spell, the damage increases to 4d6 fire damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by 2d6 for the 2-action and 3-action versions.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 2
@@ -225,6 +149,74 @@
                 "location": {
                     "heightenedLevel": 2,
                     "value": "aKLMwsVsCRtz9ljn"
+                },
+                "overlays": {
+                    "hqiwae0wgehycnex": {
+                        "_id": "hqiwae0wgehycnex",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "d80radfbikwjogmr": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "4d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "fire"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "d80radfbikwjogmr": "2d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            },
+                            "target": {
+                                "value": "2 or more creatures"
+                            },
+                            "time": {
+                                "value": "2 or 3"
+                            }
+                        }
+                    },
+                    "wlrbtv7c5shfmdh1": {
+                        "_id": "wlrbtv7c5shfmdh1",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "tgzp2lzatpg4c9a5": {
+                                    "applyMod": false,
+                                    "category": null,
+                                    "formula": "2d6",
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "materials": [],
+                                    "type": "fire"
+                                }
+                            },
+                            "defense": null,
+                            "heightening": {
+                                "damage": {
+                                    "tgzp2lzatpg4c9a5": "1d6"
+                                },
+                                "interval": 1,
+                                "type": "interval"
+                            },
+                            "target": {
+                                "value": "1 creature"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    }
                 },
                 "publication": {
                     "license": "OGL",
@@ -252,7 +244,8 @@
                     "value": [
                         "attack",
                         "concentrate",
-                        "fire"
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
@@ -1026,7 +1019,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and [[/r (@item.level)d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1098,7 +1091,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1402,45 +1395,10 @@
             "type": "melee"
         },
         {
-            "_id": "i659yCDjSLwYhVI2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ejhaSX12S2Tkmnq1",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shadow Crystal",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1475,7 +1433,7 @@
             "_id": "uedrsogg6iskvne2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1500,7 +1458,7 @@
             "_id": "754qfk3p0mk7cxcx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1525,7 +1483,7 @@
             "_id": "mn8ycg60skmq14z3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1550,7 +1508,7 @@
             "_id": "852frkm6yvxo4t6m",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1575,7 +1533,7 @@
             "_id": "ah3cwm8q80hvxc0l",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1600,7 +1558,7 @@
             "_id": "2vn7hspve3b5u25g",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1625,7 +1583,7 @@
             "_id": "1zgqvk7kpnav51wj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""

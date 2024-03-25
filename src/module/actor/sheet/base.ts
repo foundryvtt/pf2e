@@ -4,19 +4,20 @@ import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
 import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
-import { isPhysicalData } from "@item/base/data/helpers.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { Coins } from "@item/physical/data.ts";
+import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
-import { StatisticRollParameters } from "@system/statistic/statistic.ts";
+import { DamageRoll } from "@system/damage/roll.ts";
+import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
     BasicSelectorOptions,
@@ -45,7 +46,7 @@ import {
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
-import {
+import type {
     ActorSheetDataPF2e,
     ActorSheetRenderOptionsPF2e,
     CoinageSummary,
@@ -70,7 +71,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop = [
-            { dragSelector: "[data-foundry-list] .drag-handle" },
+            { dragSelector: "[data-foundry-list] [data-drag-handle]" },
             { dragSelector: "ul[data-loot] li[data-item-id]" },
             { dragSelector: ".item-list .item:not(.inventory-list *)" },
         ];
@@ -140,6 +141,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         })();
 
+        // Consolidate toggles from across domains and regroup by sheet placement
+        const toggles = R.groupBy(
+            Object.values(this.actor.synthetics.toggles).flatMap((domain) => Object.values(domain)),
+            (t) => t.placement,
+        );
+
         const sheetData: ActorSheetDataPF2e<TActor> = {
             actor: actorData,
             cssClass: this.actor.isOwner ? "editable" : "locked",
@@ -156,7 +163,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             options,
             owner: this.actor.isOwner,
             title: this.title,
-            toggles: R.groupBy(this.actor.synthetics.toggles, (t) => t.placement),
+            toggles,
             totalCoinage,
             totalCoinageGold,
             totalWealth,
@@ -198,7 +205,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             sections,
             bulk: actor.inventory.bulk,
             showValueAlways: actor.isOfType("npc", "loot", "party"),
-            showUnitBulkPrice: actor.isOfType("loot"),
+            showUnitBulkPrice: false,
             hasStowingContainers: actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
             invested: actor.inventory.invested,
         };
@@ -216,12 +223,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const itemSize = new ActorSizePF2e({ value: item.size });
         const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
-        const canBeEquipped = !item.isInContainer;
-
         return {
             item,
-            canBeEquipped,
-            editable,
+            canBeEquipped: !item.isInContainer,
             hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
             heldItems,
             isContainer: item.isOfType("backpack"),
@@ -229,6 +233,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
             itemSize: sizeDifference !== 0 ? itemSize : null,
             unitBulk: actor.isOfType("loot") ? createBulkPerLabel(item) : null,
+            hidden: false,
         };
     }
 
@@ -284,7 +289,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             // Whether the value is a modifier and to be displayed with a sign
             const isModifier = input.classList.contains("modifier") || input.dataset.modifier !== undefined;
             // Whether the value is nullable: if so, allow the value to be cleared instead of coercing to a number
-            const isNullable = input.dataset.nullable !== undefined;
+            const isNullable = "nullable" in input.dataset;
 
             input.addEventListener("focus", () => {
                 const propertyPath = input.dataset.property ?? "";
@@ -469,9 +474,15 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return this.deleteItem(item, event);
             },
             "item-to-chat": (event, anchor): Promise<unknown> | void => {
+                const actor = this.actor;
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
+                const collectionId = itemEl?.dataset.entryId;
+                const collection: Collection<ItemPF2e<TActor>> = collectionId
+                    ? actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items
+                    : actor.items;
+
                 const itemId = itemEl?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
+                const item = collection.get(itemId, { strict: true });
                 if (item.isOfType("spell")) {
                     const castRank = Number(itemEl?.dataset.castRank ?? NaN);
                     return item.toMessage(event, { data: { castRank } });
@@ -871,6 +882,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 };
             }
 
+            // ... a spell?
+            const collectionId = htmlClosest(previewElement, "[data-container-id]")?.dataset.containerId;
+            const groupId = previewElement?.dataset.groupId;
+            const slotIndex = Number(previewElement?.dataset.slotId);
+            if (collectionId && groupId && Number.isInteger(slotIndex)) {
+                return { spellFrom: { collectionId, groupId, slotIndex } };
+            }
+
             // ... something else?
             return null;
         })();
@@ -878,16 +897,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
-    /** Emulate a sheet item drop from the canvas */
-    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt") });
-        return this._onDropItem(event, data);
+    override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dropData = TextEditor.getDragEventData(event);
+        if (this.actor && dropData.type === "PersistentDamage" && "formula" in dropData) {
+            // Add persistent damage. If the actor type doesn't support conditions, it'll be rejected
+            const roll = new DamageRoll(String(dropData.formula));
+            if (roll.instances.length === 0 || roll.instances.some((i) => !i.persistent)) {
+                throw ErrorPF2e("Unexpected error adding persistent damage: all instances must be persistent");
+            }
+
+            const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+            const conditions = roll.instances.map((i) =>
+                fu.mergeObject(baseConditionSource, {
+                    system: {
+                        persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
+                    },
+                }),
+            );
+            await this.actor.createEmbeddedDocuments("Item", conditions);
+        } else {
+            return super._onDrop(event);
+        }
     }
 
     protected override async _onDropItem(
         event: DragEvent,
         data: DropCanvasItemDataPF2e & { fromInventory?: boolean },
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    ): Promise<ItemPF2e[]> {
         event.preventDefault();
         const item = await ItemPF2e.fromDropData(data);
         if (!item) return [];
@@ -934,18 +970,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         item: ItemPF2e<ActorPF2e | null>,
         data: DropCanvasItemDataPF2e,
     ): Promise<Item<ActorPF2e | null>[]> {
-        const { actor } = this;
+        const actor = this.actor;
         const itemSource = item.toObject();
 
-        const mystified = game.user.isGM && event.altKey;
-
         // Set effect to unidentified if alt key is held
+        const mystified = game.user.isGM && event.altKey;
         if (mystified && itemSource.type === "effect") {
             itemSource.system.unidentified = true;
         }
 
         // mystify the item if the alt key was pressed
-        if (mystified && item.isOfType("physical") && isPhysicalData(itemSource)) {
+        if (mystified && item.isOfType("physical") && itemIsOfType(itemSource, "physical")) {
             itemSource.system.identification.unidentified = item.getMystifiedData("unidentified");
             itemSource.system.identification.status = "unidentified";
         }
@@ -1012,7 +1047,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             itemSource.system.context = context ?? null;
             const originItem = fromUuidSync(context?.origin.item ?? "");
             if (itemSource.system.traits?.value.length === 0 && originItem instanceof SpellPF2e) {
-                itemSource.system.traits.value.push(...originItem.traits);
+                const spellTraits: string[] = originItem.system.traits.value;
+                const effectTraits = spellTraits.filter((t): t is EffectTrait => t in CONFIG.PF2E.effectTraits);
+                itemSource.system.traits.value.push(...effectTraits);
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = fu.deepClone(actor.system.crafting.formulas);
@@ -1023,7 +1060,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return [item];
         }
 
-        if (isPhysicalData(itemSource)) {
+        if (itemIsOfType(itemSource, "physical")) {
             const containerId = htmlClosest(event.target, "li[data-is-container]")?.dataset.itemId?.trim() || null;
             const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
             if (container) {
@@ -1033,12 +1070,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 itemSource.system.equipped.carryType = "worn";
             }
             // If the item is from a compendium, adjust the size to be appropriate to the creature's
-            const resizeItem =
-                data?.uuid?.startsWith("Compendium") &&
-                itemSource.type !== "treasure" &&
-                !["med", "sm"].includes(actor.size) &&
-                actor.isOfType("creature");
-            if (resizeItem) itemSource.system.size = actor.size;
+            if (data?.uuid?.startsWith("Compendium") && itemSource.type !== "treasure" && actor.isOfType("creature")) {
+                const sourceSize = actor.system.traits?.naturalSize ?? actor.size;
+                itemSource.system.size = sourceSize === "sm" ? "med" : sourceSize;
+            }
         }
 
         // Creating a new item: clear the _id via cloning it
@@ -1058,6 +1093,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!folder) return [];
         const itemSources = [folder, ...folder.getSubfolders()].flatMap((f) => f.contents).map((i) => i.toObject());
         return this._onDropItemCreate(itemSources);
+    }
+
+    /**
+     * Update the aria-selected attribute on each tab after finishing the normal logic on tab change.
+     */
+    protected override _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void {
+        super._onChangeTab(event, tabs, active);
+        for (const tab of htmlQueryAll(tabs._nav, "[data-tab][role=tab]:not([aria-selected=undefined])")) {
+            tab.setAttribute("aria-selected", String(tab.dataset.tab === active));
+        }
     }
 
     /**
@@ -1285,7 +1330,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
 interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
-    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this>;
+    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this;
 }
 
 type SheetClickActionHandlers = Record<

@@ -11,7 +11,7 @@ class GrantItemForm extends RuleElementForm<GrantItemSource, GrantItemRuleElemen
         return { ...data, granted };
     }
 
-    override updateObject(ruleData: DeepPartial<GrantItemSource>): void {
+    override updateObject(ruleData: DeepPartial<GrantItemSource> & Partial<Record<string, JSONValue>>): void {
         super.updateObject(ruleData);
         if (typeof ruleData.uuid === "string") {
             ruleData.uuid = ruleData.uuid.trim();

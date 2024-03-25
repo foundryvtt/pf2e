@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -30,71 +29,7 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 30,
@@ -125,18 +60,7 @@
                     "value": ""
                 },
                 "counteraction": false,
-                "damage": {
-                    "0": {
-                        "applyMod": false,
-                        "category": "persistent",
-                        "formula": "4d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "void"
-                    }
-                },
+                "damage": {},
                 "defense": {
                     "save": {
                         "basic": false,
@@ -144,18 +68,14 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[4d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by @Damage[1d8[persistent,void]] damage on a success, or by @Damage[2d8[persistent,void]] damage on a failure or critical failure.</p>"
+                    "value": "<p>Extending a finger, you fire a beam of void energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(floor(@item.rank/2))d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(floor(@item.rank/2)*2)d8[persistent,void]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent void damage increases by 1d8 on a success, or by 2d8 on a failure or critical failure.</p>"
                 },
                 "duration": {
                     "sustained": false,
                     "value": ""
                 },
                 "heightening": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
+                    "damage": {}
                 },
                 "level": {
                     "value": 4
@@ -700,45 +620,10 @@
             "type": "action"
         },
         {
-            "_id": "ADj1D97ZuGgEgAMr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "61RVU0BzmvnLofFj",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Absorb Necromancy",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -773,7 +658,7 @@
             },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Engulf",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -803,7 +688,7 @@
             "_id": "M6HiBc42J8BI5rZo",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unstable Magic",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -833,7 +718,7 @@
             "_id": "iC7OPusaupNwNDYt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

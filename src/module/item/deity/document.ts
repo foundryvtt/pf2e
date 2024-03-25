@@ -27,7 +27,7 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this.system.domains = { primary: [], alternate: [] };
             this.system.font = [];
             this.system.sanctification = null;
-            this.system.skill = null;
+            this.system.skill = [];
             this.system.spells = {};
             this.system.weapons = [];
         }
@@ -77,6 +77,10 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             actorRollOptions.all[`${prefix}:favored-weapon:${baseType}`] = true;
         }
 
+        for (const font of systemData.font) {
+            actorRollOptions.all[`${prefix}:font:${font}`] = true;
+        }
+
         // Used for targeting by creatures with mechanically-significant dislikes for the followers of specific deities
         actorRollOptions.all[`self:deity:slug:${slug}`] = true;
     }
@@ -103,10 +107,13 @@ class DeityPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         }
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const sanctifications = this.getSanctificationRollOptions().map((o) => `${prefix}:${o}`);
-        return [...baseOptions, `${prefix}:category:${this.category}`, ...sanctifications].sort();
+        return [
+            ...super.getRollOptions(prefix, options),
+            `${prefix}:category:${this.category}`,
+            ...sanctifications,
+        ].sort();
     }
 
     private getSanctificationRollOptions(): string[] {

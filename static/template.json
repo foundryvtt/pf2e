@@ -490,7 +490,6 @@
     "Item": {
         "types": [
             "action",
-            "affliction",
             "ancestry",
             "armor",
             "background",
@@ -606,25 +605,6 @@
             "description.value",
             "identification.data.description.value"
         ],
-        "affliction": {
-            "templates": [
-                "common",
-                "itemLevel",
-                "traits"
-            ],
-            "duration": {
-                "value": -1,
-                "unit": "unlimited",
-                "expiry": null
-            },
-            "save": {
-                "type": "fortitude",
-                "value": 0
-            },
-            "stage": 1,
-            "stages": {},
-            "context": null
-        },
         "backpack": {
             "templates": [
                 "common",
@@ -1090,16 +1070,12 @@
             "prepared": {
                 "value": "innate"
             },
-            "showUnpreparedSpells": {
-                "value": false
-            },
             "showSlotlessLevels": {
                 "value": true
             },
             "proficiency": {
                 "value": 1
             },
-            "displayLevels": {},
             "slots": {
                 "slot0": {
                     "prepared": [],
@@ -1179,7 +1155,8 @@
         },
         "condition": {
             "templates": [
-                "common"
+                "common",
+                "traits"
             ],
             "group": null,
             "duration": {

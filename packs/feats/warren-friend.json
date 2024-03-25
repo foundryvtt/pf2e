@@ -24,7 +24,23 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "contact-in-settlement",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:earn-income"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

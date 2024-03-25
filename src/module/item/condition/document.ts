@@ -8,10 +8,11 @@ import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { Grouping } from "@system/damage/terms.ts";
 import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage/values.ts";
 import { DegreeOfSuccess } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, createHTMLElement, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
 import { ConditionKey, ConditionSlug } from "./types.ts";
@@ -38,7 +39,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Retrieve this condition's origin from its granting effect, if any */
     override get origin(): ActorPF2e | null {
         const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : null;
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : super.origin;
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
@@ -103,16 +104,16 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
-    override getRollOptions(prefix = this.type): string[] {
-        const options = super.getRollOptions(prefix);
+    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;
-            options.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
+            rollOptions.push(`damage:type:${damageType}`, `${prefix}:damage:type:${damageType}`);
             const category = DamageCategorization.fromDamageType(damageType);
-            if (category) options.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
+            if (category) rollOptions.push(`damage:category:${category}`, `${prefix}:damage:category:${category}`);
         }
 
-        return options;
+        return rollOptions;
     }
 
     override async increase(this: ConditionPF2e<ActorPF2e>): Promise<void> {
@@ -124,16 +125,27 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
-        const { actor } = this;
+        const actor = this.actor;
         const token = options?.token ?? actor?.token;
         if (!this.active || !actor) return;
 
         if (this.system.persistent) {
             const roll = this.system.persistent.damage.clone();
+            const flavor = await (async (): Promise<string> => {
+                const traits = this.system.traits.value;
+                if (traits.length === 0) {
+                    return createHTMLElement("strong", { children: [this.name] }).outerHTML;
+                }
+                return renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
+                    action: { title: this.name },
+                    traits: traits.map((t) => traitSlugToObject(t, CONFIG.PF2E.effectTraits)),
+                });
+            })();
             await roll.toMessage(
                 {
+                    flags: { pf2e: { origin: { uuid: this.uuid } } },
+                    flavor,
                     speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                    flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "roll" },
             );
@@ -187,16 +199,22 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
             const fullFormula = `(${formula})[persistent,${damageType}]`;
             const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
-            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule });
-
+            // If this damage came from a critical hit, create the evaluatable persistent damage as also having been so
+            const degreeOfSuccess = systemData.persistent.criticalHit ? 3 : null;
+            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule, degreeOfSuccess });
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
 
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
-            this.name = game.i18n.format(localizationKey, {
-                formula,
-                damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
-                dc,
-            });
+            const headTerm = roll.instances.at(0)?.head;
+            const shortFormula = headTerm instanceof Grouping ? headTerm.term.expression : headTerm?.expression;
+
+            this.name = shortFormula
+                ? game.i18n.format(localizationKey, {
+                      formula: shortFormula,
+                      damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
+                      dc,
+                  })
+                : this.name;
 
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;

@@ -1,11 +1,11 @@
 import { ActorPF2e } from "@actor";
 import {
     DamageDicePF2e,
+    DeferredDamageDiceOptions,
     DeferredValueParams,
     ModifierAdjustment,
     ModifierPF2e,
     StatisticModifier,
-    TestableDeferredValueParams,
 } from "@actor/modifiers.ts";
 import { ItemPF2e } from "@item";
 import { ConditionSource, EffectSource, ItemSourcePF2e } from "@item/base/data/index.ts";
@@ -14,21 +14,24 @@ import { BaseDamageData } from "@system/damage/index.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import * as R from "remeda";
+import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
-    synthetics: Pick<RuleElementSynthetics, "modifierAdjustments" | "modifiers">,
-    selectors: string[],
+    synthetics: RuleElementSynthetics,
+    domains: string[],
     options: DeferredValueParams = {},
 ): ModifierPF2e[] {
-    const { modifierAdjustments, modifiers: syntheticModifiers } = synthetics;
-    const modifiers = Array.from(new Set(selectors))
-        .flatMap((s) => syntheticModifiers[s] ?? [])
-        .flatMap((d) => d(options) ?? []);
+    domains = R.uniq(domains);
+    const modifiers = domains.flatMap((s) => synthetics.modifiers[s] ?? []).flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
-        modifier.adjustments = extractModifierAdjustments(modifierAdjustments, selectors, modifier.slug);
+        modifier.domains = [...domains];
+        modifier.adjustments = extractModifierAdjustments(synthetics.modifierAdjustments, domains, modifier.slug);
+        if (domains.some((s) => s.endsWith("damage"))) {
+            modifier.alterations = extractDamageAlterations(synthetics.damageAlterations, domains, modifier.slug);
+        }
     }
 
     return modifiers;
@@ -39,8 +42,17 @@ function extractModifierAdjustments(
     selectors: string[],
     slug: string,
 ): ModifierAdjustment[] {
-    const adjustments = Array.from(new Set(selectors.flatMap((s) => adjustmentsRecord[s] ?? [])));
+    const adjustments = R.uniq(selectors.flatMap((s) => adjustmentsRecord[s] ?? []));
     return adjustments.filter((a) => [slug, null].includes(a.slug));
+}
+
+function extractDamageAlterations(
+    alterationsRecord: Record<string, DamageAlteration[]>,
+    selectors: string[],
+    slug: string,
+): DamageAlteration[] {
+    const alterations = R.uniq(selectors.flatMap((s) => alterationsRecord[s] ?? []));
+    return alterations.filter((a) => [slug, null].includes(a.slug));
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
@@ -48,19 +60,15 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 
-function extractDamageDice(
-    deferredDice: DamageDiceSynthetics,
-    selectors: string[],
-    options: TestableDeferredValueParams,
-): DamageDicePF2e[] {
-    return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
+function extractDamageDice(synthetics: DamageDiceSynthetics, options: DeferredDamageDiceOptions): DamageDicePF2e[] {
+    return options.selectors.flatMap((s) => synthetics[s] ?? []).flatMap((d) => d(options) ?? []);
 }
 
 function processDamageCategoryStacking(
     base: BaseDamageData[],
     options: { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[]; test: Set<string> },
 ): { modifiers: ModifierPF2e[]; dice: DamageDicePF2e[] } {
-    const { dice } = options;
+    const dice = options.dice;
     const groupedModifiers = R.groupBy(options.modifiers, (m) => (m.category === "persistent" ? "persistent" : "main"));
 
     const modifiers = [
@@ -72,7 +80,7 @@ function processDamageCategoryStacking(
 
     return {
         modifiers: allPersistent ? modifiers.filter((m) => m.category === "persistent") : modifiers,
-        dice: allPersistent ? dice.filter((m) => m.category === "persistent") : dice,
+        dice: allPersistent ? dice.filter((d) => d.category === "persistent") : dice,
     };
 }
 
@@ -101,7 +109,7 @@ async function extractEphemeralEffects({
 interface ExtractEphemeralEffectsParams {
     affects: "target" | "origin";
     origin: ActorPF2e | null;
-    target: Maybe<ActorPF2e>;
+    target: ActorPF2e | null;
     item: ItemPF2e | null;
     domains: string[];
     options: Set<string> | string[];
@@ -186,6 +194,7 @@ async function processPreUpdateActorHooks(
 }
 
 export {
+    extractDamageAlterations,
     extractDamageDice,
     extractDegreeOfSuccessAdjustments,
     extractEphemeralEffects,

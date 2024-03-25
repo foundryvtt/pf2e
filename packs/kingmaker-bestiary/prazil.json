@@ -271,45 +271,10 @@
             "type": "melee"
         },
         {
-            "_id": "oHxfnh9KIO2dQcTN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "FZAkeuRb3tyRnlmH",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Hurried Retreat",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -328,10 +293,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "hurried-retreat",
                         "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
                     },
                     {
                         "key": "FlatModifier",
@@ -355,7 +328,7 @@
             "_id": "AtiJbhL8pY43Rvv3",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Smash Kneecaps",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -415,7 +388,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -463,7 +436,7 @@
             "_id": "7WAnZQvSbBriGwG6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -488,7 +461,7 @@
             "_id": "06qOJ5m1bfjDGkyK",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -513,7 +486,7 @@
             "_id": "RWrbgZYYA1EyB0VQ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -538,7 +511,7 @@
             "_id": "n0jllSrEL6AOVmXb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -563,7 +536,7 @@
             "_id": "1CSEJY5W6GizdPfM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""

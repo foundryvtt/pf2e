@@ -14,19 +14,22 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     actor: TActor;
     sort: number;
     category: SpellcastingCategory;
-    attribute?: AttributeString;
+    attribute?: Maybe<AttributeString>;
     isFlexible: boolean;
     isFocusPool: boolean;
     isInnate: boolean;
     isPrepared: boolean;
     isRitual: boolean;
     isSpontaneous: boolean;
+    isEphemeral: boolean;
     statistic?: Statistic | null;
+    /** A related but more-limited statistic for making counteract checks */
+    counteraction?: Statistic | null;
     tradition: MagicTradition | null;
-    spells: SpellCollection<NonNullable<TActor>, this> | null;
+    spells: SpellCollection<NonNullable<TActor>> | null;
     system?: SpellcastingEntrySystemData;
 
-    getSheetData(): Promise<SpellcastingSheetData>;
+    getSheetData(options?: GetSheetDataOptions<NonNullable<TActor>>): Promise<SpellcastingSheetData>;
     getRollOptions?(prefix: "spellcasting"): string[];
 
     canCast(spell: SpellPF2e, options?: { origin?: PhysicalItemPF2e }): boolean;
@@ -34,9 +37,15 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
 }
 
+interface GetSheetDataOptions<TActor extends ActorPF2e> {
+    spells?: Maybe<SpellCollection<TActor>>;
+    prepList?: boolean;
+}
+
 interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellcastingEntry<TActor> {
     attribute: AttributeString;
     statistic: Statistic;
+    counteraction: Statistic;
 }
 
 type SpellcastingCategory = keyof ConfigPF2e["PF2E"]["preparationType"];
@@ -45,12 +54,9 @@ interface CastOptions {
     slotId?: number;
     /** The rank at which to cast the spell */
     rank?: OneToTen;
+    consume?: boolean;
     message?: boolean;
     rollMode?: RollMode;
-}
-
-interface SpellcastingEntryPF2eCastOptions extends CastOptions {
-    consume?: boolean;
 }
 
 type UnusedProperties = "actor" | "spells" | "getSheetData" | "cast" | "canCast";
@@ -117,7 +123,6 @@ export type {
     SpellPrepEntry,
     SpellcastingCategory,
     SpellcastingEntry,
-    SpellcastingEntryPF2eCastOptions,
     SpellcastingSheetData,
     SpellcastingSlotGroup,
 };

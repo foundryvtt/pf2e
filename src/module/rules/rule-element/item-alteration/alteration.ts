@@ -5,6 +5,7 @@ import { PersistentSourceData } from "@item/condition/data.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { prepareBulkData } from "@item/physical/helpers.ts";
 import { ZeroToThree } from "@module/data.ts";
+import { nextDamageDieSize } from "@system/damage/helpers.ts";
 import { isObject, objectHasKey } from "@util";
 import { Duration } from "luxon";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
@@ -22,6 +23,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         "bulk",
         "category",
         "check-penalty",
+        "damage-dice-faces",
+        "damage-type",
         "defense-passive",
         "description",
         "dex-cap",
@@ -41,7 +44,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     ] as const;
 
     static override defineSchema(): ItemAlterationSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
         return {
             mode: new fields.StringField({
                 required: true,
@@ -65,16 +68,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         return this.parent.actor;
     }
 
-    /** Convenience access to the parent rule element's `resolveValue` method */
-    resolveValue(...args: Parameters<RuleElementPF2e["resolveValue"]>): ReturnType<RuleElementPF2e["resolveValue"]> {
-        return this.parent.resolveValue(...args);
-    }
-
     /**
      * Apply this alteration to an item (or source)
      * @param item The item to be altered
      */
     applyTo(item: ItemPF2e<ActorPF2e> | ItemSourcePF2e): void {
+        const fallbackValue = ITEM_ALTERATION_VALIDATORS[this.property].fields.value.getInitialValue();
         const data: {
             item: ItemPF2e | ItemSourcePF2e;
             alteration: { mode: string; itemType: string; value: unknown };
@@ -83,10 +82,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             alteration: {
                 mode: this.mode,
                 itemType: item.type,
-                value: (this.value = this.resolveValue(this.value)),
+                value: (this.value = this.parent.resolveValue(this.value, fallbackValue)),
             },
         };
-        const { DataModelValidationFailure } = foundry.data.validation;
+        if (this.parent.ignored) return;
+
+        const DataModelValidationFailure = foundry.data.validation.DataModelValidationFailure;
 
         switch (this.property) {
             case "ac-bonus": {
@@ -104,7 +105,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 const effect = data.item;
-                const { badge } = effect.system;
+                const badge = effect.system.badge;
                 if (badge?.type !== "counter" || typeof badge.value !== "number" || typeof badge.max !== "number") {
                     return;
                 }
@@ -158,6 +159,35 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 data.item.system.checkPenalty = Math.min(newValue, 0);
                 return;
             }
+            case "damage-dice-faces": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !(data.item instanceof ItemPF2e)) {
+                    return;
+                }
+
+                const item = data.item;
+                if (!item.system.damage.die) return;
+                if (this.mode === "upgrade" && !item.flags.pf2e.damageFacesUpgraded) {
+                    item.system.damage.die = nextDamageDieSize({ upgrade: item.system.damage.die });
+                    item.flags.pf2e.damageFacesUpgraded = true;
+                } else if (this.mode === "downgrade") {
+                    item.system.damage.die = nextDamageDieSize({ downgrade: item.system.damage.die });
+                } else if (this.mode === "override" && typeof data.alteration.value === "number") {
+                    if (data.alteration.value > Number(item.system.damage.die.replace("d", ""))) {
+                        item.flags.pf2e.damageFacesUpgraded = true;
+                    }
+                    item.system.damage.die = `d${data.alteration.value}`;
+                }
+
+                return;
+            }
+            case "damage-type": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (validator.isValid(data)) {
+                    data.item.system.damage.damageType = data.alteration.value;
+                }
+                return;
+            }
             case "defense-passive": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data) && data.item instanceof ItemPF2e && data.item.system.defense?.passive) {
@@ -169,7 +199,12 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (!validator.isValid(data)) return;
                 if (!(data.item instanceof ItemPF2e)) return;
-                data.item.system.description.addenda.push({ label: this.rule.label, content: data.alteration.value });
+                const contents = validator.initialize(validator.clean(data.alteration)).value;
+                if (this.mode === "override") {
+                    data.item.system.description.override = contents;
+                } else {
+                    data.item.system.description.addenda.push({ label: this.rule.label, contents });
+                }
                 return;
             }
             case "dex-cap": {
@@ -198,8 +233,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "hardness": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    const { system } = data.item;
-                    const { value } = data.alteration;
+                    const system = data.item.system;
+                    const value = data.alteration.value;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
                     system.hardness = Math.max(newValue, 0);
                     this.#adjustCreatureShieldData(data.item);
@@ -209,8 +244,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             case "hp-max": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
                 if (validator.isValid(data)) {
-                    const { hp } = data.item.system;
-                    const { value } = data.alteration;
+                    const hp = data.item.system.hp;
+                    const value = data.alteration.value;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, hp.max, value);
                     hp.max = Math.max(Math.trunc(newValue), 1);
                     if ("brokenThreshold" in hp) {
@@ -253,9 +288,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
             }
             case "pd-recovery-dc": {
                 const validator = ITEM_ALTERATION_VALIDATORS[this.property];
-                data.alteration.value = this.resolveValue(data.alteration.value) || 15;
                 if (validator.isValid(data) && data.item.system.persistent) {
-                    const { persistent } = data.item.system;
+                    const persistent = data.item.system.persistent;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, persistent.dc, data.alteration.value);
                     persistent.dc = Math.max(newValue, 0);
                 }
@@ -329,10 +363,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.traits.value,
                     data.alteration.value,
                 );
+                if (!newValue) return;
                 if (newValue instanceof DataModelValidationFailure) {
                     throw newValue.asError();
                 }
-                const traits = data.item.system.traits.value;
+                const traits: string[] = data.item.system.traits.value ?? [];
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {
@@ -346,7 +381,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
     /** Adjust creature shield data due it being set before item alterations occur */
     #adjustCreatureShieldData(item: PhysicalItemPF2e | PhysicalItemSource): void {
         if ("actor" in item && item.actor?.isOfType("character", "npc") && item.isOfType("shield")) {
-            const { heldShield } = item.actor;
+            const heldShield = item.actor.heldShield;
             if (item === heldShield) {
                 const shieldData = item.actor.attributes.shield;
                 shieldData.ac = item.system.acBonus;
@@ -363,9 +398,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
         current: FrequencyInterval,
         newValue: string,
     ): FrequencyInterval | DataModelValidationFailure {
-        const { DataModelValidationFailure } = foundry.data.validation;
         if (!objectHasKey(CONFIG.PF2E.frequencies, newValue)) {
-            return new DataModelValidationFailure({ invalidValue: current, fallback: false });
+            return new foundry.data.validation.DataModelValidationFailure({ invalidValue: current, fallback: false });
         }
         if (mode === "override") return newValue;
 
