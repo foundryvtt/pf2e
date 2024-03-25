@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You are wielding a @UUID[Compendium.pf2e.equipment-srd.Item.Sawtooth Saber] in each hand.</p>\n<hr />\n<p>You've mastered the signature assassination style of the Red Mantis. Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] an enemy within 30 feet. If your Feint is successful, when you use Prayer Attack on subsequent turns you automatically make the target off-guard against your melee attacks for that turn without rolling a check to Feint, so as long as you remain visible to the target and the target remains within 30 feet of you. If you use your Prayer Attack against a different target, you must attempt to Feint the target normally.</p>\n<p>When you use Prayer Attack, your next successful Strike with a sawtooth saber that turn deals @Damage[2d6[bleed]] to the target.</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding a @UUID[Compendium.pf2e.equipment-srd.Item.Sawtooth Saber] in each hand.</p>\n<hr />\n<p>You've mastered the signature assassination style of the Red Mantis. Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] an enemy within 30 feet. If your Feint is successful, when you use Prayer Attack on subsequent turns you automatically make the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against your melee attacks for that turn without rolling a check to Feint, so as long as you remain visible to the target and the target remains within 30 feet of you. If you use your Prayer Attack against a different target, you must attempt to Feint the target normally.</p>\n<p>When you use Prayer Attack, your next successful Strike with a sawtooth saber that turn deals 2d6 persistent bleed damage to the target.</p>"
         },
         "level": {
             "value": 14
@@ -24,7 +24,25 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Legends"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "prayer-attack",
+                "toggleable": true
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:base:sawtooth-saber",
+                    "prayer-attack"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "selected": {
