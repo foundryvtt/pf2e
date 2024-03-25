@@ -1,0 +1,403 @@
+{
+    "_id": "zrS9TBd2Tp3YIykQ",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Lx5Q366mof1O0MPp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Form Up",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "form-up",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4vjdVbvQ2cPvkxA1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Seek Quarry",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Angry townsfolk can spend 1 minute to designate a single creature for whom they have a physical description as their quarry. They gain a +2 circumstance bonus to Perception against their quarry.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "perception",
+                        "key": "RollOption",
+                        "option": "seek-quarry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "seek-quarry"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9X9mEo92lODvZP6d",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Thresholds</strong> 50 (12 squares), 25 (8 squares)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BCsGqHil1Dziu3FX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Pitchforks and Torches",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span></p>\n<p><strong>Frequency</strong> once per round.</p>\n<hr />\n<p><strong>Effect</strong> The angry townsfolk engage in a coordinated melee attack against each enemy within @Template[type:emanation|distance:10]{10 feet}, with a @Check[type:reflex|dc:19|basic:true] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[1d10[piercing]] damage or @Damage[1d10[fire]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(1d10+7)[piercing]] damage or @Damage[(1d10+7)[fire]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(1d10+10)[piercing]] damage or @Damage[(1d10+10)[fire]] damage</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aKXQLekTbiAqj1Id",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the city guards Stride, they first @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Form Up] as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed.</p>\n<p>This works just like a Gargantuan creature moving; for instance, if any square of the guards enters difficult terrain, the extra movement cost applies to all the guards.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pePRN91wJ0Dpe7pM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Urban Chasers",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Angry townsfolk ignore difficult terrain (but not greater difficult terrain) caused by crowds or from movement through narrow spaces such as alleyways.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "USeCGGYh5qsAV4Is",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "agX46lwOhSMOcHdu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "LK5MP99wRhzbl0Py",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Settlement Lore",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Angry Townsfolk",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 22
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "troop defenses",
+                "max": 75,
+                "temp": 0,
+                "value": 75
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "variant city guard squadron",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "lawful",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}
