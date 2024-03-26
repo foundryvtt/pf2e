@@ -1,0 +1,58 @@
+{
+    "_id": "WzvOyycUlTsCXt3M",
+    "img": "systems/pf2e/icons/spells/awaken-animal.webp",
+    "name": "Effect: Ravenous Young",
+    "system": {
+        "description": {
+            "value": "<p>Once a larva is attached, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. While the larva remains attached, the target cannot recover from persistent bleed.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-failure",
+                    "success": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:damage:type:bleed"
+                ],
+                "selector": "pd-recovery-check"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Drained"
+            },
+            {
+                "key": "Note",
+                "selector": "pd-recovery-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

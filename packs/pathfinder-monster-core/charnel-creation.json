@@ -1,0 +1,369 @@
+{
+    "_id": "GUjtk2h6Yj0NKifF",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "k1kPrQ3Krhcipl4E",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "p5d1nbdm06qkq6wsqaq5": {
+                        "damage": "2d10+7",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "95kvqPPSJNio8vAK",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Berserk",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A severely damaged charnel creation has a chance of going berserk. If it has 40 or fewer HP at the start of its turn, the creation must succeed at a @Check[type:flat|dc:5] or go berserk. A berserk creation wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. A creation loses its immunity to mental effects while berserk.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "predicate": [
+                            "berserk"
+                        ],
+                        "type": "mental"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "berserk",
+                        "toggleable": true
+                    }
+                ],
+                "slug": "berserk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m2SeB5lKyumYVumo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Electric Healing",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Any time a charnel creation would be affected by an effect with the electricity trait, it loses any @UUID[Compendium.pf2e.conditionitems.Item.Slowed] condition it has and gains HP equal to half the damage the spell would have dealt. If the creation starts its turn in an area that deals electricity damage, it gains @Damage[2d4[healing]]{2d4 HP}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Hss992fc1sCOcDVo",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Electric Reflexes",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The creation would be affected by an effect with the electricity trait and a creature is in its reach</p>\n<hr />\n<p><strong>Effect</strong> The creation lashes out and tries to grab a nearby creature. The creation attempts an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] a creature within reach. The creature also takes @Damage[3d6[electricity]] damage on a success, or @Damage[6d6[electricity]] damage on a critical success.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hvTnI184eIoLfwPq",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Berserk Slam",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The charnel creation is berserk</p>\n<hr />\n<p><strong>Effect</strong> The charnel creation Strikes with its fist at a –1 circumstance penalty. If it hits, it deals 1d6 extra damage and knocks the target @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "berserk-slam",
+                        "predicate": [
+                            "berserk"
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "berserk-slam"
+                        ],
+                        "selector": "fist-attack",
+                        "type": "circumstance",
+                        "value": -1
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "berserk-slam"
+                        ],
+                        "selector": "fist-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "berserk-slam"
+                        ],
+                        "selector": "fist-attack",
+                        "text": "PF2E.AttackEffects.KnockProne",
+                        "title": "{item|name}",
+                        "visibility": "gm"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mInccpo8OPs89BAi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 19
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Charnel Creation",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "fire"
+                    ],
+                    "type": "spells",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Made of odd scraps of skin and muscle, a charnel creation is a grotesque parody of life. Though it has no mind, it can still go into a berserk rage when harmed, giving it a faint semblance of emotion. These constructs are often fashioned to guard the secret laboratories, unhallowed funerary grounds, and bloody charnel houses of fleshwarpers and necromancers who feel no compunctions about desecrating corpses for their own ends. Though the first charnel creation is believed to have been a misguided attempt to create life from simple base elements, these monstrosities are far from human. In isolated cases, echoes of a personality might rise in a charnel creation if the brain used as part of its construction belonged to a particularly powerful personality, but such tragic instances are (thankfully) rare in the extreme.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

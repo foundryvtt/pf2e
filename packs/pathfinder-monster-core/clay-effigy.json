@@ -1,0 +1,364 @@
+{
+    "_id": "IuVoyT5lkzcWJ6sK",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "JzIDoWltig01Ezsi",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "aKViG5K27sM0dmNh": {
+                        "damage": "2d6",
+                        "damageType": "spirit"
+                    },
+                    "2rulpnuihi7eiz58jgg1": {
+                        "damage": "2d10+6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "sanctified"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "VKNVSK0dY0D8eaEx",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sacred Art",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The creator of a clay effigy can dedicate the effigy to a deity while constructing it. If the deity allows a divine sanctification, the effigy is sanctified to that deity, gaining the holy or unholy trait as appropriate.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "option": "sacred-art",
+                        "selection": "unsanctified",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitHoly",
+                                "value": "holy"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ClayEffigy.SacredArt.NoSanctification",
+                                "value": "unsanctified"
+                            },
+                            {
+                                "label": "PF2E.TraitUnholy",
+                                "value": "unholy"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "add": [
+                            "holy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sacred-art:holy"
+                        ]
+                    },
+                    {
+                        "add": [
+                            "unholy"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "sacred-art:unholy"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UHlcMcR3Z0rk0OU3",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Effigy's Curse",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a creature damages the clay effigy, it must succeed at a @Check[type:will|dc:27] save or be afflicted with the effigy's curse. The accursed becomes @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] when it carries part of the effigy or any item the effigy was assigned to guard.</p>\n<p>This fatigue can't be removed until the creature has given up such items for at least 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "m2Lkbdk2rZWG8ZPl",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cast Out",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A @Template[type:emanation|distance:20] of spiritual energy pushes against intruders, as though trying to drive their souls away. Each creature in the area takes @Damage[8d6[spirit]] damage depending on a @Check[type:will|dc:29] save.</p>\n<p>The clay effigy can't Cast Out again for [[/br 1d4 #Recharge Cast Out]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and @Damage[3d6[persistent,spirit]] damage. The persistent damage ends if the creature moves over 60 feet from the clay effigy or the effigy is destroyed.</p>\n<p><strong>Critical Failure</strong> As failure, except the persistent damage is increased to @Damage[6d6[persistent,spirit]].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "sanctified",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wW484fFKCzlYxNJv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Heavy Stride",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The clay effigy Strides and can move through the spaces of Medium and smaller creatures. Each creature it moves through must succeed at a @Check[type:reflex|dc:29] save or be knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8EHct64wNH1fUwMi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 24
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Clay Effigy",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 175,
+                "temp": 0,
+                "value": 175
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "cold",
+                        "earth",
+                        "water"
+                    ],
+                    "type": "spells",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 10
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Traditionally, clay effigies are crafted in the image of a deity and used as guardians of tombs or sacred crypts. Clay effigies have the power to lay curses upon their victims as punishment for intrusion, leading many to believe that these oft-ancient constructs have a touch of the divine in them. Out of an abundance of caution, superstitious folk still tread lightly around elaborate or particularly well-crafted statues that resemble clay effigies even in the slightest.</p>\n<p>For some clay effigies, this divine protection goes deeper. Even though deities rarely have the time to monitor their effigies, lesser divine servants are sometimes tasked with watching over an effigy. When the effigy is damaged, these guardians can sense it. The most precious effigies are layered with rituals that summon their guardians directly. Experienced tomb robbers learn to spot such markings from afar, so as to be forewarned of any divine interference in the area.</p>\n<p>Although often assigned to protect valuable religious relics and other treasure, clay effigies' size and heavy movements make them ill-suited to stand guard among fragile items. Entire treasuries have been totally ruined by clumsy battles, so crafters do well to make sure their treasures are secured in sturdy containers—or otherwise place the effigy on the other side of the door from the treasures they wish to protect.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}
