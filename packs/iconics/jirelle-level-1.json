@@ -81,7 +81,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You heard the call of the sea from a young age. Perhaps you signed onto a merchant's vessel, joined the navy, or even fell in with a crew of pirates and scalawags.</p>\n<p>Choose two ability boosts. One must be to Strength or Dexterity, and one is a free ability boost.</p>\n<p>You're trained in the Athletics skill and the Sailing Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Underwater Marauder] skill feat.</p>"
+                    "value": "<p>You heard the call of the sea from a young age. Perhaps you signed onto a merchant's vessel, joined the navy, or even fell in with a crew of pirates and scalawags.</p>\n<p>Choose two attribute boosts. One must be to <strong>Strength</strong> or <strong>Dexterity</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Athletics skill and the Sailing Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Underwater Marauder] skill feat.</p>"
                 },
                 "items": {
                     "78ses": {
@@ -92,9 +92,9 @@
                     }
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [],
                 "slug": "sailor",
@@ -130,7 +130,7 @@
                 },
                 "category": "skill",
                 "description": {
-                    "value": "<p>You've learned to fight underwater. You are not off-guard while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
+                    "value": "<p>You've learned to fight underwater. You are not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -145,11 +145,24 @@
                     ]
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "aquatic-combat:not-off-guard"
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "mode": "override",
+                        "selector": "melee-attack-roll",
+                        "slug": "aquatic-combat",
+                        "suppress": true
+                    }
+                ],
                 "slug": "underwater-marauder",
                 "traits": {
                     "rarity": "common",
@@ -256,7 +269,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>When you trick a foe, you can goad them into overextending their next attack.</p>\n<p>On a @UUID[Compendium.pf2e.actionspf2e.Item.Feint], you can use the following success and critical success effects instead of any other effects you would gain when you Feint; if you do, other abilities that adjust the normal effects of your Feint no longer apply. You can choose whether to use the Goading Feint benefits or the normal benefits each time you Feint a given foe.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes a -2 circumstance penalty to</p>\n<p>all attack rolls against you before the end of its next turn.</p>\n<p><strong>Success</strong> The target takes a -2 circumstance penalty to its next</p>\n<p>attack roll against you before the end of its next turn.</p>"
+                    "value": "<p>When you trick a foe, you can goad them into overextending their next attack.</p>\n<p>On a @UUID[Compendium.pf2e.actionspf2e.Item.Feint], you can use the following success and critical success effects instead of any other effects you would gain when you Feint; if you do, other abilities that adjust the normal effects of your Feint no longer apply. You can choose whether to use the Goading Feint benefits or the normal benefits each time you Feint a given foe.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes a -2 circumstance penalty to all attack rolls against you before the end of its next turn.</p>\n<p><strong>Success</strong> The target takes a -2 circumstance penalty to its next attack roll against you before the end of its next turn.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -1843,572 +1856,6 @@
             "type": "class"
         },
         {
-            "_id": "9zrqDRBdmdTCoF3E",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.beW1OqibVQ3fBvRw"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "fencer": {
-                            "id": "q5nK62Ni1GBDVuSL",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Swashbuckler's Style",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>As a swashbuckler, you have your own distinctive style that enables you to gracefully handle everyday events and life-or-death situations alike. Choose a swashbuckler's style. This style determines the additional actions you use to gain panache and makes you trained in the skill related to that action.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "1st-level Swashbuckler class feature",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:swashbuckler",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Battledancer"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Braggart"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Fencer"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Gymnast"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Wit"
-                            }
-                        ],
-                        "flag": "swashbucklersStyle",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Swashbuckler.Style.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Fencer"
-                    },
-                    {
-                        "flag": "fencer",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.swashbucklersStyle}"
-                    }
-                ],
-                "slug": "swashbucklers-style",
-                "traits": {
-                    "rarity": "common",
-                    "selected": {
-                        "swashbuckler": "Swashbuckler"
-                    },
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "JLj7SKGuxRwjDAHK",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.pyo0vmxUFIFX2GNl"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "confidentFinisher": {
-                            "id": "ZgIaMheaXB8jW2bY",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/weapons/swords/scimitar-broad.webp",
-            "name": "Confident Finisher",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain an elegant finishing attack you can make when you have panache. The finisher trait is described below. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher] action.</p>\n<hr />\n<p><strong>Finisher</strong> Finishers are spectacular finishing moves that use your panache. You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn.</p>\n<p>Some actions with the finisher trait also grant an effect on a failure. Effects added on a failure don't apply on a critical failure. If your finisher action succeeds, you can still choose to apply the failure effect instead. For example, you might do this when an attack deals no damage due to resistance.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "flag": "confidentFinisher",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Confident Finisher"
-                    }
-                ],
-                "slug": "confident-finisher",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "hgJslSWoU6GERIGZ",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.LzYi0OuOoypNb6jd"
-                }
-            },
-            "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
-            "name": "Panache",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You care as much about the way you accomplish something as whether you actually accomplish it in the first place. When you perform an action with particular bravado, you can leverage this moment of verve to perform spectacular, deadly maneuvers. This state of flair is called panache, and you are either in a state of panache or you are not.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]</p>\n<p>You gain panache by successfully performing the skill check associated with specific actions that have a bit of flair, including @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and additional actions determined by your swashbuckler's style (see below). At the GM's discretion, after succeeding at a check to perform a particularly daring action, such as swinging on a chandelier or sliding down a drapery, you also gain panache if your result is high enough (typically the very hard DC for your level, but the GM can choose a different threshold).</p>\n<p>While you have panache, you gain a +5-foot status bonus to your Speeds and gain a +1 circumstance bonus to checks to Tumble Through or to take any actions that give you panache due to your style. The precise strike class feature also causes you to deal extra precision damage while you have panache. Powerful finisher actions, including Confident Finisher, can be used only while you have panache and cause you to lose your panache.</p>\n<p>Normally, you gain and use panache only in combat encounters; when an encounter ends, you lose panache</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "action:tumble-through",
-                            {
-                                "not": "self:effect:panache"
-                            }
-                        ],
-                        "selector": "acrobatics",
-                        "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "panache",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "30W9pFux515gttnT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.RQH6vigvhmiYKKjg"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
-            "name": "Precise Strike",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You Strike with flair. When you have panache and you Strike with an agile or finesse melee weapon or agile or finesse unarmed attack, you deal 2 additional precision damage. If the strike is part of a finisher, the additional damage is 2d6 precision damage instead.</p>\n<p>As your swashbuckler level increases, so does your additional damage for precise strike. Increase the amount of additional damage on a Strike and the number of additional dice on a finisher by one at 5th, 9th, 13th, and 17th levels.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "uFKbNUe1I8kbQKtj",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "damageCategory": "precision",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "class:swashbuckler",
-                            "self:effect:panache",
-                            {
-                                "or": [
-                                    "item:melee",
-                                    {
-                                        "and": [
-                                            "feat:flying-blade",
-                                            "item:thrown",
-                                            "target:range-increment:1"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse"
-                                ]
-                            },
-                            {
-                                "not": "finisher"
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "precise-strike",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": 3
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": 4
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": 5
-                                },
-                                {
-                                    "start": 17,
-                                    "value": 6
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "category": "precision",
-                        "dieSize": "d6",
-                        "key": "DamageDice",
-                        "predicate": [
-                            "class:swashbuckler",
-                            "self:effect:panache",
-                            "finisher",
-                            {
-                                "or": [
-                                    "item:melee",
-                                    {
-                                        "and": [
-                                            "feat:flying-blade",
-                                            "item:thrown",
-                                            "target:range-increment:1"
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "or": [
-                                    "item:trait:agile",
-                                    "item:trait:finesse"
-                                ]
-                            }
-                        ],
-                        "selector": "strike-damage",
-                        "slug": "finisher",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "value": {
-                                        "diceNumber": 2
-                                    }
-                                },
-                                {
-                                    "end": 8,
-                                    "start": 5,
-                                    "value": {
-                                        "diceNumber": 3
-                                    }
-                                },
-                                {
-                                    "end": 12,
-                                    "start": 9,
-                                    "value": {
-                                        "diceNumber": 4
-                                    }
-                                },
-                                {
-                                    "end": 16,
-                                    "start": 13,
-                                    "value": {
-                                        "diceNumber": 5
-                                    }
-                                },
-                                {
-                                    "start": 17,
-                                    "value": {
-                                        "diceNumber": 6
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.swashbuckler.preciseStrike",
-                        "predicate": [
-                            "class:swashbuckler"
-                        ],
-                        "value": "ceil(@actor.level/4) + 1"
-                    }
-                ],
-                "slug": "precise-strike",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "q5nK62Ni1GBDVuSL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Jgid6Ja6Y879COlN"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "9zrqDRBdmdTCoF3E",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/weapons/swords/scimitar-guard-brown.webp",
-            "name": "Fencer",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks.</p>\n<p>You are trained in Deception. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] against a foe.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "self:effect:panache",
-                            {
-                                "or": [
-                                    "action:feint",
-                                    "action:create-a-diversion"
-                                ]
-                            }
-                        ],
-                        "selector": "deception",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.skills.dec.rank",
-                        "predicate": [
-                            "class:swashbuckler"
-                        ],
-                        "value": 1
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:feint",
-                                    "action:create-a-diversion"
-                                ]
-                            },
-                            {
-                                "not": "self:effect:panache"
-                            }
-                        ],
-                        "selector": "deception",
-                        "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success",
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "finisher",
-                            "feature:exemplary-finisher"
-                        ],
-                        "selector": "strike-attack-roll",
-                        "text": "PF2E.SpecificRule.ExemplaryFinisher.Fencer",
-                        "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
-                    }
-                ],
-                "slug": "fencer",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "ZgIaMheaXB8jW2bY",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.K878asDgf1EF0B9S"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "JLj7SKGuxRwjDAHK",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Confident Finisher",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with a weapon or unarmed attack that would apply your precise strike damage, with the following failure effect.</p>\n<hr />\n<p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "disabledIf": [
-                            {
-                                "not": "self:effect:panache"
-                            }
-                        ],
-                        "disabledValue": false,
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
-                        "mergeable": true,
-                        "option": "finisher",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
-                                "value": "confident"
-                            }
-                        ],
-                        "toggleable": true
-                    }
-                ],
-                "slug": "confident-finisher",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "finisher",
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "ER4VakSmrK6wpOsH",
             "flags": {
                 "core": {
@@ -2553,6 +2000,513 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "jPWvXGrZMncN23w5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.LzYi0OuOoypNb6jd"
+                }
+            },
+            "img": "icons/commodities/treasure/crown-gold-laurel-wreath.webp",
+            "name": "Panache",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You care as much about the way you accomplish something as whether you actually accomplish it in the first place. When you perform an action with particular bravado, you can leverage this moment of verve to perform spectacular, deadly maneuvers. This state of flair is called panache, and you are either in a state of panache or you are not.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]</p>\n<p>You gain panache by successfully performing the skill check associated with specific actions that have a bit of flair, including @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through] and additional actions determined by your swashbuckler's style (see below). At the GM's discretion, after succeeding at a check to perform a particularly daring action, such as swinging on a chandelier or sliding down a drapery, you also gain panache if your result is high enough (typically the very hard DC for your level, but the GM can choose a different threshold).</p>\n<p>While you have panache, you gain a +5-foot status bonus to your Speeds and gain a +1 circumstance bonus to checks to Tumble Through or to take any actions that give you panache due to your style. The @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] class feature also causes you to deal extra precision damage while you have panache. Powerful finisher actions, including @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher], can be used only while you have panache and cause you to lose your panache.</p>\n<p>Normally, you gain and use panache only in combat encounters; when an encounter ends, you lose panache</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "uFKbNUe1I8kbQKtj",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "grants-panache",
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
+                        "selector": "skill-check",
+                        "text": "PF2E.SpecificRule.Swashbuckler.Panache",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "grants-panache",
+                        "predicate": [
+                            "action:tumble-through"
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
+                "slug": "panache",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jap7yw8DYRoYt1q8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.RQH6vigvhmiYKKjg"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/precise-strike.webp",
+            "name": "Precise Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You Strike with flair. When you have panache and you Strike with an agile or finesse melee weapon or agile or finesse unarmed attack, you deal 2 additional precision damage. If the strike is part of a finisher, the additional damage is 2d6 precision damage instead.</p>\n<p>As your swashbuckler level increases, so does your additional damage for precise strike. Increase the amount of additional damage on a Strike and the number of additional dice on a finisher by one at 5th, 9th, 13th, and 17th levels.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "uFKbNUe1I8kbQKtj",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.swashbuckler.preciseStrike",
+                        "predicate": [
+                            "class:swashbuckler"
+                        ],
+                        "value": "ceil(@actor.level/4) + 1"
+                    },
+                    {
+                        "damageCategory": "precision",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:panache",
+                            {
+                                "or": [
+                                    "item:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "item:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse"
+                                ]
+                            },
+                            {
+                                "not": "finisher"
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "precise-strike",
+                        "value": "@actor.flags.pf2e.swashbuckler.preciseStrike"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "self:effect:panache",
+                            "finisher",
+                            {
+                                "or": [
+                                    "item:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "item:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse"
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage",
+                        "slug": "finisher"
+                    }
+                ],
+                "slug": "precise-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "SyObucQ4YdXbTbDs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.pyo0vmxUFIFX2GNl"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "confidentFinisher": {
+                            "id": "AP1ab5hcpWT1DffQ",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/weapons/swords/scimitar-broad.webp",
+            "name": "Confident Finisher",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain an elegant finishing attack you can make when you have panache. The finisher trait is described below. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Confident Finisher] action.</p>\n<hr />\n<p><strong>Finisher</strong> Finishers are spectacular finishing moves that use your panache. You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn.</p>\n<p>Some actions with the finisher trait also grant an effect on a failure. Effects added on a failure don't apply on a critical failure. If your finisher action succeeds, you can still choose to apply the failure effect instead. For example, you might do this when an attack deals no damage due to resistance.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "uFKbNUe1I8kbQKtj",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "flag": "confidentFinisher",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Confident Finisher"
+                    }
+                ],
+                "slug": "confident-finisher",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "5NQPHSZueKs92Wcg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.beW1OqibVQ3fBvRw"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "fencer": {
+                            "id": "8p6y0rllx8Qy77DJ",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Swashbuckler's Style",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a swashbuckler, you have your own distinctive style that enables you to gracefully handle everyday events and life-or-death situations alike. Choose a swashbuckler's style. This style determines the additional actions you use to gain panache and makes you trained in the skill related to that action.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "uFKbNUe1I8kbQKtj",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:swashbuckler-style"
+                            ]
+                        },
+                        "flag": "swashbucklersStyle",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Swashbuckler.Style.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Fencer"
+                    },
+                    {
+                        "flag": "fencer",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.swashbucklersStyle}"
+                    }
+                ],
+                "slug": "swashbucklers-style",
+                "traits": {
+                    "rarity": "common",
+                    "selected": {
+                        "swashbuckler": "Swashbuckler"
+                    },
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "AP1ab5hcpWT1DffQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.K878asDgf1EF0B9S"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "SyObucQ4YdXbTbDs",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Confident Finisher",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with a weapon or unarmed attack that would apply your precise strike damage, with the following failure effect.</p>\n<hr />\n<p><strong>Failure</strong> You deal half your @UUID[Compendium.pf2e.classfeatures.Item.Precise Strike] damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                        "mergeable": true,
+                        "option": "finisher",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
+                                "value": "confident"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure"
+                        ],
+                        "predicate": [
+                            {
+                                "or": [
+                                    "finisher:confident",
+                                    "eternal-confidence"
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:melee",
+                                    {
+                                        "and": [
+                                            "feat:flying-blade",
+                                            "item:thrown",
+                                            "target:range-increment:1"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse"
+                                ]
+                            },
+                            {
+                                "not": "feat:precise-finisher"
+                            }
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "PF2E.SpecificRule.Swashbuckler.Finisher.ConfidentNote",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "confident-finisher",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finisher"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8p6y0rllx8Qy77DJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.Jgid6Ja6Y879COlN"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5NQPHSZueKs92Wcg",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/weapons/swords/scimitar-guard-brown.webp",
+            "name": "Fencer",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks.</p>\n<p>You are trained in Deception. You gain @UUID[Compendium.pf2e.feat-effects.Item.Effect: Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Feint] or @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] against a foe.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Advanced Player's Guide"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.dec.rank",
+                        "predicate": [
+                            "class:swashbuckler"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "finisher",
+                            "feature:exemplary-finisher"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "PF2E.SpecificRule.ExemplaryFinisher.Fencer",
+                        "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "grants-panache",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:create-a-diversion",
+                                    "action:feint"
+                                ]
+                            }
+                        ],
+                        "selector": "skill-check"
+                    }
+                ],
+                "slug": "fencer",
+                "traits": {
+                    "otherTags": [
+                        "swashbuckler-style"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "swashbuckler"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Jirelle (Level 1)",
@@ -2599,7 +2553,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>Jirelle may have been born and raised on a ship, and she might call the Shackles her homeland, but she never considered herself a pirate, even if only to distance herself from the darkest part of her childhood: her mother.</p>\n<p>Today, Jirelle is a friendly sort with a biting wit and a charming personality. She makes new friends as swiftly as she strikes with her rapier, and while she has a flair for the dramatic (why merely attack a foe when you can make a show of it with a twirl of the cape or a somersault or two?), she never favors ostentation or glory over the opportunity to help a friend in need. Jirelle understands that the strength of one's relationships with friends, allies, lovers, and family make one strong. It was her mother's failure to forge such bonds that allowed a young Jirelle to escape from a life that would have likely seen offered as sacrifice to the shark demon Ovonovo before the close of her thirteenth birthday.</p>\n<p>On the subject of her mother or her ship, the <em>Bloodcrow</em>, the typically light-hearted half-elf grows serious. Jirelle does not share the secrets of her childhood with just anyone. As such, few know how she engineered the sinking of the <em>Bloodcrow</em> and the death of her wretched elven mother off the coast of Tempest Cay. Jirelle often jokes that she befriends for life, with the playful, only slightly malicious glint in her eyes implying what might happen to those who would betray such friendship.</p>\n<p>After escaping the <em>Bloodcrow</em>, Jirelle spent some time surviving as a street rat in the alleys of Drenchport. Armed with a fine rapier and clad in her her mother's magical cloak (the only two things she managed to escape the <em>Bloodcrow</em>'s wreckage with), Jirelle kept every coin and bauble she earned in a thrice-locked chest she keeps well hidden and protected. At first, she'd hoped to save enough money to afford a move from the Shackles to distant Taldor, drawn by tales of a land where duels and extravagance and civility promised a better life. But when rumors of a strange, ghostly ship plying the sea-ways of the Shackles reached her-fearful stories of a vessel commanded by an imperious banshee and bound by undeath-Jirelle realized that in sinking the <em>Bloodcrow</em> she'd done the exact opposite of what she'd intended. Rather than spare the Shackles of a brutal pirate queen, she'd unleashed an even deadlier scourge upon the Fever Sea.</p>\n<p>Today, Jirelle seeks the funds to someday finance a ship and crew of her own. She plans not to become a pirate-for a life of plunder and cruelty holds no appeal for the daring swashbuckler-but to finish the job she started on the eve of her thirteenth birthday. Jirelle knows she can't do this on her own, though. So she seeks true and able allies, knowing that only with bravery and trust will the <em>Bloodcrow</em>'s days be numbered.</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",

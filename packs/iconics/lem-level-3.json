@@ -1,0 +1,4056 @@
+{
+    "_id": "m0GGgcZWit8IYNPd",
+    "img": "systems/pf2e/icons/iconics/LemFull.webp",
+    "items": [
+        {
+            "_id": "mYjJumRH5DmPWPzm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Theater Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "tq344cHokvReSP7T",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.Item.GgZAHbrjnzWOZy2v"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/halfling.svg",
+            "name": "Halfling",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": [
+                        "dwarven",
+                        "elven",
+                        "gnomish",
+                        "goblin"
+                    ]
+                },
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "wis"
+                        ]
+                    },
+                    "2": {
+                        "selected": "cha",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>Claiming no place as their own, halflings control few settlements larger than villages. Instead, they frequently live among humans within the walls of larger cities, carving out small communities alongside taller folk. Many halflings lead perfectly fulfilling lives in the shadows of their larger neighbors, while others prefer a nomadic existence, traveling the world and taking advantage of opportunities and adventures as they come.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.voI7uPS9vsG74JIn]{Halfling}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "str"
+                        ]
+                    }
+                },
+                "hp": 6,
+                "items": {
+                    "3084v": {
+                        "img": "systems/pf2e/icons/features/ancestry/keen-eyes.webp",
+                        "level": "0",
+                        "name": "Keen Eyes",
+                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Keen Eyes"
+                    }
+                },
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "halfling"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "sm",
+                "slug": "halfling",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "halfling",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "By1LvEi3iEyjCstF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestryfeatures.Item.y1EmCv2cEb5hXBwx"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/keen-eyes.webp",
+            "name": "Keen Eyes",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestryfeature",
+                "description": {
+                    "value": "<p>Your eyes are sharp, allowing you to make out small details about @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or even @UUID[Compendium.pf2e.conditionitems.Item.Invisible] creatures that others might miss. You gain a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of you. When you target an opponent that is concealed from you or hidden from you, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one.</p>"
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": "tq344cHokvReSP7T",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    30
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "target:hidden",
+                                    "target:undetected"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "keen-eyes",
+                "traits": {
+                    "rarity": "common",
+                    "selected": {
+                        "halfling": "Halfling"
+                    },
+                    "value": [
+                        "halfling"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "b14mCt7nrTBqqwBj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.Eq42wZ5OTweJLnLU"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/gutsy-halfling.webp",
+            "name": "Gutsy Halfling",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Halfling",
+                    "slug": "halfling",
+                    "uuid": "Compendium.pf2e.ancestries.Item.GgZAHbrjnzWOZy2v"
+                },
+                "description": {
+                    "value": "<p>Your family line is known for keeping a level head and staving off fear when the chips were down. When you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "save"
+                    }
+                ],
+                "slug": "gutsy-halfling",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "aXi7llyS55mztLSu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.i4hN6OYv8qmi3GLW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Entertainer",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "selected": "cha",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>Through an education in the arts or sheer dogged practice, you learned to entertain crowds. You might have been an actor, a dancer, a musician, a street magician, or any other sort of performer.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Performance skill and the Theater Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Fascinating Performance] skill feat.</p>"
+                },
+                "items": {
+                    "q8t33": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Fascinating Performance",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Fascinating Performance"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "entertainer",
+                "trainedLore": "Theatre Lore",
+                "trainedSkills": {
+                    "value": [
+                        "prf"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "q25jMV4Ix6G6cEcD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.7LB00jkh6JaJr3vS"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Fascinating Performance",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you @UUID[Compendium.pf2e.actionspf2e.Item.Perform], compare your result to the Will DC of one observer. If you succeed, the target is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by you for 1 round. If the observer is in a situation that demands immediate attention, such as combat, you must critically succeed to fascinate it and the Perform action gains the incapacitation trait. You must choose which creature you're trying to fascinate before you roll your check, and the target is then temporarily immune for 1 hour.</p>\n<p>If you're an expert in Performance, you can fascinate up to four observers; if you're a master, you can fascinate up to 10 observers; and if you're legendary, you can fascinate any number of observers at the same time.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "aXi7llyS55mztLSu",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Performance"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "fascinating-performance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "MphUFQreUzlZ45IR",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.3gweRQ5gn7szIWAv"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/bard.webp",
+            "name": "Bard",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 1,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>You are a master of artistry, a scholar of hidden secrets, and a captivating persuader. Using powerful performances, you influence minds and elevate souls to new levels of heroics. You might use your powers to become a charismatic leader, or perhaps you might instead be a counselor, manipulator, scholar, scoundrel, or virtuoso. While your versatility leads some to consider you a beguiling ne'er-do-well and a jack-of-all-trades, it's dangerous to dismiss you as a master of none.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.Tz0NWVqhZyt8EyUV]{Bard}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "06b94": {
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
+                        "level": 7,
+                        "name": "Expert Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
+                    },
+                    "1da3z": {
+                        "img": "icons/skills/trades/academics-book-study-purple.webp",
+                        "level": 15,
+                        "name": "Master Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
+                    },
+                    "1qqwt": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "81u6r": {
+                        "img": "icons/tools/instruments/harp-yellow-teal.webp",
+                        "level": 19,
+                        "name": "Magnum Opus",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Magnum Opus"
+                    },
+                    "JXCPj": {
+                        "img": "icons/sundries/books/book-open-purple.webp",
+                        "level": 19,
+                        "name": "Legendary Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
+                    },
+                    "U3WYY": {
+                        "img": "icons/magic/life/heart-pink.webp",
+                        "level": 9,
+                        "name": "Performer's Heart",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Performer's Heart"
+                    },
+                    "UKinY": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 3,
+                        "name": "Reflex Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
+                    },
+                    "aqv5W": {
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+                        "level": 11,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                    },
+                    "ed5t5": {
+                        "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+                        "level": 1,
+                        "name": "Spell Repertoire (Bard)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Spell Repertoire (Bard)"
+                    },
+                    "en1lf": {
+                        "img": "icons/tools/instruments/pipe-flue-tan.webp",
+                        "level": 1,
+                        "name": "Composition Spells",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Composition Spells"
+                    },
+                    "f4w3H": {
+                        "img": "systems/pf2e/icons/features/classes/signature-spells-sorcerer.webp",
+                        "level": 3,
+                        "name": "Signature Spells",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Signature Spells"
+                    },
+                    "iUrjR": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 9,
+                        "name": "Fortitude Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
+                    },
+                    "oyw8v": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Muses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Muses"
+                    },
+                    "q84eq": {
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
+                    },
+                    "qev30": {
+                        "img": "systems/pf2e/icons/features/classes/occult-spellcasting.webp",
+                        "level": 1,
+                        "name": "Occult Spellcasting",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Occult Spellcasting"
+                    },
+                    "rQJDP": {
+                        "img": "icons/magic/life/heart-red-blue.webp",
+                        "level": 17,
+                        "name": "Greater Performer's Heart",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Performer's Heart"
+                    },
+                    "yjn5p": {
+                        "img": "systems/pf2e/icons/features/classes/bard-weapon-expertise.webp",
+                        "level": 11,
+                        "name": "Bard Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Bard Weapon Expertise"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "cha"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "bard",
+                "spellcasting": 1,
+                "trainedSkills": {
+                    "additional": 4,
+                    "value": [
+                        "occ",
+                        "prf"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "tFbERahMuE4MwGSW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.AIOBWGOS4nkfH3kW"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "maestro": {
+                            "id": "gY9mqcIWHnKqKmtu",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Muses",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a bard, you select one muse at 1st level. This muse leads you to great things and might be someone you know, a supernatural creature, location, deity, philosophy, or captivating mystery. Depending on the type of inspiration you receive, your 1st-level muse grants you a specific 1st-level bard feat and adds a spell to your repertoire.</p>\n<p>In addition to this, each muse opens the door to many later bard feats. If one type of inspiration is not enough to represent your muse, consider the @UUID[Compendium.pf2e.feats-srd.Item.Multifarious Muse] feat.</p>\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Enigma]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Maestro]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Polymath]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Warrior]</li>\n</ul>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:bard-muse"
+                            ]
+                        },
+                        "flag": "muses",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Bard.Muse.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Maestro"
+                    },
+                    {
+                        "flag": "maestro",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.muses}"
+                    }
+                ],
+                "slug": "muses",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fwy4Vf2LNFhIOWy3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.s0VbbQJNlSgPocui"
+                }
+            },
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
+            "name": "Composition Spells",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You can infuse your performances with magic to create unique effects called compositions. Compositions are a special type of spell that often require you to use the Performance skill when casting them. Composition spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to perform, write a new composition, or otherwise engage your muse.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points. You learn the @UUID[Compendium.pf2e.spells-srd.Item.Counter Performance] composition spell, protecting against auditory and visual effects.</p>\n<h2>Composition Cantrips</h2>\n<p>Composition cantrips are special composition spells that don't cost Focus Points, so you can use them as often as you like. Composition cantrips are in addition to the cantrips you choose with bard spellcasting. Unlike other cantrips, you can't swap out composition cantrips gained from bard feats at a later level, unless you swap out the specific feat via retraining.</p>\n<p>You learn the @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem] composition cantrip, which boosts your allies' attacks, damage, and defense against fear.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "composition-spells",
+                "traits": {
+                    "rarity": "common",
+                    "selected": {},
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PlVMe1AVyDMF1YrO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.fEOj0eOBe34qYdAa"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/occult-spellcasting.webp",
+            "name": "Occult Spellcasting",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You draw upon magic from esoteric knowledge. You can cast occult spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a bard, you can usually play an instrument for spells requiring somatic or material components, as long as it takes at least one of your hands to do so. If you use an instrument, you don't need a material component pouch or another hand free. You can usually also play an instrument for spells requiring verbal components, instead of speaking.</p>\n<p>Each day, you can cast up to two 1st-rank spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.</p>\n<p>As you increase in level as a bard, your number of spells per day increases, as does the highest rank of spells you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "occult-spellcasting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "7WhkWlQJEc9KoDFs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.6FsusoMYxxjyIkVh"
+                }
+            },
+            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+            "name": "Spell Repertoire (Bard)",
+            "sort": 300,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank occult spells of your choice and five occult cantrips of your choice. You choose these from the common spells from the occult list or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Bard Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h2>Swapping Spells In Your Repertoire</h2>\n<p>As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "spell-repertoire-bard",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "sG2jMrmI0QDcyUrF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.sVjATEo8eqkAosNp"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "gY9mqcIWHnKqKmtu",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Lingering Composition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>By adding a flourish, you make your compositions last longer. You learn the @UUID[Compendium.pf2e.spells-srd.Item.Lingering Composition] focus spell.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "maestro muse"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "lingering-composition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gY9mqcIWHnKqKmtu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.YMBsi4bndRAk5CX4"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "tFbERahMuE4MwGSW",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "lingeringComposition": {
+                            "id": "sG2jMrmI0QDcyUrF",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/tools/instruments/harp-red.webp",
+            "name": "Maestro",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your muse constantly inspires you to greater heights of artistic prowess. For many bards, a teacher or rival fills this role, although some set their sights higher and attempt to surpass great composers of the past or blaze a new trail entirely. If your muse is a supernatural creature, it might be one who loves to perform, such as a choral angel or a lyrakien azata; if a deity, it might be Shelyn. Art inspired by a maestro muse is precise and inventive, a formalist achievement.</p>\n<p>As a bard with a maestro muse, you are an inspiration to your allies and confident of your musical and oratorical abilities.</p>\n<p><strong>Muse Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Lingering Composition]</p>\n<p><strong>Muse Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Soothe]</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "lingeringComposition",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Lingering Composition"
+                    }
+                ],
+                "slug": "maestro",
+                "traits": {
+                    "otherTags": [
+                        "bard-muse"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "gkP8dno3CW5QyNaA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.ZbRVqf14RTJJIZXG"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Halfling Luck",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail a skill check or saving throw.</p>\n<hr />\n<p>Your happy-go-lucky nature makes it seem like misfortune avoids you, and to an extent, that might even be true. You can reroll the triggering check, but you must use the new result, even if it's worse.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "day"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "halfling-luck",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "halfling"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "QvXZvHwTUAVN3bwB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+                }
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "KRkBHGs8mzSGex9Z",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "94EAwmYbxtC5WOJi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "XregAHvB0xkR3kHk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "6dFFvL9roQhG1Fn6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "vaAWOXTX4zUoGvu2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "VbealSlNpTOl1CXJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+                }
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "HMKSUdVD78ay4ayC",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+            "name": "Bedroll",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1ZtFpjAGZ1KSBUmI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+                }
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "QvXZvHwTUAVN3bwB",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "OdKaeHpVAIr8pqZN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+                }
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Padded Armor",
+            "sort": 0,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "a1AoSCX9IMEYfm3H",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.MPv5Yx4w7scZGj2Y"
+                }
+            },
+            "img": "icons/tools/instruments/pipe-flue-tan.webp",
+            "name": "Musical Instrument (Handheld)",
+            "sort": 200000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "musical-instrument-handheld",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "zeVIO5oBgQ4wNuFh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
+                }
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Toolkit",
+            "sort": 300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need a thieves' toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' toolkit is broken, you can repair it by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your toolkit; this doesn't require using the Repair action. If you wear your thieves' toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "thieves-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "FER5kTLWEcyVwFlQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ds0OdA989ZZw9km1"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/dread-ampoule.webp",
+            "name": "Dread Ampoule (Lesser)",
+            "sort": 0,
+            "system": {
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "mental",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Strike</p>\n<hr />\n<p>This flask is filled with a murky purple gas that briefly interferes with normal brain activity. A dread ampoule deals 1d6 mental damage and 1 mental splash damage.</p>\n<p>On a hit, the target becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical hit. Many types also grant an item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.DreadAmpoule.Lesser.success"
+                    }
+                ],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dread-ampoule-lesser",
+                "splashDamage": {
+                    "value": 1
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "poison",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "Nd3OG8wE4iAsSU0r",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "icons/weapons/ammunition/arrows-broadhead-white.webp",
+            "name": "Arrows",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "ammo",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 20,
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "stackGroup": "arrows",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "oq2eWVRbwCvBvVki",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.hIgqLgH3YcLZBeoT"
+                }
+            },
+            "img": "icons/weapons/bows/shortbow-leather.webp",
+            "name": "Shortbow",
+            "sort": 0,
+            "system": {
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "bow",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": 60,
+                "reload": {
+                    "value": "0"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "selectedAmmoId": "Nd3OG8wE4iAsSU0r",
+                "size": "med",
+                "slug": "shortbow",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "deadly-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-plus-hands"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "uOcVsTryviqi5fbZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.7tKkkF8eZ4iCLJtp"
+                }
+            },
+            "img": "icons/weapons/swords/sword-guard-purple.webp",
+            "name": "Shortsword",
+            "sort": 0,
+            "system": {
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 9
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "shortsword",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "3aYLf2sjCGdUhGRR",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Focus Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "focus"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "F1LuQzhjWlcZwjLd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.WILXkjU5Yq3yw10r"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/counter-performance.webp",
+            "name": "Counter Performance",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You or an ally within 60 feet rolls a saving throw against an auditory or visual effect.</p>\n<hr />\n<p>Your performance protects you and your allies. Roll a Performance check for a type you know—it must be an auditory performance if the trigger was auditory or a visual one for a visual trigger, and this action gains the traits for the type of performance. You and allies in the area can use the better result between your Performance check and the saving throw.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "3aYLf2sjCGdUhGRR"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "counter-performance",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "reaction"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "composition",
+                        "concentrate",
+                        "focus",
+                        "fortune",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "IgcBvxTZlMzHtfEX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.irTdhxTixU9u9YUm"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/lingering-composition.webp",
+            "name": "Lingering Composition",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You add a flourish to your composition to extend its benefits. If your next action is to cast a cantrip composition with a duration of 1 round, attempt a Performance check. The DC is usually a standard-difficulty DC of a level equal to the highest-level target of your composition, but the GM can assign a different DC based on the circumstances. The effect depends on the result of your check.</p>\n<hr />\n<p><strong>Critical Success</strong> The composition lasts 4 rounds.</p>\n<p><strong>Success</strong> The composition lasts 3 rounds.</p>\n<p><strong>Failure</strong> The composition lasts 1 round, but you don't spend the Focus Point for casting this spell.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "3aYLf2sjCGdUhGRR"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "lingering-composition",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "free"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "concentrate",
+                        "focus",
+                        "spellshape"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "CjM5ZZe2NCW7LZVw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.IAjvwqgiDr3qGYxY"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/inspire-courage.webp",
+            "name": "Courageous Anthem",
+            "sort": 0,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 60
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Courageous Anthem]</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "3aYLf2sjCGdUhGRR"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "courageous-anthem",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "cantrip",
+                        "composition",
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "mnBfmlBjVcCpQ0bL",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Occult Spontaneous Spells",
+            "sort": 0,
+            "system": {
+                "ability": {
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "spontaneous"
+                },
+                "proficiency": {
+                    "slug": "",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slots": {
+                    "slot1": {
+                        "max": 3,
+                        "value": 3
+                    },
+                    "slot2": {
+                        "max": 2,
+                        "value": 2
+                    }
+                },
+                "slug": null,
+                "spelldc": {
+                    "dc": 0,
+                    "value": 0
+                },
+                "tradition": {
+                    "value": "occult"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "5SACm4hvt3mnbON1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.4gBIw4IDrSfFHik4"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/daze.webp",
+            "name": "Daze",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You push into the target's mind and daze it with a mental jolt. The jolt deals 1d6 mental damage, with a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "daze",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "m2vrtilyowCu882N",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.0zU8CPejjQFnhZFI"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/ghost-sound.webp",
+            "name": "Figment",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create a simple illusory sound or vision. A sound adds the auditory trait to the spell and the sound can't include intelligible words or elaborate music. A vision adds the visual trait, can be no larger than a 5-foot cube, and is clearly crude and undetailed if viewed from within 15 feet. When you Cast or Sustain the Spell, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] with the illusion, gaining a +2 circumstance bonus to your Deception check. If the attempt fails against a creature, that creature disbelieves the <em>figment</em>.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "figment",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "subtle"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qcjd7CW4xRA4oNNx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/light.webp",
+            "name": "Light",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You create an orb of light that sheds bright light in a 20-foot radius (and dim light for the next 20 feet) in a color you choose. If you create the light in the same space as a willing creature, you can attach the light to the creature, causing it to float near that creature as it moves. You can Sustain the spell to move the light up to 60 feet; you can attach or detach it from a creature as part of this movement.</p>\n<p>You can Dismiss the spell. If you Cast the Spell while you already have four <em>light</em> spells active, you must choose one of the existing spells to end.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Light]</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The orb sheds light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "until your next daily preparations"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "light",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "light",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "ZkLZ3aSSFKwElTMi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.Qw3fnUlaUbnn7ipC"
+                }
+            },
+            "img": "icons/magic/symbols/runes-triangle-blue.webp",
+            "name": "Prestidigitation",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>The simplest magic does your bidding. You can perform simple magical effects for as long as you Sustain the spell. Each time you Sustain the spell, you can choose one of four options.</p>\n<ul>\n<li><strong>Cook</strong> Cool, warm, or flavor 1 pound of nonliving material.</li>\n<li><strong>Lift</strong> <strong>Slowly</strong> lift an unattended object of light Bulk or less 1 foot off the ground.</li>\n<li><strong>Make</strong> Create a temporary object of negligible Bulk, made of congealed magical substance. The object looks crude and artificial and is extremely fragile-it can't be used as a tool, weapon, or locus or cost for a spell.</li>\n<li><strong>Tidy</strong> Color, clean, or soil an object of light Bulk or less. You can affect an object of 1 Bulk with 10 rounds of concentration, and a larger object a 1 minute per Bulk.</li>\n</ul>\n<p><em>Prestidigitation </em>can't deal damage or cause adverse conditions. Any actual change to an object (beyond what is noted above) persists only as long as you Sustain the spell.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "prestidigitation",
+                "target": {
+                    "value": "1 object (cook, lift, or tidy only)"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "IJdo9v0yVwIiZN1k",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.60sgbuMWN0268dB7"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
+            "name": "Telekinetic Projectile",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal 2d6 bludgeoning, piercing, or slashing damage--as appropriate for the object you hurled. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "type": "bludgeoning"
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (Piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "type": "piercing"
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
+                                    "type": "slashing"
+                                }
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "telekinetic-projectile",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "B6uRpA4QqRhQfHNN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.vLA0q0WOK2YPuJs6"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/charm.webp",
+            "name": "Charm",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @UUID[Compendium.pf2e.conditionitems.Item.Friendly] toward you. If it was Friendly, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Helpful]. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 hour"
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "charm",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "incapacitation",
+                        "manipulate",
+                        "mental",
+                        "subtle"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "IklDngOSrh7KYZb9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
+            "name": "Fear",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "fear",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "6rL06iZ3ZZOqZWwm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n"
+                }
+            },
+            "img": "icons/magic/air/air-burst-spiral-teal-green.webp",
+            "name": "Soothe",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d10+4",
+                        "kinds": [
+                            "healing"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Soothe]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10+4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "soothe",
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "healing",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qVofSdrBq0Mrks0k",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 8,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "1zXtvXeZo11GBijM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 4,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "p4jaKqu1gqatUpDb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.Sw7MBLASN3xK4Y44"
+                }
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Toolkit (Replacement Picks)",
+            "sort": 400000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These are replacement picks for a @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "thieves-toolkit-replacement-picks",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "0hxFehrEsUUEmbW1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.TUOeATt52P43r5W0"
+                }
+            },
+            "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+            "name": "Reflex Expertise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You've developed a knack for dodging danger. Your proficiency rank for Reflex saves increases to expert.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "rules": [],
+                "slug": "reflex-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "reflex": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FQWWGXPs1dud4KNe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.VKRjmXxBFLrJK01c"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/signature-spells-sorcerer.webp",
+            "name": "Signature Spells",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Experience allows you to cast some spells more flexibly. For each spell rank you have access to, choose one spell of that rank to be a signature spell. You don't need to learn heightened versions of signature spells separately; instead, you can heighten these spells freely. If you've learned a signature spell at a higher rank than its minimum, you can also cast all its lower-rank versions without learning those separately. If you swap out a signature spell, you can choose a replacement signature spell of the same spell rank at which you learned the previous spell. You can also retrain specifically to change a signature spell to a different spell of that rank without swapping any spells; this takes as much time as retraining a spell normally does.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "MphUFQreUzlZ45IR",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "signature-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard",
+                        "oracle",
+                        "psychic",
+                        "sorcerer"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "8H2Y6NcD2e9RaXRx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.eUXgY8W3fShlW7pd"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Uplifting Overture",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You learn the @UUID[Compendium.pf2e.spells-srd.Item.Uplifting Overture] composition cantrip, which aids your allies' skills with the inspiring nature of your performance.</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "maestro muse"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "uplifting-overture",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "bard"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "ajIbyoN24gPPsWnI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cat Fall",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your catlike aerial acrobatics allow you to cushion your falls. Treat falls as 10 feet shorter. If you're an expert in Acrobatics, treat falls as 25 feet shorter and 50 feet if you're a master. If you're legendary in Acrobatics, you always land on your feet and don't take damage, regardless of the distance of the fall.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Acrobatics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cat-fall",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "kG5F7f0OdZWWz6ql",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.aJUXbe9HJVvv0Mxa"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Breath Control",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You can breathe even in hazardous or sparse air. You can hold your breath for 25 times as long as usual before suffocating. You gain a +1 circumstance bonus to saving throws against inhaled threats, such as inhaled poisons, and if you roll a success on such a saving throw, you get a critical success instead.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "inhaled"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "inhaled"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "inhaled"
+                        ],
+                        "selector": "saving-throw"
+                    }
+                ],
+                "slug": "breath-control",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PfuCADBeVb6DIbqu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.f0Z5mqGA6Yu79B8x"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/inspire-competence.webp",
+            "name": "Uplifting Overture",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Your performance makes allies feel they can succeed at anything. This counts as having prepared to Aid your ally on a skill check of your choice. When you later use the Aid reaction, you can roll Performance instead of the normal skill check, and if you roll a failure, you get a success instead. If you are legendary in Performance, you automatically critically succeed.</p>\n<p>The GM might rule that you can't use this ability if the act of encouraging your ally would interfere with the skill check (such as a check to @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] quietly or maintain a disguise).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "3aYLf2sjCGdUhGRR"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "uplifting-overture",
+                "target": {
+                    "value": "1 ally"
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "bard",
+                        "cantrip",
+                        "composition",
+                        "concentrate",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "P1yxkIr6xdvwFtag",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.9HpwDN4MYQJnW0LG"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
+            "name": "Dispel Magic",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "signature": true,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "dispel-magic",
+                "target": {
+                    "value": "1 spell effect or unattended magic item"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "q4QRjvPlPYh9okJh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
+            "name": "Laughing Fit",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is plagued with uncontrollable laughter. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Item.Prone] and can't use actions or reactions for 1 round. It then takes the effects of a failure.</p>"
+                },
+                "duration": {
+                    "sustained": true,
+                    "value": ""
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "laughing-fit",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "oewr0O7muIo2YmUu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD"
+                }
+            },
+            "img": "icons/magic/unholy/strike-beam-blood-small-red-purple.webp",
+            "name": "Phantom Pain",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and [[/r (@item.level)d4[persistent,mental]]] damage. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no persistent damage, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and persistent damage, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. If the target recovers from being Sickened, the persistent damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the persistent damage by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "1 minute"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 1,
+                    "signature": true,
+                    "value": "mnBfmlBjVcCpQ0bL"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "phantom-pain",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "illusion",
+                        "manipulate",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Ki0ktnRa0aKCqyDV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+                }
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        }
+    ],
+    "name": "Lem (Level 3)",
+    "prototypeToken": {
+        "name": "Lem",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Lem.webp"
+        }
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 33
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "cha",
+                        "int",
+                        "dex",
+                        "con"
+                    ]
+                }
+            }
+        },
+        "crafting": {
+            "formulas": []
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "alliance": "party",
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "<p>Although Lem was raised in the lap of luxury, his childhood was anything but comfortable. He had the unfortunate luck to be born into slavery, to a mother indentured to one of Cheliax's countless noble families. Lem was sold a half dozen times to different nobles before he reached the age of two. Such is the fate of most of Cheliax's halflings (often called \"slips\" by that nation's citizens). Halflings are much valued as slaves in Cheliax since they take up less room and since their inborn optimism ironically stunts escape urges. Halflings born into slavery in Cheliax are prone to think of their lot in life as \"lucky.\" They are fond of saying, \"At least we aren't living in the gutter or starving!\"</p>\n<p>Nevertheless, halflings who rankle at the concept of enslavement do appear. Halflings like Lem. Growing up a slave in the devil-haunted empire of Cheliax exposed Lem to a shocking range of decadence and debauchery. He learned from a young age how to say what his superiors wanted to hear, and as he grew older, these skills often secured him less onerous jobs. While his kin toiled in basement washrooms or tended hellhound stables, Lem was taught to play the flute so he could entertain at family gatherings. Yet Lem was not blind to the discomfort of his brothers and sisters, and when he learned that a dozen of his kin were to be sacrificed to a devil as an offering to seal a new trade contract, Lem knew the time to act had come. Taking advantage of his increased mobility in the manor, it was a relatively simple trick to light a few fires in secret corners and then ensure that all of his halfling kin were safe in the slave's quarters. The manor burnt quickly, but Lem was shocked to see his kin rush back to the manor in a hopeless attempt to aid in extinguishing the flames. As the place burnt to the ground, and the halflings bemoaned their fate and the loss of their shelter, Lem slipped away into the night, bitter and distraught over this unexpected turn of events.</p>\n<p>Lem left Cheliax by stowing away on a merchant vessel and never looked back. He rarely speaks of his childhood today, but one can see its effects in his high disdain for law and order, and his intolerance for cruelty. Always quick to side with the underdog, Lem has learned that his most powerful traits are his optimism and sense of humor—virtues that almost make up for his small stature and impulsive nature. Lem's reasons for traveling with his current companions vary upon the day and his mood, but he certainly values their strengths—and the never-ending supply of comedy material their antics provide him.</p>",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "deity": {
+                "image": "systems/pf2e/icons/default-icons/deity.svg",
+                "value": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "M/He/Him"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "diabolic"
+                ]
+            },
+            "level": {
+                "value": 3
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "fame": 0,
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": 0,
+                "GA": 0,
+                "HH": 0,
+                "RO": 0,
+                "VS": 0,
+                "VW": 0
+            },
+            "school": "none"
+        },
+        "resources": {
+            "focus": {
+                "value": 2
+            },
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "saves": {},
+        "skills": {
+            "acr": {
+                "rank": 1
+            },
+            "arc": {
+                "rank": 0
+            },
+            "ath": {
+                "rank": 0
+            },
+            "cra": {
+                "rank": 0
+            },
+            "dec": {
+                "rank": 1
+            },
+            "dip": {
+                "rank": 1
+            },
+            "itm": {
+                "rank": 0
+            },
+            "med": {
+                "rank": 0
+            },
+            "nat": {
+                "rank": 0
+            },
+            "occ": {
+                "rank": 0
+            },
+            "prf": {
+                "rank": 2
+            },
+            "rel": {
+                "rank": 0
+            },
+            "soc": {
+                "rank": 1
+            },
+            "ste": {
+                "rank": 1
+            },
+            "sur": {
+                "rank": 0
+            },
+            "thi": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

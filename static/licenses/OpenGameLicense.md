@@ -113,7 +113,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 * Treasure Vault
     * Pathfinder Treasure Vault © 2023, Paizo Inc.; Authors: Michael Sayre, Mark Seifter, Kendra Leigh Speedling, Logan Bonner, Dan Cascone, Jessica Catalan, Kim Frandsen, Andrew Geels, Steven Hammond, Sen H.H.S., Joshua Kim, Dustin Knight, Luis Loza, Jacob W. Michaels, Matt Morris, Dave Nelson, Stephen Radney-McFarland, Jessica Redekop, Andrew Stoeckle, Mari Tokuda, and Andrew White.
-	
+
 * Howl of the Wild
 	* Pathfinder Howl of the Wild © 2023, Paizo Inc.; Authors: Kate Baker, Rigby Bendele, Chris Bissette, Jeremy Blum, Logan Bonner, Dan Cascone, James Case, Jessica Catalan, Brite Cheney, Rue Dickey, Caryn DiMarco, Matthew Fu, Leo Glass, Steven Hammond, Patrick Hurley, Michelle Y. Kim, Dustin Knight, Kendra Leigh Speedling, Christiana Lewis, Jessie "Aki" Lo, Luis Loza, Letterio Mammoliti, Jonathan "Ryomasa" Mendoza, Quinn Murphy, Dave Nelson, Mikhail Rekun, Kai Revius, Ember Rose, Simone D. Sallé, Michael Sayre, Shay Snow, Levi Steadman, Kyle Tam, Ruvaid Virk, and Andrew White.
 
@@ -194,14 +194,14 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Adventure Path #191: The Destiny War © 2023, Paizo Inc.; Author: Chris S. Sims.
 	*  Pathfinder Adventure Path #192: The Worst of All Possible Worlds © 2023, Paizo Inc.; Author: Luis Loza.
 	*  Sky King's Tomb Player's Guide © 2023, Paizo Inc.; Author: John Compton and Crystal Frasier.
-	*  Pathfinder Adventure Path #193: Mantle of Gold © 2023, Paizo Inc.; Authors: John Compton, Crystal Frasier, and Caryn DiMarco.	
+	*  Pathfinder Adventure Path #193: Mantle of Gold © 2023, Paizo Inc.; Authors: John Compton, Crystal Frasier, and Caryn DiMarco.
 	*  Pathfinder Adventure Path #194: Cult of the Cave Worm © 2023, Paizo Inc.; Author: Scott D. Young.
 	*  Pathfinder Adventure Path #195: Heavy is the Crown © 2023, Paizo Inc.; Author: Jessica Catalan.
 	*  Season of Ghosts Player's Guide © 2023, Paizo Inc.; Author: James Jacobs and Sen H.H.S.
 	*  Pathfinder Adventure Path #196: The Summer that Never Was © 2023, Paizo Inc.; Authors: Sen H.H.S. and James Jacobs.
 	*  Pathfinder Adventure Path #197: Let the Leaves Fall © 2023, Paizo Inc.; Author: Joan Hong.
 	*  Pathfinder Adventure Path #198: With No Breath to Cry © 2023, Paizo Inc.; Authors: Dan Cascone and Eleanor Ferron.
-	*  Pathfinder Adventure Path #199: To Bloom below the Web © 2024, Paizo Inc.; Author: Liane Merciel.	
+	*  Pathfinder Adventure Path #199: To Bloom below the Web © 2024, Paizo Inc.; Author: Liane Merciel.
 	*  Pathfinder Adventure Path #200: The Seven Dooms of Sandpoint © 2024, Paizo Inc.; Author: James Jacobs.
 	*  Pathfinder Adventure Path #201: Pactbreaker © 2024, Paizo Inc.; Author: Andrew White.
 	*  Pathfinder Adventure Path #202: Severed at the Root © 2024, Paizo Inc.; Author: Jessica Catalan, John Compton, and Alexi Greer.
@@ -279,7 +279,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #1-23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
     * Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
     * Pathfinder Society Scenario #1-25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
-	
+
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
@@ -307,7 +307,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
     * Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
     * Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
-	
+
     * Pathfinder Society Scenario #3-01: Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
     * Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
     * Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
@@ -331,7 +331,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 3-6) © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
-	
+
     * Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
     * Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
     * Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
@@ -397,7 +397,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Lost Omens Impossible Lands © 2022, Paizo Inc.; Authors: Mariam Ahmad, Saif Ansari, Alexandria Bustion, Basheer Ghouse, Michelle Jones, TJ Kahn, Matt Morris, Dave Nelson, Shiv Ramdas, Mikhail Rekun, Michael Sayre, Tan Shao Han, Ruvaid Virk, Jabari Weathers, and Brian Yaksha.
     * Pathfinder Lost Omens Firebrands © 2023, Paizo Inc.; Authors: James Beck, Rigby Bendele, Jessica Catalan, Dana Ebert, Joan Hong, Sen H.H.S., Aaron Lascano, Luis Loza, Ron Lundeen, Stephanie Lundeen, Matt Morris, Jessica Redekop, Erin Roberts, and Shahreena Shahrani.
     * Pathfinder Lost Omens Highhelm © 2023, Paizo Inc.; Authors: Dan Cascone, Caryn DiMarco, Dana Ebert, Sen H.H.S., Michelle Jones, Stephanie Lundeen, Liane Merciel, Matt Morris, Dave Nelson, Nathan Reinecke, Mikhail Rekun, Erin Roberts, Owen K.C. Stephens, Andrew White, and Shan Wolf.
-	
+
 *  Free Adventures
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
     *  Pathfinder Free RPG Day Adventure 2020: Little Trouble in Big Absalom © 2020, Paizo Inc.; Author: Eleanor Ferron
@@ -448,6 +448,22 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
     *  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
     *  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
+    *  Meet the Iconics: Ezren © 2007, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Amiri © 2008, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Feiya © 2011, Paizo Inc.; Author: Andrew Vallas; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Fumbus © 2019, Paizo Inc.; Author: Michael Sayre; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Harsk © 2007, Paizo Inc.; Author: James Sutter; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Jirelle © 2014, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet The Iconics: Korakai © 2020, Paizo Inc.; Author: James Case; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Kyra © 2007, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Lem © 2008, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Lini © 2008, Paizo Inc.; Author: Mike McArtor; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Merisiel © 2007, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Quinn © 2014, Paizo Inc.; Author: James L. Sutter; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Sajan © 2008, Paizo Inc.; Author: Mike McArtor; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Seelah © 2007, Paizo Inc.; Author: James Jacobs; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Seoni © 2007, Paizo Inc.; Author: James Sutter; Illustrator: Wayne Reynolds.
+    *  Meet the Iconics: Valeros © 2010, Paizo Inc.; Author: James L. Sutter; Illustrator: Wayne Reynolds.
 
 *   Other
     * Pathfinder Special: Fumbus! (Comic Book) © 2021, Paizo Inc.; Authors: Jessica Catalan, Michael Sayre, and Fred Van Lente

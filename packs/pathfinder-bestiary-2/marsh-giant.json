@@ -551,7 +551,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",
@@ -639,14 +658,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The marsh giant makes a melee Strike with its gaff. If it hits, it twists and yanks the gaff to create an awful wound, dealing @Damage[3d6[bleed]] to the creature.</p>"
+                    "value": "<p>The marsh giant makes a melee Strike with its gaff. If it hits, it twists and yanks the gaff to create an awful wound, dealing 3d6 persistent bleed damage to the creature.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "twist-the-hook",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "twist-the-hook"
+                        ],
+                        "selector": "gaff-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

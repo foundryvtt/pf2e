@@ -118,7 +118,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
-                    label: "PF2E.Kingmaker.Army.Base",
+                    label: "PF2E.ModifierTitle",
                     modifier: expectedAC - 10,
                 }),
                 acAdjustment &&
@@ -140,7 +140,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             label: "PF2E.Kingmaker.Army.Scouting",
             domains: ["scouting"],
             modifiers: R.compact([
-                new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseScouting }),
+                new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseScouting }),
                 scoutAdjustment
                     ? new ModifierPF2e({
                           slug: "adjustment",
@@ -164,7 +164,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
                 domains: ["saving-throw", saveType],
                 modifiers: R.compact([
-                    new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseValue }),
+                    new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseValue }),
                     adjustment
                         ? new ModifierPF2e({
                               slug: "adjustment",
@@ -256,7 +256,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
-                    label: "PF2E.Kingmaker.Army.Base",
+                    label: "PF2E.ModifierTitle",
                     modifier: ARMY_STATS.attack[this.level],
                 }),
                 data.potency && new ModifierPF2e({ slug: "potency", label: "Potency", modifier: data.potency }),
