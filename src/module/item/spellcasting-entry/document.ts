@@ -4,7 +4,7 @@ import { AttributeString } from "@actor/types.ts";
 import { ItemPF2e, PhysicalItemPF2e, type SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
+import { OneToTen, ZeroToTen } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, ordinalString, setHasElement, sluggify } from "@util";
@@ -13,6 +13,7 @@ import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import { createCounteractStatistic } from "./helpers.ts";
 import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
     extends ItemPF2e<TParent>
@@ -56,7 +57,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
      * Returns the proficiency used for calculations.
      * For innate spells, this is the highest spell proficiency (min trained)
      */
-    get rank(): ZeroToFour {
+    get rank(): ProficiencyValues {
         return this.system.proficiency.value ?? 0;
     }
 
@@ -177,7 +178,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             if (!baseStat) return;
 
             this.system.ability.value = baseStat.attribute ?? this.system.ability.value;
-            this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ZeroToFour;
+            this.system.proficiency.value = Math.max(this.rank, baseStat.rank ?? 0) as ProficiencyValues;
             this.statistic = baseStat.extend({
                 slug,
                 label:

@@ -61,6 +61,7 @@ import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
 import type {
     CustomDamageData,
+    CustomProficiencyData,
     HomebrewTag,
     HomebrewTraitSettingsKey,
     LanguageSettings,
@@ -306,6 +307,7 @@ declare global {
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
+        get(module: "pf2e", setting: "homebrew.profRanks"): CustomProficiencyData[];
         get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageSettings;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;

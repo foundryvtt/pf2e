@@ -1,4 +1,4 @@
-import { PhysicalItemSource } from "@item/base/data/index.ts";
+import { PhysicalItemSource, ProficiencyValues } from "@item/base/data/index.ts";
 import {
     BasePhysicalItemSource,
     Investable,
@@ -8,7 +8,7 @@ import {
     PhysicalSystemSource,
 } from "@item/physical/data.ts";
 import { WornUsage } from "@item/physical/usage.ts";
-import { ZeroToFour, ZeroToThree } from "@module/data.ts";
+import { ZeroToThree } from "@module/data.ts";
 import { ArmorCategory, ArmorGroup, ArmorPropertyRuneType, ArmorTrait, BaseArmorType, OtherArmorTag } from "./index.ts";
 
 type ArmorSource = BasePhysicalItemSource<"armor", ArmorSystemSource>;
@@ -33,7 +33,7 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
 }
 
 type ArmorRuneSource = {
-    potency: ZeroToFour;
+    potency: ProficiencyValues;
     resilient: ZeroToThree;
     property: ArmorPropertyRuneType[];
 };

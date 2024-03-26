@@ -1,5 +1,4 @@
 import { RawModifier } from "@actor/modifiers.ts";
-import { ZeroToFour } from "@module/data.ts";
 import { DataUnionField, RecordField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
 import type { ArrayField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -11,6 +10,8 @@ import {
     KINGDOM_SETTLEMENT_TYPES,
     KINGDOM_SKILLS,
 } from "./values.ts";
+import { PROF_MAX_VALUE } from "@module/data.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 const { fields } = foundry.data;
 
@@ -63,10 +64,10 @@ const KINGDOM_BUILD_SCHEMA = {
     skills: new fields.SchemaField(
         R.mapToObj(KINGDOM_SKILLS, (skill) => {
             const schema = new fields.SchemaField({
-                rank: new fields.NumberField<ZeroToFour, ZeroToFour, true, false>({
+                rank: new fields.NumberField<ProficiencyValues, ProficiencyValues, true, false>({
                     initial: 0,
                     min: 0,
-                    max: 4,
+                    max: PROF_MAX_VALUE,
                     required: true,
                     nullable: false,
                 }),

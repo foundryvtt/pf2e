@@ -104,11 +104,12 @@ interface ApplyIncomeOptionsParams {
 function earnIncome({ level, days, rollBrief, proficiency, options, dc }: EarnIncomeParams): EarnIncomeResult {
     const degree = new DegreeOfSuccess(rollBrief, dc);
     const result = { rewards: new CoinsPF2e(), degreeOfSuccess: degree.value };
+    const flatProf = Math.max(proficiency, 4) as OneToFour;
 
     if (degree.value === DegreeOfSuccess.CRITICAL_SUCCESS) {
-        result.rewards = getIncomeForLevel(level + 1).rewards[proficiency];
+        result.rewards = getIncomeForLevel(level + 1).rewards[flatProf];
     } else if (degree.value === DegreeOfSuccess.SUCCESS) {
-        result.rewards = getIncomeForLevel(level).rewards[proficiency];
+        result.rewards = getIncomeForLevel(level).rewards[flatProf];
     } else if (degree.value === DegreeOfSuccess.FAILURE) {
         result.rewards = getIncomeForLevel(level).failure;
     }

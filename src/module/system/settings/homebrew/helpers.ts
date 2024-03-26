@@ -5,8 +5,9 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { isObject } from "@util";
 import * as R from "remeda";
-import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
+import { CustomDamageData, CustomProficiencyData, HomebrewTraitKey } from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
@@ -24,6 +25,15 @@ function isHomebrewCustomDamage(value: object): value is Record<string, CustomDa
             isObject<CustomDamageData>(value) &&
             typeof value.label === "string" &&
             (!value.category || ["physical", "energy"].includes(value.category)),
+    );
+}
+
+function isHomebrewCustomProficiency(value: object): value is Record<string, CustomProficiencyData> {
+    return Object.values(value).every(
+        (value) =>
+            isObject<CustomProficiencyData>(value) &&
+            typeof value.label === "string" &&
+            typeof value.value === "number",
     );
 }
 
@@ -47,6 +57,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.skillList),
         ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        ...PROFICIENCY_RANKS,
         "damage",
         "healing",
         "perception",
@@ -63,6 +74,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...universalReservedTerms]),
         featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...universalReservedTerms]),
         languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...universalReservedTerms]),
+        proficiencyRanks: universalReservedTerms,
         spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...universalReservedTerms]),
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
@@ -70,7 +82,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
     };
 }
 
-type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes", Set<string>>;
+type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes" | "proficiencyRanks", Set<string>>;
 
 function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
@@ -215,6 +227,7 @@ function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): Migrati
 
 export {
     isHomebrewCustomDamage,
+    isHomebrewCustomProficiency,
     isHomebrewFlagCategory,
     prepareCleanup,
     prepareReservedTerms,

@@ -26,7 +26,7 @@ const TRAIT_PROPAGATIONS = {
 } as const;
 
 type HomebrewTraitKey = (typeof HOMEBREW_TRAIT_KEYS)[number];
-type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities";
+type HomebrewKey = HomebrewTraitKey | "damageTypes" | "languageRarities" | "profRanks";
 type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 
 interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
@@ -48,12 +48,19 @@ interface CustomDamageData {
     icon: string | null;
 }
 
+interface CustomProficiencyData {
+    label: string;
+    value: number;
+    color: string;
+}
+
 interface HomebrewElementsSheetData extends MenuTemplateData {
     campaignSettings: Record<string, SettingsTemplateData>;
     traitSettings: Record<string, SettingsTemplateData>;
     languageRarities: LanguageSettingsSheetData;
     damageCategories: Record<MainDamageCategories, string>;
     customDamageTypes: CustomDamageData[];
+    customProfRanks: CustomProficiencyData[];
 }
 
 interface LanguageSettingsSheetData {
@@ -173,6 +180,7 @@ type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = R
 export { HOMEBREW_TRAIT_KEYS, LanguageSettings, TRAIT_PROPAGATIONS };
 export type {
     CustomDamageData,
+    CustomProficiencyData,
     HomebrewElementsSheetData,
     HomebrewKey,
     HomebrewTag,

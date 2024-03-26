@@ -10,7 +10,6 @@ import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import type { FeatPF2e } from "@item/feat/document.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
-import { OneToFour } from "@module/data.ts";
 import {
     ErrorPF2e,
     htmlClosest,
@@ -24,6 +23,7 @@ import {
 } from "@util";
 import * as R from "remeda";
 import { featCanHaveKeyOptions } from "./helpers.ts";
+import { ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
 
 class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -408,7 +408,7 @@ interface ProficiencyOptions {
 
 interface ProficiencyOptionGroup<TGroup extends string | null = string> {
     group: TGroup;
-    options: { slug: string; label: string; rank: OneToFour | null }[];
+    options: { slug: string; label: string; rank: ProficiencyValuesMinusZero | null }[];
 }
 
 interface SenseOption {

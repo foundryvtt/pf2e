@@ -13,7 +13,7 @@ import { CheckContext } from "@actor/roll-context/check.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
+import { ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -39,12 +39,13 @@ import {
     StatisticDifficultyClassData,
     StatisticTraceData,
 } from "./data.ts";
+import { ProficiencyValues } from "@item/base/data/index.ts";
 
 /** A Pathfinder statistic used to perform checks and calculate DCs */
 class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TActor> {
     attribute: AttributeString | null = null;
 
-    rank: ZeroToFour | null = null;
+    rank: ProficiencyValues | null = null;
 
     proficient = true;
 

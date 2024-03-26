@@ -12,10 +12,11 @@ import type {
     ItemSystemSource,
     ItemTraits,
 } from "@item/base/data/system.ts";
-import type { ClassTrait } from "@item/class/types.ts";
-import type { WeaponCategory } from "@item/weapon/types.ts";
-import type { OneToFour, OneToThree } from "@module/data.ts";
-import type { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
+import { ClassTrait } from "@item/class/types.ts";
+import { WeaponCategory } from "@item/weapon/types.ts";
+import { OneToThree } from "@module/data.ts";
+import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
+import { ProficiencyValuesMinusZero } from "@item/base/data/index.ts";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
@@ -78,7 +79,9 @@ interface FeatTraits extends FeatTraitsSource {
 interface FeatSubfeatures {
     keyOptions: AttributeString[];
     languages: LanguagesSubfeature;
-    proficiencies: { [K in IncreasableProficiency]?: { rank: OneToFour; attribute?: AttributeString | null } };
+    proficiencies: {
+        [K in IncreasableProficiency]?: { rank: ProficiencyValuesMinusZero; attribute?: AttributeString | null };
+    };
     senses: { [K in SenseType]?: SenseSubfeature };
 }
 
