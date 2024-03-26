@@ -61,7 +61,7 @@
 </fieldset>
 
 {{#if item.isRitual}}
-    <fieldset>
+    <fieldset class="ritual">
         <legend>{{localize "PF2E.Item.Spell.Ritual.Label"}}</legend>
 
         <div class="form-group">
@@ -76,7 +76,14 @@
 
         <div class="form-group">
             <label>{{localize "PF2E.Item.Spell.Ritual.SecondaryCasters"}}</label>
-            <input type="number" name="system.ritual.secondary.casters" required min="0" max="100" value="{{data.ritual.secondary.casters}}" />
+            <div class="secondary-casters-data">
+                <div class="range">
+                    <input type="number" name="system.ritual.secondary.casters.min" required min="0" max="100" value="{{data.ritual.secondary.casters.min}}" />
+                    <span>&ndash;</span>
+                    <input type="number" name="system.ritual.secondary.casters.max" min="0" max="100" value="{{data.ritual.secondary.casters.max}}" />
+                </div>
+                <input type="text" name="system.ritual.secondary.casters.details" value="{{data.ritual.secondary.casters.details}}" />
+            </div>
         </div>
     </fieldset>
 {{else}}
