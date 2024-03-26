@@ -543,7 +543,7 @@ class CheckPF2e {
                   parsedFlavor.innerHTML = oldFlavor;
                   const targeting = actor.uuid === context.origin?.actor;
                   const self = targeting ? context.origin : context.target;
-                  const opposer = context.target?.actor === actor.uuid ? context.target : context.origin;
+                  const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
                   const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
