@@ -311,6 +311,11 @@
                 "rules": [
                     {
                         "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "mask-stench"
+                            }
+                        ],
                         "radius": 30,
                         "slug": "stench",
                         "traits": [
@@ -342,7 +347,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If a xulgath skulker starts their turn undetected by a creature or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the skulker's attacks until the end merely hidden from it, that creature is off-guard against the skulker's attacks until of the skulker's turn. the end of the skulker's turn.</p>"
+                    "value": "<p>If a xulgath skulker starts their turn @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} by a creature or @UUID[Compendium.pf2e.conditionitems.Item.Hidden] from it, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against the skulker's attacks until the end merely hidden from it, that creature is off-guard against the skulker's attacks until of the skulker's turn. the end of the skulker's turn.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -359,10 +364,47 @@
             "type": "action"
         },
         {
+            "_id": "iA3NXKVAiWzxGVaO",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Mask Stench",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The stalker masks their stench with curated herbs, suppressing their stench aura. The skulker can resume their stench aura as a free action.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mask-stench",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "HavBnXAT02rDNben",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -399,43 +441,6 @@
                     }
                 ],
                 "slug": "sneak-attack",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "iA3NXKVAiWzxGVaO",
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Stench Suppression",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p>The stalker masks their stench with curated herbs, suppressing their stench aura. The skulker can resume their stench aura as a free action.</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "stench-suppression",
-                        "toggleable": true
-                    }
-                ],
-                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -616,7 +621,6 @@
                 "value": "med"
             },
             "value": [
-                
                 "humanoid",
                 "xulgath"
             ]

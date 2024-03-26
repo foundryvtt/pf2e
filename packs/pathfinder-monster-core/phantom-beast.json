@@ -604,7 +604,7 @@
                 "damageRolls": {
                     "0": {
                         "damage": "2d8+8",
-                        "damageType": "force"
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -622,7 +622,6 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "force",
                         "magical"
                     ]
                 },
@@ -777,10 +776,60 @@
             "type": "action"
         },
         {
+            "_id": "KhpwMZRcLcLGEKlH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Phantom Touch",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each time they make a Strike, a phantom can choose to deal spirit damage instead of the normal physical damage type.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "phantom-touch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "phantom-touch"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "strike-damage"
+                        ],
+                        "value": "spirit"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "EuQQ73V8hJuBn5EU",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab Item",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -810,7 +859,7 @@
             "_id": "5y6LzGeq7a9S28SY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -836,7 +885,7 @@
             "_id": "5ZzbBxt4wS4b7gLe",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -862,7 +911,7 @@
             "_id": "zIZduJFP1s36kCht",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -888,7 +937,7 @@
             "_id": "Un4bi5xnZk2ErvMP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
