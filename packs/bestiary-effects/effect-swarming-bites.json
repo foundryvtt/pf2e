@@ -1,0 +1,79 @@
+{
+    "_id": "0aRm0b55015XPj7Y",
+    "img": "systems/pf2e/icons/spells/ant-haul.webp",
+    "name": "Effect: Swarming Bites",
+    "system": {
+        "description": {
+            "value": "<p>A creature that fails its save against Swarming Bites becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round. If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:concentrate",
+                            "item:trait:manipulate"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied."
+                    }
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:concentrate",
+                            "item:trait:manipulate"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied."
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

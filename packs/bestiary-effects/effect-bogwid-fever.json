@@ -1,0 +1,77 @@
+{
+    "_id": "Q5pWxWsb4MIgfwxd",
+    "img": "systems/pf2e/icons/spells/baleful-polymorph.webp",
+    "name": "Effect: Bogwid Fever",
+    "system": {
+        "badge": {
+            "max": 4,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>The DC to recover from persistent bleed damage increases based on the stage of disease.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "and": [
+                            "item:damage:type:bleed",
+                            "parent:badge:value:2"
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 17
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "and": [
+                            "item:damage:type:bleed",
+                            {
+                                "or": [
+                                    "parent:badge:value:3",
+                                    "parent:badge:value:4"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 20
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
