@@ -11,14 +11,54 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+            "value": "<ul>\n<li><strong>Human</strong>\n<ul>\n<li><strong>Melee</strong> fist +x <strong>Damage</strong> 1d4+x</li>\n</ul>\n</li>\n<li><strong>Animal</strong></li>\n</ul>\n<hr />\n<p>The werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.</p>\n<p>In humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.</p>\n<p>In animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Monster Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "option": "change-shape",
+                "selection": "hybrid",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                        "value": "hybrid"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                        "value": "humanoid"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                        "value": "animal"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
+                "attackModifier": 1,
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4",
+                        "modifier": 0
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Strike.Fist.Label",
+                "predicate": [
+                    "change-shape:humanoid"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

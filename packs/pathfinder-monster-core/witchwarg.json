@@ -1,0 +1,523 @@
+{
+    "_id": "diU0V2M3LiMDMsS0",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "XbEOrTGzNN49cBsV",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "trxulzkoh0l7s8nnnwm5": {
+                        "damage": "1d10+6",
+                        "damageType": "piercing"
+                    },
+                    "1kcdcgyaxrpbmmesrhxb": {
+                        "damage": "1d6",
+                        "damageType": "cold"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HFyEFMKsCld64B15",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Avenging Bite",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the witchwarg's jaws attacks one of the witchwarg's allies.</p>\n<hr />\n<p><strong>Effect</strong> The witchwarg makes a jaws Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "avenging-bite",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hdyD6t2duHPLOLyi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.nZMQh4AaBr291TUf"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Buck",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Check[type:reflex|dc:21]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "buck",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9RRqDOZEOM8rUI1P",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Pack Attack",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The witchwarg's Strikes deal 1d6 extra damage to creatures within the reach of at least two of the witchwarg's allies.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "dPsbBLbGfNPn6v9L",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Winter Breath",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The witchwarg breathes a cloud of frost in a @Template[type:cone|distance:15] that deals @Damage[5d8[cold]] damage (@Check[type:reflex|dc:23|basic:true] save).</p>\n<p>The witchwarg can't use Winter Breath again for [[/br 1d4 #Recharge Winter Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cold",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SlsCmJyWx3dgIo2X",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "t67FVkIHvJzdr9nt",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "apyHfVPRegugrWeE",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "sNGMOppAbyzoEJvX",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "DMeKPwpAqdskiUlL",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "OEhg2gie7GWSfArM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Snow",
+                        "predicate": [
+                            "terrain:snow"
+                        ],
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {},
+                "variants": {
+                    "0": {
+                        "label": "+16 in snow",
+                        "options": "terrain:snow"
+                    }
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "FXhdUUhYqN3EPwU0",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Witchwarg",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "jotun"
+                ]
+            },
+            "level": {
+                "value": 5
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Witchwargs are related to wargs, but are larger, smarter, and far more dangerous. They are capable of exhaling plumes of freezing breath. When they deign to serve others, they usually reserve this privilege for more dangerous creatures, such as the winter witches of Irrisen.</p>\n<hr />\n<p>The warg is an intelligent and malevolent wolf that dwells among goblins, hobgoblins, orcs, and violent humanoids.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "beast",
+                "cold"
+            ]
+        }
+    },
+    "type": "npc"
+}

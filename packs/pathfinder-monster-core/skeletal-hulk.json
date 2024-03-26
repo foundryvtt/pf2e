@@ -1,0 +1,368 @@
+{
+    "_id": "V4rVnbjJbcOIdC4Z",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Zn0AZHlLWAhHykEg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "fte6g98p0f65zet8q1l5": {
+                        "damage": "2d6+11",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HScepbVGbS75R0W3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Y1v59ZBvVAomH20U",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Broad Swipe",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The giant makes two Strikes with its claw against two adjacent foes, both of whom are within its reach. Both attacks count toward the giant's multiple attack penalty, but the penalty doesn't increase until after both attacks..</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TGIpZcekBlTtMIW2",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Massive Rush",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hulk Strides and makes a claw Strike with a +4 circumstance bonus to damage. If the strike hits, the hulk automatically pushes the target 10 feet.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "massive-rush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "massive-rush"
+                        ],
+                        "selector": "claw-damage",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "787WQYNUKrcjJYEV",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "LtLeucxQd9zbdf3u",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Skeletal Hulk",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 25
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 105,
+                "temp": 0,
+                "value": 105
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                }
+            ],
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Huge giants and other enormous creatures make powerful skeletons.</p>\n<hr />\n<p>Animated skeletons are among the most common types of undead.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "mindless",
+                "skeleton",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

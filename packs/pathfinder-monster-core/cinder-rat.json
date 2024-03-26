@@ -1,0 +1,340 @@
+{
+    "_id": "xN5J9S485LxFZMkL",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "SNb64KWDBMrTorTI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d8+4",
+                        "damageType": "fire"
+                    },
+                    "1": {
+                        "category": "persistent",
+                        "damage": "1d4",
+                        "damageType": "fire"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wqhHoIIgE3jfAgCx",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Smoke Vision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The cinder rat ignores the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition from smoke.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vhcrEIRKkfTwrwDs",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Fetid Fumes",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>5 feet.</p>\n<p>A creature that enters the aura or begins its turn there must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p>Everything within the aura, including the cinder rat, is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] by smoke.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Fetid Fumes"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "fetid-fumes",
+                        "traits": [
+                            "fire"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "fire"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vWbNXhyUqXQYLjpA",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "KKsifXAhy08POjAt",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "gtIHc17TnOMLZpNY",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Cinder Rat",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 0
+            },
+            "con": {
+                "mod": 2
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 2
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 45,
+                "temp": 0,
+                "value": 45
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "exceptions": [],
+                    "type": "water",
+                    "value": 5
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These oversized rodents are made of smoldering charcoal and elemental fire, and noxious fumes continually bellow from their flaming flesh. Even other fire elementals find cinder rats unpleasant and are glad when they're summoned away from the Plane of Fire.</p>\n<hr />\n<p>Fire elementals are destructive manifestations of the scorching Plane of Fire. Although most fire elementals revel in the chance to experience new kinds of fires away from their home plane, even the most considerate fire elemental can be a danger to humanoids and their property.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "smoke vision",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "elemental",
+                "fire"
+            ]
+        }
+    },
+    "type": "npc"
+}

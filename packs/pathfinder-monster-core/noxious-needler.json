@@ -1,0 +1,410 @@
+{
+    "_id": "eqHTr6Wj1JadHSa1",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "deSS0MPuciBz6LLK",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Syringe",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "alchemical-injection"
+                    ]
+                },
+                "bonus": {
+                    "value": 22
+                },
+                "damageRolls": {
+                    "apipa74rdq4vghagf56h": {
+                        "damage": "2d10+6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "Yo23Art466hO6dEO",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bomb",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "generate-bomb"
+                    ]
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {},
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TpEz65tv1dwJ91cy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Alchemical Chambers",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A noxious needler's body contains six alchemical chambers filled with different substances. When a noxious needler's ability calls upon a randomly determined alchemical effect, roll 1d6 and consult the following (if you roll the result of a chamber that was shattered, there is no alchemical effect):</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>[[/br 1d6 #Alchemical Chambers]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>Acid Damage</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold Damage</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Electricity Damage</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Fire Damage</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Poison Damage</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: @Check[type:fortitude|dc:26|name:Alchemical Sickness|traits:disease] save or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "N0g5xdIF3LC3JDxP",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Alchemical Rupture",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a noxious needler takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a @Template[type:emanation|distance:5]. Roll on the alchemical chambers list to determine which one shatters—on a roll of 1–5, creatures in the area take 10d6 damage of the appropriate type (DC 28 basic Reflex). On a roll of 6, creatures must instead save against the sickness effect.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>[[/br 1d6 #Alchemical Rupture]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>@Damage[10d6[acid]] damage @Check[type:reflex|dc:28|basic:true|traits:acid]</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Damage[10d6[cold]] damage @Check[type:reflex|dc:28|basic:true|traits:cold]</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Damage[10d6[electricity]] damage @Check[type:reflex|dc:28|basic:true|traits:electricity]</td>\n</tr>\n<tr>\n<td>4</td>\n<td>@Damage[10d6[fire]] damage @Check[type:reflex|dc:28|basic:true|traits:fire]</td>\n</tr>\n<tr>\n<td>5</td>\n<td>@Damage[10d6[poison]] damage @Check[type:reflex|dc:28|basic:true|traits:poison]</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: @Check[type:fortitude|dc:26|name:Alchemical Sickness|traits:disease] save or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ahtVNJjKjna3LTc1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Alchemical Injection",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>When a noxious needler hits a creature with a syringe Strike, roll 1d6 on the alchemical chambers list to determine the additional effect of the attack. The syringe deals an additional 2d6 damage of the appropriate type (or exposes the target to the sickness effect, as appropriate).</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>[[/br 1d6 #Alchemical Injection]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>@Damage[2d6[acid]] damage</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>@Damage[2d6[cold]] damage</td>\n</tr>\n<tr>\n<td>3</td>\n<td>@Damage[2d6[electricity]] damage</td>\n</tr>\n<tr>\n<td>4</td>\n<td>@Damage[2d6[fire]] damage</td>\n</tr>\n<tr>\n<td>5</td>\n<td>@Damage[2d6[poison]] damage</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: @Check[type:fortitude|dc:26|name:Alchemical Sickness|traits:disease] save or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "alchemical-injection",
+                        "selection": "acid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitPoison",
+                                "value": "poison"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.AlchemicalGolem.Sickness",
+                                "value": "sickness"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "damageType": "{item|flags.pf2e.rulesSelections.alchemicalInjection}",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "alchemical-injection:sickness"
+                            }
+                        ],
+                        "selector": "syringe-damage"
+                    }
+                ],
+                "slug": "alchemical-injection",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IUmBG7HtxvrIOHUR",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Generate Bomb",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The needler fills an empty vial from one of its alchemical chambers to create a bomb and then makes a bomb Strike. Roll 1d6 on the table below. On a roll of 1–5, the bomb deals 3d10 damage and 3 splash damage, matching the damage type of the chamber; you can instead choose to create an alchemical bomb of 11th level or lower that deals the same damage type, such as an acid flask on a roll of 1. On a roll of 6, it creates a sickness bomb, which exposes the target and all creatures in the splash radius to the sickness effect; creatures hit by only the splash receive a +2 circumstance bonus to their Fortitude saves.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>[[/br 1d6 #Generate Bomb]]</th>\n<th>Alchemical Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>\n<p>Acid Damage: @Damage[3d10[acid],(3[splash])[acid]] damage</p>\n</td>\n</tr>\n<tr>\n<td>2</td>\n<td>Cold Damage: @Damage[3d10[cold],(3[splash])[cold]] damage</td>\n</tr>\n<tr>\n<td>3</td>\n<td>Electricity Damage: @Damage[3d10[electricity],(3[splash])[electricity]] damage</td>\n</tr>\n<tr>\n<td>4</td>\n<td>Fire Damage: @Damage[3d10[fire],(3[splash])[fire]] damage</td>\n</tr>\n<tr>\n<td>5</td>\n<td>Poison Damage: @Damage[3d10[poison],(3[splash])[poison]] damage</td>\n</tr>\n<tr>\n<td>6</td>\n<td>Sickness: @Check[type:fortitude|dc:26|name:Alchemical Sickness|traits:disease] save or @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure)</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pR9E0zEtv0g9eZqm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "generate-bomb",
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Noxious Needler",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 27
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "immunities": [],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "adamantine",
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "sonic"
+                    ],
+                    "type": "spells",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": []
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>This construct is a walking alchemical nightmare capable of inflicting all manner of painful wounds. The noxious needlers' ability to follow orders is granted by the otherwise mindless humanoid brain that floats in their dome-like heads, allowing them to serve as laborers and guards for their creators.</p>\n<p>In exceptionally rare cases, the brain used in their creation might retain fragments of memories or even an actual intellect, resulting in a noxious needler with a personality and agenda of its own. Unwilling creations often hunt down their creators, venting their rage on similar targets if revenge is impossible. Others blankly replicate the experiments from their last memory</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 15,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "alchemical",
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}
