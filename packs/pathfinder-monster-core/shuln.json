@@ -1,0 +1,416 @@
+{
+    "_id": "xz2NZqSG5YVl17dc",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "mjClQEAEbQfY2Zfr",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Adamantine Claw",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "wq5dqagsc3rvealyfhid": {
+                        "damage": "3d8+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "adamantine",
+                        "agile",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "vipJW7r7EquegImq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Adamantine Fangs",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "shuln-saliva"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "i7sr4woj09gu4xx7dnoc": {
+                        "damage": "3d10+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "adamantine",
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "t98B5FOZI1a1Ye46",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uuMoWLbelNwKPIUM",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Armor-Rending Strikes",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Any time the shuln scores a critical hit with a melee Strike, it also deals the same amount of damage to the target's armor, bypassing any Hardness lower than 10, like adamantine.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2V1LMw2K5gNCyFjF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Shuln Saliva",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d6[poison]] damage, and slowed 1 (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for [[/br 2d6 #Paralysis Duration]]{2d6 hours}. Shuln saliva overcomes the inexorable ability.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "shuln-saliva",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gzVcZTMtslepZxcC",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Unstoppable Burrow",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Shulns can burrow into solid rock and any metal with a hardness less than that of adamantine like it is soil or loose rubble, leaving a tunnel 10 feet in diameter.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "innAnep6XVq2kKeI",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2vsxXF0JGverxySE",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Shuln",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 195,
+                "temp": 0,
+                "value": 195
+            },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "details": "unstoppable burrow",
+                "otherSpeeds": [
+                    {
+                        "type": "burrow",
+                        "value": 20
+                    }
+                ],
+                "value": 40
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Scourges of the upper Darklands, these enormous, mole-like monstrosities slice and burrow through solid stone with massive forearms and adamantine-strong claws. Shulns grow to about 20 feet long and have four tiny, nearly imperceptible eyes; a long, pale snout; four thick-muscled legs that end in long, serrated claws; and a stubby pink tail. As a young shuln matures, its unique metabolism produces adamantine that becomes infused throughout its skeletal system. In addition to making their claws and fangs nearly unbreakable, this unique physiological trait makes shulns unparalleled burrowers and highly sought by monster hunters who hope to harvest the precious material from their corpses.</p>\n<p>Shulns have a ravenous appetite and eat nearly anything they can catch, but their preferred diet consists almost entirely of large invertebrates, especially cave worms. They rely on tiny sensory whiskers that cover their snouts and allow them to detect subtle movements in the air and ground without the use of vision. When they detect suitable prey, shulns bite their target at the first opportunity, injecting it with a potent paralytic toxin present in their saliva. So strong is this poison that it's capable of subduing even the near-unstoppable cave worm, making shulns a valuable (if dangerous) companion to anyone making excursions into worm-infested regions of the Darklands. Shulns' notoriously ill-tempered dispositions and their knack for digging into areas of an underground settlement where digging ought not to occur make them frustrating creatures to keep around, but when the alternative is an unpredictable but deadly visit from an enormous, hungry cave worm, the annoyances are well worth the trouble.</p>\n<p>Encounters with much larger shuln-like entities on the Plane of Earth suggest that these creatures may have originated from there. The larger shulns still retain their elemental qualities, are quite a bit smarter, and have their own suite of earth-themed innate primal spells—but for all that, they still love the taste of cave worm.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

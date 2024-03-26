@@ -1,11 +1,11 @@
 {
-    "_id": "iLkQt8A99nQWUI8k",
+    "_id": "aYDbWuOj66nve8r4",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XJHXZOImLOORwInT",
+            "_id": "NiysQhQQKa7jp0YE",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Jaws",
+            "name": "Fangs",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -13,14 +13,16 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "predatory-grab"
+                    ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 17
                 },
                 "damageRolls": {
-                    "p36zyj2o94q5m2av6t6a": {
-                        "damage": "1d8+1",
+                    "krr5kp9aa8hmgapzf2li": {
+                        "damage": "2d10+7",
                         "damageType": "piercing"
                     }
                 },
@@ -33,12 +35,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": "jaws",
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "finesse"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -47,9 +47,9 @@
             "type": "melee"
         },
         {
-            "_id": "A97t9GcQF8k7V7By",
+            "_id": "qrxSbCbHPvFU1sVs",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Claw",
+            "name": "Stinger",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -58,16 +58,16 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "grab"
+                        "jungle-drake-venom"
                     ]
                 },
                 "bonus": {
-                    "value": 9
+                    "value": 17
                 },
                 "damageRolls": {
-                    "5gyt9361vlgk0oa54i93": {
-                        "damage": "1d6+1",
-                        "damageType": "slashing"
+                    "686mpza70aj09c5l6hi3": {
+                        "damage": "2d6+7",
+                        "damageType": "piercing"
                     }
                 },
                 "description": {
@@ -83,8 +83,7 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse"
+                        "reach-10"
                     ]
                 },
                 "weaponType": {
@@ -94,86 +93,28 @@
             "type": "melee"
         },
         {
-            "_id": "YzGXgyojcjzXVipz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.PqGX4Dgy9siZJitH"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Stench",
+            "_id": "esaeLxI8stHVxilE",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Twisting Tail",
             "sort": 300000,
             "system": {
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": null
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>10 feet, @Check[type:fortitude|dc:14]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the jungle drake's stinger uses a move action or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The jungle drake Strikes the target with its stinger. If it hits, the jungle drake disrupts the creature's action.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
-                "rules": [
-                    {
-                        "key": "Aura",
-                        "radius": 10,
-                        "slug": "stench",
-                        "traits": [
-                            "olfactory"
-                        ]
-                    }
-                ],
-                "slug": "stench",
-                "traits": {
-                    "value": [
-                        "aura",
-                        "olfactory"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "dSMYHVMIltxeN4ms",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Void Healing",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "defensive",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.attributes.hp.negativeHealing",
-                        "value": true
-                    }
-                ],
-                "slug": "void-healing",
+                "rules": [],
+                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -182,90 +123,40 @@
             "type": "action"
         },
         {
-            "_id": "7RTjFlVzsxhjtwX4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.ixPqVlqLaYTB1b23"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Consume Flesh",
-            "sort": 500000,
+            "_id": "rw75XVfj9XlY7JGq",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r 1d6[healing]]] Hit Points.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p>The jungle drake makes one Fangs Strike and two Stinger Strikes in any order.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "ghoul-consume-flesh",
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "manipulate"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "jShRo5PDthe4aFDT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.pOW2IvfVusdmD5v5"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Ghoul Whispers",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "offensive",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Restrained], or @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] creature is within the ghoul's reach</p>\n<hr />\n<p><strong>Effect</strong> The ghoul whispers dark thoughts and vile cravings into the creature's ears. The creature must save against the forbidden cravings curse.</p>\n<p><strong>Forbidden Cravings</strong> (curse)</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:17|traits:curse]</p>\n<p><strong>Stage 1</strong> carrier with no ill effects (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[void]] damage and the target is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} until it consumes raw meat (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2</p>\n<p><strong>Stage 4</strong> as stage 2 unless the target has consumed raw meat in the past 24 hours, then it takes @Damage[4d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} until it consumes raw meat;</p>\n<p><strong>Stage 5</strong> if the creature has eaten raw meat in the past 24 hours, it dies and rises as a ghoul, if not, it returns to stage 4</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": "ghoul-ghoul-whispers",
-                "traits": {
-                    "value": [
-                        "auditory",
-                        "linguistic",
-                        "occult"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Eio9qRZi4Wxz6XXD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.227zB1x6U0TyU1nd"
-                }
-            },
+            "_id": "kiLj66ryWPKBgZKh",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Grave Knowledge",
-            "sort": 700000,
+            "name": "Forest Passage",
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -275,7 +166,74 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>[[/r 1d20+7]]{+7} skill modifier</p>\n<hr />\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The ghoul calls upon knowledge it retains from one creature it has consumed in the past 7 days. The ghoul attempts a skill check using a skill in which the consumed creature was trained (if it's unclear whether the creature was trained, the GM decides). The ghoul is treated as trained and uses the high skill modifier for the ghoul's level. This takes the same amount of actions or time as usual for the check.</p>\n<p>The ghoul can instead automatically learn something specific known by a creature it consumed in the last 7 days, like the location of a @UUID[Compendium.pf2e.conditionitems.Item.Hidden] treasure or the name of a loved one. The ghoul can do this only once for a given creature, no matter how much of its flesh the ghoul consumed.</p>"
+                    "value": "<p>The jungle drake ignores difficult terrain caused by plants, such as bushes, vines, and undergrowth. Even plants manipulated by magic don't impede their progress.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WQqo16zlXzVAyGHX",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Jungle Drake Venom",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[1d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "jungle-drake-venom",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kvbp3xXviiIXnVhS",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Predatory Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>As Grab, but the jungle drake's Grab doesn't end if they move away. Instead, they carry the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] creature with them. A jungle drake can't Fly while grabbing a creature unless that creature can also Fly.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -283,24 +241,18 @@
                     "title": "Pathfinder Monster Core"
                 },
                 "rules": [],
-                "slug": "ghoul-grave-knowledge",
+                "slug": "predatory-grab",
                 "traits": {
-                    "value": [
-                        "occult"
-                    ]
+                    "rarity": "common",
+                    "value": []
                 }
             },
             "type": "action"
         },
         {
-            "_id": "rvraBop9oOSwcjkq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.UU1Fp3PRuTFONjC9"
-                }
-            },
+            "_id": "LDExFIGLfarrbJQa",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Swift Leap",
+            "name": "Speed Surge",
             "sort": 800000,
             "system": {
                 "actionType": {
@@ -311,15 +263,15 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The jungle drake Strides or Flies twice.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "ghoul-swift-leap",
+                "slug": null,
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -330,42 +282,39 @@
             "type": "action"
         },
         {
-            "_id": "NaSXwkNPzNz5tsgw",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
+            "_id": "4tkIBY4fl80WZyr6",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spit Venom",
             "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                    "value": "<p>A jungle drake can spit a sticky glob of their venom to a range of 50 feet that explodes in a @Template[type:burst|distance:10]. Those in the burst must succeed at a @Check[type:reflex|dc:24] save or be exposed to jungle drake venom.</p>\n<p>The jungle drake can't use Spit Venom again for [[/br 1d6 #Recharge Spit Venom]]{1d6 rounds}.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
-                    "title": "Pathfinder Monster Core"
+                    "title": ""
                 },
                 "rules": [],
-                "slug": "grab",
+                "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 }
             },
             "type": "action"
         },
         {
-            "_id": "dfMNCBvnTxmin6IA",
+            "_id": "Ep6nXFACkHS5dxRc",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1000000,
@@ -374,7 +323,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -391,7 +340,7 @@
             "type": "lore"
         },
         {
-            "_id": "DKOkgTlAJNbbnclh",
+            "_id": "Q9PzvT5f4kKhZeDJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1100000,
@@ -400,7 +349,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
+                    "value": 13
                 },
                 "proficient": {
                     "value": 0
@@ -417,7 +366,7 @@
             "type": "lore"
         },
         {
-            "_id": "EcINHeGK7OHn7Rn4",
+            "_id": "cGymdyonRxfUgAzc",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1200000,
@@ -426,7 +375,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 7
+                    "value": 13
                 },
                 "proficient": {
                     "value": 0
@@ -443,7 +392,7 @@
             "type": "lore"
         },
         {
-            "_id": "G6Ye8oFFbsU6qxAK",
+            "_id": "uJ8BBDIRZAvDwkNx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
             "sort": 1300000,
@@ -452,7 +401,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
+                    "value": 11
                 },
                 "proficient": {
                     "value": 0
@@ -469,50 +418,43 @@
             "type": "lore"
         }
     ],
-    "name": "Ghoul Stalker",
-    "prototypeToken": {
-        "name": "Ghoul"
-    },
+    "name": "Jungle Drake",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 1
             },
             "con": {
-                "mod": 1
-            },
-            "dex": {
                 "mod": 4
             },
+            "dex": {
+                "mod": 3
+            },
             "int": {
-                "mod": 1
+                "mod": -1
             },
             "str": {
-                "mod": 1
+                "mod": 5
             },
             "wis": {
-                "mod": 2
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 17
+                "value": 23
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
-                "details": "void healing",
-                "max": 16,
+                "details": "",
+                "max": 90,
                 "temp": 0,
-                "value": 16
+                "value": 90
             },
             "immunities": [
-                {
-                    "exceptions": [],
-                    "type": "death-effects"
-                },
                 {
                     "exceptions": [],
                     "type": "disease"
@@ -527,21 +469,18 @@
                 },
                 {
                     "exceptions": [],
-                    "type": "unconscious"
-                },
-                {
-                    "exceptions": [],
-                    "type": "bleed"
+                    "type": "sleep"
                 }
             ],
             "speed": {
+                "details": "forest passage",
                 "otherSpeeds": [
                     {
-                        "type": "burrow",
-                        "value": 5
+                        "type": "fly",
+                        "value": 50
                     }
                 ],
-                "value": 25
+                "value": 20
             }
         },
         "details": {
@@ -549,15 +488,14 @@
             "languages": {
                 "details": "",
                 "value": [
-                    "common",
-                    "necril"
+                    "draconic"
                 ]
             },
             "level": {
-                "value": 1
+                "value": 6
             },
             "privateNotes": "",
-            "publicNotes": "<p>Ghouls stalkers are ravenous undead who haunt graveyards and eat corpses.</p>\n<hr />\n<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
+            "publicNotes": "<p>Believed to be related to horned dragons, jungle drakes are dangerous hunters equipped with a debilitating venom delivered by a large barbed stinger or their noxious phlegm. Their wings are equipped with vestigial claws that allow them to deftly maneuver through thick jungle foliage both in flight and on foot. Jungle drakes prefer to ambush their prey using hit-and-run tactics, picking off the weakest members of a group and dragging their victims off to finish their meals as they please. Rampages of jungle drakes will often drag prey in many directions to divide pursuit.</p>\n<hr />\n<p>Ravenous, bestial, and driven by instinct, drakes are draconic monsters who bear a fraction of the terrifying might of the primal dragons they share evolutionary roots with. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties—small social groups fittingly called \"rampages\"—makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.</p>\n<p>Drakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them with their formidable jaws and thickscaled tails to use in close combat. Most drakes would rather avoid this, however, preferring to use their magical breath to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.</p>\n<p>Different species of drakes rarely come into conflict. Part of this is their distinct habitats, but drakes are open to negotiating simple agreements between rampages. This courtesy does not extend to dragonets, which drakes happily take as prey. Solitary tamed drakes are also excluded from such agreements and considered free game if their tamer isn't strong enough to protect them.</p>\n<h3>Drake Eggs</h3>\n<p>While drake hides aren't any more valuable than those of similarly sized creatures, drake eggs are prized commodities. They are used as components in powerful spells as well as eaten by various cultures, but the most common use for drake eggs is hatching and rearing drakes to serve as mounts and guardians.</p>\n<p>A typical drake lays a clutch of 2d4 eggs every 5 years. Eggs hatch within 3 to 6 weeks, during which time they must be kept in conditions appropriate to their natural environment, perhaps the most difficult aspect of drake husbandry. While it is generally easy for breeders to incubate the eggs of desert or jungle drakes (which require mildly warm temperatures to hatch) or river drakes (which must be submerged in running water), the eggs of flame and frost drakes require extreme temperatures in order to hatch, which can be difficult to replicate safely.</p>\n<p>A drake egg is an object with Hardness 3, 5 HP, and no Broken Threshold. The coloration of drake eggs varies only slightly from one species to the next. A creature must succeed at a @Check[type:nature|dc:20] check, or a relevant DC 20 Lore check, to identify the drake species of a specific egg.</p>\n<p>Once a drake hatches, they imprint on the first creature that they see. A creature imprinted on in this way can use Nature to Train and Command that drake. The market price of a drake egg varies depending on the type of drake and the exact legal situation. Because drakes are dangerous and intelligent creatures, many societies do not condone the trade of drake eggs and criminalize those who engage in it.</p>\n<p>It takes 2 years for a drake hatchling to grow to full size. A well-trained drake can make a fearsome mount or guardian, but many careless would-be drake trainers are devoured by their charges.</p>",
             "publication": {
                 "license": "ORC",
                 "remaster": true,
@@ -569,10 +507,15 @@
         },
         "perception": {
             "details": "",
-            "mod": 7,
+            "mod": 13,
             "senses": [
                 {
                     "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
                 }
             ]
         },
@@ -580,26 +523,25 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 4
+                "value": 17
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 9
+                "value": 13
             },
             "will": {
                 "saveDetail": "",
-                "value": 5
+                "value": 11
             }
         },
         "traits": {
             "rarity": "common",
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "value": [
-                "ghoul",
-                "undead",
-                "unholy"
+                "dragon",
+                "wood"
             ]
         }
     },

@@ -1,0 +1,533 @@
+{
+    "_id": "kLhBdqKOMHDGjdFz",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "cGjIW67qp4XNCsT3",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "ph2pujyp2umrw0mgb8m2": {
+                        "damage": "2d12+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "jaws",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "qoJNaA8ESyVt6CJS",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 21
+                },
+                "damageRolls": {
+                    "t69uymtlcwvyjmkfpy75": {
+                        "damage": "2d8+9",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TXy3zvlvlJECNrWn",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shell Block",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature adjacent to the dragon turtle targets it with a melee attack.</p>\n<hr />\n<p><strong>Effect</strong> The dragon turtle rolls its shell toward the triggering creature, gaining a +2 circumstance bonus to its AC against the triggering attack.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "shell-block",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shell-block"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BMYNq39vlF0aowNr",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Capsize",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon turtle tries to capsize an adjacent aquatic vessel of their size or smaller. The dragon turtle must succeed at a @Check[type:athletics|dc:30] check (reduce the DC by 5 for each size smaller than the dragon turtle) or the pilot's Sailing Lore DC, whichever is higher.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TH60CRkCIzlaICKX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Conjure Storm",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon turtle summons a mighty storm to rage around themself. The area in a @Template[type:emanation|distance:30] around the turtle becomes difficult terrain for all other flying and swimming creatures. The dragon turtle can end the storm by taking this action again.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "conjure-storm",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "conjure-storm"
+                        ],
+                        "radius": 30,
+                        "traits": [
+                            "air",
+                            "primal",
+                            "water"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "air",
+                        "aura",
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Vst7qvKg3u5uhWKG",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Draconic Frenzy",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon turtle makes two Claw Strikes and one Jaws Strike in any order.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lW1fc32LlAwkAiq4",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tsunami",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The dragon turtle unleashes their destructive prowess by creating a massive growing wave that deals @Damage[7d6[bludgeoning]] damage in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:27|basic:true] save). The wave's damage increases by 10 for creatures who are more than 30 feet away. A creature that fails its save is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p>The dragon turtle can't use Tsunami again for [[/br 1d4 #Recharge Tsunami]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "nx9GpIZb3XhJyiQC",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "HlMjED6WKahb2g2q",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Diplomacy",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "hoE6UIWpV53Sa0gm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "vyDf1KE7kXsQFxQZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "d2V6X6JUdKX5MaYi",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Dragon Turtle",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 0
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 29
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 30
+                    }
+                ],
+                "value": 20
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "thalassic"
+                ]
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>These immense aquatic dragons have rocky shells similar to those of tortoises and flippers powerful enough to overturn hardy vessels. The fearsome creatures enjoy being considered as dangerous as storms or natural disasters by seafaring folk. Despite their reputation, many dragon turtles delight in secretly observing seafaring cities grow and evolve throughout the ages. They have even been known to protect such cities from pirates, invading armies, or even other dangerous sea creatures. According to rumor, these turtles have even hired adventurers to handle more inland threats. Such cities will often offer tribute to the great turtle if they discover its intervention. While a dragon turtle hoards the treasures of the ships it sinks, they consider the bounty freely offered from their protected city most precious.</p>\n<p>While many dragon turtles are already large enough to inspire awe, some can grow substantially larger. Those massive, ancient dragon turtles are somnolent, resembling rocky islands from a distance; their prodigious hoards can be a source of ancient sea lore. Legends persist of truly immense dragon turtles who spend centuries drifting on the surface of the ocean, far from established shipping lanes or charted waters, with shells that serve as islands capable of supporting entire ecosystems and even, some claim, small settlements whose inhabitants know nothing of land that doesn't drift across the sea.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "amphibious",
+                "dragon"
+            ]
+        }
+    },
+    "type": "npc"
+}

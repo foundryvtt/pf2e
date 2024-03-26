@@ -1,0 +1,298 @@
+{
+    "_id": "CHVMOXznjUDcb3XP",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "7mVYoMlm7knbjqzo",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "rvzj7amta3n9gdt916mo": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "tail",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "KJVejaONCwwGt9ka",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.nZMQh4AaBr291TUf"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Buck",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Check[type:reflex|dc:17]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "buck",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LYeMRFsmLZRCk3uE",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Sudden Retreat",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The hippocampus makes a tail Strike, then Swims with a +10-foot circumstance bonus to its swim Speed. It gains a +2 circumstance bonus to AC against reactions triggered by this movement.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sudden-retreat",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sudden-retreat"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sudden-retreat"
+                        ],
+                        "selector": "swim-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MKFnJL8DHrEgaIee",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 400000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 4
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Lvjc51VKCSO87ObX",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 500000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Hippocampus",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "value": 24
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 40
+                    }
+                ],
+                "value": 5
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 1
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Hippocampi serve as steeds for aquatic humanoids or roam wild in the sea.</p>\n<hr />\n<p>The strange beasts known as hippocampi resemble terrestrial horses from head to midbody, but on their legs, they have splayed fins instead of hooves, and in place of horses' hindquarters, they have powerful tails resembling those of fish. Hippocampi have colorful scales ranging from pearly white to seaweed green, and brilliant ribbed dorsal fins as manes. In the wild oceans, most types of hippocampi tend to congregate in the shallows near the beds of seaweed and kelp forests that provide them with food and shelter from predators. They form huge schools to provide safety in numbers, like landbound horses form herds.</p>\n<p>Hippocampi are highly prized by undersea societies and surface dwellers alike, as they are as easy to train as horses and serve many of the same functions, be that as beasts of burden, war-trained mounts, transportation, or as pets. Though hippocampi are able to wear barding, it hampers them considerably, so most handlers outfit them with the lightest options available. More often, they are trained to pull specially designed underwater chariots or sleds. Hippocampi don't like to leave the water, as they are clumsy on land, can't bear riders while flopping about on the ground, and can't breathe air for long.</p>\n<p>Numerous variant species of hippocampi exist, although most of them differ from the common hippocampus only in coloration. Heartier species, such as polar hippocampi, dwell exclusively in arctic waters and are best presented as hippocampi with elite adjustments.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 6,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal",
+                "aquatic"
+            ]
+        }
+    },
+    "type": "npc"
+}
