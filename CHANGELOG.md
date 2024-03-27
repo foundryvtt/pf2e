@@ -1,3 +1,43 @@
+## 5.15.0
+
+### Highlights
+
+-   (Avagdu, Dire Weasel, SpartanCPA) Add creatures from Monster Core
+-   (Avagdu) Update Player Core iconics at levels 3-5 to remaster versions
+
+### Bugfixes
+
+-   (In3luki) Update elite/weak adjustments to reflect changes in GM Core
+-   (In3luki) Fix issue causing enemy DCs to appear to players following rerolls
+-   (stwlam) Fix parentheses sometimes appearing in private damage rolls
+-   (stwlam) Replace usage of `Array#toReversed` with `Array#reverse` to accommodate very old versions of Chrome
+-   (Supe) Fix actors directory showing familiars at level 0 and familiar-triggered errors thrown in party actors
+-   (Supe) Fix formatting for Feint Army tactical war action
+-   (Supe) Fix rolling army skills and initiative
+
+### Data Updates
+
+-   (Avagdu) Add "Meet the Iconic" Backstories to Official Iconic Characters
+-   (Dire Weasel) Add automation for Catch Rock, Discerning Strike, Polearm Tricks, Prayer Attack, Thorough Reports, and Twist the Hook
+-   (Dire Weasel) Add inline performance check to Counter Performance
+-   (Dire Weasel) Fix Clockwork Fabricator's Constrict damage link
+-   (Dire Weasel) Fix Yuni's level
+-   (Dire Weasel) Move some description text to GM notes for Ring of Bestial Friendship
+-   (Dire Weasel) Update Poltergeist Telekinetic Object and Telekinetic Storm
+-   (Dire Weasel) Update Treat Wounds description to text in Player Core
+-   (Drental) Remove old darkvision and low-light-vision ancestry Features
+-   (kromko) Fix description of Second Chance's action
+-   (kromko) Remove duplicate lore from Chandriu Invisar
+-   (rectulo) Fix Description of Midnight Milk (refined)
+-   (rectulo) Fix prerequisite of Steal Vitality
+-   (Rigo) Add missing conscious mind info in class feature and classes journal
+-   (Rigo) Fix Enervating Wail's damage formula
+-   (stwlam) Fix action type and cost of Scare to Death
+-   (Surge) Update Light of Truth effect
+-   (Tikael) Add spell effect for Harrowing ritual
+-   (Tikael) Fix traditions of Briny Bolt
+-   (Tikael) Move Curse of Outpouring Life toggle to spellcasting
+
 ## 5.14.4
 
 ### Bugfixes
