@@ -570,6 +570,7 @@ class TextEditorPF2e extends TextEditor {
         const params: CheckLinkParams = {
             ...rawParams,
             type,
+            baseType: type,
             basic,
             dc: rawParams.dc?.trim() || null,
             defense: rawParams.defense?.trim() || null,
@@ -628,6 +629,8 @@ class TextEditorPF2e extends TextEditor {
     }
 
     static #createSingleCheck({ params, item, actor, inlineLabel }: CreateSingleCheckOptions): HTMLSpanElement | null {
+        const result = augmentCheck({ params, item, actor });
+        params = result;
         // Get the icon
         const icon = ((): HTMLElement => {
             switch (params.type) {
@@ -688,7 +691,7 @@ class TextEditorPF2e extends TextEditor {
             createHTMLElement("span", { classes: ["label"], innerHTML: content });
 
         const anchor = createHTMLElement("a", {
-            classes: ["inline-check"],
+            classes: R.compact(["inline-check", params.baseType !== params.type ? "altered" : null]),
             children: [icon, createLabel(label)],
             dataset: {
                 pf2Traits: params.traits.toString() || null,
@@ -1032,6 +1035,28 @@ async function augmentInlineDamageRoll(
     }
 }
 
+/** Given a check options, augments its type depending on item and actor status */
+function augmentCheck(options: AugmentCheckOptions): CheckLinkParams {
+    const { params, item } = options;
+
+    const resultParams: CheckLinkParams = {
+        ...params,
+    };
+
+    const checkAlterations = item?.isOfType("action", "feat") ? item.system.traits.toggles.getCheckAlterations() : [];
+    for (const alteration of checkAlterations) {
+        switch (alteration.mode) {
+            case "override":
+                resultParams[alteration.property] = alteration.value;
+                break;
+            default:
+                break;
+        }
+    }
+
+    return resultParams;
+}
+
 interface EnrichmentOptionsPF2e extends EnrichmentOptions {
     rollData?: RollDataPF2e;
     /** Whether to run the enriched string through `UserVisibility.process` */
@@ -1064,6 +1089,8 @@ interface ConvertXMLNodeOptions {
 
 interface CheckLinkParams {
     type: string;
+    /** Original type in case of alteration */
+    baseType: string;
     dc?: Maybe<string>;
     defense?: Maybe<string>;
     basic: boolean;
@@ -1087,6 +1114,19 @@ interface CreateSingleCheckOptions {
     inlineLabel?: string;
 }
 
+interface AugmentCheckOptions {
+    params: CheckLinkParams;
+    item?: ItemPF2e | null;
+    actor?: ActorPF2e | null;
+}
+
+interface CheckAlteration {
+    mode: "override";
+    property: "type";
+    slug: string;
+    value: string;
+}
+
 interface AugmentInlineDamageOptions {
     skipDialog: boolean;
     /** Refrain from adding domains to the damage roll. */
@@ -1101,4 +1141,4 @@ interface AugmentInlineDamageOptions {
     extraRollOptions: string[];
 }
 
-export { TextEditorPF2e, type EnrichmentOptionsPF2e };
+export { TextEditorPF2e, type EnrichmentOptionsPF2e, type CheckAlteration };
