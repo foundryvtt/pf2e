@@ -25,12 +25,17 @@ export class ItemTransfer implements ItemTransferData {
         content: "./systems/pf2e/templates/chat/action/content.hbs",
     };
 
-    constructor(
-        public source: ItemTransferData["source"],
-        public target: ItemTransferData["target"],
-        public quantity: number,
-        public containerId?: string,
-    ) {}
+    source: ItemTransferData["source"];
+    target: ItemTransferData["target"];
+    quantity: number;
+    containerId?: string;
+
+    constructor(data: ItemTransferData) {
+        this.source = data.source;
+        this.target = data.target;
+        this.quantity = data.quantity;
+        this.containerId = data.containerId;
+    }
 
     async request(): Promise<void> {
         const gamemaster = game.users.find((u) => u.isGM && u.active);
