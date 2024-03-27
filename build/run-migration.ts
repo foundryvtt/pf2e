@@ -28,6 +28,7 @@ import { Migration922SwashbucklerFinishers } from "@module/migration/migrations/
 import { Migration923KineticistRestructure } from "@module/migration/migrations/923-kineticist-restructure.ts";
 import { Migration924JiuHuanDoa } from "@module/migration/migrations/924-jiu-huan-dao.ts";
 import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-touch-of-corruption.ts";
+import { Migration926SeparateBlastInfusion } from "@module/migration/migrations/926-separate-infusion.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -52,6 +53,7 @@ const migrations: MigrationBase[] = [
     new Migration923KineticistRestructure(),
     new Migration924JiuHuanDoa(),
     new Migration925TouchOfCorruption(),
+    new Migration926SeparateBlastInfusion(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
