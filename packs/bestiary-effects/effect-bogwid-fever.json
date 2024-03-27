@@ -1,6 +1,6 @@
 {
     "_id": "Q5pWxWsb4MIgfwxd",
-    "img": "systems/pf2e/icons/spells/baleful-polymorph.webp",
+    "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
     "name": "Effect: Bogwid Fever",
     "system": {
         "badge": {
@@ -9,7 +9,7 @@
             "value": 1
         },
         "description": {
-            "value": "<p>The DC to recover from persistent bleed damage increases based on the stage of disease.</p>"
+            "value": "<p>You are enfeebled, and the DC to recover from persistent bleed damage increases based on the stage of disease.</p>"
         },
         "duration": {
             "expiry": null,
@@ -21,45 +21,49 @@
             "value": 5
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": ""
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
         },
         "rules": [
             {
-                "itemType": "condition",
-                "key": "ItemAlteration",
-                "mode": "upgrade",
-                "predicate": [
+                "alterations": [
                     {
-                        "and": [
-                            "item:damage:type:bleed",
-                            "parent:badge:value:2"
-                        ]
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": "@item.badge.value"
                     }
                 ],
-                "property": "pd-recovery-dc",
-                "value": 17
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
             },
             {
                 "itemType": "condition",
                 "key": "ItemAlteration",
-                "mode": "upgrade",
+                "mode": "add",
                 "predicate": [
+                    "item:damage:type:bleed",
+                    "parent:badge:value:2"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 2
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:type:bleed",
                     {
-                        "and": [
-                            "item:damage:type:bleed",
-                            {
-                                "or": [
-                                    "parent:badge:value:3",
-                                    "parent:badge:value:4"
-                                ]
-                            }
+                        "gte": [
+                            "parent:badge:value",
+                            3
                         ]
                     }
                 ],
                 "property": "pd-recovery-dc",
-                "value": 20
+                "value": 5
             }
         ],
         "start": {
