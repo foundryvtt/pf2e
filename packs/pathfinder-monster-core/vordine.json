@@ -838,7 +838,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The vordine makes a trident Strike, increasing their reach to 10 feet for that Strike. If there is an unholy ally between the vordine and their target, that creature's energy causes the Strike to deal an additional @Damage[1d6[spirit]] damage.</p>"
+                    "value": "<p>The vordine makes a trident Strike, increasing their reach to 10 feet for that Strike. If there is an unholy ally between the vordine and their target, that creature's energy causes the Strike to deal an additional 1d6 spirit damage.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -847,10 +847,35 @@
                 },
                 "rules": [
                     {
-                        "domain": "trident-damage",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "trident-of-dis",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.Vordine.TridentOfDis.NoAlly",
+                                "value": "no-ally"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.Vordine.TridentOfDis.UnholyAlly",
+                                "value": "unholy-ally"
+                            }
+                        ],
                         "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:trident",
+                            {
+                                "not": "item:ranged"
+                            }
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "trident-of-dis"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
                     },
                     {
                         "damageType": "spirit",
@@ -858,7 +883,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "trident-of-dis"
+                            "trident-of-dis:unholy-ally"
                         ],
                         "selector": "trident-damage"
                     }
