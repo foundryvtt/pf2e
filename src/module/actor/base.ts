@@ -1380,7 +1380,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, container?.id).request();
+            await new ItemTransfer({ source, target, quantity, containerId: container?.id }).request();
             return null;
         }
 

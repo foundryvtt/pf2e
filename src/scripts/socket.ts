@@ -9,8 +9,7 @@ function activateSocketListener(): void {
             case "itemTransfer":
                 if (game.user.isGM) {
                     console.debug(`PF2e System | Received item-transfer request from ${sender.name}`);
-                    const { data } = message;
-                    const transfer = new ItemTransfer(data.source, data.target, data.quantity, data.containerId);
+                    const transfer = new ItemTransfer(message.data);
                     transfer.enact(sender);
                 }
                 break;
